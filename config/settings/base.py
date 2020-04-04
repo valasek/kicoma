@@ -78,11 +78,15 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    'import_export',
+    'django_tables2',
+    'django_filters',
 ]
 
 LOCAL_APPS = [
     "kicoma.users.apps.UsersConfig",
     # Your stuff: custom apps go here
+    "kitchen.apps.KitchenConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

@@ -1,17 +1,54 @@
-My Awesome Project
-==================
-
-Kitchen kooking management
-
+[![Build Status](https://travis-ci.org/valasek/kicoma.svg?branch=master)](https://travis-ci.org/valasek/kima)
 .. image:: https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg
      :target: https://github.com/pydanny/cookiecutter-django/
      :alt: Built with Cookiecutter Django
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
      :target: https://github.com/ambv/black
      :alt: Black code style
-
-
 :License: GPLv3
+
+KiCoMa - Kitchem cooking management
+==================
+
+Kitchen kooking management
+
+
+
+# Demo
+Check the lastest version at [kicoma.herokuapp.com](https://kicoma.herokuapp.com).
+
+## License
+
+All source code in the [Taekwondo](https://github.com/valasek/kima) is available under the GNU GPL v3 License. See [LICENSE.md](LICENSE.md) for details.
+
+## Getting started
+
+To get started with the app, clone the repo and then install Python 3 and Django 1.10:
+
+```
+$ cd ~/tmp
+$ git clone https://github.com/valasek/kima
+$ cd kima
+```
+
+Next, migrate the database:
+
+```
+$ ./manage.py makemigrations
+$ ./manage.py migrate
+```
+
+Finally, run the test suite to verify that everything is working correctly:
+
+```
+$ ./manage.py test
+```
+
+If the test suite passes, you'll be ready to run the app in a local server:
+
+```
+$ ./manage.py runserver
+```
 
 
 Settings

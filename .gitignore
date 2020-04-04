@@ -4,6 +4,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#database
+kicoma.sqlite3
+
 # C extensions
 *.so
 
@@ -68,6 +71,7 @@ target/
 .venv
 venv/
 ENV/
+env/
 
 # Rope project settings
 .ropeproject
