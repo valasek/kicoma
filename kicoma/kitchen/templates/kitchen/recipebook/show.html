@@ -1,17 +1,20 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
 {% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
 
-<div class="container-fluid">
-  thash -<span class="glyphicon glyphicon-trash"></span> -thash
+{% block content %}
+
   <div class="row">
-{% if filter %}
-    <form action="" method="get" class="form form-inline mb-2">
-        {% bootstrap_form filter.form layout='inline' %}
-        {% bootstrap_button 'filter' %}
+  <a href="{% url 'kitchen:createRecipe' %}" class="btn btn-primary mb-2 mx-2">Přidat nový recept</a>
+  {% if filter %}
+    <form method="get" action="" class="form form-inline">
+      {% csrf_token %}
+      {{ filter.form | crispy }}
+      <button type="submit" class="btn btn-success">Search</button>
     </form>
-{% endif %}
-    <a href="/recipe/create" class="btn btn-primary mb-2 mx-2">Přidat nový recept</a>
+  {% endif %}
   </div>
-</div>
 
-{% render_table table %} {% endblock content %}
+  {% render_table table %}
+
+{% endblock content %}

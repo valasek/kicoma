@@ -1,14 +1,7 @@
 from import_export import resources
 from import_export.admin import ImportExportActionModelAdmin
 from django.contrib import admin
-from . models import Unit, Item, Allergen, MealType, RecipeBook, TargetGroup
-
-# class PageAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'update_date')
-#     ordering = ('title',)
-#     search_fields = ('title',)
-
-# admin.site.register(PageAdmin)
+from . models import StockUnit, StockItem, Allergen, MealType, RecipeBook, TargetGroup
 
 # create import export resources
 
@@ -21,10 +14,18 @@ class AllergenResource(resources.ModelResource):
         report_skipped = True
 
 
-class ItemResource(resources.ModelResource):
+class StockItemResource(resources.ModelResource):
 
     class Meta:
-        model = Item
+        model = StockItem
+        skip_unchanged = True
+        report_skipped = True
+
+
+class MealTypeResource(resources.ModelResource):
+
+    class Meta:
+        model = MealType
         skip_unchanged = True
         report_skipped = True
 
@@ -37,10 +38,18 @@ class RecipeBookResource(resources.ModelResource):
         report_skipped = True
 
 
-class UnitResource(resources.ModelResource):
+class TargetGroupResource(resources.ModelResource):
 
     class Meta:
-        model = Unit
+        model = TargetGroup
+        skip_unchanged = True
+        report_skipped = True
+
+
+class StockUnitResource(resources.ModelResource):
+
+    class Meta:
+        model = StockUnit
         skip_unchanged = True
         report_skipped = True
 
@@ -51,21 +60,34 @@ class AllergenAdmin(ImportExportActionModelAdmin):
     resource_class = AllergenResource
 
 
-class ItemAdmin(ImportExportActionModelAdmin):
-    resource_class = ItemResource
+class StockItemAdmin(ImportExportActionModelAdmin):
+    list_display = ('code', 'name', 'unit', 'coefficient', 'in_stock', 'cena_normy', 'display_allergens',)
+    fields = [('code', 'name', 'unit'), ('coefficient', 'in_stock', 'cena_normy'), 'allergen', ]
+    list_filter = ('unit', 'coefficient')
+    ordering = ('code',)
+    search_fields = ('code', 'name')
+    resource_class = StockItemResource
+
+
+class MealTypeAdmin(ImportExportActionModelAdmin):
+    resource_class = MealTypeResource
 
 
 class RecipeBookAdmin(ImportExportActionModelAdmin):
     resource_class = RecipeBookResource
 
 
-class UnitAdmin(ImportExportActionModelAdmin):
-    resource_class = UnitResource
+class TargetGroupAdmin(ImportExportActionModelAdmin):
+    resource_class = TargetGroupResource
 
 
-admin.site.register(Unit, UnitAdmin)
-admin.site.register(Item, ItemAdmin)
+class StockUnitAdmin(ImportExportActionModelAdmin):
+    resource_class = StockUnitResource
+
+
+admin.site.register(StockUnit, StockUnitAdmin)
+admin.site.register(StockItem, StockItemAdmin)
 admin.site.register(Allergen, AllergenAdmin)
-admin.site.register(MealType)
+admin.site.register(MealType, MealTypeAdmin)
 admin.site.register(RecipeBook, RecipeBookAdmin)
-admin.site.register(TargetGroup)
+admin.site.register(TargetGroup, TargetGroupAdmin)

@@ -2,24 +2,9 @@
 
 {% block content %}
 
-<h4>Datový přehled</h4>
-  <table class="table table-striped table-sm table-responsive">
-    <caption>Přehled spravovaných dat</caption>
-    <tr>
-      <th scope="col">Data</th>
-      <th scope="col">Počet položek</th>
-    </tr>
-    <tr>
-      <td scope="row">Receptů</td>
-      <td >{{ recipeCount }}</td>
-    </tr>
-    <tr>
-      <td scope="row">Skladových položek</td>
-      <td >{{ itemCount }}</ts>
-    </tr>
-    <tr>
-      <td scope="row">Alergénů</td>
-      <td >{{ allergenCount }}</ts>
-    </tr>
-  </table>
+<h1>Kitchen cooking management</h1>
+
+<p>{{ userCount }} Registrovaných uživatelů</p>
+<p>Register or Log in to start</p>
+
 {% endblock content %}

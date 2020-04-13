@@ -43,8 +43,19 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
+            {% if user.is_anonymous %}
+            <li class="nav-item">
+              {# URL provided by django-allauth/account/urls.py #}
+              <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Register" %}</a>
+            </li>
+            <li class="nav-item">
+              {# URL provided by django-allauth/account/urls.py #}
+              <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% trans "Log In" %}</a>
+            </li>
+            {% else %}
+            {% if request.user.is_authenticated %}
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'home' %}">Přehled <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'kitchen:overview' %}">Přehled <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
               <a
@@ -63,13 +74,8 @@
               >
                 <a class="dropdown-item" href="#">Skladové položky</a>
                 <a class="dropdown-item" href="#">Zrychlená výdajka/příjemka</a>
-                <a class="dropdown-item" href="#">Tisk výdejky</a>
-                <a class="dropdown-item" href="#">Tisk příjemky</a>
-                <a class="dropdown-item" href="#">Soupis zásob dle jména</a>
-                <a class="dropdown-item" href="#"
-                  >Soupis zásob dle skl. pol. pro očíslování surovin</a
-                >
-                <a class="dropdown-item" href="#">Alergeny - zadání kódů</a>
+                <a class="dropdown-item" href="#">Tisk výdejky/výdejky</a>
+                <a class="dropdown-item" href="#">Soupis zásob</a>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -81,14 +87,14 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Receptář
+                Recepty
               </a>
               <div
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                <a class="dropdown-item" href="{% url 'showRecipies' %}"
-                  >Recepty</a
+                <a class="dropdown-item" href="{% url 'kitchen:showRecipies' %}"
+                  >Seznam receptů</a
                 >
                 <a class="dropdown-item" href="#">Opis dle jména</a>
                 <a class="dropdown-item" href="#">Opis dle čísla</a>
@@ -128,8 +134,11 @@
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                <a class="dropdown-item" href="#">Výpočet kalkulace</a>
-                <a class="dropdown-item" href="#">Přehledy</a>
+                <a class="dropdown-item" href="#">Rozpis spotřeby potravin dle jídel a receptů</a>
+                <a class="dropdown-item" href="#">Rozpis spotřeby potravin dle jídel</a>
+                <a class="dropdown-item" href="#">Sumární rozpis spotřeby potravin dle jídel</a>
+                <a class="dropdown-item" href="#">Požadavek - návrh objednávky</a>
+                <a class="dropdown-item" href="#">Požadavek zaokrouhlený</a>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -141,40 +150,21 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Číselníky
+                {{ user.username }}
               </a>
               <div
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                <a class="dropdown-item" href="#">Druhy jídel</a>
-                <a class="dropdown-item" href="#">Skupiny strávníků</a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/admin">Administrace</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'about' %}">About</a>
-            </li>
-            {% if request.user.is_authenticated %}
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
                 <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
-              </li>
-              <li class="nav-item">
                 {# URL provided by django-allauth/account/urls.py #}
                 <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-              </li>
-            {% else %}
-              <li class="nav-item">
+                <hr>
+                <a class="nav-link" href="/admin">Administrace</a>
                 {# URL provided by django-allauth/account/urls.py #}
-                <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-              </li>
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-              </li>
+              </div>
+            </li>
+            {% endif %}
             {% endif %}
           </ul>
         </div>
@@ -182,7 +172,7 @@
 
     </div>
 
-    <div class="container-fluid mt-4">
+    <div class="container-fluid m-4">
 
       {% if messages %}
           {% for message in messages %}

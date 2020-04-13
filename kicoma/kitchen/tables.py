@@ -5,9 +5,10 @@ import django_filters
 
 class RecipeBookTable(tables.Table):
     change = tables.TemplateColumn('''
-    <a href="/recipe/update/{{ record.id }}">Upravit</a> / 
-    <a href="/recipe/delete/{{ record.id }}" onclick="return confirm('Skutečně chcete tuto položku odstranit?')">Odstranit</a>''',
+    <a href="/kitchen/recipe/update/{{ record.id }}">Upravit</a> /
+    <a href="/kitchen/recipe/delete/{{ record.id }}">Odstranit</a>''',
                                    verbose_name=u'Akce', )
+    # <a href="/kitchen/recipe/delete/{{ record.id }}" onclick="return confirm('Skutečně chcete tuto položku odstranit?')">Odstranit</a>''',
 
     class Meta:
         model = RecipeBook
@@ -21,4 +22,4 @@ class RecipeBookFilter(django_filters.FilterSet):
 
     class Meta:
         model = RecipeBook
-        fields = fields = ("code", "name")
+        fields = ('code', 'name')

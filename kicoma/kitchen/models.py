@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class MealType(models.Model):
@@ -41,7 +42,7 @@ class Allergen(models.Model):
         return self.code + ' - ' + self.description
 
 
-class Unit(models.Model):
+class StockUnit(models.Model):
 
     class Meta:
         verbose_name_plural = "Jednotky"
@@ -56,28 +57,28 @@ class Unit(models.Model):
 class RecipeBook(models.Model):
 
     class Meta:
-        verbose_name_plural = "Receptář"
+        verbose_name_plural = "Recepty"
         ordering = ['code']
 
     code = models.CharField(max_length=6, unique=True, verbose_name="Kód")
     name = models.CharField(max_length=100, verbose_name="Jméno")
-    norm_amount = models.PositiveSmallIntegerField(
-        verbose_name="Normovaný počet")
+    norm_amount = models.PositiveSmallIntegerField(verbose_name="Normovaný počet")
+    ingredients = models.ManyToManyField('StockItem', through='Recipe')
 
     def __str__(self):
         return self.code + " - " + self.name + ", " + str(self.norm_amount)
 
 
-class Item(models.Model):
+class StockItem(models.Model):
 
     class Meta:
         verbose_name_plural = "Skladové položky"
         ordering = ['code']
 
-    code = models.CharField(max_length=6, unique=True, verbose_name="Kód")
+    code = models.CharField(max_length=6, unique=True, verbose_name="Kód", help_text="Unikátní kód skladové položky")
     name = models.CharField(max_length=100, verbose_name="Název ingredence")
-    unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
-    allergen = models.ManyToManyField(Allergen, blank=True)
+    unit = models.ForeignKey(StockUnit, on_delete=models.CASCADE, verbose_name="Jednotka")
+    allergen = models.ManyToManyField(Allergen, blank=True, verbose_name="Alergény")
     coefficient = models.DecimalField(
         max_digits=5, decimal_places=4, default=1, verbose_name="Koeficient")
     in_stock = models.DecimalField(
@@ -89,3 +90,28 @@ class Item(models.Model):
 
     def __str__(self):
         return self.code + " - " + self.name
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular instance of the model."""
+        return reverse('model-detail-view', args=[str(self.id)])
+
+    def display_allergens(self):
+        """Create a string for the Allergens. This is required to display genre in Admin and user table view."""
+        return ', '.join(allergene.code for allergene in self.allergen.all())
+
+    display_allergens.short_description = 'Alergény'
+
+
+class Recipe(models.Model):
+
+    class Meta:
+        verbose_name_plural = "Recept"
+        # ordering = ['code']
+
+    recipeBook = models.ForeignKey(RecipeBook, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(StockItem, on_delete=models.CASCADE)
+    amount = models.PositiveSmallIntegerField(verbose_name="Množství")
+    unit = models.ForeignKey(StockUnit, on_delete=models.CASCADE, verbose_name="Jednotka")
+
+    def __str__(self):
+        return self.recipeBook.name + " - " + self.ingredient.name

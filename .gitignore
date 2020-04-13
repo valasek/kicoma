@@ -282,11 +282,9 @@ pip-selfcheck.json
 
 
 ### Project template
-
 kicoma/media/
 
 .pytest_cache/
-
 
 .env
 .envs/*
