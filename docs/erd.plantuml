@@ -1,0 +1,131 @@
+@startuml "KiCoMa"
+
+DailyMenu_DenniMenu - Recipe_Recept : > je_slozeno_s
+
+DailyMenu_DenniMenu -- TargetGroup_SkupinaStravniku : > je_vydano_pro
+DailyMenu_DenniMenu -- MealType_TypJidla : > patri_do
+
+Recipe_Recept - Ingredients_Suroviny : obsahuje >
+Ingredients_Suroviny - Article_Zbozi : > se_sklada_ze
+
+Article_Zbozi -- Allergen_Alergeny : obsahuje >
+Article_Zbozi -- StockUnit_Jednotka : je_pocitano_v >
+
+Stock_Sklad -- Article_Zbozi : ma_zasoby >
+
+Item_Polozka -- Article_Zbozi : obsahuje >
+VAT_DPH -- Item_Polozka : obsahuje <
+
+StockMove_PrijemkaVydejka - Item_Polozka : obsahuje >
+StockMove_PrijemkaVydejka -- DailyMenu_DenniMenu : automaticky_vytvari <
+
+User_Uzivatel -- StockMove_PrijemkaVydejka : zaklada_nebo_potvrzuje >
+
+class VAT_DPH {
+    *id <<generated>>
+    *code / Skratka
+    --
+    * percentage / Procento
+}
+
+class Allergen_Alergeny {
+    *id <<generated>>
+    *code / Skratka
+    --
+    *description / Název
+}
+
+class StockUnit_Jednotka {
+    *id <<generated>>
+    --
+    *name / Jednotka
+}
+
+class TargetGroup_SkupinaStravniku {
+    *id <<generated>>
+    --
+    *name / Skupina strávníků
+}
+
+class MealType_TypJidla {
+    *id <<generated>>
+    --
+    *name / Název
+    category / Kategorie
+}
+
+class DailyMenu_DenniMenu {
+    *id <<generated>>
+    --
+    *date / datum
+    *amount / Počet
+}
+
+class Recipe_Recept {
+    *id <<generated>>
+    *code / Katalogové číslo
+    --
+    name / Název receptu
+    normAmount / Normované množství
+    comment / Poznámka
+    recipeText / Popis
+    picture / Obrázek
+    dateCreated / Datum založení
+}
+
+class Ingredients_Suroviny {
+    *id <<generated>>
+    --
+    amount / Množství
+}
+
+class Article_Zbozi {
+    *id <<generated>>
+    *code / Katalogové číslo
+    --
+    *name / Název ingredence
+    criticalAmount / Kritické množství
+    coefficient / Koeficient
+    averagePrice / Průměrná cena
+    norm_price / cena_normy
+    comment / Poznámka
+    picture / Obrázek
+}
+
+class Item_Polozka {
+    *id <<generated>>
+    --
+    amount / Množství
+    price_without_vat / Cena bez DPH
+    price_with_vat / Cena s DPH
+    comment / Poznámka
+}
+
+class StockMove_PrijemkaVydejka {
+    *id <<generated>>
+    --
+    * created_approved_date / Vytvořeno nebo Schváleno dne
+    comment / Poznámka
+}
+
+class Stock_Sklad {
+    *id <<generated>>
+    --
+    amount / Počet
+}
+
+class User_Uzivatel {
+    *id <<generated>>
+    --
+    username / Uževatelské jméno
+    first_name / Jméno
+    last_name / Příjmení
+    email / Email
+    password / Heslo
+    user_permissions / Práva
+    is_active / Je aktivní/neaktivní
+    last_login / Datum posledního přihlášení
+    date_joined / Datum založení
+}
+
+@enduml

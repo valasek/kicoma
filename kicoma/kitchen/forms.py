@@ -1,5 +1,4 @@
 from django import forms
 
-class RecipeBookSearchForm(forms.Form):
-    code = forms.CharField()
+class RecipeSearchForm(forms.Form):
     name = forms.CharField()

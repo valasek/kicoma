@@ -1,9 +1,9 @@
 import django_tables2 as tables
-from .models import RecipeBook
+from .models import Recipe
 import django_filters
 
 
-class RecipeBookTable(tables.Table):
+class RecipeTable(tables.Table):
     change = tables.TemplateColumn('''
     <a href="/kitchen/recipe/update/{{ record.id }}">Upravit</a> /
     <a href="/kitchen/recipe/delete/{{ record.id }}">Odstranit</a>''',
@@ -11,15 +11,15 @@ class RecipeBookTable(tables.Table):
     # <a href="/kitchen/recipe/delete/{{ record.id }}" onclick="return confirm('Skutečně chcete tuto položku odstranit?')">Odstranit</a>''',
 
     class Meta:
-        model = RecipeBook
+        model = Recipe
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("code", "name", "norm_amount", "change")
+        fields = ("name", "norm_amount", "change")
 
 
-class RecipeBookFilter(django_filters.FilterSet):
+class RecipeFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(lookup_expr='contains')
     code = django_filters.CharFilter(lookup_expr='contains')
 
     class Meta:
-        model = RecipeBook
-        fields = ('code', 'name')
+        model = Recipe
+        fields = ("name",)
