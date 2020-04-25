@@ -6,7 +6,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from .models import StockItem, Recipe, Allergen, MealType, TargetGroup, StockUnit
+from .models import Item, Recipe, Allergen, MealType, TargetGroup, Unit
 from .tables import RecipeTable, RecipeFilter
 from .forms import RecipeSearchForm
 
@@ -16,15 +16,15 @@ from .forms import RecipeSearchForm
 
 
 def index(request):
-    stockItemCount = StockItem.objects.all().count()
+    stockItemCount = Item.objects.all().count()
     recipeCount = Recipe.objects.all().count()
     allergenCount = Allergen.objects.all().count()
     mealTypeCount = MealType.objects.all().count()
     targetGroupCount = TargetGroup.objects.all().count()
-    stockUnitCount = StockUnit.objects.all().count()
+    unitCount = Unit.objects.all().count()
     stockMoveCount = -1
     menuCount = -1
-    return render(request, 'kitchen/home.html', {'stockItemCount': stockItemCount, 'recipeCount': recipeCount, 'allergenCount': allergenCount, 'mealTypeCount': mealTypeCount, 'targetGroupCount': targetGroupCount, 'stockUnitCount': stockUnitCount, 'stockMoveCount': stockMoveCount, 'menuCount': menuCount})
+    return render(request, 'kitchen/home.html', {'stockItemCount': stockItemCount, 'recipeCount': recipeCount, 'allergenCount': allergenCount, 'mealTypeCount': mealTypeCount, 'targetGroupCount': targetGroupCount, 'unitCount': unitCount, 'stockMoveCount': stockMoveCount, 'menuCount': menuCount})
 
 
 class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):

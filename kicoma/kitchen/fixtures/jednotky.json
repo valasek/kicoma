@@ -1,41 +1,41 @@
 [
   {
-    "model": "kitchen.StockUnit",
+    "model": "kitchen.unit",
     "pk": 1,
     "fields": {
       "name": "g"
     }
   },
   {
-    "model": "kitchen.StockUnit",
+    "model": "kitchen.unit",
     "pk": 2,
     "fields": {
       "name": "kg"
     }
   },
   {
-    "model": "kitchen.StockUnit",
+    "model": "kitchen.unit",
     "pk": 3,
     "fields": {
       "name": "l"
     }
   },
   {
-    "model": "kitchen.StockUnit",
+    "model": "kitchen.unit",
     "pk": 4,
     "fields": {
       "name": "ml"
     }
   },
   {
-    "model": "kitchen.StockUnit",
+    "model": "kitchen.unit",
     "pk": 5,
     "fields": {
       "name": "dl"
     }
   },
   {
-    "model": "kitchen.StockUnit",
+    "model": "kitchen.unit",
     "pk": 6,
     "fields": {
       "name": "ks"

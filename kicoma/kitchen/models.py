@@ -1,5 +1,7 @@
+import datetime
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
@@ -32,7 +34,7 @@ class Allergen(models.Model):
         return self.code + ' - ' + self.description
 
 
-class StockUnit(models.Model):
+class Unit(models.Model):
 
     class Meta:
         verbose_name_plural = _('číselník - Jednotky')
@@ -113,13 +115,13 @@ class Recipe(models.Model):
 
     name = models.CharField(max_length=100, unique=True, verbose_name='Jméno', help_text='Název receptu')
     norm_amount = models.PositiveSmallIntegerField(verbose_name='Normovaný počet', help_text='Počet porcí')
-    comment = models.TextField(max_length=200, verbose_name='Poznámka')
+    comment = models.TextField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
         return self.name
 
 
-class RecipeIngredient(models.Model):
+class Ingredient(models.Model):
 
     class Meta:
         verbose_name_plural = _('Suroviny v receptu')
@@ -131,33 +133,10 @@ class RecipeIngredient(models.Model):
     amount = models.DecimalField(
         decimal_places=2, max_digits=8,
         unique=True, verbose_name='Množství', help_text='Množství suroviny')
-    stockUnit = models.ForeignKey(StockUnit, on_delete=models.CASCADE, verbose_name='Jednotka')
+    unit = models.ForeignKey(Unit, on_delete=models.CASCADE, verbose_name='Jednotka')
 
     def __str__(self):
-        return self.article.name + '-  ' + str(self.amount) + 'x'
-
-class StockItem(models.Model):
-
-    class Meta:
-        verbose_name_plural = _('Skladové položka')
-        verbose_name = _('Skladová položky')
-
-    name = models.CharField(max_length=100, verbose_name='Skladová položka')
-    # amount = models.DecimalField(
-    #     decimal_places=4, max_digits=10,
-    #     unique=True, verbose_name='Množství', help_text='Množství suroviny')
-    comment = models.TextField(max_length=200, verbose_name='Poznámka')
-    coefficient = models.DecimalField(
-        max_digits=5, decimal_places=4, default=1,
-        verbose_name='Koeficient', help_text='Koeficient  propočtu do receptu')
-    stockUnit = models.ForeignKey(StockUnit, on_delete=models.CASCADE, verbose_name='Jednotka')
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        '''Returns the url to access a particular instance of the model.'''
-        return reverse('model-detail-view', args=[str(self.id)])
+        return self.recipe.name + '-  ' + self.article.name + '-  ' + str(self.amount) + 'x'
 
 
 class DailyMenu(models.Model):
@@ -181,16 +160,59 @@ class DailyMenu(models.Model):
         return str(self.date) + ' - ' + self.mealType.name + ' - ' + str(self.amount) + 'x - ' + self.targetGroup.name
 
 
-# class Recipe(models.Model):
+class StockIssue(models.Model):
 
-#     class Meta:
-#         verbose_name_plural = 'Recept'
-#         # ordering = ['code']
+    class Meta:
+        verbose_name_plural = _('Výdejky')
+        verbose_name = _('Výdejka')
 
-#     recipeBook = models.ForeignKey(RecipeBook, on_delete=models.CASCADE)
-#     ingredient = models.ForeignKey(StockItem, on_delete=models.CASCADE)
-#     amount = models.PositiveSmallIntegerField(verbose_name='Množství')
-#     unit = models.ForeignKey(StockUnit, on_delete=models.CASCADE, verbose_name='Jednotka')
+    createdAt = models.DateField(verbose_name='Datum vytvoření')
+    userCreated = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                                    related_name='created', verbose_name='Vytvořil')
+    approved = models.BooleanField(default=False, blank=True, null=True, verbose_name='Odepsáno ze skladu')
+    approvedDate = models.DateField(blank=True, null=True, verbose_name='Datum odpisu ze skladu')
+    userApproved = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True,
+                                     related_name='approved', verbose_name='Odepsal ze skladu')
+    dailyMenu = models.ForeignKey(DailyMenu, on_delete=models.CASCADE, blank=True,
+                                  null=True, verbose_name='Vydáno v menu')
+    comment = models.TextField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
-#     def __str__(self):
-#         return self.recipeBook.name + ' - ' + self.ingredient.name
+
+class StockReceipt(models.Model):
+
+    class Meta:
+        verbose_name_plural = _('Příjemky')
+        verbose_name = _('Příjemka')
+
+    createdAt = models.DateField(default=datetime.date.today ,verbose_name='Datum vytvoření')
+    userCreated = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                                    related_name='received', verbose_name='Přijal')
+    comment = models.TextField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
+
+
+class Item(models.Model):
+
+    class Meta:
+        verbose_name_plural = _('Skladové položky')
+        verbose_name = _('Skladová položka')
+
+    stockReceipt = models.ForeignKey(StockReceipt, on_delete=models.CASCADE, verbose_name='Příjemka')
+    stockIssue = models.ForeignKey(StockIssue, on_delete=models.CASCADE, verbose_name='Výdejka')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží')
+    amount = models.DecimalField(
+        decimal_places=2, max_digits=8,
+        unique=True, verbose_name='Množství', help_text='Množství suroviny')
+    unit = models.ForeignKey(Unit, on_delete=models.CASCADE, verbose_name='Jednotka')
+    priceWithoutVat = models.DecimalField(
+        max_digits=10, decimal_places=2, verbose_name='Cena bez DPH')
+    priceWithVat = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True,
+        verbose_name='Vypočtena cena s DPH')
+    comment = models.TextField(max_length=200, verbose_name='Poznámka')
+
+    def __str__(self):
+        return self.article.name + ' - ' + self.amount + self.unit.name
+
+    def get_absolute_url(self):
+        '''Returns the url to access a particular instance of the model.'''
+        return reverse('kicoma.Item.update', args=[str(self.id)])

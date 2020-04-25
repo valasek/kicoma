@@ -1,27 +1,30 @@
 @startuml "KiCoMa"
 
-DailyMenu_DenniMenu - Recipe_Recept : > je_slozeno_s
+DailyMenu_DenniMenu -- Recipe_Recept : > je_slozeno_s
 
-DailyMenu_DenniMenu -- TargetGroup_SkupinaStravniku : > je_vydano_pro
-DailyMenu_DenniMenu -- MealType_TypJidla : > patri_do
+DailyMenu_DenniMenu -- TargetGroup_SkupinaStravniku : je_vydano_pro >
+MealType_TypJidla - DailyMenu_DenniMenu : < patri_do
+TargetGroup_SkupinaStravniku -[hidden] Recipe_Recept
 
 Recipe_Recept - Ingredients_Suroviny : obsahuje >
-Ingredients_Suroviny - Article_Zbozi : > se_sklada_ze
-Ingredients_Suroviny - StockUnit_Jednotka : je_pocitano_v >
+Article_Zbozi -- Ingredients_Suroviny : > se_sklada_ze
+Ingredients_Suroviny -- Unit_Jednotka : je_pocitano_v >
 
-Article_Zbozi -- Allergen_Alergeny : obsahuje >
-StockUnit_Jednotka - Stock_Sklad : je_pocitano_v >
+Allergen_Alergeny -- Article_Zbozi : obsahuje <
+Unit_Jednotka - Stock_Sklad : je_pocitano_v <
 
 Article_Zbozi -- Stock_Sklad : ma_zasoby >
 
-Item_Polozka -- Article_Zbozi : obsahuje >
-Item_Polozka - StockUnit_Jednotka : je_pocitano_v >
-VAT_DPH -- Item_Polozka : obsahuje <
+StockReceipt_Prijemka -- Item_Polozka : obsahuje >
+Item_Polozka - Article_Zbozi : obsahuje >
+Item_Polozka -- Unit_Jednotka : je_pocitano_v >
+VAT_DPH - Item_Polozka : obsahuje <
 
-StockMove_PrijemkaVydejka - Item_Polozka : obsahuje >
-StockMove_PrijemkaVydejka -- DailyMenu_DenniMenu : automaticky_vytvari <
+StockIssue_Vydejka - Item_Polozka : obsahuje >
+StockIssue_Vydejka -- DailyMenu_DenniMenu : automaticky_vytvari <
 
-User_Uzivatel -- StockMove_PrijemkaVydejka : zaklada_nebo_potvrzuje >
+User_Uzivatel - StockReceipt_Prijemka : zaklada >
+StockIssue_Vydejka - User_Uzivatel : potvrzuje i zakládá <
 
 class VAT_DPH {
     *id <<generated>>
@@ -37,7 +40,7 @@ class Allergen_Alergeny {
     *description / Název
 }
 
-class StockUnit_Jednotka {
+class Unit_Jednotka {
     *id <<generated>>
     --
     *name / Jednotka
@@ -102,10 +105,18 @@ class Item_Polozka {
     comment / Poznámka
 }
 
-class StockMove_PrijemkaVydejka {
+class StockReceipt_Prijemka {
     *id <<generated>>
     --
-    * created_approved_date / Vytvořeno nebo Schváleno dne
+    * created_date / Vytvořeno dne
+    comment / Poznámka
+}
+
+class StockIssue_Vydejka {
+    *id <<generated>>
+    --
+    * created_date / Vytvořeno dne
+    * approced_date / Schváleno dne
     comment / Poznámka
 }
 

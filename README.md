@@ -5,14 +5,23 @@ KiCoMa - Kitchen cooking management
 [![GitHub issues](https://img.shields.io/github/issues/valasek/kicoma.svg)](https://github.com/valasek/kicoma/issues)
 [![Build Status](https://travis-ci.org/valasek/kicoma.svg?branch=master)](https://travis-ci.org/valasek/kima) [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg)](https://github.com/pydanny/cookiecutter-django/) [![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
-:License: GPLv3
+## Demo
+Check the lastest version at [kicoma.herokuapp.com](https://kicoma.herokuapp.com).
 
-# Usefull commands
+## License
 
-## Reset development db
-./reset_db.sh
+All source code in the [KiCoMa](https://github.com/valasek/kima) is available under the GNU GPL v3 License. See [LICENSE.md](LICENSE.md) for details.
 
-## Update translations
+## Data Model
+
+![Data model](./docs/KiCoMa.png)
+
+# Useful Commands
+
+## Reset Development DB
+`./reset_db.sh`
+
+## Update Translations
 ### Generate message files for a desired language
 `python manage.py makemessages -l cs_CZ --ignore=env/*`
  
@@ -26,19 +35,16 @@ https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
 
 ## Update
 `git push heroku master`
-`heroku run python manage.py loaddata kicoma/kitchen/fixtures/druhy-jidla.json`
-`heroku run python manage.py loaddata kicoma/kitchen/fixtures/alergeny.json`
-`heroku run python manage.py loaddata kicoma/kitchen/fixtures/jednotky.json`
-`heroku run python manage.py loaddata kicoma/kitchen/fixtures/dph.json`
-`heroku run python manage.py loaddata kicoma/kitchen/fixtures/skupiny-stravniku.json`
 
+## Load fixtures
+`heroku run python manage.py loaddata kicoma/kitchen/fixtures/druhy-jidla.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/alergeny.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/jednotky.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/dph.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/skupiny-stravniku.json;`
 
-# Demo
-Check the lastest version at [kicoma.herokuapp.com](https://kicoma.herokuapp.com).
+## Reset DB
+`heroku restart; heroku pg:reset DATABASE --confirm kicoma;`
 
-## License
+`heroku run python manage.py makemigrations;heroku run python manage.py migrate;heroku run python manage.py createsuperuser;`
 
-All source code in the [Taekwondo](https://github.com/valasek/kima) is available under the GNU GPL v3 License. See [LICENSE.md](LICENSE.md) for details.
+`heroku run python manage.py loaddata kicoma/kitchen/fixtures/druhy-jidla.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/alergeny.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/jednotky.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/dph.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/skupiny-stravniku.json;`
 
 ## Getting started
 
