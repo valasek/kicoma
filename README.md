@@ -7,6 +7,25 @@ KiCoMa - Kitchen cooking management
 
 :License: GPLv3
 
+# Usefull commands
+
+## Reset development db
+./reset_db.sh
+
+## Update translations
+### Generate message files for a desired language
+`python manage.py makemessages -l cs_CZ --ignore=env/*`
+ 
+### After adding translations to the .po files, compile the messages
+`python manage.py compilemessages`
+
+# Deploy to Heroku
+
+Initial set-up https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
+
+Clean update
+
+
 
 # Demo
 Check the lastest version at [kicoma.herokuapp.com](https://kicoma.herokuapp.com).

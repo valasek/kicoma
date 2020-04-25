@@ -1,0 +1,44 @@
+[
+  {
+    "model": "kitchen.StockUnit",
+    "pk": 1,
+    "fields": {
+      "name": "g"
+    }
+  },
+  {
+    "model": "kitchen.StockUnit",
+    "pk": 2,
+    "fields": {
+      "name": "kg"
+    }
+  },
+  {
+    "model": "kitchen.StockUnit",
+    "pk": 3,
+    "fields": {
+      "name": "l"
+    }
+  },
+  {
+    "model": "kitchen.StockUnit",
+    "pk": 4,
+    "fields": {
+      "name": "ml"
+    }
+  },
+  {
+    "model": "kitchen.StockUnit",
+    "pk": 5,
+    "fields": {
+      "name": "dl"
+    }
+  },
+  {
+    "model": "kitchen.StockUnit",
+    "pk": 6,
+    "fields": {
+      "name": "ks"
+    }
+  }
+]

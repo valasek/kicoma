@@ -4,8 +4,14 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
+from django.conf.urls.i18n import i18n_patterns
+from django.utils.translation import gettext_lazy as _
 
-urlpatterns = [
+admin.site.index_title = _('Settings')
+admin.site.site_header = _('KiCoMa')
+admin.site.site_title = _('Kitchen Settings')
+
+urlpatterns = i18n_patterns(
     path('', TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path('kitchen/', include("kicoma.kitchen.urls", namespace="kitchen")),
     # Django Admin, use {% url 'admin:index' %}
@@ -13,8 +19,11 @@ urlpatterns = [
     # User management
     path("users/", include("kicoma.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    # If no prefix is given, use the default language
+    prefix_default_language=False
+
     # Your stuff: custom urls includes go here
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit

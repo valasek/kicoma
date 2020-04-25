@@ -1,0 +1,26 @@
+[
+  {
+    "model": "kitchen.vat",
+    "pk": 3,
+    "fields": {
+      "name": "Druhá snížená sazba DPH",
+      "percentage": 10
+    }
+  },
+  {
+    "model": "kitchen.vat",
+    "pk": 2,
+    "fields": {
+      "name": "První snížená sazba DPH",
+      "percentage": 15
+    }
+  },
+  {
+    "model": "kitchen.vat",
+    "pk": 1,
+    "fields": {
+      "name": "Základní sazba DPH",
+      "percentage": 21
+    }
+  }
+]

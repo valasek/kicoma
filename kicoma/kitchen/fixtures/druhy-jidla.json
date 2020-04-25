@@ -1,0 +1,92 @@
+[
+  {
+    "model": "kitchen.mealtype",
+    "pk": 1,
+    "fields":
+    {
+      "name": "Snídaně A",
+      "category": 1
+    }
+  },
+  {
+    "model": "kitchen.mealtype",
+    "pk": 2,
+    "fields":
+    {
+      "name": "Snídaně B C",
+      "category": 1
+    }
+  },
+  {
+    "model": "kitchen.mealtype",
+    "pk": 3,
+    "fields":
+    {
+      "name": "Obed 1",
+      "category": 2
+    }
+  },
+  {
+    "model": "kitchen.mealtype",
+    "pk": 4,
+    "fields":
+    {
+      "name": "Oběd 2",
+      "category": 2
+    }
+  },
+  {
+    "model": "kitchen.mealtype",
+    "pk": 5,
+    "fields":
+    {
+      "name": "Oběd B C",
+      "category": 2
+    }
+  },
+  {
+    "model": "kitchen.mealtype",
+    "pk": 6,
+    "fields":
+    {
+      "name": "Svačina A",
+      "category": 3
+    }
+  },
+  {
+    "model": "kitchen.mealtype",
+    "pk": 7,
+    "fields":
+    {
+      "name": "Svačina B C",
+      "category": 3
+    }
+  },
+  {
+    "model": "kitchen.mealtype",
+    "pk": 8,
+    "fields":
+    {
+      "name": "Večeře A",
+      "category": 4
+    }
+  },
+  {
+    "model": "kitchen.mealtype",
+    "pk": 9,
+    "fields":
+    {
+      "name": "Večeře B C",
+      "category": 4
+    }
+  },
+  {
+    "model": "kitchen.mealtype",
+    "pk": 10,
+    "fields":
+    {
+      "name": "II Večeře",
+      "category": 5
+    }
+ }
+]

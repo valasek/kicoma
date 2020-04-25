@@ -1,0 +1,258 @@
+[
+  {
+    "model": "kitchen.allergen",
+    "pk": 1,
+    "fields":  {
+      "code": "01",
+      "description": "OBILOVINY OBSAHUJÍCÍ LEPEK"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 2,
+    "fields":  {
+      "code": "01a",
+      "description": "OBILOVINY OBSAHUJÍCÍ LEPEK - pšenice"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 3,
+    "fields":  {
+      "code": "01b",
+      "description": "OBILOVINY OBSAHUJÍCÍ LEPEK - žito"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 4,
+    "fields": {
+      "code": "01c",
+      "description": "OBILOVINY OBSAHUJÍCÍ LEPEK - ječmen"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 5,
+    "fields": {
+      "code": "01d",
+      "description": "OBILOVINY OBSAHUJÍCÍ LEPEK - oves"
+     }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 6,
+    "fields":
+    {
+      "code": "01e",
+      "description": "OBILOVINY OBSAHUJÍCÍ LEPEK - špalda"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 7,
+    "fields":
+    {
+      "code": "01f",
+      "description": "OBILOVINY OBSAHUJÍCÍ LEPEK - kamut"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 8,
+    "fields":
+    {
+      "code": "01g",
+      "description": "OBILOVINY OBSAHUJÍCÍ LEPEK - hybridní odrůdy a výrobky z nich"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 9,
+    "fields":
+    {
+      "code": "02",
+      "description": "KORÝŠIa výrobky nich"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 10,
+    "fields":
+    {
+      "code": "03",
+      "description": "VEJCE a výrobky z nich"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 11,
+    "fields":
+    {
+      "code": "04",
+      "description": "RYBY a výrobky z nich"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 12,
+    "fields":
+    {
+      "code": "05",
+      "description": "JÁDRA PODZEMNICE OLEJNÉ (ARAŠÍDY) a výrobky z nich"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 13,
+    "fields":
+    {
+      "code": "06",
+      "description": "SÓJOVÉ BOBY (SÓJA) a výrobky z nich"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 14,
+    "fields":
+    {
+      "code": "07",
+      "description": "MLÉKO a výrobky z něj (včetně laktózy)"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 15,
+    "fields":
+    {
+      "code": "08",
+      "description": "SKOŘÁPKOVÉ PLODY"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 16,
+    "fields":
+    {
+      "code": "08a",
+      "description": "SKOŘÁPKOVÉ PLODY - mandle"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 17,
+    "fields":
+    {
+      "code": "08b",
+      "description": "SKOŘÁPKOVÉ PLODY - lískové ořechy"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 18,
+    "fields":
+    {
+      "code": "08c",
+      "description": "SKOŘÁPKOVÉ PLODY - vlašské ořechy"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 19,
+    "fields":
+    {
+      "code": "08d",
+      "description": "SKOŘÁPKOVÉ PLODY - kešu ořechy"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 20,
+    "fields":
+    {
+      "code": "08e",
+      "description": "SKOŘÁPKOVÉ PLODY - pekanové ořechy"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 21,
+    "fields":
+    {
+      "code": "08f",
+      "description": "SKOŘÁPKOVÉ PLODY - para ořechy"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 22,
+    "fields":
+    {
+      "code": "08g",
+      "description": "SKOŘÁPKOVÉ PLODY - pistácie"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 23,
+    "fields":
+    {
+      "code": "08h",
+      "description": "SKOŘÁPKOVÉ PLODY - makadamie a výrobky z nich"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 24,
+    "fields":
+    {
+      "code": "09",
+      "description": "CELER a výrobky z něj"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 25,
+    "fields":
+    {
+      "code": "10",
+      "description": "HOŘČICE a výrobky z ní"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 26,
+    "fields":
+    {
+      "code": "11",
+      "description": "SEZAMOVÁ SEMENA (SEZAM)a výrobky z nich"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 27,
+    "fields":
+    {
+      "code": "12",
+      "description": "OXID SIŘIČITÝ A SIŘIČITANY v koncentracích vyšších než 10 mg/kg nebo 10 mg/l, vyjádřeno jako celkový SO2"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 28,
+    "fields":
+    {
+      "code": "13",
+      "description": "VLČÍ BOB (LUPINA) a výrobky z něj"
+    }
+  },
+  {
+    "model": "kitchen.allergen",
+    "pk": 29,
+    "fields":
+    {
+      "code": "14",
+      "description": "MĚKKÝŠI a výrobky z nich"
+    }
+  }
+]
