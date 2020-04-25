@@ -1,7 +1,7 @@
 from import_export import resources
 from import_export.admin import ImportExportActionModelAdmin
 from django.contrib import admin
-from . models import StockUnit, StockItem, Allergen, MealType, Recipe, RecipeIngredient, TargetGroup, VAT, DailyMenu
+from . models import StockUnit, StockItem, Allergen, MealType, Recipe, RecipeIngredient, TargetGroup, VAT, DailyMenu, Article
 
 # create import export resources
 
@@ -77,6 +77,14 @@ class StockUnitResource(resources.ModelResource):
         skip_unchanged = True
         report_skipped = True
 
+
+class ArticleResource(resources.ModelResource):
+
+    class Meta:
+        model = Article
+        skip_unchanged = True
+        report_skipped = True
+
 # integrate import export into admin
 
 
@@ -117,20 +125,30 @@ class DailyMenuAdmin(ImportExportActionModelAdmin):
 
 
 class StockItemAdmin(ImportExportActionModelAdmin):
-    list_display = ('name', 'unit', 'coefficient', 'normPrice', 'averagePrice', 'display_allergens', 'comment', )
-    fields = [('name', 'unit', 'coefficient'), ('normPrice', 'averagePrice', 'criticalAmount'), 'allergen', 'comment', ]
-    list_filter = ('unit', 'coefficient')
+    list_display = ('name', 'stockUnit', 'coefficient', 'comment', )
+    fields = [('name', 'stockUnit', 'coefficient'), 'allergen', 'comment', ]
+    list_filter = ('stockUnit', 'coefficient')
     search_fields = ('name',)
     resource_class = StockItemResource
 
 
+class ArticleAdmin(ImportExportActionModelAdmin):
+    list_display = ('code', 'name', 'criticalAmount', 'averagePrice', 'normPrice', 'display_allergens', 'comment', )
+    fields = [('code', 'name', 'criticalAmount'), ('averagePrice', 'normPrice'), 'allergen', 'comment', ]
+    # list_filter = ('stockUnit', 'coefficient')
+    search_fields = ('name',)
+    resource_class = ArticleResource
+
+
 class RecipeAdmin(ImportExportActionModelAdmin):
-    list_display = ('name', 'norm_amount', 'comment', 'recipeIngredient',)
+    list_display = ('name', 'norm_amount', 'comment')
+    fields = ([('name', 'norm_amount'), 'comment'])
     resource_class = RecipeResource
 
 
 class RecipeIngredientAdmin(ImportExportActionModelAdmin):
-    list_display = ('amount', 'stockItem',)
+    list_display = ('recipe', 'article', 'amount', 'stockUnit',)
+    fields = [('recipe', 'article', 'amount', 'stockUnit',)]
     resource_class = RecipeIngredientResource
 
 
@@ -142,5 +160,6 @@ admin.site.register(MealType, MealTypeAdmin)
 admin.site.register(RecipeIngredient, RecipeIngredientAdmin)
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(DailyMenu, DailyMenuAdmin)
+admin.site.register(Article, ArticleAdmin)
 
 admin.site.register(StockItem, StockItemAdmin)

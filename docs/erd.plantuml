@@ -7,13 +7,15 @@ DailyMenu_DenniMenu -- MealType_TypJidla : > patri_do
 
 Recipe_Recept - Ingredients_Suroviny : obsahuje >
 Ingredients_Suroviny - Article_Zbozi : > se_sklada_ze
+Ingredients_Suroviny - StockUnit_Jednotka : je_pocitano_v >
 
 Article_Zbozi -- Allergen_Alergeny : obsahuje >
-Article_Zbozi -- StockUnit_Jednotka : je_pocitano_v >
+StockUnit_Jednotka - Stock_Sklad : je_pocitano_v >
 
-Stock_Sklad -- Article_Zbozi : ma_zasoby >
+Article_Zbozi -- Stock_Sklad : ma_zasoby >
 
 Item_Polozka -- Article_Zbozi : obsahuje >
+Item_Polozka - StockUnit_Jednotka : je_pocitano_v >
 VAT_DPH -- Item_Polozka : obsahuje <
 
 StockMove_PrijemkaVydejka - Item_Polozka : obsahuje >
@@ -85,7 +87,6 @@ class Article_Zbozi {
     --
     *name / Název ingredence
     criticalAmount / Kritické množství
-    coefficient / Koeficient
     averagePrice / Průměrná cena
     norm_price / cena_normy
     comment / Poznámka
