@@ -1,11 +1,11 @@
 """
 Base settings to build other settings files upon.
 """
-from django.utils.translation import gettext_lazy as _
 from pathlib import Path
-
 import os
 import environ
+
+from django.utils.translation import gettext_lazy as _
 
 ROOT_DIR = Path(__file__).parents[2]
 # kicoma/)

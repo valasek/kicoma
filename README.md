@@ -21,10 +21,16 @@ KiCoMa - Kitchen cooking management
 
 # Deploy to Heroku
 
-Initial set-up https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
+## Initial set-up
+https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
 
-Clean update
-
+## Update
+`git push heroku master`
+`heroku run python manage.py loaddata kicoma/kitchen/fixtures/druhy-jidla.json`
+`heroku run python manage.py loaddata kicoma/kitchen/fixtures/alergeny.json`
+`heroku run python manage.py loaddata kicoma/kitchen/fixtures/jednotky.json`
+`heroku run python manage.py loaddata kicoma/kitchen/fixtures/dph.json`
+`heroku run python manage.py loaddata kicoma/kitchen/fixtures/skupiny-stravniku.json`
 
 
 # Demo

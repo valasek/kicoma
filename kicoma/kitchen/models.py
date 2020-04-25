@@ -24,7 +24,7 @@ class Allergen(models.Model):
         verbose_name_plural = 'číselník - Alergény'
 
     code = models.CharField(max_length=10, unique=True, verbose_name='Kód', help_text='Kód alergénu')
-    description = models.CharField(max_length=100, unique=True, verbose_name='Název', help_text='Název alergénu')
+    description = models.CharField(max_length=150, unique=True, verbose_name='Název', help_text='Název alergénu')
 
     def __str__(self):
         return self.code + ' - ' + self.description
