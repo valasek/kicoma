@@ -27,7 +27,7 @@ msgstr "Česky"
 
 #: config/urls.py:10
 msgid "Settings"
-msgstr "Nastavění"
+msgstr "Nastavení"
 
 #: config/urls.py:11
 msgid "KiCoMa"
@@ -43,56 +43,56 @@ msgstr "Kuchyně"
 
 #: kicoma/kitchen/models.py:10
 msgid "číselník - DPH"
-msgstr ""
+msgstr "číselník - DPH"
 
 #: kicoma/templates/account/account_inactive.html:5
 #: kicoma/templates/account/account_inactive.html:8
 msgid "Account Inactive"
-msgstr ""
+msgstr "Neaktivní účet"
 
 #: kicoma/templates/account/account_inactive.html:10
 msgid "This account is inactive."
-msgstr ""
+msgstr "Účet není aktivní"
 
 #: kicoma/templates/account/email.html:7
 msgid "Account"
-msgstr ""
+msgstr "Účet"
 
 #: kicoma/templates/account/email.html:10
 msgid "E-mail Addresses"
-msgstr ""
+msgstr "Email adresy"
 
 #: kicoma/templates/account/email.html:13
 msgid "The following e-mail addresses are associated with your account:"
-msgstr ""
+msgstr "S tvým účtem jsou asociovány následující emailové adresy"
 
 #: kicoma/templates/account/email.html:27
 msgid "Verified"
-msgstr ""
+msgstr "Potvrzen"
 
 #: kicoma/templates/account/email.html:29
 msgid "Unverified"
-msgstr ""
+msgstr "Nepotvrzen"
 
 #: kicoma/templates/account/email.html:31
 msgid "Primary"
-msgstr ""
+msgstr "Hlavní"
 
 #: kicoma/templates/account/email.html:37
 msgid "Make Primary"
-msgstr ""
+msgstr "Označit jako hlavní"
 
 #: kicoma/templates/account/email.html:38
 msgid "Re-send Verification"
-msgstr ""
+msgstr "Znovu odeslat ověření"
 
 #: kicoma/templates/account/email.html:39
 msgid "Remove"
-msgstr ""
+msgstr "Odstranit"
 
 #: kicoma/templates/account/email.html:46
 msgid "Warning:"
-msgstr ""
+msgstr "Varování:"
 
 #: kicoma/templates/account/email.html:46
 msgid ""
@@ -102,11 +102,11 @@ msgstr ""
 
 #: kicoma/templates/account/email.html:51
 msgid "Add E-mail Address"
-msgstr ""
+msgstr "Přidat emailovú adresu"
 
 #: kicoma/templates/account/email.html:56
 msgid "Add E-mail"
-msgstr ""
+msgstr "Přidat email"
 
 #: kicoma/templates/account/email.html:66
 msgid "Do you really want to remove the selected e-mail address?"
@@ -126,7 +126,7 @@ msgstr ""
 
 #: kicoma/templates/account/email_confirm.html:20
 msgid "Confirm"
-msgstr ""
+msgstr "Potvrdit"
 
 #: kicoma/templates/account/email_confirm.html:27
 #, python-format
@@ -138,7 +138,7 @@ msgstr ""
 #: kicoma/templates/account/login.html:7 kicoma/templates/account/login.html:11
 #: kicoma/templates/account/login.html:44
 msgid "Sign In"
-msgstr ""
+msgstr "Přihlásit se"
 
 #: kicoma/templates/account/login.html:16
 #, python-format
@@ -151,7 +151,7 @@ msgstr ""
 
 #: kicoma/templates/account/login.html:26
 msgid "or"
-msgstr ""
+msgstr "nebo"
 
 #: kicoma/templates/account/login.html:33
 #, python-format
@@ -168,11 +168,11 @@ msgstr ""
 #: kicoma/templates/account/logout.html:8
 #: kicoma/templates/account/logout.html:17 kicoma/templates/base.html:161
 msgid "Sign Out"
-msgstr ""
+msgstr "Odhlásit se"
 
 #: kicoma/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "Určitě se chceš odhlásit?"
 
 #: kicoma/templates/account/password_change.html:6
 #: kicoma/templates/account/password_change.html:9
@@ -182,7 +182,7 @@ msgstr ""
 #: kicoma/templates/account/password_reset_from_key_done.html:4
 #: kicoma/templates/account/password_reset_from_key_done.html:7
 msgid "Change Password"
-msgstr ""
+msgstr "Změna hesla"
 
 #: kicoma/templates/account/password_reset.html:7
 #: kicoma/templates/account/password_reset.html:11
@@ -240,12 +240,12 @@ msgstr ""
 
 #: kicoma/templates/account/signup.html:6
 msgid "Signup"
-msgstr ""
+msgstr "Přihlásit"
 
 #: kicoma/templates/account/signup.html:9
 #: kicoma/templates/account/signup.html:19
 msgid "Sign Up"
-msgstr ""
+msgstr "Přihlásit"
 
 #: kicoma/templates/account/signup.html:11
 #, python-format
@@ -267,7 +267,7 @@ msgstr ""
 #: kicoma/templates/account/verified_email_required.html:5
 #: kicoma/templates/account/verified_email_required.html:8
 msgid "Verify Your E-mail Address"
-msgstr ""
+msgstr "Ověř si emailovou adresu"
 
 #: kicoma/templates/account/verification_sent.html:10
 msgid ""
@@ -299,19 +299,19 @@ msgstr ""
 
 #: kicoma/templates/base.html:49
 msgid "Register"
-msgstr ""
+msgstr "Registrace"
 
 #: kicoma/templates/base.html:53
 msgid "Log In"
-msgstr ""
+msgstr "Přihlásit"
 
 #: kicoma/templates/base.html:159
 msgid "My Profile"
-msgstr ""
+msgstr "Profil"
 
 #: kicoma/users/apps.py:7
 msgid "Users"
-msgstr ""
+msgstr "Uživatelé"
 
 #: kicoma/users/forms.py:16
 msgid "This username has already been taken."
@@ -319,7 +319,7 @@ msgstr ""
 
 #: kicoma/users/models.py:11
 msgid "Name of User"
-msgstr ""
+msgstr "Uživatelské jméno"
 
 #: kicoma/users/views.py:34
 msgid "Infos successfully updated"

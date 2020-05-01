@@ -24,20 +24,6 @@
     "model": "kitchen.unit",
     "pk": 4,
     "fields": {
-      "name": "ml"
-    }
-  },
-  {
-    "model": "kitchen.unit",
-    "pk": 5,
-    "fields": {
-      "name": "dl"
-    }
-  },
-  {
-    "model": "kitchen.unit",
-    "pk": 6,
-    "fields": {
       "name": "ks"
     }
   }

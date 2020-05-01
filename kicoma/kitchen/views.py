@@ -6,7 +6,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from .models import Item, Recipe, Allergen, MealType, TargetGroup, Unit
+from .models import Item, Recipe, Allergen, MealType, TargetGroup, Unit, VAT, \
+    Article, Ingredient, StockIssue, StockReceipt, DailyMenu
 from .tables import RecipeTable, RecipeFilter
 from .forms import RecipeSearchForm
 
@@ -16,15 +17,38 @@ from .forms import RecipeSearchForm
 
 
 def index(request):
-    stockItemCount = Item.objects.all().count()
-    recipeCount = Recipe.objects.all().count()
     allergenCount = Allergen.objects.all().count()
     mealTypeCount = MealType.objects.all().count()
     targetGroupCount = TargetGroup.objects.all().count()
     unitCount = Unit.objects.all().count()
-    stockMoveCount = -1
-    menuCount = -1
-    return render(request, 'kitchen/home.html', {'stockItemCount': stockItemCount, 'recipeCount': recipeCount, 'allergenCount': allergenCount, 'mealTypeCount': mealTypeCount, 'targetGroupCount': targetGroupCount, 'unitCount': unitCount, 'stockMoveCount': stockMoveCount, 'menuCount': menuCount})
+    vatCount = VAT.objects.all().count()
+
+    recipeCount = Recipe.objects.all().count()
+    ingredientCount = Ingredient.objects.all().count()
+    articleCount = Article.objects.all().count()
+    stockIssueCount = StockIssue.objects.all().count()
+    stockReceiptCount = StockReceipt.objects.all().count()
+    itemCount = Item.objects.all().count()
+    dailyMenuCount = DailyMenu.objects.all().count()
+    return render(request, 'kitchen/home.html', {
+        'allergenCount': allergenCount,
+        'mealTypeCount': mealTypeCount,
+        'targetGroupCount': targetGroupCount,
+        'unitCount': unitCount,
+        'vatCount': vatCount,
+
+        'recipeCount': recipeCount,
+        'ingredientCount': ingredientCount,
+        'articleCount': articleCount,
+        'stockIssueCount': stockIssueCount,
+        'stockReceiptCount': stockReceiptCount,
+        'itemCount': itemCount,
+        'dailyMenuCount': dailyMenuCount
+    })
+
+
+def about(request):
+    return render(request, 'kitchen/about.html')
 
 
 class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):

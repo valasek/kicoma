@@ -42,7 +42,7 @@ https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
 ## Reset DB
 `heroku restart; heroku pg:reset DATABASE --confirm kicoma;`
 
-`heroku run python manage.py makemigrations;heroku run python manage.py migrate;heroku run python manage.py createsuperuser;`
+`heroku run python manage.py makemigrations;heroku run python manage.py migrate;heroku run python manage.py createsuperuser --username admin;`
 
 `heroku run python manage.py loaddata kicoma/kitchen/fixtures/druhy-jidla.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/alergeny.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/jednotky.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/dph.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/skupiny-stravniku.json;`
 

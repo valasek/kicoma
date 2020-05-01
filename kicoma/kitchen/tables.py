@@ -1,14 +1,14 @@
 import django_tables2 as tables
-from .models import Recipe
 import django_filters
+from .models import Recipe
 
 
 class RecipeTable(tables.Table):
-    change = tables.TemplateColumn('''
-    <a href="/kitchen/recipe/update/{{ record.id }}">Upravit</a> /
-    <a href="/kitchen/recipe/delete/{{ record.id }}">Odstranit</a>''',
-                                   verbose_name=u'Akce', )
-    # <a href="/kitchen/recipe/delete/{{ record.id }}" onclick="return confirm('Skutečně chcete tuto položku odstranit?')">Odstranit</a>''',
+    change = tables.TemplateColumn(
+        '''<a href="/kitchen/recipe/update/{{ record.id }}">Upravit</a> /
+        <a href="/kitchen/recipe/delete/{{ record.id }} \
+            onclick="return confirm('Skutečně chcete tuto položku odstranit?')">Odstranit</a>''',
+        verbose_name=u'Akce', )
 
     class Meta:
         model = Recipe

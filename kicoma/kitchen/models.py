@@ -68,7 +68,6 @@ class MealType(models.Model):
 
     name = models.CharField(max_length=30, unique=True, verbose_name='Druh jídla',
                             help_text='Druh jídla v rámci dne')
-    category = models.CharField(max_length=30, verbose_name='Kategorie', help_text='Kategorie druhu jídla')
 
     def __str__(self):
         return self.name
@@ -83,13 +82,16 @@ class Article(models.Model):
     code = models.CharField(max_length=10, unique=True, verbose_name='Kód', help_text='Kód zboží')
     name = models.CharField(max_length=30, unique=True, verbose_name='Název zboží',
                             help_text='Název zboží na skladu')
-    criticalAmount = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(1000)],
-        blank=True, null=True, verbose_name='Kritické množství', help_text='Minimální množství na skladu')
+    onStock = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(10000)],
+        default=0, verbose_name='Na skladu', help_text='Celkové množství na skladu')
     averagePrice = models.DecimalField(
-        max_digits=6, blank=True, null=True, decimal_places=2, verbose_name='Průměrná cena', help_text='Vypočtena průměrná cena zboží na jednotku')
+        max_digits=6, blank=True, null=True, decimal_places=2,
+        verbose_name='Průměrná cena', help_text='Vypočtena průměrná cena zboží na jednotku')
     normPrice = models.DecimalField(
-        max_digits=9, decimal_places=5, blank=True, null=True, verbose_name='Cena normy', help_text='Paní Trmalová doplní o čem je tahle položka')
+        max_digits=9, decimal_places=5, blank=True, null=True,
+        verbose_name='Jednotková cena', help_text='Vypočtena  cena na jednotku')
+    unit = models.ForeignKey(Unit, on_delete=models.CASCADE, verbose_name='Jednotka')
     comment = models.TextField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
     allergen = models.ManyToManyField(Allergen, blank=True, verbose_name='Alergény')
 
@@ -184,7 +186,7 @@ class StockReceipt(models.Model):
         verbose_name_plural = _('Příjemky')
         verbose_name = _('Příjemka')
 
-    createdAt = models.DateField(default=datetime.date.today ,verbose_name='Datum vytvoření')
+    createdAt = models.DateField(default=datetime.date.today, verbose_name='Datum vytvoření')
     userCreated = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                                     related_name='received', verbose_name='Přijal')
     comment = models.TextField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
@@ -196,8 +198,9 @@ class Item(models.Model):
         verbose_name_plural = _('Skladové položky')
         verbose_name = _('Skladová položka')
 
-    stockReceipt = models.ForeignKey(StockReceipt, on_delete=models.CASCADE, verbose_name='Příjemka')
-    stockIssue = models.ForeignKey(StockIssue, on_delete=models.CASCADE, verbose_name='Výdejka')
+    stockReceipt = models.ForeignKey(StockReceipt, blank=True, null=True, on_delete=models.CASCADE,
+                                     verbose_name='Příjemka')
+    stockIssue = models.ForeignKey(StockIssue, blank=True, null=True, on_delete=models.CASCADE, verbose_name='Výdejka')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží')
     amount = models.DecimalField(
         decimal_places=2, max_digits=8,
@@ -205,10 +208,11 @@ class Item(models.Model):
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE, verbose_name='Jednotka')
     priceWithoutVat = models.DecimalField(
         max_digits=10, decimal_places=2, verbose_name='Cena bez DPH')
+    vat = models.ForeignKey(VAT, on_delete=models.CASCADE, verbose_name='DPH')
     priceWithVat = models.DecimalField(
         max_digits=10, decimal_places=2, blank=True, null=True,
         verbose_name='Vypočtena cena s DPH')
-    comment = models.TextField(max_length=200, verbose_name='Poznámka')
+    comment = models.TextField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
         return self.article.name + ' - ' + self.amount + self.unit.name

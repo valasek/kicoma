@@ -4,8 +4,7 @@
     "pk": 1,
     "fields":
     {
-      "name": "Snídaně A",
-      "category": 1
+      "name": "Snídaně A"
     }
   },
   {
@@ -13,8 +12,7 @@
     "pk": 2,
     "fields":
     {
-      "name": "Snídaně B C",
-      "category": 1
+      "name": "Snídaně B C"
     }
   },
   {
@@ -22,8 +20,7 @@
     "pk": 3,
     "fields":
     {
-      "name": "Obed 1",
-      "category": 2
+      "name": "Obed 1"
     }
   },
   {
@@ -31,8 +28,7 @@
     "pk": 4,
     "fields":
     {
-      "name": "Oběd 2",
-      "category": 2
+      "name": "Oběd 2"
     }
   },
   {
@@ -40,8 +36,7 @@
     "pk": 5,
     "fields":
     {
-      "name": "Oběd B C",
-      "category": 2
+      "name": "Oběd B C"
     }
   },
   {
@@ -49,8 +44,7 @@
     "pk": 6,
     "fields":
     {
-      "name": "Svačina A",
-      "category": 3
+      "name": "Svačina A"
     }
   },
   {
@@ -58,8 +52,7 @@
     "pk": 7,
     "fields":
     {
-      "name": "Svačina B C",
-      "category": 3
+      "name": "Svačina B C"
     }
   },
   {
@@ -67,8 +60,7 @@
     "pk": 8,
     "fields":
     {
-      "name": "Večeře A",
-      "category": 4
+      "name": "Večeře A"
     }
   },
   {
@@ -76,8 +68,7 @@
     "pk": 9,
     "fields":
     {
-      "name": "Večeře B C",
-      "category": 4
+      "name": "Večeře B C"
     }
   },
   {
@@ -85,8 +76,7 @@
     "pk": 10,
     "fields":
     {
-      "name": "II Večeře",
-      "category": 5
+      "name": "II Večeře"
     }
  }
 ]

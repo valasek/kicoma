@@ -2,14 +2,14 @@
 
 {% block content %}
 
-<h4>Datový přehled</h4>
+<h4>Přehled aplikace</h4>
 
 <hr>
 
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm">
-      <h5>Přehled dat</h5>
+      <h5>Data</h5>
       <br/>
       <table class="table table-striped table-sm table-responsive">
         <tr>
@@ -17,25 +17,37 @@
           <th scope="col">Počet položek</th>
         </tr>
         <tr>
-          <td scope="row">Receptů</td>
+          <td scope="row">Recepty</td>
           <td >{{ recipeCount }}</td>
         </tr>
         <tr>
-          <td scope="row">Skladových položek</td>
-          <td >{{ stockItemCount }}</ts>
-        </tr>
-                <tr>
-          <td scope="row">Pohybů na skladě</td>
-          <td >{{ stockMoveCount }}</ts>
+          <td scope="row">Surovin v receptech</td>
+          <td >{{ ingredientCount }}</td>
         </tr>
         <tr>
-          <td scope="row">Jídelníčků</td>
-          <td >{{ menuCount }}</td>
+          <td scope="row">Zboží</td>
+          <td >{{ articleCount }}</ts>
+        </tr>
+        <tr>
+          <td scope="row">Příjemky</td>
+          <td >{{ stockReceiptCount }}</ts>
+        </tr>
+        <tr>
+          <td scope="row">Výdejky</td>
+          <td >{{ stockIssueCount }}</ts>
+        </tr>
+        <tr>
+          <td scope="row">Položky v příjemkách/výdejkách</td>
+          <td >{{ itemCount }}</td>
+        </tr>
+        <tr>
+          <td scope="row">Jídelníčky</td>
+          <td >{{ dailyMenuCount }}</td>
         </tr>
       </table>
     </div>
     <div class="col-sm">
-      <h5>Přehled číselníků</h5>
+      <h5>Číselníky</h5>
       <br/>
       <table class="table table-striped table-sm table-responsive">
         <tr>
@@ -43,24 +55,49 @@
           <th scope="col">Počet položek</th>
         </tr>
         <tr>
-          <td scope="row">Druhů jídla</td>
+          <td scope="row">Druhy jídla</td>
           <td >{{ mealTypeCount }}</ts>
         </tr>
           <tr>
-          <td scope="row">Skupin strávníků</td>
+          <td scope="row">Skupiny strávníků</td>
           <td >{{ targetGroupCount }}</ts>
         </tr>
         <tr>
-          <td scope="row">Jednotek</td>
+          <td scope="row">Jednotky</td>
           <td >{{ unitCount }}</ts>
         </tr>
         <tr>
-          <td scope="row">Alergénů</td>
+          <td scope="row">Alergény</td>
           <td >{{ allergenCount }}</ts>
+        </tr>
+        <tr>
+          <td scope="row">DPH</td>
+          <td >{{ vatCount }}</ts>
         </tr>
       </table>
     </div>
     <div class="col-sm"></div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-sm">
+      <h5>Části ke kontrole</h5>
+      Číselníky - struktura, data a správa
+    </div>
+    <div class="col-sm">
+      <h5>Ve vývoji</h5>
+      Zavedení uživatelů<br />
+      Vyřešení práv<br />
+      View na příjemku<br />
+      View na recept<br />
+      View na denní menu a výdejku<br />
+      Schvalování<br />
+      Tisky<br />
+    </div>
+    <div class="col-sm">
+      <h5>Nahlásit chybu</h5>
+      Odeslat popis emailem na <a href="mailto:valasek@gmail.com">valasek@gmail.com</a>
+    </div>
   </div>
 </div>
 
