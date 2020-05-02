@@ -1,4 +1,6 @@
-{% load static i18n %}<!DOCTYPE html>
+{% load static i18n %}
+{% load auth_extras %}
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -57,6 +59,7 @@
             <li class="nav-item active">
               <a class="nav-link" href="{% url 'kitchen:overview' %}">Přehled <span class="sr-only">(current)</span></a>
             </li>
+            {% if request.user|has_group:"stockkeeper" %}
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -73,11 +76,14 @@
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 <a class="dropdown-item" href="#">Skladové položky</a>
-                <a class="dropdown-item" href="#">Zrychlená výdajka/příjemka</a>
+                <a class="dropdown-item" href="#">Výdejky</a>
+                <a class="dropdown-item" href="{% url 'kitchen:showStockReceipts' %}">Příjemky</a>
                 <a class="dropdown-item" href="#">Tisk výdejky/výdejky</a>
                 <a class="dropdown-item" href="#">Soupis zásob</a>
               </div>
             </li>
+            {% endif %}
+            {% if request.user|has_group:"cook" %}
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -141,6 +147,10 @@
                 <a class="dropdown-item" href="#">Požadavek zaokrouhlený</a>
               </div>
             </li>
+            {% endif %}
+            {% if request.user|has_group:"chef" %}
+            <a class="nav-link" href="/admin">Administrace</a>
+            {% endif %}
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -159,8 +169,6 @@
                 <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
                 {# URL provided by django-allauth/account/urls.py #}
                 <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-                <hr>
-                <a class="nav-link" href="/admin">Administrace</a>
                 {# URL provided by django-allauth/account/urls.py #}
               </div>
             </li>

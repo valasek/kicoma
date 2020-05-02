@@ -19,7 +19,10 @@ All source code in the [KiCoMa](https://github.com/valasek/kima) is available un
 # Useful Commands
 
 ## Reset Development DB
-`./reset_db.sh`
+`./reset-db.sh`
+
+## Reset Heroku DB
+`./reset-db-heroku.sh`
 
 ## Update Translations
 ### Generate message files for a desired language
@@ -36,15 +39,12 @@ https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
 ## Update
 `git push heroku master`
 
-## Load fixtures
-`heroku run python manage.py loaddata kicoma/kitchen/fixtures/druhy-jidla.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/alergeny.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/jednotky.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/dph.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/skupiny-stravniku.json;`
+## Generate user password for fixture
 
-## Reset DB
-`heroku restart; heroku pg:reset DATABASE --confirm kicoma;`
+`./manage.py shell`
+`from django.contrib.auth.hashers import make_password`
+`make_password('password')`
 
-`heroku run python manage.py makemigrations;heroku run python manage.py migrate;heroku run python manage.py createsuperuser --username admin;`
-
-`heroku run python manage.py loaddata kicoma/kitchen/fixtures/druhy-jidla.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/alergeny.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/jednotky.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/dph.json;heroku run python manage.py loaddata kicoma/kitchen/fixtures/skupiny-stravniku.json;`
 
 ## Getting started
 

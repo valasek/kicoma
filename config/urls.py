@@ -20,7 +20,7 @@ urlpatterns = i18n_patterns(
     path("users/", include("kicoma.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # If no prefix is given, use the default language
-    prefix_default_language=True
+    prefix_default_language=False
 
     # Your stuff: custom urls includes go here
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -8,6 +8,8 @@ python manage.py loaddata kicoma/kitchen/fixtures/alergeny.json
 python manage.py loaddata kicoma/kitchen/fixtures/jednotky.json
 python manage.py loaddata kicoma/kitchen/fixtures/dph.json
 python manage.py loaddata kicoma/kitchen/fixtures/skupiny-stravniku.json
+python manage.py loaddata kicoma/kitchen/fixtures/skupiny.json
+python manage.py loaddata kicoma/kitchen/fixtures/uzivatele.json
 
 # https://docs.djangoproject.com/en/3.0/ref/django-admin/#django-admin-createsuperuser
 DJANGO_SUPERUSER_USERNAME=admin

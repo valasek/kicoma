@@ -21,7 +21,7 @@ import sys
 
 # -- Project information -----------------------------------------------------
 
-project = "My Awesome Project"
+project = "KiCoMa"
 copyright = """2020, Stanislav Valasek"""
 author = "Stanislav Valasek"
 
