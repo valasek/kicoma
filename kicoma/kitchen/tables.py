@@ -1,6 +1,23 @@
 import django_tables2 as tables
 import django_filters
-from .models import Recipe
+from .models import Recipe, StockReceipt
+
+
+class StockReceiptTable(tables.Table):
+
+    class Meta:
+        model = StockReceipt
+        template_name = "django_tables2/bootstrap4.html"
+        fields = ("createdAt", "userCreated", "comment")
+
+
+class StockReceiptFilter(django_filters.FilterSet):
+    createdAt = django_filters.CharFilter(lookup_expr='contains')
+    userCreated__name = django_filters.CharFilter(lookup_expr='contains')
+
+    class Meta:
+        model = StockReceipt
+        fields = ("createdAt", "userCreated__name", )
 
 
 class RecipeTable(tables.Table):

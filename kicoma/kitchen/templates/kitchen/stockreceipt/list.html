@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  <div class="row">
+  <a href="{% url 'kitchen:createStockReceipt' %}" class="btn btn-primary mb-2 mx-2">Nová příjemka</a>
+  {% if filter %}
+    <form method="get" action="" class="form form-inline">
+      {% csrf_token %}
+      {{ filter.form | crispy }}
+      <button type="submit" class="btn btn-success">Vyhledat</button>
+    </form>
+  {% endif %}
+  </div>
+
+  {% render_table table %}
+
+{% endblock content %}

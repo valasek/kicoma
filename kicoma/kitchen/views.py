@@ -8,8 +8,8 @@ from django.urls import reverse_lazy
 
 from .models import Item, Recipe, Allergen, MealType, TargetGroup, Unit, VAT, \
     Article, Ingredient, StockIssue, StockReceipt, DailyMenu
-from .tables import RecipeTable, RecipeFilter
-from .forms import RecipeSearchForm
+from .tables import RecipeTable, RecipeFilter, StockReceiptTable, StockReceiptFilter
+from .forms import RecipeSearchForm, StockReceiptSearchForm
 
 # import logging
 # Get an instance of a logger
@@ -89,3 +89,24 @@ class RecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showRecipies')
+
+
+# StockReceipt
+
+class StockReceiptListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+    model = StockReceipt
+    table_class = StockReceiptTable
+    template_name = 'kitchen/stockreceipt/list.html'
+    filterset_class = StockReceiptFilter
+    form_class = StockReceiptSearchForm
+    paginate_by = 12
+
+
+class StockReceiptCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+    model = Item
+    fields = ["amount", "unit", "priceWithoutVat", "vat"]
+    template_name = 'kitchen/stockreceipt/create.html'
+    success_message = "Příjemka %(name)s byla vytvořena a zásoby zboží na skladu aktualizovány"
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showStockReceipts')
