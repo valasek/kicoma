@@ -1,44 +1,52 @@
-{% load static i18n %}
-{% load auth_extras %}
+{% load static i18n %} {% load auth_extras %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>{% block title %}KiCoMa{% endblock title %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kitchen management software">
-    <meta name="author" content="Stanislav Valasek">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Kitchen management software" />
+    <meta name="author" content="Stanislav Valasek" />
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
 
-    <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
+    <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}" />
 
     {% block css %}
 
     <!-- Latest compiled and minified Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
 
     <!-- Your stuff: Third-party CSS libraries go here -->
 
     <!-- This file stores project-specific CSS -->
 
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
-
+    <link href="{% static 'css/project.css' %}" rel="stylesheet" />
 
     {% endblock %}
-
   </head>
 
   <body>
-
     <div class="mb-1">
       <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          class="navbar-toggler navbar-toggler-right"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="{% url 'home' %}">KiCoMa</a>
@@ -48,16 +56,27 @@
             {% if user.is_anonymous %}
             <li class="nav-item">
               {# URL provided by django-allauth/account/urls.py #}
-              <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Register" %}</a>
+              <a
+                id="sign-up-link"
+                class="nav-link"
+                href="{% url 'account_signup' %}"
+                >{% trans "Register" %}</a
+              >
             </li>
             <li class="nav-item">
               {# URL provided by django-allauth/account/urls.py #}
-              <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% trans "Log In" %}</a>
+              <a
+                id="log-in-link"
+                class="nav-link"
+                href="{% url 'account_login' %}"
+                >{% trans "Log In" %}</a
+              >
             </li>
-            {% else %}
-            {% if request.user.is_authenticated %}
+            {% else %} {% if request.user.is_authenticated %}
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'kitchen:overview' %}">Přehled <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'kitchen:overview' %}"
+                >Přehled <span class="sr-only">(current)</span></a
+              >
             </li>
             {% if request.user|has_group:"stockkeeper" %}
             <li class="nav-item dropdown">
@@ -77,13 +96,16 @@
               >
                 <a class="dropdown-item" href="#">Skladové položky</a>
                 <a class="dropdown-item" href="#">Výdejky</a>
-                <a class="dropdown-item" href="{% url 'kitchen:showStockReceipts' %}">Příjemky</a>
+                <a
+                  class="dropdown-item"
+                  href="{% url 'kitchen:showStockReceipts' %}"
+                  >Příjemky</a
+                >
                 <a class="dropdown-item" href="#">Tisk výdejky/výdejky</a>
                 <a class="dropdown-item" href="#">Soupis zásob</a>
               </div>
             </li>
-            {% endif %}
-            {% if request.user|has_group:"cook" %}
+            {% endif %} {% if request.user|has_group:"cook" %}
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -140,15 +162,22 @@
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                <a class="dropdown-item" href="#">Rozpis spotřeby potravin dle jídel a receptů</a>
-                <a class="dropdown-item" href="#">Rozpis spotřeby potravin dle jídel</a>
-                <a class="dropdown-item" href="#">Sumární rozpis spotřeby potravin dle jídel</a>
-                <a class="dropdown-item" href="#">Požadavek - návrh objednávky</a>
+                <a class="dropdown-item" href="#"
+                  >Rozpis spotřeby potravin dle jídel a receptů</a
+                >
+                <a class="dropdown-item" href="#"
+                  >Rozpis spotřeby potravin dle jídel</a
+                >
+                <a class="dropdown-item" href="#"
+                  >Sumární rozpis spotřeby potravin dle jídel</a
+                >
+                <a class="dropdown-item" href="#"
+                  >Požadavek - návrh objednávky</a
+                >
                 <a class="dropdown-item" href="#">Požadavek zaokrouhlený</a>
               </div>
             </li>
-            {% endif %}
-            {% if request.user|has_group:"chef" %}
+            {% endif %} {% if request.user|has_group:"chef" %}
             <a class="nav-link" href="/admin">Administrace</a>
             {% endif %}
             <li class="nav-item dropdown">
@@ -160,39 +189,63 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                ICON {{ user.username }}
+                <svg
+                  class="bi bi-person"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002.002zM8 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                {{ user.username }}
               </a>
               <div
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
+                <a
+                  class="nav-link"
+                  href="{% url 'users:detail' request.user.username  %}"
+                  >{% trans "My Profile" %}</a
+                >
                 {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+                <a class="nav-link" href="{% url 'account_logout' %}"
+                  >{% trans "Sign Out" %}</a
+                >
                 {# URL provided by django-allauth/account/urls.py #}
               </div>
             </li>
-            {% endif %}
-            {% endif %}
+            {% endif %} {% endif %}
           </ul>
         </div>
       </nav>
-
     </div>
 
     <div class="container-fluid m-4">
-
-      {% if messages %}
-          {% for message in messages %}
-              <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-          {% endfor %}
-      {% endif %}
-
-      {% block content %}
-        <!-- <p>Use this document as a way to quick start any new project.</p> -->
+      {% if messages %} {% for message in messages %}
+      <div
+        class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}"
+      >
+        {{ message }}<button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %} {% endif %} {% block content %}
+      <!-- <p>Use this document as a way to quick start any new project.</p> -->
       {% endblock content %}
-
-    </div> <!-- /container -->
+    </div>
+    <!-- /container -->
 
     {% block modal %}{% endblock modal %}
 
@@ -201,20 +254,29 @@
     <!-- Placed at the end of the document so the pages load faster -->
     {% block javascript %}
 
-      <!-- Bootstrap JS and its dependencies-->
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS and its dependencies-->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
 
-      <!-- Your stuff: Third-party javascript libraries go here -->
+    <!-- Your stuff: Third-party javascript libraries go here -->
 
+    <!-- place project specific Javascript in this file -->
 
-      <!-- place project specific Javascript in this file -->
-
-      <script src="{% static 'js/project.js' %}"></script>
-
+    <script src="{% static 'js/project.js' %}"></script>
 
     {% endblock javascript %}
   </body>
 </html>
-
