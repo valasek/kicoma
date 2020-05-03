@@ -37,7 +37,7 @@
 
   <body>
     <div class="mb-1">
-      <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <nav class="navbar navbar-expand-md navbar-light" style="background-color: #DD9933">
         <button
           class="navbar-toggler navbar-toggler-right"
           type="button"
@@ -81,7 +81,7 @@
             {% if request.user|has_group:"stockkeeper" %}
             <li class="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
+                class="nav-link active dropdown-toggle"
                 href="#"
                 id="navbarDropdownMenuLink"
                 data-toggle="dropdown"
@@ -108,7 +108,7 @@
             {% endif %} {% if request.user|has_group:"cook" %}
             <li class="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
+                class="nav-link active dropdown-toggle"
                 href="#"
                 id="navbarDropdownMenuLink"
                 data-toggle="dropdown"
@@ -130,7 +130,7 @@
             </li>
             <li class="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
+                class="nav-link active dropdown-toggle"
                 href="#"
                 id="navbarDropdownMenuLink"
                 data-toggle="dropdown"
@@ -149,7 +149,7 @@
             </li>
             <li class="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
+                class="nav-link active dropdown-toggle"
                 href="#"
                 id="navbarDropdownMenuLink"
                 data-toggle="dropdown"
@@ -178,11 +178,11 @@
               </div>
             </li>
             {% endif %} {% if request.user|has_group:"chef" %}
-            <a class="nav-link" href="/admin">Administrace</a>
+            <a class="nav-link active" href="/admin">Administrace</a>
             {% endif %}
             <li class="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
+                class="nav-link active dropdown-toggle"
                 href="#"
                 id="navbarDropdownMenuLink"
                 data-toggle="dropdown"
@@ -190,7 +190,7 @@
                 aria-expanded="false"
               >
                 <svg
-                  class="bi bi-person"
+                  class="bi bi-people-circle"
                   width="1em"
                   height="1em"
                   viewBox="0 0 16 16"
@@ -198,8 +198,16 @@
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
+                    d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z"
+                  />
+                  <path
                     fill-rule="evenodd"
-                    d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002.002zM8 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0z"
+                    d="M8 9a3 3 0 100-6 3 3 0 000 6z"
+                    clip-rule="evenodd"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z"
                     clip-rule="evenodd"
                   />
                 </svg>
@@ -210,12 +218,12 @@
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 <a
-                  class="nav-link"
+                  class="dropdown-item"
                   href="{% url 'users:detail' request.user.username  %}"
                   >{% trans "My Profile" %}</a
                 >
                 {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'account_logout' %}"
+                <a class="dropdown-item" href="{% url 'account_logout' %}"
                   >{% trans "Sign Out" %}</a
                 >
                 {# URL provided by django-allauth/account/urls.py #}
