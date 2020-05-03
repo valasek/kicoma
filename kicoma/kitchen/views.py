@@ -5,6 +5,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.models import Group
+
+from kicoma.users.models import User
 
 from .models import Item, Recipe, Allergen, MealType, TargetGroup, Unit, VAT, \
     Article, Ingredient, StockIssue, StockReceipt, DailyMenu
@@ -30,6 +33,10 @@ def index(request):
     stockReceiptCount = StockReceipt.objects.all().count()
     itemCount = Item.objects.all().count()
     dailyMenuCount = DailyMenu.objects.all().count()
+
+    userCount = User.objects.all().count()
+    groupCount = Group.objects.all().count()
+
     return render(request, 'kitchen/home.html', {
         'allergenCount': allergenCount,
         'mealTypeCount': mealTypeCount,
@@ -43,7 +50,10 @@ def index(request):
         'stockIssueCount': stockIssueCount,
         'stockReceiptCount': stockReceiptCount,
         'itemCount': itemCount,
-        'dailyMenuCount': dailyMenuCount
+        'dailyMenuCount': dailyMenuCount,
+
+        "groupCount": groupCount,
+        "userCount": userCount
     })
 
 
