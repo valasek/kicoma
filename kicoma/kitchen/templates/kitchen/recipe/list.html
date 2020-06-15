@@ -10,7 +10,7 @@
     <form method="get" action="" class="form form-inline">
       {% csrf_token %}
       {{ filter.form | crispy }}
-      <button type="submit" class="btn btn-success">Search</button>
+      <button type="submit" class="btn btn-success mx-2">Search</button>
     </form>
   {% endif %}
   </div>

@@ -3,9 +3,9 @@
 {% block content %}
 
 <div class="container-fluid">
-  <h1>Nová příjemka</h1>
+  <h1>Aktualizace příjemky</h1>
   <hr/>
-  <form method="post" action="{% url 'kitchen:createStockReceipt' %}">
+  <form method="post" action="">
     {% csrf_token %}
     {{ items.management_form }}
     {% crispy form form.helper %}

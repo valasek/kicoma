@@ -5,7 +5,6 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py loaddata kicoma/kitchen/fixtures/druhy-jidla.json
 python manage.py loaddata kicoma/kitchen/fixtures/alergeny.json
-python manage.py loaddata kicoma/kitchen/fixtures/jednotky.json
 python manage.py loaddata kicoma/kitchen/fixtures/dph.json
 python manage.py loaddata kicoma/kitchen/fixtures/skupiny-stravniku.json
 python manage.py loaddata kicoma/kitchen/fixtures/skupiny.json

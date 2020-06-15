@@ -1,7 +1,7 @@
 from import_export import resources
 from import_export.admin import ImportExportActionModelAdmin
 from django.contrib import admin
-from . models import Unit, StockReceipt, StockIssue, Item, Allergen, MealType, Recipe, \
+from . models import StockReceipt, StockIssue, Item, Allergen, MealType, Recipe, \
                      Ingredient, TargetGroup, VAT, DailyMenu, Article
 
 # create import export resources
@@ -87,14 +87,6 @@ class TargetGroupResource(resources.ModelResource):
         report_skipped = True
 
 
-class UnitResource(resources.ModelResource):
-
-    class Meta:
-        model = Unit
-        skip_unchanged = True
-        report_skipped = True
-
-
 class ArticleResource(resources.ModelResource):
 
     class Meta:
@@ -117,12 +109,6 @@ class VATAdmin(ImportExportActionModelAdmin):
     resource_class = VATResource
 
 
-class UnitAdmin(ImportExportActionModelAdmin):
-    list_display = ('name',)
-    ordering = ('name',)
-    resource_class = UnitResource
-
-
 class TargetGroupAdmin(ImportExportActionModelAdmin):
     list_display = ('name',)
     ordering = ('name',)
@@ -143,10 +129,10 @@ class DailyMenuAdmin(ImportExportActionModelAdmin):
 
 class ItemAdmin(ImportExportActionModelAdmin):
     list_display = ('stockIssue', 'stockReceipt', 'article', 'amount',
-                    'unit', 'priceWithoutVat', 'vat', 'priceWithVat', 'comment', )
+                    'unit', 'priceWithoutVat', 'vat', 'comment', )
     fields = [('stockIssue', 'stockReceipt'),
               ('article', 'amount', 'unit'),
-              ('priceWithoutVat', 'vat', 'priceWithVat'),
+              ('priceWithoutVat', 'vat'),
               'comment', ]
     # list_filter = ('unit', 'coefficient')
     # search_fields = ('name',)
@@ -168,16 +154,16 @@ class StockReceiptAdmin(ImportExportActionModelAdmin):
 
 
 class ArticleAdmin(ImportExportActionModelAdmin):
-    list_display = ('code', 'name', 'unit', 'onStock', 'averagePrice', 'normPrice', 'display_allergens', 'comment', )
-    fields = [('code', 'name', 'unit'), ('onStock', 'averagePrice', 'normPrice'), 'allergen', 'comment', ]
+    list_display = ('code', 'name', 'unit', 'onStock', 'averagePrice', 'display_allergens', 'comment', )
+    fields = [('code', 'name', 'unit'), ('onStock', 'averagePrice'), 'allergen', 'comment', ]
     # list_filter = ('unit', 'coefficient')
     search_fields = ('name',)
     resource_class = ArticleResource
 
 
 class RecipeAdmin(ImportExportActionModelAdmin):
-    list_display = ('name', 'norm_amount', 'comment')
-    fields = ([('name', 'norm_amount'), 'comment'])
+    list_display = ('name', 'norm_amount', 'procedure')
+    fields = ([('name', 'norm_amount'), 'procedure'])
     resource_class = RecipeResource
 
 
@@ -189,7 +175,6 @@ class IngredientAdmin(ImportExportActionModelAdmin):
 
 admin.site.register(Allergen, AllergenAdmin)
 admin.site.register(VAT, VATAdmin)
-admin.site.register(Unit, UnitAdmin)
 admin.site.register(TargetGroup, TargetGroupAdmin)
 admin.site.register(MealType, MealTypeAdmin)
 admin.site.register(Ingredient, IngredientAdmin)

@@ -3,11 +3,13 @@
 {% block content %}
 
 <div class="container-fluid">
-  <h1>Nový recept</h1>
-  <form method="post" action="{% url 'kitchen:createRecipe' %}">
+  <h1>Výber surovin do receptu</h1>
+  <form method="post">
     {% csrf_token %}
+    {{ ingredients|crispy }}
     {{ form|crispy }}
-    <button type="submit" class="btn btn-success">Uložit a přidat rozpis surovin</button>
+    {{ form.ingredients|crispy }}
+    <button type="submit" class="btn btn-success">Uložit</button>
   </form>
 </div>
 
