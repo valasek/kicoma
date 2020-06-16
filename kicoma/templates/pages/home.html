@@ -1,13 +1,24 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <h1>Kitchen Cooking Management</h1>
+<hr />
 
-<p>Popis aplikace</p>
+<h2>Správa číselníků</h2>
+Číselníky spravuje uživatel ve skupině "Chef - šéfkuchař" v
+<a href="admin/kitchen">Administraci</a>.
+<br />
+Přímý odkaz na správu číselníku: <a href="admin/kitchen/allergen/">alergény</a>,
+<a href="admin/kitchen/vat/">DPH</a>,
+<a href="admin/kitchen/mealtype/">jednotky</a>,
+<a href="admin/kitchen/targetgroup/">skupinu strávníků</a>.
+
+<h2>Příjem na sklad</h2>
+Příjem na sklad probíhá pomocí <a href="{% url 'kitchen:showStockReceipts' %}">příjemek</a> uživatelem ve skupine "Stockkeeper - skladník".
+Stav může kontrolovat pomocí <a href="{% url 'kitchen:showArticles' %}">Zboží na skladu</a>, kde je možné i vytvořit nové nebo upravit název zboží.
+
+<h2>Výdej ze skladu</h2>
 
 <h2>Uživatelské skupiny</h2>
-<ul>
   <table class="table table-responsive table-sm">
     <thead class="thead-light">
       <tr>
@@ -17,7 +28,10 @@
     </thead>
     <tr>
       <th>Chef - šéfkuchař</th>
-      <td>Administrátor<br/>Správce skupin i uživatelů<br/>Správce všech číselníků: alergény, DPH, druhy jídla, jednotky, skupinu strávníků</td>
+      <td>
+        Administrátor<br />Správce skupin i uživatelů<br />Správce všech
+        číselníků.
+      </td>
     </tr>
     <tr>
       <th>Cook - kuchař</th>
@@ -25,8 +39,10 @@
     </tr>
     <tr>
       <th>Stockkeeper - skladník</th>
-      <td>Správa skladu: zadávání příjemek, schvalování nebo přímo vystavění výdejky</td>
+      <td>
+        Správa skladu: zadávání příjemek, schvalování nebo přímo vystavění
+        výdejky
+      </td>
     </tr>
   </table>
-</ul>
 {% endblock content %}

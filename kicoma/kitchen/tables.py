@@ -5,9 +5,7 @@ from .models import Recipe, StockReceipt, Article
 
 class StockReceiptTable(tables.Table):
     change = tables.TemplateColumn(
-        '''<a href="/kitchen/stockreceipt/update/{{ record.id }}">Upravit</a> /
-        <a href="/kitchen/stockreceipt/delete/{{ record.id }} \
-            onclick="return confirm('Skutečně chcete tuto položku odstranit?')">Odstranit</a>''',
+        '''<a href="/kitchen/stockreceipt/update/{{ record.id }}">Upravit</a>''',
         verbose_name=u'Akce', )
 
     class Meta:
@@ -32,7 +30,7 @@ class ArticleTable(tables.Table):
     class Meta:
         model = Article
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("code", "name", "onStock", "averagePrice", "unit", "comment")
+        fields = ("code", "name", "onStock", "averagePrice", "unit", "comment", "allergen")
 
 class ArticleFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(lookup_expr='contains')

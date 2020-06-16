@@ -41,7 +41,7 @@ class Allergen(models.Model):
     description = models.CharField(max_length=150, unique=True, verbose_name='Název', help_text='Název alergénu')
 
     def __str__(self):
-        return self.code + ' - ' + self.description
+        return self.code
 
 
 class TargetGroup(models.Model):
