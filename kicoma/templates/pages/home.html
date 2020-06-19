@@ -2,7 +2,37 @@
 
 <h1>Kitchen Cooking Management</h1>
 <hr />
-
+<h2>Stav vývoje</h2>
+<div class="row">
+  <div class="col-sm">
+    <h5>Hotovo a připraveno ke kontrole</h5>
+    Číselníky - struktura, data a správa<br>
+    Uživatelé a práva na menu (trmalova, klinderova, drazdikova, drabkova, slavicek)
+  </div>
+  <div class="col-sm">
+    <h5>Ve vývoji</h5>
+    Správa zboží a příjemek<br />
+  </div>
+  <div class="col-sm">
+    <h5>Čeká</h5>
+      Správa receptů<br />
+      Správa denního menu a výdejek<br />
+      Schvalování výdejek<br />
+      Tisky<br />
+      Oprava chyb<br />
+      Přesun na server (změnit admin url a username)<br />
+  </div>
+  <div class="col-sm">
+    <h5>Dobré nápady</h5>
+    Použití skenerů čárových kódů<br />
+  </div>
+  <div class="col-sm">
+    <h5>Nahlásit chybu</h5>
+    Odeslat popis emailem na <a href="mailto:valasek@gmail.com">valasek@gmail.com</a>
+  </div>
+</div>
+<hr />
+<h2>Dokumentace</h2>
 <h2>Správa číselníků</h2>
 Číselníky spravuje uživatel ve skupině "Chef - šéfkuchař" v
 <a href="admin/kitchen">Administraci</a>.
@@ -16,18 +46,18 @@ Přímý odkaz na správu číselníku: <a href="admin/kitchen/allergen/">alerg�
 Příjem na sklad probíhá pomocí <a href="{% url 'kitchen:showStockReceipts' %}">příjemek</a> uživatelem ve skupine "Stockkeeper - skladník".
 Stav může kontrolovat pomocí <a href="{% url 'kitchen:showArticles' %}">Zboží na skladu</a>, kde je možné i vytvořit nové nebo upravit název zboží.
 
-<h2>Výdej ze skladu</h2>
-
 <h2>Uživatelské skupiny</h2>
   <table class="table table-responsive table-sm">
     <thead class="thead-light">
       <tr>
         <th>Skupina</th>
+        <th>Uživatelé</th>
         <th>Oprávnění</th>
       </tr>
     </thead>
     <tr>
       <th>Chef - šéfkuchař</th>
+      <td>trmalova, slavicek</td>
       <td>
         Administrátor<br />Správce skupin i uživatelů<br />Správce všech
         číselníků.
@@ -35,10 +65,12 @@ Stav může kontrolovat pomocí <a href="{% url 'kitchen:showArticles' %}">Zbož
     </tr>
     <tr>
       <th>Cook - kuchař</th>
+      <td>drabkova</td>
       <td>Tvorba jídelníčku a tisky kalkulací</td>
     </tr>
     <tr>
       <th>Stockkeeper - skladník</th>
+      <td>drazdikova, klinderova</td>
       <td>
         Správa skladu: zadávání příjemek, schvalování nebo přímo vystavění
         výdejky

@@ -70,5 +70,23 @@
       "date_joined": "2020-05-02T21:31:10.980Z",
       "user_permissions": []
     }
+  },
+  {
+    "model": "users.user",
+    "pk": 5,
+    "fields": {
+      "username": "slavicek",
+      "email": "slavicek@hospic-cercany.cz",
+      "name": "Josef Slavíček",
+      "first_name": "Josef",
+      "last_name": "Slavíček",
+      "password": "argon2$argon2i$v=19$m=512,t=2,p=2$cUs4dVVIZ240enNX$EsFUTqiElTEpXx6GAJtjyg",
+      "is_superuser": true,
+      "is_active": true,
+      "is_staff": true,
+      "groups": [1, 2, 3],
+      "date_joined": "2020-06-19T21:31:10.980Z",
+      "user_permissions": []
+    }
   }
 ]

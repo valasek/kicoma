@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container-fluid">
+  <h1>Nové zboží</h1>
+  <form method="post" action="{% url 'kitchen:createArticle' %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Založit nové zboží</button>
+  </form>
+</div>
+
+{% endblock content %}

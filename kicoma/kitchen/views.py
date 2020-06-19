@@ -79,6 +79,26 @@ class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     form_class = ArticleSearchForm
     paginate_by = 12
 
+
+class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+    model = Article
+    fields = "__all__"
+    template_name = 'kitchen/article/create.html'
+    success_message = "Zboží %(name)s bylo založeno, je možné zadávat příjemky."
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showArticles')
+
+
+class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = Article
+    fields = "__all__"
+    template_name = 'kitchen/article/edit.html'
+    success_message = "Zboží %(name)s bylo aktualizováno, je možné zadávat příjemky."
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showArticles')
+
 class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = Recipe
     table_class = RecipeTable

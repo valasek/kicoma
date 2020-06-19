@@ -5,6 +5,7 @@
 {% block content %}
 
   <h1>Zboží na skladu</h1>
+  <a href="{% url 'kitchen:createArticle' %}" class="btn btn-primary mb-2 mx-2">Založit nové zboží</a>
   <hr/>
   <div class="row">
   {% if filter %}
