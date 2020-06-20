@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container-fluid">
-  <h1>Nová příjemka</h1>
+  <h4>Nová příjemka</h4>
   <hr/>
   <form method="post" action="{% url 'kitchen:createStockReceipt' %}">
     {% csrf_token %}

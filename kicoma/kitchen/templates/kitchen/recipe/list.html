@@ -3,16 +3,17 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
+  <h4>Seznam receptů</h4>
+  <hr/>
   <div class="row">
-  <a href="{% url 'kitchen:createRecipe' %}" class="btn btn-primary mb-2 mx-2">Přidat nový recept</a>
-  {% if filter %}
-    <form method="get" action="" class="form form-inline">
-      {% csrf_token %}
-      {{ filter.form | crispy }}
-      <button type="submit" class="btn btn-success mx-2">Search</button>
-    </form>
-  {% endif %}
+    <a href="{% url 'kitchen:createRecipe' %}" class="btn btn-primary mb-2 mx-2">Přidat nový recept</a>
+    {% if filter %}
+      <form method="get" action="" class="form form-inline">
+        {% csrf_token %}
+        {{ filter.form | crispy }}
+        <button type="submit" class="btn btn-success mx-2">Search</button>
+      </form>
+    {% endif %}
   </div>
 
   {% render_table table %}

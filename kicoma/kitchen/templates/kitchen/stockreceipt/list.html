@@ -3,17 +3,19 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <h1>Seznam příjemek</h1>
+  <h4>Seznam příjemek</h4>
   <hr/>
   <div class="row">
-  <a href="{% url 'kitchen:createStockReceipt' %}" class="btn btn-primary mb-2 mx-2">Nová příjemka</a>
-  {% if filter %}
-    <form method="get" action="" class="form form-inline">
-      {% csrf_token %}
-      {{ filter.form | crispy }}
-      <button type="submit" class="btn btn-success">Vyhledat</button>
-    </form>
-  {% endif %}
+    <div class="col justify-content-start">
+      <a href="{% url 'kitchen:createStockReceipt' %}" class="btn btn-primary mb-2">Nová příjemka</a>
+    </div>
+    {% if filter %}
+      <form method="get" action="" class="col-10 justify-content-end form-inline mb-2">
+        {% csrf_token %}
+        {{ filter.form | crispy }}
+        <button type="submit" class="btn btn-success mx-2">Vyhledat</button>
+      </form>
+    {% endif %}
   </div>
 
   {% render_table table %}

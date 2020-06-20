@@ -3,7 +3,8 @@
 {% block content %}
 
 <div class="container-fluid">
-  <h1>Úprava receptu</h1>
+  <h4>Úprava zboží</h4>
+  <hr/>
   <form method="post" action="">
     {% csrf_token %}
     {{ form|crispy }}

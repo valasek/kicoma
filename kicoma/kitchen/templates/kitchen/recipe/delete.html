@@ -3,7 +3,8 @@
 {% block content %}
 
 <div class="container-fluid">
-  <h1>Odstranění receptu</h1>
+  <h4>Odstranění receptu</h4>
+  <hr/>
   <form method="post" action="{% url 'kitchen:deleteRecipe' pk=object.id %}">
     {% csrf_token %}
     {{ form|crispy }}

@@ -3,7 +3,8 @@
 {% block content %}
 
 <div class="container-fluid">
-  <h1>Nové zboží</h1>
+  <h4>Nové zboží</h4>
+  <hr/>
   <form method="post" action="{% url 'kitchen:createArticle' %}">
     {% csrf_token %}
     {{ form|crispy }}

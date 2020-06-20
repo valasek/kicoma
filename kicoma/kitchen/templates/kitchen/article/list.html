@@ -3,18 +3,19 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
-  <h1>Zboží na skladu</h1>
-  <a href="{% url 'kitchen:createArticle' %}" class="btn btn-primary mb-2 mx-2">Založit nové zboží</a>
+  <h4>Zboží na skladu</h4>
   <hr/>
   <div class="row">
-  {% if filter %}
-    <form method="get" action="" class="form form-inline">
+    <div class="col justify-content-start">
+      <a href="{% url 'kitchen:createArticle' %}" class="btn btn-primary mb-2">Založit nové zboží</a>
+    </div>
+    {% if filter %}
+    <form method="get" action="" class="col justify-content-end form-inline mb-2">
       {% csrf_token %}
       {{ filter.form | crispy }}
       <button type="submit" class="btn btn-success mx-2">Search</button>
     </form>
-  {% endif %}
+    {% endif %}
   </div>
 
   {% render_table table %}
