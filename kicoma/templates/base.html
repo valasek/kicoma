@@ -191,9 +191,8 @@
                 <a class="dropdown-item" href="#">Požadavek zaokrouhlený</a>
               </div>
             </li>
-            {% endif %} {% if request.user|has_group:"chef" %}
-            <a class="nav-link active" href="/admin">Administrace</a>
-            {% endif %}
+          </ul>
+          <ul class="navbar-nav">
             <li class="nav-item dropdown">
               <a
                 class="nav-link active dropdown-toggle"
@@ -231,6 +230,9 @@
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
+                {% endif %} {% if request.user|has_group:"chef" %}
+                <a class="dropdown-item" href="/admin">Administrace</a>
+                {% endif %}
                 <a
                   class="dropdown-item"
                   href="{% url 'users:detail' request.user.username  %}"
@@ -243,8 +245,8 @@
                 {# URL provided by django-allauth/account/urls.py #}
               </div>
             </li>
-            {% endif %} {% endif %}
           </ul>
+          {% endif %} {% endif %}
         </div>
       </nav>
     </div>
