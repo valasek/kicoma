@@ -11,7 +11,7 @@ class StockReceiptTable(tables.Table):
     class Meta:
         model = StockReceipt
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("dateCreated", "userCreated", "comment", "change")
+        fields = ("dateCreated", "userCreated__name", "comment", "change")
 
 
 class StockReceiptFilter(django_filters.FilterSet):

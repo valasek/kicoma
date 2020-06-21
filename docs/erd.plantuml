@@ -87,7 +87,7 @@ class StockIssue_Vydejka {
 }
 
 class User_Uzivatel {
-    username / Uževatelské jméno
+    username / Uživatelské jméno
     first_name / Jméno
     last_name / Příjmení
     email / Email
