@@ -1,0 +1,497 @@
+id,name,norm_amount,procedure
+654,kaše instantní,5,Přesunuto z Jídelníčku
+655,rajčata,10,Přesunuto z Jídelníčku
+656,ředkvičky,10,Přesunuto z Jídelníčku
+657,papriky,10,Přesunuto z Jídelníčku
+658,kedlubny,10,Přesunuto z Jídelníčku
+774,piškoty,10,Přesunuto z Jídelníčku
+775,sušenky,10,Přesunuto z Jídelníčku
+776,zákusky,10,Přesunuto z Jídelníčku
+777,zahradnický řízek,10,Přesunuto z Jídelníčku
+778,salát rajčatový s vejci,10,Přesunuto z Jídelníčku
+814,banány,10,Přesunuto z Jídelníčku
+815,broskve,10,Přesunuto z Jídelníčku
+816,nektarinky,10,Přesunuto z Jídelníčku
+817,hrušky,10,Přesunuto z Jídelníčku
+819,jablka,10,Přesunuto z Jídelníčku
+822,kiwi,10,Přesunuto z Jídelníčku
+827,kompot 700g-820g,10,Přesunuto z Jídelníčku
+834,mandarinky,10,Přesunuto z Jídelníčku
+835,meloun,10,Přesunuto z Jídelníčku
+836,meruňky,10,Přesunuto z Jídelníčku
+838,pomeranče,10,Přesunuto z Jídelníčku
+843,ryngle,10,Přesunuto z Jídelníčku
+844,švestky,10,Přesunuto z Jídelníčku
+846,vino hroznové,10,Přesunuto z Jídelníčku
+911,vepřové maso na houbách,10,Přesunuto z Jídelníčku
+956,šunka 30g,10,Přesunuto z Jídelníčku
+957,šunka 50g,10,Přesunuto z Jídelníčku
+965,termix,10,Přesunuto z Jídelníčku
+979,moravský vrabec,10,Přesunuto z Jídelníčku
+980,polárkový dort,10,Přesunuto z Jídelníčku
+983,jogurt,10,Přesunuto z Jídelníčku
+987,rybí file zapečené se sýrem,10,Přesunuto z Jídelníčku
+988,přesnídávky,10,Přesunuto z Jídelníčku
+989,vepřové ražniči,10,Přesunuto z Jídelníčku
+990,pitíčko,10,Přesunuto z Jídelníčku
+991,minerálka,10,Přesunuto z Jídelníčku
+992,pomazánkové máslo,10,Přesunuto z Jídelníčku
+993,džem porce,10,Přesunuto z Jídelníčku
+997,mléko ochucené krabička,10,Přesunuto z Jídelníčku
+1017,máslo 10 g,10,Přesunuto z Jídelníčku
+1019,máslo 20 g,10,Přesunuto z Jídelníčku
+1033,rohlíky 2ks,10,Přesunuto z Jídelníčku
+1034,rybí file na bylinkách,10,Přesunuto z Jídelníčku
+1035,housky 2,10,Přesunuto z Jídelníčku
+1036,housky 3,10,Přesunuto z Jídelníčku
+1037,kuřecí stehna smažená,10,Přesunuto z Jídelníčku
+1038,koláče 2ks,10,Přesunuto z Jídelníčku
+1039,pomazánka mrkvová,10,Přesunuto z Jídelníčku
+1040,játra smažená,10,Přesunuto z Jídelníčku
+1041,hranolky,10,Přesunuto z Jídelníčku
+1042,rohlíky 1ks,10,Přesunuto z Jídelníčku
+1043,sýr troj,10,Přesunuto z Jídelníčku
+1044,vánočka 1/3,9,Přesunuto z Jídelníčku
+1045,vánočka 1/4,8,Přesunuto z Jídelníčku
+1046,paštiky 48g,10,Přesunuto z Jídelníčku
+1047,paštiky 100g,10,Přesunuto z Jídelníčku
+1048,čaj viatex,10,Přesunuto z Jídelníčku
+1049,salám 50g,10,Přesunuto z Jídelníčku
+1050,kapučino,10,Přesunuto z Jídelníčku
+1051,káva karo,10,Přesunuto z Jídelníčku
+1052,kakao granko,10,Přesunuto z Jídelníčku
+1053,kakao obyčejné,10,Přesunuto z Jídelníčku
+1055,cukr na patra,20,Přesunuto z Jídelníčku
+1056,salám 30g,10,Přesunuto z Jídelníčku
+1057,chléb 6,6,Přesunuto z Jídelníčku
+1058,chléb 9,9,Přesunuto z Jídelníčku
+1059,hermelín 1,10,Přesunuto z Jídelníčku
+1060,koláč švestkový s mákem,10,Přesunuto z Jídelníčku
+1061,hermelín 1/2,10,Přesunuto z Jídelníčku
+1062,eidam 30,10,Přesunuto z Jídelníčku
+1063,eidam 50,10,Přesunuto z Jídelníčku
+1065,zelenina grilovaná,10,Přesunuto z Jídelníčku
+1066,lučina 1ks,10,Přesunuto z Jídelníčku
+1067,piškotová roláda,10,Přesunuto z Jídelníčku
+1069,šátečky 2ks,10,Přesunuto z Jídelníčku
+1070,pudink se šlehačkou,10,Přesunuto z Jídelníčku
+1071,šátečky 1 ks,10,Přesunuto z Jídelníčku
+1073,makový závin 1/3 ks,9,Přesunuto z Jídelníčku
+1074,makový závin 1/4 ks,10,Přesunuto z Jídelníčku
+1075,vinná klobása 150,10,Přesunuto z Jídelníčku
+1076,vepřové maso plovdivské,10,Přesunuto z Jídelníčku
+1077,paštika krájená 150g,10,Přesunuto z Jídelníčku
+1078,paštika krájená 100g,10,Přesunuto z Jídelníčku
+1079,rybí file přírodní,10,Přesunuto z Jídelníčku
+1080,pizza,10,Přesunuto z Jídelníčku
+1081,máslo porce 1,10,Přesunuto z Jídelníčku
+1082,máslo porce 2,10,Přesunuto z Jídelníčku
+1083,vepřové žebírko srbské,10,Přesunuto z Jídelníčku
+1084,párky 100g s hořčicí,10,Přesunuto z Jídelníčku
+1562,káva melta,10,Přesunuto z Jídelníčku
+3001,polévka hovězí s masem a těstovinami,10,Přesunuto z Jídelníčku
+3003,polévka bramborová,10,Přesunuto z Jídelníčku
+3005,polévka bramborová s krupkami,10,Přesunuto z Jídelníčku
+3006,polévka celerová,10,Přesunuto z Jídelníčku
+3007,polévka česnečka,10,Přesunuto z Jídelníčku
+3008,polévka čočková,10,Přesunuto z Jídelníčku
+3009,polévka krupicová s vejcem,10,Přesunuto z Jídelníčku
+3010,polévka s kapustou a rýží,10,Přesunuto z Jídelníčku
+3011,polévka drožďová,10,Přesunuto z Jídelníčku
+3012,polévka drštková,10,Přesunuto z Jídelníčku
+3013,polévka drůbková,10,Přesunuto z Jídelníčku
+3014,polévka fazolová,10,Přesunuto z Jídelníčku
+3015,polévka frankfurtská,10,Přesunuto z Jídelníčku
+3016,polévka gulášová,10,Přesunuto z Jídelníčku
+3017,polévka houbová,10,Přesunuto z Jídelníčku
+3018,polévka hrachová,10,Přesunuto z Jídelníčku
+3019,polévka hrstková,10,Přesunuto z Jídelníčku
+3020,polévka chlebová,10,Přesunuto z Jídelníčku
+3022,polévka kapustová,10,Přesunuto z Jídelníčku
+3023,polévka kmínová,10,Přesunuto z Jídelníčku
+3024,polévka kroupová,10,Přesunuto z Jídelníčku
+3025,polévka květáková,10,Přesunuto z Jídelníčku
+3027,polévka masová ragů,10,Přesunuto z Jídelníčku
+3030,polévka pórková,10,Přesunuto z Jídelníčku
+3031,polévka rajská s těstovinou,10,Přesunuto z Jídelníčku
+3033,polévka rýžová bílá,10,Přesunuto z Jídelníčku
+3034,polévka selská,10,Přesunuto z Jídelníčku
+3035,polévka slepičí,10,Přesunuto z Jídelníčku
+3039,polévka vločková,10,Přesunuto z Jídelníčku
+3040,polévka zeleninová,10,Přesunuto z Jídelníčku
+3042,polévka zelnačka,10,Přesunuto z Jídelníčku
+3045,polévka s kapáním,10,Přesunuto z Jídelníčku
+3046,polévka s játr.knedlíčky,10,Přesunuto z Jídelníčku
+3052,polévka se strouháním,10,Přesunuto z Jídelníčku
+3055,guláš debrecínský,10,Přesunuto z Jídelníčku
+3056,guláš hovězí,10,Přesunuto z Jídelníčku
+3058,hovězí maso dušené v kapustě,10,Přesunuto z Jídelníčku
+3059,hovězí svíčková,10,Přesunuto z Jídelníčku
+3061,hovězí pečeně přírodní-na pepři-zázvoru,10,Přesunuto z Jídelníčku
+3062,hovězí pečeně cikánská,10,Přesunuto z Jídelníčku
+3063,hovězí pečeně frankfurtská,10,Přesunuto z Jídelníčku
+3064,hovězí pečeně na zelenině,10,Přesunuto z Jídelníčku
+3065,hovězí pečeně štěpánská,10,Přesunuto z Jídelníčku
+3066,hovězí závitek-španělský ptáček,10,Přesunuto z Jídelníčku
+3069,hovezi zavitek plneny vejcem,10,Přesunuto z Jídelníčku
+3070,roštěná na paprice,10,Přesunuto z Jídelníčku
+3071,roštěná přírodní,10,Přesunuto z Jídelníčku
+3072,roštěná znojemská,10,Přesunuto z Jídelníčku
+3075,vepřové dušené na paprice,10,Přesunuto z Jídelníčku
+3078,telecí pečeně,10,Přesunuto z Jídelníčku
+3082,telecí žebírko na másle,10,Přesunuto z Jídelníčku
+3083,rizoto z vepřového masa,10,Přesunuto z Jídelníčku
+3084,vepřová pečeně,10,Přesunuto z Jídelníčku
+3085,vepřová pečeně selská,10,Přesunuto z Jídelníčku
+3087,vepřové maso dušené v kapustě,10,Přesunuto z Jídelníčku
+3088,vepřové maso dušené v kedlubnách,10,Přesunuto z Jídelníčku
+3089,vepřové maso dušené v mrkvi,10,Přesunuto z Jídelníčku
+3090,vepřové maso na kmíně,10,Přesunuto z Jídelníčku
+3091,vepřové maso uzené s kostí,10,Přesunuto z Jídelníčku
+3092,vepřové žebírko smažené,10,Přesunuto z Jídelníčku
+3093,vepřový bůček nadívaný,10,Přesunuto z Jídelníčku
+3094,vepřový guláš,10,Přesunuto z Jídelníčku
+3095,vepřový guláš segedínský,10,Přesunuto z Jídelníčku
+3096,vepřový kotlet přírodní,10,Přesunuto z Jídelníčku
+3097,vepřová roláda,10,Přesunuto z Jídelníčku
+3098,vepřový řízek smažený,10,Přesunuto z Jídelníčku
+3099,holanský řízek,10,Přesunuto z Jídelníčku
+3106,jaternicový prejt,10,Přesunuto z Jídelníčku
+3107,čevabčiči,10,Přesunuto z Jídelníčku
+3108,karbanátky smažené,10,Přesunuto z Jídelníčku
+3109,klopsy s hráškem,10,Přesunuto z Jídelníčku
+3114,papriky plněné,10,Přesunuto z Jídelníčku
+3115,plněné zelí na slanině,10,Přesunuto z Jídelníčku
+3116,sekaná pečeně,10,Přesunuto z Jídelníčku
+3117,sekaná se sojou,10,Přesunuto z Jídelníčku
+3119,mletý řízek máslový,10,Přesunuto z Jídelníčku
+3121,játra na slanině,10,Přesunuto z Jídelníčku
+3123,játra drůbeží dušená,10,Přesunuto z Jídelníčku
+3125,hovězí s polskou omáčkou,10,Přesunuto z Jídelníčku
+3132,srdce na slanině,10,Přesunuto z Jídelníčku
+3134,párky 150g s hořčicí,10,Přesunuto z Jídelníčku
+3135,salám opečený,10,Přesunuto z Jídelníčku
+3136,salám smažený,10,Přesunuto z Jídelníčku
+3138,tlačenka s cibulí 150g,10,Přesunuto z Jídelníčku
+3139,vuřty,10,Přesunuto z Jídelníčku
+3148,rizoto z kuřecího masa,10,Přesunuto z Jídelníčku
+3149,slepice na paprice,10,Přesunuto z Jídelníčku
+3155,rybí filé smažené,10,Přesunuto z Jídelníčku
+3158,koprová omáčka,10,Přesunuto z Jídelníčku
+3159,rajská omáčka,10,Přesunuto z Jídelníčku
+3164,okurková omáčka,10,Přesunuto z Jídelníčku
+3166,pórková omáčka,10,Přesunuto z Jídelníčku
+3168,křenová omáčka,10,Přesunuto z Jídelníčku
+3169,brambory zapečené se salámem,10,Přesunuto z Jídelníčku
+3170,bramborový guláš,10,Přesunuto z Jídelníčku
+3172,bramborové knedlíky plněné uzeným masem,10,Přesunuto z Jídelníčku
+3175,těstoviny zapečené s masem,10,Přesunuto z Jídelníčku
+3176,těstoviny zapečené se salámem,10,Přesunuto z Jídelníčku
+3177,bramborák smažený,10,Přesunuto z Jídelníčku
+3178,bramborové knedlíky s cibulkou,10,Přesunuto z Jídelníčku
+3181,čočka na kyselo,10,Přesunuto z Jídelníčku
+3185,hrách vařený se slaninou,10,Přesunuto z Jídelníčku
+3186,knedlíky s vejci,10,Přesunuto z Jídelníčku
+3187,brambory nové s tvarohem,10,Přesunuto z Jídelníčku
+3188,buchtičky dukátové s krémem,10,Přesunuto z Jídelníčku
+3189,polévka kulajda,10,Přesunuto z Jídelníčku
+3191,kaše  krupicová,10,Přesunuto z Jídelníčku
+3192,kaše rýžová,10,Přesunuto z Jídelníčku
+3193,knedlíky kynuté s povidly,10,Přesunuto z Jídelníčku
+3194,puding,10,Přesunuto z Jídelníčku
+3196,nákyp krupicový,10,Přesunuto z Jídelníčku
+3198,nákyp rýžový s ovocem - kompotem,10,Přesunuto z Jídelníčku
+3199,palačinky se zavařeninou,10,Přesunuto z Jídelníčku
+3201,bramborové šišky s houskou a máslem,10,Přesunuto z Jídelníčku
+3202,škubánky s mákem,10,Přesunuto z Jídelníčku
+3204,těstoviny s mákem -tvarohem,10,Přesunuto z Jídelníčku
+3205,špagety se sýrem,10,Přesunuto z Jídelníčku
+3206,žemlovka jablková,10,Přesunuto z Jídelníčku
+3207,žemlovka tvarohová,10,Přesunuto z Jídelníčku
+3208,kuřecí maso v sýrové omáčce,10,Přesunuto z Jídelníčku
+3210,kapusta dušená se salámem,10,Přesunuto z Jídelníčku
+3211,karbanátky kapustové,10,Přesunuto z Jídelníčku
+3212,květák smažený,10,Přesunuto z Jídelníčku
+3214,květákový mozeček,10,Přesunuto z Jídelníčku
+3215,zeleninové lečo s uzeninou,10,Přesunuto z Jídelníčku
+3216,mrkev dušená,10,Přesunuto z Jídelníčku
+3218,špenát dušený,10,Přesunuto z Jídelníčku
+3222,rizoto zeleninové,10,Přesunuto z Jídelníčku
+3224,zelí hlávkové dušené,10,Přesunuto z Jídelníčku
+3225,zelí kyselé dušené,10,Přesunuto z Jídelníčku
+3226,salát hlávkový,10,Přesunuto z Jídelníčku
+3227,salát okurkový,10,Přesunuto z Jídelníčku
+3228,salát mrkvový,10,Přesunuto z Jídelníčku
+3230,salát z hlávkového zelí,10,Přesunuto z Jídelníčku
+3231,salát z kyselého zelí,10,Přesunuto z Jídelníčku
+3232,salát z rajčat,10,Přesunuto z Jídelníčku
+3233,majoneza základní,10,Přesunuto z Jídelníčku
+3235,obložený chléb 1,10,Přesunuto z Jídelníčku
+3236,obložený chléb 2,10,Přesunuto z Jídelníčku
+3237,studená mísa,10,Přesunuto z Jídelníčku
+3238,studená mísa 2,10,Přesunuto z Jídelníčku
+3239,topinky,10,Přesunuto z Jídelníčku
+3241,pomazánka drožďová,10,Přesunuto z Jídelníčku
+3242,pomazánka turistická,10,Přesunuto z Jídelníčku
+3243,pomazánka salámová,10,Přesunuto z Jídelníčku
+3244,pomazánka sýrová,10,Přesunuto z Jídelníčku
+3245,pomazánka tvarohová,10,Přesunuto z Jídelníčku
+3246,pomazánka vaječná,10,Přesunuto z Jídelníčku
+3247,pomazánka z tuňáka,10,Přesunuto z Jídelníčku
+3248,bramborová kaše,10,Přesunuto z Jídelníčku
+3249,bramborové placky,10,Přesunuto z Jídelníčku
+3250,bramborový salát s majonézou,10,Přesunuto z Jídelníčku
+3252,bramborové knedlíky z prášku,10,Přesunuto z Jídelníčku
+3254,brambory vařené,10,Přesunuto z Jídelníčku
+3255,houskové knedlíky s práškem,10,Přesunuto z Jídelníčku
+3256,houskové knedlíky s droždím,10,Přesunuto z Jídelníčku
+3257,hrachová kaše s cibulkou,10,Přesunuto z Jídelníčku
+3258,kaše nastavovaná s cibulkou,10,Přesunuto z Jídelníčku
+3260,těstoviny,10,Přesunuto z Jídelníčku
+3261,bábovka kynutá,10,Přesunuto z Jídelníčku
+3262,bábovka třená,10,Přesunuto z Jídelníčku
+3263,těstoviny-zavářka,10,Přesunuto z Jídelníčku
+3264,rýže dušená,10,Přesunuto z Jídelníčku
+3265,bublanina,10,Přesunuto z Jídelníčku
+3266,buchty,10,Přesunuto z Jídelníčku
+3267,bochánky,10,Přesunuto z Jídelníčku
+3270,buchta na plech s kakaovou polevou,10,Přesunuto z Jídelníčku
+3271,jidáše,10,Přesunuto z Jídelníčku
+3272,koblihy,10,Přesunuto z Jídelníčku
+3273,koláč tvarohový na plech,10,Přesunuto z Jídelníčku
+3274,koláče ovocné kynuté-moučník,10,Přesunuto z Jídelníčku
+3275,koláče rohové s drobenkou,10,Přesunuto z Jídelníčku
+3276,lívance,10,Přesunuto z Jídelníčku
+3277,koláč třený na plech,10,Přesunuto z Jídelníčku
+3278,mazanec,10,Přesunuto z Jídelníčku
+3279,náplň tvarohová,10,Přesunuto z Jídelníčku
+3280,náplň maková,10,Přesunuto z Jídelníčku
+3281,perník-moučník 1ks,10,Přesunuto z Jídelníčku
+3282,náplň povidlová,10,Přesunuto z Jídelníčku
+3293,šátečky tvarohové,10,Přesunuto z Jídelníčku
+3296,vánočka,10,Přesunuto z Jídelníčku
+3298,vdolečky smažené,10,Přesunuto z Jídelníčku
+3299,závin jablkový- moučník 1ks,10,Přesunuto z Jídelníčku
+3301,ostravské nudle,10,Přesunuto z Jídelníčku
+3302,perník domácí 4ks,10,Přesunuto z Jídelníčku
+3303,bratislavské vepřové plecko,10,Přesunuto z Jídelníčku
+3304,záhorácký závitek,10,Přesunuto z Jídelníčku
+3332,rošťáci,10,Přesunuto z Jídelníčku
+3333,"mléko 0,2",10,Přesunuto z Jídelníčku
+3334,"mléko 0,25",10,Přesunuto z Jídelníčku
+3335,"mléko 0,3",10,Přesunuto z Jídelníčku
+3336,kus kus,10,Přesunuto z Jídelníčku
+3337,sekaná drůbeží mražená,10,Přesunuto z Jídelníčku
+3338,okurka sterilovaná,10,Přesunuto z Jídelníčku
+3339,kuřecí maso na zelenině,10,Přesunuto z Jídelníčku
+3340,pomazánka paštiková,10,Přesunuto z Jídelníčku
+3341,polévka uzená s rýží,10,Přesunuto z Jídelníčku
+3342,polévka s krupicovymi noky,10,Přesunuto z Jídelníčku
+3343,knedliky houskove,10,Přesunuto z Jídelníčku
+3344,kuře na divoko,10,Přesunuto z Jídelníčku
+3345,polevka krkonoska cibulacka,10,Přesunuto z Jídelníčku
+3346,vepřová kýta hamburská,10,Přesunuto z Jídelníčku
+3347,polévka žampionový krém,10,Přesunuto z Jídelníčku
+3348,rybí file na rajčatech,10,Přesunuto z Jídelníčku
+3349,tvaroh šlehaný,10,Přesunuto z Jídelníčku
+3350,veky,10,Přesunuto z Jídelníčku
+3351,pudink s tvarohem,10,Přesunuto z Jídelníčku
+3352,salám s cibulí,10,Přesunuto z Jídelníčku
+3353,"zmrzlina,nanuky",10,Přesunuto z Jídelníčku
+3354,salát z čínského zelí,10,Přesunuto z Jídelníčku
+3355,rybí prsty,10,Přesunuto z Jídelníčku
+3356,koktejl mléčný jahodový kompot,10,Přesunuto z Jídelníčku
+3357,kuřecí maso na hořčici,10,Přesunuto z Jídelníčku
+3358,sýr tavený 50g,10,Přesunuto z Jídelníčku
+3359,sýr tavený 100g,10,Přesunuto z Jídelníčku
+3360,vejce vařené 1ks,10,Přesunuto z Jídelníčku
+3361,vejce míchaná 2ks,10,Přesunuto z Jídelníčku
+3362,tatarská omáčka z majonézy,10,Přesunuto z Jídelníčku
+3363,rizoto zeleninové- mražená zelenina,10,Přesunuto z Jídelníčku
+3364,zelenina sterilovaná,10,Přesunuto z Jídelníčku
+3365,koktejl mléčný banánový,10,Přesunuto z Jídelníčku
+3366,koktejl mléčný čokoládový,10,Přesunuto z Jídelníčku
+3368,tatarská omáčka ks,10,Přesunuto z Jídelníčku
+3369,brokolice zapečená se sýrem,10,Přesunuto z Jídelníčku
+3370,kuřecí stehna pečená,10,Přesunuto z Jídelníčku
+3371,uhlířina,10,Přesunuto z Jídelníčku
+3372,masové kuličky v rajské omáčce,10,Přesunuto z Jídelníčku
+3373,hovězí maso vařené,10,Přesunuto z Jídelníčku
+3374,závin jablkový lískové těsto-moučník 1ks,10,Přesunuto z Jídelníčku
+3375,knedlíky špekové,10,Přesunuto z Jídelníčku
+3376,vaječná omeleta se špenátem,10,Přesunuto z Jídelníčku
+3377,salát šopský 400G,10,Přesunuto z Jídelníčku
+3378,kompot 400g-600g,10,Přesunuto z Jídelníčku
+3379,kompot 2500g,10,Přesunuto z Jídelníčku
+3380,kompot 3500g,10,Přesunuto z Jídelníčku
+3381,kompot 350g,10,Přesunuto z Jídelníčku
+3382,čína z drůbežího masa,10,Přesunuto z Jídelníčku
+3383,čína z vepřového masa,10,Přesunuto z Jídelníčku
+3384,chlebová smaženka,10,Přesunuto z Jídelníčku
+3385,ledvinky na cibulce,10,Přesunuto z Jídelníčku
+3386,vepřové maso po sečuánsku,10,Přesunuto z Jídelníčku
+3387,brambory šťouchané,10,Přesunuto z Jídelníčku
+3388,vepřový plátek přírodní,10,Přesunuto z Jídelníčku
+3389,těstovinový salát se zeleninou,10,Přesunuto z Jídelníčku
+3390,halušky,10,Přesunuto z Jídelníčku
+3391,špagety po italsku,10,Přesunuto z Jídelníčku
+3392,vepřová kýta na paprice,10,Přesunuto z Jídelníčku
+3393,polévka s opraženou krupicí,10,Přesunuto z Jídelníčku
+10001,bábovka 1/4,8,Přesunuto z Jídelníčku
+10085,med porce,10,Přesunuto z Jídelníčku
+13208,těstoviny zapečené s houbama,10,Přesunuto z Jídelníčku
+13209,těstoviny s kuřecím masem a hlívou ústři,10,Přesunuto z Jídelníčku
+13210,kuře na způsob bažanta,10,Přesunuto z Jídelníčku
+13211,kuřecí nudličky s nivou,10,Přesunuto z Jídelníčku
+13212,portobello plněné mletým masem a sýrem,10,Přesunuto z Jídelníčku
+13213,lasagne s mletým masem a zeleninou,10,Přesunuto z Jídelníčku
+56569,cukrovinky,10,Přesunuto z Jídelníčku
+56570,polévka jáhlová,10,Přesunuto z Jídelníčku
+56571,polévka špenátová,10,Přesunuto z Jídelníčku
+56572,polévka holandská,10,Přesunuto z Jídelníčku
+56573,polévka kaldon,10,Přesunuto z Jídelníčku
+56574,hovězí pečeně po burguňsku,10,Přesunuto z Jídelníčku
+56575,polévka pohanková,10,Přesunuto z Jídelníčku
+56576,taštičky tvarohové,10,Přesunuto z Jídelníčku
+56577,polévka hrášková,10,Přesunuto z Jídelníčku
+56578,sýr smažený,10,Přesunuto z Jídelníčku
+56579,mrkvová šťáva,10,Přesunuto z Jídelníčku
+56580,kuřecí maso na rajčatech,10,Přesunuto z Jídelníčku
+56581,polévka ruský boršč,10,Přesunuto z Jídelníčku
+56583,koláč mřížkový,10,Přesunuto z Jídelníčku
+56584,žahour jahodový,10,Přesunuto z Jídelníčku
+56585,červená řepa,10,Přesunuto z Jídelníčku
+56586,uzené maso,10,Přesunuto z Jídelníčku
+56587,kuře s nádivkou,10,Přesunuto z Jídelníčku
+56588,fazolky na smetaně,10,Přesunuto z Jídelníčku
+56589,žampiony smažené,10,Přesunuto z Jídelníčku
+56590,hovězí na česneku,10,Přesunuto z Jídelníčku
+56591,myslivecká hovězí pečeně,10,Přesunuto z Jídelníčku
+56592,pomazánka škvarková,10,Přesunuto z Jídelníčku
+56593,vaječná tlačenka,10,Přesunuto z Jídelníčku
+56594,holanská omáčka,10,Přesunuto z Jídelníčku
+56595,zavářka - příloha,10,Přesunuto z Jídelníčku
+56596,fazolové lusky na slanině,10,Přesunuto z Jídelníčku
+56597,pomazánka z vepřových konzerv,10,Přesunuto z Jídelníčku
+56598,čaj na patra,10,Přesunuto z Jídelníčku
+56599,medové máslo,10,Přesunuto z Jídelníčku
+56600,hořčice,10,Přesunuto z Jídelníčku
+56601,dresing,10,Přesunuto z Jídelníčku
+56602,knedlíky ovocné tvarohové,10,Přesunuto z Jídelníčku
+56603,okurky salátové,10,Přesunuto z Jídelníčku
+56604,salát řecký,10,Přesunuto z Jídelníčku
+56605,dobrá voda,10,Přesunuto z Jídelníčku
+56606,kuřecí řízek smažený,10,Přesunuto z Jídelníčku
+56607,chlebíček obložený 20ks,20,Přesunuto z Jídelníčku
+56608,bramborový salát selský,10,Přesunuto z Jídelníčku
+56609,guláš drůbeží,10,Přesunuto z Jídelníčku
+56610,kuřecí řízek přírodní,10,Přesunuto z Jídelníčku
+56611,kuřecí nugetky na ledovém salátě,10,Přesunuto z Jídelníčku
+56612,zbojnická roláda,10,Přesunuto z Jídelníčku
+56613,vepřová plec na zelenině,10,Přesunuto z Jídelníčku
+56614,vepřové výpečky,10,Přesunuto z Jídelníčku
+56615,hovězí pečeně pražská,10,Přesunuto z Jídelníčku
+56616,hovězí pečeně znojemská,10,Přesunuto z Jídelníčku
+56617,kuře na roštu,10,Přesunuto z Jídelníčku
+56618,těstoviny s hříbkovou omáčkou a kuřecím,10,Přesunuto z Jídelníčku
+56619,brambory zapečené s rybím masem a špenát,10,Přesunuto z Jídelníčku
+56620,sekaná pečeně plněná,10,Přesunuto z Jídelníčku
+56621,polévka brokolicová,10,Přesunuto z Jídelníčku
+56622,játra restovaná,10,Přesunuto z Jídelníčku
+56623,ovocné želé se zakysanou smetanou,10,Přesunuto z Jídelníčku
+56624,houbový kuba,10,Přesunuto z Jídelníčku
+56625,palačinky zapečené s tvarohem,10,Přesunuto z Jídelníčku
+56626,rybí koktejl /z krabích tyčinek/,10,Přesunuto z Jídelníčku
+56627,kuřecí nugetky smažené na ledovém salátě,10,Přesunuto z Jídelníčku
+56628,ledvinky na smetaně,10,Přesunuto z Jídelníčku
+56629,fazole mexické s klobásou,10,Přesunuto z Jídelníčku
+56630,polévka rybí s krupicí,10,Přesunuto z Jídelníčku
+56631,kuřecí závitky,10,Přesunuto z Jídelníčku
+56632,kus kus s vepřovým masem,10,Přesunuto z Jídelníčku
+56633,těstoviny s tuňákem a zeleninou,10,Přesunuto z Jídelníčku
+56634,vepřový plátek zapečený s bramborem a sý,10,Přesunuto z Jídelníčku
+56635,vepřový perkelt,10,Přesunuto z Jídelníčku
+56636,těstovinový nákyp s tvarohem,10,Přesunuto z Jídelníčku
+56637,kefír,10,Přesunuto z Jídelníčku
+56638,nákyp  kus kus s kompotem,10,Přesunuto z Jídelníčku
+56639,obložená mísa,10,Přesunuto z Jídelníčku
+56640,čočkový salát s mozzarelou,10,Přesunuto z Jídelníčku
+56641,ruské vejce,10,Přesunuto z Jídelníčku
+56642,zelenina dušená,10,Přesunuto z Jídelníčku
+56643,králík na černo,10,Přesunuto z Jídelníčku
+56644,králík na cibuli a hořčici,10,Přesunuto z Jídelníčku
+56645,králík na másle,10,Přesunuto z Jídelníčku
+56646,rybí file po italsku,10,Přesunuto z Jídelníčku
+56647,bramborové šišky plněné mákem-polotovar,10,Přesunuto z Jídelníčku
+56648,závin jablkový lískové těsto 3ks,10,Přesunuto z Jídelníčku
+56649,závin tvarohový lískové těsto 3ks,10,Přesunuto z Jídelníčku
+56650,hovězí jazyk na víně,10,Přesunuto z Jídelníčku
+56651,ovarové koleno,10,Přesunuto z Jídelníčku
+56652,vaječná omeleta s párkem,10,Přesunuto z Jídelníčku
+56653,salát rajčatový s mozarelou,10,Přesunuto z Jídelníčku
+56654,kapr smažený,10,Přesunuto z Jídelníčku
+56655,polévka s vaječným svítkem,10,Přesunuto z Jídelníčku
+56656,kuře na paprice,10,Přesunuto z Jídelníčku
+56657,klobása 150g,10,Přesunuto z Jídelníčku
+56658,kuřecí plátek na paprice,10,Přesunuto z Jídelníčku
+56659,žemlovka jablková s tvarohem,10,Přesunuto z Jídelníčku
+56660,škvarkové placky,10,Přesunuto z Jídelníčku
+56661,salát míchaný,10,Přesunuto z Jídelníčku
+56662,knedlíky ovocné,10,Přesunuto z Jídelníčku
+56663,tousty šunkové,10,Přesunuto z Jídelníčku
+56664,Vepřová pečeně chorvatská,10,Přesunuto z Jídelníčku
+56665,Hovězí líčka na víně,10,Přesunuto z Jídelníčku
+56666,bulgur,10,Přesunuto z Jídelníčku
+56667,bulgur s tuňákem a ledovým salátem,10,Přesunuto z Jídelníčku
+56668,mexická kuřecí pánev,10,Přesunuto z Jídelníčku
+56669,taštičky tvarohové polotovar,10,Přesunuto z Jídelníčku
+56670,pomazánka z lučiny,10,Přesunuto z Jídelníčku
+56671,buřty na černém pivu,10,Přesunuto z Jídelníčku
+56672,kuře tří hořčic,10,Přesunuto z Jídelníčku
+56673,nádivka,10,Přesunuto z Jídelníčku
+56674,brokolice dušená,10,Přesunuto z Jídelníčku
+56675,těstoviny po italsku,10,Přesunuto z Jídelníčku
+56676,kapr po mlynářsku,10,Přesunuto z Jídelníčku
+56677,vaječná omeleta se zeleninou,10,Přesunuto z Jídelníčku
+56678,závin salámový,10,Přesunuto z Jídelníčku
+56679,kaše vločková,10,Přesunuto z Jídelníčku
+56680,spatzle s mákem,10,Přesunuto z Jídelníčku
+56681,spatzle s tvarohem,10,Přesunuto z Jídelníčku
+56682,spatzle vařené- příloha,10,Přesunuto z Jídelníčku
+56683,tortila s kuřecím masem,10,Přesunuto z Jídelníčku
+56684,bramborové knedlíky s vajíčkem,10,Přesunuto z Jídelníčku
+56686,sekaná svíčková,10,Přesunuto z Jídelníčku
+56687,CDS- vejce,10,Přesunuto z Jídelníčku
+56688,CDS- mouka hladká,10,Přesunuto z Jídelníčku
+56689,CDS- mléko,10,Přesunuto z Jídelníčku
+56690,CDS- cukr krupice,10,Přesunuto z Jídelníčku
+56691,CDS- cukr moučka,10,Přesunuto z Jídelníčku
+57258,ovocný salát s čínským zelím,10,Přesunuto z Jídelníčku
+57259,bulgur s kukuřicí a hlívou ústřičnou,10,Přesunuto z Jídelníčku
+57260,čínské zelí s tuňákem a vajíčkem,10,Přesunuto z Jídelníčku
+57261,hermelín smažený,10,Přesunuto z Jídelníčku
+57262,zeleninové lečo,10,Přesunuto z Jídelníčku
+57263,bramborové krucánky,10,Přesunuto z Jídelníčku
+57264,rizoto srbské,10,Přesunuto z Jídelníčku
+57265,halušky mražené,10,Přesunuto z Jídelníčku
+57266,těstovinové nudle se špenátem,10,Přesunuto z Jídelníčku
+57267,husarská roláda,10,Přesunuto z Jídelníčku
+57268,hovězí pečeně po zahradnicku,10,Přesunuto z Jídelníčku
+57269,kachní stehna pečená,10,Přesunuto z Jídelníčku
+57270,sýrová omáčka,10,Přesunuto z Jídelníčku
+57271,jednohubky20ks,10,Přesunuto z Jídelníčku
+57272,koláč s ovocem a drobenkou,10,Přesunuto z Jídelníčku
+57273,spatzle se špenátem a smetanou,10,Přesunuto z Jídelníčku
+57274,vejce sázená  1ks,10,Přesunuto z Jídelníčku
+57275,kuře po horácku,10,Přesunuto z Jídelníčku
+57276,polevka jarni,10,Přesunuto z Jídelníčku
+57277,bulgur s kukurici a veprovym masem,10,Přesunuto z Jídelníčku
+57278,celer smazeny,10,Přesunuto z Jídelníčku
+57280,namornicke maso,10,Přesunuto z Jídelníčku
+57281,pastyzrsky rizek,10,Přesunuto z Jídelníčku
+57282,jatra drubezi na vine s mandlemi,10,Přesunuto z Jídelníčku
+57283,skoricove sisky,10,Přesunuto z Jídelníčku
+57284,polevka dynova,10,Přesunuto z Jídelníčku
+57285,kureci rolada,10,Přesunuto z Jídelníčku
+57286,polevka s masovymi knedlicky,10,Přesunuto z Jídelníčku
+57287,pomazanka z uzeneho masa,10,Přesunuto z Jídelníčku

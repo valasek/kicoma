@@ -8,7 +8,7 @@
   <form method="post" action="{% url 'kitchen:deleteRecipe' pk=object.id %}">
     {% csrf_token %}
     {{ form|crispy }}
-    <p>Určitě chcete odstranit recept "{{ object.code }}" - "{{ object.name }}"?</p>
+    <p>Určitě chcete odstranit recept "{{ object.name }}"?</p>
     <button type="submit" class="btn btn-success">Odstranit</button>
   </form>
 </div>

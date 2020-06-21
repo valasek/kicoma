@@ -76,7 +76,6 @@ class Article(models.Model):
         verbose_name_plural = _('Zboží')
         verbose_name = _('Zboží')
 
-    code = models.CharField(max_length=10, unique=True, verbose_name='Kód', help_text='Kód zboží')
     name = models.CharField(max_length=30, unique=True, verbose_name='Název zboží',
                             help_text='Název zboží na skladu')
     onStock = models.DecimalField(

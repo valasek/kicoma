@@ -30,7 +30,7 @@ class ArticleTable(tables.Table):
     class Meta:
         model = Article
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("code", "name", "onStock", "averagePrice", "unit", "comment", "allergen")
+        fields = ("name", "onStock", "averagePrice", "unit", "comment", "allergen")
 
 class ArticleFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(lookup_expr='contains')
