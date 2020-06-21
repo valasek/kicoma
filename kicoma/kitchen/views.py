@@ -13,26 +13,25 @@ from django.db import transaction
 
 from kicoma.users.models import User
 
-from .models import Item, Recipe, Allergen, MealType, TargetGroup, VAT, \
+from .models import Item, Recipe, Allergen, MealType, MealGroup, VAT, \
     Article, Ingredient, StockIssue, StockReceipt, DailyMenu
-from .tables import RecipeTable, RecipeFilter, StockReceiptTable, StockReceiptFilter, ArticleTable, ArticleFilter
-from .forms import RecipeSearchForm, StockReceiptForm, StockReceiptSearchForm, IngredientFormSet, StockReceiptFormSet, ArticleSearchForm
+from .tables import StockReceiptTable, StockReceiptFilter, ArticleTable, ArticleFilter, \
+    DailyMenuTable, DailyMenuFilter, RecipeTable, RecipeFilter
+from .forms import RecipeSearchForm, StockReceiptForm, StockReceiptSearchForm, IngredientFormSet, \
+    ArticleSearchForm, DailyMenuSearchForm, StockReceiptFormSet
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 
-# TODO: doplnit validaci formu a save
-# https://dev.to/zxenia/django-inline-formsets-with-class-based-views-and-crispy-forms-14o6
-# https://medium.com/@adandan01/django-inline-formsets-example-mybook-420cc4b6225d
-# https://www.youtube.com/watch?v=JIvJL1HizP4
-# https://www.mattlayman.com/understand-django/user-interaction-forms/?utm_campaign=Django%2BNewsletter&utm_medium=email&utm_source=Django_Newsletter_22
+def notImplemented(request):
+    return render(request, 'notImplemented.html')
 
 
 def index(request):
     allergenCount = Allergen.objects.all().count()
     mealTypeCount = MealType.objects.all().count()
-    targetGroupCount = TargetGroup.objects.all().count()
+    mealGroupCount = MealGroup.objects.all().count()
     vatCount = VAT.objects.all().count()
 
     recipeCount = Recipe.objects.all().count()
@@ -51,7 +50,7 @@ def index(request):
     return render(request, 'kitchen/home.html', {
         'allergenCount': allergenCount,
         'mealTypeCount': mealTypeCount,
-        'targetGroupCount': targetGroupCount,
+        'mealGroupCount': mealGroupCount,
         'vatCount': vatCount,
 
         'recipeCount': recipeCount,
@@ -82,9 +81,9 @@ class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
 
 class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Article
-    fields = "__all__"
+    fields = ["article", "unit", "comment", "allergen", ]
     template_name = 'kitchen/article/create.html'
-    success_message = "Zboží %(name)s bylo založeno, je možné zadávat příjemky."
+    success_message = "Zboží %(article)s bylo založeno, je možné zadávat příjemky."
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showArticles')
@@ -92,12 +91,13 @@ class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
 
 class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Article
-    fields = "__all__"
+    fields = ["article", "unit", "comment", "allergen", ]
     template_name = 'kitchen/article/edit.html'
-    success_message = "Zboží %(name)s bylo aktualizováno, je možné zadávat příjemky."
+    success_message = "Zboží %(article)s bylo aktualizováno, je možné zadávat příjemky."
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showArticles')
+
 
 class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = Recipe
@@ -112,7 +112,7 @@ class RecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Recipe
     fields = "__all__"
     template_name = 'kitchen/recipe/create.html'
-    success_message = "Recept %(name)s byl vytvořen, přidej suroviny receptu"
+    success_message = "Recept %(recipe)s byl vytvořen, přidej suroviny receptu"
 
     def get_success_url(self):
         return reverse_lazy('kitchen:createIngredient', kwargs={'pk': self.object.pk})
@@ -160,8 +160,6 @@ class RecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
         return reverse_lazy('kitchen:showRecipies')
 
 
-# StockReceipt
-
 class StockReceiptListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = StockReceipt
     table_class = StockReceiptTable
@@ -171,21 +169,11 @@ class StockReceiptListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     paginate_by = 12
 
 
-# class StockReceiptCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
-#     model = Item
-#     fields = ["amount", "unit", "priceWithoutVat", "vat", "comment"]
-#     template_name = 'kitchen/stockreceipt/create.html'
-#     success_message = "Příjemka %(name)s byla vytvořena a zásoby zboží na skladu aktualizovány"
-
-#     def get_success_url(self):
-#         return reverse_lazy('kitchen:showStockReceipts')
-
-# Source: https: // dev.to/zxenia/django-inline-formsets-with-class-based-views-and-crispy-forms-14o6
 class StockReceiptCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = StockReceipt
     form_class = StockReceiptForm
     template_name = 'kitchen/stockreceipt/create.html'
-    success_message = "Příjemka ze dne %(createdAt)s byla vytvořena a zásoby zboží na skladu aktualizovány"
+    success_message = "Příjemka ze dne %(dateCreated)s byla vytvořena a zásoby zboží na skladu aktualizovány"
     success_url = None
 
     def get_context_data(self, **kwargs):
@@ -215,7 +203,7 @@ class StockReceiptUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView
     model = StockReceipt
     form_class = StockReceiptForm
     template_name = 'kitchen/stockreceipt/edit.html'
-    success_message = "Příjemka ze dne %(createdAt)s byla aktualizována a zásoby zboží na skladu taky"
+    success_message = "Příjemka ze dne %(dateCreated)s byla aktualizována a zásoby zboží na skladu taky"
     success_url = None
 
     def get_context_data(self, **kwargs):
@@ -241,3 +229,49 @@ class StockReceiptUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView
 
     def get_success_url(self):
         return reverse_lazy('kitchen:updateStockReceipt', kwargs={'pk': self.object.pk})
+
+
+class DailyMenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+    model = DailyMenu
+    table_class = DailyMenuTable
+    template_name = 'kitchen/dailymenu/list.html'
+    filterset_class = DailyMenuFilter
+    form_class = DailyMenuSearchForm
+    paginate_by = 12
+
+
+class DailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+    model = DailyMenu
+    fields = "__all__"
+    template_name = 'kitchen/dailymenu/create.html'
+    success_message = "Denní menu pro den %(date)s bylo vytvořeno včetně výdejky ke schválení."
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showDailyMenus')
+
+
+class DailyMenuUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = DailyMenu
+    fields = "__all__"
+    template_name = 'kitchen/dailymenu/edit.html'
+    success_message = "Denní menu pro den %(date)s bylo aktualizováno včetně výdejky ke schválení."
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showDailyMenus')
+
+
+class DailyMenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+    model = DailyMenu
+    fields = "__all__"
+    template_name = 'kitchen/dailymenu/delete.html'
+    success_message = "Denní menu pro den %(date)s bylo odstraněno"
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showDailyMenus')
+
+# Not implemented
+
+
+class StockIssues(SingleTableMixin, LoginRequiredMixin, FilterView):
+    model = StockReceipt
+    template_name = 'kitchen/stockissue/list.html'

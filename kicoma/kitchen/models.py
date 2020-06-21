@@ -25,10 +25,10 @@ class VAT(models.Model):
     percentage = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(100)],
         unique=True, verbose_name='Výše', help_text='DPH procenta')
-    name = models.CharField(max_length=100, unique=True, verbose_name='Sazba', help_text='DPH sazba')
+    rate = models.CharField(max_length=100, unique=True, verbose_name='Sazba', help_text='DPH sazba')
 
     def __str__(self):
-        return str(self.percentage) + '% - ' + self.name
+        return str(self.percentage) + '% - ' + self.rate
 
 
 class Allergen(models.Model):
@@ -41,20 +41,20 @@ class Allergen(models.Model):
     description = models.CharField(max_length=150, unique=True, verbose_name='Název', help_text='Název alergénu')
 
     def __str__(self):
-        return self.code
+        return self.code + ' - ' + self.description
 
 
-class TargetGroup(models.Model):
+class MealGroup(models.Model):
 
     class Meta:
         verbose_name_plural = _('číselník - Skupiny strávníků')
         verbose_name = _('číselník - Skupina strávníků')
 
-    name = models.CharField(max_length=100, unique=True, verbose_name='Skupina strávníka',
+    mealGroup = models.CharField(max_length=100, unique=True, verbose_name='Skupina strávníka',
                             help_text='Skupina pro kterou se připravuje jídlo')
 
     def __str__(self):
-        return self.name
+        return self.mealGroup
 
 
 class MealType(models.Model):
@@ -63,11 +63,11 @@ class MealType(models.Model):
         verbose_name_plural = _('číselník - Druhy jídla')
         verbose_name = _('číselník - Druh jídla')
 
-    name = models.CharField(max_length=30, unique=True, verbose_name='Druh jídla',
+    mealType = models.CharField(max_length=30, unique=True, verbose_name='Druh jídla',
                             help_text='Druh jídla v rámci dne')
 
     def __str__(self):
-        return self.name
+        return self.mealType
 
 
 class Article(models.Model):
@@ -75,8 +75,9 @@ class Article(models.Model):
     class Meta:
         verbose_name_plural = _('Zboží')
         verbose_name = _('Zboží')
+        ordering = ['article']
 
-    name = models.CharField(max_length=30, unique=True, verbose_name='Název zboží',
+    article = models.CharField(max_length=30, unique=True, verbose_name='Zboží',
                             help_text='Název zboží na skladu')
     onStock = models.DecimalField(
         decimal_places=2, max_digits=8,
@@ -89,7 +90,7 @@ class Article(models.Model):
     allergen = models.ManyToManyField(Allergen, blank=True, verbose_name='Alergény')
 
     def __str__(self):
-        return self.name
+        return self.article
 
     def display_allergens(self):
         '''Create a string for the Allergens. This is required to display allergen in Admin and user table view.'''
@@ -107,13 +108,14 @@ class Recipe(models.Model):
     class Meta:
         verbose_name_plural = _('Recepty')
         verbose_name = _('Recept')
+        ordering = ['recipe']
 
-    name = models.CharField(max_length=100, unique=True, verbose_name='Jméno', help_text='Název receptu')
+    recipe = models.CharField(max_length=100, unique=True, verbose_name='recept', help_text='Název receptu')
     norm_amount = models.PositiveSmallIntegerField(verbose_name='Normovaný počet', help_text='Počet porcí')
     procedure = models.TextField(max_length=200, blank=True, null=True, verbose_name='Postup')
 
     def __str__(self):
-        return self.name
+        return self.recipe
 
 
 class Ingredient(models.Model):
@@ -131,7 +133,7 @@ class Ingredient(models.Model):
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
 
     def __str__(self):
-        return self.recipe.name + '-  ' + self.article.name + '-  ' + str(self.amount) + 'x'
+        return self.recipe.recipe + '-  ' + self.article.article + '-  ' + str(self.amount)
 
 
 class DailyMenu(models.Model):
@@ -139,12 +141,13 @@ class DailyMenu(models.Model):
     class Meta:
         verbose_name_plural = _('Denní jídla')
         verbose_name = _('Denní jídlo')
+        ordering = ['-date']
 
     date = models.DateField(verbose_name='Datum')
     amount = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(1000)],
         unique=True, verbose_name='Počet', help_text='Počet porcí')
-    targetGroup = models.ForeignKey(TargetGroup, on_delete=models.CASCADE, verbose_name='Skupina strávníka',
+    mealGroup = models.ForeignKey(MealGroup, on_delete=models.CASCADE, verbose_name='Skupina strávníka',
                                     help_text='Skupina pro kterou se připravuje jídlo')
     mealType = models.ForeignKey(MealType, on_delete=models.CASCADE, verbose_name='Druh jídla',
                                  help_text='Druh jídla v rámci dne')
@@ -152,7 +155,7 @@ class DailyMenu(models.Model):
                                help_text='Vybraný recept')
 
     def __str__(self):
-        return str(self.date) + ' - ' + self.mealType.name + ' - ' + str(self.amount) + 'x - ' + self.targetGroup.name
+        return str(self.date) + ' - ' + self.mealType.mealType + ' - ' + str(self.amount) + ' - ' + self.mealGroup.mealGroup
 
 
 class StockIssue(models.Model):
@@ -160,13 +163,13 @@ class StockIssue(models.Model):
     class Meta:
         verbose_name_plural = _('Výdejky')
         verbose_name = _('Výdejka')
-        ordering = ['-createdAt']
+        ordering = ['-dateCreated']
 
-    createdAt = models.DateField(verbose_name='Datum vytvoření')
+    dateCreated = models.DateField(verbose_name='Datum vytvoření')
     userCreated = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                                     related_name='created', verbose_name='Vytvořil')
     approved = models.BooleanField(default=False, blank=True, null=True, verbose_name='Odepsáno ze skladu')
-    approvedDate = models.DateField(blank=True, null=True, verbose_name='Datum odpisu ze skladu')
+    dateApproved = models.DateField(blank=True, null=True, verbose_name='Datum odpisu ze skladu')
     userApproved = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True,
                                      related_name='approved', verbose_name='Odepsal ze skladu')
     dailyMenu = models.ForeignKey(DailyMenu, on_delete=models.CASCADE, blank=True,
@@ -174,7 +177,7 @@ class StockIssue(models.Model):
     comment = models.TextField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
-        return str(self.createdAt)
+        return str(self.dateCreated)
 
 
 class StockReceipt(models.Model):
@@ -182,15 +185,15 @@ class StockReceipt(models.Model):
     class Meta:
         verbose_name_plural = _('Příjemky')
         verbose_name = _('Příjemka')
-        ordering = ['-createdAt']
+        ordering = ['-dateCreated']
 
-    createdAt = models.DateField(default=datetime.date.today, verbose_name='Datum vytvoření')
+    dateCreated = models.DateField(default=datetime.date.today, verbose_name='Datum vytvoření')
     userCreated = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                                     related_name='received', verbose_name='Přijal')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
-        return str(self.createdAt)
+        return str(self.dateCreated)
 
     def get_absolute_url(self):
         '''Returns the url to access a particular instance of the model.'''
@@ -235,7 +238,7 @@ class Item(models.Model):
                 {'vat': _("Uveď DPH.")})
 
     def __str__(self):
-        return self.article.name + ' - ' + str(self.amount) + self.unit
+        return self.article.article + ' - ' + str(self.amount) + self.unit
 
     def get_absolute_url(self):
         '''Returns the url to access a particular instance of the model.'''

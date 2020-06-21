@@ -1,80 +1,104 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
 
-<h1>Kitchen Cooking Management</h1>
+<h4>Kitchen Cooking Management</h4>
 <hr />
-<h2>Stav vývoje</h2>
+<h5>Stav vývoje</h5>
 <div class="row">
-  <div class="col-sm">
-    <h5>Hotovo a připraveno ke kontrole</h5>
-    Číselníky - struktura, data a správa<br>
-    Uživatelé a práva na menu (trmalova, klinderova, drazdikova, drabkova, slavicek)
+  <div class="col-sm-4">
+    <h6>Hotovo a připraveno ke kontrole</h6>
+    Užívatelé a práva<br/>
+    Správa číselníků<br/>
+    Práce s Recepty, Denní jídelníček, Zboží<br/>
+    Je vložen obsah testovací verze Strávníčka (Zboží, Recepty)
   </div>
   <div class="col-sm">
-    <h5>Ve vývoji</h5>
-    Správa zboží a příjemek<br />
+    <h6>Není hotovo</h6>
+    Přidávání surovin do receptu<br />
+    Začít počítat přůměrnou cenu<br />
+    Doplnit výmaz na Recept, Jídelníček, Zboží<br />
+    Denní menu vytvoří výdejku<br />
   </div>
   <div class="col-sm">
-    <h5>Čeká</h5>
-      Správa receptů<br />
-      Správa denního menu a výdejek<br />
+    <h6>Čeká</h6>
       Schvalování výdejek<br />
-      Tisky<br />
-      Oprava chyb<br />
+      Import dat ze Strávníčka<br />
+      Kalkulace<br />
+      Tisky (sklad, recepty, kalkulace)<br />
       Přesun na server (změnit admin url a username)<br />
   </div>
   <div class="col-sm">
-    <h5>Dobré nápady</h5>
+    <h6>Dobré nápady</h6>
     Použití skenerů čárových kódů<br />
   </div>
   <div class="col-sm">
-    <h5>Nahlásit chybu</h5>
+    <h6>Nahlásit chybu</h6>
     Odeslat popis emailem na <a href="mailto:valasek@gmail.com">valasek@gmail.com</a>
   </div>
 </div>
 <hr />
-<h2>Dokumentace</h2>
-<h2>Správa číselníků</h2>
-Číselníky spravuje uživatel ve skupině "Chef - šéfkuchař" v
-<a href="admin/kitchen">Administraci</a>.
-<br />
-Přímý odkaz na správu číselníku: <a href="admin/kitchen/allergen/">alergény</a>,
-<a href="admin/kitchen/vat/">DPH</a>,
-<a href="admin/kitchen/mealtype/">jednotky</a>,
-<a href="admin/kitchen/targetgroup/">skupinu strávníků</a>.
-
-<h2>Příjem na sklad</h2>
-Příjem na sklad probíhá pomocí <a href="{% url 'kitchen:showStockReceipts' %}">příjemek</a> uživatelem ve skupine "Stockkeeper - skladník".
-Stav může kontrolovat pomocí <a href="{% url 'kitchen:showArticles' %}">Zboží na skladu</a>, kde je možné i vytvořit nové nebo upravit název zboží.
-
-<h2>Uživatelské skupiny</h2>
-  <table class="table table-responsive table-sm">
-    <thead class="thead-light">
-      <tr>
-        <th>Skupina</th>
-        <th>Uživatelé</th>
-        <th>Oprávnění</th>
-      </tr>
-    </thead>
-    <tr>
-      <th>Chef - šéfkuchař</th>
-      <td>trmalova, slavicek</td>
-      <td>
-        Administrátor<br />Správce skupin i uživatelů<br />Správce všech
-        číselníků.
-      </td>
-    </tr>
-    <tr>
-      <th>Cook - kuchař</th>
-      <td>drabkova</td>
-      <td>Tvorba jídelníčku a tisky kalkulací</td>
-    </tr>
-    <tr>
-      <th>Stockkeeper - skladník</th>
-      <td>drazdikova, klinderova</td>
-      <td>
-        Správa skladu: zadávání příjemek, schvalování nebo přímo vystavění
-        výdejky
-      </td>
-    </tr>
-  </table>
+<h4>Dokumentace</h4>
+<div class="row">
+  <div class="col-sm">
+    <h5>Správa číselníků</h5>
+    <p>Číselníky spravuje uživatel ve skupině "Chef - šéfkuchař" v <a href="admin/kitchen">Administraci</a>.
+    <br />
+    Přímý odkaz na správu číselníku: <a href="admin/kitchen/allergen/">alergény</a>,
+    <a href="admin/kitchen/vat">DPH</a>,
+    <a href="admin/kitchen/mealtype">druhy jídla</a>,
+    <a href="admin/kitchen/mealgroup">skupinu strávníků</a>.</p>
+    <h5>Příjem zboží na sklad</h5>
+    <p>Příjem zboží na sklad probíhá pomocí <a href="{% url 'kitchen:showStockReceipts' %}">příjemek</a> uživatelem ve skupine "Stockkeeper - skladník".
+    Před příjmem musí být zboží na skladu založeno.
+    Stav zboží je možno kontrolovat pomocí <a href="{% url 'kitchen:showArticles' %}">Zboží na skladu</a>.</p>
+    <h5>Správa zboží</h5>
+    <p>Zboží je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showArticles' %}">Zboží na skladu</a>. Vymazat se dá v <a href="admin/kitchen/article">administraci</a>.</p>
+    <h5>Správa receptů</h5>
+    <p>Recepty je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showRecipies' %}">Seznam receptů</a>. Vymazat se dá v <a href="admin/kitchen/recipe">administraci</a>.</p>
+    <h5>Správa denního menu</h5>
+    <p>Denní menu je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showDailyMenus' %}">Sestavit Jídelníček</a>. Vymazat se dá v <a href="admin/kitchen/dailymenu">administraci</a>.</p>
+  </div>
+  <div class="col-sm">
+    <h5>Uživatelské skupiny</h5>
+      <p>Založení, úprava nebo výmaz uživatele je možný v <a href="admin/users/user/">administraci</a>.</p>
+      <table class="table table-responsive table-sm">
+        <thead class="thead-light">
+          <tr>
+            <th>Skupina</th>
+            <th>Uživatelé</th>
+            <th>Oprávnění</th>
+          </tr>
+        </thead>
+        <tr>
+          <th>Chef - šéfkuchař</th>
+          <td>trmalova, slavicek</td>
+          <td>
+            Administrátor<br />Správce skupin i uživatelů<br />Správce všech
+            číselníků.
+          </td>
+        </tr>
+        <tr>
+          <th>Cook - kuchař</th>
+          <td>drabkova</td>
+          <td>Tvorba jídelníčku a tisky kalkulací</td>
+        </tr>
+        <tr>
+          <th>Stockkeeper - skladník</th>
+          <td>drazdikova, klinderova</td>
+          <td>
+            Správa skladu: zadávání příjemek, schvalování nebo přímo vystavění
+            výdejky
+          </td>
+        </tr>
+      </table>
+      <h5>Administrace, import a export</h5>
+      <p>Každý uživatel ve skupině "Chef - šéfkuchař" má právo na Administrační sekci.
+      Každou datovou tabulku včetně uživatelů je možno plně zpravovat v <a href="admin/kitchen">administraci</a>.
+      Není doporučeno měnit sekce <a href="admin/auth">Autentizace a autorizace</a>, <a href="admin/sites">Weby</a>,
+      <a href="admin/account">Účty</a> a <a href="admin/socialaccount">Účty sociálních sítí</a>.</p>
+  </div>
+</div>
+  <h5>Datový model</h5>
+  <img src="{% static 'images/datamodel.png'%}" alt="data model" />
 {% endblock content %}

@@ -2,7 +2,7 @@ from import_export import resources
 from import_export.admin import ImportExportActionModelAdmin
 from django.contrib import admin
 from . models import StockReceipt, StockIssue, Item, Allergen, MealType, Recipe, \
-                     Ingredient, TargetGroup, VAT, DailyMenu, Article
+    Ingredient, MealGroup, VAT, DailyMenu, Article
 
 # create import export resources
 
@@ -79,10 +79,10 @@ class IngredientResource(resources.ModelResource):
         report_skipped = True
 
 
-class TargetGroupResource(resources.ModelResource):
+class MealGroupResource(resources.ModelResource):
 
     class Meta:
-        model = TargetGroup
+        model = MealGroup
         skip_unchanged = True
         report_skipped = True
 
@@ -104,25 +104,25 @@ class AllergenAdmin(ImportExportActionModelAdmin):
 
 
 class VATAdmin(ImportExportActionModelAdmin):
-    list_display = ('percentage', 'name',)
+    list_display = ('percentage', 'rate',)
     ordering = ('-percentage',)
     resource_class = VATResource
 
 
-class TargetGroupAdmin(ImportExportActionModelAdmin):
-    list_display = ('name',)
-    ordering = ('name',)
-    resource_class = TargetGroupResource
+class MealGroupAdmin(ImportExportActionModelAdmin):
+    list_display = ('mealGroup',)
+    ordering = ('mealGroup',)
+    resource_class = MealGroupResource
 
 
 class MealTypeAdmin(ImportExportActionModelAdmin):
-    list_display = ('name',)
-    ordering = ('name',)
+    list_display = ('mealType',)
+    ordering = ('mealType',)
     resource_class = MealTypeResource
 
 
 class DailyMenuAdmin(ImportExportActionModelAdmin):
-    list_display = ('date', 'amount', 'targetGroup', 'mealType', 'recipe')
+    list_display = ('date', 'amount', 'mealGroup', 'mealType', 'recipe')
     # ordering = ('category',)
     resource_class = DailyMenuResource
 
@@ -140,30 +140,30 @@ class ItemAdmin(ImportExportActionModelAdmin):
 
 
 class StockIssueAdmin(ImportExportActionModelAdmin):
-    list_display = ('createdAt', 'userCreated', 'approved', 'approvedDate', 'userApproved',
+    list_display = ('dateCreated', 'userCreated', 'approved', 'dateApproved', 'userApproved',
                     'dailyMenu', 'comment', )
-    fields = [('createdAt', 'userCreated', 'dailyMenu'), ('approved', 'approvedDate', 'userApproved'),
+    fields = [('dateCreated', 'userCreated', 'dailyMenu'), ('approved', 'dateApproved', 'userApproved'),
               'comment', ]
     resource_class = StockIssueResource
 
 
 class StockReceiptAdmin(ImportExportActionModelAdmin):
-    list_display = ('createdAt', 'userCreated', 'comment', )
-    fields = [('createdAt', 'userCreated'), 'comment', ]
+    list_display = ('dateCreated', 'userCreated', 'comment', )
+    fields = [('dateCreated', 'userCreated'), 'comment', ]
     resource_class = StockReceiptResource
 
 
 class ArticleAdmin(ImportExportActionModelAdmin):
-    list_display = ('name', 'unit', 'onStock', 'averagePrice', 'display_allergens', 'comment', )
-    fields = [('name', 'unit'), ('onStock', 'averagePrice'), 'allergen', 'comment', ]
+    list_display = ('article', 'unit', 'onStock', 'averagePrice', 'display_allergens', 'comment', )
+    fields = [('article', 'unit'), ('onStock', 'averagePrice'), 'allergen', 'comment', ]
     # list_filter = ('unit', 'coefficient')
     search_fields = ('name',)
     resource_class = ArticleResource
 
 
 class RecipeAdmin(ImportExportActionModelAdmin):
-    list_display = ('name', 'norm_amount', 'procedure')
-    fields = ([('name', 'norm_amount'), 'procedure'])
+    list_display = ('recipe', 'norm_amount', 'procedure')
+    fields = ([('recipe', 'norm_amount'), 'procedure'])
     resource_class = RecipeResource
 
 
@@ -175,7 +175,7 @@ class IngredientAdmin(ImportExportActionModelAdmin):
 
 admin.site.register(Allergen, AllergenAdmin)
 admin.site.register(VAT, VATAdmin)
-admin.site.register(TargetGroup, TargetGroupAdmin)
+admin.site.register(MealGroup, MealGroupAdmin)
 admin.site.register(MealType, MealTypeAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Recipe, RecipeAdmin)

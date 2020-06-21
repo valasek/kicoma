@@ -2,7 +2,7 @@
 import csv
 import sys
 
-migrationComment = 'Přesunuto z Jídelníčku'
+migrationComment = 'Přesunuto ze Strávníčku'
 
 allergenReplacer = {
     '1a': '2',
@@ -45,22 +45,22 @@ def cleanRow(row):
 
 def transformArticleRecord(inputRow):
     # ['sklpol', 'název ', 'jednotka', 'koeficient', 'nasklade', 'celkcena', 'alergeny']
-    # id, name, onStock, averagePrice, unit, comment, allergen
+    # id, article, onStock, averagePrice, unit, comment, allergen
     inputRow = cleanRow(inputRow)
     outputRow = ['', '', '0', '0', '', migrationComment, '']
     outputRow[0] = inputRow[0]  # id
-    outputRow[1] = inputRow[1]  # name
+    outputRow[1] = inputRow[1]  # article
     outputRow[4] = checkUnit(inputRow,2)  # unit
     outputRow[6] = transformAllergen(inputRow[6])  # allergen
     return outputRow
 
 
 def transformRecipeRecord(inputRow):
-    # id, name, norm_amount, procedure
+    # id, recipe, norm_amount, procedure
     # cislo, JMENO, energie, normstr
     outputRow = ['', '', '', migrationComment]
     outputRow[0] = inputRow[0]  # id
-    outputRow[1] = inputRow[1]  # name
+    outputRow[1] = inputRow[1]  # recipe
     outputRow[2] = inputRow[3]  # norm_amount
     return outputRow
 
@@ -94,20 +94,20 @@ def transform(fileIn, fileOut, folder, rowFnc, header):
 def main():
     folder = '/home/valasek/Programming/kima/kicoma/kicoma/kitchen/fixtures/'
     if sys.argv[1] == 'article':
-        transform('sklad-in.csv', 'article-in.csv', folder, transformArticleRecord,
-                  ['id', 'name', 'onStock', 'averagePrice', 'unit', 'comment', 'allergen'])
+        transform('sklad-in.csv', 'article.csv', folder, transformArticleRecord,
+                  ['id', 'article', 'onStock', 'averagePrice', 'unit', 'comment', 'allergen'])
     if sys.argv[1] == 'recipe':
-        transform('recepty-in.csv', 'recipe-in.csv', folder, transformRecipeRecord,
-                  ['id', 'name', 'norm_amount', 'procedure'])
+        transform('recepty-in.csv', 'recipe.csv', folder, transformRecipeRecord,
+                  ['id', 'recipe', 'norm_amount', 'procedure'])
     if sys.argv[1] == 'ingredient':
-        transform('ingredience-in.csv', 'ingredient-in.csv', folder, transformIngredientRecord,
+        transform('ingredience-in.csv', 'ingredient.csv', folder, transformIngredientRecord,
                   ['recipe', 'article', 'amount', 'unit'])
     if sys.argv[1] == 'all':
-        transform('sklad-in.csv', 'article-in.csv', folder, transformArticleRecord,
-                  ['id', 'name', 'onStock', 'averagePrice', 'unit', 'comment', 'allergen'])
-        transform('recepty-in.csv', 'recipe-in.csv', folder, transformRecipeRecord,
-                  ['id', 'name', 'norm_amount', 'procedure'])
-        transform('ingredience-in.csv', 'ingredient-in.csv', folder, transformIngredientRecord,
+        transform('sklad-in.csv', 'article.csv', folder, transformArticleRecord,
+                  ['id', 'article', 'onStock', 'averagePrice', 'unit', 'comment', 'allergen'])
+        transform('recepty-in.csv', 'recipe.csv', folder, transformRecipeRecord,
+                  ['id', 'recipe', 'norm_amount', 'procedure'])
+        transform('ingredience-in.csv', 'ingredient.csv', folder, transformIngredientRecord,
                   ['recipe', 'article', 'amount', 'unit'])
 
 

@@ -3,14 +3,12 @@
 {% block content %}
 
 <div class="container-fluid">
-  <h4>Aktualizace příjemky</h4>
+  <h4>Úprava denního menu</h4>
   <hr/>
-  <a href="#" class="btn btn-primary mb-2">Tisk příjemky</a>
   <form method="post" action="">
     {% csrf_token %}
-    {{ items.management_form }}
-    {% crispy form form.helper %}
-    {% crispy items items.helper %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Uložit</button>
   </form>
 </div>
 

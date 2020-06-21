@@ -3,12 +3,11 @@ from django.forms import BaseInlineFormSet
 from django.forms.models import inlineformset_factory
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, Submit
-from crispy_forms.bootstrap import InlineField
 from .models import StockReceipt, Item, Recipe, Ingredient
 
 
 class RecipeSearchForm(forms.Form):
-    name = forms.CharField()
+    recipe = forms.CharField()
 
 
 class IngredientForm(forms.ModelForm):
@@ -29,8 +28,12 @@ class ArticleSearchForm(forms.Form):
 
 
 class StockReceiptSearchForm(forms.Form):
-    createdAt = forms.CharField()
+    dateCreated = forms.CharField()
     userCreated__name = forms.CharField()
+
+
+class DailyMenuSearchForm(forms.Form):
+    date = forms.CharField()
 
 
 class StockReceiptForm(forms.ModelForm):
@@ -48,7 +51,7 @@ class StockReceiptForm(forms.ModelForm):
         # self.helper.template = 'bootstrap/table_inline_formset.html'
         self.helper.layout = Layout(
             Row(
-                Column('createdAt', css_class='col-md-2'),
+                Column('dateCreated', css_class='col-md-2'),
                 Column('comment', css_class='col-md-10')
             )
         )
@@ -73,6 +76,7 @@ class BaseStockReceiptForm(BaseInlineFormSet):
             )
         )
         self.helper.add_input(Submit("submit", "Uložit a aktualizovat skladové zásoby", css_class='btn-primary'))
+
 
 # BaseModelFormSet
 StockReceiptFormSet = inlineformset_factory(
