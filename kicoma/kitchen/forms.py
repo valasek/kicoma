@@ -1,9 +1,8 @@
 from django import forms
-from django.forms import BaseInlineFormSet
-from django.forms.models import inlineformset_factory
+# from crispy_forms.bootstrap import AppendedText
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Submit
-from .models import StockReceipt, Item, Recipe, Ingredient
+from crispy_forms.layout import Layout, Row, Column
+from .models import StockReceipt, Item, Ingredient
 
 
 class RecipeSearchForm(forms.Form):
@@ -16,13 +15,6 @@ class IngredientForm(forms.ModelForm):
         exclude = ()
 
 
-IngredientFormSet = inlineformset_factory(
-    Recipe, Ingredient, form=IngredientForm,
-    fields=["article", "amount", "unit"],
-    extra=4, can_delete=True
-)
-
-
 class ArticleSearchForm(forms.Form):
     article = forms.CharField()
 
@@ -32,11 +24,41 @@ class StockReceiptSearchForm(forms.Form):
     userCreated__name = forms.CharField()
 
 
+class StockReceiptItemSearchForm(forms.Form):
+    article__article = forms.CharField()
+
+
 class DailyMenuSearchForm(forms.Form):
     date = forms.CharField()
 
 
+class StockReceiptItemForm(forms.ModelForm):
+
+    class Meta:
+        model = Item
+        exclude = ["stockIssue"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        self.helper.layout = Layout(
+            Row(
+                Column('article', css_class='col-md-2'),
+                Column('amount', css_class='col-md-1'),
+                Column('unit', css_class='col-md-1'),
+                # Column(AppendedText('priceWithoutVat', 'Kč', active=True), css_class='col-md-2'),
+                Column('priceWithoutVat', css_class='col-md-1'),
+                Column('vat', css_class='col-md-2'),
+                Column('comment', css_class='col-md-4'),
+            )
+        )
+
+
 class StockReceiptForm(forms.ModelForm):
+    # dateCreated = forms.DateField(widget=forms.DateInput(
+    #     attrs={'type': 'date'}), initial=datetime.date.today, label='Datum vytvoření')
 
     class Meta:
         model = StockReceipt
@@ -46,8 +68,8 @@ class StockReceiptForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
-        self.helper.disable_csrf = False
-        self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        # self.helper.disable_csrf = False
+        # self.helper.field_template = 'bootstrap3/layout/inline_field.html'
         # self.helper.template = 'bootstrap/table_inline_formset.html'
         self.helper.layout = Layout(
             Row(
@@ -56,31 +78,3 @@ class StockReceiptForm(forms.ModelForm):
             )
         )
 
-
-class BaseStockReceiptForm(BaseInlineFormSet):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_tag = False
-        self.helper.disable_csrf = False
-        self.helper.field_template = 'bootstrap3/layout/inline_field.html'
-        self.helper.layout = Layout(
-            Row(
-                Column('article', css_class='col-md-2'),
-                Column('amount', css_class='col-md-1'),
-                Column('unit', css_class='col-md-1'),
-                Column('priceWithoutVat', css_class='col-md-1'),
-                Column('vat', css_class='col-md-2'),
-                Column('comment', css_class='col-md-4'),
-                Column('DELETE', css_class='col-md-1 d-flex align-items-center')
-            )
-        )
-        self.helper.add_input(Submit("submit", "Uložit a aktualizovat skladové zásoby", css_class='btn-primary'))
-
-
-# BaseModelFormSet
-StockReceiptFormSet = inlineformset_factory(
-    StockReceipt, Item, form=StockReceiptForm, formset=BaseStockReceiptForm,
-    fields=["article", "amount", "unit", "priceWithoutVat", "vat", "comment"],
-    extra=2, can_delete=True
-)

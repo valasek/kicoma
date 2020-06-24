@@ -28,7 +28,7 @@ class VAT(models.Model):
     rate = models.CharField(max_length=100, unique=True, verbose_name='Sazba', help_text='DPH sazba')
 
     def __str__(self):
-        return str(self.percentage) + '% - ' + self.rate
+        return str(self.percentage) + '%'
 
 
 class Allergen(models.Model):
@@ -51,7 +51,7 @@ class MealGroup(models.Model):
         verbose_name = _('číselník - Skupina strávníků')
 
     mealGroup = models.CharField(max_length=100, unique=True, verbose_name='Skupina strávníka',
-                            help_text='Skupina pro kterou se připravuje jídlo')
+                                 help_text='Skupina pro kterou se připravuje jídlo')
 
     def __str__(self):
         return self.mealGroup
@@ -64,7 +64,7 @@ class MealType(models.Model):
         verbose_name = _('číselník - Druh jídla')
 
     mealType = models.CharField(max_length=30, unique=True, verbose_name='Druh jídla',
-                            help_text='Druh jídla v rámci dne')
+                                help_text='Druh jídla v rámci dne')
 
     def __str__(self):
         return self.mealType
@@ -78,7 +78,7 @@ class Article(models.Model):
         ordering = ['article']
 
     article = models.CharField(max_length=30, unique=True, verbose_name='Zboží',
-                            help_text='Název zboží na skladu')
+                               help_text='Název zboží na skladu')
     onStock = models.DecimalField(
         decimal_places=2, max_digits=8,
         default=0, verbose_name='Na skladu', help_text='Celkové množství na skladu')
@@ -148,7 +148,7 @@ class DailyMenu(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(1000)],
         unique=True, verbose_name='Počet', help_text='Počet porcí')
     mealGroup = models.ForeignKey(MealGroup, on_delete=models.CASCADE, verbose_name='Skupina strávníka',
-                                    help_text='Skupina pro kterou se připravuje jídlo')
+                                  help_text='Skupina pro kterou se připravuje jídlo')
     mealType = models.ForeignKey(MealType, on_delete=models.CASCADE, verbose_name='Druh jídla',
                                  help_text='Druh jídla v rámci dne')
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept',
@@ -205,6 +205,7 @@ class Item(models.Model):
     class Meta:
         verbose_name_plural = _('Položky')
         verbose_name = _('Položka')
+        ordering = ['-article__article']
 
     stockReceipt = models.ForeignKey(StockReceipt, blank=True, null=True, on_delete=models.CASCADE,
                                      verbose_name='Příjemka')
@@ -218,9 +219,8 @@ class Item(models.Model):
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     @property
-    def priceWithVat(self):
+    def price_with_vat(self):
         return self.priceWithoutVat + self.priceWithoutVat * self.vat.percentage/100
-    # priceWithVat.short_description = u"Vypočtena cena s DPH"
 
     def clean(self):
         article = Article.objects.filter(pk=self.article.id).values_list('onStock', 'unit')

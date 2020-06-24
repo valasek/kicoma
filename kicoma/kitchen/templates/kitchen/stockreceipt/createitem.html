@@ -3,9 +3,9 @@
 {% block content %}
 
 <div class="container-fluid">
-  <h4>Nová příjemka</h4>
+  <h4>Nová položka příjemky</h4>
   <hr/>
-  <form method="post" action="{% url 'kitchen:createStockReceipt' %}">
+  <form method="post" action="{% url 'kitchen:createStockReceiptItem' stockreceipt.0.id %}">
     {% csrf_token %}
     {% crispy form form.helper %}
     <button class="btn btn-secondary" onclick="javascript:history.back();">Zpět</button>

@@ -48,6 +48,12 @@ https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
 
 ## Getting started
 
+External dependencies:
+ToDo + wkhtmltopdf
+
+Local - `sudo apt-get install wkhtmltopdf`
+Heroku - https://razorjack.net/wkhtmltopdf-on-heroku-evaluating-different-installation-options/
+
 To get started with the app, clone the repo and then install Python 3 and Django 1.10:
 
 ```

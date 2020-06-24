@@ -16,7 +16,7 @@ def save_item(sender, instance, *args, **kwargs):
         Article.objects.filter(pk=instance.article.id).update(
             onStock=onStock + convertUnits(instance.amount, itemUnit, stockUnit))
     else:
-        if instance.stockIssue is not None and instance.stockReceipt is None:
+        if instance.stockReceipt is None and instance.stockIssue is not None:
             Article.objects.filter(pk=instance.article.id).update(
                 onStock=onStock - convertUnits(instance.amount, itemUnit, stockUnit))
         else:

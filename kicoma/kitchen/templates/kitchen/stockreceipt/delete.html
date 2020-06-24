@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h4>Odstranění příjemky</h4>
+  <hr/>
+  <form method="post" action="{% url 'kitchen:deleteStockReceipt' pk=object.id %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <p>Chcete odstranit příjemku:</p>
+    <ul>
+    <li>Vytvořena dne: {{ object.dateCreated }}</li>
+    <li>Vytvořila: {{ object.userCreated.name }}</li>
+    <li>Poznámka: {{ object.comment }}</li>
+    </ul>
+    <button class="btn btn-secondary" onclick="javascript:history.back();">Zpět</button>
+    <button type="submit" class="btn btn-success">Odstranit</button></p>
+  </form>
+
+{% endblock content %}
