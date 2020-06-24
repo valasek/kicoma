@@ -153,3 +153,6 @@ LOGGING = {
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+# set due to Heroku deployment
+WKHTMLTOPDF_CMD = '/usr/local/bin/wkhtmltopdf'

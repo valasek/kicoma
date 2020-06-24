@@ -54,6 +54,7 @@ External dependencies
 Local
 - `sudo apt-get install wkhtmltopdf`
 Heroku
+- https://github.com/tutorcruncher/pydf
 - https://github.com/dscout/wkhtmltopdf-buildpack
 - https://razorjack.net/wkhtmltopdf-on-heroku-evaluating-different-installation-options/
 
