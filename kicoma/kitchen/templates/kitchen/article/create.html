@@ -7,6 +7,7 @@
   <form method="post" action="{% url 'kitchen:createArticle' %}">
     {% csrf_token %}
     {% crispy form form.helper %}
+    <button class="btn btn-secondary" onclick="javascript:history.back();">Zpět</button>
     <button type="submit" class="btn btn-success">Založit nové zboží</button>
   </form>
 </div>

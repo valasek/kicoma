@@ -13,6 +13,7 @@ from django_tables2 import SingleTableMixin
 from django_filters.views import FilterView
 
 from kicoma.users.models import User
+
 from .models import Item, Recipe, Allergen, MealType, MealGroup, VAT, \
     Article, Ingredient, StockIssue, StockReceipt, DailyMenu
 from .tables import StockReceiptTable, StockReceiptItemTable, StockReceiptFilter, StockReceiptItemFilter
@@ -24,6 +25,8 @@ from .forms import RecipeForm, RecipeIngredientForm, RecipeSearchForm, RecipeIng
 from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptItemForm, StockReceiptItemSearchForm
 from .forms import ArticleForm, ArticleSearchForm
 from .forms import DailyMenuSearchForm, DailyMenuForm
+
+from .signals import updateOnStockAmount
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -266,6 +269,7 @@ class StockReceiptItemCreateView(SuccessMessageMixin, LoginRequiredMixin, Create
         item = form.save(commit=False)
         item.stockReceipt = StockReceipt.objects.filter(pk=stock_receipt.id)[0]
         item.save()
+        updateOnStockAmount(item.article.id, 'receipt', item.amount, 0, item.unit)
         return super(StockReceiptItemCreateView, self).form_valid(form)
 
 
@@ -296,7 +300,9 @@ class StockReceiptItemUpdateView(SuccessMessageMixin, LoginRequiredMixin, Update
         stock_receipt = context['stockreceipt']
         item = form.save(commit=False)
         item.stockReceipt = StockReceipt.objects.filter(pk=stock_receipt.id)[0]
+        old_amount = Item.objects.filter(pk=item.id).values('amount')[0]['amount']
         item.save()
+        updateOnStockAmount(item.article.id, 'receipt', item.amount, old_amount, item.unit)
         return super(StockReceiptItemUpdateView, self).form_valid(form)
 
 
