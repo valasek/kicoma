@@ -1,6 +1,6 @@
 import django_tables2 as tables
 import django_filters
-from .models import Recipe, StockReceipt, StockIssue, Article, DailyMenu, Item
+from .models import Recipe, Ingredient, StockReceipt, StockIssue, Article, DailyMenu, Item
 
 
 class StockIssueTable(tables.Table):
@@ -16,7 +16,7 @@ class StockIssueTable(tables.Table):
 
 class StockReceiptTable(tables.Table):
     change = tables.TemplateColumn(
-        '''<a href="/kitchen/stockreceipt/update/{{ record.id }}">Upravit záhlaví</a>
+        '''<a href="/kitchen/stockreceipt/update/{{ record.id }}">Upravit poznámku</a>
         | <a href="/kitchen/stockreceipt/itemlist/{{ record.id }}">Zobrazit položky</a>
         | <a href="/kitchen/stockreceipt/delete/{{ record.id }}">Vymazat</a>
         | <a href="/kitchen/stockreceipt/print/{{ record.id }}">Tisk</a>''',
@@ -25,7 +25,7 @@ class StockReceiptTable(tables.Table):
     class Meta:
         model = StockReceipt
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("dateCreated", "userCreated__name", "comment", "change")
+        fields = ("userCreated__name", "comment", "modified", "change")
 
 
 class StockReceiptItemTable(tables.Table):
@@ -42,12 +42,12 @@ class StockReceiptItemTable(tables.Table):
 
 
 class StockReceiptFilter(django_filters.FilterSet):
-    dateCreated = django_filters.CharFilter(lookup_expr='contains')
-    userCreated__name = django_filters.CharFilter(lookup_expr='contains')
+    created = django_filters.CharFilter(lookup_expr='icontains')
+    userCreated__name = django_filters.CharFilter(lookup_expr='icontains')
 
     class Meta:
         model = StockReceipt
-        fields = ("dateCreated", "userCreated__name", )
+        fields = ("created", "userCreated__name", )
 
 
 class StockReceiptItemFilter(django_filters.FilterSet):
@@ -66,11 +66,11 @@ class DailyMenuTable(tables.Table):
     class Meta:
         model = DailyMenu
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("date", "amount", "mealGroup", "mealType", "recipe", "change")
+        fields = ("date", "amount", "mealGroup", "mealType", "recipe", "modified", "change")
 
 
 class DailyMenuFilter(django_filters.FilterSet):
-    date = django_filters.CharFilter(lookup_expr='contains')
+    date = django_filters.CharFilter(lookup_expr='icontains')
 
     class Meta:
         model = DailyMenu
@@ -87,11 +87,11 @@ class ArticleTable(tables.Table):
     class Meta:
         model = Article
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("article", "onStock", "averagePrice", "unit", "comment", "allergens", "change")
+        fields = ("article", "onStock", "averagePrice", "unit", "comment", "allergens", "modified", "change")
 
 
 class ArticleFilter(django_filters.FilterSet):
-    article = django_filters.CharFilter(lookup_expr='contains')
+    article = django_filters.CharFilter(lookup_expr='icontains')
 
     class Meta:
         model = Article
@@ -100,20 +100,40 @@ class ArticleFilter(django_filters.FilterSet):
 
 class RecipeTable(tables.Table):
     change = tables.TemplateColumn(
-        '''<a href="/kitchen/recipe/update/{{ record.id }}">Upravit</a> /
-        <a href="/kitchen/recipe/delete/{{ record.id }} \
-            onclick="return confirm('Skutečně chcete tuto položku odstranit?')">Odstranit</a>''',
+        '''<a href="/kitchen/recipe/update/{{ record.id }}">Upravit</a>
+        | <a href="/kitchen/recipe/ingredientlist/{{ record.id }}">Zobrazit ingredience</a>
+        | <a href="/kitchen/recipe/delete/{{ record.id }}">Vymazat</a>''',
         verbose_name=u'Akce', )
+
 
     class Meta:
         model = Recipe
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("recipe", "norm_amount", "change")
+        fields = ("recipe", "norm_amount", "modified", "change")
 
+
+class RecipeIngredientTable(tables.Table):
+    change = tables.TemplateColumn(
+        '''<a href="/kitchen/recipe/updateingredient/{{ record.id }}">Upravit</a>
+            | <a href="/kitchen/recipe/deleteingredient/{{ record.id }}">Vymazat</a>''',
+        verbose_name=u'Akce', )
+
+    class Meta:
+        model = Ingredient
+        template_name = "django_tables2/bootstrap4.html"
+        fields = ("article", "amount", "unit", "change")
 
 class RecipeFilter(django_filters.FilterSet):
-    recipe = django_filters.CharFilter(lookup_expr='contains')
+    recipe = django_filters.CharFilter(lookup_expr='icontains')
 
     class Meta:
         model = Recipe
         fields = ("recipe",)
+
+
+class RecipeIngredientFilter(django_filters.FilterSet):
+    article = django_filters.CharFilter(lookup_expr='icontains')
+
+    class Meta:
+        model = Ingredient
+        fields = ("article",)

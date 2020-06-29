@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+  <h4>Odstranění ingredence</h4>
+  <hr/>
+  <form method="post" action="{% url 'kitchen:deleteRecipeIngredient' pk=object.id %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <p>Chcete odstranit ingredienci:</p>
+    <ul>
+    <li>Zboží: {{ object.article }}</li>
+    <li>Množství: {{ object.amount }} {{ object.unit }}</li>
+    </ul>
+    <button class="btn btn-secondary" onclick="javascript:history.back();">Zpět</button>
+    <button type="submit" class="btn btn-success">Odstranit</button>
+  </form>
+</div>
+{% endblock content %}

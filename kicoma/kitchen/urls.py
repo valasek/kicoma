@@ -1,13 +1,13 @@
 from django.urls import path
 
-from .views import RecipeListView, RecipeCreateView, RecipeUpdateView, RecipeDeleteView
 from .views import ArticleListView, ArticleCreateView, ArticleUpdateView
-
-from .views import StockReceiptListView, StockReceiptItemListView, StockReceiptCreateView, StockReceiptItemCreateView, \
-    StockReceiptUpdateView, StockReceiptItemUpdateView, StockReceiptDeleteView, StockReceiptItemDeleteView, \
-    StockReceiptPDFView
-
-from .views import IngredientCreateView
+from .views import StockReceiptListView, StockReceiptCreateView, StockReceiptUpdateView, \
+    StockReceiptDeleteView, StockReceiptPDFView
+from .views import StockReceiptItemListView, StockReceiptItemCreateView, StockReceiptItemUpdateView, \
+    StockReceiptItemDeleteView
+from .views import RecipeListView, RecipeCreateView, RecipeUpdateView, RecipeDeleteView
+from .views import RecipeIngredientListView, RecipeIngredientCreateView, RecipeIngredientUpdateView, \
+    RecipeIngredientDeleteView
 from .views import StockIssueListView
 from .views import DailyMenuListView, DailyMenuCreateView, DailyMenuUpdateView, DailyMenuDeleteView
 
@@ -36,10 +36,15 @@ urlpatterns = [
 
     path('recipe/print', notImplemented, name='printRecipies'),
     path('recipe/list', RecipeListView.as_view(), name='showRecipies'),
+    path('recipe/ingredientlist/<int:pk>', RecipeIngredientListView.as_view(), name='showRecipeIngredients'),
     path('recipe/create', RecipeCreateView.as_view(), name='createRecipe'),
+    path('recipe/createingredient/<int:pk>', RecipeIngredientCreateView.as_view(), name='createRecipeIngredient'),
     path('recipe/update/<int:pk>', RecipeUpdateView.as_view(), name='updateRecipe'),
+    path('recipe/updateingredient/<int:pk>', RecipeIngredientUpdateView.as_view(), name='updateRecipeIngredient'),
     path('recipe/delete/<int:pk>', RecipeDeleteView.as_view(), name='deleteRecipe'),
-    path('ingredient/create/<int:pk>', IngredientCreateView.as_view(), name='createIngredient'),
+    path('recipe/deleteingredient/<int:pk>', RecipeIngredientDeleteView.as_view(), name='deleteRecipeIngredient'),
+
+
     path('dailymenu/list', DailyMenuListView.as_view(), name='showDailyMenus'),
     path('dailymenu/create', DailyMenuCreateView.as_view(), name='createDailyMenu'),
     path('dailymenu/update/<int:pk>', DailyMenuUpdateView.as_view(), name='updateDailyMenu'),

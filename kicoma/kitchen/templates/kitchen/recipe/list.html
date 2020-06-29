@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 {% load render_table from django_tables2 %}
 {% load crispy_forms_tags %}
-
 {% block content %}
-  <h4>Seznam receptů</h4>
-  <hr/>
-  <div class="row">
-    <div class="col justify-content-start">
-      <a href="{% url 'kitchen:createRecipe' %}" class="btn btn-primary mb-2 mx-2">Přidat nový recept</a>
+  <div class="container-fluid">
+    <h4>Seznam receptů</h4>
+    <hr/>
+    <div class="row">
+      <div class="col justify-content-start">
+        <a href="{% url 'kitchen:createRecipe' %}" class="btn btn-primary mb-2 mx-2">Přidat nový recept</a>
+      </div>
+      {% if filter %}
+      <form method="get" action="" class="col justify-content-end form form-inline">
+        {% csrf_token %}
+        {{ filter.form | crispy }}
+        <button type="submit" class="btn btn-success mx-2">Search</button>
+      </form>
+      {% endif %}
     </div>
-    {% if filter %}
-    <form method="get" action="" class="col justify-content-end form form-inline">
-      {% csrf_token %}
-      {{ filter.form | crispy }}
-      <button type="submit" class="btn btn-success mx-2">Search</button>
-    </form>
-    {% endif %}
+    {% render_table table %}
   </div>
-
-  {% render_table table %}
 
 {% endblock content %}

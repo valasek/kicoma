@@ -140,16 +140,16 @@ class ItemAdmin(ImportExportActionModelAdmin):
 
 
 class StockIssueAdmin(ImportExportActionModelAdmin):
-    list_display = ('dateCreated', 'userCreated', 'approved', 'dateApproved', 'userApproved',
+    list_display = ('userCreated', 'approved', 'dateApproved', 'userApproved',
                     'dailyMenu', 'comment', )
-    fields = [('dateCreated', 'userCreated', 'dailyMenu'), ('approved', 'dateApproved', 'userApproved'),
+    fields = [('userCreated', 'dailyMenu'), ('approved', 'dateApproved', 'userApproved'),
               'comment', ]
     resource_class = StockIssueResource
 
 
 class StockReceiptAdmin(ImportExportActionModelAdmin):
-    list_display = ('dateCreated', 'userCreated', 'comment', )
-    fields = [('dateCreated', 'userCreated'), 'comment', ]
+    list_display = ('userCreated', 'comment', )
+    fields = [('userCreated'), 'comment', ]
     resource_class = StockReceiptResource
 
 

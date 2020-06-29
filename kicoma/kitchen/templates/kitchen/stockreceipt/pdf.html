@@ -57,10 +57,10 @@
 </head>
 <br>
   <h1>Příjemka</h1>
-  Vytvořena dne: {{ stock_receipt.0.dateCreated }}<br/>
-  Vytvořila: {{stock_receipt.0.userCreated.name}}<br/>
+  Vytvořena dne: {{ stock_receipt.created }}<br/>
+  Vytvořila: {{stock_receipt.userCreated.name}}<br/>
   Počet položek: {{ items.count }}<br/>
-  Poznámka: {{ stock_receipt.0.comment }}<br/>
+  Poznámka: {{ stock_receipt.comment }}<br/>
   <br/>
   <hr/>
   <br/>

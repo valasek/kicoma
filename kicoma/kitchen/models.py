@@ -1,10 +1,11 @@
-import datetime
+# import datetime
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
 from django.forms import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
+
 from .functions import convertUnits
 
 UNIT = (
@@ -14,6 +15,14 @@ UNIT = (
     ('ml', _('mililitr')),
     ('ks', _('kus')),
 )
+
+
+class TimeStampedModel(models.Model):
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Datum vytvoření')
+    modified = models.DateTimeField(auto_now=True, verbose_name='Datum aktualizace')
+
+    class Meta:
+        abstract = True
 
 
 class VAT(models.Model):
@@ -70,7 +79,7 @@ class MealType(models.Model):
         return self.mealType
 
 
-class Article(models.Model):
+class Article(TimeStampedModel):
 
     class Meta:
         verbose_name_plural = _('Zboží')
@@ -88,6 +97,7 @@ class Article(models.Model):
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
     comment = models.TextField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
     allergen = models.ManyToManyField(Allergen, blank=True, verbose_name='Alergény')
+    comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
         return self.article
@@ -95,7 +105,6 @@ class Article(models.Model):
     def display_allergens(self):
         '''Create a string for the Allergens. This is required to display allergen in Admin and user table view.'''
         return ', '.join(allergen.code for allergen in self.allergen.all())
-
     display_allergens.short_description = _('Alergény')
 
     def get_absolute_url(self):
@@ -103,7 +112,7 @@ class Article(models.Model):
         return reverse('model-detail-view', args=[str(self.id)])
 
 
-class Recipe(models.Model):
+class Recipe(TimeStampedModel):
 
     class Meta:
         verbose_name_plural = _('Recepty')
@@ -111,14 +120,14 @@ class Recipe(models.Model):
         ordering = ['recipe']
 
     recipe = models.CharField(max_length=100, unique=True, verbose_name='recept', help_text='Název receptu')
-    norm_amount = models.PositiveSmallIntegerField(verbose_name='Normovaný počet', help_text='Počet porcí')
+    norm_amount = models.PositiveSmallIntegerField(verbose_name='Počet porcí')
     procedure = models.TextField(max_length=200, blank=True, null=True, verbose_name='Postup')
 
     def __str__(self):
         return self.recipe
 
 
-class Ingredient(models.Model):
+class Ingredient(TimeStampedModel):
 
     class Meta:
         verbose_name_plural = _('Suroviny v receptu')
@@ -136,7 +145,7 @@ class Ingredient(models.Model):
         return self.recipe.recipe + '-  ' + self.article.article + '-  ' + str(self.amount)
 
 
-class DailyMenu(models.Model):
+class DailyMenu(TimeStampedModel):
 
     class Meta:
         verbose_name_plural = _('Denní jídla')
@@ -158,14 +167,13 @@ class DailyMenu(models.Model):
         return str(self.date) + ' - ' + self.mealType.mealType + ' - ' + str(self.amount) + ' - ' + self.mealGroup.mealGroup
 
 
-class StockIssue(models.Model):
+class StockIssue(TimeStampedModel):
 
     class Meta:
         verbose_name_plural = _('Výdejky')
         verbose_name = _('Výdejka')
-        ordering = ['-dateCreated']
+        ordering = ['-created']
 
-    dateCreated = models.DateField(verbose_name='Datum vytvoření')
     userCreated = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                                     related_name='created', verbose_name='Vytvořil')
     approved = models.BooleanField(default=False, blank=True, null=True, verbose_name='Odepsáno ze skladu')
@@ -174,33 +182,32 @@ class StockIssue(models.Model):
                                      related_name='approved', verbose_name='Odepsal ze skladu')
     dailyMenu = models.ForeignKey(DailyMenu, on_delete=models.CASCADE, blank=True,
                                   null=True, verbose_name='Vydáno v menu')
-    comment = models.TextField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
+    comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
-        return str(self.dateCreated)
+        return str(self.created)
 
 
-class StockReceipt(models.Model):
+class StockReceipt(TimeStampedModel):
 
     class Meta:
         verbose_name_plural = _('Příjemky')
         verbose_name = _('Příjemka')
-        ordering = ['-dateCreated']
+        ordering = ['-created']
 
-    dateCreated = models.DateField(default=datetime.date.today, verbose_name='Datum vytvoření')
     userCreated = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                                     related_name='received', verbose_name='Přijal')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
-        return str(self.dateCreated)
+        return str(self.created)
 
     def get_absolute_url(self):
         '''Returns the url to access a particular instance of the model.'''
         return reverse('kicoma.update', args=[str(self.id)])
 
 
-class Item(models.Model):
+class Item(TimeStampedModel):
 
     class Meta:
         verbose_name_plural = _('Položky')

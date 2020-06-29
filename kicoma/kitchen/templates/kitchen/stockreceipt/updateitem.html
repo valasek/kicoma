@@ -1,14 +1,20 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% block content %}
 
+{% block content %}
 <div class="container-fluid">
   <h4>Aktualizace položky příjemky</h4>
   <hr/>
-  <a href="#" class="btn btn-primary mb-2">Tisk příjemky</a>
-  <form method="post" action="">
+  <div class="row">
+    <div class="col-8 justify-content-start d-inline">
+      <a href="#" class="btn btn-primary mb-2">Tisk příjemky</a>
+      Příjemka vytvořena dne: {{stockreceipt.created}}, Vytvořila: {{stockreceipt.userCreated.name}}, Poznámka: {{stockreceipt.comment}}
+    </div>
+  </div>
+  <hr/>
+  <form method="post" action="{% url 'kitchen:updateStockReceiptItem' stockreceipt.id %}">
     {% csrf_token %}
-    {{ form|crispy }}
+    {% crispy form form.helper %}
     <button class="btn btn-secondary" onclick="javascript:history.back();">Zpět</button>
     <button type="submit" class="btn btn-success">Uložit</button>
   </form>

@@ -15,10 +15,15 @@ from django_filters.views import FilterView
 from kicoma.users.models import User
 from .models import Item, Recipe, Allergen, MealType, MealGroup, VAT, \
     Article, Ingredient, StockIssue, StockReceipt, DailyMenu
-from .tables import StockReceiptTable, StockReceiptFilter, StockReceiptItemFilter, ArticleTable, ArticleFilter, \
-    DailyMenuTable, DailyMenuFilter, RecipeTable, RecipeFilter, StockReceiptItemTable, StockIssueTable
-from .forms import RecipeSearchForm, StockReceiptForm, StockReceiptSearchForm, \
-    ArticleSearchForm, DailyMenuSearchForm, StockReceiptItemForm, StockReceiptItemSearchForm
+from .tables import StockReceiptTable, StockReceiptItemTable, StockReceiptFilter, StockReceiptItemFilter
+from .tables import ArticleTable, ArticleFilter
+from .tables import DailyMenuTable, DailyMenuFilter
+from .tables import StockIssueTable
+from .tables import RecipeTable, RecipeFilter, RecipeIngredientTable, RecipeIngredientFilter
+from .forms import RecipeForm, RecipeIngredientForm, RecipeSearchForm, RecipeIngredientSearchForm
+from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptItemForm, StockReceiptItemSearchForm
+from .forms import ArticleForm, ArticleSearchForm
+from .forms import DailyMenuSearchForm, DailyMenuForm
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -81,32 +86,18 @@ class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
 
 class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Article
-    fields = ["article", "unit", "comment", "allergen", ]
+    form_class = ArticleForm
     template_name = 'kitchen/article/create.html'
-    success_message = "Zboží %(article)s bylo založeno, je možné zadávat příjemky."
-
-    def get_success_url(self):
-        return reverse_lazy('kitchen:showArticles')
+    success_message = "Zboží %(article)s bylo založeno, je možné zadávat příjemky"
+    success_url = reverse_lazy('kitchen:showArticles')
 
 
 class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Article
-    fields = ["article", "unit", "comment", "allergen", ]
+    form_class = ArticleForm
     template_name = 'kitchen/article/update.html'
-    success_message = "Zboží %(article)s bylo aktualizováno, je možné zadávat příjemky."
-
-    def get_success_url(self):
-        return reverse_lazy('kitchen:showArticles')
-
-
-class IngredientCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
-    model = Ingredient
-    fields = "__all__"
-    template_name = 'kitchen/ingredient/create.html'
-    success_message = "Suroviny přidány do receptu"
-
-    def get_success_url(self):
-        return reverse_lazy('kitchen:showRecipies')
+    success_message = "Zboží %(article)s bylo aktualizováno"
+    success_url = reverse_lazy('kitchen:showArticles')
 
 
 class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
@@ -118,24 +109,80 @@ class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     paginate_by = 12
 
 
+class RecipeIngredientListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+    model = Ingredient
+    table_class = RecipeIngredientTable
+    template_name = 'kitchen/recipe/listingredients.html'
+    filterset_class = RecipeIngredientFilter
+    form_class = RecipeIngredientSearchForm
+    paginate_by = 12
+
+    def get_context_data(self, **kwargs):
+        context = super(RecipeIngredientListView, self).get_context_data(**kwargs)
+        context['recipe'] = Recipe.objects.filter(pk=self.kwargs['pk'])[0]
+        return context
+
+
 class RecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Recipe
-    fields = "__all__"
+    form_class = RecipeForm
     template_name = 'kitchen/recipe/create.html'
-    success_message = "Recept %(recipe)s byl vytvořen, přidej suroviny receptu"
+    success_message = "Recept %(recipe)s byl vytvořen, přidej do receptu suroviny a jejich počet"
+    success_url = reverse_lazy('kitchen:showRecipies')
+
+
+class RecipeIngredientCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+    model = Ingredient
+    form_class = RecipeIngredientForm
+    template_name = 'kitchen/recipe/createingredient.html'
+    success_message = "Ingedence %(article)s byla přidána do receptu"
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:createIngredient', kwargs={'pk': self.object.pk})
+        return reverse_lazy('kitchen:showRecipeIngredients', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super(RecipeIngredientCreateView, self).get_context_data(**kwargs)
+        context['recipe'] = Recipe.objects.filter(pk=self.kwargs['pk'])[0]
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        recipe = context['recipe']
+        ingredient = form.save(commit=False)
+        ingredient.recipe = Recipe.objects.filter(pk=recipe.id)[0]
+        ingredient.save()
+        return super(RecipeIngredientCreateView, self).form_valid(form)
 
 
 class RecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Recipe
-    fields = "__all__"
+    form_class = RecipeForm
     template_name = 'kitchen/recipe/update.html'
-    success_message = "Recept %(name)s byl aktualizován"
+    success_message = "Recept %(recipe)s byl aktualizován"
+    success_url = reverse_lazy('kitchen:showRecipies')
+
+
+class RecipeIngredientUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = Ingredient
+    form_class = RecipeIngredientForm
+    template_name = 'kitchen/recipe/updateingredient.html'
+    success_message = "Ingedience %(article)s byla aktualizována"
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showRecipies')
+        return reverse_lazy('kitchen:showRecipeIngredients', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super(RecipeIngredientUpdateView, self).get_context_data(**kwargs)
+        context['recipe'] = Ingredient.objects.filter(pk=self.kwargs['pk'])[0]
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        recipe = context['recipe']
+        ingedient = form.save(commit=False)
+        ingedient.recipe = Recipe.objects.filter(pk=recipe.id)[0]
+        ingedient.save()
+        return super(RecipeIngredientUpdateView, self).form_valid(form)
 
 
 class RecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
@@ -143,10 +190,24 @@ class RecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     fields = "__all__"
     form_class = RecipeSearchForm
     template_name = 'kitchen/recipe/delete.html'
-    success_message = "Recept %(name)s byl odstraněn"
+    success_message = "Recept %(recipe)s byl odstraněn"
+    success_url = reverse_lazy('kitchen:showRecipies')
+
+
+class RecipeIngredientDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+    model = Ingredient
+    template_name = 'kitchen/recipe/deleteingredient.html'
+    success_message = "Ingredience byla odstraněna"
+    # success_url = reverse_lazy('kitchen:showStockReceipts')
+    recipe_id = 0
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showRecipies')
+        return reverse_lazy('kitchen:showRecipeIngredients', kwargs={'pk': self.recipe_id})
+
+    def delete(self, request, *args, **kwargs):
+        ingredient = get_object_or_404(Ingredient, pk=self.kwargs['pk'])
+        self.recipe_id = ingredient.recipe.id
+        return super(RecipeIngredientDeleteView, self).delete(request, *args, **kwargs)
 
 
 class StockReceiptListView(SingleTableMixin, LoginRequiredMixin, FilterView):
@@ -168,7 +229,7 @@ class StockReceiptItemListView(SingleTableMixin, LoginRequiredMixin, FilterView)
 
     def get_context_data(self, **kwargs):
         context = super(StockReceiptItemListView, self).get_context_data(**kwargs)
-        context['stockreceipt'] = StockReceipt.objects.filter(pk=self.kwargs['pk'])
+        context['stockreceipt'] = StockReceipt.objects.filter(pk=self.kwargs['pk'])[0]
         return context
 
 
@@ -176,7 +237,7 @@ class StockReceiptCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView
     model = StockReceipt
     form_class = StockReceiptForm
     template_name = 'kitchen/stockreceipt/create.html'
-    success_message = "Příjemka ze dne %(dateCreated)s byla vytvořena a je možné přidávat položky"
+    success_message = "Příjemka byla vytvořena a je možné přidávat položky"
     success_url = reverse_lazy('kitchen:showStockReceipts')
 
     def form_valid(self, form):
@@ -189,22 +250,21 @@ class StockReceiptItemCreateView(SuccessMessageMixin, LoginRequiredMixin, Create
     model = Item
     form_class = StockReceiptItemForm
     template_name = 'kitchen/stockreceipt/createitem.html'
-    success_message = "Polozka příjemky byla vytvořena a zboží na skladu aktualizováno"
+    success_message = 'Polozka %(article)s byla vytvořena a výše zásob zboží na skladu aktualizována'
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showStockReceiptItems', kwargs={'pk': self.kwargs['pk']})
 
     def get_context_data(self, **kwargs):
         context = super(StockReceiptItemCreateView, self).get_context_data(**kwargs)
-        context['stockreceipt'] = StockReceipt.objects.filter(pk=self.kwargs['pk'])
+        context['stockreceipt'] = StockReceipt.objects.filter(pk=self.kwargs['pk'])[0]
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
         stock_receipt = context['stockreceipt']
-        print("stock_receipt ID:", stock_receipt[0].id)
         item = form.save(commit=False)
-        item.stockReceipt = StockReceipt.objects.filter(pk=stock_receipt[0].id)[0]
+        item.stockReceipt = StockReceipt.objects.filter(pk=stock_receipt.id)[0]
         item.save()
         return super(StockReceiptItemCreateView, self).form_valid(form)
 
@@ -213,7 +273,7 @@ class StockReceiptUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView
     model = StockReceipt
     form_class = StockReceiptForm
     template_name = 'kitchen/stockreceipt/update.html'
-    success_message = "Hlavička příjemky ze dne %(dateCreated)s byla aktualizována."
+    success_message = "Hlavička příjemky byla aktualizována"
     success_url = reverse_lazy('kitchen:showStockReceipts')
 
 
@@ -221,16 +281,29 @@ class StockReceiptItemUpdateView(SuccessMessageMixin, LoginRequiredMixin, Update
     model = Item
     form_class = StockReceiptItemForm
     template_name = 'kitchen/stockreceipt/updateitem.html'
-    success_message = "Položka příjemky byla aktualizována."
+    success_message = "Položka %(article)s byla aktualizována a výše zásob zboží na skladu aktualizována"
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showStockReceiptItems', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super(StockReceiptItemUpdateView, self).get_context_data(**kwargs)
+        context['stockreceipt'] = Item.objects.filter(pk=self.kwargs['pk'])[0]
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        stock_receipt = context['stockreceipt']
+        item = form.save(commit=False)
+        item.stockReceipt = StockReceipt.objects.filter(pk=stock_receipt.id)[0]
+        item.save()
+        return super(StockReceiptItemUpdateView, self).form_valid(form)
 
 
 class StockReceiptDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = StockReceipt
     template_name = 'kitchen/stockreceipt/delete.html'
-    success_message = "Příjemka ze dne %(dateCreated)s byla odstraněna"
+    success_message = "Příjemka ze dne %(created)s byla odstraněna"
     success_url = reverse_lazy('kitchen:showStockReceipts')
 
 
@@ -238,6 +311,7 @@ class StockReceiptItemDeleteView(SuccessMessageMixin, LoginRequiredMixin, Delete
     model = Item
     template_name = 'kitchen/stockreceipt/deleteitem.html'
     success_message = "Položka byla odstraněna"
+    success_url = reverse_lazy('kitchen:showStockReceipts')
     stock_receipt_id = 0
 
     def get_success_url(self):
@@ -255,14 +329,11 @@ class StockReceiptPDFView(LoginRequiredMixin, PDFTemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        stock_receipt = StockReceipt.objects.filter(pk=kwargs['pk'])
+        stock_receipt = StockReceipt.objects.filter(pk=kwargs['pk'])[0]
         items = Item.objects.filter(stockReceipt_id=kwargs['pk'])
         context['stock_receipt'] = stock_receipt
         context['items'] = items
         return context
-
-    def get_success_url(self):
-        return reverse_lazy('kitchen:showStockReceipts')
 
 
 class DailyMenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
@@ -276,22 +347,18 @@ class DailyMenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
 
 class DailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = DailyMenu
-    fields = "__all__"
+    form_class = DailyMenuForm
     template_name = 'kitchen/dailymenu/create.html'
-    success_message = "Denní menu pro den %(date)s bylo vytvořeno včetně výdejky ke schválení."
-
-    def get_success_url(self):
-        return reverse_lazy('kitchen:showDailyMenus')
+    success_message = "Denní menu pro den %(date)s bylo vytvořeno včetně výdejky ke schválení"
+    success_url = reverse_lazy('kitchen:showDailyMenus')
 
 
 class DailyMenuUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = DailyMenu
-    fields = "__all__"
+    form_class = DailyMenuForm
     template_name = 'kitchen/dailymenu/update.html'
-    success_message = "Denní menu pro den %(date)s bylo aktualizováno včetně výdejky ke schválení."
-
-    def get_success_url(self):
-        return reverse_lazy('kitchen:showDailyMenus')
+    success_message = "Denní menu pro den %(date)s bylo aktualizováno včetně výdejky ke schválení"
+    success_url = reverse_lazy('kitchen:showDailyMenus')
 
 
 class DailyMenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
@@ -299,9 +366,7 @@ class DailyMenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     fields = "__all__"
     template_name = 'kitchen/dailymenu/delete.html'
     success_message = "Denní menu pro den %(date)s bylo odstraněno"
-
-    def get_success_url(self):
-        return reverse_lazy('kitchen:showDailyMenus')
+    success_url = reverse_lazy('kitchen:showDailyMenus')
 
 
 class StockIssueListView(SingleTableMixin, LoginRequiredMixin, FilterView):

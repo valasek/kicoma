@@ -15,10 +15,12 @@ def save_item(sender, instance, *args, **kwargs):
     if instance.stockReceipt is not None and instance.stockIssue is None:
         Article.objects.filter(pk=instance.article.id).update(
             onStock=onStock + convertUnits(instance.amount, itemUnit, stockUnit))
+        print("1", onStock, convertUnits(instance.amount, itemUnit, stockUnit), itemUnit, stockUnit)
     else:
         if instance.stockReceipt is None and instance.stockIssue is not None:
             Article.objects.filter(pk=instance.article.id).update(
                 onStock=onStock - convertUnits(instance.amount, itemUnit, stockUnit))
+            print("2", onStock, convertUnits(instance.amount, itemUnit, stockUnit), itemUnit, stockUnit)
         else:
             raise Exception(
                 "Item is not linked to StockReceipt or StockIssue or linked to both. Only one should be populated.")

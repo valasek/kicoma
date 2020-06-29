@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+  <h4>Seznam ingrediencí receptu</h4>
+  <hr/>
+  <div class="row">
+    <div class="col-8 justify-content-start d-inline">
+      <a href="{% url 'kitchen:createRecipeIngredient' recipe.id %}" class="btn btn-primary mb-2">Nová ingredience</a>
+      Recept: {{recipe.recipe}}, Počet jídel: {{recipe.norm_amount}}
+    </div>
+    {% if filter %}
+      <form method="get" action="" class="col-4 justify-content-end form-inline mb-2">
+        {% csrf_token %}
+        {{ filter.form | crispy }}
+        <button type="submit" class="btn btn-success mx-2">Vyhledat</button>
+      </form>
+    {% endif %}
+  </div>
+  {% render_table table %}
+  <hr/>
+  <button class="btn btn-secondary" onclick="javascript:history.back();">Zpět</button>
+</div>
+{% endblock content %}

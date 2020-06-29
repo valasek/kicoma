@@ -1,15 +1,13 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-
 <div class="container-fluid">
   <h4>Nové zboží</h4>
   <hr/>
   <form method="post" action="{% url 'kitchen:createArticle' %}">
     {% csrf_token %}
-    {{ form|crispy }}
+    {% crispy form form.helper %}
     <button type="submit" class="btn btn-success">Založit nové zboží</button>
   </form>
 </div>
-
 {% endblock content %}

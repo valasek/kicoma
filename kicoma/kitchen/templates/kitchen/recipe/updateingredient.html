@@ -2,9 +2,15 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Nová příjemka</h4>
+  <h4>Aktualizace ingredience</h4>
   <hr/>
-  <form method="post" action="{% url 'kitchen:createStockReceipt' %}">
+  <div class="row">
+    <div class="col-8 justify-content-start d-inline">
+      Recept: {{recipe.recipe}}, Počet jídel: {{recipe.norm_amount}}
+    </div>
+  </div>
+  <hr/>
+  <form method="post" action="{% url 'kitchen:updateRecipeIngredient' recipe.id %}">
     {% csrf_token %}
     {% crispy form form.helper %}
     <button class="btn btn-secondary" onclick="javascript:history.back();">Zpět</button>
