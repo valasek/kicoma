@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.db.models import Sum
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -348,9 +349,12 @@ class StockReceiptPDFView(LoginRequiredMixin, PDFTemplateView):
         context = super().get_context_data(**kwargs)
         stock_receipt = StockReceipt.objects.filter(pk=kwargs['pk'])[0]
         items = Item.objects.filter(stockReceipt_id=kwargs['pk'])
+        total_price = Item.objects.filter(stockReceipt_id=kwargs['pk']).aggregate(
+            Sum('priceWithoutVat'))['priceWithoutVat__sum']
         context['stock_receipt'] = stock_receipt
         context['items'] = items
         context['title'] = "Příjemka"
+        context['total_price'] = total_price
         return context
 
 
