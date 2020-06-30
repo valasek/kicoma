@@ -20,7 +20,6 @@ urlpatterns = [
     path('article/print', notImplemented, name='printArticles'),
     path('article/create', ArticleCreateView.as_view(), name='createArticle'),
     path('article/update/<int:pk>', ArticleUpdateView.as_view(), name='updateArticle'),
-    path('stockprint', notImplemented, name='stockPrint'),
 
     path('stockissue/list', StockIssueListView.as_view(), name='showStockIssues'),
 

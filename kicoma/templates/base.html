@@ -114,8 +114,6 @@
                 >
                   Příjemky
                 </a>
-                <a class="dropdown-item" href="{% url 'kitchen:stockPrint' %}">Tisk výdejky/výdejky</a>
-                <a class="dropdown-item" href="{% url 'kitchen:printArticles' %}">Soupis zásob</a>
               </div>
             </li>
             {% endif %} {% if request.user|has_group:"cook" %}
@@ -137,8 +135,7 @@
                 <a class="dropdown-item" href="{% url 'kitchen:showRecipies' %}"
                   >Seznam receptů</a
                 >
-                <a class="dropdown-item" href="{% url 'kitchen:printRecipies' %}">Opis dle jména</a>
-                <a class="dropdown-item" href="{% url 'kitchen:printRecipies' %}">Opis dle čísla</a>
+                <a class="dropdown-item" href="{% url 'kitchen:printRecipies' %}">Tisk receptů</a>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -150,15 +147,14 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Jídelníček
+                Denní menu
               </a>
               <div
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                <a class="dropdown-item" href="{% url 'kitchen:showDailyMenus' %}">Sestavit jídelníček</a>
-                <a class="dropdown-item" href="{% url 'kitchen:printDailyMenu' %}">Dle datumu</a>
-                <a class="dropdown-item" href="{% url 'kitchen:printDailyMenu' %}">Dle skupin strávníků</a>
+                <a class="dropdown-item" href="{% url 'kitchen:showDailyMenus' %}">Sestavit denní menu</a>
+                <a class="dropdown-item" href="{% url 'kitchen:printDailyMenu' %}">Tisk denního menu</a>
               </div>
             </li>
             <li class="nav-item dropdown">

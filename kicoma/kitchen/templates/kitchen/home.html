@@ -1,92 +1,139 @@
 {% extends "base.html" %}
-
 {% block content %}
 
-<h4>Přehled aplikace</h4>
-
-<hr>
-
+<h4>Stav aplikace</h4>
+<hr/>
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-sm">
-      <h5>Data</h5>
-      <table class="table table-striped table-sm table-responsive">
-        <tr>
-          <th scope="col">Tabulka</th>
-          <th scope="col">Záznamů</th>
-        </tr>
-        <tr>
-          <td scope="row">Recepty</td>
-          <td >{{ recipeCount }}</td>
-        </tr>
-        <tr>
-          <td scope="row">Surovin v receptech</td>
-          <td >{{ ingredientCount }}</td>
-        </tr>
-        <tr>
-          <td scope="row">Zboží</td>
-          <td >{{ articleCount }}</ts>
-        </tr>
-        <tr>
-          <td scope="row">Příjemky</td>
-          <td >{{ stockReceiptCount }}</ts>
-        </tr>
-        <tr>
-          <td scope="row">Výdejky</td>
-          <td >{{ stockIssueCount }}</ts>
-        </tr>
-        <tr>
-          <td scope="row">Položky v příjemkách/výdejkách</td>
-          <td >{{ itemCount }}</td>
-        </tr>
-        <tr>
-          <td scope="row">Jídelníčky</td>
-          <td >{{ dailyMenuCount }}</td>
-        </tr>
-      </table>
+    <div class="row">
+      <div class="col-sm">
+        <h6>Hotovo a připraveno ke kontrole</h6>
+        <s>Užívatelé a práva</s><br/>
+        <s>Správa číselníků</s><br/>
+        <s>Správa denního menu, receptů, ingrediencí, zboží na skladu, a příjemkek</s><br/>
+        <s>Je možné vložit obsah testovací verze Strávníčka (Zboží, Recepty)</s><br/>
+        <br/>
+      </div>
+      <div class="col-sm">
+        <h6>Není hotovo</h6>
+        Počítání přůměrné ceny receptu a zboží<br />
+        Denní menu ještě nevytváří výdejky (výdejka zeskupená dle dnů)<br />
+        Schvalování výdejek, schvaluje drabkova a až u schválení proběhne kontrola vůči stavu zásob na skladu<br />
+        Úprava neschválených výdejek - možnost přidat, vymazat a vyměnit zboží<br/>
+        Tisky výdejek - rozpis pro sklad<br/>
+        Tisk receptů - členit dle typu a jídla<br/>
+        Tisk denního menu dle datumu s možností filtrace na skupinu strávníků<br/>
+      </div>
+      <div class="col-sm">
+        <h6>Čeká</h6>
+          Po každé aktualizaci aplikace automaticky nahrat testovací data<br />
+          Tisk příjemky - přidat celkovou cenu<br />
+          Tisky kalkulací mají při zadání rozmezí datumů<br/>
+          Kalendář místo textového pole<br />
+          Pamatovat poslední zadané datum<br />
+          Tisk soupisu zásob (zboží, jednotka, stav na skladu)<br />
+          Finální import dat ze Strávníčka<br />
+          Kalkulace<br />
+          Tisky (sklad, recepty, kalkulace)<br />
+          Přesun na server (změnit admin url a username)<br />
+      </div>
+      <div class="col-sm">
+        <h6>Dobré nápady</h6>
+        Použití skenerů čárových kódů<br />
+        Upozornění na nízký stav zásob<br />
+        Nahrazení zboží ve výdejce se automaticky propíše do denního menu<br />
+      </div>
+      <div class="col-sm">
+        <h6>Hlášení změn nebo chyb</h6>
+        Zadat do <a href="https://forms.gle/akbzoiLsPCLTU7gP8">formuláře</a><br/>nebo email na <a href="mailto:valasek@gmail.com">valasek@gmail.com</a>.
+      </div>
     </div>
-    <div class="col-sm">
-      <h5>Číselníky</h5>
-      <table class="table table-striped table-sm table-responsive">
-        <tr>
-          <th scope="col">Tabulka</th>
-          <th scope="col">Záznamů</th>
-        </tr>
-        <tr>
-          <td scope="row">Druhy jídla</td>
-          <td >{{ mealTypeCount }}</ts>
-        </tr>
+    <hr />
+    <div class="row">
+      <div class="col-sm">
+        <h4>Přehled aplikace</h4>
+        <p>Poslední aktualizace aplikace proběhla 20. 7. 2020.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm">
+        <h5>Data</h5>
+        <table class="table table-striped table-sm table-responsive">
           <tr>
-          <td scope="row">Skupiny strávníků</td>
-          <td >{{ mealGroupCount }}</ts>
-        </tr>
-        <tr>
-          <td scope="row">Alergény</td>
-          <td >{{ allergenCount }}</ts>
-        </tr>
-        <tr>
-          <td scope="row">DPH</td>
-          <td >{{ vatCount }}</ts>
-        </tr>
-      </table>
-    </div>
-    <div class="col-sm">
-      <h5>Práva</h5>
-      <table class="table table-striped table-sm table-responsive">
-        <tr>
-          <th scope="col">Tabulka</th>
-          <th scope="col">Záznamů</th>
-        </tr>
-        <tr>
-          <td scope="row">Uživatelé</td>
-          <td >{{ userCount }}</ts>
-        </tr>
-        <tr>
-          <td scope="row">Skupiny</td>
-          <td >{{ groupCount }}</ts>
-        </tr>
-      </table>
-    </div>
+            <th scope="col">Tabulka</th>
+            <th scope="col">Záznamů</th>
+          </tr>
+          <tr>
+            <td scope="row">Recepty</td>
+            <td >{{ recipeCount }}</td>
+          </tr>
+          <tr>
+            <td scope="row">Surovin v receptech</td>
+            <td >{{ ingredientCount }}</td>
+          </tr>
+          <tr>
+            <td scope="row">Zboží</td>
+            <td >{{ articleCount }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Příjemky</td>
+            <td >{{ stockReceiptCount }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Výdejky</td>
+            <td >{{ stockIssueCount }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Položky v příjemkách/výdejkách</td>
+            <td >{{ itemCount }}</td>
+          </tr>
+          <tr>
+            <td scope="row">Denní menu</td>
+            <td >{{ dailyMenuCount }}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm">
+        <h5>Číselníky</h5>
+        <table class="table table-striped table-sm table-responsive">
+          <tr>
+            <th scope="col">Tabulka</th>
+            <th scope="col">Záznamů</th>
+          </tr>
+          <tr>
+            <td scope="row">Druhy jídla</td>
+            <td >{{ mealTypeCount }}</ts>
+          </tr>
+            <tr>
+            <td scope="row">Skupiny strávníků</td>
+            <td >{{ mealGroupCount }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Alergény</td>
+            <td >{{ allergenCount }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">DPH</td>
+            <td >{{ vatCount }}</ts>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm">
+        <h5>Práva</h5>
+        <table class="table table-striped table-sm table-responsive">
+          <tr>
+            <th scope="col">Tabulka</th>
+            <th scope="col">Záznamů</th>
+          </tr>
+          <tr>
+            <td scope="row">Uživatelé</td>
+            <td >{{ userCount }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Skupiny</td>
+            <td >{{ groupCount }}</ts>
+          </tr>
+        </table>
+      </div>
   </div>
 </div>
 

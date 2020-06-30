@@ -4,38 +4,6 @@
 
 <h4>Kitchen Cooking Management</h4>
 <hr />
-<h5>Stav vývoje</h5>
-<div class="row">
-  <div class="col-sm-4">
-    <h6>Hotovo a připraveno ke kontrole</h6>
-    Užívatelé a práva<br/>
-    Správa číselníků<br/>
-    Správa jídelníčku, receptů, ingrediencí, zboží na skladu, a příjemkek<br/>
-    Je možné vložit obsah testovací verze Strávníčka (Zboží, Recepty)
-  </div>
-  <div class="col-sm">
-    <h6>Není hotovo</h6>
-    Počítání přůměrné ceny receptu a zboží<br />
-    Denní menu ještě nevytváří výdejky<br />
-    Schvalování výdejek<br />
-  </div>
-  <div class="col-sm">
-    <h6>Čeká</h6>
-      Finální import dat ze Strávníčka<br />
-      Kalkulace<br />
-      Tisky (sklad, recepty, kalkulace)<br />
-      Přesun na server (změnit admin url a username)<br />
-  </div>
-  <div class="col-sm">
-    <h6>Dobré nápady</h6>
-    Použití skenerů čárových kódů<br />
-  </div>
-  <div class="col-sm">
-    <h6>Hlášení změn nebo chyb</h6>
-    Zadat do <a href="https://forms.gle/akbzoiLsPCLTU7gP8">formuláře</a> nebo odeslat email na <a href="mailto:valasek@gmail.com">valasek@gmail.com</a>.
-  </div>
-</div>
-<hr />
 <h4>Dokumentace</h4>
 <div class="row">
   <div class="col-sm">
@@ -54,8 +22,8 @@
     <p>Zboží je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showArticles' %}">Zboží na skladu</a>. Vymazat se dá v <a href="admin/kitchen/article">administraci</a>.</p>
     <h5>Správa receptů</h5>
     <p>Recepty je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showRecipies' %}">Seznam receptů</a>. Vymazat se dá v <a href="admin/kitchen/recipe">administraci</a>.</p>
-    <h5>Správa jídelníčku</h5>
-    <p>Denní menu je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showDailyMenus' %}">Sestavit Jídelníček</a>. Vymazat se dá v <a href="admin/kitchen/dailymenu">administraci</a>.</p>
+    <h5>Správa denního menu</h5>
+    <p>Denní menu je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showDailyMenus' %}">Sestavit denní menu</a>. Vymazat se dá v <a href="admin/kitchen/dailymenu">administraci</a>.</p>
   </div>
   <div class="col-sm">
     <h5>Uživatelské skupiny</h5>
@@ -79,7 +47,7 @@
         <tr>
           <th>Cook - kuchař</th>
           <td>drabkova</td>
-          <td>Tvorba jídelníčku a tisky kalkulací</td>
+          <td>Tvorba denního menu a tisky kalkulací</td>
         </tr>
         <tr>
           <th>Stockkeeper - skladník</th>
