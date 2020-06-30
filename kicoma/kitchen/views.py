@@ -103,6 +103,17 @@ class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('kitchen:showArticles')
 
 
+class ArticlePDFView(LoginRequiredMixin, PDFTemplateView):
+    template_name = 'kitchen/article/pdf.html'
+    filename = 'Soupis-zbozi.pdf'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['articles'] = Article.objects.all()
+        context['title'] = "Soupis zboží na skladu"
+        return context
+
+
 class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = Recipe
     table_class = RecipeTable
@@ -339,6 +350,7 @@ class StockReceiptPDFView(LoginRequiredMixin, PDFTemplateView):
         items = Item.objects.filter(stockReceipt_id=kwargs['pk'])
         context['stock_receipt'] = stock_receipt
         context['items'] = items
+        context['title'] = "Příjemka"
         return context
 
 

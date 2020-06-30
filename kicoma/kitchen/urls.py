@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import ArticleListView, ArticleCreateView, ArticleUpdateView
+from .views import ArticleListView, ArticleCreateView, ArticleUpdateView, ArticlePDFView
 from .views import StockReceiptListView, StockReceiptCreateView, StockReceiptUpdateView, \
     StockReceiptDeleteView, StockReceiptPDFView
 from .views import StockReceiptItemListView, StockReceiptItemCreateView, StockReceiptItemUpdateView, \
@@ -17,7 +17,7 @@ app_name = "kitchen"
 urlpatterns = [
     path('overview', index, name='overview'),
     path('article/list', ArticleListView.as_view(), name='showArticles'),
-    path('article/print', notImplemented, name='printArticles'),
+    path('article/print', ArticlePDFView.as_view(), name='printArticles'),
     path('article/create', ArticleCreateView.as_view(), name='createArticle'),
     path('article/update/<int:pk>', ArticleUpdateView.as_view(), name='updateArticle'),
 

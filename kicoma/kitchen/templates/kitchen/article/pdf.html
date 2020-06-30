@@ -1,0 +1,25 @@
+{% extends "../pdf_page.html" %}
+{% block content %}
+  <br/>
+  <br/>
+  <table class="minimalistBlack">
+    <thead>
+      <tr>
+        <th>Zboží</th>
+        <th>Jednotka</th>
+        <th>Množství</th>
+        <th>Poznámka</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for article in articles %}
+      <tr>
+        <td>{{article.article}}</td>
+        <td>{{article.unit}}</td>
+        <td>{{item.amount}}</td>
+        <td>{{article.comment}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
