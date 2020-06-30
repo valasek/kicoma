@@ -1,0 +1,4962 @@
+[
+  {
+    "model": "kitchen.recipe",
+    "pk": 654,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ka\u0161e instantn\u00ed",
+      "norm_amount": "5"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 655,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "raj\u010data",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 656,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u0159edkvi\u010dky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 657,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "papriky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 658,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kedlubny",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 774,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pi\u0161koty",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 775,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "su\u0161enky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 776,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "z\u00e1kusky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 777,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "zahradnick\u00fd \u0159\u00edzek",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 778,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1t raj\u010datov\u00fd s vejci",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 814,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ban\u00e1ny",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 815,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "broskve",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 816,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "nektarinky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 817,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hru\u0161ky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 819,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "jablka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 822,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kiwi",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 827,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kompot 700g-820g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 834,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "mandarinky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 835,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "meloun",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 836,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "meru\u0148ky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 838,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomeran\u010de",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 843,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ryngle",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 844,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u0161vestky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 846,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vino hroznov\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 911,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e9 maso na houb\u00e1ch",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 956,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u0161unka 30g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 957,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u0161unka 50g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 965,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "termix",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 979,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "moravsk\u00fd vrabec",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 980,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e1rkov\u00fd dort",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 983,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "jogurt",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 987,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ryb\u00ed file zape\u010den\u00e9 se s\u00fdrem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 988,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "p\u0159esn\u00edd\u00e1vky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 989,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e9 ra\u017eni\u010di",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 990,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pit\u00ed\u010dko",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 991,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "miner\u00e1lka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 992,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomaz\u00e1nkov\u00e9 m\u00e1slo",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 993,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "d\u017eem porce",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 997,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ml\u00e9ko ochucen\u00e9 krabi\u010dka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1017,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "m\u00e1slo 10 g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1019,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "m\u00e1slo 20 g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1033,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "rohl\u00edky 2ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1034,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ryb\u00ed file na bylink\u00e1ch",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1035,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "housky 2",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1036,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "housky 3",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1037,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159ec\u00ed stehna sma\u017een\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1038,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kol\u00e1\u010de 2ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1039,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomaz\u00e1nka mrkvov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1040,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "j\u00e1tra sma\u017een\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1041,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hranolky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1042,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "rohl\u00edky 1ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1043,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "s\u00fdr troj",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1044,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "v\u00e1no\u010dka 1/3",
+      "norm_amount": "9"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1045,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "v\u00e1no\u010dka 1/4",
+      "norm_amount": "8"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1046,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pa\u0161tiky 48g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1047,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pa\u0161tiky 100g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1048,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u010daj viatex",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1049,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1m 50g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1050,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kapu\u010dino",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1051,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "k\u00e1va karo",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1052,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kakao granko",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1053,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kakao oby\u010dejn\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1055,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "cukr na patra",
+      "norm_amount": "20"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1056,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1m 30g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1057,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "chl\u00e9b 6",
+      "norm_amount": "6"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1058,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "chl\u00e9b 9",
+      "norm_amount": "9"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1059,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hermel\u00edn 1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1060,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kol\u00e1\u010d \u0161vestkov\u00fd s m\u00e1kem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1061,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hermel\u00edn 1/2",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1062,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "eidam 30",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1063,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "eidam 50",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1065,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "zelenina grilovan\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1066,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "lu\u010dina 1ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1067,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pi\u0161kotov\u00e1 rol\u00e1da",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1069,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u0161\u00e1te\u010dky 2ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1070,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pudink se \u0161leha\u010dkou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1071,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u0161\u00e1te\u010dky 1 ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1073,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "makov\u00fd z\u00e1vin 1/3 ks",
+      "norm_amount": "9"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1074,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "makov\u00fd z\u00e1vin 1/4 ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1075,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vinn\u00e1 klob\u00e1sa 150",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1076,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e9 maso plovdivsk\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1077,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pa\u0161tika kr\u00e1jen\u00e1 150g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1078,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pa\u0161tika kr\u00e1jen\u00e1 100g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1079,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ryb\u00ed file p\u0159\u00edrodn\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1080,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pizza",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1081,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "m\u00e1slo porce 1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1082,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "m\u00e1slo porce 2",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1083,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e9 \u017eeb\u00edrko srbsk\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1084,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "p\u00e1rky 100g s ho\u0159\u010dic\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 1562,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "k\u00e1va melta",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3001,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka hov\u011bz\u00ed s masem a t\u011bstovinami",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3003,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka bramborov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3005,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka bramborov\u00e1 s krupkami",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3006,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka celerov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3007,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka \u010desne\u010dka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3008,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka \u010do\u010dkov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3009,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka krupicov\u00e1 s vejcem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3010,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka s kapustou a r\u00fd\u017e\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3011,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka dro\u017e\u010fov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3012,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka dr\u0161tkov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3013,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka dr\u016fbkov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3014,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka fazolov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3015,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka frankfurtsk\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3016,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka gul\u00e1\u0161ov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3017,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka houbov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3018,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka hrachov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3019,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka hrstkov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3020,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka chlebov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3022,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka kapustov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3023,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka km\u00ednov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3024,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka kroupov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3025,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka kv\u011bt\u00e1kov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3027,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka masov\u00e1 rag\u016f",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3030,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka p\u00f3rkov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3031,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka rajsk\u00e1 s t\u011bstovinou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3033,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka r\u00fd\u017eov\u00e1 b\u00edl\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3034,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka selsk\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3035,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka slepi\u010d\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3039,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka vlo\u010dkov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3040,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka zeleninov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3042,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka zelna\u010dka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3045,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka s kap\u00e1n\u00edm",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3046,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka s j\u00e1tr.knedl\u00ed\u010dky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3052,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka se strouh\u00e1n\u00edm",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3055,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "gul\u00e1\u0161 debrec\u00ednsk\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3056,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "gul\u00e1\u0161 hov\u011bz\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3058,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed maso du\u0161en\u00e9 v kapust\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3059,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed sv\u00ed\u010dkov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3061,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed pe\u010den\u011b p\u0159\u00edrodn\u00ed-na pep\u0159i-z\u00e1zvoru",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3062,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed pe\u010den\u011b cik\u00e1nsk\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3063,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed pe\u010den\u011b frankfurtsk\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3064,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed pe\u010den\u011b na zelenin\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3065,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed pe\u010den\u011b \u0161t\u011bp\u00e1nsk\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3066,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed z\u00e1vitek-\u0161pan\u011blsk\u00fd pt\u00e1\u010dek",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3069,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hovezi zavitek plneny vejcem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3070,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ro\u0161t\u011bn\u00e1 na paprice",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3071,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ro\u0161t\u011bn\u00e1 p\u0159\u00edrodn\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3072,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ro\u0161t\u011bn\u00e1 znojemsk\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3075,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e9 du\u0161en\u00e9 na paprice",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3078,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "telec\u00ed pe\u010den\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3082,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "telec\u00ed \u017eeb\u00edrko na m\u00e1sle",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3083,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "rizoto z vep\u0159ov\u00e9ho masa",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3084,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e1 pe\u010den\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3085,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e1 pe\u010den\u011b selsk\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3087,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e9 maso du\u0161en\u00e9 v kapust\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3088,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e9 maso du\u0161en\u00e9 v kedlubn\u00e1ch",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3089,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e9 maso du\u0161en\u00e9 v mrkvi",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3090,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e9 maso na km\u00edn\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3091,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e9 maso uzen\u00e9 s kost\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3092,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e9 \u017eeb\u00edrko sma\u017een\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3093,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00fd b\u016f\u010dek nad\u00edvan\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3094,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00fd gul\u00e1\u0161",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3095,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00fd gul\u00e1\u0161 seged\u00ednsk\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3096,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00fd kotlet p\u0159\u00edrodn\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3097,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e1 rol\u00e1da",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3098,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00fd \u0159\u00edzek sma\u017een\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3099,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "holansk\u00fd \u0159\u00edzek",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3106,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "jaternicov\u00fd prejt",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3107,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u010devab\u010di\u010di",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3108,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "karban\u00e1tky sma\u017een\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3109,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "klopsy s hr\u00e1\u0161kem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3114,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "papriky pln\u011bn\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3115,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pln\u011bn\u00e9 zel\u00ed na slanin\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3116,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sekan\u00e1 pe\u010den\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3117,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sekan\u00e1 se sojou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3119,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "mlet\u00fd \u0159\u00edzek m\u00e1slov\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3121,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "j\u00e1tra na slanin\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3123,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "j\u00e1tra dr\u016fbe\u017e\u00ed du\u0161en\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3125,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed s polskou om\u00e1\u010dkou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3132,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "srdce na slanin\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3134,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "p\u00e1rky 150g s ho\u0159\u010dic\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3135,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1m ope\u010den\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3136,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1m sma\u017een\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3138,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "tla\u010denka s cibul\u00ed 150g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3139,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vu\u0159ty",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3148,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "rizoto z ku\u0159ec\u00edho masa",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3149,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "slepice na paprice",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3155,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ryb\u00ed fil\u00e9 sma\u017een\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3158,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "koprov\u00e1 om\u00e1\u010dka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3159,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "rajsk\u00e1 om\u00e1\u010dka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3164,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "okurkov\u00e1 om\u00e1\u010dka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3166,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "p\u00f3rkov\u00e1 om\u00e1\u010dka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3168,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "k\u0159enov\u00e1 om\u00e1\u010dka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3169,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "brambory zape\u010den\u00e9 se sal\u00e1mem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3170,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bramborov\u00fd gul\u00e1\u0161",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3172,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bramborov\u00e9 knedl\u00edky pln\u011bn\u00e9 uzen\u00fdm masem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3175,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "t\u011bstoviny zape\u010den\u00e9 s masem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3176,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "t\u011bstoviny zape\u010den\u00e9 se sal\u00e1mem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3177,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "brambor\u00e1k sma\u017een\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3178,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bramborov\u00e9 knedl\u00edky s cibulkou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3181,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u010do\u010dka na kyselo",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3185,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hr\u00e1ch va\u0159en\u00fd se slaninou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3186,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "knedl\u00edky s vejci",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3187,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "brambory nov\u00e9 s tvarohem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3188,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "buchti\u010dky duk\u00e1tov\u00e9 s kr\u00e9mem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3189,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka kulajda",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3191,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ka\u0161e  krupicov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3192,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ka\u0161e r\u00fd\u017eov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3193,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "knedl\u00edky kynut\u00e9 s povidly",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3194,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "puding",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3196,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "n\u00e1kyp krupicov\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3198,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "n\u00e1kyp r\u00fd\u017eov\u00fd s ovocem - kompotem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3199,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pala\u010dinky se zava\u0159eninou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3201,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bramborov\u00e9 \u0161i\u0161ky s houskou a m\u00e1slem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3202,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u0161kub\u00e1nky s m\u00e1kem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3204,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "t\u011bstoviny s m\u00e1kem -tvarohem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3205,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u0161pagety se s\u00fdrem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3206,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u017eemlovka jablkov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3207,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u017eemlovka tvarohov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3208,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159ec\u00ed maso v s\u00fdrov\u00e9 om\u00e1\u010dce",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3210,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kapusta du\u0161en\u00e1 se sal\u00e1mem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3211,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "karban\u00e1tky kapustov\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3212,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kv\u011bt\u00e1k sma\u017een\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3214,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kv\u011bt\u00e1kov\u00fd moze\u010dek",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3215,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "zeleninov\u00e9 le\u010do s uzeninou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3216,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "mrkev du\u0161en\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3218,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u0161pen\u00e1t du\u0161en\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3222,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "rizoto zeleninov\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3224,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "zel\u00ed hl\u00e1vkov\u00e9 du\u0161en\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3225,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "zel\u00ed kysel\u00e9 du\u0161en\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3226,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1t hl\u00e1vkov\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3227,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1t okurkov\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3228,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1t mrkvov\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3230,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1t z hl\u00e1vkov\u00e9ho zel\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3231,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1t z kysel\u00e9ho zel\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3232,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1t z raj\u010dat",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3233,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "majoneza z\u00e1kladn\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3235,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "oblo\u017een\u00fd chl\u00e9b 1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3236,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "oblo\u017een\u00fd chl\u00e9b 2",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3237,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "studen\u00e1 m\u00edsa",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3238,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "studen\u00e1 m\u00edsa 2",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3239,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "topinky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3241,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomaz\u00e1nka dro\u017e\u010fov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3242,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomaz\u00e1nka turistick\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3243,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomaz\u00e1nka sal\u00e1mov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3244,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomaz\u00e1nka s\u00fdrov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3245,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomaz\u00e1nka tvarohov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3246,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomaz\u00e1nka vaje\u010dn\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3247,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomaz\u00e1nka z tu\u0148\u00e1ka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3248,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bramborov\u00e1 ka\u0161e",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3249,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bramborov\u00e9 placky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3250,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bramborov\u00fd sal\u00e1t s majon\u00e9zou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3252,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bramborov\u00e9 knedl\u00edky z pr\u00e1\u0161ku",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3254,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "brambory va\u0159en\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3255,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "houskov\u00e9 knedl\u00edky s pr\u00e1\u0161kem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3256,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "houskov\u00e9 knedl\u00edky s dro\u017ed\u00edm",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3257,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hrachov\u00e1 ka\u0161e s cibulkou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3258,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ka\u0161e nastavovan\u00e1 s cibulkou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3260,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "t\u011bstoviny",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3261,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "b\u00e1bovka kynut\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3262,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "b\u00e1bovka t\u0159en\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3263,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "t\u011bstoviny-zav\u00e1\u0159ka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3264,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "r\u00fd\u017ee du\u0161en\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3265,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bublanina",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3266,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "buchty",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3267,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "boch\u00e1nky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3270,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "buchta na plech s kakaovou polevou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3271,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "jid\u00e1\u0161e",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3272,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "koblihy",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3273,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kol\u00e1\u010d tvarohov\u00fd na plech",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3274,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kol\u00e1\u010de ovocn\u00e9 kynut\u00e9-mou\u010dn\u00edk",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3275,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kol\u00e1\u010de rohov\u00e9 s drobenkou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3276,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "l\u00edvance",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3277,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kol\u00e1\u010d t\u0159en\u00fd na plech",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3278,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "mazanec",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3279,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "n\u00e1pl\u0148 tvarohov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3280,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "n\u00e1pl\u0148 makov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3281,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pern\u00edk-mou\u010dn\u00edk 1ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3282,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "n\u00e1pl\u0148 povidlov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3293,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u0161\u00e1te\u010dky tvarohov\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3296,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "v\u00e1no\u010dka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3298,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vdole\u010dky sma\u017een\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3299,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "z\u00e1vin jablkov\u00fd- mou\u010dn\u00edk 1ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3301,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ostravsk\u00e9 nudle",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3302,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pern\u00edk dom\u00e1c\u00ed 4ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3303,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bratislavsk\u00e9 vep\u0159ov\u00e9 plecko",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3304,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "z\u00e1hor\u00e1ck\u00fd z\u00e1vitek",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3332,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ro\u0161\u0165\u00e1ci",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3333,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ml\u00e9ko 0,2",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3334,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ml\u00e9ko 0,25",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3335,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ml\u00e9ko 0,3",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3336,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kus kus",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3337,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sekan\u00e1 dr\u016fbe\u017e\u00ed mra\u017een\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3338,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "okurka sterilovan\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3339,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159ec\u00ed maso na zelenin\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3340,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomaz\u00e1nka pa\u0161tikov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3341,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka uzen\u00e1 s r\u00fd\u017e\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3342,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka s krupicovymi noky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3343,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "knedliky houskove",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3344,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159e na divoko",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3345,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "polevka krkonoska cibulacka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3346,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e1 k\u00fdta hambursk\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3347,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka \u017eampionov\u00fd kr\u00e9m",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3348,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ryb\u00ed file na raj\u010datech",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3349,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "tvaroh \u0161lehan\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3350,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "veky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3351,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pudink s tvarohem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3352,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1m s cibul\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3353,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "zmrzlina,nanuky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3354,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1t z \u010d\u00ednsk\u00e9ho zel\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3355,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ryb\u00ed prsty",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3356,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "koktejl ml\u00e9\u010dn\u00fd jahodov\u00fd kompot",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3357,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159ec\u00ed maso na ho\u0159\u010dici",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3358,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "s\u00fdr taven\u00fd 50g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3359,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "s\u00fdr taven\u00fd 100g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3360,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vejce va\u0159en\u00e9 1ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3361,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vejce m\u00edchan\u00e1 2ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3362,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "tatarsk\u00e1 om\u00e1\u010dka z majon\u00e9zy",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3363,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "rizoto zeleninov\u00e9- mra\u017een\u00e1 zelenina",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3364,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "zelenina sterilovan\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3365,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "koktejl ml\u00e9\u010dn\u00fd ban\u00e1nov\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3366,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "koktejl ml\u00e9\u010dn\u00fd \u010dokol\u00e1dov\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3368,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "tatarsk\u00e1 om\u00e1\u010dka ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3369,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "brokolice zape\u010den\u00e1 se s\u00fdrem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3370,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159ec\u00ed stehna pe\u010den\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3371,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "uhl\u00ed\u0159ina",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3372,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "masov\u00e9 kuli\u010dky v rajsk\u00e9 om\u00e1\u010dce",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3373,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed maso va\u0159en\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3374,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "z\u00e1vin jablkov\u00fd l\u00edskov\u00e9 t\u011bsto-mou\u010dn\u00edk 1ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3375,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "knedl\u00edky \u0161pekov\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3376,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vaje\u010dn\u00e1 omeleta se \u0161pen\u00e1tem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3377,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1t \u0161opsk\u00fd 400G",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3378,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kompot 400g-600g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3379,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kompot 2500g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3380,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kompot 3500g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3381,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kompot 350g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3382,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u010d\u00edna z dr\u016fbe\u017e\u00edho masa",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3383,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u010d\u00edna z vep\u0159ov\u00e9ho masa",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3384,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "chlebov\u00e1 sma\u017eenka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3385,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ledvinky na cibulce",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3386,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e9 maso po se\u010du\u00e1nsku",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3387,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "brambory \u0161\u0165ouchan\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3388,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00fd pl\u00e1tek p\u0159\u00edrodn\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3389,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "t\u011bstovinov\u00fd sal\u00e1t se zeleninou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3390,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "halu\u0161ky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3391,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u0161pagety po italsku",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3392,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e1 k\u00fdta na paprice",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 3393,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka s opra\u017eenou krupic\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 10001,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "b\u00e1bovka 1/4",
+      "norm_amount": "8"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 10085,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "med porce",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 13208,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "t\u011bstoviny zape\u010den\u00e9 s houbama",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 13209,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "t\u011bstoviny s ku\u0159ec\u00edm masem a hl\u00edvou \u00fast\u0159i",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 13210,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159e na zp\u016fsob ba\u017eanta",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 13211,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159ec\u00ed nudli\u010dky s nivou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 13212,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "portobello pln\u011bn\u00e9 mlet\u00fdm masem a s\u00fdrem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 13213,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "lasagne s mlet\u00fdm masem a zeleninou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56569,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "cukrovinky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56570,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka j\u00e1hlov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56571,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka \u0161pen\u00e1tov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56572,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka holandsk\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56573,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka kaldon",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56574,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed pe\u010den\u011b po burgu\u0148sku",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56575,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka pohankov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56576,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ta\u0161ti\u010dky tvarohov\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56577,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka hr\u00e1\u0161kov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56578,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "s\u00fdr sma\u017een\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56579,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "mrkvov\u00e1 \u0161\u0165\u00e1va",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56580,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159ec\u00ed maso na raj\u010datech",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56581,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka rusk\u00fd bor\u0161\u010d",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56583,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kol\u00e1\u010d m\u0159\u00ed\u017ekov\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56584,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u017eahour jahodov\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56585,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u010derven\u00e1 \u0159epa",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56586,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "uzen\u00e9 maso",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56587,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159e s n\u00e1divkou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56588,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "fazolky na smetan\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56589,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u017eampiony sma\u017een\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56590,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed na \u010desneku",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56591,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "mysliveck\u00e1 hov\u011bz\u00ed pe\u010den\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56592,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomaz\u00e1nka \u0161kvarkov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56593,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vaje\u010dn\u00e1 tla\u010denka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56594,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "holansk\u00e1 om\u00e1\u010dka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56595,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "zav\u00e1\u0159ka - p\u0159\u00edloha",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56596,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "fazolov\u00e9 lusky na slanin\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56597,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomaz\u00e1nka z vep\u0159ov\u00fdch konzerv",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56598,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u010daj na patra",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56599,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "medov\u00e9 m\u00e1slo",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56600,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ho\u0159\u010dice",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56601,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "dresing",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56602,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "knedl\u00edky ovocn\u00e9 tvarohov\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56603,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "okurky sal\u00e1tov\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56604,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1t \u0159eck\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56605,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "dobr\u00e1 voda",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56606,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159ec\u00ed \u0159\u00edzek sma\u017een\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56607,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "chleb\u00ed\u010dek oblo\u017een\u00fd 20ks",
+      "norm_amount": "20"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56608,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bramborov\u00fd sal\u00e1t selsk\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56609,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "gul\u00e1\u0161 dr\u016fbe\u017e\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56610,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159ec\u00ed \u0159\u00edzek p\u0159\u00edrodn\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56611,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159ec\u00ed nugetky na ledov\u00e9m sal\u00e1t\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56612,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "zbojnick\u00e1 rol\u00e1da",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56613,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e1 plec na zelenin\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56614,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00e9 v\u00fdpe\u010dky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56615,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed pe\u010den\u011b pra\u017esk\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56616,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed pe\u010den\u011b znojemsk\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56617,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159e na ro\u0161tu",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56618,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "t\u011bstoviny s h\u0159\u00edbkovou om\u00e1\u010dkou a ku\u0159ec\u00edm",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56619,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "brambory zape\u010den\u00e9 s ryb\u00edm masem a \u0161pen\u00e1t",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56620,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sekan\u00e1 pe\u010den\u011b pln\u011bn\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56621,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka brokolicov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56622,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "j\u00e1tra restovan\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56623,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ovocn\u00e9 \u017eel\u00e9 se zakysanou smetanou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56624,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "houbov\u00fd kuba",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56625,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pala\u010dinky zape\u010den\u00e9 s tvarohem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56626,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ryb\u00ed koktejl /z krab\u00edch ty\u010dinek/",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56627,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159ec\u00ed nugetky sma\u017een\u00e9 na ledov\u00e9m sal\u00e1t\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56628,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ledvinky na smetan\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56629,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "fazole mexick\u00e9 s klob\u00e1sou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56630,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka ryb\u00ed s krupic\u00ed",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56631,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159ec\u00ed z\u00e1vitky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56632,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kus kus s vep\u0159ov\u00fdm masem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56633,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "t\u011bstoviny s tu\u0148\u00e1kem a zeleninou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56634,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00fd pl\u00e1tek zape\u010den\u00fd s bramborem a s\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56635,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vep\u0159ov\u00fd perkelt",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56636,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "t\u011bstovinov\u00fd n\u00e1kyp s tvarohem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56637,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kef\u00edr",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56638,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "n\u00e1kyp  kus kus s kompotem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56639,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "oblo\u017een\u00e1 m\u00edsa",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56640,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u010do\u010dkov\u00fd sal\u00e1t s mozzarelou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56641,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "rusk\u00e9 vejce",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56642,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "zelenina du\u0161en\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56643,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kr\u00e1l\u00edk na \u010derno",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56644,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kr\u00e1l\u00edk na cibuli a ho\u0159\u010dici",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56645,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kr\u00e1l\u00edk na m\u00e1sle",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56646,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ryb\u00ed file po italsku",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56647,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bramborov\u00e9 \u0161i\u0161ky pln\u011bn\u00e9 m\u00e1kem-polotovar",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56648,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "z\u00e1vin jablkov\u00fd l\u00edskov\u00e9 t\u011bsto 3ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56649,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "z\u00e1vin tvarohov\u00fd l\u00edskov\u00e9 t\u011bsto 3ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56650,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed jazyk na v\u00edn\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56651,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ovarov\u00e9 koleno",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56652,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vaje\u010dn\u00e1 omeleta s p\u00e1rkem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56653,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1t raj\u010datov\u00fd s mozarelou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56654,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kapr sma\u017een\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56655,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pol\u00e9vka s vaje\u010dn\u00fdm sv\u00edtkem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56656,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159e na paprice",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56657,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "klob\u00e1sa 150g",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56658,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159ec\u00ed pl\u00e1tek na paprice",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56659,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u017eemlovka jablkov\u00e1 s tvarohem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56660,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u0161kvarkov\u00e9 placky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56661,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sal\u00e1t m\u00edchan\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56662,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "knedl\u00edky ovocn\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56663,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "tousty \u0161unkov\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56664,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "Vep\u0159ov\u00e1 pe\u010den\u011b chorvatsk\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56665,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "Hov\u011bz\u00ed l\u00ed\u010dka na v\u00edn\u011b",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56666,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bulgur",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56667,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bulgur s tu\u0148\u00e1kem a ledov\u00fdm sal\u00e1tem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56668,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "mexick\u00e1 ku\u0159ec\u00ed p\u00e1nev",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56669,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ta\u0161ti\u010dky tvarohov\u00e9 polotovar",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56670,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomaz\u00e1nka z lu\u010diny",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56671,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bu\u0159ty na \u010dern\u00e9m pivu",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56672,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159e t\u0159\u00ed ho\u0159\u010dic",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56673,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "n\u00e1divka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56674,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "brokolice du\u0161en\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56675,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "t\u011bstoviny po italsku",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56676,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kapr po mlyn\u00e1\u0159sku",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56677,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vaje\u010dn\u00e1 omeleta se zeleninou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56678,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "z\u00e1vin sal\u00e1mov\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56679,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ka\u0161e vlo\u010dkov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56680,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "spatzle s m\u00e1kem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56681,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "spatzle s tvarohem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56682,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "spatzle va\u0159en\u00e9- p\u0159\u00edloha",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56683,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "tortila s ku\u0159ec\u00edm masem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56684,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bramborov\u00e9 knedl\u00edky s vaj\u00ed\u010dkem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56686,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "sekan\u00e1 sv\u00ed\u010dkov\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56687,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "CDS- vejce",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56688,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "CDS- mouka hladk\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56689,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "CDS- ml\u00e9ko",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56690,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "CDS- cukr krupice",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 56691,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "CDS- cukr mou\u010dka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57258,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ovocn\u00fd sal\u00e1t s \u010d\u00ednsk\u00fdm zel\u00edm",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57259,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bulgur s kuku\u0159ic\u00ed a hl\u00edvou \u00fast\u0159i\u010dnou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57260,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "\u010d\u00ednsk\u00e9 zel\u00ed s tu\u0148\u00e1kem a vaj\u00ed\u010dkem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57261,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hermel\u00edn sma\u017een\u00fd",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57262,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "zeleninov\u00e9 le\u010do",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57263,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bramborov\u00e9 kruc\u00e1nky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57264,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "rizoto srbsk\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57265,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "halu\u0161ky mra\u017een\u00e9",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57266,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "t\u011bstovinov\u00e9 nudle se \u0161pen\u00e1tem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57267,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "husarsk\u00e1 rol\u00e1da",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57268,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "hov\u011bz\u00ed pe\u010den\u011b po zahradnicku",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57269,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kachn\u00ed stehna pe\u010den\u00e1",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57270,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "s\u00fdrov\u00e1 om\u00e1\u010dka",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57271,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "jednohubky20ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57272,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kol\u00e1\u010d s ovocem a drobenkou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57273,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "spatzle se \u0161pen\u00e1tem a smetanou",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57274,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "vejce s\u00e1zen\u00e1  1ks",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57275,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "ku\u0159e po hor\u00e1cku",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57276,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "polevka jarni",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57277,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "bulgur s kukurici a veprovym masem",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57278,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "celer smazeny",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57280,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "namornicke maso",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57281,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pastyzrsky rizek",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57282,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "jatra drubezi na vine s mandlemi",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57283,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "skoricove sisky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57284,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "polevka dynova",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57285,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "kureci rolada",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57286,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "polevka s masovymi knedlicky",
+      "norm_amount": "10"
+    }
+  },
+  {
+    "model": "kitchen.recipe",
+    "pk": 57287,
+    "fields": {
+      "created": "2020-06-30 23:00-0100",
+      "modified": "2020-06-30 23:00-0100",
+      "recipe": "pomazanka z uzeneho masa",
+      "norm_amount": "10"
+    }
+  }
+]

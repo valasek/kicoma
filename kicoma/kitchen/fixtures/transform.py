@@ -47,56 +47,26 @@ def cleanRow(row):
     return row
 
 
-def transformArticleRecord(inputRow):
-    # ['sklpol', 'název ', 'jednotka', 'koeficient', 'nasklade', 'celkcena', 'alergeny']
-    # id, article, onStock, averagePrice, unit, comment, allergen
-    inputRow = cleanRow(inputRow)
-    outputRow = ['', '', '0', '0', '', migrationComment, '']
-    outputRow[0] = inputRow[0]  # id
-    outputRow[1] = inputRow[1]  # article
-    outputRow[4] = checkUnit(inputRow, 2)  # unit
-    outputRow[6] = transformAllergen(inputRow[6])  # allergen
-    return outputRow
-
-
-def transformRecipeRecord(inputRow):
-    # id, recipe, norm_amount, procedure
-    # cislo, JMENO, energie, normstr
-    outputRow = ['', '', '', migrationComment]
-    outputRow[0] = inputRow[0]  # id
-    outputRow[1] = inputRow[1]  # recipe
-    outputRow[2] = inputRow[3]  # norm_amount
-    return outputRow
-
-
-def transformIngredientRecord(inputRow):
+def transformIngredientRecordJSON(inputRow, pk):
     # recipe, article, amount , unit
-    # cislo, sklpol, norma, jednotka
-    outputRow = ['', '', '', '']
-    outputRow[0] = inputRow[0]  # recipe
-    outputRow[1] = inputRow[1]  # article
-    outputRow[2] = inputRow[2]  # amount
-    outputRow[3] = checkUnit(inputRow, 3)  # unit
+    # cislo, sklpol, norma,
+    now = datetime.now(timezone.utc)
+    outputRow = {
+        "model": "kitchen.ingredient",
+        "pk": pk,
+        "fields": {
+            'created': now.strftime("%Y-%m-%d %H:%M-0100"),
+            'modified': now.strftime("%Y-%m-%d %H:%M-0100"),
+            'recipe': inputRow[0],
+            'article': inputRow[1],
+            'amount': inputRow[2],
+            'unit': checkUnit(inputRow, 3)
+        }
+    }
     return outputRow
 
 
-def transform(fileIn, fileOut, folder, rowFnc, header):
-    skladFileIn = folder + fileIn
-    skladFileOut = folder + fileOut
-    inputFile = csv.reader(open(skladFileIn, 'r'))
-    outputFile = open(skladFileOut, 'w')
-    writer = csv.writer(outputFile)
-    rowNumber = 1
-    for row in inputFile:
-        if rowNumber == 1:
-            writer.writerow(header)
-        else:
-            writer.writerow(rowFnc(row))
-        rowNumber += 1
-    print(f'{rowFnc.__name__} transformed {rowNumber} rows')
-
-
-def transformArticleRecordJSON(inputRow):
+def transformArticleRecordJSON(inputRow, pk=0):
     # ['sklpol', 'název ', 'jednotka', 'koeficient', 'nasklade', 'celkcena', 'alergeny']
     # id, article, onStock, averagePrice, unit, comment, allergen
     inputRow = cleanRow(inputRow)
@@ -118,6 +88,23 @@ def transformArticleRecordJSON(inputRow):
     return outputRow
 
 
+def transformRecipeRecordJSON(inputRow, pk=0):
+    # id, recipe, norm_amount, procedure
+    # cislo, JMENO, energie, normstr
+    now = datetime.now(timezone.utc)
+    outputRow = {
+        "model": "kitchen.recipe",
+        "pk": int(inputRow[0]),
+        "fields": {
+            'created': now.strftime("%Y-%m-%d %H:%M-0100"),
+            'modified': now.strftime("%Y-%m-%d %H:%M-0100"),
+            'recipe': inputRow[1],
+            'norm_amount': inputRow[3]
+        }
+    }
+    return outputRow
+
+
 def transformJSON(fileIn, fileOut, folder, rowFnc):
     pathFileIn = folder + fileIn
     pathFileOut = folder + fileOut
@@ -128,7 +115,7 @@ def transformJSON(fileIn, fileOut, folder, rowFnc):
         if rowNumber == 1:
             rowNumber += 1
             continue
-        data.append(rowFnc(row))
+        data.append(rowFnc(row, rowNumber))
         rowNumber += 1
     with open(pathFileOut, 'w') as outputFile:
         outputFile.write(json.dumps(data, indent=2))
@@ -138,22 +125,15 @@ def transformJSON(fileIn, fileOut, folder, rowFnc):
 def main():
     folder = '/home/valasek/Programming/kima/kicoma/kicoma/kitchen/fixtures/'
     if sys.argv[1] == 'article':
-        # transform('sklad-in.csv', 'article.csv', folder, transformArticleRecord,
-        #           ['id', 'article', 'onStock', 'averagePrice', 'unit', 'comment', 'allergen'])
         transformJSON('sklad-in.csv', 'article.json', folder, transformArticleRecordJSON)
     if sys.argv[1] == 'recipe':
-        transform('recepty-in.csv', 'recipe.csv', folder, transformRecipeRecord,
-                  ['id', 'recipe', 'norm_amount', 'procedure'])
+        transformJSON('recepty-in.csv', 'recipe.json', folder, transformRecipeRecordJSON)
     if sys.argv[1] == 'ingredient':
-        transform('ingredience-in.csv', 'ingredient.csv', folder, transformIngredientRecord,
-                  ['recipe', 'article', 'amount', 'unit'])
+        transformJSON('ingredience-in.csv', 'ingredient.json', folder, transformIngredientRecordJSON)
     if sys.argv[1] == 'all':
-        transform('sklad-in.csv', 'article.csv', folder, transformArticleRecord,
-                  ['id', 'article', 'onStock', 'averagePrice', 'unit', 'comment', 'allergen'])
-        transform('recepty-in.csv', 'recipe.csv', folder, transformRecipeRecord,
-                  ['id', 'recipe', 'norm_amount', 'procedure'])
-        transform('ingredience-in.csv', 'ingredient.csv', folder, transformIngredientRecord,
-                  ['recipe', 'article', 'amount', 'unit'])
+        transformJSON('sklad-in.csv', 'article.json', folder, transformArticleRecordJSON)
+        transformJSON('recepty-in.csv', 'recipe.json', folder, transformRecipeRecordJSON)
+        transformJSON('ingredience-in.csv', 'ingredient.json', folder, transformIngredientRecordJSON)
 
 
 if __name__ == "__main__":
