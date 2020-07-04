@@ -106,12 +106,12 @@ class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 
 class ArticlePDFView(LoginRequiredMixin, PDFTemplateView):
     template_name = 'kitchen/article/pdf.html'
-    filename = 'Soupis-zbozi.pdf'
+    filename = 'Seznam-zbozi.pdf'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['articles'] = Article.objects.all()
-        context['title'] = "Soupis zboží na skladu"
+        context['title'] = "Seznam zboží na skladu"
         return context
 
 
@@ -228,6 +228,17 @@ class RecipeIngredientDeleteView(SuccessMessageMixin, LoginRequiredMixin, Delete
         self.recipe_id = ingredient.recipe.id
         return super(RecipeIngredientDeleteView, self).delete(request, *args, **kwargs)
 
+
+class RecipePDFView(LoginRequiredMixin, PDFTemplateView):
+    template_name = 'kitchen/recipe/pdf.html'
+    filename = 'Recepty.pdf'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recipes'] = Recipe.objects.all()
+        context['recipes_total'] = Recipe.objects.all().count()
+        context['title'] = "Seznam receptů"
+        return context
 
 class StockReceiptListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = StockReceipt

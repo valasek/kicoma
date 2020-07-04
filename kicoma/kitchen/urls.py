@@ -5,7 +5,7 @@ from .views import StockReceiptListView, StockReceiptCreateView, StockReceiptUpd
     StockReceiptDeleteView, StockReceiptPDFView
 from .views import StockReceiptItemListView, StockReceiptItemCreateView, StockReceiptItemUpdateView, \
     StockReceiptItemDeleteView
-from .views import RecipeListView, RecipeCreateView, RecipeUpdateView, RecipeDeleteView
+from .views import RecipeListView, RecipeCreateView, RecipeUpdateView, RecipeDeleteView, RecipePDFView
 from .views import RecipeIngredientListView, RecipeIngredientCreateView, RecipeIngredientUpdateView, \
     RecipeIngredientDeleteView
 from .views import StockIssueListView
@@ -33,7 +33,7 @@ urlpatterns = [
     path('stockreceipt/deleteitem/<int:pk>', StockReceiptItemDeleteView.as_view(), name='deleteStockReceiptItem'),
     path('stockreceipt/print/<int:pk>', StockReceiptPDFView.as_view(), name='printStockReceipt'),
 
-    path('recipe/print', notImplemented, name='printRecipies'),
+    path('recipe/print', RecipePDFView.as_view(), name='printRecipies'),
     path('recipe/list', RecipeListView.as_view(), name='showRecipies'),
     path('recipe/ingredientlist/<int:pk>', RecipeIngredientListView.as_view(), name='showRecipeIngredients'),
     path('recipe/create', RecipeCreateView.as_view(), name='createRecipe'),

@@ -154,8 +154,8 @@ class StockReceiptAdmin(ImportExportActionModelAdmin):
 
 
 class ArticleAdmin(ImportExportActionModelAdmin):
-    list_display = ('article', 'unit', 'onStock', 'averagePrice', 'display_allergens', 'comment', )
-    fields = [('article', 'unit'), ('onStock', 'averagePrice'), 'allergen', 'comment', ]
+    list_display = ('article', 'unit', 'onStock', 'totalPrice', 'averagePrice', 'display_allergens', 'comment', )
+    fields = [('article', 'unit'), ('onStock', 'totalPrice', 'averagePrice'), 'allergen', 'comment', ]
     # list_filter = ('unit', 'coefficient')
     search_fields = ('name',)
     resource_class = ArticleResource

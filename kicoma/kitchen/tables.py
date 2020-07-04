@@ -87,7 +87,8 @@ class ArticleTable(tables.Table):
     class Meta:
         model = Article
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("article", "onStock", "averagePrice", "unit", "comment", "allergens", "modified", "change")
+        fields = ("article", "onStock", "averagePrice", "unit",
+                  "totalPrice", "comment", "allergens", "modified", "change")
 
 
 class ArticleFilter(django_filters.FilterSet):
@@ -105,7 +106,6 @@ class RecipeTable(tables.Table):
         | <a href="/kitchen/recipe/delete/{{ record.id }}">Vymazat</a>''',
         verbose_name=u'Akce', )
 
-
     class Meta:
         model = Recipe
         template_name = "django_tables2/bootstrap4.html"
@@ -122,6 +122,7 @@ class RecipeIngredientTable(tables.Table):
         model = Ingredient
         template_name = "django_tables2/bootstrap4.html"
         fields = ("article", "amount", "unit", "change")
+
 
 class RecipeFilter(django_filters.FilterSet):
     recipe = django_filters.CharFilter(lookup_expr='icontains')

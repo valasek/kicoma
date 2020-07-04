@@ -90,10 +90,13 @@ class Article(TimeStampedModel):
                                help_text='Název zboží na skladu')
     onStock = models.DecimalField(
         decimal_places=2, max_digits=8,
-        default=0, verbose_name='Na skladu', help_text='Celkové množství na skladu')
+        default=0, verbose_name='Na skladu', help_text='Celkové množství zboží na skladu')
+    totalPrice = models.DecimalField(
+        max_digits=8, blank=True, null=True, decimal_places=2,
+        default=0, verbose_name='Celková cena', help_text='Celková cena zboží na skladu')
     averagePrice = models.DecimalField(
-        max_digits=6, blank=True, null=True, decimal_places=2,
-        verbose_name='Průměrná jednotková cena', help_text='Vypočtena průměrná cena na jednotku')
+        max_digits=8, blank=True, null=True, decimal_places=2,
+        verbose_name='Průměrná jednotková cena', help_text='Průměrná cena na jednotku zboží')
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
     comment = models.TextField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
     allergen = models.ManyToManyField(Allergen, blank=True, verbose_name='Alergény')

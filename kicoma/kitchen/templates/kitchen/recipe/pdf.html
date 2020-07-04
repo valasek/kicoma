@@ -1,0 +1,24 @@
+{% extends "../pdf_page.html" %}
+{% block content %}
+  <br/>
+  <p style="text-align:center"><b>Receptů celkem: {{recipes_total}}</b></p>
+  <br/>
+  <table class="minimalistBlack">
+    <thead>
+      <tr>
+        <th>Recept</th>
+        <th>Počet porcí</th>
+        <th>Datum aktualizace</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for recipe in recipes %}
+      <tr>
+        <td>{{recipe.recipe}}</td>
+        <td>{{recipe.norm_amount}}</td>
+        <td>{{recipe.modified}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+{% endblock %}

@@ -5,7 +5,7 @@ import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 
-migrationComment = 'Strávníček - testovací data'
+migrationComment = 'Přesunuto ze Strávníčka 30.6.2020'
 
 allergenReplacer = {
     '1a': '2',
