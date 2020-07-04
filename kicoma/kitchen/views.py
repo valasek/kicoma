@@ -27,7 +27,7 @@ from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptItemFor
 from .forms import ArticleForm, ArticleSearchForm
 from .forms import DailyMenuSearchForm, DailyMenuForm
 
-from .signals import updateOnStockAmount
+from .signals import updateOnStock, updateTotalPrice
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -296,7 +296,8 @@ class StockReceiptItemCreateView(SuccessMessageMixin, LoginRequiredMixin, Create
         item = form.save(commit=False)
         item.stockReceipt = StockReceipt.objects.filter(pk=stock_receipt.id)[0]
         item.save()
-        updateOnStockAmount(item.article.id, 'receipt', item.amount, 0, item.unit)
+        updateOnStock(item.article.id, 'receipt', item.amount, 0, item.unit)
+        updateTotalPrice(item.article.id, 'receipt', item.price_with_vat)
         return super(StockReceiptItemCreateView, self).form_valid(form)
 
 
@@ -329,7 +330,8 @@ class StockReceiptItemUpdateView(SuccessMessageMixin, LoginRequiredMixin, Update
         item.stockReceipt = StockReceipt.objects.filter(pk=stock_receipt.id)[0]
         old_amount = Item.objects.filter(pk=item.id).values('amount')[0]['amount']
         item.save()
-        updateOnStockAmount(item.article.id, 'receipt', item.amount, old_amount, item.unit)
+        updateOnStock(item.article.id, 'receipt', item.amount, old_amount, item.unit)
+        updateTotalPrice(item.article.id, 'receipt', item.price_with_vat)
         return super(StockReceiptItemUpdateView, self).form_valid(form)
 
 

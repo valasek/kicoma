@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col-8 justify-content-start d-inline">
         <a href="{% url 'kitchen:createStockReceiptItem' stockreceipt.id %}" class="btn btn-primary mb-2">Nová položka</a>
-        Příjemka vytvořena dne: {{stockreceipt.created}}, Vytvořila: {{stockreceipt.userCreated.name}}, Poznámka: {{stockreceipt.comment}}
+        <b>Příjemka vytvořena dne:</b> {{stockreceipt.created}} <b>Vytvořila:</b> {{stockreceipt.userCreated.name}} <b>Poznámka:</b> {{stockreceipt.comment}}
       </div>
       {% if filter %}
         <form method="get" action="" class="col-4 justify-content-end form-inline mb-2">

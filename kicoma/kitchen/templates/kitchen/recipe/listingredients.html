@@ -8,7 +8,7 @@
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
       <a href="{% url 'kitchen:createRecipeIngredient' recipe.id %}" class="btn btn-primary mb-2">Nová ingredience</a>
-      Recept: {{recipe.recipe}}, Počet jídel: {{recipe.norm_amount}}
+      <b>Recept:</b> {{recipe.recipe}} <b>Počet jídel:</b> {{recipe.norm_amount}}
     </div>
     {% if filter %}
       <form method="get" action="" class="col-4 justify-content-end form-inline mb-2">

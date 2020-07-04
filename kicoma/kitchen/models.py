@@ -94,9 +94,6 @@ class Article(TimeStampedModel):
     totalPrice = models.DecimalField(
         max_digits=8, blank=True, null=True, decimal_places=2,
         default=0, verbose_name='Celková cena', help_text='Celková cena zboží na skladu')
-    averagePrice = models.DecimalField(
-        max_digits=8, blank=True, null=True, decimal_places=2,
-        verbose_name='Průměrná jednotková cena', help_text='Průměrná cena na jednotku zboží')
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
     comment = models.TextField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
     allergen = models.ManyToManyField(Allergen, blank=True, verbose_name='Alergény')
@@ -104,6 +101,15 @@ class Article(TimeStampedModel):
 
     def __str__(self):
         return self.article
+
+    @property
+    def averagePrice(self):
+        if self.onStock != 0:
+            return self.totalPrice / self.onStock
+        else:
+            return 0
+    # display_averagePrice.short_description = _('Průměrná jednotková cena')
+    # verbose_name='', help_text='Průměrná cena na jednotku zboží')
 
     def display_allergens(self):
         '''Create a string for the Allergens. This is required to display allergen in Admin and user table view.'''

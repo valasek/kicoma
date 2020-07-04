@@ -79,6 +79,7 @@ class DailyMenuFilter(django_filters.FilterSet):
 
 class ArticleTable(tables.Table):
     # vat__percentage = tables.Column(verbose_name='DPH')
+    averagePrice = tables.Column(verbose_name='Průměrná jednotková cena')
     allergens = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name='Alergény')
     change = tables.TemplateColumn(
         '''<a href="/kitchen/article/update/{{ record.id }}">Upravit</a>''',
@@ -87,9 +88,11 @@ class ArticleTable(tables.Table):
     class Meta:
         model = Article
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("article", "onStock", "averagePrice", "unit",
+        fields = ("article", "onStock", "unit", "averagePrice",
                   "totalPrice", "comment", "allergens", "modified", "change")
 
+    def render_averagePrice(self, value, record):
+        return '{} Kč / {}'.format(value, record.unit)
 
 class ArticleFilter(django_filters.FilterSet):
     article = django_filters.CharFilter(lookup_expr='icontains')
