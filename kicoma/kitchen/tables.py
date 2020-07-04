@@ -43,11 +43,11 @@ class StockReceiptItemTable(tables.Table):
 
 class StockReceiptFilter(django_filters.FilterSet):
     created = django_filters.CharFilter(lookup_expr='icontains')
-    userCreated__name = django_filters.CharFilter(lookup_expr='icontains')
+    # userCreated = django_filters.CharFilter(lookup_expr='icontains')
 
     class Meta:
         model = StockReceipt
-        fields = ("created", "userCreated__name", )
+        fields = ("created", "userCreated", )
 
 
 class StockReceiptItemFilter(django_filters.FilterSet):

@@ -132,13 +132,14 @@ class Ingredient(TimeStampedModel):
     class Meta:
         verbose_name_plural = _('Suroviny v receptu')
         verbose_name = _('Surovina v receptu')
+        ordering = ['-recipe__recipe']
 
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Surovina',
                                 help_text='Použitá surovina')
     amount = models.DecimalField(
-        decimal_places=2, max_digits=8,
-        unique=True, verbose_name='Množství', help_text='Množství suroviny')
+        decimal_places=2, max_digits=10,
+        verbose_name='Množství', help_text='Množství suroviny')
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
 
     def __str__(self):

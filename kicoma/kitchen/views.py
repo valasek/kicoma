@@ -137,6 +137,10 @@ class RecipeIngredientListView(SingleTableMixin, LoginRequiredMixin, FilterView)
         context['recipe'] = Recipe.objects.filter(pk=self.kwargs['pk'])[0]
         return context
 
+    def get_queryset(self):
+        # show only recipe ingedients
+        return super().get_queryset().filter(recipe=self.kwargs["pk"])
+
 
 class RecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Recipe

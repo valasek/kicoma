@@ -312,7 +312,7 @@ cislo,JMENO,energie,normstr
 3365,koktejl mléčný banánový,0.0,10
 3366,koktejl mléčný čokoládový,0.0,10
 3368,tatarská omáčka ks,0.0,10
-3369,brokolice zapečená se sýrem,0.0,10
+3369,brokolice zapecena s bramborem a syrem,0.0,10
 3370,kuřecí stehna pečená,0.0,10
 3371,uhlířina,0.0,10
 3372,masové kuličky v rajské omáčce,0.0,10
@@ -495,3 +495,8 @@ cislo,JMENO,energie,normstr
 57285,kureci rolada,0.0,10
 57286,polevka s masovymi knedlicky,0.0,10
 57287,pomazanka z uzeneho masa,0.0,10
+57288,kureci platek na houbach,0.0,10
+57289,bramborove krucanky zapecene se sunkou,0.0,10
+57290,med volny,0.0,10
+57291,dzem volny,0.0,10
+57292,kralik na zelenine,0.0,10

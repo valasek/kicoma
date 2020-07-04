@@ -27,7 +27,6 @@ class RecipeForm(forms.ModelForm):
             Row(
                 Column('recipe', css_class='col-md-6'),
                 Column('norm_amount', css_class='col-md-6'),
-                Column('comment', css_class='col-md-8'),
             ),
             Row(
                 Column('procedure', css_class='col-md-12'),

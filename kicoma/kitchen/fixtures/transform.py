@@ -2,6 +2,7 @@
 import csv
 import json
 import sys
+from collections import defaultdict
 from datetime import datetime, timezone
 
 migrationComment = 'Strávníček - testovací data'
@@ -22,6 +23,14 @@ allergenReplacer = {
     '12': '27',
     '13': '28',
 }
+
+folder = '/home/valasek/Programming/kima/kicoma/kicoma/kitchen/fixtures/'
+recipeInFile = 'recepty-in.csv'
+recipeInFilePath = folder + recipeInFile
+articleInFile = 'sklad-in.csv'
+articleInFilePath = folder + articleInFile
+ingredientInFile = 'ingredience-in.csv'
+ingredientInFilePath = folder + ingredientInFile
 
 
 def transformAllergen(origIng):
@@ -47,26 +56,64 @@ def cleanRow(row):
     return row
 
 
-def transformIngredientRecordJSON(inputRow, pk):
+def checkIfIsImported(value, importedList, name):
+    if value in importedList:
+        # print(value, "found in", name)
+        return True
+    # print(value, "not found in", name)
+    return False
+
+
+def returnImported():
+    recipeColumns = defaultdict(list)
+    with open(recipeInFilePath) as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            for (k, v) in row.items():
+                recipeColumns[k].append(v)
+    articleColumns = defaultdict(list)
+    with open(articleInFilePath) as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            for (k, v) in row.items():
+                articleColumns[k].append(v)
+    return recipeColumns['cislo'], articleColumns['sklpol']
+
+
+def transformIngredientRecordJSON(inputRow, **kwargs):
     # recipe, article, amount , unit
-    # cislo, sklpol, norma,
+    # cislo	sklpol	název	norma	jednotka
     now = datetime.now(timezone.utc)
-    outputRow = {
-        "model": "kitchen.ingredient",
-        "pk": pk,
-        "fields": {
-            'created': now.strftime("%Y-%m-%d %H:%M-0100"),
-            'modified': now.strftime("%Y-%m-%d %H:%M-0100"),
-            'recipe': inputRow[0],
-            'article': inputRow[1],
-            'amount': inputRow[2],
-            'unit': checkUnit(inputRow, 3)
-        }
-    }
-    return outputRow
+    importedRecipes, importedArticles = returnImported()
+    if checkIfIsImported(inputRow[0], importedRecipes, 'recipes'):
+        if checkIfIsImported(inputRow[1], importedArticles, 'articles'):
+            outputRow = {
+                "model": "kitchen.ingredient",
+                "pk": kwargs['pk'],
+                "fields": {
+                    'created': now.strftime("%Y-%m-%d %H:%M-0100"),
+                    'modified': now.strftime("%Y-%m-%d %H:%M-0100"),
+                    'recipe': inputRow[0],  # recipe
+                    'article': inputRow[1],  # article
+                    'amount': inputRow[3],  # amount
+                    'unit': checkUnit(inputRow, 4)  # unit
+                }
+            }
+        else:
+            # print(
+            #     "Skipped - recipe id: {} is not in imported, not able to create a parent relationship".format(inputRow[0]))
+            kwargs['skippedRecipes'] += + 1
+            return {}, kwargs
+    else:
+        # print(
+        #     "Skipped - Stock article id: {} is not in imported, not able to create a parent relationship".format(inputRow[1]))
+        kwargs['skippedArticles'] += 1
+        return {}, kwargs
+
+    return outputRow, kwargs
 
 
-def transformArticleRecordJSON(inputRow, pk=0):
+def transformArticleRecordJSON(inputRow, **kwargs):
     # ['sklpol', 'název ', 'jednotka', 'koeficient', 'nasklade', 'celkcena', 'alergeny']
     # id, article, onStock, averagePrice, unit, comment, allergen
     inputRow = cleanRow(inputRow)
@@ -85,10 +132,10 @@ def transformArticleRecordJSON(inputRow, pk=0):
             'comment': migrationComment
         }
     }
-    return outputRow
+    return outputRow, kwargs
 
 
-def transformRecipeRecordJSON(inputRow, pk=0):
+def transformRecipeRecordJSON(inputRow, **kwargs):
     # id, recipe, norm_amount, procedure
     # cislo, JMENO, energie, normstr
     now = datetime.now(timezone.utc)
@@ -102,38 +149,63 @@ def transformRecipeRecordJSON(inputRow, pk=0):
             'norm_amount': inputRow[3]
         }
     }
-    return outputRow
+    return outputRow, kwargs
 
 
-def transformJSON(fileIn, fileOut, folder, rowFnc):
-    pathFileIn = folder + fileIn
+def transformJSON(fileInPath, fileOut, rowFnc, **kwargs):
     pathFileOut = folder + fileOut
-    inputFile = csv.reader(open(pathFileIn, 'r'))
+    inputFile = csv.reader(open(fileInPath, 'r'))
     rowNumber = 1
     data = []
+    skippedRecords = 0
+    currentSkippedRecipes = 0
+    currentSkippedArticles = 0
     for row in inputFile:
         if rowNumber == 1:
             rowNumber += 1
             continue
-        data.append(rowFnc(row, rowNumber))
+        outputRow, rkwargs = rowFnc(row,
+                                    pk=rowNumber,
+                                    skippedRecipes=kwargs['skippedRecipes'],
+                                    skippedArticles=kwargs['skippedArticles'])
+        if outputRow != {}:
+            data.append(outputRow)
+        else:
+            skippedRecords += 1
+        currentSkippedRecipes += rkwargs['skippedRecipes']
+        currentSkippedArticles += rkwargs['skippedArticles']
         rowNumber += 1
+        # if rowNumber > 10:
+        #     break
     with open(pathFileOut, 'w') as outputFile:
         outputFile.write(json.dumps(data, indent=2))
-    print(f'{rowFnc.__name__} transformed {rowNumber} rows')
+    print(f'{rowFnc.__name__} transformed {rowNumber} rows, skipped {skippedRecords}')
+    return currentSkippedRecipes, currentSkippedArticles
 
 
 def main():
-    folder = '/home/valasek/Programming/kima/kicoma/kicoma/kitchen/fixtures/'
+    skippedRecipes = 0
+    skippedArticles = 0
     if sys.argv[1] == 'article':
-        transformJSON('sklad-in.csv', 'article.json', folder, transformArticleRecordJSON)
+        transformJSON(articleInFilePath, 'article.json', transformArticleRecordJSON)
     if sys.argv[1] == 'recipe':
-        transformJSON('recepty-in.csv', 'recipe.json', folder, transformRecipeRecordJSON)
+        transformJSON(recipeInFilePath, 'recipe.json', transformRecipeRecordJSON)
     if sys.argv[1] == 'ingredient':
-        transformJSON('ingredience-in.csv', 'ingredient.json', folder, transformIngredientRecordJSON)
+        skippedRecipes, skippedArticles = transformJSON(ingredientInFilePath, 'ingredient.json',
+                                                        transformIngredientRecordJSON,
+                                                        skippedRecipes=skippedRecipes,
+                                                        skippedArticles=skippedArticles)
+        print("Skipped", skippedRecipes, "recipes and", skippedArticles, "articles.")
     if sys.argv[1] == 'all':
-        transformJSON('sklad-in.csv', 'article.json', folder, transformArticleRecordJSON)
-        transformJSON('recepty-in.csv', 'recipe.json', folder, transformRecipeRecordJSON)
-        transformJSON('ingredience-in.csv', 'ingredient.json', folder, transformIngredientRecordJSON)
+        transformJSON(articleInFilePath, 'article.json', transformArticleRecordJSON, skippedRecipes=skippedRecipes,
+                      skippedArticles=skippedArticles)
+        transformJSON(recipeInFilePath, 'recipe.json', transformRecipeRecordJSON, skippedRecipes=skippedRecipes,
+                      skippedArticles=skippedArticles)
+        skippedRecipes, skippedArticles = transformJSON(ingredientInFilePath, 'ingredient.json',
+                                                        transformIngredientRecordJSON,
+                                                        skippedRecipes=skippedRecipes,
+                                                        skippedArticles=skippedArticles)
+        print("Skipped", skippedRecipes, "recipes and", skippedArticles, "articles.")
 
 
 if __name__ == "__main__":
