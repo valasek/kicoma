@@ -126,7 +126,6 @@ def transformArticleRecordJSON(inputRow, **kwargs):
             'modified': now.strftime("%Y-%m-%d %H:%M-0100"),
             'article': inputRow[1],
             'onStock': 0,
-            'averagePrice': 0,
             'unit': checkUnit(inputRow, 2),
             'allergen': transformAllergen(inputRow[6]),
             'comment': migrationComment
