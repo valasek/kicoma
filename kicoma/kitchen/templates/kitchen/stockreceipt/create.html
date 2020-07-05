@@ -4,12 +4,11 @@
 <div class="container-fluid">
   <h4>Nová příjemka</h4>
   <hr/>
+  <p><a href="{% url 'kitchen:showStockReceipts' %}"><button class="btn btn-secondary">Zpět na seznam příjemkem</button></a>
   <form method="post" action="{% url 'kitchen:createStockReceipt' %}">
     {% csrf_token %}
     {% crispy form form.helper %}
     <button type="submit" class="btn btn-success">Uložit</button>
   </form>
-  <hr/>
-  <button class="btn btn-secondary" onclick="javascript:history.back();">Zpět</button>
 </div>
 {% endblock content %}

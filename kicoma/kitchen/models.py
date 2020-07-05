@@ -144,7 +144,7 @@ class Ingredient(TimeStampedModel):
     class Meta:
         verbose_name_plural = _('Suroviny v receptu')
         verbose_name = _('Surovina v receptu')
-        ordering = ['-recipe__recipe']
+        ordering = ['-recipe']
 
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Surovina',
@@ -167,19 +167,33 @@ class DailyMenu(TimeStampedModel):
         ordering = ['-date']
 
     date = models.DateField(verbose_name='Datum')
-    amount = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(1000)],
-        unique=True, verbose_name='Počet', help_text='Počet porcí')
     mealGroup = models.ForeignKey(MealGroup, on_delete=models.CASCADE, verbose_name='Skupina strávníka',
                                   help_text='Skupina pro kterou se připravuje jídlo')
     mealType = models.ForeignKey(MealType, on_delete=models.CASCADE, verbose_name='Druh jídla',
                                  help_text='Druh jídla v rámci dne')
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept',
-                               help_text='Vybraný recept')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
-        return str(self.date) + ' - ' + self.mealType.mealType + ' - ' + str(self.amount) + ' - ' + self.mealGroup.mealGroup
+        return str(self.date) + ' - ' + self.mealType.mealType + ' - ' + self.mealGroup.mealGroup
+
+
+class DailyMenuRecipe(TimeStampedModel):
+
+    class Meta:
+        verbose_name_plural = _('Recepty denního menu')
+        verbose_name = _('Recepty denního menu')
+        ordering = ['-recipe']
+
+    daily_menu = models.ForeignKey(DailyMenu, on_delete=models.CASCADE, verbose_name='Denní menu')
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept',
+                               help_text='Vybraný recept')
+    amount = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(1000)],
+        unique=True, verbose_name='Počet', help_text='Počet porcí')
+    comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
+
+    def __str__(self):
+        return self.recipe.recipe + ' - ' + str(self.amount)
 
 
 class StockIssue(TimeStampedModel):
@@ -225,8 +239,8 @@ class StockReceipt(TimeStampedModel):
 class Item(TimeStampedModel):
 
     class Meta:
-        verbose_name_plural = _('Položky')
-        verbose_name = _('Položka')
+        verbose_name_plural = _('Zboží')
+        verbose_name = _('Zboží')
         ordering = ['-article__article']
 
     stockReceipt = models.ForeignKey(StockReceipt, blank=True, null=True, on_delete=models.CASCADE,

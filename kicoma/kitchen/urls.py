@@ -10,16 +10,19 @@ from .views import RecipeIngredientListView, RecipeIngredientCreateView, RecipeI
     RecipeIngredientDeleteView
 from .views import StockIssueListView, StockIssueCreateView
 from .views import DailyMenuListView, DailyMenuCreateView, DailyMenuUpdateView, DailyMenuDeleteView
+from .views import DailyMenuRecipeListView, DailyMenuRecipeCreateView, DailyMenuRecipeUpdateView, \
+    DailyMenuRecipeDeleteView
 
 from .views import index, notImplemented
 
 app_name = "kitchen"
 urlpatterns = [
     path('overview', index, name='overview'),
+
     path('article/list', ArticleListView.as_view(), name='showArticles'),
-    path('article/print', ArticlePDFView.as_view(), name='printArticles'),
     path('article/create', ArticleCreateView.as_view(), name='createArticle'),
     path('article/update/<int:pk>', ArticleUpdateView.as_view(), name='updateArticle'),
+    path('article/print', ArticlePDFView.as_view(), name='printArticles'),
 
     path('stockissue/list', StockIssueListView.as_view(), name='showStockIssues'),
     path('stockissue/create', StockIssueCreateView.as_view(), name='createStockIssue'),
@@ -35,8 +38,7 @@ urlpatterns = [
     path('stockreceipt/deleteitem/<int:pk>', StockReceiptItemDeleteView.as_view(), name='deleteStockReceiptItem'),
     path('stockreceipt/print/<int:pk>', StockReceiptPDFView.as_view(), name='printStockReceipt'),
 
-    path('recipe/print', RecipePDFView.as_view(), name='printRecipies'),
-    path('recipe/list', RecipeListView.as_view(), name='showRecipies'),
+    path('recipe/list', RecipeListView.as_view(), name='showRecipes'),
     path('recipe/ingredientlist/<int:pk>', RecipeIngredientListView.as_view(), name='showRecipeIngredients'),
     path('recipe/create', RecipeCreateView.as_view(), name='createRecipe'),
     path('recipe/createingredient/<int:pk>', RecipeIngredientCreateView.as_view(), name='createRecipeIngredient'),
@@ -44,11 +46,16 @@ urlpatterns = [
     path('recipe/updateingredient/<int:pk>', RecipeIngredientUpdateView.as_view(), name='updateRecipeIngredient'),
     path('recipe/delete/<int:pk>', RecipeDeleteView.as_view(), name='deleteRecipe'),
     path('recipe/deleteingredient/<int:pk>', RecipeIngredientDeleteView.as_view(), name='deleteRecipeIngredient'),
+    path('recipe/print', RecipePDFView.as_view(), name='printRecipes'),
 
 
     path('dailymenu/list', DailyMenuListView.as_view(), name='showDailyMenus'),
+    path('dailymenu/recipelist/<int:pk>', DailyMenuRecipeListView.as_view(), name='showDailyMenuRecipes'),
     path('dailymenu/create', DailyMenuCreateView.as_view(), name='createDailyMenu'),
+    path('dailymenu/createrecipe/<int:pk>', DailyMenuRecipeCreateView.as_view(), name='createDailyMenuRecipe'),
     path('dailymenu/update/<int:pk>', DailyMenuUpdateView.as_view(), name='updateDailyMenu'),
+    path('dailymenu/updaterecipe/<int:pk>', DailyMenuRecipeUpdateView.as_view(), name='updateDailyMenuRecipe'),
     path('dailymenu/delete/<int:pk>', DailyMenuDeleteView.as_view(), name='deleteDailyMenu'),
+    path('dailymenu/deleterecipe/<int:pk>', DailyMenuRecipeDeleteView.as_view(), name='deleteDailyMenuRecipe'),
     path('dailymenu/print', notImplemented, name='printDailyMenu'),
 ]

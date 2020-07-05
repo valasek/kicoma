@@ -7,7 +7,7 @@
   <hr/>
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
-      <a href="{% url 'kitchen:showRecipies' %}"><button class="btn btn-secondary">Zpět na seznam receptů</button></a>
+      <a href="{% url 'kitchen:showRecipes' %}"><button class="btn btn-secondary">Zpět na seznam receptů</button></a>
       <a href="{% url 'kitchen:createRecipeIngredient' recipe.id %}" class="btn btn-primary">Nová ingredience</a>
       <b>Recept:</b> {{recipe.recipe}} <b>Počet jídel:</b> {{recipe.norm_amount}}
     </div>

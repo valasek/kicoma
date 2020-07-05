@@ -16,17 +16,20 @@ from django_filters.views import FilterView
 from kicoma.users.models import User
 
 from .models import Item, Recipe, Allergen, MealType, MealGroup, VAT, \
-    Article, Ingredient, StockIssue, StockReceipt, DailyMenu
+    Article, Ingredient, StockIssue, StockReceipt, DailyMenu, DailyMenuRecipe
+
 from .tables import StockReceiptTable, StockReceiptItemTable, StockReceiptFilter, StockReceiptItemFilter
 from .tables import ArticleTable, ArticleFilter
 from .tables import DailyMenuTable, DailyMenuFilter
+from .tables import DailyMenuRecipeTable, DailyMenuRecipeFilter
 from .tables import StockIssueTable, StockIssueFilter
 from .tables import RecipeTable, RecipeFilter, RecipeIngredientTable, RecipeIngredientFilter
+
 from .forms import RecipeForm, RecipeIngredientForm, RecipeSearchForm, RecipeIngredientSearchForm
 from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptItemForm, StockReceiptItemSearchForm
 from .forms import StockIssueForm, StockIssueSearchForm
 from .forms import ArticleForm, ArticleSearchForm
-from .forms import DailyMenuSearchForm, DailyMenuForm
+from .forms import DailyMenuSearchForm, DailyMenuForm, DailyMenuRecipeForm, DailyMenuRecipeSearchForm
 
 from .signals import updateOnStock, updateTotalPrice
 
@@ -130,7 +133,7 @@ class RecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     form_class = RecipeForm
     template_name = 'kitchen/recipe/create.html'
     success_message = "Recept %(recipe)s byl vytvořen, přidej do receptu suroviny a jejich počet"
-    success_url = reverse_lazy('kitchen:showRecipies')
+    success_url = reverse_lazy('kitchen:showRecipes')
 
 
 class RecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
@@ -138,16 +141,16 @@ class RecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     form_class = RecipeForm
     template_name = 'kitchen/recipe/update.html'
     success_message = "Recept %(recipe)s byl aktualizován"
-    success_url = reverse_lazy('kitchen:showRecipies')
+    success_url = reverse_lazy('kitchen:showRecipes')
 
 
 class RecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = Recipe
     fields = "__all__"
-    form_class = RecipeSearchForm
+    # form_class = RecipeSearchForm
     template_name = 'kitchen/recipe/delete.html'
     success_message = "Recept %(recipe)s byl odstraněn"
-    success_url = reverse_lazy('kitchen:showRecipies')
+    success_url = reverse_lazy('kitchen:showRecipes')
 
 
 class RecipePDFView(LoginRequiredMixin, PDFTemplateView):
@@ -272,6 +275,85 @@ class DailyMenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     template_name = 'kitchen/dailymenu/delete.html'
     success_message = "Denní menu pro den %(date)s bylo odstraněno"
     success_url = reverse_lazy('kitchen:showDailyMenus')
+
+
+class DailyMenuRecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+    model = DailyMenuRecipe
+    table_class = DailyMenuRecipeTable
+    template_name = 'kitchen/dailymenu/listrecipe.html'
+    filterset_class = DailyMenuRecipeFilter
+    form_class = DailyMenuRecipeSearchForm
+    paginate_by = 12
+
+    def get_context_data(self, **kwargs):
+        context = super(DailyMenuRecipeListView, self).get_context_data(**kwargs)
+        context['dailymenu'] = DailyMenu.objects.filter(pk=self.kwargs['pk'])[0]
+        return context
+
+    def get_queryset(self):
+        # show only DailyMeny recipes
+        return super().get_queryset().filter(daily_menu=self.kwargs["pk"])
+
+
+class DailyMenuRecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+    model = DailyMenuRecipe
+    form_class = DailyMenuRecipeForm
+    template_name = 'kitchen/dailymenu/createrecipe.html'
+    success_message = 'Recept %(recipe)s byl vytvořen'
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showDailyMenuRecipes', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super(DailyMenuRecipeCreateView, self).get_context_data(**kwargs)
+        context['dailymenu'] = DailyMenu.objects.filter(pk=self.kwargs['pk'])[0]
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        dailu_menu = context['dailymenu']
+        dailu_menu_recipe = form.save(commit=False)
+        dailu_menu_recipe.daily_menu = DailyMenu.objects.filter(pk=dailu_menu.id)[0]
+        dailu_menu_recipe.save()
+        return super(DailyMenuRecipeCreateView, self).form_valid(form)
+
+
+class DailyMenuRecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = DailyMenuRecipe
+    form_class = DailyMenuRecipeForm
+    template_name = 'kitchen/dailymenu/updaterecipe.html'
+    success_message = "Recept %(recipe)s byl aktualizován"
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showDailyMenuRecipes', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super(DailyMenuRecipeUpdateView, self).get_context_data(**kwargs)
+        context['dailymenurecipe_before'] = DailyMenuRecipe.objects.filter(pk=self.kwargs['pk'])[0]
+        return context
+
+    def form_valid(self, form):
+        dailu_menu_recipe = form.save(commit=False)
+        dailu_menu_recipe.daily_menu = DailyMenuRecipe.objects.filter(pk=dailu_menu_recipe.id)[0].daily_menu
+        dailu_menu_recipe.save()
+        self.kwargs = {'pk': dailu_menu_recipe.daily_menu.id}
+        return super(DailyMenuRecipeUpdateView, self).form_valid(form)
+
+
+class DailyMenuRecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+    model = DailyMenuRecipe
+    template_name = 'kitchen/dailymenu/deleterecipe.html'
+    success_message = "Recept byl odstraněn"
+    success_url = reverse_lazy('kitchen:showDailyMenuRecipes')
+    daily_menu_id = 0
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showDailyMenuRecipes', kwargs={'pk': self.daily_menu_id})
+
+    def delete(self, request, *args, **kwargs):
+        recipe = get_object_or_404(DailyMenuRecipe, pk=self.kwargs['pk'])
+        self.daily_menu_id = recipe.daily_menu.id
+        return super(DailyMenuRecipeDeleteView, self).delete(request, *args, **kwargs)
 
 
 class StockIssueListView(SingleTableMixin, LoginRequiredMixin, FilterView):

@@ -2,7 +2,7 @@ from django import forms
 # from crispy_forms.bootstrap import AppendedText
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
-from .models import StockReceipt, StockIssue, Item, Ingredient, Article, Recipe, DailyMenu
+from .models import StockReceipt, StockIssue, Item, Ingredient, Article, Recipe, DailyMenu, DailyMenuRecipe
 
 
 class ArticleForm(forms.ModelForm):
@@ -93,7 +93,7 @@ class DailyMenuForm(forms.ModelForm):
 
     class Meta:
         model = DailyMenu
-        fields = ["date", "amount", "mealGroup", "mealType", "recipe", "comment"]
+        fields = ["date", "mealGroup", "mealType", "comment"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -102,19 +102,38 @@ class DailyMenuForm(forms.ModelForm):
         self.helper.layout = Layout(
             Row(
                 Column('date', css_class='col-md-2'),
-                Column('amount', css_class='col-md-2'),
                 Column('mealGroup', css_class='col-md-2'),
                 Column('mealType', css_class='col-md-2'),
-                Column('recipe', css_class='col-md-2'),
-            ),
-            Row(
-                Column('comment', css_class='col-md-12'),
+                Column('comment', css_class='col-md-6'),
             )
         )
 
 
 class DailyMenuSearchForm(forms.Form):
     date = forms.CharField()
+
+
+class DailyMenuRecipeForm(forms.ModelForm):
+
+    class Meta:
+        model = DailyMenuRecipe
+        fields = ["recipe", "amount", "comment"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Column('recipe', css_class='col-md-2'),
+                Column('amount', css_class='col-md-2'),
+                Column('comment', css_class='col-md-6'),
+            )
+        )
+
+
+class DailyMenuRecipeSearchForm(forms.Form):
+    recipe = forms.CharField()
 
 
 class StockIssueForm(forms.ModelForm):

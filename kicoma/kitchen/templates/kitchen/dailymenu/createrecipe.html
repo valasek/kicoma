@@ -1,16 +1,14 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-
 <div class="container-fluid">
-  <h4>Aktualizace poznámky příjemky</h4>
+  <h4>Přidat recept na denní menu</h4>
   <hr/>
-  <p><a href="{% url 'kitchen:showStockReceipts' %}"><button class="btn btn-secondary">Zpět na seznam příjemkem</button></a>
-  <form method="post" action="">
+  <p><a href="{% url 'kitchen:showDailyMenuRecipes' dailymenu.id%}"><button class="btn btn-secondary">Zpět na seznam receptů</button></a>
+  <form method="post" action="{% url 'kitchen:createDailyMenuRecipe' dailymenu.id %}">
     {% csrf_token %}
     {% crispy form form.helper %}
     <button type="submit" class="btn btn-success">Uložit</button>
   </form>
 </div>
-
 {% endblock content %}

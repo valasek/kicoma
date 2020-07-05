@@ -1,6 +1,6 @@
 import django_tables2 as tables
 import django_filters
-from .models import Recipe, Ingredient, StockReceipt, StockIssue, Article, DailyMenu, Item
+from .models import Recipe, Ingredient, StockReceipt, StockIssue, Article, DailyMenu, Item, DailyMenuRecipe
 
 
 class ArticleTable(tables.Table):
@@ -72,13 +72,16 @@ class RecipeIngredientFilter(django_filters.FilterSet):
 
 class DailyMenuTable(tables.Table):
     change = tables.TemplateColumn(
-        '''<a href="/kitchen/dailymenu/update/{{ record.id }}">Upravit</a>''',
+        '''<a href="/kitchen/dailymenu/update/{{ record.id }}">Upravit</a>
+        <a href="/kitchen/dailymenu/recipelist/{{ record.id }}">Zobrazit recepty</a>
+        <a href="/kitchen/dailymenu/delete/{{ record.id }}">Vymazat</a>
+        ''',
         verbose_name=u'Akce', )
 
     class Meta:
         model = DailyMenu
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("date", "amount", "mealGroup", "mealType", "recipe", "comment", "change")
+        fields = ("date", "mealGroup", "mealType", "comment", "change")
 
 
 class DailyMenuFilter(django_filters.FilterSet):
@@ -87,6 +90,27 @@ class DailyMenuFilter(django_filters.FilterSet):
     class Meta:
         model = DailyMenu
         fields = ("date", )
+
+
+class DailyMenuRecipeTable(tables.Table):
+    change = tables.TemplateColumn(
+        '''<a href="/kitchen/dailymenu/updaterecipe/{{ record.id }}">Upravit</a>
+        <a href="/kitchen/dailymenu/deleterecipe/{{ record.id }}" >Vymazat</a>
+        ''',
+        verbose_name=u'Akce', )
+
+    class Meta:
+        model = DailyMenuRecipe
+        template_name = "django_tables2/bootstrap4.html"
+        fields = ("recipe", "amount", "change")
+
+
+class DailyMenuRecipeFilter(django_filters.FilterSet):
+    recipe = django_filters.CharFilter(lookup_expr='icontains')
+
+    class Meta:
+        model = DailyMenuRecipe
+        fields = ("recipe", )
 
 
 class StockIssueTable(tables.Table):

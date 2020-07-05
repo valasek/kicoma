@@ -2,7 +2,7 @@ from import_export import resources
 from import_export.admin import ImportExportActionModelAdmin
 from django.contrib import admin
 from . models import StockReceipt, StockIssue, Item, Allergen, MealType, Recipe, \
-    Ingredient, MealGroup, VAT, DailyMenu, Article
+    Ingredient, MealGroup, VAT, DailyMenu, Article, DailyMenuRecipe
 
 # create import export resources
 
@@ -59,6 +59,14 @@ class DailyMenuResource(resources.ModelResource):
 
     class Meta:
         model = DailyMenu
+        skip_unchanged = True
+        report_skipped = True
+
+
+class DailyMenuRecipesResource(resources.ModelResource):
+
+    class Meta:
+        model = DailyMenuRecipe
         skip_unchanged = True
         report_skipped = True
 
@@ -143,8 +151,13 @@ class IngredientAdmin(ImportExportActionModelAdmin):
 
 
 class DailyMenuAdmin(ImportExportActionModelAdmin):
-    list_display = ('date', 'amount', 'mealGroup', 'mealType', 'recipe', 'comment')
+    list_display = ('date', 'mealGroup', 'mealType', 'comment')
     resource_class = DailyMenuResource
+
+
+class DailyMenuRecipeAdmin(ImportExportActionModelAdmin):
+    list_display = ('amount', 'recipe', 'comment')
+    resource_class = DailyMenuRecipe
 
 
 class StockIssueAdmin(ImportExportActionModelAdmin):
@@ -180,6 +193,7 @@ admin.site.register(MealType, MealTypeAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(DailyMenu, DailyMenuAdmin)
+admin.site.register(DailyMenuRecipe, DailyMenuRecipeAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(StockReceipt, StockReceiptAdmin)
 admin.site.register(StockIssue, StockIssueAdmin)

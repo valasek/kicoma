@@ -2,22 +2,23 @@
 {% load render_table from django_tables2 %}
 {% load crispy_forms_tags %}
 {% block content %}
-  <div class="container-fluid">
-    <h4>Seznam zboží na příjemce</h4>
-    <hr/>
-    <div class="row">
-      <div class="col-8 justify-content-start d-inline">
-        <a href="{% url 'kitchen:createStockReceiptItem' stockreceipt.id %}" class="btn btn-primary mb-2">Přidat zboží</a>
-        <b>Příjemka vytvořena dne:</b> {{stockreceipt.created}} <b>Vytvořila:</b> {{stockreceipt.userCreated.name}} <b>Poznámka:</b> {{stockreceipt.comment}}
-      </div>
-      {% if filter %}
-        <form method="get" action="" class="col-4 justify-content-end form-inline mb-2">
-          {% csrf_token %}
-          {{ filter.form | crispy }}
-          <button type="submit" class="btn btn-success mx-2">Vyhledat</button>
-        </form>
-      {% endif %}
+<div class="container-fluid">
+  <h4>Seznam zboží na příjemce</h4>
+  <hr/>
+  <div class="row">
+    <div class="col-8 justify-content-start d-inline">
+      <a href="{% url 'kitchen:showStockReceipts' %}"><button class="btn btn-secondary">Zpět na seznam příjemkem</button></a>
+      <a href="{% url 'kitchen:createStockReceiptItem' stockreceipt.id %}" class="btn btn-primary">Přidat zboží</a>
+      <b>Příjemka vytvořena dne:</b> {{stockreceipt.created}} <b>Vytvořila:</b> {{stockreceipt.userCreated.name}} <b>Poznámka:</b> {{stockreceipt.comment}}
     </div>
-    {% render_table table %}
+    {% if filter %}
+      <form method="get" action="" class="col-4 justify-content-end form-inline mb-2">
+        {% csrf_token %}
+        {{ filter.form | crispy }}
+        <button type="submit" class="btn btn-success mx-2">Vyhledat</button>
+      </form>
+    {% endif %}
   </div>
+  {% render_table table %}
+</div>
 {% endblock content %}

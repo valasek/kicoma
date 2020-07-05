@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+  <h4>Odstranění denního menu</h4>
+  <hr/>
+  <p><a href="{% url 'kitchen:showDailyMenus'%}" class="btn btn-secondary mb-2">Zpět na seznam denních menu</a></p>
+  <form method="post" action="{% url 'kitchen:deleteDailyMenu' pk=object.id %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <p>Chcete odstranit denní menu?</p>
+      Menu:
+      <ul>
+        <li><b>Den:</b> {{ object.date }}</li>
+        <li><b>Skupina strávníků:</b> {{object.mealGroup}}</li>
+        <li><b>Typ jídla:</b> {{object.mealType}}</li>
+        <li><b>Poznámka:</b> {{ object.comment }}</li>
+      </ul>
+    <button type="submit" class="btn btn-success">Odstranit</button></p>
+  </form>
+</div>
+{% endblock content %}
