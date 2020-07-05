@@ -9,11 +9,11 @@ from django.utils.translation import gettext_lazy as _
 from .functions import convertUnits
 
 UNIT = (
-    ('kg', _('kilogram')),
-    ('g', _('gram')),
-    ('l', _('litr')),
-    ('ml', _('mililitr')),
-    ('ks', _('kus')),
+    ('kg', _('kg')),
+    ('g', _('g')),
+    ('l', _('l')),
+    ('ml', _('ml')),
+    ('ks', _('ks')),
 )
 
 
@@ -88,14 +88,16 @@ class Article(TimeStampedModel):
 
     article = models.CharField(max_length=30, unique=True, verbose_name='Zboží',
                                help_text='Název zboží na skladu')
+    unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
     onStock = models.DecimalField(
         decimal_places=2, max_digits=8,
         default=0, verbose_name='Na skladu', help_text='Celkové množství zboží na skladu')
+    minOnStock = models.DecimalField(
+        decimal_places=2, max_digits=8,
+        default=0, verbose_name='Minimálně na skladu', help_text='Minimální množství zboží na skladu')
     totalPrice = models.DecimalField(
         max_digits=8, blank=True, null=True, decimal_places=2,
         default=0, verbose_name='Celková cena', help_text='Celková cena zboží na skladu')
-    unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
-    comment = models.TextField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
     allergen = models.ManyToManyField(Allergen, blank=True, verbose_name='Alergény')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
@@ -130,7 +132,8 @@ class Recipe(TimeStampedModel):
 
     recipe = models.CharField(max_length=100, unique=True, verbose_name='recept', help_text='Název receptu')
     norm_amount = models.PositiveSmallIntegerField(verbose_name='Počet porcí')
-    procedure = models.TextField(max_length=200, blank=True, null=True, verbose_name='Postup')
+    procedure = models.TextField(max_length=200, blank=True, null=True, verbose_name='Postup receptu')
+    comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
         return self.recipe
@@ -150,6 +153,7 @@ class Ingredient(TimeStampedModel):
         decimal_places=2, max_digits=10,
         verbose_name='Množství', help_text='Množství suroviny')
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
+    comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
         return self.recipe.recipe + '-  ' + self.article.article + '-  ' + str(self.amount)
@@ -172,6 +176,7 @@ class DailyMenu(TimeStampedModel):
                                  help_text='Druh jídla v rámci dne')
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept',
                                help_text='Vybraný recept')
+    comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
         return str(self.date) + ' - ' + self.mealType.mealType + ' - ' + str(self.amount) + ' - ' + self.mealGroup.mealGroup
@@ -186,12 +191,12 @@ class StockIssue(TimeStampedModel):
 
     userCreated = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                                     related_name='created', verbose_name='Vytvořil')
-    approved = models.BooleanField(default=False, blank=True, null=True, verbose_name='Odepsáno ze skladu')
-    dateApproved = models.DateField(blank=True, null=True, verbose_name='Datum odpisu ze skladu')
+    approved = models.BooleanField(default=False, blank=True, null=True, verbose_name='Vyskladněno')
+    dateApproved = models.DateField(blank=True, null=True, verbose_name='Datum odpisu')
     userApproved = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True,
-                                     related_name='approved', verbose_name='Odepsal ze skladu')
-    dailyMenu = models.ForeignKey(DailyMenu, on_delete=models.CASCADE, blank=True,
-                                  null=True, verbose_name='Vydáno v menu')
+                                     related_name='approved', verbose_name='Vyskladnil')
+    # dailyMenu = models.ForeignKey(DailyMenu, on_delete=models.CASCADE, blank=True,
+    #                               null=True, verbose_name='Vydáno v menu')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):

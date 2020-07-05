@@ -1,23 +1,21 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-
 {% block content %}
 <div class="container-fluid">
-  <h4>Aktualizace položky příjemky</h4>
+  <h4>Aktualizace zboží na příjemce</h4>
   <hr/>
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
-      <a href="#" class="btn btn-primary mb-2">Tisk příjemky</a>
-      Příjemka vytvořena dne: {{stockreceipt.created}}, Vytvořila: {{stockreceipt.userCreated.name}}, Poznámka: {{stockreceipt.comment}}
+      <a href="{% url 'kitchen:showStockReceiptItems' item_before.stockReceipt.id %}"><button class="btn btn-secondary">Zpět na seznam zboží příjemky</button></a>
+      <a href="{% url 'kitchen:printStockReceipt' item_before.stockReceipt.id %}" class="btn btn-primary">Tisk příjemky</a>
+      <b>Příjemka vytvořena dne:</b> {{item_before.stockReceipt.created}}, <b>Vytvořila:</b> {{item_before.stockReceipt.userCreated.name}}, <b>Poznámka:</b> {{item_before.stockReceipt.comment}}
     </div>
   </div>
-  <hr/>
-  <form method="post" action="{% url 'kitchen:updateStockReceiptItem' stockreceipt.id %}">
+  <br/>
+  <form method="post" action="{% url 'kitchen:updateStockReceiptItem' item_before.stockReceipt.id %}">
     {% csrf_token %}
     {% crispy form form.helper %}
-    <button class="btn btn-secondary" onclick="javascript:history.back();">Zpět</button>
     <button type="submit" class="btn btn-success">Uložit</button>
   </form>
 </div>
-
 {% endblock content %}

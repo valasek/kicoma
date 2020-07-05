@@ -1,10 +1,22 @@
 {% extends "base.html" %}
 {% load render_table from django_tables2 %}
 {% load crispy_forms_tags %}
-
 {% block content %}
-  <h4>Neschválené výdejky</h4>
-  <hr/>
-  Zatím nefunguje
-
+  <div class="container-fluid">
+    <h4>Seznam výdejek</h4>
+    <hr/>
+    <div class="row">
+      <div class="col justify-content-start">
+        <a href="{% url 'kitchen:createStockIssue' %}" class="btn btn-primary mb-2">Nová výdejka</a>
+      </div>
+      {% if filter %}
+        <form method="get" action="" class="col-10 justify-content-end form-inline mb-2">
+          {% csrf_token %}
+          {{ filter.form | crispy }}
+          <button type="submit" class="btn btn-success mx-2">Vyhledat</button>
+        </form>
+      {% endif %}
+    </div>
+    {% render_table table %}
+  </div>
 {% endblock content %}

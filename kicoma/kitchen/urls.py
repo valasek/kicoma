@@ -8,7 +8,7 @@ from .views import StockReceiptItemListView, StockReceiptItemCreateView, StockRe
 from .views import RecipeListView, RecipeCreateView, RecipeUpdateView, RecipeDeleteView, RecipePDFView
 from .views import RecipeIngredientListView, RecipeIngredientCreateView, RecipeIngredientUpdateView, \
     RecipeIngredientDeleteView
-from .views import StockIssueListView
+from .views import StockIssueListView, StockIssueCreateView
 from .views import DailyMenuListView, DailyMenuCreateView, DailyMenuUpdateView, DailyMenuDeleteView
 
 from .views import index, notImplemented
@@ -22,6 +22,8 @@ urlpatterns = [
     path('article/update/<int:pk>', ArticleUpdateView.as_view(), name='updateArticle'),
 
     path('stockissue/list', StockIssueListView.as_view(), name='showStockIssues'),
+    path('stockissue/create', StockIssueCreateView.as_view(), name='createStockIssue'),
+    path('stockreceipt/create', StockReceiptCreateView.as_view(), name='createStockReceipt'),
 
     path('stockreceipt/list', StockReceiptListView.as_view(), name='showStockReceipts'),
     path('stockreceipt/itemlist/<int:pk>', StockReceiptItemListView.as_view(), name='showStockReceiptItems'),

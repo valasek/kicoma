@@ -97,16 +97,16 @@ class ArticleResource(resources.ModelResource):
 # integrate import/export into admin
 
 
-class AllergenAdmin(ImportExportActionModelAdmin):
-    list_display = ('code', 'description',)
-    ordering = ('code',)
-    resource_class = AllergenResource
-
-
 class VATAdmin(ImportExportActionModelAdmin):
     list_display = ('percentage', 'rate',)
     ordering = ('-percentage',)
     resource_class = VATResource
+
+
+class AllergenAdmin(ImportExportActionModelAdmin):
+    list_display = ('code', 'description',)
+    ordering = ('code',)
+    resource_class = AllergenResource
 
 
 class MealGroupAdmin(ImportExportActionModelAdmin):
@@ -121,10 +121,44 @@ class MealTypeAdmin(ImportExportActionModelAdmin):
     resource_class = MealTypeResource
 
 
+class ArticleAdmin(ImportExportActionModelAdmin):
+    list_display = ('article', 'unit', 'onStock', 'minOnStock', 'totalPrice',
+                    'averagePrice', 'display_allergens', 'comment', )
+    fields = [('article', 'unit'), ('onStock', 'minOnStock', 'totalPrice', 'averagePrice'), 'allergen', 'comment', ]
+    # list_filter = ('unit', 'coefficient')
+    search_fields = ('name',)
+    resource_class = ArticleResource
+
+
+class RecipeAdmin(ImportExportActionModelAdmin):
+    list_display = ('recipe', 'norm_amount', 'procedure', 'comment')
+    fields = ([('recipe', 'norm_amount'), ('comment', 'procedure')])
+    resource_class = RecipeResource
+
+
+class IngredientAdmin(ImportExportActionModelAdmin):
+    list_display = ('recipe', 'article', 'amount', 'unit', 'comment',)
+    fields = [('recipe', 'article', 'amount', 'unit', 'comment')]
+    resource_class = IngredientResource
+
+
 class DailyMenuAdmin(ImportExportActionModelAdmin):
-    list_display = ('date', 'amount', 'mealGroup', 'mealType', 'recipe')
-    # ordering = ('category',)
+    list_display = ('date', 'amount', 'mealGroup', 'mealType', 'recipe', 'comment')
     resource_class = DailyMenuResource
+
+
+class StockIssueAdmin(ImportExportActionModelAdmin):
+    list_display = ('userCreated', 'approved', 'dateApproved', 'userApproved',
+                    'comment', )
+    fields = [('userCreated', ), ('approved', 'dateApproved', 'userApproved'),
+              'comment', ]
+    resource_class = StockIssueResource
+
+
+class StockReceiptAdmin(ImportExportActionModelAdmin):
+    list_display = ('userCreated', 'comment', )
+    fields = [('userCreated'), 'comment', ]
+    resource_class = StockReceiptResource
 
 
 class ItemAdmin(ImportExportActionModelAdmin):
@@ -137,40 +171,6 @@ class ItemAdmin(ImportExportActionModelAdmin):
     # list_filter = ('unit', 'coefficient')
     # search_fields = ('name',)
     resource_class = ItemResource
-
-
-class StockIssueAdmin(ImportExportActionModelAdmin):
-    list_display = ('userCreated', 'approved', 'dateApproved', 'userApproved',
-                    'dailyMenu', 'comment', )
-    fields = [('userCreated', 'dailyMenu'), ('approved', 'dateApproved', 'userApproved'),
-              'comment', ]
-    resource_class = StockIssueResource
-
-
-class StockReceiptAdmin(ImportExportActionModelAdmin):
-    list_display = ('userCreated', 'comment', )
-    fields = [('userCreated'), 'comment', ]
-    resource_class = StockReceiptResource
-
-
-class ArticleAdmin(ImportExportActionModelAdmin):
-    list_display = ('article', 'unit', 'onStock', 'totalPrice', 'averagePrice', 'display_allergens', 'comment', )
-    fields = [('article', 'unit'), ('onStock', 'totalPrice', 'averagePrice'), 'allergen', 'comment', ]
-    # list_filter = ('unit', 'coefficient')
-    search_fields = ('name',)
-    resource_class = ArticleResource
-
-
-class RecipeAdmin(ImportExportActionModelAdmin):
-    list_display = ('recipe', 'norm_amount', 'procedure')
-    fields = ([('recipe', 'norm_amount'), 'procedure'])
-    resource_class = RecipeResource
-
-
-class IngredientAdmin(ImportExportActionModelAdmin):
-    list_display = ('recipe', 'article', 'amount', 'unit',)
-    fields = [('recipe', 'article', 'amount', 'unit',)]
-    resource_class = IngredientResource
 
 
 admin.site.register(Allergen, AllergenAdmin)

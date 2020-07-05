@@ -4,10 +4,10 @@
 <div class="container-fluid">
   <h4>Úprava zboží</h4>
   <hr/>
+  <p><a href="{% url 'kitchen:showArticles' %}"><button class="btn btn-secondary">Zpět na seznam zboží</button></a></p>
   <form method="post" action="">
     {% csrf_token %}
     {% crispy form form.helper %}
-    <button class="btn btn-secondary" onclick="javascript:history.back();">Zpět</button>
     <button type="submit" class="btn btn-success">Uložit</button>
   </form>
 </div>

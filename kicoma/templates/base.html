@@ -114,18 +114,18 @@
                   class="dropdown-item"
                   href="{% url 'kitchen:showArticles' %}"
                 >
-                  Skladové položky
+                  Seznam skladových položek
                 </a>
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:showStockIssues' %}"
-                  >Výdejky</a
+                  >Seznam výdejek</a
                 >
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:showStockReceipts' %}"
                 >
-                  Příjemky
+                  Seznam příjemek
                 </a>
               </div>
             </li>
@@ -148,7 +148,6 @@
                 <a class="dropdown-item" href="{% url 'kitchen:showRecipies' %}"
                   >Seznam receptů</a
                 >
-                <a class="dropdown-item" href="{% url 'kitchen:printRecipies' %}">Tisk receptů</a>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -166,8 +165,7 @@
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                <a class="dropdown-item" href="{% url 'kitchen:showDailyMenus' %}">Sestavit denní menu</a>
-                <a class="dropdown-item" href="{% url 'kitchen:printDailyMenu' %}">Tisk denního menu</a>
+                <a class="dropdown-item" href="{% url 'kitchen:showDailyMenus' %}">Seznam denních menu</a>
               </div>
             </li>
             <li class="nav-item dropdown">

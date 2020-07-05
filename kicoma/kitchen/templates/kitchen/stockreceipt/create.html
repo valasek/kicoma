@@ -7,8 +7,9 @@
   <form method="post" action="{% url 'kitchen:createStockReceipt' %}">
     {% csrf_token %}
     {% crispy form form.helper %}
-    <button class="btn btn-secondary" onclick="javascript:history.back();">Zpět</button>
     <button type="submit" class="btn btn-success">Uložit</button>
   </form>
+  <hr/>
+  <button class="btn btn-secondary" onclick="javascript:history.back();">Zpět</button>
 </div>
 {% endblock content %}
