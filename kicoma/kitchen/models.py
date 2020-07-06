@@ -4,7 +4,7 @@ from django.forms import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
-from .functions import convertUnits
+from .functions import convertUnits, totalItemPrice
 
 UNIT = (
     ('kg', _('kg')),
@@ -105,20 +105,14 @@ class Article(TimeStampedModel):
     @property
     def averagePrice(self):
         if self.onStock != 0:
-            return self.totalPrice / self.onStock
-        else:
-            return 0
-    # display_averagePrice.short_description = _('Průměrná jednotková cena')
-    # verbose_name='', help_text='Průměrná cena na jednotku zboží')
+            return round(self.totalPrice / self.onStock, 0)
+        return 0
+
 
     def display_allergens(self):
         '''Create a string for the Allergens. This is required to display allergen in Admin and user table view.'''
         return ', '.join(allergen.code for allergen in self.allergen.all())
     display_allergens.short_description = _('Alergény')
-
-    # def get_absolute_url(self):
-    #     '''Returns the url to access a particular instance of the model.'''
-    #     return reverse('model-detail-view', args=[str(self.id)])
 
 
 class Recipe(TimeStampedModel):
@@ -136,6 +130,10 @@ class Recipe(TimeStampedModel):
     def __str__(self):
         return self.recipe
 
+    @property
+    def recipePrice(self):
+        ingredients = Ingredient.objects.filter(recipe=self.id)
+        return round(totalItemPrice(ingredients), 0)
 
 class Ingredient(TimeStampedModel):
 
@@ -211,12 +209,13 @@ class StockIssue(TimeStampedModel):
     #                               null=True, verbose_name='Vydáno v menu')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
-    @property
-    def price(self):
-        return 102
-
     def __str__(self):
         return str(self.created)
+
+    @property
+    def stockIssuePrice(self):
+        items = Item.objects.filter(stockIssue=self.id)
+        return round(totalItemPrice(items), 0)
 
 
 class StockReceipt(TimeStampedModel):
@@ -232,10 +231,6 @@ class StockReceipt(TimeStampedModel):
 
     def __str__(self):
         return str(self.created)
-
-    # def get_absolute_url(self):
-    #     '''Returns the url to access a particular instance of the model.'''
-    #     return reverse('kicoma.update', args=[str(self.id)])
 
 
 class Item(TimeStampedModel):
@@ -279,7 +274,3 @@ class Item(TimeStampedModel):
 
     def __str__(self):
         return self.article.article + ' - ' + str(self.amount) + self.unit
-
-    # def get_absolute_url(self):
-    #     '''Returns the url to access a particular instance of the model.'''
-    #     return reverse('kicoma.Item.update', args=[str(self.id)])

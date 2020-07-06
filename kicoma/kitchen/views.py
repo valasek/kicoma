@@ -6,9 +6,11 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 
+from django.db import transaction
+from django.db.models import Sum, F
+
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateView
-from django.db.models import Sum, F
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -37,6 +39,7 @@ from .forms import ArticleForm, ArticleSearchForm
 from .forms import DailyMenuSearchForm, DailyMenuForm, DailyMenuRecipeForm, DailyMenuRecipeSearchForm
 
 from .signals import updateOnStock, updateTotalPrice
+from .functions import convertUnits
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -430,6 +433,10 @@ class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, PDFTemplateView
         total_price = Item.objects.filter(stockIssue_id=kwargs['pk']).aggregate(
             Sum('priceWithoutVat'))['priceWithoutVat__sum']
         context['stock_issue'] = stock_issue
+        # convert item to article units
+        for item in items:
+            item.amount = convertUnits(item.amount, item.unit, item.article.unit)
+            item.unit = item.article.unit
         context['items'] = items
         context['title'] = "Výdejka"
         context['total_price'] = total_price
@@ -660,10 +667,10 @@ class StockReceiptItemUpdateView(SuccessMessageMixin, LoginRequiredMixin, Update
         item = form.save(commit=False)
         item.stockReceipt = Item.objects.filter(pk=item.id)[0].stockReceipt
         old_amount = Item.objects.filter(pk=item.id).values('amount')[0]['amount']
-        # todo put into transaction
-        item.save()
-        updateOnStock(item.article.id, 'receipt', item.amount, old_amount, item.unit)
-        updateTotalPrice(item.article.id, 'receipt', item.price_with_vat)
+        with transaction.atomic():
+            item.save()
+            updateOnStock(item.article.id, 'receipt', item.amount, old_amount, item.unit)
+            updateTotalPrice(item.article.id, 'receipt', item.price_with_vat)
         return super(StockReceiptItemUpdateView, self).form_valid(form)
 
 

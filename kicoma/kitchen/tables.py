@@ -30,6 +30,7 @@ class ArticleFilter(django_filters.FilterSet):
 
 
 class RecipeTable(tables.Table):
+    recipePrice = tables.Column(verbose_name='Cena receptu s DPH')
     change = tables.TemplateColumn(
         '''<a href="/kitchen/recipe/update/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/recipe/ingredientlist/{{ record.id }}">Zobrazit ingredience</a>
@@ -39,7 +40,7 @@ class RecipeTable(tables.Table):
     class Meta:
         model = Recipe
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("recipe", "norm_amount", "comment", "change")
+        fields = ("recipe", "norm_amount", "recipePrice", "comment", "change")
 
 
 class RecipeFilter(django_filters.FilterSet):
@@ -114,6 +115,7 @@ class DailyMenuRecipeFilter(django_filters.FilterSet):
 
 
 class StockIssueTable(tables.Table):
+    stockIssuePrice = tables.Column(verbose_name='Celková cena s DPH')
     change = tables.TemplateColumn(
         '''<a href="/kitchen/stockissue/update/{{ record.id }}">Upravit poznámku</a>
         | <a href="/kitchen/stockissue/itemlist/{{ record.id }}">Zobrazit zboží</a>
@@ -125,7 +127,8 @@ class StockIssueTable(tables.Table):
     class Meta:
         model = StockIssue
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("created", "userCreated", "approved", "dateApproved", "userApproved", "price", "comment", "change")
+        fields = ("created", "userCreated", "approved", "dateApproved",
+                  "userApproved", "stockIssuePrice", "comment", "change")
 
 
 class StockIssueFilter(django_filters.FilterSet):
