@@ -65,7 +65,10 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="{% url 'home' %}">KiCoMa</a>
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <img src="{% static 'images/logo.jpg'%}" alt="logo" class="mx-2" style="width:25px;">
+          KiCoMa
+        </a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">

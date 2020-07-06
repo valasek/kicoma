@@ -411,6 +411,13 @@ class StockIssueDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     success_message = "Výdejka ze dne %(created)s byla odstraněna"
     success_url = reverse_lazy('kitchen:showStockIssues')
 
+    def post(self, *args, **kwargs):
+        stock_issue = StockIssue.objects.filter(pk=kwargs['pk']).get()
+        if stock_issue.approved:
+            messages.warning(self.request, "Výmaz neproveden - výdejka je již vyskladněna")
+            return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
+        return super(StockIssueDeleteView, self).post(self.request, **kwargs)
+
 
 class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, PDFTemplateView):
     template_name = 'kitchen/stockissue/pdf.html'
@@ -449,13 +456,13 @@ class StockIssueApproveView(LoginRequiredMixin, TemplateView):
     def post(self, *args, **kwargs):
         stock_issue = StockIssue.objects.filter(pk=kwargs['pk']).get()
         if stock_issue.approved:
-            messages.warning(self.request, 'Ignorováno opakované schválení výdejky')
+            messages.warning(self.request, 'Vyskladnění neprovedeno - již bylo vyskladněno')
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
         stock_issue.approved = True
         stock_issue.dateApproved = datetime.now()
         stock_issue.userApproved = self.request.user
         stock_issue.save(update_fields=('approved', 'dateApproved', 'userApproved',))
-        messages.success(self.request, "Výdejka {stock_issue.created} byla vyskladněna")
+        messages.success(self.request, "Výdejka byla vyskladněna")
         return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
 
 
