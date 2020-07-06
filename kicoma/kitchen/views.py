@@ -3,7 +3,8 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.db.models import Sum
+from django.views.generic.base import TemplateView
+from django.db.models import Sum, F
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -19,15 +20,15 @@ from .models import Item, Recipe, Allergen, MealType, MealGroup, VAT, \
     Article, Ingredient, StockIssue, StockReceipt, DailyMenu, DailyMenuRecipe
 
 from .tables import StockReceiptTable, StockReceiptItemTable, StockReceiptFilter, StockReceiptItemFilter
+from .tables import StockIssueTable, StockIssueItemTable, StockIssueFilter, StockIssueItemFilter
 from .tables import ArticleTable, ArticleFilter
 from .tables import DailyMenuTable, DailyMenuFilter
 from .tables import DailyMenuRecipeTable, DailyMenuRecipeFilter
-from .tables import StockIssueTable, StockIssueFilter
 from .tables import RecipeTable, RecipeFilter, RecipeIngredientTable, RecipeIngredientFilter
 
 from .forms import RecipeForm, RecipeIngredientForm, RecipeSearchForm, RecipeIngredientSearchForm
 from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptItemForm, StockReceiptItemSearchForm
-from .forms import StockIssueForm, StockIssueSearchForm
+from .forms import StockIssueForm, StockIssueSearchForm, StockIssueItemForm, StockIssueItemSearchForm
 from .forms import ArticleForm, ArticleSearchForm
 from .forms import DailyMenuSearchForm, DailyMenuForm, DailyMenuRecipeForm, DailyMenuRecipeSearchForm
 
@@ -90,6 +91,20 @@ class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     filterset_class = ArticleFilter
     form_class = ArticleSearchForm
     paginate_by = 12
+
+
+class ArticleLackListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+    model = Article
+    table_class = ArticleTable
+    template_name = 'kitchen/article/listlack.html'
+    filterset_class = ArticleFilter
+    form_class = ArticleSearchForm
+    paginate_by = 12
+
+    def get_queryset(self):
+        # show only articles where
+        return super().get_queryset().filter(onStock__lt=F('minOnStock'))
+        # return self.filter(onStock__lte=minOnStock, **kwargs)
 
 
 class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -369,7 +384,7 @@ class StockIssueCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = StockIssue
     form_class = StockIssueForm
     template_name = 'kitchen/stockissue/create.html'
-    success_message = "Vydejka byla vytvořena a je možné přidávat položky"
+    success_message = "Výdejka byla vytvořena a je možné přidávat zboží"
     success_url = reverse_lazy('kitchen:showStockIssues')
 
     def form_valid(self, form):
@@ -377,6 +392,138 @@ class StockIssueCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         form.instance.userCreated = self.request.user
         self.object = form.save()
         return super(StockIssueCreateView, self).form_valid(form)
+
+
+class StockIssueUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = StockIssue
+    form_class = StockIssueForm
+    template_name = 'kitchen/stockissue/update.html'
+    success_message = "Poznámka výdejky byla aktualizována"
+    success_url = reverse_lazy('kitchen:showStockIssues')
+
+
+class StockIssueDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+    model = StockIssue
+    template_name = 'kitchen/stockissue/delete.html'
+    success_message = "Výdejka ze dne %(created)s byla odstraněna"
+    success_url = reverse_lazy('kitchen:showStockIssues')
+
+
+class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, PDFTemplateView):
+    template_name = 'kitchen/stockissue/pdf.html'
+    filename = 'Vydejka.pdf'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        stock_issue = StockIssue.objects.filter(pk=kwargs['pk'])[0]
+        items = Item.objects.filter(stockIssue_id=kwargs['pk'])
+        total_price = Item.objects.filter(stockIssue_id=kwargs['pk']).aggregate(
+            Sum('priceWithoutVat'))['priceWithoutVat__sum']
+        context['stock_issue'] = stock_issue
+        context['items'] = items
+        context['title'] = "Výdejka"
+        context['total_price'] = total_price
+        return context
+
+
+class StockIssueApproveView(LoginRequiredMixin, TemplateView):
+    model = StockIssue
+    template_name = 'kitchen/stockissue/approve.html'
+    success_message = 'Výdejka %(date)s byla vyskladněna'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print("kwargs", kwargs)
+        stock_issue = StockIssue.objects.filter(pk=kwargs['pk'])[0]
+        items = Item.objects.filter(stockIssue_id=kwargs['pk'])
+        total_price = Item.objects.filter(stockIssue_id=kwargs['pk']).aggregate(
+            Sum('priceWithoutVat'))['priceWithoutVat__sum']
+        context['stock_issue'] = stock_issue
+        context['items'] = items
+        context['total_price'] = total_price
+        return context
+
+    def get_queryset(self):
+        # show only StockIssue Items
+        return super().get_queryset() #.filter(stockIssue=self.kwargs["pk"])
+
+class StockIssueItemListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+    model = Item
+    table_class = StockIssueItemTable
+    template_name = 'kitchen/stockissue/listitems.html'
+    filterset_class = StockIssueItemFilter
+    form_class = StockIssueItemSearchForm
+    paginate_by = 12
+
+    def get_context_data(self, **kwargs):
+        context = super(StockIssueItemListView, self).get_context_data(**kwargs)
+        context['stockissue'] = StockIssue.objects.filter(pk=self.kwargs['pk'])[0]
+        return context
+
+    def get_queryset(self):
+        # show only StockIssue Items
+        return super().get_queryset().filter(stockIssue=self.kwargs["pk"])
+
+
+class StockIssueItemCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+    model = Item
+    form_class = StockIssueItemForm
+    template_name = 'kitchen/stockissue/createitem.html'
+    success_message = 'Zboží %(article)s bylo přidáno'
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showStockIssueItems', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super(StockIssueItemCreateView, self).get_context_data(**kwargs)
+        context['stockissue'] = StockIssue.objects.filter(pk=self.kwargs['pk'])[0]
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        stock_issue = context['stockissue']
+        item = form.save(commit=False)
+        item.stockIssue = StockIssue.objects.filter(pk=stock_issue.id)[0]
+        item.save()
+        return super(StockIssueItemCreateView, self).form_valid(form)
+
+
+class StockIssueItemUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = Item
+    form_class = StockIssueItemForm
+    template_name = 'kitchen/stockissue/updateitem.html'
+    success_message = "Zboží %(article)s bylo aktualizováno"
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showStockIssueItems', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super(StockIssueItemUpdateView, self).get_context_data(**kwargs)
+        context['item_before'] = Item.objects.filter(pk=self.kwargs['pk'])[0]
+        return context
+
+    def form_valid(self, form):
+        item = form.save(commit=False)
+        item.stockIssue = Item.objects.filter(pk=item.id)[0].stockIssue
+        item.save()
+        self.kwargs = {'pk': item.stockIssue.id}
+        return super(StockIssueItemUpdateView, self).form_valid(form)
+
+
+class StockIssueItemDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+    model = Item
+    template_name = 'kitchen/stockissue/deleteitem.html'
+    success_message = "Zboží bylo odstraněno"
+    success_url = reverse_lazy('kitchen:showStockIssues')
+    stock_issue_id = 0
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showStockIssueItems', kwargs={'pk': self.stock_issue_id})
+
+    def delete(self, request, *args, **kwargs):
+        item = get_object_or_404(Item, pk=self.kwargs['pk'])
+        self.stock_issue_id = item.stockIssue.id
+        return super(StockIssueItemDeleteView, self).delete(request, *args, **kwargs)
 
 
 class StockReceiptListView(SingleTableMixin, LoginRequiredMixin, FilterView):
@@ -392,7 +539,7 @@ class StockReceiptCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView
     model = StockReceipt
     form_class = StockReceiptForm
     template_name = 'kitchen/stockreceipt/create.html'
-    success_message = "Příjemka byla vytvořena a je možné přidávat položky"
+    success_message = "Příjemka byla vytvořena a je možné přidávat zboží"
     success_url = reverse_lazy('kitchen:showStockReceipts')
 
     def form_valid(self, form):
@@ -405,7 +552,7 @@ class StockReceiptUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView
     model = StockReceipt
     form_class = StockReceiptForm
     template_name = 'kitchen/stockreceipt/update.html'
-    success_message = "Hlavička příjemky byla aktualizována"
+    success_message = "Poznámka příjemky byla aktualizována"
     success_url = reverse_lazy('kitchen:showStockReceipts')
 
 
@@ -455,7 +602,7 @@ class StockReceiptItemCreateView(SuccessMessageMixin, LoginRequiredMixin, Create
     model = Item
     form_class = StockReceiptItemForm
     template_name = 'kitchen/stockreceipt/createitem.html'
-    success_message = 'Polozka %(article)s byla vytvořena a výše zásob zboží na skladu aktualizována'
+    success_message = 'Zboží %(article)s bylo přidáno a výše zásob zboží na skladu aktualizována'
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showStockReceiptItems', kwargs={'pk': self.kwargs['pk']})

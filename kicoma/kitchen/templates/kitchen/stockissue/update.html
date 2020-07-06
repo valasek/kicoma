@@ -1,17 +1,14 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-
 <div class="container-fluid">
-  <h4>Výber surovin do receptu</h4>
+  <h4>Aktualizace poznámky výdejky</h4>
   <hr/>
-  <form method="post">
+  <p><a href="{% url 'kitchen:showStockIssues' %}"><button class="btn btn-secondary">Zpět na seznam výdejek</button></a>
+  <form method="post" action="">
     {% csrf_token %}
-    {{ ingredients|crispy }}
-    {{ form|crispy }}
-    {{ form.ingredients|crispy }}
+    {% crispy form form.helper %}
     <button type="submit" class="btn btn-success">Uložit</button>
   </form>
 </div>
-
 {% endblock content %}

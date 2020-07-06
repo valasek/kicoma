@@ -2,22 +2,22 @@
 {% load render_table from django_tables2 %}
 {% load crispy_forms_tags %}
 {% block content %}
-  <div class="container-fluid">
-    <h4>Zboží na skladu</h4>
-    <hr/>
-    <div class="row">
-      <div class="col justify-content-start">
-        <a href="{% url 'kitchen:createArticle' %}" class="btn btn-primary mb-2">Založit nové zboží</a>
-        <a href="{% url 'kitchen:printArticles' %}" class="btn btn-secondary mb-2">Tisk soupisu zásob</a>
-      </div>
-      {% if filter %}
-      <form method="get" action="" class="col justify-content-end form-inline mb-2">
-        {% csrf_token %}
-        {{ filter.form | crispy }}
-        <button type="submit" class="btn btn-success mx-2">Search</button>
-      </form>
-      {% endif %}
+<div class="container-fluid">
+  <h4>Seznam zboží na skladu</h4>
+  <hr/>
+  <div class="row">
+    <div class="col justify-content-start">
+      <a href="{% url 'kitchen:createArticle' %}" class="btn btn-primary mb-2">Založit nové zboží</a>
+      <a href="{% url 'kitchen:printArticles' %}" class="btn btn-secondary mb-2">Tisk soupisu zásob</a>
     </div>
-    {% render_table table %}
+    {% if filter %}
+    <form method="get" action="" class="col justify-content-end form-inline mb-2">
+      {% csrf_token %}
+      {{ filter.form | crispy }}
+      <button type="submit" class="btn btn-success mx-2">Search</button>
+    </form>
+    {% endif %}
   </div>
+  {% render_table table %}
+</div>
 {% endblock content %}

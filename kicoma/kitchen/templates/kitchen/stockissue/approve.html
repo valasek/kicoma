@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+  <h4>Vyskladnění</h4>
+  <hr/>
+  <p><a href="{% url 'kitchen:showStockIssues' %}"><button class="btn btn-secondary">Zpět na seznam výdejek</button></a>
+  <form method="post" action="{% url 'kitchen:approveStockIssue' stock_issue.id %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <p>Chcete vyskladnit výdejku?</p>
+    <ul>
+      <li><b>Celková cena:</b> {{total_price}} Kč</li>
+      <li><b>Počet vyskladňovaného zboží:</b> {{ items.count }}<br/></li>
+      <li><b>Vytvořena dne:</b> {{ stock_issue.created }}</li>
+      <li><b>Vytvořila:</b> {{ stock_issue.userCreated.name }}</li>
+      <li><b>Poznámka:</b> {{ stock_issue.comment }}</li>
+    </ul>
+    <button type="submit" class="btn btn-success">Vyskladnit</button></p>
+  </form>
+  <hr/>
+  <h5>Seznam zboží</h5>
+  <br/>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Zboží</th>
+        <th>Množství</th>
+        <th>Vyskladňovaná cena</th>
+        <th>Poznámka</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{item.article}}</td>
+        <td>{{item.amount}} {{item.unit}}</td>
+        <td>{{item.article.averagePrice}}</td>
+        <td>{{item.comment}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+</div>
+{% endblock content %}

@@ -1,0 +1,34 @@
+{% extends "../pdf_page.html" %}
+{% block content %}
+  Vytvořena dne: {{ stock_issue.created }}<br/>
+  Vytvořila: {{stock_issue.userCreated.name}}<br/>
+  Počet položek: {{ items.count }}<br/>
+  Poznámka: {{ stock_issue.comment }}<br/>
+  <br/>
+  <p style="text-align:center"><b>Celková cena: {{total_price}} Kč</b></p>
+  <br/>
+  <table class="minimalistBlack">
+    <thead>
+      <tr>
+        <th>Zboží</th>
+        <th>Množství</th>
+        <th>Cena bez DPH</th>
+        <th>DPH</th>
+        <th>Cena s DPH</th>
+        <th>Poznámka</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{item.article}}</td>
+        <td>{{item.amount}} {{item.unit}}</td>
+        <td>{{item.priceWithoutVat}} Kč</td>
+        <td>{{item.vat}}</td>
+        <td>{{item.price_with_vat}} Kč</td>
+        <td>{{item.comment}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+{% endblock %}

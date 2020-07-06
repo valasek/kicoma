@@ -2,13 +2,13 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Odstranění příjemky</h4>
+  <h4>Odstranění výdejky</h4>
   <hr/>
-  <p><a href="{% url 'kitchen:showStockReceipts' %}"><button class="btn btn-secondary">Zpět na seznam příjemkem</button></a>
-  <form method="post" action="{% url 'kitchen:deleteStockReceipt' pk=object.id %}">
+  <p><a href="{% url 'kitchen:showStockIssues' %}"><button class="btn btn-secondary">Zpět na seznam výdejek</button></a>
+  <form method="post" action="{% url 'kitchen:deleteStockIssue' pk=object.id %}">
     {% csrf_token %}
     {{ form|crispy }}
-    <p>Chcete odstranit příjemku?</p>
+    <p>Chcete odstranit výdejku?</p>
     <ul>
       <li><b>Vytvořena dne:</b> {{ object.created }}</li>
       <li><b>Vytvořila:</b> {{ object.userCreated.name }}</li>

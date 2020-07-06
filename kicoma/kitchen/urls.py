@@ -1,14 +1,18 @@
 from django.urls import path
 
-from .views import ArticleListView, ArticleCreateView, ArticleUpdateView, ArticlePDFView
+from .views import ArticleListView, ArticleCreateView, ArticleUpdateView, ArticlePDFView, \
+    ArticleLackListView
 from .views import StockReceiptListView, StockReceiptCreateView, StockReceiptUpdateView, \
     StockReceiptDeleteView, StockReceiptPDFView
 from .views import StockReceiptItemListView, StockReceiptItemCreateView, StockReceiptItemUpdateView, \
     StockReceiptItemDeleteView
+from .views import StockIssueListView, StockIssueCreateView, StockIssueUpdateView, \
+    StockIssueDeleteView, StockIssuePDFView, StockIssueApproveView
+from .views import StockIssueItemListView, StockIssueItemCreateView, StockIssueItemUpdateView, \
+    StockIssueItemDeleteView
 from .views import RecipeListView, RecipeCreateView, RecipeUpdateView, RecipeDeleteView, RecipePDFView
 from .views import RecipeIngredientListView, RecipeIngredientCreateView, RecipeIngredientUpdateView, \
     RecipeIngredientDeleteView
-from .views import StockIssueListView, StockIssueCreateView
 from .views import DailyMenuListView, DailyMenuCreateView, DailyMenuUpdateView, DailyMenuDeleteView
 from .views import DailyMenuRecipeListView, DailyMenuRecipeCreateView, DailyMenuRecipeUpdateView, \
     DailyMenuRecipeDeleteView
@@ -20,13 +24,21 @@ urlpatterns = [
     path('overview', index, name='overview'),
 
     path('article/list', ArticleListView.as_view(), name='showArticles'),
+    path('article/listlack', ArticleLackListView.as_view(), name='showLackArticles'),
     path('article/create', ArticleCreateView.as_view(), name='createArticle'),
     path('article/update/<int:pk>', ArticleUpdateView.as_view(), name='updateArticle'),
     path('article/print', ArticlePDFView.as_view(), name='printArticles'),
 
     path('stockissue/list', StockIssueListView.as_view(), name='showStockIssues'),
+    path('stockissue/itemlist/<int:pk>', StockIssueItemListView.as_view(), name='showStockIssueItems'),
     path('stockissue/create', StockIssueCreateView.as_view(), name='createStockIssue'),
-    path('stockreceipt/create', StockReceiptCreateView.as_view(), name='createStockReceipt'),
+    path('stockissue/createitem/<int:pk>', StockIssueItemCreateView.as_view(), name='createStockIssueItem'),
+    path('stockissue/update/<int:pk>', StockIssueUpdateView.as_view(), name='updateStockIssue'),
+    path('stockissue/updateitem/<int:pk>', StockIssueItemUpdateView.as_view(), name='updateStockIssueItem'),
+    path('stockissue/delete/<int:pk>', StockIssueDeleteView.as_view(), name='deleteStockIssue'),
+    path('stockissue/deleteitem/<int:pk>', StockIssueItemDeleteView.as_view(), name='deleteStockIssueItem'),
+    path('stockissue/print/<int:pk>', StockIssuePDFView.as_view(), name='printStockIssue'),
+    path('stockissue/approve/<int:pk>', StockIssueApproveView.as_view(), name='approveStockIssue'),
 
     path('stockreceipt/list', StockReceiptListView.as_view(), name='showStockReceipts'),
     path('stockreceipt/itemlist/<int:pk>', StockReceiptItemListView.as_view(), name='showStockReceiptItems'),
@@ -47,7 +59,6 @@ urlpatterns = [
     path('recipe/delete/<int:pk>', RecipeDeleteView.as_view(), name='deleteRecipe'),
     path('recipe/deleteingredient/<int:pk>', RecipeIngredientDeleteView.as_view(), name='deleteRecipeIngredient'),
     path('recipe/print', RecipePDFView.as_view(), name='printRecipes'),
-
 
     path('dailymenu/list', DailyMenuListView.as_view(), name='showDailyMenus'),
     path('dailymenu/recipelist/<int:pk>', DailyMenuRecipeListView.as_view(), name='showDailyMenuRecipes'),

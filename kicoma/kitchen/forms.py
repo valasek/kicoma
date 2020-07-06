@@ -5,6 +5,10 @@ from crispy_forms.layout import Layout, Row, Column
 from .models import StockReceipt, StockIssue, Item, Ingredient, Article, Recipe, DailyMenu, DailyMenuRecipe
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class ArticleForm(forms.ModelForm):
 
     class Meta:
@@ -94,6 +98,7 @@ class DailyMenuForm(forms.ModelForm):
     class Meta:
         model = DailyMenu
         fields = ["date", "mealGroup", "mealType", "comment"]
+        widgets = {'date': DateInput()}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -146,22 +151,12 @@ class StockIssueForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['userCreated'].widget.attrs['readonly'] = True
-        # self.fields['approved'].widget.attrs['readonly'] = True
-        # self.fields['dateApproved'].widget.attrs['readonly'] = True
-        # self.fields['userApproved'].widget.attrs['readonly'] = True
         self.helper = FormHelper()
         self.helper.form_tag = False
         # self.helper.disable_csrf = False
         # self.helper.field_template = 'bootstrap3/layout/inline_field.html'
         # self.helper.template = 'bootstrap/table_inline_formset.html'
         self.helper.layout = Layout(
-            # Row(
-            #     Column('userCreated', css_class='col-md-2'),
-            #     Column('approved', css_class='col-md-2'),
-            #     Column('dateApproved', css_class='col-md-2'),
-            #     Column('userApproved', css_class='col-md-2'),
-            # ),
             Row(
                 Column('comment', css_class='col-md-12')
             )
@@ -169,7 +164,34 @@ class StockIssueForm(forms.ModelForm):
 
 
 class StockIssueSearchForm(forms.Form):
+    approved = forms.BooleanField()
     created = forms.CharField()
+    userApproved__name = forms.CharField()
+
+
+class StockIssueItemForm(forms.ModelForm):
+
+    class Meta:
+        model = Item
+        fields = ["article", "amount", "unit", "priceWithoutVat", "vat", "comment"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        # self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        self.helper.layout = Layout(
+            Row(
+                Column('article', css_class='col-md-2'),
+                Column('amount', css_class='col-md-1'),
+                Column('unit', css_class='col-md-1'),
+                Column('comment', css_class='col-md-4'),
+            )
+        )
+
+
+class StockIssueItemSearchForm(forms.Form):
+    article__article = forms.CharField()
 
 
 class StockReceiptForm(forms.ModelForm):

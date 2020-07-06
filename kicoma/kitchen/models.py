@@ -1,4 +1,3 @@
-# import datetime
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
@@ -118,9 +117,9 @@ class Article(TimeStampedModel):
         return ', '.join(allergen.code for allergen in self.allergen.all())
     display_allergens.short_description = _('Alergény')
 
-    def get_absolute_url(self):
-        '''Returns the url to access a particular instance of the model.'''
-        return reverse('model-detail-view', args=[str(self.id)])
+    # def get_absolute_url(self):
+    #     '''Returns the url to access a particular instance of the model.'''
+    #     return reverse('model-detail-view', args=[str(self.id)])
 
 
 class Recipe(TimeStampedModel):
@@ -166,7 +165,7 @@ class DailyMenu(TimeStampedModel):
         verbose_name = _('Denní jídlo')
         ordering = ['-date']
 
-    date = models.DateField(verbose_name='Datum')
+    date = models.DateField(verbose_name='Datum', help_text='Datum denního menu')
     mealGroup = models.ForeignKey(MealGroup, on_delete=models.CASCADE, verbose_name='Skupina strávníka',
                                   help_text='Skupina pro kterou se připravuje jídlo')
     mealType = models.ForeignKey(MealType, on_delete=models.CASCADE, verbose_name='Druh jídla',
@@ -204,14 +203,18 @@ class StockIssue(TimeStampedModel):
         ordering = ['-created']
 
     userCreated = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-                                    related_name='created', verbose_name='Vytvořil')
+                                    related_name='ucreated', verbose_name='Vytvořil')
     approved = models.BooleanField(default=False, blank=True, null=True, verbose_name='Vyskladněno')
     dateApproved = models.DateField(blank=True, null=True, verbose_name='Datum odpisu')
     userApproved = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True,
-                                     related_name='approved', verbose_name='Vyskladnil')
+                                     related_name='uapproved', verbose_name='Vyskladnil')
     # dailyMenu = models.ForeignKey(DailyMenu, on_delete=models.CASCADE, blank=True,
     #                               null=True, verbose_name='Vydáno v menu')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
+
+    @property
+    def price(self):
+        return 102
 
     def __str__(self):
         return str(self.created)
@@ -231,9 +234,9 @@ class StockReceipt(TimeStampedModel):
     def __str__(self):
         return str(self.created)
 
-    def get_absolute_url(self):
-        '''Returns the url to access a particular instance of the model.'''
-        return reverse('kicoma.update', args=[str(self.id)])
+    # def get_absolute_url(self):
+    #     '''Returns the url to access a particular instance of the model.'''
+    #     return reverse('kicoma.update', args=[str(self.id)])
 
 
 class Item(TimeStampedModel):
@@ -256,7 +259,9 @@ class Item(TimeStampedModel):
 
     @property
     def price_with_vat(self):
-        return self.priceWithoutVat + self.priceWithoutVat * self.vat.percentage/100
+        if self.priceWithoutVat is not None and self.priceWithoutVat is not None and self.vat.percentage is not None:
+            return self.priceWithoutVat + self.priceWithoutVat * self.vat.percentage/100
+        return 0  # Required for Items on StockIssues
 
     def clean(self):
         article = Article.objects.filter(pk=self.article.id).values_list('onStock', 'unit')
@@ -276,6 +281,6 @@ class Item(TimeStampedModel):
     def __str__(self):
         return self.article.article + ' - ' + str(self.amount) + self.unit
 
-    def get_absolute_url(self):
-        '''Returns the url to access a particular instance of the model.'''
-        return reverse('kicoma.Item.update', args=[str(self.id)])
+    # def get_absolute_url(self):
+    #     '''Returns the url to access a particular instance of the model.'''
+    #     return reverse('kicoma.Item.update', args=[str(self.id)])
