@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 from django.conf import settings
 from django.forms import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator

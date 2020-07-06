@@ -1,6 +1,10 @@
 import logging
-from django.shortcuts import render, get_object_or_404
+from datetime import datetime
+
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+from django.shortcuts import render, get_object_or_404
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateView
@@ -239,7 +243,7 @@ class RecipeIngredientUpdateView(SuccessMessageMixin, LoginRequiredMixin, Update
         ingredient = form.save(commit=False)
         ingredient.recipe = Ingredient.objects.filter(pk=ingredient.id)[0].recipe
         ingredient.save()
-        self.kwargs = {'pk': ingredient.recipe.id }
+        self.kwargs = {'pk': ingredient.recipe.id}
         return super(RecipeIngredientUpdateView, self).form_valid(form)
 
 
@@ -388,7 +392,6 @@ class StockIssueCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('kitchen:showStockIssues')
 
     def form_valid(self, form):
-        print("form_valid", self, form)
         form.instance.userCreated = self.request.user
         self.object = form.save()
         return super(StockIssueCreateView, self).form_valid(form)
@@ -429,7 +432,7 @@ class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, PDFTemplateView
 class StockIssueApproveView(LoginRequiredMixin, TemplateView):
     model = StockIssue
     template_name = 'kitchen/stockissue/approve.html'
-    success_message = 'Výdejka %(date)s byla vyskladněna'
+    fields = "__all__"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -443,9 +446,18 @@ class StockIssueApproveView(LoginRequiredMixin, TemplateView):
         context['total_price'] = total_price
         return context
 
-    def get_queryset(self):
-        # show only StockIssue Items
-        return super().get_queryset() #.filter(stockIssue=self.kwargs["pk"])
+    def post(self, *args, **kwargs):
+        stock_issue = StockIssue.objects.filter(pk=kwargs['pk']).get()
+        if stock_issue.approved:
+            messages.warning(self.request, 'Ignorováno opakované schválení výdejky')
+            return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
+        stock_issue.approved = True
+        stock_issue.dateApproved = datetime.now()
+        stock_issue.userApproved = self.request.user
+        stock_issue.save(update_fields=('approved', 'dateApproved', 'userApproved',))
+        messages.success(self.request, "Výdejka {stock_issue.created} byla vyskladněna")
+        return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
+
 
 class StockIssueItemListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = Item
