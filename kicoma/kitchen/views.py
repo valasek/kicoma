@@ -29,14 +29,14 @@ from .tables import StockReceiptTable, StockReceiptItemTable, StockReceiptFilter
 from .tables import StockIssueTable, StockIssueItemTable, StockIssueFilter, StockIssueItemFilter
 from .tables import ArticleTable, ArticleFilter
 from .tables import DailyMenuTable, DailyMenuFilter
-from .tables import DailyMenuRecipeTable, DailyMenuRecipeFilter
-from .tables import RecipeTable, RecipeFilter, RecipeIngredientTable, RecipeIngredientFilter
+from .tables import DailyMenuRecipeTable
+from .tables import RecipeTable, RecipeFilter, RecipeIngredientTable
 
-from .forms import RecipeForm, RecipeIngredientForm, RecipeSearchForm, RecipeIngredientSearchForm
+from .forms import RecipeForm, RecipeIngredientForm, RecipeSearchForm
 from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptItemForm, StockReceiptItemSearchForm
 from .forms import StockIssueForm, StockIssueSearchForm, StockIssueItemForm, StockIssueItemSearchForm
 from .forms import ArticleForm, ArticleSearchForm
-from .forms import DailyMenuSearchForm, DailyMenuForm, DailyMenuRecipeForm, DailyMenuRecipeSearchForm
+from .forms import DailyMenuSearchForm, DailyMenuForm, DailyMenuRecipeForm
 
 from .signals import updateOnStock, updateTotalPrice
 from .functions import convertUnits
@@ -191,8 +191,6 @@ class RecipeIngredientListView(SingleTableMixin, LoginRequiredMixin, FilterView)
     model = Ingredient
     table_class = RecipeIngredientTable
     template_name = 'kitchen/recipe/listingredients.html'
-    filterset_class = RecipeIngredientFilter
-    form_class = RecipeIngredientSearchForm
     paginate_by = 12
 
     def get_context_data(self, **kwargs):
@@ -303,8 +301,6 @@ class DailyMenuRecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = DailyMenuRecipe
     table_class = DailyMenuRecipeTable
     template_name = 'kitchen/dailymenu/listrecipe.html'
-    filterset_class = DailyMenuRecipeFilter
-    form_class = DailyMenuRecipeSearchForm
     paginate_by = 12
 
     def get_context_data(self, **kwargs):

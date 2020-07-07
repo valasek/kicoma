@@ -7,19 +7,11 @@
   <hr/>
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
-      <a href="{% url 'kitchen:showRecipes' %}"><button class="btn btn-secondary">Zpět na seznam receptů</button></a>
-      <a href="{% url 'kitchen:createRecipeIngredient' recipe.id %}" class="btn btn-primary">Nová ingredience</a>
+      <a href="{% url 'kitchen:showRecipes' %}"><button class="btn btn-secondary mb-2">Zpět na seznam receptů</button></a>
+      <a href="{% url 'kitchen:createRecipeIngredient' recipe.id %}" class="btn btn-primary mb-2">Nová ingredience</a>
       <b>Recept:</b> {{recipe.recipe}} <b>Počet jídel:</b> {{recipe.norm_amount}}
     </div>
-    {% if filter %}
-      <form method="get" action="" class="col-4 justify-content-end form-inline mb-2">
-        {% csrf_token %}
-        {{ filter.form | crispy }}
-        <button type="submit" class="btn btn-success mx-2">Vyhledat</button>
-      </form>
-    {% endif %}
   </div>
   {% render_table table %}
-  <hr/>
 </div>
 {% endblock content %}

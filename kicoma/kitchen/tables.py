@@ -63,13 +63,6 @@ class RecipeIngredientTable(tables.Table):
         fields = ("article", "amount", "unit", "change")
 
 
-class RecipeIngredientFilter(django_filters.FilterSet):
-    article = django_filters.CharFilter(lookup_expr='icontains')
-
-    class Meta:
-        model = Ingredient
-        fields = ("article",)
-
 
 class DailyMenuTable(tables.Table):
     change = tables.TemplateColumn(
@@ -104,14 +97,6 @@ class DailyMenuRecipeTable(tables.Table):
         model = DailyMenuRecipe
         template_name = "django_tables2/bootstrap4.html"
         fields = ("recipe", "amount", "change")
-
-
-class DailyMenuRecipeFilter(django_filters.FilterSet):
-    recipe = django_filters.CharFilter(lookup_expr='icontains')
-
-    class Meta:
-        model = DailyMenuRecipe
-        fields = ("recipe", )
 
 
 class StockIssueTable(tables.Table):

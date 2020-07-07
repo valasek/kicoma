@@ -89,10 +89,6 @@ class RecipeIngredientForm(forms.ModelForm):
         )
 
 
-class RecipeIngredientSearchForm(forms.Form):
-    article = forms.CharField()
-
-
 class DailyMenuForm(forms.ModelForm):
 
     class Meta:
@@ -135,10 +131,6 @@ class DailyMenuRecipeForm(forms.ModelForm):
                 Column('comment', css_class='col-md-6'),
             )
         )
-
-
-class DailyMenuRecipeSearchForm(forms.Form):
-    recipe = forms.CharField()
 
 
 class StockIssueForm(forms.ModelForm):

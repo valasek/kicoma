@@ -185,7 +185,7 @@ class DailyMenuRecipe(TimeStampedModel):
                                help_text='Vybraný recept')
     amount = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(1000)],
-        unique=True, verbose_name='Počet', help_text='Počet porcí')
+        verbose_name='Počet', help_text='Počet porcí')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
