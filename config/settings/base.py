@@ -293,12 +293,4 @@ SOCIALACCOUNT_ADAPTER = "kicoma.users.adapters.SocialAccountAdapter"
 
 # Your stuff...
 # ------------------------------------------------------------------------------
-# Sentry
-sentry_sdk.init(
-    dsn="https://137388df23d648d9bae72c0adcc12e06@o417369.ingest.sentry.io/5316934",
-    integrations=[DjangoIntegration()],
 
-    # If you wish to associate users to errors (assuming you are using
-    # django.contrib.auth) you may enable sending PII data.
-    send_default_pii=True
-)

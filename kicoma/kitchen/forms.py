@@ -4,6 +4,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 from .models import StockReceipt, StockIssue, Item, Ingredient, Article, Recipe, DailyMenu, DailyMenuRecipe
 
+from django.conf import settings
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -94,10 +95,16 @@ class DailyMenuForm(forms.ModelForm):
     class Meta:
         model = DailyMenu
         fields = ["date", "mealGroup", "mealType", "comment"]
-        widgets = {'date': DateInput()}
+        # widgets = {'date': DateInput(format="%d/%m/%Y")}
+        widgets = {'date': DateInput(attrs={"type": "date"}, format='%d.%m.%Y')}
+        # date = forms.DateField(widget=forms.widgets.DateInput(attrs={"type": "date"}))
+        # forms.DateField(widget=forms.DateInput(format='%m/%d/%Y',
+        #                                        attrs={'class': 'datepicker'}), input_formats=('%m/%d/%Y',))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['date'].widget = forms.DateInput(attrs={"type": "date"}, format='%d.%m.%Y')
+        self.fields['date'].input_formats = settings.DATE_INPUT_FORMATS
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout(

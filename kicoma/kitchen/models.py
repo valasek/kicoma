@@ -108,7 +108,6 @@ class Article(TimeStampedModel):
             return round(self.totalPrice / self.onStock, 0)
         return 0
 
-
     def display_allergens(self):
         '''Create a string for the Allergens. This is required to display allergen in Admin and user table view.'''
         return ', '.join(allergen.code for allergen in self.allergen.all())
@@ -134,6 +133,7 @@ class Recipe(TimeStampedModel):
     def recipePrice(self):
         ingredients = Ingredient.objects.filter(recipe=self.id)
         return round(totalItemPrice(ingredients), 0)
+
 
 class Ingredient(TimeStampedModel):
 
