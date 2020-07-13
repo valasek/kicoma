@@ -96,15 +96,15 @@ class DailyMenuForm(forms.ModelForm):
         model = DailyMenu
         fields = ["date", "mealGroup", "mealType", "comment"]
         # widgets = {'date': DateInput(format="%d/%m/%Y")}
-        widgets = {'date': DateInput(attrs={"type": "date"}, format='%d.%m.%Y')}
+        # widgets = {'date': DateInput(attrs={"type": "date"}, format='%d.%m.%Y')}
         # date = forms.DateField(widget=forms.widgets.DateInput(attrs={"type": "date"}))
         # forms.DateField(widget=forms.DateInput(format='%m/%d/%Y',
         #                                        attrs={'class': 'datepicker'}), input_formats=('%m/%d/%Y',))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['date'].widget = forms.DateInput(attrs={"type": "date"}, format='%d.%m.%Y')
-        self.fields['date'].input_formats = settings.DATE_INPUT_FORMATS
+        # self.fields['date'].widget = forms.DateInput(attrs={"type": "date"}, format='%d.%m.%Y')
+        # self.fields['date'].input_formats = settings.DATE_INPUT_FORMATS
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout(
@@ -189,10 +189,6 @@ class StockIssueItemForm(forms.ModelForm):
         )
 
 
-class StockIssueItemSearchForm(forms.Form):
-    article__article = forms.CharField()
-
-
 class StockReceiptForm(forms.ModelForm):
     # dateCreated = forms.DateField(widget=forms.DateInput(
     #     attrs={'type': 'date'}), initial=datetime.date.today, label='Datum vytvoření')
@@ -240,12 +236,8 @@ class StockReceiptItemForm(forms.ModelForm):
                 Column('amount', css_class='col-md-1'),
                 Column('unit', css_class='col-md-1'),
                 # Column(AppendedText('priceWithoutVat', 'Kč', active=True), css_class='col-md-2'),
-                Column('priceWithoutVat', css_class='col-md-1'),
-                Column('vat', css_class='col-md-2'),
+                Column('priceWithoutVat', css_class='col-md-2'),
+                Column('vat', css_class='col-md-1'),
                 Column('comment', css_class='col-md-4'),
             )
         )
-
-
-class StockReceiptItemSearchForm(forms.Form):
-    article__article = forms.CharField()

@@ -7,17 +7,10 @@
   <hr/>
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
-      <a href="{% url 'kitchen:showStockReceipts' %}"><button class="btn btn-secondary">Zpět na seznam příjemkem</button></a>
-      <a href="{% url 'kitchen:createStockReceiptItem' stockreceipt.id %}" class="btn btn-primary">Přidat zboží</a>
+      <a href="{% url 'kitchen:showStockReceipts' %}"><button class="btn btn-secondary mb-2">Zpět na seznam příjemkem</button></a>
+      <a href="{% url 'kitchen:createStockReceiptItem' stockreceipt.id %}" class="btn btn-primary mb-2">Přidat zboží</a>
       <b>Příjemka vytvořena dne:</b> {{stockreceipt.created}} <b>Vytvořila:</b> {{stockreceipt.userCreated.name}} <b>Poznámka:</b> {{stockreceipt.comment}}
     </div>
-    {% if filter %}
-      <form method="get" action="" class="col-4 justify-content-end form-inline mb-2">
-        {% csrf_token %}
-        {{ filter.form | crispy }}
-        <button type="submit" class="btn btn-success mx-2">Vyhledat</button>
-      </form>
-    {% endif %}
   </div>
   {% render_table table %}
 </div>

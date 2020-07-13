@@ -169,8 +169,10 @@ class StockIssueAdmin(ImportExportActionModelAdmin):
 
 
 class StockReceiptAdmin(ImportExportActionModelAdmin):
-    list_display = ('userCreated', 'comment', )
-    fields = [('userCreated'), 'comment', ]
+    list_display = ('userCreated', 'approved', 'dateApproved', 'userApproved',
+                    'comment', )
+    fields = [('userCreated', ), ('approved', 'dateApproved', 'userApproved'),
+              'comment', ]
     resource_class = StockReceiptResource
 
 

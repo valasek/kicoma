@@ -100,7 +100,7 @@ class DailyMenuRecipeTable(tables.Table):
 
 
 class StockIssueTable(tables.Table):
-    stockIssuePrice = tables.Column(verbose_name='Celková cena s DPH')
+    total_price = tables.Column(verbose_name='Celková cena s DPH')
     change = tables.TemplateColumn(
         '''<a href="/kitchen/stockissue/update/{{ record.id }}">Upravit poznámku</a>
         | <a href="/kitchen/stockissue/itemlist/{{ record.id }}">Zobrazit zboží</a>
@@ -113,7 +113,7 @@ class StockIssueTable(tables.Table):
         model = StockIssue
         template_name = "django_tables2/bootstrap4.html"
         fields = ("created", "userCreated", "approved", "dateApproved",
-                  "userApproved", "stockIssuePrice", "comment", "change")
+                  "userApproved", "total_price", "comment", "change")
 
 
 class StockIssueFilter(django_filters.FilterSet):
@@ -136,18 +136,12 @@ class StockIssueItemTable(tables.Table):
         fields = ("article", "amount", "unit", "change")
 
 
-class StockIssueItemFilter(django_filters.FilterSet):
-    article__article = django_filters.CharFilter(lookup_expr='icontains')
-
-    class Meta:
-        model = Item
-        fields = ("article__article", )
-
-
 class StockReceiptTable(tables.Table):
+    total_price = tables.Column(verbose_name='Celková cena s DPH')
     change = tables.TemplateColumn(
         '''<a href="/kitchen/stockreceipt/update/{{ record.id }}">Upravit poznámku</a>
         | <a href="/kitchen/stockreceipt/itemlist/{{ record.id }}">Zobrazit zboží</a>
+        | <a href="/kitchen/stockreceipt/approve/{{ record.id }}">Naskladnit</a>
         | <a href="/kitchen/stockreceipt/delete/{{ record.id }}">Vymazat</a>
         | <a href="/kitchen/stockreceipt/print/{{ record.id }}">Tisk</a>''',
         verbose_name=u'Akce', )
@@ -155,7 +149,8 @@ class StockReceiptTable(tables.Table):
     class Meta:
         model = StockReceipt
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("created", "userCreated", "comment", "change")
+        fields = ("created", "userCreated", "approved", "dateApproved",
+                  "userApproved", "total_price", "comment", "change")
 
 
 class StockReceiptFilter(django_filters.FilterSet):
@@ -168,7 +163,8 @@ class StockReceiptFilter(django_filters.FilterSet):
 
 
 class StockReceiptItemTable(tables.Table):
-    price_with_vat = tables.Column(verbose_name='Cena s DPH')
+    price_with_vat = tables.Column(verbose_name='Jednotková cena s DPH')
+    total_price_with_vat = tables.Column(verbose_name='Cena celkem s DPH')
     change = tables.TemplateColumn(
         '''<a href="/kitchen/stockreceipt/updateitem/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/stockreceipt/deleteitem/{{ record.id }}">Vymazat</a>''',
@@ -177,12 +173,5 @@ class StockReceiptItemTable(tables.Table):
     class Meta:
         model = Item
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("article", "amount", "unit", "priceWithoutVat", "vat", "price_with_vat", "change")
-
-
-class StockReceiptItemFilter(django_filters.FilterSet):
-    article__article = django_filters.CharFilter(lookup_expr='icontains')
-
-    class Meta:
-        model = Item
-        fields = ("article__article", )
+        fields = ("article", "amount", "unit", "priceWithoutVat", "vat",
+                  "price_with_vat", "total_price_with_vat", "change")

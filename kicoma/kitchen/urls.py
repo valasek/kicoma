@@ -3,7 +3,7 @@ from django.urls import path
 from .views import ArticleListView, ArticleCreateView, ArticleUpdateView, ArticlePDFView, \
     ArticleLackListView
 from .views import StockReceiptListView, StockReceiptCreateView, StockReceiptUpdateView, \
-    StockReceiptDeleteView, StockReceiptPDFView
+    StockReceiptDeleteView, StockReceiptPDFView, StockReceiptApproveView
 from .views import StockReceiptItemListView, StockReceiptItemCreateView, StockReceiptItemUpdateView, \
     StockReceiptItemDeleteView
 from .views import StockIssueListView, StockIssueCreateView, StockIssueUpdateView, \
@@ -49,6 +49,7 @@ urlpatterns = [
     path('stockreceipt/delete/<int:pk>', StockReceiptDeleteView.as_view(), name='deleteStockReceipt'),
     path('stockreceipt/deleteitem/<int:pk>', StockReceiptItemDeleteView.as_view(), name='deleteStockReceiptItem'),
     path('stockreceipt/print/<int:pk>', StockReceiptPDFView.as_view(), name='printStockReceipt'),
+    path('stockreceipt/approve/<int:pk>', StockReceiptApproveView.as_view(), name='approveStockReceipt'),
 
     path('recipe/list', RecipeListView.as_view(), name='showRecipes'),
     path('recipe/ingredientlist/<int:pk>', RecipeIngredientListView.as_view(), name='showRecipeIngredients'),

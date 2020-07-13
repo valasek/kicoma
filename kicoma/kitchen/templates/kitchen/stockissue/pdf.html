@@ -1,14 +1,28 @@
 {% extends "../pdf_page.html" %}
 {% block content %}
-  <b>Vytvořena dne:</b> {{ stock_issue.created }}<br/>
-  <b>Vytvořila:</b> {{stock_issue.userCreated.name}}<br/>
-  <b>Schválena dne:</b> {{ stock_issue.dateApproved }}<br/>
-  <b>Schválila:</b> {{stock_issue.userApproved.name}}<br/>
-  <b>Počet položek:</b> {{ items.count }}<br/>
-  <b>Poznámka:</b> {{ stock_issue.comment }}<br/>
-  <br/>
-  <p style="text-align:center"><b>Celková cena: {{stock_issue.stockIssuePrice}},- Kč s DPH</b></p>
-  <br/>
+  <table class="minimalistBlack">
+    <thead>
+      <tr>
+        <th>Celková cena s DPH</th>
+        <th>Počet vyskladňovaného zboží</th>
+        <th>Vytvořena dne</th>
+        <th>Vytvořila</th>
+        <th>Schválena dne</th>
+        <th>Schválila</th>
+        <th>Poznámka</th>
+      </tr>
+    </thead>
+    <tbody>
+      <td>{{ total_price }} Kč</td>
+      <td>{{ items.count }}</td>
+      <td>{{ stock_issue.created }}</td>
+      <td>{{ stock_issue.userCreated.name }}</td>
+      <td>{{ stock_issue.dateApproved }}</td>
+      <td>{{ stock_issue.userApproved.name }}</td>
+      <td>{{ stock_issue.comment }}</td>
+    </tbody>
+  </table>
+  <h3 style="text-align:center">Vyskladněné zboží</h3>
   <table class="minimalistBlack">
     <thead>
       <tr>
@@ -22,11 +36,11 @@
       <tbody>
       {% for item in items %}
       <tr>
-        <td>{{item.article}}</td>
-        <td>{{item.amount}} {{item.unit}}</td>
-        <td>{{item.article.averagePrice}} Kč / {{item.article.unit}}</td>
-        <td>{% widthratio item.amount 1 item.article.averagePrice %} Kč</td>
-        <td>{{item.comment}}</td>
+        <td>{{ item.article }}</td>
+        <td>{{ item.amount }} {{ item.unit }}</td>
+        <td>{{ item.article.averagePrice }} Kč</td>
+        <td>{{ item.total_average_price_with_vat }} Kč</td>
+        <td>{{ item.comment }}</td>
       </tr>
       {% endfor %}
       </tbody>

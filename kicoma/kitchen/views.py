@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 
+from django.forms import ValidationError
 from django.db import transaction
 from django.db.models import Sum, F
 
@@ -23,22 +24,21 @@ from django_filters.views import FilterView
 from kicoma.users.models import User
 
 from .models import Item, Recipe, Allergen, MealType, MealGroup, VAT, \
-    Article, Ingredient, StockIssue, StockReceipt, DailyMenu, DailyMenuRecipe
+    Article, Ingredient, StockIssue, StockReceipt, DailyMenu, DailyMenuRecipe, updateArticleStock
 
-from .tables import StockReceiptTable, StockReceiptItemTable, StockReceiptFilter, StockReceiptItemFilter
-from .tables import StockIssueTable, StockIssueItemTable, StockIssueFilter, StockIssueItemFilter
+from .tables import StockReceiptTable, StockReceiptItemTable, StockReceiptFilter
+from .tables import StockIssueTable, StockIssueItemTable, StockIssueFilter
 from .tables import ArticleTable, ArticleFilter
 from .tables import DailyMenuTable, DailyMenuFilter
 from .tables import DailyMenuRecipeTable
 from .tables import RecipeTable, RecipeFilter, RecipeIngredientTable
 
 from .forms import RecipeForm, RecipeIngredientForm, RecipeSearchForm
-from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptItemForm, StockReceiptItemSearchForm
-from .forms import StockIssueForm, StockIssueSearchForm, StockIssueItemForm, StockIssueItemSearchForm
+from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptItemForm
+from .forms import StockIssueForm, StockIssueSearchForm, StockIssueItemForm
 from .forms import ArticleForm, ArticleSearchForm
 from .forms import DailyMenuSearchForm, DailyMenuForm, DailyMenuRecipeForm
 
-from .signals import updateOnStock, updateTotalPrice
 from .functions import convertUnits
 
 # Get an instance of a logger
@@ -410,12 +410,21 @@ class StockIssueDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     success_message = "Výdejka ze dne %(created)s byla odstraněna"
     success_url = reverse_lazy('kitchen:showStockIssues')
 
-    def post(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        stock_issue = StockIssue.objects.filter(pk=kwargs['object'].id).get()
+        items = Item.objects.filter(stockIssue_id=kwargs['object'].id)
+        context['stock_issue'] = stock_issue
+        context['items'] = items
+        context['total_price'] = stock_issue.total_price
+        return context
+
+    def post(self, request, *args, **kwargs):
         stock_issue = StockIssue.objects.filter(pk=kwargs['pk']).get()
         if stock_issue.approved:
             messages.warning(self.request, "Výmaz neproveden - výdejka je již vyskladněna")
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
-        return super(StockIssueDeleteView, self).post(self.request, **kwargs)
+        return super(StockIssueDeleteView, self).post(request, *args, **kwargs)
 
 
 class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, PDFTemplateView):
@@ -424,18 +433,12 @@ class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, PDFTemplateView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        stock_issue = StockIssue.objects.filter(pk=kwargs['pk'])[0]
+        stock_issue = StockIssue.objects.filter(pk=kwargs['pk']).get()
         items = Item.objects.filter(stockIssue_id=kwargs['pk'])
-        total_price = Item.objects.filter(stockIssue_id=kwargs['pk']).aggregate(
-            Sum('priceWithoutVat'))['priceWithoutVat__sum']
         context['stock_issue'] = stock_issue
-        # convert item to article units
-        for item in items:
-            item.amount = convertUnits(item.amount, item.unit, item.article.unit)
-            item.unit = item.article.unit
         context['items'] = items
         context['title'] = "Výdejka"
-        context['total_price'] = total_price
+        context['total_price'] = stock_issue.total_price
         return context
 
 
@@ -446,14 +449,11 @@ class StockIssueApproveView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print("kwargs", kwargs)
-        stock_issue = StockIssue.objects.filter(pk=kwargs['pk'])[0]
+        stock_issue = StockIssue.objects.filter(pk=kwargs['pk']).get()
         items = Item.objects.filter(stockIssue_id=kwargs['pk'])
-        total_price = Item.objects.filter(stockIssue_id=kwargs['pk']).aggregate(
-            Sum('priceWithoutVat'))['priceWithoutVat__sum']
         context['stock_issue'] = stock_issue
         context['items'] = items
-        context['total_price'] = total_price
+        context['total_price'] = stock_issue.total_price
         return context
 
     def post(self, *args, **kwargs):
@@ -461,20 +461,27 @@ class StockIssueApproveView(LoginRequiredMixin, TemplateView):
         if stock_issue.approved:
             messages.warning(self.request, 'Vyskladnění neprovedeno - již bylo vyskladněno')
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
+        if stock_issue.total_price <= 0:
+            messages.warning(
+                self.request, 'Vyskladnění neprovedeno - nulová cena zboží, přidejte alespoň jedno zboží na výdejku')
+            return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssuess',))
         stock_issue.approved = True
         stock_issue.dateApproved = datetime.now()
         stock_issue.userApproved = self.request.user
-        stock_issue.save(update_fields=('approved', 'dateApproved', 'userApproved',))
-        messages.success(self.request, "Výdejka byla vyskladněna")
-        return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
+        with transaction.atomic():
+            message = updateArticleStock(stock_issue.id, 'issue')
+            if message:
+                messages.error(self.request, message)
+                return HttpResponseRedirect(reverse_lazy('kitchen:approveStockIssue', kwargs={'pk': self.kwargs['pk']}))
+            stock_issue.save(update_fields=('approved', 'dateApproved', 'userApproved',))
+            messages.success(self.request, "Výdejka byla vyskladněna")
+            return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
 
 
 class StockIssueItemListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = Item
     table_class = StockIssueItemTable
     template_name = 'kitchen/stockissue/listitems.html'
-    filterset_class = StockIssueItemFilter
-    form_class = StockIssueItemSearchForm
     paginate_by = 12
 
     def get_context_data(self, **kwargs):
@@ -584,6 +591,22 @@ class StockReceiptDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView
     success_message = "Příjemka ze dne %(created)s byla odstraněna"
     success_url = reverse_lazy('kitchen:showStockReceipts')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        stock_receipt = StockReceipt.objects.filter(pk=kwargs['object'].id).get()
+        items = Item.objects.filter(stockReceipt_id=kwargs['object'].id)
+        context['stock_receipt'] = stock_receipt
+        context['items'] = items
+        context['total_price'] = stock_receipt.total_price
+        return context
+
+    def post(self, request, *args, **kwargs):
+        stock_receipt = StockReceipt.objects.filter(pk=kwargs['pk']).get()
+        if stock_receipt.approved:
+            messages.warning(self.request, "Výmaz neproveden - příjemka je již naskladněna")
+            return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
+        return super(StockReceiptDeleteView, self).post(request, *args, **kwargs)
+
 
 class StockReceiptPDFView(LoginRequiredMixin, PDFTemplateView):
     template_name = 'kitchen/stockreceipt/pdf.html'
@@ -591,23 +614,52 @@ class StockReceiptPDFView(LoginRequiredMixin, PDFTemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        stock_receipt = StockReceipt.objects.filter(pk=kwargs['pk'])[0]
+        stock_receipt = StockReceipt.objects.filter(pk=kwargs['pk']).get()
         items = Item.objects.filter(stockReceipt_id=kwargs['pk'])
-        total_price = Item.objects.filter(stockReceipt_id=kwargs['pk']).aggregate(
-            Sum('priceWithoutVat'))['priceWithoutVat__sum']
         context['stock_receipt'] = stock_receipt
         context['items'] = items
         context['title'] = "Příjemka"
-        context['total_price'] = total_price
+        context['total_price'] = stock_receipt.total_price
         return context
+
+
+class StockReceiptApproveView(LoginRequiredMixin, TemplateView):
+    model = StockReceipt
+    template_name = 'kitchen/stockreceipt/approve.html'
+    fields = "__all__"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        stock_receipt = StockReceipt.objects.filter(pk=kwargs['pk']).get()
+        items = Item.objects.filter(stockReceipt_id=kwargs['pk'])
+        context['stock_receipt'] = stock_receipt
+        context['items'] = items
+        context['total_price'] = stock_receipt.total_price
+        return context
+
+    def post(self, *args, **kwargs):
+        stock_receipt = StockReceipt.objects.filter(pk=kwargs['pk']).get()
+        if stock_receipt.approved:
+            messages.warning(self.request, 'Naskladnění neprovedeno - již bylo naskladněno')
+            return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
+        if stock_receipt.total_price <= 0:
+            messages.warning(
+                self.request, 'Naskladnění neprovedeno - nulová cena zboží, přidejte alespoň jedno zboží na příjemku')
+            return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
+        stock_receipt.approved = True
+        stock_receipt.dateApproved = datetime.now()
+        stock_receipt.userApproved = self.request.user
+        with transaction.atomic():
+            updateArticleStock(stock_receipt.id, 'receipt')
+            stock_receipt.save(update_fields=('approved', 'dateApproved', 'userApproved',))
+        messages.success(self.request, "Příjemka byla naskladněna")
+        return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
 
 
 class StockReceiptItemListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = Item
     table_class = StockReceiptItemTable
     template_name = 'kitchen/stockreceipt/listitems.html'
-    filterset_class = StockReceiptItemFilter
-    form_class = StockReceiptItemSearchForm
     paginate_by = 12
 
     def get_context_data(self, **kwargs):
@@ -624,7 +676,7 @@ class StockReceiptItemCreateView(SuccessMessageMixin, LoginRequiredMixin, Create
     model = Item
     form_class = StockReceiptItemForm
     template_name = 'kitchen/stockreceipt/createitem.html'
-    success_message = 'Zboží %(article)s bylo přidáno a výše zásob zboží na skladu aktualizována'
+    success_message = 'Zboží %(article)s bylo přidáno'
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showStockReceiptItems', kwargs={'pk': self.kwargs['pk']})
@@ -640,8 +692,6 @@ class StockReceiptItemCreateView(SuccessMessageMixin, LoginRequiredMixin, Create
         item = form.save(commit=False)
         item.stockReceipt = StockReceipt.objects.filter(pk=stock_receipt.id)[0]
         item.save()
-        updateOnStock(item.article.id, 'receipt', item.amount, 0, item.unit)
-        updateTotalPrice(item.article.id, 'receipt', item.price_with_vat)
         return super(StockReceiptItemCreateView, self).form_valid(form)
 
 
@@ -649,7 +699,7 @@ class StockReceiptItemUpdateView(SuccessMessageMixin, LoginRequiredMixin, Update
     model = Item
     form_class = StockReceiptItemForm
     template_name = 'kitchen/stockreceipt/updateitem.html'
-    success_message = "Zboží %(article)s bylo aktualizováno a výše zásob zboží na skladu aktualizována"
+    success_message = "Zboží %(article)s bylo aktualizováno"
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showStockReceiptItems', kwargs={'pk': self.kwargs['pk']})
@@ -662,11 +712,7 @@ class StockReceiptItemUpdateView(SuccessMessageMixin, LoginRequiredMixin, Update
     def form_valid(self, form):
         item = form.save(commit=False)
         item.stockReceipt = Item.objects.filter(pk=item.id)[0].stockReceipt
-        old_amount = Item.objects.filter(pk=item.id).values('amount')[0]['amount']
-        with transaction.atomic():
-            item.save()
-            updateOnStock(item.article.id, 'receipt', item.amount, old_amount, item.unit)
-            updateTotalPrice(item.article.id, 'receipt', item.price_with_vat)
+        item.save()
         return super(StockReceiptItemUpdateView, self).form_valid(form)
 
 
