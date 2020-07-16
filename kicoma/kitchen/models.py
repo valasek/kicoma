@@ -300,7 +300,7 @@ class Item(TimeStampedModel):
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
     priceWithoutVat = models.DecimalField(max_digits=10, decimal_places=2, validators=[
         MinValueValidator(Decimal('0.1'))], blank=True, null=True, verbose_name='Jednotková cena bez DPH')
-    vat = models.ForeignKey(VAT, blank=True, null=True, default=1, on_delete=models.CASCADE, verbose_name='DPH')
+    vat = models.ForeignKey(VAT, blank=True, null=True, default=2, on_delete=models.CASCADE, verbose_name='DPH')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     @property
