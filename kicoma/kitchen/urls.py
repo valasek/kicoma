@@ -13,11 +13,12 @@ from .views import StockIssueItemListView, StockIssueItemCreateView, StockIssueI
 from .views import RecipeListView, RecipeCreateView, RecipeUpdateView, RecipeDeleteView, RecipePDFView
 from .views import RecipeIngredientListView, RecipeIngredientCreateView, RecipeIngredientUpdateView, \
     RecipeIngredientDeleteView
-from .views import DailyMenuListView, DailyMenuCreateView, DailyMenuUpdateView, DailyMenuDeleteView
+from .views import DailyMenuListView, DailyMenuCreateView, DailyMenuUpdateView, DailyMenuDeleteView, \
+    DailyMenuPDFView, DailyMenuPrintView
 from .views import DailyMenuRecipeListView, DailyMenuRecipeCreateView, DailyMenuRecipeUpdateView, \
     DailyMenuRecipeDeleteView
 
-from .views import index, notImplemented
+from .views import index
 
 app_name = "kitchen"
 urlpatterns = [
@@ -69,5 +70,6 @@ urlpatterns = [
     path('dailymenu/updaterecipe/<int:pk>', DailyMenuRecipeUpdateView.as_view(), name='updateDailyMenuRecipe'),
     path('dailymenu/delete/<int:pk>', DailyMenuDeleteView.as_view(), name='deleteDailyMenu'),
     path('dailymenu/deleterecipe/<int:pk>', DailyMenuRecipeDeleteView.as_view(), name='deleteDailyMenuRecipe'),
-    path('dailymenu/print', notImplemented, name='printDailyMenu'),
+    path('dailymenu/filterprint', DailyMenuPrintView.as_view(), name='filterPrintDailyMenu'),
+    path('dailymenu/print', DailyMenuPDFView.as_view(), name='printDailyMenu'),
 ]

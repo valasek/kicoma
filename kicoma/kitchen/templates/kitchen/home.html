@@ -7,36 +7,26 @@
     <div class="row">
       <div class="col-sm">
         <h6>Hotovo a připraveno ke kontrole</h6>
-        <s>Užívatelé a práva</s><br/>
+        <s>Přesun standardní funkcionality Strávníčka</s><br/>
         <s>Správa číselníků</s><br/>
-        <s>Správa denního menu, receptů, ingrediencí, zboží na skladu, a příjemkek</s><br/>
         <s>Přesunut a nahrán obsah Strávníčka (Zboží, Recepty, Ingredience)</s><br/>
-        <s>Tisk soupisu zásob (zboží, jednotka, stav na skladu)<br /></s>
-        <s>Tisk příjemky - přidat celkovou cenu<br /></s>
-        <s>Počítání přůměrné ceny zboží<br /></s>
-        <s>Správa receptů v rámci denního menu<br /></s>
-        <s>Kalendář místo textového pole<br /></s>
-        <s>Seznam zboží s nízkým stavem zásob<br /></s>
-        <s>Zobrazení ceny receptu, celkové ceny příjemky i výdejky<br /></s>
-        <s>Schvalování výdejek, schvaluje drabkova a až u schválení proběhne kontrola vůči stavu zásob na skladu<br /></s>
-        <s>Úprava neschválených výdejek - možnost přidat, vymazat a vyměnit zboží<br/></s>
-        <s>Tisky výdejek - rozpis pro sklad<br/></s>
+        <s>Tisk denního menu dle datumu s možností filtrace na skupinu strávníků<br/></s>
         <br/>
       </div>
       <div class="col-sm">
         <h6>Není hotovo</h6>
         Denní menu ještě nevytváří výdejky (výdejka zeskupená dle dnů)<br />
         Tisk receptů - členit dle typu a jídla<br/>
-        Tisk denního menu dle datumu s možností filtrace na skupinu strávníků<br/>
+        Tisky kalkulací (Tisky kalkulací mají při zadání rozmezí datumů)<br />
       </div>
       <div class="col-sm">
         <h6>Čeká</h6>
           Pamatovat poslední zadané datum<br />
-          Tisky kalkulací (Tisky kalkulací mají při zadání rozmezí datumů)<br />
-          Přesun na server (změnit admin url a username)<br />
+          Kalendář místo textového pole<br/>
       </div>
       <div class="col-sm">
         <h6>Dobré nápady</h6>
+        Přesun na server (změnit admin url a username)<br />
         Použití skenerů čárových kódů<br />
         Nahrazení zboží ve výdejce se automaticky propíše do denního menu<br />
       </div>
@@ -49,7 +39,7 @@
     <div class="row">
       <div class="col-sm">
         <h4>Přehled aplikace</h4>
-        <p>Poslední aktualizace aplikace proběhla 13. 7. 2020.</p>
+        <p>Poslední aktualizace aplikace proběhla 7. 8. 2020.</p>
       </div>
     </div>
     <div class="row">
@@ -87,6 +77,10 @@
           <tr>
             <td scope="row">Denní menu</td>
             <td >{{ dailyMenuCount }}</td>
+          </tr>
+         <tr>
+            <td scope="row">Recepty v denních menu</td>
+            <td >{{ dailyMenuRecipeCount }}</td>
           </tr>
         </table>
       </div>

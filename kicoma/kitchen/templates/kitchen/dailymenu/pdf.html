@@ -1,0 +1,26 @@
+{% extends "../pdf_page.html" %}
+{% block content %}
+  <p align="center">{{ meal_group_filter }}</p>
+  <table class="minimalistBlack">
+    <thead>
+      <tr>
+        <th>Datum</th>
+        <th>Skupina strávníka</th>
+        <th>Druh jídla</th>
+        <th>Recept</th>
+        <th>Počet porcí</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for recipe in daily_menu_recipes %}
+      <tr>
+        <td>{{ recipe.daily_menu.date }}</td>
+        <td>{{ recipe.daily_menu.mealGroup }}</td>
+        <td>{{ recipe.daily_menu.mealType }}</td>
+        <td>{{ recipe.recipe }}</td>
+        <td>{{ recipe.amount }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,10 +1,8 @@
 from django import forms
-# from crispy_forms.bootstrap import AppendedText
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 from .models import StockReceipt, StockIssue, Item, Ingredient, Article, Recipe, DailyMenu, DailyMenuRecipe
 
-from django.conf import settings
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -119,6 +117,25 @@ class DailyMenuForm(forms.ModelForm):
 
 class DailyMenuSearchForm(forms.Form):
     date = forms.CharField()
+
+
+class DailyMenuPrintForm(forms.ModelForm):
+
+    class Meta:
+        model = DailyMenu
+        fields = ["date", "mealGroup"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.fields['mealGroup'].required = False
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Column('date', css_class='col-md-2'),
+                Column('mealGroup', css_class='col-md-2'),
+            )
+        )
 
 
 class DailyMenuRecipeForm(forms.ModelForm):

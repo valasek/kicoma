@@ -6,11 +6,11 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 
-from django.forms import ValidationError
 from django.db import transaction
-from django.db.models import Sum, F
+from django.db.models import F
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView
 from django.views.generic.base import TemplateView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -37,16 +37,10 @@ from .forms import RecipeForm, RecipeIngredientForm, RecipeSearchForm
 from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptItemForm
 from .forms import StockIssueForm, StockIssueSearchForm, StockIssueItemForm
 from .forms import ArticleForm, ArticleSearchForm
-from .forms import DailyMenuSearchForm, DailyMenuForm, DailyMenuRecipeForm
-
-from .functions import convertUnits
+from .forms import DailyMenuSearchForm, DailyMenuPrintForm, DailyMenuForm, DailyMenuRecipeForm
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
-
-
-def notImplemented(request):
-    return render(request, 'notImplemented.html')
 
 
 def index(request):
@@ -62,6 +56,7 @@ def index(request):
     stockReceiptCount = StockReceipt.objects.all().count()
     itemCount = Item.objects.all().count()
     dailyMenuCount = DailyMenu.objects.all().count()
+    dailyMenuRecipeCount = DailyMenuRecipe.objects.all().count()
 
     userCount = User.objects.all().count()
     groupCount = Group.objects.all().count()
@@ -81,6 +76,7 @@ def index(request):
         'stockReceiptCount': stockReceiptCount,
         'itemCount': itemCount,
         'dailyMenuCount': dailyMenuCount,
+        'dailyMenuRecipeCount': dailyMenuRecipeCount,
 
         "groupCount": groupCount,
         "userCount": userCount
@@ -297,6 +293,40 @@ class DailyMenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('kitchen:showDailyMenus')
 
 
+class DailyMenuPDFView(LoginRequiredMixin, PDFTemplateView):
+    template_name = 'kitchen/dailymenu/pdf.html'
+    filename = 'Denni_menu.pdf'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        date = self.request.GET['date']
+        meal_group = self.request.GET['mealGroup']
+        if len(meal_group) == 0:
+            daily_menu_recipes = DailyMenuRecipe.objects.filter(daily_menu__date=datetime.strptime(date, "%d.%m.%Y"))
+        else:
+            daily_menu_recipes = DailyMenuRecipe.objects.filter(
+                daily_menu__date=datetime.strptime(date, "%d.%m.%Y"), daily_menu__mealGroup=meal_group)
+            context['meal_group_filter'] = "Filtrováno pro skupinu strávníků: " + \
+                MealGroup.objects.filter(pk=meal_group).get().mealGroup
+        context['title'] = "Denní menu pro " + date
+        context['daily_menu_recipes'] = daily_menu_recipes
+        return context
+
+
+class DailyMenuPrintView(LoginRequiredMixin, CreateView):
+    model = DailyMenu
+    form_class = DailyMenuPrintForm
+    template_name = 'kitchen/dailymenu/print.html'
+
+    # def form_valid(self, form):
+    #     # context = self.get_context_data()
+    #     print("Form valid:")
+    #     # daily_menu_form = form.save()
+    #     print("daily_menu_form.date", daily_menu_form.date)
+    #     print("groupType", daily_menu_form.cleaned_data['groupType'])
+    #     return super(DailyMenuPrintView, self).form_valid(form)
+
+
 class DailyMenuRecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = DailyMenuRecipe
     table_class = DailyMenuRecipeTable
@@ -324,15 +354,15 @@ class DailyMenuRecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateV
 
     def get_context_data(self, **kwargs):
         context = super(DailyMenuRecipeCreateView, self).get_context_data(**kwargs)
-        context['dailymenu'] = DailyMenu.objects.filter(pk=self.kwargs['pk'])[0]
+        context['daily_menu'] = DailyMenu.objects.filter(pk=self.kwargs['pk'])[0]
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
-        dailu_menu = context['dailymenu']
-        dailu_menu_recipe = form.save(commit=False)
-        dailu_menu_recipe.daily_menu = DailyMenu.objects.filter(pk=dailu_menu.id)[0]
-        dailu_menu_recipe.save()
+        daily_menu = context['daily_menu']
+        daily_menu_recipe = form.save(commit=False)
+        daily_menu_recipe.daily_menu = DailyMenu.objects.filter(pk=daily_menu.id)[0]
+        daily_menu_recipe.save()
         return super(DailyMenuRecipeCreateView, self).form_valid(form)
 
 
