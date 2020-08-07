@@ -185,6 +185,23 @@ class StockIssueSearchForm(forms.Form):
     userApproved__name = forms.CharField()
 
 
+class StockIssueFromDailyMenuForm(forms.ModelForm):
+
+    class Meta:
+        model = DailyMenu
+        fields = ["date"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Column('date', css_class='col-md-2'),
+            )
+        )
+
+
 class StockIssueItemForm(forms.ModelForm):
 
     class Meta:

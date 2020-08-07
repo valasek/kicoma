@@ -3,11 +3,10 @@ from decimal import Decimal
 from django.db import models
 from django.conf import settings
 from django.forms import ValidationError
-from django.contrib import messages
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
-from .functions import convertUnits, totalItemPrice
+from .functions import convertUnits, totalItemPrice, totalStockIssueItemPrice
 
 
 def updateArticleStock(stock_id, stock_direction):
@@ -247,8 +246,6 @@ class StockIssue(TimeStampedModel):
     dateApproved = models.DateField(blank=True, null=True, verbose_name='Datum vyskladnění')
     userApproved = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True,
                                      related_name='usiapproved', verbose_name='Vyskladnil')
-    # dailyMenu = models.ForeignKey(DailyMenu, on_delete=models.CASCADE, blank=True,
-    #                               null=True, verbose_name='Vydáno v menu')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
@@ -257,7 +254,7 @@ class StockIssue(TimeStampedModel):
     @property
     def total_price(self):
         items = Item.objects.filter(stockIssue=self.id)
-        return round(totalItemPrice(items), 2)
+        return round(totalStockIssueItemPrice(items), 2)
 
 
 class StockReceipt(TimeStampedModel):
@@ -296,7 +293,7 @@ class Item(TimeStampedModel):
     stockIssue = models.ForeignKey(StockIssue, blank=True, null=True, on_delete=models.CASCADE, verbose_name='Výdejka')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží')
     amount = models.DecimalField(decimal_places=2, max_digits=8, validators=[
-                                 MinValueValidator(Decimal('0.1'))], verbose_name='Množství')
+        MinValueValidator(Decimal('0.1'))], verbose_name='Množství')
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
     priceWithoutVat = models.DecimalField(max_digits=10, decimal_places=2, validators=[
         MinValueValidator(Decimal('0.1'))], blank=True, null=True, verbose_name='Jednotková cena bez DPH')

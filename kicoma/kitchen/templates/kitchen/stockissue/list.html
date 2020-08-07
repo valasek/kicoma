@@ -7,10 +7,11 @@
   <hr/>
   <div class="row">
     <div class="col justify-content-start">
-      <a href="{% url 'kitchen:createStockIssue' %}" class="btn btn-primary mb-2">Nová výdejka</a>
+      <a href="{% url 'kitchen:createStockIssueFromDailyMenu' %}" class="btn btn-primary mb-2">Vytvořit z denních menu</a>
+      <a href="{% url 'kitchen:createStockIssue' %}" class="btn btn-secondary mb-2">Nová výdejka</a>
     </div>
     {% if filter %}
-      <form method="get" action="" class="col-10 justify-content-end form-inline mb-2">
+      <form method="get" action="" class="col-8 justify-content-end form-inline mb-2">
         {% csrf_token %}
         {{ filter.form | crispy }}
         <button type="submit" class="btn btn-success mx-2">Vyhledat</button>

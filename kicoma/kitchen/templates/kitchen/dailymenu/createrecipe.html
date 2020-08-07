@@ -4,8 +4,8 @@
 <div class="container-fluid">
   <h4>Přidat recept na denní menu</h4>
   <hr/>
-  <p><a href="{% url 'kitchen:showDailyMenuRecipes' dailymenu.id%}"><button class="btn btn-secondary">Zpět na seznam receptů</button></a>
-  <form method="post" action="{% url 'kitchen:createDailyMenuRecipe' dailymenu.id %}">
+  <p><a href="{% url 'kitchen:showDailyMenuRecipes' daily_menu.id %}"><button class="btn btn-secondary">Zpět na seznam receptů</button></a>
+  <form method="post" action="{% url 'kitchen:createDailyMenuRecipe' daily_menu.id %}">
     {% csrf_token %}
     {% crispy form form.helper %}
     <button type="submit" class="btn btn-success">Uložit</button>

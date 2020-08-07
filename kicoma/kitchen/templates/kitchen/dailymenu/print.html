@@ -6,7 +6,7 @@
   <hr/>
   <p>Vyber datum a volitelně skupinu strávníka - bez výběru se zobrazí denní menu pro všechny skupiny:</p>
   <form method="get" action="{% url 'kitchen:printDailyMenu' %}">
-    <!-- {% csrf_token %} -->
+    {% csrf_token %}
     {% crispy form form.helper %}
     <button type="submit" class="btn btn-primary">Tisknout</button>
   </form>

@@ -18,10 +18,22 @@ def convertUnits(number, unitIn, unitOut):
 
 
 # returns total Item/Ingredient price, Item/Ingedient amount is converted using Article unit
+def totalStockIssueItemPrice(items):
+    totalPrice = 0
+    for item in items:
+        convertedAmount = convertUnits(item.amount, item.unit, item.article.unit)
+        itemPrice = convertedAmount * item.price_with_vat
+        print("item, itemPrice, convertedAmount, item.price_with_vat\n",
+              item, itemPrice, convertedAmount, item.price_with_vat)
+        totalPrice += itemPrice
+    return totalPrice
+
 def totalItemPrice(items):
     totalPrice = 0
     for item in items:
         convertedAmount = convertUnits(item.amount, item.unit, item.article.unit)
         itemPrice = convertedAmount * item.article.averagePrice
+        print("item, itemPrice, convertedAmount, item.article.averagePrice\n",
+              item, itemPrice, convertedAmount, item.article.averagePrice)
         totalPrice += itemPrice
     return totalPrice

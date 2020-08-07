@@ -7,7 +7,7 @@ from .views import StockReceiptListView, StockReceiptCreateView, StockReceiptUpd
 from .views import StockReceiptItemListView, StockReceiptItemCreateView, StockReceiptItemUpdateView, \
     StockReceiptItemDeleteView
 from .views import StockIssueListView, StockIssueCreateView, StockIssueUpdateView, \
-    StockIssueDeleteView, StockIssuePDFView, StockIssueApproveView
+    StockIssueDeleteView, StockIssuePDFView, StockIssueApproveView, StockIssueFromDailyMenuCreateView
 from .views import StockIssueItemListView, StockIssueItemCreateView, StockIssueItemUpdateView, \
     StockIssueItemDeleteView
 from .views import RecipeListView, RecipeCreateView, RecipeUpdateView, RecipeDeleteView, \
@@ -34,6 +34,7 @@ urlpatterns = [
     path('stockissue/list', StockIssueListView.as_view(), name='showStockIssues'),
     path('stockissue/itemlist/<int:pk>', StockIssueItemListView.as_view(), name='showStockIssueItems'),
     path('stockissue/create', StockIssueCreateView.as_view(), name='createStockIssue'),
+    path('stockissue/createfrommenu', StockIssueFromDailyMenuCreateView.as_view(), name='createStockIssueFromDailyMenu'),
     path('stockissue/createitem/<int:pk>', StockIssueItemCreateView.as_view(), name='createStockIssueItem'),
     path('stockissue/update/<int:pk>', StockIssueUpdateView.as_view(), name='updateStockIssue'),
     path('stockissue/updateitem/<int:pk>', StockIssueItemUpdateView.as_view(), name='updateStockIssueItem'),

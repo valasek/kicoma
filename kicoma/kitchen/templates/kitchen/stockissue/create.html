@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Nová výdejka, odděleně od denního menu</h4>
+  <h4>Nová výdejka, nezávisle na denním menu</h4>
   <hr/>
   <p><a href="{% url 'kitchen:showStockIssues' %}"><button class="btn btn-secondary">Zpět na seznam výdejek</button></a>
   <form method="post" action="{% url 'kitchen:createStockIssue' %}">
