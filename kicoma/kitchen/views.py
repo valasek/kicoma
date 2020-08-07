@@ -171,9 +171,9 @@ class RecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('kitchen:showRecipes')
 
 
-class RecipePDFView(LoginRequiredMixin, PDFTemplateView):
-    template_name = 'kitchen/recipe/pdf.html'
-    filename = 'Recepty.pdf'
+class RecipeListPDFView(LoginRequiredMixin, PDFTemplateView):
+    template_name = 'kitchen/recipe/pdf_list.html'
+    filename = 'Seznam_receptu.pdf'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -181,6 +181,20 @@ class RecipePDFView(LoginRequiredMixin, PDFTemplateView):
         context['recipes_total'] = Recipe.objects.all().count()
         context['title'] = "Seznam receptů"
         return context
+
+
+class RecipePDFView(LoginRequiredMixin, PDFTemplateView):
+    template_name = 'kitchen/recipe/pdf.html'
+    filename = 'Recept.pdf'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        recipe = Recipe.objects.filter(pk=self.kwargs['pk']).get()
+        context['recipe'] = recipe
+        context['ingredients'] = Ingredient.objects.filter(recipe=recipe)
+        context['title'] = recipe.recipe
+        return context
+
 
 
 class RecipeIngredientListView(SingleTableMixin, LoginRequiredMixin, FilterView):

@@ -10,7 +10,8 @@ from .views import StockIssueListView, StockIssueCreateView, StockIssueUpdateVie
     StockIssueDeleteView, StockIssuePDFView, StockIssueApproveView
 from .views import StockIssueItemListView, StockIssueItemCreateView, StockIssueItemUpdateView, \
     StockIssueItemDeleteView
-from .views import RecipeListView, RecipeCreateView, RecipeUpdateView, RecipeDeleteView, RecipePDFView
+from .views import RecipeListView, RecipeCreateView, RecipeUpdateView, RecipeDeleteView, \
+    RecipePDFView, RecipeListPDFView
 from .views import RecipeIngredientListView, RecipeIngredientCreateView, RecipeIngredientUpdateView, \
     RecipeIngredientDeleteView
 from .views import DailyMenuListView, DailyMenuCreateView, DailyMenuUpdateView, DailyMenuDeleteView, \
@@ -60,7 +61,8 @@ urlpatterns = [
     path('recipe/updateingredient/<int:pk>', RecipeIngredientUpdateView.as_view(), name='updateRecipeIngredient'),
     path('recipe/delete/<int:pk>', RecipeDeleteView.as_view(), name='deleteRecipe'),
     path('recipe/deleteingredient/<int:pk>', RecipeIngredientDeleteView.as_view(), name='deleteRecipeIngredient'),
-    path('recipe/print', RecipePDFView.as_view(), name='printRecipes'),
+    path('recipe/print/<int:pk>', RecipePDFView.as_view(), name='printRecipe'),
+    path('recipe/print', RecipeListPDFView.as_view(), name='printRecipes'),
 
     path('dailymenu/list', DailyMenuListView.as_view(), name='showDailyMenus'),
     path('dailymenu/recipelist/<int:pk>', DailyMenuRecipeListView.as_view(), name='showDailyMenuRecipes'),

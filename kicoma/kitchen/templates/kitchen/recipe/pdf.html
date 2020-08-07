@@ -1,24 +1,39 @@
 {% extends "../pdf_page.html" %}
 {% block content %}
-  <br/>
-  <p style="text-align:center"><b>Receptů celkem: {{recipes_total}}</b></p>
-  <br/>
   <table class="minimalistBlack">
     <thead>
       <tr>
-        <th>Recept</th>
         <th>Počet porcí</th>
-        <th>Datum aktualizace</th>
+        <th>Cena receptu</th>
+        <th>Komentář</th>
       </tr>
-      </thead>
-      <tbody>
-      {% for recipe in recipes %}
+    </thead>
+    <tbody>
       <tr>
-        <td>{{recipe.recipe}}</td>
         <td>{{recipe.norm_amount}}</td>
-        <td>{{recipe.modified}}</td>
+        <td>{{recipe.recipePrice}} Kč</td>
+        <td>{{recipe.comment}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Seznam ingrediencí</h2>
+  <table class="minimalistBlack">
+    <thead>
+      <tr>
+        <th>Zboží</th>
+        <th>Množství</th>
+        <th>Komentář</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ingredient in ingredients %}
+      <tr>
+        <td>{{ingredient.article}}</td>
+        <td>{{ingredient.amount}} {{ingredient.unit}}</td>
+        <td>{{ingredient.comment}}</td>
       </tr>
       {% endfor %}
-      </tbody>
+    </tbody>
   </table>
 {% endblock %}

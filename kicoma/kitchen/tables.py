@@ -34,7 +34,9 @@ class RecipeTable(tables.Table):
     change = tables.TemplateColumn(
         '''<a href="/kitchen/recipe/update/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/recipe/ingredientlist/{{ record.id }}">Zobrazit ingredience</a>
-        | <a href="/kitchen/recipe/delete/{{ record.id }}">Vymazat</a>''',
+        | <a href="/kitchen/recipe/delete/{{ record.id }}">Vymazat</a>
+        | <a href="/kitchen/recipe/print/{{ record.id }}">Tisk</a>
+        ''',
         verbose_name=u'Akce', )
 
     class Meta:
