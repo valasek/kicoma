@@ -24,6 +24,9 @@ All source code in the [KiCoMa](https://github.com/valasek/kima) is available un
 ## Reset Heroku DB
 `./reset-db-heroku.sh`
 
+## Check the production settings
+./manage.py check --deploy --settings=config.settings.production
+
 ## Update Translations
 ### Generate message files for a desired language
 `python manage.py makemessages -l cs_CZ --ignore=env/*`
