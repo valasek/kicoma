@@ -1,11 +1,12 @@
 import django_tables2 as tables
 import django_filters
+
 from .models import Recipe, Ingredient, StockReceipt, StockIssue, Article, DailyMenu, Item, DailyMenuRecipe
 
 
 class ArticleTable(tables.Table):
     # vat__percentage = tables.Column(verbose_name='DPH')
-    averagePrice = tables.Column(verbose_name='Průměrná jednotková cena')
+    averagePrice = tables.Column(verbose_name='Průměrná jednotková cena s DPH')
     allergens = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name='Alergény')
     change = tables.TemplateColumn(
         '''<a href="/kitchen/article/update/{{ record.id }}">Upravit</a>''',
@@ -14,11 +15,20 @@ class ArticleTable(tables.Table):
     class Meta:
         model = Article
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("article", "onStock", "minOnStock", "unit", "averagePrice",
+        fields = ("article", "onStock", "minOnStock", "averagePrice",
                   "totalPrice", "allergens", "comment", "change")
 
     def render_averagePrice(self, value, record):
         return '{} Kč / {}'.format(value, record.unit)
+
+    def render_totalPrice(self, value, record):
+        return '{} Kč'.format(value)
+
+    def render_onStock(self, value, record):
+        return '{} {}'.format(value, record.unit)
+
+    def render_minOnStock(self, value, record):
+        return '{} {}'.format(value, record.unit)
 
 
 class ArticleFilter(django_filters.FilterSet):
@@ -44,6 +54,9 @@ class RecipeTable(tables.Table):
         template_name = "django_tables2/bootstrap4.html"
         fields = ("recipe", "norm_amount", "recipePrice", "comment", "change")
 
+    def render_recipePrice(self, value, record):
+        return '{} Kč'.format(value)
+
 
 class RecipeFilter(django_filters.FilterSet):
     recipe = django_filters.CharFilter(lookup_expr='icontains')
@@ -54,6 +67,8 @@ class RecipeFilter(django_filters.FilterSet):
 
 
 class RecipeIngredientTable(tables.Table):
+    average_price = tables.Column(accessor="article.averagePrice", verbose_name="Průměrná jednotková cena s DPH")
+    total_average_price = tables.Column(verbose_name="Celková cena s DPH")
     change = tables.TemplateColumn(
         '''<a href="/kitchen/recipe/updateingredient/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/recipe/deleteingredient/{{ record.id }}">Vymazat</a>''',
@@ -62,8 +77,16 @@ class RecipeIngredientTable(tables.Table):
     class Meta:
         model = Ingredient
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("article", "amount", "unit", "change")
+        fields = ("article", "amount", "average_price", "total_average_price", "change")
 
+    def render_amount(self, value, record):
+        return '{} {}'.format(value, record.unit)
+
+    def render_average_price(self, value, record):
+        return '{} Kč / {}'.format(value, record.article.unit)
+
+    def render_total_average_price(self, value, record):
+        return '{} Kč'.format(value)
 
 
 class DailyMenuTable(tables.Table):
@@ -117,6 +140,8 @@ class StockIssueTable(tables.Table):
         fields = ("created", "userCreated", "approved", "dateApproved",
                   "userApproved", "total_price", "comment", "change")
 
+    def render_total_price(self, value, record):
+        return '{} Kč'.format(value)
 
 class StockIssueFilter(django_filters.FilterSet):
     created = django_filters.CharFilter(lookup_expr='icontains')
@@ -127,6 +152,8 @@ class StockIssueFilter(django_filters.FilterSet):
 
 
 class StockIssueItemTable(tables.Table):
+    average_price = tables.Column(accessor="article.averagePrice", verbose_name="Průměrná jednotková cena s DPH")
+    total_average_price_with_vat = tables.Column(verbose_name='Celková cena s DPH')
     change = tables.TemplateColumn(
         '''<a href="/kitchen/stockissue/updateitem/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/stockissue/deleteitem/{{ record.id }}">Vymazat</a>''',
@@ -135,7 +162,16 @@ class StockIssueItemTable(tables.Table):
     class Meta:
         model = Item
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("article", "amount", "unit", "change")
+        fields = ("article", "amount", "average_price", "total_average_price_with_vat", "change")
+
+    def render_amount(self, value, record):
+        return '{} {}'.format(value, record.unit)
+
+    def render_average_price(self, value, record):
+        return '{} Kč / {}'.format(value, record.article.unit)
+
+    def render_total_average_price_with_vat(self, value, record):
+        return '{} Kč'.format(value)
 
 
 class StockReceiptTable(tables.Table):
@@ -154,6 +190,9 @@ class StockReceiptTable(tables.Table):
         fields = ("created", "userCreated", "approved", "dateApproved",
                   "userApproved", "total_price", "comment", "change")
 
+    def render_total_price(self, value, record):
+        return '{} Kč'.format(value)
+
 
 class StockReceiptFilter(django_filters.FilterSet):
     created = django_filters.CharFilter(lookup_expr='icontains')
@@ -166,7 +205,7 @@ class StockReceiptFilter(django_filters.FilterSet):
 
 class StockReceiptItemTable(tables.Table):
     price_with_vat = tables.Column(verbose_name='Jednotková cena s DPH')
-    total_price_with_vat = tables.Column(verbose_name='Cena celkem s DPH')
+    total_price_with_vat = tables.Column(verbose_name='Celková cena s DPH')
     change = tables.TemplateColumn(
         '''<a href="/kitchen/stockreceipt/updateitem/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/stockreceipt/deleteitem/{{ record.id }}">Vymazat</a>''',
@@ -175,5 +214,17 @@ class StockReceiptItemTable(tables.Table):
     class Meta:
         model = Item
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("article", "amount", "unit", "priceWithoutVat", "vat",
+        fields = ("article", "amount", "priceWithoutVat", "vat",
                   "price_with_vat", "total_price_with_vat", "change")
+
+    def render_amount(self, value, record):
+        return '{} {}'.format(value, record.unit)
+
+    def render_priceWithoutVat(self, value, record):
+        return '{} Kč'.format(value)
+
+    def render_price_with_vat(self, value, record):
+        return '{} Kč'.format(value)
+
+    def render_total_price_with_vat(self, value, record):
+        return '{} Kč'.format(value)

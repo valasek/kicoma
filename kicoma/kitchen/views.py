@@ -10,7 +10,6 @@ from django.db import transaction
 from django.db.models import F
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import DetailView
 from django.views.generic.base import TemplateView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -95,6 +94,11 @@ class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     form_class = ArticleSearchForm
     paginate_by = 12
 
+    def get_context_data(self, **kwargs):
+        context = super(ArticleListView, self).get_context_data(**kwargs)
+        context['total_stock_price'] = Article.totalStockPrice()
+        return context
+
 
 class ArticleLackListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = Article
@@ -128,12 +132,13 @@ class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 
 class ArticlePDFView(LoginRequiredMixin, PDFTemplateView):
     template_name = 'kitchen/article/pdf.html'
-    filename = 'Seznam-zbozi.pdf'
+    filename = 'Seznam_zbozi.pdf'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['articles'] = Article.objects.all()
         context['title'] = "Seznam zboží na skladu"
+        context['total_stock_price'] = Article.totalStockPrice()
         return context
 
 
@@ -503,15 +508,15 @@ class StockIssueDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        stock_issue = StockIssue.objects.filter(pk=kwargs['object'].id).get()
-        items = Item.objects.filter(stockIssue_id=kwargs['object'].id)
+        stock_issue = StockIssue.objects.filter(pk=self.kwargs['pk']).get()
+        items = Item.objects.filter(stockIssue_id=self.kwargs['pk'])
         context['stock_issue'] = stock_issue
         context['items'] = items
         context['total_price'] = stock_issue.total_price
         return context
 
     def post(self, request, *args, **kwargs):
-        stock_issue = StockIssue.objects.filter(pk=kwargs['pk']).get()
+        stock_issue = StockIssue.objects.filter(pk=self.kwargs['pk']).get()
         if stock_issue.approved:
             messages.warning(self.request, "Výmaz neproveden - výdejka je již vyskladněna")
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
@@ -524,8 +529,8 @@ class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, PDFTemplateView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        stock_issue = StockIssue.objects.filter(pk=kwargs['pk']).get()
-        items = Item.objects.filter(stockIssue_id=kwargs['pk'])
+        stock_issue = StockIssue.objects.filter(pk=self.kwargs['pk']).get()
+        items = Item.objects.filter(stockIssue_id=self.kwargs['pk'])
         context['stock_issue'] = stock_issue
         context['items'] = items
         context['title'] = "Výdejka"
@@ -686,15 +691,15 @@ class StockReceiptDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        stock_receipt = StockReceipt.objects.filter(pk=kwargs['object'].id).get()
-        items = Item.objects.filter(stockReceipt_id=kwargs['object'].id)
+        stock_receipt = StockReceipt.objects.filter(pk=self.kwargs['pk']).get()
+        items = Item.objects.filter(stockReceipt_id=self.kwargs['pk'])
         context['stock_receipt'] = stock_receipt
         context['items'] = items
         context['total_price'] = stock_receipt.total_price
         return context
 
     def post(self, request, *args, **kwargs):
-        stock_receipt = StockReceipt.objects.filter(pk=kwargs['pk']).get()
+        stock_receipt = StockReceipt.objects.filter(pk=self.kwargs['pk']).get()
         if stock_receipt.approved:
             messages.warning(self.request, "Výmaz neproveden - příjemka je již naskladněna")
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))

@@ -17,23 +17,24 @@ def convertUnits(number, unitIn, unitOut):
     raise ValidationError("Nedokáži provést {} konverzi {} na {}".format(number, unitIn, unitOut))
 
 
-# returns total Item/Ingredient price, Item/Ingedient amount is converted using Article unit
-def totalStockIssueItemPrice(items):
+# returns total Item price, Item amount is converted using Article unit
+def totalStockItemPrice(items):
     totalPrice = 0
     for item in items:
         convertedAmount = convertUnits(item.amount, item.unit, item.article.unit)
         itemPrice = convertedAmount * item.price_with_vat
-        print("item, itemPrice, convertedAmount, item.price_with_vat\n",
+        print("totalStockItemPrice: item, itemPrice, convertedAmount, item.price_with_vat\n",
               item, itemPrice, convertedAmount, item.price_with_vat)
         totalPrice += itemPrice
     return totalPrice
 
-def totalItemPrice(items):
+# returns total Ingredient price, Ingedient amount is converted using Article unit
+def totalIngredientPrice(items):
     totalPrice = 0
     for item in items:
         convertedAmount = convertUnits(item.amount, item.unit, item.article.unit)
         itemPrice = convertedAmount * item.article.averagePrice
-        print("item, itemPrice, convertedAmount, item.article.averagePrice\n",
+        print("totalIngredientPrice: item, itemPrice, convertedAmount, item.article.averagePrice\n",
               item, itemPrice, convertedAmount, item.article.averagePrice)
         totalPrice += itemPrice
     return totalPrice

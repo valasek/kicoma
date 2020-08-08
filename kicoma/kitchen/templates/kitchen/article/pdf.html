@@ -1,13 +1,15 @@
 {% extends "../pdf_page.html" %}
 {% block content %}
-  <br/>
-  <br/>
+<p>Celková cena zboží na skladu s DPH: {{ total_stock_price }} Kč</p>
   <table class="minimalistBlack">
     <thead>
       <tr>
         <th>Zboží</th>
-        <th>Jednotka</th>
-        <th>Množství</th>
+        <th>Na skladu</th>
+        <th>Minimálně na skladu</th>
+        <th>Průměrná jednotková cena s DPH</th>
+        <th>Celková cena s DPH</th>
+        <th>Alergény</th>
         <th>Poznámka</th>
       </tr>
     </thead>
@@ -15,8 +17,11 @@
       {% for article in articles %}
       <tr>
         <td>{{article.article}}</td>
-        <td>{{article.unit}}</td>
-        <td>{{item.amount}}</td>
+        <td>{{article.onStock}} {{article.unit}}</td>
+        <td>{{article.minOnStock}} {{article.unit}}</td>
+        <td>{{article.averagePrice}} Kč / {{article.unit}}</td>
+        <td>{{article.totalPrice}} Kč</td>
+        <td>{{article.display_allergens}}</td>
         <td>{{article.comment}}</td>
       </tr>
       {% endfor %}

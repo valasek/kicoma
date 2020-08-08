@@ -1,12 +1,13 @@
 from decimal import Decimal
 
 from django.db import models
+from django.db.models import Sum
 from django.conf import settings
 from django.forms import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
-from .functions import convertUnits, totalItemPrice, totalStockIssueItemPrice
+from .functions import convertUnits, totalIngredientPrice, totalStockItemPrice
 
 
 def updateArticleStock(stock_id, stock_direction):
@@ -26,11 +27,10 @@ def updateArticleStock(stock_id, stock_direction):
         if stock_direction == 'receipt':
             Article.objects.filter(pk=item.article_id).update(
                 onStock=on_stock + convertUnits(item.amount, item.unit, article_unit),
-                totalPrice=total_price + convertUnits(item.price_with_vat, article_unit, item.unit))
+                totalPrice=total_price + convertUnits(item.total_price_with_vat, article_unit, item.unit))
             print(stock_direction, item.article, item.article.id,
                   "mnozství: ", on_stock, "+", convertUnits(item.amount, item.unit, article_unit),
-                  "cena: ", total_price, "+", convertUnits(item.price_with_vat, article_unit, item.unit))
-            return None
+                  "cena: ", total_price, "+", convertUnits(item.total_price_with_vat, article_unit, item.unit))
         if stock_direction == 'issue':
             average_price = convertUnits(item.article.averagePrice, article_unit, item.unit)
             converted_amount = convertUnits(item.amount, item.unit, article_unit)
@@ -44,7 +44,7 @@ def updateArticleStock(stock_id, stock_direction):
             print(stock_direction, item.article, item.article.id,
                   "mnozství: ", on_stock, "-", convertUnits(item.amount, item.unit, article_unit),
                   "cena: ", total_price, "-", convertUnits(item.article.averagePrice, article_unit, item.unit))
-            return None
+    return None
 
 
 UNIT = (
@@ -136,7 +136,7 @@ class Article(TimeStampedModel):
         default=0, verbose_name='Minimálně na skladu', help_text='Minimální množství zboží na skladu')
     totalPrice = models.DecimalField(
         max_digits=8, blank=True, null=True, decimal_places=2,
-        default=0, verbose_name='Celková cena', help_text='Celková cena zboží na skladu')
+        default=0, verbose_name='Celková cena s DPH', help_text='Celková cena zboží na skladu')
     allergen = models.ManyToManyField(Allergen, blank=True, verbose_name='Alergény')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
@@ -148,6 +148,9 @@ class Article(TimeStampedModel):
         if self.onStock != 0:
             return round(self.totalPrice / self.onStock, 2)
         return 0
+
+    def totalStockPrice():
+        return round(Article.objects.aggregate(total_price=Sum('totalPrice'))['total_price'], 2)
 
     def display_allergens(self):
         '''Create a string for the Allergens. This is required to display allergen in Admin and user table view.'''
@@ -174,7 +177,7 @@ class Recipe(TimeStampedModel):
     @property
     def recipePrice(self):
         ingredients = Ingredient.objects.filter(recipe=self.id)
-        return round(totalItemPrice(ingredients), 2)
+        return round(totalIngredientPrice(ingredients), 2)
 
 
 class Ingredient(TimeStampedModel):
@@ -195,6 +198,10 @@ class Ingredient(TimeStampedModel):
 
     def __str__(self):
         return self.recipe.recipe + '-  ' + self.article.article + '-  ' + str(self.amount)
+
+    @property
+    def total_average_price(self):
+        return round(convertUnits(self.amount, self.unit, self.article.unit) * self.article.averagePrice, 2)
 
 
 class DailyMenu(TimeStampedModel):
@@ -254,7 +261,7 @@ class StockIssue(TimeStampedModel):
     @property
     def total_price(self):
         items = Item.objects.filter(stockIssue=self.id)
-        return round(totalStockIssueItemPrice(items), 2)
+        return round(totalIngredientPrice(items), 2)
 
 
 class StockReceipt(TimeStampedModel):
@@ -278,7 +285,7 @@ class StockReceipt(TimeStampedModel):
     @property
     def total_price(self):
         items = Item.objects.filter(stockReceipt=self.id)
-        return round(totalItemPrice(items), 2)
+        return round(totalStockItemPrice(items), 2)
 
 
 class Item(TimeStampedModel):

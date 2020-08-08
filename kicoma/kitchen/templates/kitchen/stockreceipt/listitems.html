@@ -3,13 +3,14 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Seznam zboží na příjemce</h4>
+  <h4>Seznam zboží na příjemce z {{stockreceipt.created}}, kterou vytvořila {{stockreceipt.userCreated.name}}</h4>
   <hr/>
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
       <a href="{% url 'kitchen:showStockReceipts' %}"><button class="btn btn-secondary mb-2">Zpět na seznam příjemkem</button></a>
+      <a href="{% url 'kitchen:approveStockReceipt' stockreceipt.id %}"><button class="btn btn-success mb-2">Naskladnit</button></a>
       <a href="{% url 'kitchen:createStockReceiptItem' stockreceipt.id %}" class="btn btn-primary mb-2">Přidat zboží</a>
-      <b>Příjemka vytvořena dne:</b> {{stockreceipt.created}} <b>Vytvořila:</b> {{stockreceipt.userCreated.name}} <b>Poznámka:</b> {{stockreceipt.comment}}
+      Poznámka: {{stockreceipt.comment}}
     </div>
   </div>
   {% render_table table %}

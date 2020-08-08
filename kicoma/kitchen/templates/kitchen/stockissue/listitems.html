@@ -3,13 +3,13 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Seznam zboží na výdejce</h4>
+  <h4>Seznam zboží na výdejce z {{stockissue.created}}, kterou vytvořila {{stockissue.userCreated.name}}</h4>
   <hr/>
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
       <a href="{% url 'kitchen:showStockIssues' %}"><button class="btn btn-secondary mb-2">Zpět na seznam výdejek</button></a>
       <a href="{% url 'kitchen:createStockIssueItem' stockissue.id %}" class="btn btn-primary mb-2">Nové zboží</a>
-      <b>Výdejka vytvořena dne:</b> {{stockissue.created}} <b>Vytvořila:</b> {{stockissue.userCreated.name}} <b>Poznámka:</b> {{stockissue.comment}}
+      Poznámka: {{stockissue.comment}}
     </div>
   </div>
   {% render_table table %}

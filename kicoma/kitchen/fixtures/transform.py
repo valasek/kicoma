@@ -174,8 +174,6 @@ def transformJSON(fileInPath, fileOut, rowFnc, **kwargs):
         currentSkippedRecipes += rkwargs['skippedRecipes']
         currentSkippedArticles += rkwargs['skippedArticles']
         rowNumber += 1
-        # if rowNumber > 10:
-        #     break
     with open(pathFileOut, 'w') as outputFile:
         outputFile.write(json.dumps(data, indent=2))
     print(f'{rowFnc.__name__} transformed {rowNumber} rows, skipped {skippedRecords}')

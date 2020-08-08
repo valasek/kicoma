@@ -3,7 +3,7 @@
   <table class="minimalistBlack">
     <thead>
       <tr>
-        <th>Počet porcí</th>
+        <th>Porcí</th>
         <th>Cena receptu</th>
         <th>Komentář</th>
       </tr>
@@ -23,6 +23,8 @@
       <tr>
         <th>Zboží</th>
         <th>Množství</th>
+        <th>Průměrná jednotková cena s DPH</th>
+        <th>Celková cena s DPH</th>
         <th>Komentář</th>
       </tr>
     </thead>
@@ -31,6 +33,8 @@
       <tr>
         <td>{{ingredient.article}}</td>
         <td>{{ingredient.amount}} {{ingredient.unit}}</td>
+        <td>{{ingredient.article.averagePrice}} Kč</td>
+        <td>{{ingredient.total_average_price}} Kč</td>
         <td>{{ingredient.comment}}</td>
       </tr>
       {% endfor %}

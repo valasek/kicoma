@@ -3,13 +3,13 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Seznam receptů denního menu</h4>
+  <h4>Seznam receptů na {{dailymenu.date}}, {{dailymenu.mealType}} pro {{dailymenu.mealGroup}}</h4>
   <hr/>
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
       <a href="{% url 'kitchen:showDailyMenus' %}" class="btn btn-secondary mb-2">Zpět na seznam denních menu</a>
       <a href="{% url 'kitchen:createDailyMenuRecipe' dailymenu.id %}" class="btn btn-primary mb-2">Přidat recept</a>
-      <b>Den:</b> {{dailymenu.date}} <b>Skupina strávníků:</b> {{dailymenu.mealGroup}} <b>Typ jídla:</b> {{dailymenu.mealType}} <b>Poznámka:</b> {{dailymenu.comment}}
+      Poznámka: {{dailymenu.comment}}
     </div>
   </div>
   {% render_table table %}
