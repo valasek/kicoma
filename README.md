@@ -14,7 +14,7 @@ All source code in the [KiCoMa](https://github.com/valasek/kima) is available un
 
 ## Data Model
 
-![Data model](./docs/KiCoMa.png)
+![Data model](./kicoma/static/images/datamodel.png)
 
 # Useful Commands
 
@@ -29,8 +29,8 @@ All source code in the [KiCoMa](https://github.com/valasek/kima) is available un
 
 ## Generate DB model
 Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
-`python3 manage.py graph_models -a -g -o datamodel.png` or
-`python3 manage.py graph_models kitchen -g -o datamodel.png` and copy the file to statics/images
+* `python3 manage.py graph_models -a -g -o datamodel.png` or
+* `python3 manage.py graph_models kitchen -g -o datamodel.png` and copy the file to statics/images
 
 ## Update Translations
 ### Generate message files for a desired language
@@ -54,13 +54,16 @@ https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
 `make_password('password')`
 
 
-External dependencies
+## External dependencies
 
-**Python, Django, Postgresql**
+* Python
+* Django
+* Postgresql
+* wkhtmltopdf**
 
-**wkhtmltopdf**
 Local
 - `sudo apt-get install wkhtmltopdf`
+
 Heroku
 - https://github.com/tutorcruncher/pydf
 - https://github.com/dscout/wkhtmltopdf-buildpack
