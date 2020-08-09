@@ -29,8 +29,8 @@ recipeInFile = 'recepty-in.csv'
 recipeInFilePath = folder + recipeInFile
 articleInFile = 'sklad-in.csv'
 articleInFilePath = folder + articleInFile
-ingredientInFile = 'ingredience-in.csv'
-ingredientInFilePath = folder + ingredientInFile
+recipe_articleInFile = 'ingredience-in.csv'
+recipe_articleInFilePath = folder + recipe_articleInFile
 
 
 def transformAllergen(origIng):
@@ -80,7 +80,7 @@ def returnImported():
     return recipeColumns['cislo'], articleColumns['sklpol']
 
 
-def transformIngredientRecordJSON(inputRow, **kwargs):
+def transformRecipeArticleRecordJSON(inputRow, **kwargs):
     # recipe, article, amount , unit
     # cislo	sklpol	název	norma	jednotka
     now = datetime.now(timezone.utc)
@@ -88,7 +88,7 @@ def transformIngredientRecordJSON(inputRow, **kwargs):
     if checkIfIsImported(inputRow[0], importedRecipes, 'recipes'):
         if checkIfIsImported(inputRow[1], importedArticles, 'articles'):
             outputRow = {
-                "model": "kitchen.ingredient",
+                "model": "kitchen.recipearticle",
                 "pk": kwargs['pk'],
                 "fields": {
                     'created': now.strftime("%Y-%m-%d %H:%M-0100"),
@@ -115,7 +115,7 @@ def transformIngredientRecordJSON(inputRow, **kwargs):
 
 def transformArticleRecordJSON(inputRow, **kwargs):
     # ['sklpol', 'název ', 'jednotka', 'koeficient', 'nasklade', 'celkcena', 'alergeny']
-    # id, article, onStock, averagePrice, unit, comment, allergen
+    # id, article, on_stock, average_price, unit, comment, allergen
     inputRow = cleanRow(inputRow)
     now = datetime.now(timezone.utc)
     outputRow = {
@@ -125,7 +125,7 @@ def transformArticleRecordJSON(inputRow, **kwargs):
             'created': now.strftime("%Y-%m-%d %H:%M-0100"),
             'modified': now.strftime("%Y-%m-%d %H:%M-0100"),
             'article': inputRow[1],
-            'onStock': 0,
+            'on_stock': 0,
             'unit': checkUnit(inputRow, 2),
             'allergen': transformAllergen(inputRow[6]),
             'comment': migrationComment
@@ -187,9 +187,9 @@ def main():
         transformJSON(articleInFilePath, 'article.json', transformArticleRecordJSON)
     if sys.argv[1] == 'recipe':
         transformJSON(recipeInFilePath, 'recipe.json', transformRecipeRecordJSON)
-    if sys.argv[1] == 'ingredient':
-        skippedRecipes, skippedArticles = transformJSON(ingredientInFilePath, 'ingredient.json',
-                                                        transformIngredientRecordJSON,
+    if sys.argv[1] == 'recipe_article':
+        skippedRecipes, skippedArticles = transformJSON(recipe_articleInFilePath, 'recipe_article.json',
+                                                        transformRecipeArticleRecordJSON,
                                                         skippedRecipes=skippedRecipes,
                                                         skippedArticles=skippedArticles)
         print("Skipped", skippedRecipes, "recipes and", skippedArticles, "articles.")
@@ -198,8 +198,8 @@ def main():
                       skippedArticles=skippedArticles)
         transformJSON(recipeInFilePath, 'recipe.json', transformRecipeRecordJSON, skippedRecipes=skippedRecipes,
                       skippedArticles=skippedArticles)
-        skippedRecipes, skippedArticles = transformJSON(ingredientInFilePath, 'ingredient.json',
-                                                        transformIngredientRecordJSON,
+        skippedRecipes, skippedArticles = transformJSON(recipe_articleInFilePath, 'recipe_article.json',
+                                                        transformRecipeArticleRecordJSON,
                                                         skippedRecipes=skippedRecipes,
                                                         skippedArticles=skippedArticles)
         print("Skipped", skippedRecipes, "recipes and", skippedArticles, "articles.")

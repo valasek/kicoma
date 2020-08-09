@@ -1,7 +1,8 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
-from .models import StockReceipt, StockIssue, Item, Ingredient, Article, Recipe, DailyMenu, DailyMenuRecipe
+from .models import StockReceipt, StockIssue, StockIssueArticle, StockReceiptArticle, RecipeArticle, \
+    Article, Recipe, DailyMenu, DailyMenuRecipe
 
 
 class DateInput(forms.DateInput):
@@ -12,12 +13,12 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ["article", "unit", "onStock", "minOnStock", "totalPrice", "comment", "allergen", ]
+        fields = ["article", "unit", "on_stock", "min_on_stock", "total_price", "comment", "allergen", ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['onStock'].widget.attrs['readonly'] = True
-        self.fields['totalPrice'].widget.attrs['readonly'] = True
+        self.fields['on_stock'].widget.attrs['readonly'] = True
+        self.fields['total_price'].widget.attrs['readonly'] = True
         # self.fields['averagePrice'].widget.attrs['readonly'] = True
         self.helper = FormHelper()
         self.helper.form_tag = False
@@ -26,9 +27,9 @@ class ArticleForm(forms.ModelForm):
             Row(
                 Column('article', css_class='col-md-2'),
                 Column('unit', css_class='col-md-2'),
-                Column('onStock', css_class='col-md-2'),
-                Column('minOnStock', css_class='col-md-2'),
-                Column('totalPrice', css_class='col-md-2'),
+                Column('on_stock', css_class='col-md-2'),
+                Column('min_on_stock', css_class='col-md-2'),
+                Column('total_price', css_class='col-md-2'),
                 # Column('averagePrice', css_class='col-md-2'),
             ),
             Row(
@@ -68,10 +69,10 @@ class RecipeSearchForm(forms.Form):
     recipe = forms.CharField()
 
 
-class RecipeIngredientForm(forms.ModelForm):
+class RecipeArticleForm(forms.ModelForm):
 
     class Meta:
-        model = Ingredient
+        model = RecipeArticle
         fields = ["article", "amount", "unit", "comment"]
 
     def __init__(self, *args, **kwargs):
@@ -92,7 +93,7 @@ class DailyMenuForm(forms.ModelForm):
 
     class Meta:
         model = DailyMenu
-        fields = ["date", "mealGroup", "mealType", "comment"]
+        fields = ["date", "meal_group", "meal_type", "comment"]
         # widgets = {'date': DateInput(format="%d/%m/%Y")}
         # widgets = {'date': DateInput(attrs={"type": "date"}, format='%d.%m.%Y')}
         # date = forms.DateField(widget=forms.widgets.DateInput(attrs={"type": "date"}))
@@ -108,8 +109,8 @@ class DailyMenuForm(forms.ModelForm):
         self.helper.layout = Layout(
             Row(
                 Column('date', css_class='col-md-2'),
-                Column('mealGroup', css_class='col-md-2'),
-                Column('mealType', css_class='col-md-2'),
+                Column('meal_group', css_class='col-md-2'),
+                Column('meal_type', css_class='col-md-2'),
                 Column('comment', css_class='col-md-6'),
             )
         )
@@ -123,17 +124,17 @@ class DailyMenuPrintForm(forms.ModelForm):
 
     class Meta:
         model = DailyMenu
-        fields = ["date", "mealGroup"]
+        fields = ["date", "meal_group"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.fields['mealGroup'].required = False
+        self.fields['meal_group'].required = False
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
                 Column('date', css_class='col-md-2'),
-                Column('mealGroup', css_class='col-md-2'),
+                Column('meal_group', css_class='col-md-2'),
             )
         )
 
@@ -202,11 +203,11 @@ class StockIssueFromDailyMenuForm(forms.ModelForm):
         )
 
 
-class StockIssueItemForm(forms.ModelForm):
+class StockIssueArticleForm(forms.ModelForm):
 
     class Meta:
-        model = Item
-        fields = ["article", "amount", "unit", "priceWithoutVat", "vat", "comment"]
+        model = StockIssueArticle
+        fields = ["article", "amount", "unit", "comment"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -251,16 +252,14 @@ class StockReceiptSearchForm(forms.Form):
     userCreated__name = forms.CharField()
 
 
-class StockReceiptItemForm(forms.ModelForm):
+class StockReceiptArticleForm(forms.ModelForm):
 
     class Meta:
-        model = Item
-        fields = ["article", "amount", "unit", "priceWithoutVat", "vat", "comment"]
+        model = StockReceiptArticle
+        fields = ["article", "amount", "unit", "price_without_vat", "vat", "comment"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['priceWithoutVat'].required = True
-        self.fields['vat'].required = True
         self.helper = FormHelper()
         self.helper.form_tag = False
         # self.helper.field_template = 'bootstrap3/layout/inline_field.html'
@@ -270,8 +269,25 @@ class StockReceiptItemForm(forms.ModelForm):
                 Column('amount', css_class='col-md-1'),
                 Column('unit', css_class='col-md-1'),
                 # Column(AppendedText('priceWithoutVat', 'Kč', active=True), css_class='col-md-2'),
-                Column('priceWithoutVat', css_class='col-md-2'),
+                Column('price_without_vat', css_class='col-md-2'),
                 Column('vat', css_class='col-md-1'),
                 Column('comment', css_class='col-md-4'),
+            )
+        )
+
+
+class FoodConsumptionPrintForm(forms.ModelForm):
+
+    class Meta:
+        model = DailyMenu
+        fields = ["date"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Column('date', css_class='col-md-2'),
             )
         )

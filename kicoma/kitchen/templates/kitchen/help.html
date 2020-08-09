@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<h4>Nápověda</h4>
+<hr />
+<div class="row">
+  <div class="col-sm-7">
+    <h5>Správa zboží</h5>
+    <p>Zboží je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showArticles' %}">Zboží na skladu</a>. Vymazat se dá v <a href="admin/kitchen/article">administraci</a>.
+    Výše zásob na skladu nebo cena zboží se mění jenom pomocí příjemky/výdejky.
+    </p>
+    <h5>Příjem zboží na sklad</h5>
+    <p>Příjem zboží na sklad probíhá pomocí <a href="{% url 'kitchen:showStockReceipts' %}">příjemek</a> uživatelem ve skupine "Stockkeeper - skladník".
+    Před příjmem musí být zboží na skladu založeno. Výše zásob a cena zboží je aktualizována jenom když je příjemka schválená.
+    <h5>Výdej zboží ze skladu</h5>
+    <p>Výdejku je možno vytvořit manuálně nebo ji <a href="{% url 'kitchen:createStockIssueFromDailyMenu' %}">založit dle všech denních menu pro zadaný den</a>.<br />
+    Příjem zboží na sklad probíhá pomocí <a href="{% url 'kitchen:showStockIssues' %}">výdejek</a> uživatelem ve skupine "Stockkeeper - skladník".
+    Před výdejem musí být zboží v minimálně vyskladňované výši naskladněno. Výše zásob a cena zboží je aktualizována jenom když je výdejka schválená.
+    </p>
+    <h5>Správa receptů</h5>
+    <p>Recepty a ingredience v receptech je možné vytvořit, upravit nebo vymazat v menu <a href="{% url 'kitchen:showRecipes' %}">Seznam receptů</a>.</p>
+    <h5>Správa denního menu</h5>
+    <p>Denní menu a související recepty je možné vytvořit, upravit nebo vymazat v menu <a href="{% url 'kitchen:showDailyMenus' %}">Sestavit denní menu</a>.</p>
+    <h5>Reporty a tisky</h5>
+    <p>Všechny tisky probíhají pomocí generování PDF, které je možno zobrazit, uložit nebo vytisknout.</p>
+    <h5>Správa číselníků</h5>
+    <p>Číselníky spravuje uživatel ve skupině "Chef - šéfkuchař" v <a href="admin/kitchen">Administraci</a>.
+    Nahrané jsou stejné hodnoty jako ve Strávníčku.
+    <br />
+    Přímý odkaz na správu číselníku: <a href="admin/kitchen/allergen/">alergény</a>,
+    <a href="admin/kitchen/vat">DPH</a>,
+    <a href="admin/kitchen/mealtype">druhy jídla</a>,
+    <a href="admin/kitchen/mealgroup">skupinu strávníků</a>.</p>
+  </div>
+  <div class="col-sm">
+    <h5>Uživatelské skupiny</h5>
+      <p>Založení, úprava nebo výmaz uživatele je možný v <a href="admin/users/user/">administraci</a>.</p>
+      <table class="table table-responsive table-sm">
+        <thead class="thead-light">
+          <tr>
+            <th>Skupina</th>
+            <th>Uživatelé</th>
+            <th>Oprávnění</th>
+          </tr>
+        </thead>
+        <tr>
+          <th>Chef - šéfkuchař</th>
+          <td>trmalova, slavicek</td>
+          <td>
+            Administrátor<br />Správce skupin i uživatelů<br />Správce všech
+            číselníků.
+          </td>
+        </tr>
+        <tr>
+          <th>Cook - kuchař</th>
+          <td>drabkova</td>
+          <td>Tvorba denního menu a PDF reporty</td>
+        </tr>
+        <tr>
+          <th>Stockkeeper - skladník</th>
+          <td>drazdikova, klinderova</td>
+          <td>
+            Správa skladu: zadávání příjemek, schvalování nebo přímo vystavění
+            výdejky
+          </td>
+        </tr>
+      </table>
+      <h5>Administrace, import a export</h5>
+      <p>Každý uživatel ve skupině "Chef - šéfkuchař" má právo na Administrační sekci.
+      Každou datovou tabulku včetně uživatelů je možno plně zpravovat v <a href="admin/kitchen">administraci</a>.
+      Není doporučeno měnit sekce <a href="admin/auth">Autentizace a autorizace</a>, <a href="admin/sites">Weby</a>,
+      <a href="admin/account">Účty</a> a <a href="admin/socialaccount">Účty sociálních sítí</a>.</p>
+      <h5>Hlášení změn nebo chyb</h5>
+      Zadat do <a href="https://forms.gle/akbzoiLsPCLTU7gP8">formuláře</a> nebo email na <a href="mailto:valasek@gmail.com">valasek@gmail.com</a> nebo volat na 724 323 948.
+  </div>
+</div>
+<hr />
+<h5>Datový model</h5>
+<img src="{% static 'images/datamodel.png'%}" width="100%" alt="data model" />
+
+{% endblock content %}

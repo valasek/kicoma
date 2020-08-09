@@ -7,43 +7,44 @@ from django.forms import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
-from .functions import convertUnits, totalIngredientPrice, totalStockItemPrice
+from .functions import convertUnits, totalRecipeArticlePrice, totalStockReceiptArticlePrice
 
 
 def updateArticleStock(stock_id, stock_direction):
     if stock_direction == 'receipt':
-        items = Item.objects.filter(stockReceipt=stock_id)
+        stock_articles = StockReceiptArticle.objects.filter(stock_receipt=stock_id)
     else:
         if stock_direction == 'issue':
-            items = Item.objects.filter(stockIssue=stock_id)
+            stock_articles = StockIssueArticle.objects.filter(stock_issue=stock_id)
         else:
             raise Exception(
-                "Item is not linked to StockReceipt or StockIssue or linked to both. Only one should be populated.")
-    for item in items:
-        article = Article.objects.filter(pk=item.article.id).values_list('onStock', 'totalPrice', 'unit').get()
+                "Article is not linked to StockReceiptArticle or StockIssueArticle or linked to both. Only one should be populated.")
+    for stock_article in stock_articles:
+        article = Article.objects.filter(pk=stock_article.article.id).values_list(
+            'on_stock', 'total_price', 'unit').get()
         on_stock = article[0]
         total_price = article[1]
         article_unit = article[2]
         if stock_direction == 'receipt':
-            Article.objects.filter(pk=item.article_id).update(
-                onStock=on_stock + convertUnits(item.amount, item.unit, article_unit),
-                totalPrice=total_price + convertUnits(item.total_price_with_vat, article_unit, item.unit))
-            print(stock_direction, item.article, item.article.id,
-                  "mnozství: ", on_stock, "+", convertUnits(item.amount, item.unit, article_unit),
-                  "cena: ", total_price, "+", convertUnits(item.total_price_with_vat, article_unit, item.unit))
+            Article.objects.filter(pk=stock_article.article_id).update(
+                on_stock=on_stock + convertUnits(stock_article.amount, stock_article.unit, article_unit),
+                total_price=total_price + convertUnits(stock_article.total_price_with_vat, article_unit, stock_article.unit))
+            print(stock_direction, stock_article.article, stock_article.article.id,
+                  "mnozství: ", on_stock, "+", convertUnits(stock_article.amount, stock_article.unit, article_unit),
+                  "cena: ", total_price, "+", convertUnits(stock_article.total_price_with_vat, article_unit, stock_article.unit))
         if stock_direction == 'issue':
-            average_price = convertUnits(item.article.averagePrice, article_unit, item.unit)
-            converted_amount = convertUnits(item.amount, item.unit, article_unit)
+            average_price = convertUnits(stock_article.article.average_price, article_unit, stock_article.unit)
+            converted_amount = convertUnits(stock_article.amount, stock_article.unit, article_unit)
             if on_stock < 0 or on_stock - converted_amount < 0:
                 print(on_stock, converted_amount)
                 return "Není možné vyskladnit zboží {}, vyskladňuješ {} a na skladu je jenom {}".format(
-                    item.article, converted_amount, on_stock)
-            Article.objects.filter(pk=item.article_id).update(
-                onStock=on_stock - converted_amount,
-                totalPrice=total_price - average_price)
-            print(stock_direction, item.article, item.article.id,
-                  "mnozství: ", on_stock, "-", convertUnits(item.amount, item.unit, article_unit),
-                  "cena: ", total_price, "-", convertUnits(item.article.averagePrice, article_unit, item.unit))
+                    stock_article.article, converted_amount, on_stock)
+            Article.objects.filter(pk=stock_article.article_id).update(
+                on_stock=on_stock - converted_amount,
+                total_price=total_price - average_price)
+            print(stock_direction, stock_article.article, stock_article.article.id,
+                  "mnozství: ", on_stock, "-", convertUnits(stock_article.amount, stock_article.unit, article_unit),
+                  "cena: ", total_price, "-", convertUnits(stock_article.article.average_price, article_unit, stock_article.unit))
     return None
 
 
@@ -98,11 +99,11 @@ class MealGroup(models.Model):
         verbose_name_plural = _('číselník - Skupiny strávníků')
         verbose_name = _('číselník - Skupina strávníků')
 
-    mealGroup = models.CharField(max_length=100, unique=True, verbose_name='Skupina strávníka',
-                                 help_text='Skupina pro kterou se připravuje jídlo')
+    meal_group = models.CharField(max_length=100, unique=True, verbose_name='Skupina strávníka',
+                                  help_text='Skupina pro kterou se připravuje jídlo')
 
     def __str__(self):
-        return self.mealGroup
+        return self.meal_group
 
 
 class MealType(models.Model):
@@ -111,11 +112,11 @@ class MealType(models.Model):
         verbose_name_plural = _('číselník - Druhy jídla')
         verbose_name = _('číselník - Druh jídla')
 
-    mealType = models.CharField(max_length=30, unique=True, verbose_name='Druh jídla',
-                                help_text='Druh jídla v rámci dne')
+    meal_type = models.CharField(max_length=30, unique=True, verbose_name='Druh jídla',
+                                 help_text='Druh jídla v rámci dne')
 
     def __str__(self):
-        return self.mealType
+        return self.meal_type
 
 
 class Article(TimeStampedModel):
@@ -128,13 +129,13 @@ class Article(TimeStampedModel):
     article = models.CharField(max_length=30, unique=True, verbose_name='Zboží',
                                help_text='Název zboží na skladu')
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
-    onStock = models.DecimalField(
+    on_stock = models.DecimalField(
         decimal_places=2, max_digits=8,
         default=0, verbose_name='Na skladu', help_text='Celkové množství zboží na skladu')
-    minOnStock = models.DecimalField(
+    min_on_stock = models.DecimalField(
         decimal_places=2, max_digits=8, validators=[MinValueValidator(Decimal('0.1'))],
         default=0, verbose_name='Minimálně na skladu', help_text='Minimální množství zboží na skladu')
-    totalPrice = models.DecimalField(
+    total_price = models.DecimalField(
         max_digits=8, blank=True, null=True, decimal_places=2,
         default=0, verbose_name='Celková cena s DPH', help_text='Celková cena zboží na skladu')
     allergen = models.ManyToManyField(Allergen, blank=True, verbose_name='Alergény')
@@ -144,13 +145,14 @@ class Article(TimeStampedModel):
         return self.article
 
     @property
-    def averagePrice(self):
-        if self.onStock != 0:
-            return round(self.totalPrice / self.onStock, 2)
+    def average_price(self):
+        if self.on_stock != 0:
+            return round(self.total_price / self.on_stock, 2)
         return 0
 
-    def totalStockPrice():
-        return round(Article.objects.aggregate(total_price=Sum('totalPrice'))['total_price'], 2)
+    @staticmethod
+    def sum_total_price():
+        return round(Article.objects.aggregate(total_price=Sum('total_price'))['total_price'], 2)
 
     def display_allergens(self):
         '''Create a string for the Allergens. This is required to display allergen in Admin and user table view.'''
@@ -167,7 +169,7 @@ class Recipe(TimeStampedModel):
 
     recipe = models.CharField(max_length=100, unique=True, verbose_name='recept', help_text='Název receptu')
     norm_amount = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(1000)], verbose_name='Počet porcí')
+        validators=[MinValueValidator(0), MaxValueValidator(1000)], verbose_name='Porcí')
     procedure = models.TextField(max_length=1000, blank=True, null=True, verbose_name='Postup receptu')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
@@ -175,12 +177,12 @@ class Recipe(TimeStampedModel):
         return self.recipe
 
     @property
-    def recipePrice(self):
-        ingredients = Ingredient.objects.filter(recipe=self.id)
-        return round(totalIngredientPrice(ingredients), 2)
+    def total_recipe_articles_price(self):
+        recipe_articles = RecipeArticle.objects.filter(recipe=self.id)
+        return round(totalRecipeArticlePrice(recipe_articles, self.norm_amount), 2)
 
 
-class Ingredient(TimeStampedModel):
+class RecipeArticle(TimeStampedModel):
 
     class Meta:
         verbose_name_plural = _('Suroviny v receptu')
@@ -188,8 +190,8 @@ class Ingredient(TimeStampedModel):
         ordering = ['-recipe']
 
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept')
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Surovina',
-                                help_text='Použitá surovina')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží',
+                                help_text='Použité zboží')
     amount = models.DecimalField(
         decimal_places=2, max_digits=10, validators=[MinValueValidator(Decimal('0.1'))],
         verbose_name='Množství', help_text='Množství suroviny')
@@ -201,7 +203,7 @@ class Ingredient(TimeStampedModel):
 
     @property
     def total_average_price(self):
-        return round(convertUnits(self.amount, self.unit, self.article.unit) * self.article.averagePrice, 2)
+        return round(convertUnits(self.amount, self.unit, self.article.unit) * self.article.average_price, 2)
 
 
 class DailyMenu(TimeStampedModel):
@@ -212,14 +214,14 @@ class DailyMenu(TimeStampedModel):
         ordering = ['-date']
 
     date = models.DateField(verbose_name='Datum', help_text='Datum denního menu ve formátu dd.mm.rrrr')
-    mealGroup = models.ForeignKey(MealGroup, on_delete=models.CASCADE, verbose_name='Skupina strávníka',
-                                  help_text='Skupina pro kterou se připravuje jídlo')
-    mealType = models.ForeignKey(MealType, on_delete=models.CASCADE, verbose_name='Druh jídla',
-                                 help_text='Druh jídla v rámci dne')
+    meal_group = models.ForeignKey(MealGroup, on_delete=models.CASCADE, verbose_name='Skupina strávníka',
+                                   help_text='Skupina pro kterou se připravuje jídlo')
+    meal_type = models.ForeignKey(MealType, on_delete=models.CASCADE, verbose_name='Druh jídla',
+                                  help_text='Druh jídla v rámci dne')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
-        return str(self.date) + ' - ' + self.mealType.mealType + ' - ' + self.mealGroup.mealGroup
+        return str(self.date) + ' - ' + self.meal_type.meal_type + ' - ' + self.meal_group.meal_group
 
 
 class DailyMenuRecipe(TimeStampedModel):
@@ -233,7 +235,7 @@ class DailyMenuRecipe(TimeStampedModel):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept',
                                help_text='Vybraný recept')
     amount = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(1000)],
-                                              verbose_name='Počet', help_text='Počet porcí')
+                                              verbose_name='Porcí', help_text='Počet porcí')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
@@ -247,12 +249,12 @@ class StockIssue(TimeStampedModel):
         verbose_name = _('Výdejka')
         ordering = ['-created']
 
-    userCreated = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-                                    related_name='usicreated', verbose_name='Vytvořil')
+    user_created = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                                     related_name='usicreated', verbose_name='Vytvořil')
     approved = models.BooleanField(default=False, blank=True, null=True, verbose_name='Vyskladněno')
-    dateApproved = models.DateField(blank=True, null=True, verbose_name='Datum vyskladnění')
-    userApproved = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True,
-                                     related_name='usiapproved', verbose_name='Vyskladnil')
+    date_approved = models.DateField(blank=True, null=True, verbose_name='Datum vyskladnění')
+    user_approved = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True,
+                                      related_name='usiapproved', verbose_name='Vyskladnil')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
@@ -260,8 +262,8 @@ class StockIssue(TimeStampedModel):
 
     @property
     def total_price(self):
-        items = Item.objects.filter(stockIssue=self.id)
-        return round(totalIngredientPrice(items), 2)
+        stock_issue_articles = StockIssueArticle.objects.filter(stock_issue=self.id)
+        return round(totalRecipeArticlePrice(stock_issue_articles, 1), 2)
 
 
 class StockReceipt(TimeStampedModel):
@@ -271,12 +273,12 @@ class StockReceipt(TimeStampedModel):
         verbose_name = _('Příjemka')
         ordering = ['-created']
 
-    userCreated = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-                                    related_name='usrcreated', verbose_name='Vytvořil')
+    user_created = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                                     related_name='usrcreated', verbose_name='Vytvořil')
     approved = models.BooleanField(default=False, blank=True, null=True, verbose_name='Naskladněno')
-    dateApproved = models.DateField(blank=True, null=True, verbose_name='Datum naskladnění')
-    userApproved = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True,
-                                     related_name='usrapproved', verbose_name='Naskladnil')
+    date_approved = models.DateField(blank=True, null=True, verbose_name='Datum naskladnění')
+    user_approved = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True,
+                                      related_name='usrapproved', verbose_name='Naskladnil')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
@@ -284,61 +286,73 @@ class StockReceipt(TimeStampedModel):
 
     @property
     def total_price(self):
-        items = Item.objects.filter(stockReceipt=self.id)
-        return round(totalStockItemPrice(items), 2)
+        stock_receipt_articles = StockReceiptArticle.objects.filter(stock_receipt=self.id)
+        return round(totalStockReceiptArticlePrice(stock_receipt_articles), 2)
 
 
-class Item(TimeStampedModel):
+class StockIssueArticle(TimeStampedModel):
 
     class Meta:
-        verbose_name_plural = _('Zboží')
-        verbose_name = _('Zboží')
+        verbose_name_plural = _('Zboží na výdejce')
+        verbose_name = _('Zboží na výdejce')
         ordering = ['-article__article']
 
-    stockReceipt = models.ForeignKey(StockReceipt, blank=True, null=True, on_delete=models.CASCADE,
-                                     verbose_name='Příjemka')
-    stockIssue = models.ForeignKey(StockIssue, blank=True, null=True, on_delete=models.CASCADE, verbose_name='Výdejka')
+    stock_issue = models.ForeignKey(StockIssue, on_delete=models.CASCADE, verbose_name='Výdejka')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží')
     amount = models.DecimalField(decimal_places=2, max_digits=8, validators=[
         MinValueValidator(Decimal('0.1'))], verbose_name='Množství')
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
-    priceWithoutVat = models.DecimalField(max_digits=10, decimal_places=2, validators=[
-        MinValueValidator(Decimal('0.1'))], blank=True, null=True, verbose_name='Jednotková cena bez DPH')
-    vat = models.ForeignKey(VAT, blank=True, null=True, default=2, on_delete=models.CASCADE, verbose_name='DPH')
+    average_unit_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[
+        MinValueValidator(Decimal('0.1'))], blank=True, null=True, verbose_name='Průměrná jednotková cena bez DPH')
+    comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
+
+    @property
+    def total_average_price_with_vat(self):
+        if self.amount is not None and self.average_unit_price is not None:
+            return round(self.amount * self.average_unit_price, 2)
+        return 0
+
+    def clean(self):
+        article = Article.objects.filter(pk=self.article.id).values_list('on_stock', 'unit')
+        on_stock = article[0][0]
+        stock_unit = article[0][1]
+        issued_amount = convertUnits(self.amount, self.unit, stock_unit)
+        if on_stock - issued_amount < 0:
+            raise ValidationError(
+                {'amount': _("Na skladu je {0} {1} a vydáváte {2} {1}.".format(on_stock, stock_unit, issued_amount))})
+
+    def __str__(self):
+        return self.article.article + ' - ' + str(self.amount) + self.unit
+
+
+class StockReceiptArticle(TimeStampedModel):
+
+    class Meta:
+        verbose_name_plural = _('Zboží na příjemce')
+        verbose_name = _('Zboží na výdejce')
+        ordering = ['-article__article']
+
+    stock_receipt = models.ForeignKey(StockReceipt, on_delete=models.CASCADE, verbose_name='Příjemka')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží')
+    amount = models.DecimalField(decimal_places=2, max_digits=8, validators=[
+        MinValueValidator(Decimal('0.1'))], verbose_name='Množství')
+    unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
+    price_without_vat = models.DecimalField(max_digits=10, decimal_places=2, validators=[
+        MinValueValidator(Decimal('0.1'))], verbose_name='Jednotková cena bez DPH')
+    vat = models.ForeignKey(VAT, default=2, on_delete=models.CASCADE, verbose_name='DPH')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     @property
     def price_with_vat(self):
-        if self.priceWithoutVat is not None and self.priceWithoutVat is not None and self.vat.percentage is not None:
-            return self.priceWithoutVat + self.priceWithoutVat * self.vat.percentage/100
-        return 0  # Required for Items on StockIssues
+        if self.price_without_vat is not None and self.price_without_vat is not None and self.vat.percentage is not None:
+            return self.price_without_vat + self.price_without_vat * self.vat.percentage/100
+        return 0
 
     @property
     def total_price_with_vat(self):
         if self.price_with_vat is not None and self.amount is not None:
             return round(self.price_with_vat * self.amount, 2)
-        return 0  # Required for Items on StockIssues
-
-    @property
-    def total_average_price_with_vat(self):
-        if self.amount is not None and self.article.averagePrice is not None:
-            return round(self.amount * self.article.averagePrice, 2)
-        return 0  # Required for Items on StockIssues
-
-    def clean(self):
-        article = Article.objects.filter(pk=self.article.id).values_list('onStock', 'unit')
-        onStock = article[0][0]
-        stockUnit = article[0][1]
-        issuedAmount = convertUnits(self.amount, self.unit, stockUnit)
-        if self.stockIssue is not None and (onStock - issuedAmount < 0):
-            raise ValidationError(
-                {'amount': _("Na skladu je {0} {1} a vydáváte {2} {1}.".format(onStock, stockUnit, issuedAmount))})
-        if self.stockReceipt is not None and (self.priceWithoutVat is None):
-            raise ValidationError(
-                {'priceWithoutVat': _("Uveď cenu.")})
-        if self.stockReceipt is not None and (self.vat is None):
-            raise ValidationError(
-                {'vat': _("Uveď DPH.")})
+        return 0
 
     def __str__(self):
         return self.article.article + ' - ' + str(self.amount) + self.unit

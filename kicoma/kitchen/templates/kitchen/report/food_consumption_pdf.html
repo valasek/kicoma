@@ -1,0 +1,36 @@
+{% extends "../pdf_page.html" %}
+{% block content %}
+
+
+
+{% for daily_menu in daily_menus.all %}
+  <h2>{{ daily_menu.meal_type }} pro {{ daily_menu.meal_group }}</h2>
+  {% if daily_menu.dailymenurecipe_set %}
+    {% for daily_menu_recipe in daily_menu.dailymenurecipe_set.all %}
+      <h3>{{ daily_menu_recipe.recipe }}, {{ daily_menu_recipe.amount }} porcí</h3>
+      {% if daily_menu_recipe.recipe.recipearticle_set %}
+          <table class="minimalistBlack">
+            <thead>
+              <tr>
+                <th>Ingredience</th>
+                <th>Objem</th>
+                <th>Alergény</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for recipe_article in daily_menu_recipe.recipe.recipearticle_set.all %}
+              <tr>
+                <td>{{recipe_article.article}}</td>
+                <td>{{recipe_article.amount}} {{recipe_article.unit}} * {{ daily_menu_recipe.amount }}, {{ daily_menu_recipe.recipe.norm_amount }}
+                </td>
+                <td>alergeny</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
+{% endblock %}

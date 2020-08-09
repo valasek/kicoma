@@ -4,7 +4,7 @@
     "pk": 1,
     "fields":
     {
-      "mealGroup": "Klienti"
+      "meal_group": "Klienti"
     }
   },
   {
@@ -12,7 +12,7 @@
     "pk": 2,
     "fields":
     {
-      "mealGroup": "Klienti B C"
+      "meal_group": "Klienti B C"
     }
   },
   {
@@ -20,7 +20,7 @@
     "pk": 3,
     "fields":
     {
-      "mealGroup": "Zaměstnanci"
+      "meal_group": "Zaměstnanci"
     }
   },
   {
@@ -28,7 +28,7 @@
     "pk": 4,
     "fields":
     {
-      "mealGroup": "Cizí"
+      "meal_group": "Cizí"
     }
   },
   {
@@ -36,7 +36,7 @@
     "pk": 5,
     "fields":
     {
-      "mealGroup": "Provoz recepce"
+      "meal_group": "Provoz recepce"
     }
   },
   {
@@ -44,7 +44,7 @@
     "pk": 6,
     "fields":
     {
-      "mealGroup": "CDS"
+      "meal_group": "CDS"
     }
   },
   {
@@ -52,7 +52,7 @@
     "pk": 7,
     "fields":
     {
-      "mealGroup": "Zaměstnanci / ovo"
+      "meal_group": "Zaměstnanci / ovo"
     }
   }
 ]

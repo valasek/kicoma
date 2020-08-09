@@ -1,8 +1,8 @@
 from import_export import resources
 from import_export.admin import ImportExportActionModelAdmin
 from django.contrib import admin
-from . models import StockReceipt, StockIssue, Item, Allergen, MealType, Recipe, \
-    Ingredient, MealGroup, VAT, DailyMenu, Article, DailyMenuRecipe
+from . models import StockReceipt, StockIssue, StockIssueArticle, StockReceiptArticle, Allergen, MealType, Recipe, \
+    RecipeArticle, MealGroup, VAT, DailyMenu, Article, DailyMenuRecipe
 
 # create import export resources
 
@@ -39,10 +39,18 @@ class StockReceiptResource(resources.ModelResource):
         report_skipped = True
 
 
-class ItemResource(resources.ModelResource):
+class StockIssueArticleResource(resources.ModelResource):
 
     class Meta:
-        model = Item
+        model = StockIssueArticle
+        skip_unchanged = True
+        report_skipped = True
+
+
+class StockReceiptArticleResource(resources.ModelResource):
+
+    class Meta:
+        model = StockReceiptArticle
         skip_unchanged = True
         report_skipped = True
 
@@ -79,10 +87,10 @@ class RecipeResource(resources.ModelResource):
         report_skipped = True
 
 
-class IngredientResource(resources.ModelResource):
+class RecipeArticleResource(resources.ModelResource):
 
     class Meta:
-        model = Ingredient
+        model = RecipeArticle
         skip_unchanged = True
         report_skipped = True
 
@@ -118,21 +126,23 @@ class AllergenAdmin(ImportExportActionModelAdmin):
 
 
 class MealGroupAdmin(ImportExportActionModelAdmin):
-    list_display = ('mealGroup',)
-    ordering = ('mealGroup',)
+    list_display = ('meal_group',)
+    ordering = ('meal_group',)
     resource_class = MealGroupResource
 
 
 class MealTypeAdmin(ImportExportActionModelAdmin):
-    list_display = ('mealType',)
-    ordering = ('mealType',)
+    list_display = ('meal_type',)
+    ordering = ('meal_type',)
     resource_class = MealTypeResource
 
 
 class ArticleAdmin(ImportExportActionModelAdmin):
-    list_display = ('article', 'unit', 'onStock', 'minOnStock', 'totalPrice',
-                    'averagePrice', 'display_allergens', 'comment', )
-    fields = [('article', 'unit'), ('onStock', 'minOnStock', 'totalPrice', 'averagePrice'), 'allergen', 'comment', ]
+    list_display = ('article', 'unit', 'on_stock', 'min_on_stock',
+                    'total_price', 'display_allergens', 'comment', )
+    fields = [('article', 'unit'),
+              ('on_stock', 'min_on_stock', 'total_price'),
+              'allergen', 'comment', ]
     # list_filter = ('unit', 'coefficient')
     search_fields = ('name',)
     resource_class = ArticleResource
@@ -144,14 +154,14 @@ class RecipeAdmin(ImportExportActionModelAdmin):
     resource_class = RecipeResource
 
 
-class IngredientAdmin(ImportExportActionModelAdmin):
+class RecipeArticleAdmin(ImportExportActionModelAdmin):
     list_display = ('recipe', 'article', 'amount', 'unit', 'comment',)
     fields = [('recipe', 'article', 'amount', 'unit', 'comment')]
-    resource_class = IngredientResource
+    resource_class = RecipeArticleResource
 
 
 class DailyMenuAdmin(ImportExportActionModelAdmin):
-    list_display = ('date', 'mealGroup', 'mealType', 'comment')
+    list_display = ('date', 'meal_group', 'meal_type', 'comment')
     resource_class = DailyMenuResource
 
 
@@ -161,42 +171,49 @@ class DailyMenuRecipeAdmin(ImportExportActionModelAdmin):
 
 
 class StockIssueAdmin(ImportExportActionModelAdmin):
-    list_display = ('userCreated', 'approved', 'dateApproved', 'userApproved',
+    list_display = ('user_created', 'approved', 'date_approved', 'user_approved',
                     'comment', )
-    fields = [('userCreated', ), ('approved', 'dateApproved', 'userApproved'),
+    fields = [('user_created', ), ('approved', 'date_approved', 'user_approved'),
               'comment', ]
     resource_class = StockIssueResource
 
 
 class StockReceiptAdmin(ImportExportActionModelAdmin):
-    list_display = ('userCreated', 'approved', 'dateApproved', 'userApproved',
+    list_display = ('user_created', 'approved', 'date_approved', 'user_approved',
                     'comment', )
-    fields = [('userCreated', ), ('approved', 'dateApproved', 'userApproved'),
+    fields = [('user_created', ), ('approved', 'date_approved', 'user_approved'),
               'comment', ]
     resource_class = StockReceiptResource
 
 
-class ItemAdmin(ImportExportActionModelAdmin):
-    list_display = ('stockIssue', 'stockReceipt', 'article', 'amount',
-                    'unit', 'priceWithoutVat', 'vat', 'comment', )
-    fields = [('stockIssue', 'stockReceipt'),
-              ('article', 'amount', 'unit'),
-              ('priceWithoutVat', 'vat'),
+class StockIssueArticleAdmin(ImportExportActionModelAdmin):
+    list_display = ('stock_issue', 'article', 'amount',
+                    'unit', 'average_unit_price', 'comment', )
+    fields = [('stock_issue', 'article', 'amount'),
+              ('average_unit_price', 'unit'),
               'comment', ]
-    # list_filter = ('unit', 'coefficient')
-    # search_fields = ('name',)
-    resource_class = ItemResource
+    resource_class = StockIssueArticleResource
+
+
+class StockReceiptArticleAdmin(ImportExportActionModelAdmin):
+    list_display = ('stock_receipt', 'article', 'amount',
+                    'unit', 'price_without_vat', 'vat', 'comment', )
+    fields = [('stock_receipt', 'article', 'amount'),
+              ('unit', 'price_without_vat', 'vat'),
+              'comment', ]
+    resource_class = StockReceiptArticleResource
 
 
 admin.site.register(Allergen, AllergenAdmin)
 admin.site.register(VAT, VATAdmin)
 admin.site.register(MealGroup, MealGroupAdmin)
 admin.site.register(MealType, MealTypeAdmin)
-admin.site.register(Ingredient, IngredientAdmin)
+admin.site.register(RecipeArticle, RecipeArticleAdmin)
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(DailyMenu, DailyMenuAdmin)
 admin.site.register(DailyMenuRecipe, DailyMenuRecipeAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(StockReceipt, StockReceiptAdmin)
 admin.site.register(StockIssue, StockIssueAdmin)
-admin.site.register(Item, ItemAdmin)
+admin.site.register(StockIssueArticle, StockIssueArticleAdmin)
+admin.site.register(StockReceiptArticle, StockReceiptArticleAdmin)

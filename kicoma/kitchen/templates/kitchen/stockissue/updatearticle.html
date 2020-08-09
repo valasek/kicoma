@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
+<div class="container-fluid">
+  <h4>Aktualizace zboží na výdejce</h4>
+  <hr />
+  <div class="row">
+    <div class="col-8 justify-content-start d-inline">
+      <a
+        href="{% url 'kitchen:showStockIssueArticles' stock_issue_article_before.stock_issue.id %}"
+        ><button class="btn btn-secondary">
+          Zpět na seznam zboží výdejky
+        </button></a
+      >
+      <a
+        href="{% url 'kitchen:printStockIssue' stock_issue_article_before.stock_issue.id %}"
+        class="btn btn-primary"
+        >PDF - výdejka</a
+      >
+      <b>Výdejka vytvořena dne:</b>
+      {{stock_issue_article_before.stock_issue.created}},
+      <b>Vytvořila:</b>
+      {{stock_issue_article_before.stock_issue.user_created.name}},
+      <b>Poznámka:</b> {{stock_issue_article_before.stock_issue.comment}}
+    </div>
+  </div>
+  <br />
+  <form
+    method="post"
+    action="{% url 'kitchen:updateStockIssueArticle' stock_issue_article_before.id %}"
+  >
+    {% csrf_token %} {% crispy form form.helper %}
+    <button type="submit" class="btn btn-success">Uložit</button>
+  </form>
+</div>
+{% endblock content %}

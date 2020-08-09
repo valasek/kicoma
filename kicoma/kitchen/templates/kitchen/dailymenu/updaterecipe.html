@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
       <a href="{% url 'kitchen:showDailyMenuRecipes' dailymenurecipe_before.daily_menu.id%}"><button class="btn btn-secondary">Zpět na seznam receptů</button></a>
-      <b>Den:</b> {{dailymenurecipe_before.daily_menu.date}} <b>Skupina strávníků:</b> {{dailymenurecipe_before.daily_menu.mealGroup}} <b>Typ jídla:</b> {{dailymenurecipe_before.daily_menu.mealType}} <b>Poznámka:</b> {{dailymenurecipe_before.daily_menu.comment}}
+      <b>Den:</b> {{dailymenurecipe_before.daily_menu.date}} <b>Skupina strávníků:</b> {{dailymenurecipe_before.daily_menu.meal_group}} <b>Typ jídla:</b> {{dailymenurecipe_before.daily_menu.meal_type}} <b>Poznámka:</b> {{dailymenurecipe_before.daily_menu.comment}}
     </div>
   </div>
   <br/>

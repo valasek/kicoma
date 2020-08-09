@@ -1,70 +1,8 @@
 {% extends "base.html" %}
-{% load static %}
 {% block content %}
 
 <h4>Kitchen Cooking Management</h4>
 <hr />
-<h4>Dokumentace</h4>
-<div class="row">
-  <div class="col-sm">
-    <h5>Správa číselníků</h5>
-    <p>Číselníky spravuje uživatel ve skupině "Chef - šéfkuchař" v <a href="admin/kitchen">Administraci</a>.
-    <br />
-    Přímý odkaz na správu číselníku: <a href="admin/kitchen/allergen/">alergény</a>,
-    <a href="admin/kitchen/vat">DPH</a>,
-    <a href="admin/kitchen/mealtype">druhy jídla</a>,
-    <a href="admin/kitchen/mealgroup">skupinu strávníků</a>.</p>
-    <h5>Příjem zboží na sklad</h5>
-    <p>Příjem zboží na sklad probíhá pomocí <a href="{% url 'kitchen:showStockReceipts' %}">příjemek</a> uživatelem ve skupine "Stockkeeper - skladník".
-    Před příjmem musí být zboží na skladu založeno.
-    Stav zboží je možno kontrolovat pomocí <a href="{% url 'kitchen:showArticles' %}">Zboží na skladu</a>.</p>
-    <h5>Správa zboží</h5>
-    <p>Zboží je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showArticles' %}">Zboží na skladu</a>. Vymazat se dá v <a href="admin/kitchen/article">administraci</a>.</p>
-    <h5>Správa receptů</h5>
-    <p>Recepty je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showRecipes' %}">Seznam receptů</a>. Vymazat se dá v <a href="admin/kitchen/recipe">administraci</a>.</p>
-    <h5>Správa denního menu</h5>
-    <p>Denní menu je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showDailyMenus' %}">Sestavit denní menu</a>. Vymazat se dá v <a href="admin/kitchen/dailymenu">administraci</a>.</p>
-  </div>
-  <div class="col-sm">
-    <h5>Uživatelské skupiny</h5>
-      <p>Založení, úprava nebo výmaz uživatele je možný v <a href="admin/users/user/">administraci</a>.</p>
-      <table class="table table-responsive table-sm">
-        <thead class="thead-light">
-          <tr>
-            <th>Skupina</th>
-            <th>Uživatelé</th>
-            <th>Oprávnění</th>
-          </tr>
-        </thead>
-        <tr>
-          <th>Chef - šéfkuchař</th>
-          <td>trmalova, slavicek</td>
-          <td>
-            Administrátor<br />Správce skupin i uživatelů<br />Správce všech
-            číselníků.
-          </td>
-        </tr>
-        <tr>
-          <th>Cook - kuchař</th>
-          <td>drabkova</td>
-          <td>Tvorba denního menu a tisky kalkulací</td>
-        </tr>
-        <tr>
-          <th>Stockkeeper - skladník</th>
-          <td>drazdikova, klinderova</td>
-          <td>
-            Správa skladu: zadávání příjemek, schvalování nebo přímo vystavění
-            výdejky
-          </td>
-        </tr>
-      </table>
-      <h5>Administrace, import a export</h5>
-      <p>Každý uživatel ve skupině "Chef - šéfkuchař" má právo na Administrační sekci.
-      Každou datovou tabulku včetně uživatelů je možno plně zpravovat v <a href="admin/kitchen">administraci</a>.
-      Není doporučeno měnit sekce <a href="admin/auth">Autentizace a autorizace</a>, <a href="admin/sites">Weby</a>,
-      <a href="admin/account">Účty</a> a <a href="admin/socialaccount">Účty sociálních sítí</a>.</p>
-  </div>
-</div>
-  <h5>Datový model</h5>
-  <img src="{% static 'images/datamodel.png'%}" alt="data model" />
+See <a href="https://github.com/valasek/kicoma">https://github.com/valasek/kicoma</a>
+
 {% endblock content %}

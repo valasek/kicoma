@@ -6,13 +6,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "b\u00e1bovka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "10",
-        "14"
-      ],
+      "allergen": ["2", "10", "14"],
       "comment": ""
     }
   },
@@ -23,7 +19,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "bobkov\u00fd list",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -36,13 +32,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "bramborov\u00e9 knedl\u00edky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "10",
-        "14"
-      ],
+      "allergen": ["2", "10", "14"],
       "comment": ""
     }
   },
@@ -53,11 +45,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "citronov\u00e1 \u0161t\u00e1va",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "25"
-      ],
+      "allergen": ["25"],
       "comment": ""
     }
   },
@@ -68,7 +58,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "cukr krupice,krystal",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -81,7 +71,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "cukr mou\u010dka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -94,7 +84,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "cukr vanilkov\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -107,7 +97,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "divok\u00e9 ko\u0159en\u00ed raj\u010d.",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -120,11 +110,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "d\u017eem 400g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "27"
-      ],
+      "allergen": ["27"],
       "comment": ""
     }
   },
@@ -135,11 +123,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "d\u017eem porce",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "27"
-      ],
+      "allergen": ["27"],
       "comment": ""
     }
   },
@@ -150,7 +136,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "dro\u017ed\u00ed ks",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -163,7 +149,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "granko",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -176,12 +162,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "halali",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "24",
-        "1"
-      ],
+      "allergen": ["24", "1"],
       "comment": ""
     }
   },
@@ -192,11 +175,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "mouka hladk\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2"
-      ],
+      "allergen": ["2"],
       "comment": ""
     }
   },
@@ -207,11 +188,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "mouka hrub\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2"
-      ],
+      "allergen": ["2"],
       "comment": ""
     }
   },
@@ -222,11 +201,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "mouka polohrub\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2"
-      ],
+      "allergen": ["2"],
       "comment": ""
     }
   },
@@ -237,7 +214,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "mu\u0161k\u00e1tov\u00fd kv\u011bt",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -250,7 +227,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "nov\u00e9 ko\u0159en\u00ed",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -263,11 +240,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ocet",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "27"
-      ],
+      "allergen": ["27"],
       "comment": ""
     }
   },
@@ -278,12 +253,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "okurky sterilovan\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "25",
-        "27"
-      ],
+      "allergen": ["25", "27"],
       "comment": ""
     }
   },
@@ -294,7 +266,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "olej",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -307,11 +279,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ovesn\u00e9 vlo\u010dky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "5"
-      ],
+      "allergen": ["5"],
       "comment": ""
     }
   },
@@ -322,7 +292,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "paprika mlet\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -335,11 +305,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pa\u0161tiky 100g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2"
-      ],
+      "allergen": ["2"],
       "comment": ""
     }
   },
@@ -350,11 +318,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pa\u0161tiky 48g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2"
-      ],
+      "allergen": ["2"],
       "comment": ""
     }
   },
@@ -365,7 +331,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pep\u0159 cel\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -378,7 +344,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pep\u0159 mlet\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -391,13 +357,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pern\u00edk na strouh\u00e1n\u00ed",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "10",
-        "14"
-      ],
+      "allergen": ["2", "10", "14"],
       "comment": ""
     }
   },
@@ -408,7 +370,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pit\u00ed\u010dko",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -421,12 +383,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pi\u0161koty",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "10",
-        "14"
-      ],
+      "allergen": ["10", "14"],
       "comment": ""
     }
   },
@@ -437,7 +396,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pohanka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -450,12 +409,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "zmrzliny, nanuky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "14",
-        "10"
-      ],
+      "allergen": ["14", "10"],
       "comment": ""
     }
   },
@@ -466,16 +422,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pol\u00e9vkov\u00e9 ko\u0159en\u00ed",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "10",
-        "13",
-        "14",
-        "24",
-        "28"
-      ],
+      "allergen": ["2", "10", "13", "14", "24", "28"],
       "comment": ""
     }
   },
@@ -486,7 +435,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "povidla \u0161vestkov\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -499,7 +448,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pr\u00e1\u0161ek do pern\u00edku",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -512,7 +461,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pr\u00e1\u0161ek do pe\u010diva",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -525,14 +474,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pudink pr\u00e1\u0161ek",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "10",
-        "14",
-        "28"
-      ],
+      "allergen": ["2", "10", "14", "28"],
       "comment": ""
     }
   },
@@ -543,12 +487,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pudink se \u0161leha\u010dkou",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "14",
-        "27"
-      ],
+      "allergen": ["14", "27"],
       "comment": ""
     }
   },
@@ -559,7 +500,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "p\u0159esn\u00edd\u00e1vky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -572,7 +513,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "raj\u010datov\u00fd protlak",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -585,12 +526,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "rohl\u00edky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "4"
-      ],
+      "allergen": ["2", "4"],
       "comment": ""
     }
   },
@@ -601,11 +539,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "rozinky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "27"
-      ],
+      "allergen": ["27"],
       "comment": ""
     }
   },
@@ -616,7 +552,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "r\u00fd\u017ee",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -629,11 +565,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "rybi\u010dky 170g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "11"
-      ],
+      "allergen": ["11"],
       "comment": ""
     }
   },
@@ -644,7 +578,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "s\u016fl",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -657,7 +591,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "sirup",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -670,7 +604,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "sko\u0159ice",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -683,11 +617,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "sojov\u00e1 om\u00e1\u010dka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "13"
-      ],
+      "allergen": ["13"],
       "comment": ""
     }
   },
@@ -698,13 +630,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "sojov\u00e9 maso",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "13",
-        "14"
-      ],
+      "allergen": ["2", "13", "14"],
       "comment": ""
     }
   },
@@ -715,7 +643,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "solamyl",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -728,12 +656,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "strouhanka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "4"
-      ],
+      "allergen": ["2", "4"],
       "comment": ""
     }
   },
@@ -744,12 +669,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "housky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "4"
-      ],
+      "allergen": ["2", "4"],
       "comment": ""
     }
   },
@@ -760,11 +682,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ho\u0159\u010dice 400g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "25"
-      ],
+      "allergen": ["25"],
       "comment": ""
     }
   },
@@ -775,11 +695,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ho\u0159\u010dice porce",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "25"
-      ],
+      "allergen": ["25"],
       "comment": ""
     }
   },
@@ -790,7 +708,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "hr\u00e1ch",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -803,7 +721,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "hranolky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -816,7 +734,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "h\u0159eb\u00ed\u010dek",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -829,13 +747,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "chl\u00e9b",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "3",
-        "13"
-      ],
+      "allergen": ["2", "3", "13"],
       "comment": ""
     }
   },
@@ -846,7 +760,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "j\u00e1hly",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -859,7 +773,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kakao",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -872,11 +786,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kapu\u010dino",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -887,11 +799,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "karo",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "3"
-      ],
+      "allergen": ["3"],
       "comment": ""
     }
   },
@@ -902,7 +812,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ke\u010dup 500g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -915,7 +825,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "km\u00edn",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -928,13 +838,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kol\u00e1\u010de",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "10",
-        "14"
-      ],
+      "allergen": ["2", "10", "14"],
       "comment": ""
     }
   },
@@ -945,7 +851,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kompot 2500g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -958,7 +864,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kompot 3500g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -971,7 +877,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kompot 350g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -984,7 +890,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kompot 400-600g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -997,7 +903,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kompot 700g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1010,7 +916,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kopr sterilovan\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1023,11 +929,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kroupy",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "4"
-      ],
+      "allergen": ["4"],
       "comment": ""
     }
   },
@@ -1038,11 +942,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "krupice hrub\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2"
-      ],
+      "allergen": ["2"],
       "comment": ""
     }
   },
@@ -1053,11 +955,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "krupi\u010dka d\u011btsk\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2"
-      ],
+      "allergen": ["2"],
       "comment": ""
     }
   },
@@ -1068,11 +968,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kus kus",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2"
-      ],
+      "allergen": ["2"],
       "comment": ""
     }
   },
@@ -1083,12 +981,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "k\u0159en steril",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "14",
-        "27"
-      ],
+      "allergen": ["14", "27"],
       "comment": ""
     }
   },
@@ -1099,11 +994,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "l\u00e1manka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2"
-      ],
+      "allergen": ["2"],
       "comment": ""
     }
   },
@@ -1114,7 +1007,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "le\u010do zeleninov\u00e9 670g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1127,12 +1020,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "listov\u00e9 t\u011bsto",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "10"
-      ],
+      "allergen": ["2", "10"],
       "comment": ""
     }
   },
@@ -1143,7 +1033,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "major\u00e1nka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -1156,7 +1046,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "m\u00e1k",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -1169,11 +1059,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "mandle",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "16"
-      ],
+      "allergen": ["16"],
       "comment": ""
     }
   },
@@ -1184,7 +1072,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "med kv\u011btov\u00fd 250g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1197,7 +1085,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "med porce",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1210,7 +1098,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "meloun",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -1223,7 +1111,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "miner\u00e1lka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1236,7 +1124,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pomeran\u010de",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -1249,7 +1137,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u010daj porce ks",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1262,7 +1150,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u010daj viatex 80g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1275,7 +1163,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "tatranky, su\u0161enky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1288,13 +1176,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ta\u0161ti\u010dky tvarohov\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "10",
-        "14"
-      ],
+      "allergen": ["2", "10", "14"],
       "comment": ""
     }
   },
@@ -1305,7 +1189,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u010derven\u00e1 \u0159epa",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1318,7 +1202,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u010dokol\u00e1da na va\u0159en\u00ed",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1331,7 +1215,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u010do\u010dka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -1344,11 +1228,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "tu\u0148\u00e1k",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "11"
-      ],
+      "allergen": ["11"],
       "comment": ""
     }
   },
@@ -1359,7 +1241,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "tymi\u00e1n",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1372,12 +1254,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "t\u011bstoviny",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "10"
-      ],
+      "allergen": ["2", "10"],
       "comment": ""
     }
   },
@@ -1388,14 +1267,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "v\u00e1no\u010dky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "10",
-        "14",
-        "18"
-      ],
+      "allergen": ["2", "10", "14", "18"],
       "comment": ""
     }
   },
@@ -1406,13 +1280,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "veky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "4",
-        "13"
-      ],
+      "allergen": ["2", "4", "13"],
       "comment": ""
     }
   },
@@ -1423,7 +1293,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vep\u0159ov\u00e1 konzerva",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1436,7 +1306,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "v\u00edno",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "l",
       "allergen": [],
       "comment": ""
@@ -1449,7 +1319,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "worcester",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1462,14 +1332,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "z\u00e1kusky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "10",
-        "14",
-        "18"
-      ],
+      "allergen": ["2", "10", "14", "18"],
       "comment": ""
     }
   },
@@ -1480,12 +1345,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "zav\u00e1\u0159ka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "10"
-      ],
+      "allergen": ["2", "10"],
       "comment": ""
     }
   },
@@ -1496,7 +1358,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "z\u00e1zvor",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -1509,11 +1371,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "zel\u00ed ster.640,kysan\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "27"
-      ],
+      "allergen": ["27"],
       "comment": ""
     }
   },
@@ -1524,14 +1384,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u0161\u00e1te\u010dky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "3",
-        "10",
-        "14"
-      ],
+      "allergen": ["2", "3", "10", "14"],
       "comment": ""
     }
   },
@@ -1542,13 +1397,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u0161pagety",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "3",
-        "10"
-      ],
+      "allergen": ["2", "3", "10"],
       "comment": ""
     }
   },
@@ -1559,7 +1410,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "podravka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1572,7 +1423,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "fazole",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -1585,7 +1436,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "olivy",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1598,7 +1449,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "grilovac\u00ed ko\u0159en\u00ed",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -1611,11 +1462,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "brusinky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "27"
-      ],
+      "allergen": ["27"],
       "comment": ""
     }
   },
@@ -1626,7 +1475,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "olej olivov\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1639,11 +1488,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "zelenina sterilovan\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "24"
-      ],
+      "allergen": ["24"],
       "comment": ""
     }
   },
@@ -1654,7 +1501,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "hr\u00e1\u0161ek sterilovan\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1667,7 +1514,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kari",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -1680,7 +1527,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ko\u0159en\u00ed houbov\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -1693,7 +1540,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ko\u0159en\u00ed gyros",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -1706,7 +1553,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kokos strouhan\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1719,7 +1566,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u010desnekov\u00e1 pasta",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1732,14 +1579,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "sma\u017een\u00fd hr\u00e1\u0161ek",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "3",
-        "10",
-        "14"
-      ],
+      "allergen": ["2", "3", "10", "14"],
       "comment": ""
     }
   },
@@ -1750,7 +1592,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "fazole sterilovan\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1763,7 +1605,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ko\u0159en\u00ed na ryby",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -1776,7 +1618,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "dobr\u00e1 voda",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1789,14 +1631,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "loup\u00e1ky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "4",
-        "10",
-        "14"
-      ],
+      "allergen": ["2", "4", "10", "14"],
       "comment": ""
     }
   },
@@ -1807,13 +1644,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "koblihy",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "10",
-        "14"
-      ],
+      "allergen": ["2", "10", "14"],
       "comment": ""
     }
   },
@@ -1824,13 +1657,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "z\u00e1vin makov\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "10",
-        "14"
-      ],
+      "allergen": ["2", "10", "14"],
       "comment": ""
     }
   },
@@ -1841,14 +1670,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "makovky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "2",
-        "4",
-        "10",
-        "14"
-      ],
+      "allergen": ["2", "4", "10", "14"],
       "comment": ""
     }
   },
@@ -1859,11 +1683,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u0161leha\u010dka sprej",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "27"
-      ],
+      "allergen": ["27"],
       "comment": ""
     }
   },
@@ -1874,11 +1696,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ka\u0161e bramborov\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -1889,7 +1709,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "v\u00fdvar,uzen\u00fd,dr\u016fb,hov",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -1902,7 +1722,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "s\u00e1\u010dky igelitov\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1915,7 +1735,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ubrousky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1928,11 +1748,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "fazolov\u00e9 lusky steri",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "27"
-      ],
+      "allergen": ["27"],
       "comment": ""
     }
   },
@@ -1943,11 +1761,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "mrkev sterilovan\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "27"
-      ],
+      "allergen": ["27"],
       "comment": ""
     }
   },
@@ -1958,7 +1774,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "bezlepkov\u00e9 potraviny",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1971,7 +1787,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vaje\u010dn\u00e1 \u017eelatina",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1984,7 +1800,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "rum",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -1997,7 +1813,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "alobal",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2010,7 +1826,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pap\u00edr pe\u010d\u00edc\u00ed",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2023,7 +1839,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "chilli sladk\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2036,7 +1852,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "chl\u00e9b toustov\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2049,7 +1865,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "s\u00e1\u010dky mraz\u00edc\u00ed",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2062,7 +1878,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "bulgur",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2075,7 +1891,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "spatzle",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2088,7 +1904,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "tortilla",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2101,7 +1917,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "Menubox jednod\u00edln\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2114,7 +1930,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kurkuma",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2127,7 +1943,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ka\u0161e natural",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2140,7 +1956,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "lasagne",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2153,7 +1969,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u0161od\u00f3 sypk\u00e1 sm\u011bs",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2166,7 +1982,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "bramborov\u00e9 kruc\u00e1nky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2179,12 +1995,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "krupi\u010dka instantn\u00ed",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "10",
-        "14"
-      ],
+      "allergen": ["10", "14"],
       "comment": ""
     }
   },
@@ -2195,7 +2008,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ban\u00e1ny",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2208,7 +2021,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "brambory",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2221,7 +2034,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "brokolice mra\u017een\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2234,7 +2047,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "broskve",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2247,11 +2060,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "celer",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "24"
-      ],
+      "allergen": ["24"],
       "comment": ""
     }
   },
@@ -2262,7 +2073,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "cibule",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2275,7 +2086,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "citrony",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2288,7 +2099,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "fazolov\u00e9 lusky mra\u017e",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2301,7 +2112,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "houby mra\u017een\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2314,7 +2125,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "hr\u00e1\u0161ek mra\u017een\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2327,7 +2138,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "hru\u0161ky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2340,7 +2151,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "jablka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2353,11 +2164,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "p\u00e1rky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "13"
-      ],
+      "allergen": ["13"],
       "comment": ""
     }
   },
@@ -2368,7 +2177,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kapusta",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2381,7 +2190,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kedlubny",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2394,7 +2203,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kiwi ks",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2407,7 +2216,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kv\u011bt\u00e1k",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2420,7 +2229,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "mandarinky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2433,7 +2242,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "meru\u0148ky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2446,7 +2255,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "mrkev",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2459,7 +2268,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "nektarinky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2472,7 +2281,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u017eampiony",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2485,7 +2294,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "okurky sal\u00e1tov\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2498,7 +2307,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pa\u017eitka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2511,7 +2320,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "papriky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2524,7 +2333,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "petr\u017eel ko\u0159enov\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2537,7 +2346,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kudrnka na\u0165",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2550,7 +2359,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "p\u00f3rek",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2563,7 +2372,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "raj\u010data",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2576,7 +2385,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ryngle",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2589,7 +2398,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u010desnek",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2602,7 +2411,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "v\u00edno hroznov\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2615,11 +2424,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "zelenina mra\u017e.pol\u00e9vk",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "24"
-      ],
+      "allergen": ["24"],
       "comment": ""
     }
   },
@@ -2630,11 +2437,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "zelenina pod sv\u00ed\u010dko",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "24"
-      ],
+      "allergen": ["24"],
       "comment": ""
     }
   },
@@ -2645,7 +2450,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "zel\u00ed hl\u00e1vkov\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2658,7 +2463,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "zel\u00ed \u010d\u00ednsk\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2671,7 +2476,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u0161pen\u00e1t mra\u017een\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2684,7 +2489,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u0161vestky,blumy",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2697,7 +2502,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u0159edkvi\u010dky svazek",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2710,7 +2515,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "sal\u00e1t hl\u00e1vkov\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2723,7 +2528,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kiwi kg",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2736,7 +2541,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "cuketa",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2749,7 +2554,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "lilek",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -2762,7 +2567,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kuku\u0159ice mra\u017een\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2775,11 +2580,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "zelenina mra\u017e.v\u00edcedr",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "24"
-      ],
+      "allergen": ["24"],
       "comment": ""
     }
   },
@@ -2790,7 +2593,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "dr\u016fbe\u017e\u00ed sekan\u00e1 mr.",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2803,7 +2606,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "dr\u0161tky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2816,7 +2619,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "hov\u011bz\u00ed p\u0159edn\u00ed, o\u0159ez",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2829,7 +2632,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "hov\u011bz\u00ed zadn\u00ed",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2842,7 +2645,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "j\u00e1tra",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2855,7 +2658,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "klob\u00e1sy",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2868,7 +2671,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kosti",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2881,7 +2684,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ku\u0159ec\u00ed k\u0159\u00eddla",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2894,7 +2697,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ku\u0159ec\u00ed prsa",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2907,7 +2710,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ku\u0159ec\u00ed stehna",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2920,12 +2723,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vep\u0159ov\u00fd o\u0159ez",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "13"
-      ],
+      "allergen": ["2", "13"],
       "comment": ""
     }
   },
@@ -2936,11 +2736,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "file kostky mra\u017een\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "11"
-      ],
+      "allergen": ["11"],
       "comment": ""
     }
   },
@@ -2951,14 +2749,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pangas fil.mra\u017een\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "10",
-        "14",
-        "11"
-      ],
+      "allergen": ["2", "10", "14", "11"],
       "comment": ""
     }
   },
@@ -2969,7 +2762,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "s\u00e1dlo",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -2982,12 +2775,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "sal\u00e1m gothaj",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "13"
-      ],
+      "allergen": ["2", "13"],
       "comment": ""
     }
   },
@@ -2998,12 +2788,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "sal\u00e1m v\u00fdrobn\u00ed",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "13"
-      ],
+      "allergen": ["2", "13"],
       "comment": ""
     }
   },
@@ -3014,7 +2801,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "sal\u00e1m \u0161unkov\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3027,7 +2814,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "slanina anglick\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3040,7 +2827,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "slepice",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3053,7 +2840,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "telec\u00ed maso",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3066,7 +2853,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "tla\u010denka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3079,7 +2866,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vep\u0159o krkovice uzen\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3092,7 +2879,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vep\u0159o bok uzen\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3105,7 +2892,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vep\u0159ov\u00e1 kotl.,pe\u010den\u011b",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3118,7 +2905,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vep\u0159ov\u00e1 krkovice",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3131,7 +2918,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vep\u0159ov\u00e1 k\u00fdta",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3144,7 +2931,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vep\u0159ov\u00e1 plec",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3157,11 +2944,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vinn\u00e1 klob\u00e1sa 150",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2"
-      ],
+      "allergen": ["2"],
       "comment": ""
     }
   },
@@ -3172,12 +2957,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vu\u0159ty",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "13"
-      ],
+      "allergen": ["2", "13"],
       "comment": ""
     }
   },
@@ -3188,7 +2970,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u0161pek",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3201,7 +2983,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u0161unka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3214,7 +2996,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ledvinky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3227,13 +3009,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "maliny,lesn\u00ed sm.mra\u017e",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "10",
-        "14"
-      ],
+      "allergen": ["2", "10", "14"],
       "comment": ""
     }
   },
@@ -3244,7 +3022,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "meru\u0148ky mra\u017een\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3257,7 +3035,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "porek mra\u017een\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3270,7 +3048,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u0161vestky mra\u017een\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3283,13 +3061,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "bram.\u0161i\u0161ky s m\u00e1kem",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "3",
-        "10"
-      ],
+      "allergen": ["2", "3", "10"],
       "comment": ""
     }
   },
@@ -3300,7 +3074,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "sal\u00e1m turistick\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3313,7 +3087,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "huspenina",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3326,7 +3100,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "sal\u00e1m vyso\u010dina,poli\u010d",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3339,7 +3113,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "sal\u00e1m \u0161unkov\u00e9 koleno",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3352,7 +3126,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u0161kvarky",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3365,12 +3139,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vep\u0159o mlet\u00e9,polotov.",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "10"
-      ],
+      "allergen": ["2", "10"],
       "comment": ""
     }
   },
@@ -3381,13 +3152,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pa\u0161tika kr\u00e1jen\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2",
-        "10",
-        "13"
-      ],
+      "allergen": ["2", "10", "13"],
       "comment": ""
     }
   },
@@ -3398,11 +3165,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "jaternice",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "2"
-      ],
+      "allergen": ["2"],
       "comment": ""
     }
   },
@@ -3413,7 +3178,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vep\u0159ov\u00fd bok",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3426,7 +3191,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kr\u00e1li\u010d\u00ed maso",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3439,7 +3204,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vep\u0159ov\u00e9 srdce",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3452,7 +3217,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vep\u0159ov\u00e9 koleno",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3465,7 +3230,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "hov\u011bz\u00ed \u017eebra, pupek",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3478,11 +3243,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kapr mra\u017een\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "11"
-      ],
+      "allergen": ["11"],
       "comment": ""
     }
   },
@@ -3493,7 +3256,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "prejt jel\u00edtkov\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3506,7 +3269,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "hov\u011bz\u00ed l\u00ed\u010dka",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3519,7 +3282,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ryb\u00ed prsty",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3532,7 +3295,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kachn\u00ed stehna",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3545,11 +3308,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "s\u00fdr eidam",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "13"
-      ],
+      "allergen": ["13"],
       "comment": ""
     }
   },
@@ -3560,11 +3321,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "hermel\u00edn",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "13"
-      ],
+      "allergen": ["13"],
       "comment": ""
     }
   },
@@ -3575,11 +3334,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "jogurt",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "13"
-      ],
+      "allergen": ["13"],
       "comment": ""
     }
   },
@@ -3590,11 +3347,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "lu\u010dina 1ks",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "13"
-      ],
+      "allergen": ["13"],
       "comment": ""
     }
   },
@@ -3605,12 +3360,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "majon\u00e9za 440g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "10",
-        "1"
-      ],
+      "allergen": ["10", "1"],
       "comment": ""
     }
   },
@@ -3621,11 +3373,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "m\u00e1slo",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3636,11 +3386,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "m\u00e1slo pomaz\u00e1nkov\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3651,11 +3399,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "m\u00e1slo porce",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3666,11 +3412,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ml\u00e9ko",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "l",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3681,11 +3425,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "ml\u00e9ko ochucen\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3696,11 +3438,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "smetana zakysan\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3711,12 +3451,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "s\u00fdr balk\u00e1nsk\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "14",
-        "13"
-      ],
+      "allergen": ["14", "13"],
       "comment": ""
     }
   },
@@ -3727,11 +3464,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "s\u00fdr taven\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3742,11 +3477,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "s\u00fdr troj",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3757,12 +3490,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "tatarsk\u00e1 om\u00e1\u010dka ks",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "10",
-        "1"
-      ],
+      "allergen": ["10", "1"],
       "comment": ""
     }
   },
@@ -3773,11 +3503,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "termix",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3788,11 +3516,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "tuk hera",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3803,11 +3529,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "tvaroh m\u011bkk\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3818,11 +3542,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "tvaroh tvrd\u00fd",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3833,11 +3555,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "vejce",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "10"
-      ],
+      "allergen": ["10"],
       "comment": ""
     }
   },
@@ -3848,11 +3568,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "\u0161leha\u010dka 200ml",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3863,11 +3581,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "flora 400g",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3878,11 +3594,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "s\u00fdr niva",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3893,11 +3607,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "s\u00fdr mozzarela",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3908,11 +3620,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kef\u00edrov\u00e9 ml\u00e9ko",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3923,11 +3633,9 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pol\u00e1rkov\u00fd dort",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
-      "allergen": [
-        "14"
-      ],
+      "allergen": ["14"],
       "comment": ""
     }
   },
@@ -3938,7 +3646,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "pivo",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "ks",
       "allergen": [],
       "comment": ""
@@ -3951,7 +3659,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "portobello",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3964,7 +3672,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "hl\u00edva \u00fast\u0159i\u010dn\u00e1",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3977,7 +3685,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "halu\u0161ky mra\u017een\u00e9",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -3990,7 +3698,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "dyne",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""
@@ -4003,7 +3711,7 @@
       "created": "2020-07-05 09:28-0100",
       "modified": "2020-07-05 09:28-0100",
       "article": "kure,rolada",
-      "onStock": 0,
+      "on_stock": 0,
       "unit": "kg",
       "allergen": [],
       "comment": ""

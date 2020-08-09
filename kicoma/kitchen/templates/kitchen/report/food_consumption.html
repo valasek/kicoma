@@ -2,10 +2,10 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Filtr pro generování PDF - denní menu</h4>
+  <h4>Filtr pro reporty</h4>
   <hr/>
-  <p>Vyber datum a volitelně skupinu strávníka - bez výběru se zobrazí denní menu pro všechny skupiny:</p>
-  <form method="get" action="{% url 'kitchen:printDailyMenu' %}">
+  <p>Vyber datum:</p>
+  <form method="get" action="{% url 'kitchen:printFoodConsumption' %}">
     {% csrf_token %}
     {% crispy form form.helper %}
     <button type="submit" class="btn btn-primary">Zobrazit PDF</button>

@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
+<div class="container-fluid">
+  <h4>Aktualizace zboží na příjemce</h4>
+  <hr />
+  <div class="row">
+    <div class="col-8 justify-content-start d-inline">
+      <a
+        href="{% url 'kitchen:showStockReceiptArticles' stock_receipt_article_before.stock_receipt.id %}"
+        ><button class="btn btn-secondary">
+          Zpět na seznam zboží příjemky
+        </button></a
+      >
+      <a
+        href="{% url 'kitchen:printStockReceipt' stock_receipt_article_before.stock_receipt.id %}"
+        class="btn btn-primary"
+        >PDF - příjemka</a
+      >
+      <b>Příjemka vytvořena dne:</b>
+      {{stock_receipt_article_before.stock_receipt.created}},
+      <b>Vytvořila:</b>
+      {{stock_receipt_article_before.stock_receipt.user_created.name}},
+      <b>Poznámka:</b> {{stock_receipt_article_before.stock_receipt.comment}}
+    </div>
+  </div>
+  <br />
+  <form
+    method="post"
+    action="{% url 'kitchen:updateStockReceiptArticle' stock_receipt_article_before.stock_receipt.id %}"
+  >
+    {% csrf_token %} {% crispy form form.helper %}
+    <button type="submit" class="btn btn-success">Uložit</button>
+  </form>
+</div>
+{% endblock content %}

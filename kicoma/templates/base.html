@@ -1,5 +1,4 @@
-{% load static i18n %}
-{% load auth_extras %}
+{% load static i18n %} {% load auth_extras %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -66,7 +65,12 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="{% url 'home' %}">
-          <img src="{% static 'images/logo.jpg'%}" alt="logo" class="mx-2" style="width:25px;">
+          <img
+            src="{% static 'images/logo.jpg'%}"
+            alt="logo"
+            class="mx-2"
+            style="width: 25px;"
+          />
           KiCoMa
         </a>
 
@@ -131,7 +135,7 @@
                 >
                   Založit nové zboží
                 </a>
-                <hr/>
+                <hr />
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:showStockIssues' %}"
@@ -142,7 +146,7 @@
                   href="{% url 'kitchen:createStockIssue' %}"
                   >Založit novou výdejku</a
                 >
-                <hr/>
+                <hr />
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:showStockReceipts' %}"
@@ -175,7 +179,6 @@
               >
                 <a class="dropdown-item" href="{% url 'kitchen:showRecipes' %}"
                   >Seznam receptů</a
-
                 >
                 <a class="dropdown-item" href="{% url 'kitchen:createRecipe' %}"
                   >Založit nový recept</a
@@ -197,9 +200,21 @@
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                <a class="dropdown-item" href="{% url 'kitchen:showDailyMenus' %}">Seznam denních menu</a>
-                <a class="dropdown-item" href="{% url 'kitchen:createDailyMenu' %}">Založit denní menu</a>
-                <a class="dropdown-item" href="{% url 'kitchen:filterPrintDailyMenu' %}">Tisknout denní menu</a>
+                <a
+                  class="dropdown-item"
+                  href="{% url 'kitchen:showDailyMenus' %}"
+                  >Seznam denních menu</a
+                >
+                <a
+                  class="dropdown-item"
+                  href="{% url 'kitchen:createDailyMenu' %}"
+                  >Založit denní menu</a
+                >
+                <a
+                  class="dropdown-item"
+                  href="{% url 'kitchen:filterPrintDailyMenu' %}"
+                  >PDF - denní menu</a
+                >
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -211,26 +226,30 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Kalkulace
+                Reporty
               </a>
               <div
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                <a class="dropdown-item" href="#"
-                  >Rozpis spotřeby potravin dle jídel a receptů</a
+                <a
+                  class="dropdown-item"
+                  href="{% url 'kitchen:filterFoodConsumption' %}"
                 >
-                <a class="dropdown-item" href="#"
-                  >Rozpis spotřeby potravin dle jídel</a
+                  Rozpis spotřeby potravin dle jídel a receptů</a
                 >
-                <a class="dropdown-item" href="#"
-                  >Sumární rozpis spotřeby potravin dle jídel</a
+                <a
+                  class="dropdown-item"
+                  href="{% url 'kitchen:filterFoodConsumption' %}"
                 >
-                <a class="dropdown-item" href="#"
-                  >Požadavek - návrh objednávky</a
+                  Rozpis spotřeby potravin dle jídel</a
                 >
-                <a class="dropdown-item" href="#">Požadavek zaokrouhlený</a>
               </div>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'kitchen:help' %}"
+                >Nápověda</a
+              >
             </li>
           </ul>
           <ul class="navbar-nav">
@@ -293,8 +312,7 @@
     </div>
 
     <div class="container-fluid p-4">
-      {% if messages %}
-      {% for message in messages %}
+      {% if messages %} {% for message in messages %}
       <div
         class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}"
       >
@@ -307,16 +325,13 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      {% endfor %}
-    {% endif %}
-      {% block content %}
+      {% endfor %} {% endif %} {% block content %}
       <!-- <p>Use this document as a way to quick start any new project.</p> -->
       {% endblock content %}
     </div>
     <!-- /container -->
 
-    {% block modal %}
-    {% endblock modal %}
+    {% block modal %} {% endblock modal %}
 
     <!-- Javascript
     ================================================== -->

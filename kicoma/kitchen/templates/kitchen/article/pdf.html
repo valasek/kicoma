@@ -1,30 +1,29 @@
-{% extends "../pdf_page.html" %}
-{% block content %}
+{% extends "../pdf_page.html" %} {% block content %}
 <p>Celková cena zboží na skladu s DPH: {{ total_stock_price }} Kč</p>
-  <table class="minimalistBlack">
-    <thead>
-      <tr>
-        <th>Zboží</th>
-        <th>Na skladu</th>
-        <th>Minimálně na skladu</th>
-        <th>Průměrná jednotková cena s DPH</th>
-        <th>Celková cena s DPH</th>
-        <th>Alergény</th>
-        <th>Poznámka</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for article in articles %}
-      <tr>
-        <td>{{article.article}}</td>
-        <td>{{article.onStock}} {{article.unit}}</td>
-        <td>{{article.minOnStock}} {{article.unit}}</td>
-        <td>{{article.averagePrice}} Kč / {{article.unit}}</td>
-        <td>{{article.totalPrice}} Kč</td>
-        <td>{{article.display_allergens}}</td>
-        <td>{{article.comment}}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<table class="minimalistBlack">
+  <thead>
+    <tr>
+      <th>Zboží</th>
+      <th>Na skladu</th>
+      <th>Minimálně na skladu</th>
+      <th>Průměrná jednotková cena s DPH</th>
+      <th>Celková cena s DPH</th>
+      <th>Alergény</th>
+      <th>Poznámka</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for article in articles %}
+    <tr>
+      <td>{{article.article}}</td>
+      <td>{{article.on_stock}} {{article.unit}}</td>
+      <td>{{article.min_on_stock}} {{article.unit}}</td>
+      <td>{{article.average_price}} Kč / {{article.unit}}</td>
+      <td>{{article.total_price}} Kč</td>
+      <td>{{article.display_allergens}}</td>
+      <td>{{article.comment}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

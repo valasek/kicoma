@@ -27,6 +27,11 @@ All source code in the [KiCoMa](https://github.com/valasek/kima) is available un
 ## Check the production settings
 ./manage.py check --deploy --settings=config.settings.production
 
+## Generate DB model
+Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
+`python3 manage.py graph_models -a -g -o datamodel.png` or
+`python3 manage.py graph_models kitchen -g -o datamodel.png` and copy the file to statics/images
+
 ## Update Translations
 ### Generate message files for a desired language
 `python manage.py makemessages -l cs_CZ --ignore=env/*`

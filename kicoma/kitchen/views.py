@@ -1,4 +1,5 @@
 import logging
+from decimal import Decimal
 from datetime import datetime
 
 from django.urls import reverse_lazy
@@ -22,21 +23,24 @@ from django_filters.views import FilterView
 
 from kicoma.users.models import User
 
-from .models import Item, Recipe, Allergen, MealType, MealGroup, VAT, \
-    Article, Ingredient, StockIssue, StockReceipt, DailyMenu, DailyMenuRecipe, updateArticleStock
+from .models import StockIssueArticle, StockReceiptArticle, Recipe, Allergen, MealType, MealGroup, VAT, \
+    Article, RecipeArticle, StockIssue, StockReceipt, DailyMenu, DailyMenuRecipe, updateArticleStock
 
-from .tables import StockReceiptTable, StockReceiptItemTable, StockReceiptFilter
-from .tables import StockIssueTable, StockIssueItemTable, StockIssueFilter
+from .tables import StockReceiptTable, StockReceiptArticleTable, StockReceiptFilter
+from .tables import StockIssueTable, StockIssueArticleTable, StockIssueFilter
 from .tables import ArticleTable, ArticleFilter
 from .tables import DailyMenuTable, DailyMenuFilter
 from .tables import DailyMenuRecipeTable
-from .tables import RecipeTable, RecipeFilter, RecipeIngredientTable
+from .tables import RecipeTable, RecipeFilter, RecipeArticleTable
 
-from .forms import RecipeForm, RecipeIngredientForm, RecipeSearchForm
-from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptItemForm
-from .forms import StockIssueForm, StockIssueSearchForm, StockIssueItemForm, StockIssueFromDailyMenuForm
+from .forms import RecipeForm, RecipeArticleForm, RecipeSearchForm
+from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptArticleForm
+from .forms import StockIssueForm, StockIssueSearchForm, StockIssueArticleForm, StockIssueFromDailyMenuForm
 from .forms import ArticleForm, ArticleSearchForm
 from .forms import DailyMenuSearchForm, DailyMenuPrintForm, DailyMenuForm, DailyMenuRecipeForm
+from .forms import FoodConsumptionPrintForm
+
+from .functions import convertUnits
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -44,16 +48,17 @@ logger = logging.getLogger(__name__)
 
 def index(request):
     allergenCount = Allergen.objects.all().count()
-    mealTypeCount = MealType.objects.all().count()
+    meal_typeCount = MealType.objects.all().count()
     mealGroupCount = MealGroup.objects.all().count()
     vatCount = VAT.objects.all().count()
 
     recipeCount = Recipe.objects.all().count()
-    ingredientCount = Ingredient.objects.all().count()
+    recipe_article_count = RecipeArticle.objects.all().count()
     articleCount = Article.objects.all().count()
     stockIssueCount = StockIssue.objects.all().count()
     stockReceiptCount = StockReceipt.objects.all().count()
-    itemCount = Item.objects.all().count()
+    stock_issue_article_count = StockIssueArticle.objects.all().count()
+    stock_receipt_article_count = StockReceiptArticle.objects.all().count()
     dailyMenuCount = DailyMenu.objects.all().count()
     dailyMenuRecipeCount = DailyMenuRecipe.objects.all().count()
 
@@ -64,16 +69,17 @@ def index(request):
 
     return render(request, 'kitchen/home.html', {
         'allergenCount': allergenCount,
-        'mealTypeCount': mealTypeCount,
+        'meal_typeCount': meal_typeCount,
         'mealGroupCount': mealGroupCount,
         'vatCount': vatCount,
 
         'recipeCount': recipeCount,
-        'ingredientCount': ingredientCount,
+        'recipe_article_count': recipe_article_count,
         'articleCount': articleCount,
         'stockIssueCount': stockIssueCount,
         'stockReceiptCount': stockReceiptCount,
-        'itemCount': itemCount,
+        'stock_issue_article_count': stock_issue_article_count,
+        'stock_receipt_article_count': stock_receipt_article_count,
         'dailyMenuCount': dailyMenuCount,
         'dailyMenuRecipeCount': dailyMenuRecipeCount,
 
@@ -82,8 +88,8 @@ def index(request):
     })
 
 
-def about(request):
-    return render(request, 'kitchen/about.html')
+def help(request):
+    return render(request, 'kitchen/help.html')
 
 
 class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
@@ -96,7 +102,7 @@ class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
 
     def get_context_data(self, **kwargs):
         context = super(ArticleListView, self).get_context_data(**kwargs)
-        context['total_stock_price'] = Article.totalStockPrice()
+        context['total_stock_price'] = Article.sum_total_price()
         return context
 
 
@@ -110,8 +116,8 @@ class ArticleLackListView(SingleTableMixin, LoginRequiredMixin, FilterView):
 
     def get_queryset(self):
         # show only articles where
-        return super().get_queryset().filter(onStock__lt=F('minOnStock'))
-        # return self.filter(onStock__lte=minOnStock, **kwargs)
+        return super().get_queryset().filter(on_stock__lt=F('min_on_stock'))
+        # return self.filter(on_stock__lte=min_on_stock, **kwargs)
 
 
 class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -138,7 +144,7 @@ class ArticlePDFView(LoginRequiredMixin, PDFTemplateView):
         context = super().get_context_data(**kwargs)
         context['articles'] = Article.objects.all()
         context['title'] = "Seznam zboží na skladu"
-        context['total_stock_price'] = Article.totalStockPrice()
+        context['total_stock_price'] = Article.sum_total_price()
         return context
 
 
@@ -158,7 +164,7 @@ class RecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     success_message = "Recept %(recipe)s byl vytvořen, přidej ingredience"
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showRecipeIngredients', kwargs={'pk': self.object.id})
+        return reverse_lazy('kitchen:showRecipeArticles', kwargs={'pk': self.object.id})
 
 
 class RecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
@@ -198,19 +204,19 @@ class RecipePDFView(LoginRequiredMixin, PDFTemplateView):
         context = super().get_context_data(**kwargs)
         recipe = Recipe.objects.filter(pk=self.kwargs['pk']).get()
         context['recipe'] = recipe
-        context['ingredients'] = Ingredient.objects.filter(recipe=recipe)
+        context['recipe_articles'] = RecipeArticle.objects.filter(recipe=recipe)
         context['title'] = recipe.recipe
         return context
 
 
-class RecipeIngredientListView(SingleTableMixin, LoginRequiredMixin, FilterView):
-    model = Ingredient
-    table_class = RecipeIngredientTable
-    template_name = 'kitchen/recipe/listingredients.html'
+class RecipeArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+    model = RecipeArticle
+    table_class = RecipeArticleTable
+    template_name = 'kitchen/recipe/listarticles.html'
     paginate_by = 12
 
     def get_context_data(self, **kwargs):
-        context = super(RecipeIngredientListView, self).get_context_data(**kwargs)
+        context = super(RecipeArticleListView, self).get_context_data(**kwargs)
         context['recipe'] = Recipe.objects.filter(pk=self.kwargs['pk'])[0]
         return context
 
@@ -219,65 +225,65 @@ class RecipeIngredientListView(SingleTableMixin, LoginRequiredMixin, FilterView)
         return super().get_queryset().filter(recipe=self.kwargs["pk"])
 
 
-class RecipeIngredientCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
-    model = Ingredient
-    form_class = RecipeIngredientForm
-    template_name = 'kitchen/recipe/createingredient.html'
+class RecipeArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+    model = RecipeArticle
+    form_class = RecipeArticleForm
+    template_name = 'kitchen/recipe/createarticle.html'
     success_message = "Ingedence %(article)s byla přidána do receptu"
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showRecipeIngredients', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('kitchen:showRecipeArticles', kwargs={'pk': self.kwargs['pk']})
 
     def get_context_data(self, **kwargs):
-        context = super(RecipeIngredientCreateView, self).get_context_data(**kwargs)
+        context = super(RecipeArticleCreateView, self).get_context_data(**kwargs)
         context['recipe'] = Recipe.objects.filter(pk=self.kwargs['pk'])[0]
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
         recipe = context['recipe']
-        ingredient = form.save(commit=False)
-        ingredient.recipe = Recipe.objects.filter(pk=recipe.id)[0]
-        ingredient.save()
-        return super(RecipeIngredientCreateView, self).form_valid(form)
+        recipe_article = form.save(commit=False)
+        recipe_article.recipe = Recipe.objects.filter(pk=recipe.id)[0]
+        recipe_article.save()
+        return super(RecipeArticleCreateView, self).form_valid(form)
 
 
-class RecipeIngredientUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
-    model = Ingredient
-    form_class = RecipeIngredientForm
-    template_name = 'kitchen/recipe/updateingredient.html'
+class RecipeArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = RecipeArticle
+    form_class = RecipeArticleForm
+    template_name = 'kitchen/recipe/updatearticle.html'
     success_message = "Ingedience %(article)s byla aktualizována"
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showRecipeIngredients', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('kitchen:showRecipeArticles', kwargs={'pk': self.kwargs['pk']})
 
     def get_context_data(self, **kwargs):
-        context = super(RecipeIngredientUpdateView, self).get_context_data(**kwargs)
-        context['ingredient_before'] = Ingredient.objects.filter(pk=self.kwargs['pk'])[0]
+        context = super(RecipeArticleUpdateView, self).get_context_data(**kwargs)
+        context['recipe_article_before'] = RecipeArticle.objects.filter(pk=self.kwargs['pk'])[0]
         return context
 
     def form_valid(self, form):
-        ingredient = form.save(commit=False)
-        ingredient.recipe = Ingredient.objects.filter(pk=ingredient.id)[0].recipe
-        ingredient.save()
-        self.kwargs = {'pk': ingredient.recipe.id}
-        return super(RecipeIngredientUpdateView, self).form_valid(form)
+        recipe_article = form.save(commit=False)
+        recipe_article.recipe = RecipeArticle.objects.filter(pk=recipe_article.id)[0].recipe
+        recipe_article.save()
+        self.kwargs = {'pk': recipe_article.recipe.id}
+        return super(RecipeArticleUpdateView, self).form_valid(form)
 
 
-class RecipeIngredientDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
-    model = Ingredient
-    template_name = 'kitchen/recipe/deleteingredient.html'
+class RecipeArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+    model = RecipeArticle
+    template_name = 'kitchen/recipe/deletearticle.html'
     success_message = "Ingredience byla odstraněna"
     # success_url = reverse_lazy('kitchen:showStockReceipts')
     recipe_id = 0
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showRecipeIngredients', kwargs={'pk': self.recipe_id})
+        return reverse_lazy('kitchen:showRecipeArticles', kwargs={'pk': self.recipe_id})
 
     def delete(self, request, *args, **kwargs):
-        ingredient = get_object_or_404(Ingredient, pk=self.kwargs['pk'])
-        self.recipe_id = ingredient.recipe.id
-        return super(RecipeIngredientDeleteView, self).delete(request, *args, **kwargs)
+        recipe_article = get_object_or_404(RecipeArticle, pk=self.kwargs['pk'])
+        self.recipe_id = recipe_article.recipe.id
+        return super(RecipeArticleDeleteView, self).delete(request, *args, **kwargs)
 
 
 class DailyMenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
@@ -322,14 +328,14 @@ class DailyMenuPDFView(LoginRequiredMixin, PDFTemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         date = self.request.GET['date']
-        meal_group = self.request.GET['mealGroup']
+        meal_group = self.request.GET['meal_group']
         if len(meal_group) == 0:
             daily_menu_recipes = DailyMenuRecipe.objects.filter(daily_menu__date=datetime.strptime(date, "%d.%m.%Y"))
         else:
             daily_menu_recipes = DailyMenuRecipe.objects.filter(
-                daily_menu__date=datetime.strptime(date, "%d.%m.%Y"), daily_menu__mealGroup=meal_group)
+                daily_menu__date=datetime.strptime(date, "%d.%m.%Y"), daily_menu__meal_group=meal_group)
             context['meal_group_filter'] = "Filtrováno pro skupinu strávníků: " + \
-                MealGroup.objects.filter(pk=meal_group).get().mealGroup
+                MealGroup.objects.filter(pk=meal_group).get().meal_group
         context['title'] = "Denní menu pro " + date
         context['daily_menu_recipes'] = daily_menu_recipes
         return context
@@ -433,12 +439,12 @@ class StockIssueCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     success_message = "Výdejka byla vytvořena a je možné přidávat zboží"
 
     def form_valid(self, form):
-        form.instance.userCreated = self.request.user
+        form.instance.user_created = self.request.user
         self.object = form.save()
         return super(StockIssueCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:createStockIssueItem', kwargs={'pk': self.object.id})
+        return reverse_lazy('kitchen:createStockIssueArticle', kwargs={'pk': self.object.id})
 
 
 class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -456,33 +462,37 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
             return super(StockIssueFromDailyMenuCreateView, self).form_invalid(form)
         with transaction.atomic():
             # save the StockIssue
-            form.instance.userCreated = self.request.user
-            stock_issue = StockIssue(comment="Pro " + date, userCreated=self.request.user)
+            form.instance.user_created = self.request.user
+            stock_issue = StockIssue(comment="Pro " + date, user_created=self.request.user)
             stock_issue.save()
-            # save all StockIssue Items
+            # save all StockIssue Articles
             daily_menu_recipes = DailyMenuRecipe.objects.filter(daily_menu__in=daily_menus.values_list('id', flat=True))
             recipes = Recipe.objects.filter(pk__in=daily_menu_recipes.values_list(
                 'recipe', flat=True)).values_list('id', flat=True)
-            ingredients = Ingredient.objects.filter(recipe__in=recipes)
+            recipe_articles = RecipeArticle.objects.filter(recipe__in=recipes)
             count = 0
             formError = False
-            for ingredient in ingredients:
-                receipt_item = Item.objects.filter(article=ingredient.article)
-                if len(receipt_item) < 1:
+            for recipe_article in recipe_articles:
+                # get the coeficient between daily menu amount and recipe amount
+                daily_menu_amount = DailyMenuRecipe.objects.filter(
+                    recipe=recipe_article.recipe, daily_menu__in=daily_menus.values_list('id', flat=True)).values_list('amount', flat=True).first()
+                recipe_article_coeficient = Decimal(daily_menu_amount / recipe_article.recipe.norm_amount)
+                stock_receipt_article = StockReceiptArticle.objects.filter(article=recipe_article.article)
+                if len(stock_receipt_article) < 1:
                     form.add_error(
-                        None, "Zboží {} není naskladněno".format(ingredient.article))
+                        None, "Zboží {} není naskladněno".format(recipe_article.article))
                     formError = True
                 else:
-                    item = Item(
-                        stockIssue=stock_issue,
-                        article=ingredient.article,
-                        amount=ingredient.amount,
-                        unit=ingredient.unit,
-                        priceWithoutVat=ingredient.article.averagePrice,
-                        vat=receipt_item[0].vat,
-                        comment="kuk"
+                    stock_issue_article = StockIssueArticle(
+                        stock_issue=stock_issue,
+                        article=recipe_article.article,
+                        amount=convertUnits(recipe_article.amount, recipe_article.unit,
+                                            recipe_article.article.unit) * recipe_article_coeficient,
+                        unit=recipe_article.article.unit,
+                        average_unit_price=recipe_article.article.average_price,
+                        comment=""
                     )
-                    item.save()
+                    stock_issue_article.save()
                     count += 1
         if formError:
             form.add_error(None, "Bez naskladnění není možné vytvořit výdejku")
@@ -509,9 +519,9 @@ class StockIssueDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         stock_issue = StockIssue.objects.filter(pk=self.kwargs['pk']).get()
-        items = Item.objects.filter(stockIssue_id=self.kwargs['pk'])
+        stock_issue_articles = StockIssueArticle.objects.filter(stock_issue_id=self.kwargs['pk'])
         context['stock_issue'] = stock_issue
-        context['items'] = items
+        context['stock_issue_articles'] = stock_issue_articles
         context['total_price'] = stock_issue.total_price
         return context
 
@@ -530,9 +540,9 @@ class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, PDFTemplateView
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         stock_issue = StockIssue.objects.filter(pk=self.kwargs['pk']).get()
-        items = Item.objects.filter(stockIssue_id=self.kwargs['pk'])
+        stock_issue_articles = StockIssueArticle.objects.filter(stock_issue_id=self.kwargs['pk'])
         context['stock_issue'] = stock_issue
-        context['items'] = items
+        context['stock_issue_articles'] = stock_issue_articles
         context['title'] = "Výdejka"
         context['total_price'] = stock_issue.total_price
         return context
@@ -546,9 +556,9 @@ class StockIssueApproveView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         stock_issue = StockIssue.objects.filter(pk=self.kwargs['pk']).get()
-        items = Item.objects.filter(stockIssue_id=self.kwargs['pk'])
+        stock_issue_articles = StockIssueArticle.objects.filter(stock_issue_id=self.kwargs['pk'])
         context['stock_issue'] = stock_issue
-        context['items'] = items
+        context['stock_issue_articles'] = stock_issue_articles
         context['total_price'] = stock_issue.total_price
         return context
 
@@ -562,93 +572,93 @@ class StockIssueApproveView(LoginRequiredMixin, TemplateView):
                 self.request, 'Vyskladnění neprovedeno - nulová cena zboží, je zboží naskladněno?')
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
         stock_issue.approved = True
-        stock_issue.dateApproved = datetime.now()
-        stock_issue.userApproved = self.request.user
+        stock_issue.date_approved = datetime.now()
+        stock_issue.user_approved = self.request.user
         with transaction.atomic():
             message = updateArticleStock(stock_issue.id, 'issue')
             if message:
                 messages.error(self.request, message)
                 return HttpResponseRedirect(reverse_lazy('kitchen:approveStockIssue', kwargs={'pk': self.kwargs['pk']}))
-            stock_issue.save(update_fields=('approved', 'dateApproved', 'userApproved',))
+            stock_issue.save(update_fields=('approved', 'date_approved', 'user_approved',))
             messages.success(self.request, "Výdejka byla vyskladněna")
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
 
 
-class StockIssueItemListView(SingleTableMixin, LoginRequiredMixin, FilterView):
-    model = Item
-    table_class = StockIssueItemTable
-    template_name = 'kitchen/stockissue/listitems.html'
+class StockIssueArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+    model = StockIssueArticle
+    table_class = StockIssueArticleTable
+    template_name = 'kitchen/stockissue/listarticles.html'
     paginate_by = 12
 
     def get_context_data(self, **kwargs):
-        context = super(StockIssueItemListView, self).get_context_data(**kwargs)
+        context = super(StockIssueArticleListView, self).get_context_data(**kwargs)
         context['stockissue'] = StockIssue.objects.filter(pk=self.kwargs['pk']).get()
         return context
 
     def get_queryset(self):
-        # show only StockIssue Items
-        return super().get_queryset().filter(stockIssue=self.kwargs["pk"])
+        # show only StockIssueArticles
+        return super().get_queryset().filter(stock_issue=self.kwargs["pk"])
 
 
-class StockIssueItemCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
-    model = Item
-    form_class = StockIssueItemForm
-    template_name = 'kitchen/stockissue/createitem.html'
+class StockIssueArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+    model = StockIssueArticle
+    form_class = StockIssueArticleForm
+    template_name = 'kitchen/stockissue/createarticle.html'
     success_message = 'Zboží %(article)s bylo přidáno'
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showStockIssueItems', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('kitchen:showStockIssueArticles', kwargs={'pk': self.kwargs['pk']})
 
     def get_context_data(self, **kwargs):
-        context = super(StockIssueItemCreateView, self).get_context_data(**kwargs)
+        context = super(StockIssueArticleCreateView, self).get_context_data(**kwargs)
         context['stockissue'] = StockIssue.objects.filter(pk=self.kwargs['pk'])[0]
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
         stock_issue = context['stockissue']
-        item = form.save(commit=False)
-        item.stockIssue = StockIssue.objects.filter(pk=stock_issue.id)[0]
-        item.save()
-        return super(StockIssueItemCreateView, self).form_valid(form)
+        stock_issue_article = form.save(commit=False)
+        stock_issue_article.stock_issue = StockIssue.objects.filter(pk=stock_issue.id)[0]
+        stock_issue_article.save()
+        return super(StockIssueArticleCreateView, self).form_valid(form)
 
 
-class StockIssueItemUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
-    model = Item
-    form_class = StockIssueItemForm
-    template_name = 'kitchen/stockissue/updateitem.html'
+class StockIssueArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = StockIssueArticle
+    form_class = StockIssueArticleForm
+    template_name = 'kitchen/stockissue/updatearticle.html'
     success_message = "Zboží %(article)s bylo aktualizováno"
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showStockIssueItems', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('kitchen:showStockIssueArticles', kwargs={'pk': self.kwargs['pk']})
 
     def get_context_data(self, **kwargs):
-        context = super(StockIssueItemUpdateView, self).get_context_data(**kwargs)
-        context['item_before'] = Item.objects.filter(pk=self.kwargs['pk'])[0]
+        context = super(StockIssueArticleUpdateView, self).get_context_data(**kwargs)
+        context['stock_issue_article_before'] = StockIssueArticle.objects.filter(pk=self.kwargs['pk'])[0]
         return context
 
     def form_valid(self, form):
-        item = form.save(commit=False)
-        item.stockIssue = Item.objects.filter(pk=item.id)[0].stockIssue
-        item.save()
-        self.kwargs = {'pk': item.stockIssue.id}
-        return super(StockIssueItemUpdateView, self).form_valid(form)
+        stock_issue_article = form.save(commit=False)
+        stock_issue_article.stock_issue = StockIssueArticle.objects.filter(pk=stock_issue_article.id)[0].stock_issue
+        stock_issue_article.save()
+        self.kwargs = {'pk': stock_issue_article.stock_issue.id}
+        return super(StockIssueArticleUpdateView, self).form_valid(form)
 
 
-class StockIssueItemDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
-    model = Item
-    template_name = 'kitchen/stockissue/deleteitem.html'
+class StockIssueArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+    model = StockIssueArticle
+    template_name = 'kitchen/stockissue/deletearticle.html'
     success_message = "Zboží bylo odstraněno"
     success_url = reverse_lazy('kitchen:showStockIssues')
     stock_issue_id = 0
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showStockIssueItems', kwargs={'pk': self.stock_issue_id})
+        return reverse_lazy('kitchen:showStockIssueArticles', kwargs={'pk': self.stock_issue_id})
 
     def delete(self, request, *args, **kwargs):
-        item = get_object_or_404(Item, pk=self.kwargs['pk'])
-        self.stock_issue_id = item.stockIssue.id
-        return super(StockIssueItemDeleteView, self).delete(request, *args, **kwargs)
+        stock_issue_article = get_object_or_404(StockIssueArticle, pk=self.kwargs['pk'])
+        self.stock_issue_id = stock_issue_article.stock_issue.id
+        return super(StockIssueArticleDeleteView, self).delete(request, *args, **kwargs)
 
 
 class StockReceiptListView(SingleTableMixin, LoginRequiredMixin, FilterView):
@@ -667,12 +677,12 @@ class StockReceiptCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView
     success_message = "Příjemka byla vytvořena a je možné přidávat zboží"
 
     def form_valid(self, form):
-        form.instance.userCreated = self.request.user
+        form.instance.user_created = self.request.user
         self.object = form.save()
         return super(StockReceiptCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:createStockReceiptItem', kwargs={'pk': self.object.id})
+        return reverse_lazy('kitchen:createStockReceiptArticle', kwargs={'pk': self.object.id})
 
 
 class StockReceiptUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
@@ -692,9 +702,9 @@ class StockReceiptDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         stock_receipt = StockReceipt.objects.filter(pk=self.kwargs['pk']).get()
-        items = Item.objects.filter(stockReceipt_id=self.kwargs['pk'])
+        stock_receipt_articles = StockReceiptArticle.objects.filter(stock_receipt_id=self.kwargs['pk'])
         context['stock_receipt'] = stock_receipt
-        context['items'] = items
+        context['stock_receipt_articles'] = stock_receipt_articles
         context['total_price'] = stock_receipt.total_price
         return context
 
@@ -713,9 +723,9 @@ class StockReceiptPDFView(LoginRequiredMixin, PDFTemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         stock_receipt = StockReceipt.objects.filter(pk=self.kwargs['pk']).get()
-        items = Item.objects.filter(stockReceipt_id=self.kwargs['pk'])
+        stock_receipt_articles = StockReceiptArticle.objects.filter(stock_receipt_id=self.kwargs['pk'])
         context['stock_receipt'] = stock_receipt
-        context['items'] = items
+        context['stock_receipt_articles'] = stock_receipt_articles
         context['title'] = "Příjemka"
         context['total_price'] = stock_receipt.total_price
         return context
@@ -729,9 +739,9 @@ class StockReceiptApproveView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         stock_receipt = StockReceipt.objects.filter(pk=self.kwargs['pk']).get()
-        items = Item.objects.filter(stockReceipt_id=self.kwargs['pk'])
+        stock_receipt_articles = StockReceiptArticle.objects.filter(stock_receipt_id=self.kwargs['pk'])
         context['stock_receipt'] = stock_receipt
-        context['items'] = items
+        context['stock_receipt_articles'] = stock_receipt_articles
         context['total_price'] = stock_receipt.total_price
         return context
 
@@ -745,86 +755,106 @@ class StockReceiptApproveView(LoginRequiredMixin, TemplateView):
                 self.request, 'Naskladnění neprovedeno - nulová cena zboží, přidejte alespoň jedno zboží na příjemku')
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
         stock_receipt.approved = True
-        stock_receipt.dateApproved = datetime.now()
-        stock_receipt.userApproved = self.request.user
+        stock_receipt.date_approved = datetime.now()
+        stock_receipt.user_approved = self.request.user
         with transaction.atomic():
             updateArticleStock(stock_receipt.id, 'receipt')
-            stock_receipt.save(update_fields=('approved', 'dateApproved', 'userApproved',))
+            stock_receipt.save(update_fields=('approved', 'date_approved', 'user_approved',))
         messages.success(self.request, "Příjemka byla naskladněna")
         return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
 
 
-class StockReceiptItemListView(SingleTableMixin, LoginRequiredMixin, FilterView):
-    model = Item
-    table_class = StockReceiptItemTable
-    template_name = 'kitchen/stockreceipt/listitems.html'
+class StockReceiptArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+    model = StockReceiptArticle
+    table_class = StockReceiptArticleTable
+    template_name = 'kitchen/stockreceipt/listarticles.html'
     paginate_by = 12
 
     def get_context_data(self, **kwargs):
-        context = super(StockReceiptItemListView, self).get_context_data(**kwargs)
+        context = super(StockReceiptArticleListView, self).get_context_data(**kwargs)
         context['stockreceipt'] = StockReceipt.objects.filter(pk=self.kwargs['pk'])[0]
         return context
 
     def get_queryset(self):
-        # show only StockReceipt Items
-        return super().get_queryset().filter(stockReceipt=self.kwargs["pk"])
+        # show only StockReceiptArticles
+        return super().get_queryset().filter(stock_receipt=self.kwargs["pk"])
 
 
-class StockReceiptItemCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
-    model = Item
-    form_class = StockReceiptItemForm
-    template_name = 'kitchen/stockreceipt/createitem.html'
+class StockReceiptArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+    model = StockReceiptArticle
+    form_class = StockReceiptArticleForm
+    template_name = 'kitchen/stockreceipt/createarticle.html'
     success_message = 'Zboží %(article)s bylo přidáno'
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showStockReceiptItems', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('kitchen:showStockReceiptArticles', kwargs={'pk': self.kwargs['pk']})
 
     def get_context_data(self, **kwargs):
-        context = super(StockReceiptItemCreateView, self).get_context_data(**kwargs)
+        context = super(StockReceiptArticleCreateView, self).get_context_data(**kwargs)
         context['stockreceipt'] = StockReceipt.objects.filter(pk=self.kwargs['pk'])[0]
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
         stock_receipt = context['stockreceipt']
-        item = form.save(commit=False)
-        item.stockReceipt = StockReceipt.objects.filter(pk=stock_receipt.id)[0]
-        item.save()
-        return super(StockReceiptItemCreateView, self).form_valid(form)
+        stock_receipt_article = form.save(commit=False)
+        stock_receipt_article.stock_receipt = StockReceipt.objects.filter(pk=stock_receipt.id)[0]
+        stock_receipt_article.save()
+        return super(StockReceiptArticleCreateView, self).form_valid(form)
 
 
-class StockReceiptItemUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
-    model = Item
-    form_class = StockReceiptItemForm
-    template_name = 'kitchen/stockreceipt/updateitem.html'
+class StockReceiptArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = StockReceiptArticle
+    form_class = StockReceiptArticleForm
+    template_name = 'kitchen/stockreceipt/updatearticle.html'
     success_message = "Zboží %(article)s bylo aktualizováno"
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showStockReceiptItems', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('kitchen:showStockReceiptArticles', kwargs={'pk': self.kwargs['pk']})
 
     def get_context_data(self, **kwargs):
-        context = super(StockReceiptItemUpdateView, self).get_context_data(**kwargs)
-        context['item_before'] = Item.objects.filter(pk=self.kwargs['pk'])[0]
+        context = super(StockReceiptArticleUpdateView, self).get_context_data(**kwargs)
+        context['stock_receipt_article_before'] = StockReceiptArticle.objects.filter(pk=self.kwargs['pk'])[0]
         return context
 
     def form_valid(self, form):
-        item = form.save(commit=False)
-        item.stockReceipt = Item.objects.filter(pk=item.id)[0].stockReceipt
-        item.save()
-        return super(StockReceiptItemUpdateView, self).form_valid(form)
+        stock_receipt_article = form.save(commit=False)
+        stock_receipt_article.stock_receipt = StockReceiptArticle.objects.filter(pk=stock_receipt_article.id)[
+            0].stock_receipt
+        stock_receipt_article.save()
+        return super(StockReceiptArticleUpdateView, self).form_valid(form)
 
 
-class StockReceiptItemDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
-    model = Item
-    template_name = 'kitchen/stockreceipt/deleteitem.html'
+class StockReceiptArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+    model = StockReceiptArticle
+    template_name = 'kitchen/stockreceipt/deletearticle.html'
     success_message = "Zboží bylo odstraněno"
     success_url = reverse_lazy('kitchen:showStockReceipts')
     stock_receipt_id = 0
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showStockReceiptItems', kwargs={'pk': self.stock_receipt_id})
+        return reverse_lazy('kitchen:showStockReceiptArticles', kwargs={'pk': self.stock_receipt_id})
 
     def delete(self, request, *args, **kwargs):
-        item = get_object_or_404(Item, pk=self.kwargs['pk'])
-        self.stock_receipt_id = item.stockReceipt.id
-        return super(StockReceiptItemDeleteView, self).delete(request, *args, **kwargs)
+        stock_receipt_article = get_object_or_404(StockReceiptArticle, pk=self.kwargs['pk'])
+        self.stock_receipt_id = stock_receipt_article.stock_receipt.id
+        return super(StockReceiptArticleDeleteView, self).delete(request, *args, **kwargs)
+
+
+class FoodConsumptionPDFView(LoginRequiredMixin, PDFTemplateView):
+    template_name = 'kitchen/report/food_consumption_pdf.html'
+    filename = 'Spotřeba potravin.pdf'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        date = self.request.GET['date']
+        daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%d.%m.%Y"))
+        context['title'] = "Spotřeba potravin pro " + date
+        context['daily_menus'] = daily_menus
+        return context
+
+
+class FoodConsumptionPrintView(LoginRequiredMixin, CreateView):
+    model = DailyMenu
+    form_class = FoodConsumptionPrintForm
+    template_name = 'kitchen/report/food_consumption.html'

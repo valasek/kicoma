@@ -2,81 +2,71 @@
   {
     "model": "kitchen.mealtype",
     "pk": 1,
-    "fields":
-    {
-      "mealType": "Snídaně"
+    "fields": {
+      "meal_type": "Snídaně"
     }
   },
   {
     "model": "kitchen.mealtype",
     "pk": 2,
-    "fields":
-    {
-      "mealType": "Snídaně B C"
+    "fields": {
+      "meal_type": "Snídaně B C"
     }
   },
   {
     "model": "kitchen.mealtype",
     "pk": 3,
-    "fields":
-    {
-      "mealType": "Obed 1"
+    "fields": {
+      "meal_type": "Obed 1"
     }
   },
   {
     "model": "kitchen.mealtype",
     "pk": 4,
-    "fields":
-    {
-      "mealType": "Oběd 2"
+    "fields": {
+      "meal_type": "Oběd 2"
     }
   },
   {
     "model": "kitchen.mealtype",
     "pk": 5,
-    "fields":
-    {
-      "mealType": "Oběd B C"
+    "fields": {
+      "meal_type": "Oběd B C"
     }
   },
   {
     "model": "kitchen.mealtype",
     "pk": 6,
-    "fields":
-    {
-      "mealType": "Svačina"
+    "fields": {
+      "meal_type": "Svačina"
     }
   },
   {
     "model": "kitchen.mealtype",
     "pk": 7,
-    "fields":
-    {
-      "mealType": "Svačina B C"
+    "fields": {
+      "meal_type": "Svačina B C"
     }
   },
   {
     "model": "kitchen.mealtype",
     "pk": 8,
-    "fields":
-    {
-      "mealType": "Večeře"
+    "fields": {
+      "meal_type": "Večeře"
     }
   },
   {
     "model": "kitchen.mealtype",
     "pk": 9,
-    "fields":
-    {
-      "mealType": "Večeře B C"
+    "fields": {
+      "meal_type": "Večeře B C"
     }
   },
   {
     "model": "kitchen.mealtype",
     "pk": 10,
-    "fields":
-    {
-      "mealType": "II Večeře"
+    "fields": {
+      "meal_type": "II Večeře"
     }
- }
+  }
 ]

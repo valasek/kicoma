@@ -11,7 +11,7 @@ python manage.py loaddata kicoma/kitchen/fixtures/skupiny.json
 python manage.py loaddata kicoma/kitchen/fixtures/uzivatele.json
 python manage.py loaddata kicoma/kitchen/fixtures/article.json
 python manage.py loaddata kicoma/kitchen/fixtures/recipe.json
-python manage.py loaddata kicoma/kitchen/fixtures/ingredient.json
+python manage.py loaddata kicoma/kitchen/fixtures/recipe_article.json
 
 # https://docs.djangoproject.com/en/3.0/ref/django-admin/#django-admin-createsuperuser
 DJANGO_SUPERUSER_USERNAME=admin

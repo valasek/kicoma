@@ -1,43 +1,42 @@
-{% extends "../pdf_page.html" %}
-{% block content %}
-  <table class="minimalistBlack">
-    <thead>
-      <tr>
-        <th>Porcí</th>
-        <th>Cena receptu</th>
-        <th>Komentář</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{recipe.norm_amount}}</td>
-        <td>{{recipe.recipePrice}} Kč</td>
-        <td>{{recipe.comment}}</td>
-      </tr>
-    </tbody>
-  </table>
+{% extends "../pdf_page.html" %} {% block content %}
+<table class="minimalistBlack">
+  <thead>
+    <tr>
+      <th>Porcí</th>
+      <th>Cena receptu</th>
+      <th>Komentář</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{recipe.norm_amount}}</td>
+      <td>{{recipe.total_recipe_articles_price}} Kč</td>
+      <td>{{recipe.comment}}</td>
+    </tr>
+  </tbody>
+</table>
 
-  <h2>Seznam ingrediencí</h2>
-  <table class="minimalistBlack">
-    <thead>
-      <tr>
-        <th>Zboží</th>
-        <th>Množství</th>
-        <th>Průměrná jednotková cena s DPH</th>
-        <th>Celková cena s DPH</th>
-        <th>Komentář</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for ingredient in ingredients %}
-      <tr>
-        <td>{{ingredient.article}}</td>
-        <td>{{ingredient.amount}} {{ingredient.unit}}</td>
-        <td>{{ingredient.article.averagePrice}} Kč</td>
-        <td>{{ingredient.total_average_price}} Kč</td>
-        <td>{{ingredient.comment}}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<h2>Seznam ingrediencí</h2>
+<table class="minimalistBlack">
+  <thead>
+    <tr>
+      <th>Zboží</th>
+      <th>Množství</th>
+      <th>Průměrná jednotková cena s DPH</th>
+      <th>Celková cena s DPH</th>
+      <th>Komentář</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for recipe_article in recipe_articles %}
+    <tr>
+      <td>{{recipe_article.article}}</td>
+      <td>{{recipe_article.amount}} {{recipe_article.unit}}</td>
+      <td>{{recipe_article.article.average_price}} Kč</td>
+      <td>{{recipe_article.total_average_price}} Kč</td>
+      <td>{{recipe_article.comment}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

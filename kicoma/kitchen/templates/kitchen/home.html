@@ -5,20 +5,25 @@
 <hr/>
 <div class="container-fluid">
     <div class="row">
-      <div class="col-sm">
+      <div class="col-sm-3">
         <h6>Hotovo a připraveno ke kontrole</h6>
         <s>Přesun standardní funkcionality Strávníčka</s><br/>
         <s>Správa číselníků</s><br/>
         <s>Přesunut a nahrán obsah Strávníčka (Zboží, Recepty, Ingredience)</s><br/>
-        <s>Tisk denního menu dle datumu s možností filtrace na skupinu strávníků<br/></s>
-        <s>Tisk seznam receptů a jednotlivého receptu<br/></s>
+        <s>PDF s denním menu dle datumu s možností filtrace na skupinu strávníků<br/></s>
+        <s>PDF se seznam receptů a jednotlivého receptu<br/></s>
         <s>Je možno vytvořit výdejku na základě receptů z denního menu<br/></s>
         <br/>
       </div>
-      <div class="col-sm">
+      <div class="col-sm-3">
         <h6>Není hotovo</h6>
-        Tisky kalkulací (Tisky kalkulací mají při zadání rozmezí datumů)<br />
-        Opravit jednotky pro cca 25 záznamů zboží na skladu, nesed9 s jednotky v receptech - chyba v datech ze Strávníčku
+        Kalkulace - reporty (Tisky kalkulací mají při zadání rozmezí datumů)<br />
+        Při zakládání/editaci receptu nutno kontolovat, že je article unit zadán správně, jinak padá při tisku ...<br />
+        Opravit jednotky pro cca 25 záznamů zboží na skladu, nesedí s jednotky v receptech - chyba v datech ze Strávníčku<br />
+        Vyjasnit potřebnost a co je obsahem reportů:<br/>
+        - Sumární rozpis spotřeby potravin dle jídel<br/>
+        - Požadavek - návrh objednávky<br/>
+        - Požadavek zaokrouhlený<br/>
       </div>
       <div class="col-sm">
         <h6>Čeká</h6>
@@ -40,7 +45,7 @@
     <div class="row">
       <div class="col-sm">
         <h4>Přehled aplikace</h4>
-        <p>Poslední aktualizace aplikace proběhla 8. 8. 2020.</p>
+        <p><a href="{% url 'kitchen:help' %}">Zobrazit kompletní nápovedu</a>. Poslední aktualizace aplikace proběhla 10. 8. 2020.</p>
       </div>
     </div>
     <div class="row">
@@ -57,7 +62,7 @@
           </tr>
           <tr>
             <td scope="row">Surovin v receptech</td>
-            <td >{{ ingredientCount }}</td>
+            <td >{{ recipe_article_count }}</td>
           </tr>
           <tr>
             <td scope="row">Zboží</td>
@@ -72,8 +77,12 @@
             <td >{{ stockIssueCount }}</ts>
           </tr>
           <tr>
-            <td scope="row">Položky v příjemkách/výdejkách</td>
-            <td >{{ itemCount }}</td>
+            <td scope="row">Zboží na příjemkách</td>
+            <td >{{ stock_issue_article_count }}</td>
+          </tr>
+          <tr>
+            <td scope="row">Zboží na výdejkách</td>
+            <td >{{ stock_receipt_article_count }}</td>
           </tr>
           <tr>
             <td scope="row">Denní menu</td>
@@ -94,7 +103,7 @@
           </tr>
           <tr>
             <td scope="row">Druhy jídla</td>
-            <td >{{ mealTypeCount }}</ts>
+            <td >{{ meal_typeCount }}</ts>
           </tr>
             <tr>
             <td scope="row">Skupiny strávníků</td>
