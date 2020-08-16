@@ -34,10 +34,10 @@ Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
 
 ## Update Translations
 ### Generate message files for a desired language
-`python manage.py makemessages -l cs_CZ --ignore=env/*`
+`./manage.py makemessages -l cs_CZ --ignore=env/*`
  
 ### After adding translations to the .po files, compile the messages
-`python manage.py compilemessages`
+`./manage.py compilemessages`
 
 # Deploy to Heroku
 

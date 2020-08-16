@@ -50,7 +50,7 @@ coverage.xml
 .hypothesis/
 
 # Translations
-*.mo
+# *.mo - ignored due to https://stackoverflow.com/questions/43743234/django-translation-on-heroku-is-not-fully-working
 *.pot
 
 # Django stuff:

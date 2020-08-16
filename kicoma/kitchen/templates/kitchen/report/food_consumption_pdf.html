@@ -21,9 +21,9 @@
               {% for recipe_article in daily_menu_recipe.recipe.recipearticle_set.all %}
               <tr>
                 <td>{{recipe_article.article}}</td>
-                <td>{{recipe_article.amount}} {{recipe_article.unit}} * {{ daily_menu_recipe.amount }}, {{ daily_menu_recipe.recipe.norm_amount }}
+                <td>Dokončit: {{recipe_article.amount}} {{recipe_article.unit}} * {{ daily_menu_recipe.amount }}, {{ daily_menu_recipe.recipe.norm_amount }}
                 </td>
-                <td>alergeny</td>
+                <td>{{recipe_article.article.display_allergens}}</td>
               </tr>
               {% endfor %}
             </tbody>

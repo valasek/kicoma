@@ -130,8 +130,11 @@ class StockIssueTable(tables.Table):
     change = tables.TemplateColumn(
         '''<a href="/kitchen/stockissue/update/{{ record.id }}">Upravit poznámku</a>
         | <a href="/kitchen/stockissue/articlelist/{{ record.id }}">Zobrazit zboží</a>
+        {% load auth_extras %}
+        {% if request.user|has_group:"stockkeeper" %}
         | <a href="/kitchen/stockissue/approve/{{ record.id }}">Vyskladnit</a>
         | <a href="/kitchen/stockissue/delete/{{ record.id }}">Vymazat</a>
+        {% endif %}
         | <a href="/kitchen/stockissue/print/{{ record.id }}">PDF</a>''',
         verbose_name=u'Akce', )
 
@@ -178,7 +181,7 @@ class StockIssueArticleTable(tables.Table):
 class StockReceiptTable(tables.Table):
     total_price = tables.Column(verbose_name='Celková cena s DPH')
     change = tables.TemplateColumn(
-        '''<a href="/kitchen/stockreceipt/update/{{ record.id }}">Upravit poznámku</a>
+        '''<a href="/kitchen/stockreceipt/update/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/stockreceipt/articlelist/{{ record.id }}">Zobrazit zboží</a>
         | <a href="/kitchen/stockreceipt/approve/{{ record.id }}">Naskladnit</a>
         | <a href="/kitchen/stockreceipt/delete/{{ record.id }}">Vymazat</a>
@@ -188,7 +191,7 @@ class StockReceiptTable(tables.Table):
     class Meta:
         model = StockReceipt
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("created", "user_created", "approved", "date_approved",
+        fields = ("date_created", "user_created", "approved", "date_approved",
                   "user_approved", "total_price", "comment", "change")
 
     def render_total_price(self, value, record):
@@ -196,12 +199,12 @@ class StockReceiptTable(tables.Table):
 
 
 class StockReceiptFilter(django_filters.FilterSet):
-    created = django_filters.CharFilter(lookup_expr='icontains')
+    date_created = django_filters.CharFilter(lookup_expr='icontains')
     # user_created = django_filters.CharFilter(lookup_expr='icontains')
 
     class Meta:
         model = StockReceipt
-        fields = ("created", "user_created", )
+        fields = ("date_created", "user_created", )
 
 
 class StockReceiptArticleTable(tables.Table):

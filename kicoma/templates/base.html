@@ -101,7 +101,7 @@
                 >Přehled <span class="sr-only">(current)</span></a
               >
             </li>
-            {% if request.user|has_group:"stockkeeper" %}
+            {% if request.user|has_group:"stockkeeper" or request.user|has_group:"cook"%}
             <li class="nav-item dropdown">
               <a
                 class="nav-link active dropdown-toggle"
@@ -117,6 +117,7 @@
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
+                {% if request.user|has_group:"stockkeeper" %}
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:showArticles' %}"
@@ -136,6 +137,7 @@
                   Založit nové zboží
                 </a>
                 <hr />
+                {% endif %}
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:showStockIssues' %}"
@@ -146,6 +148,7 @@
                   href="{% url 'kitchen:createStockIssue' %}"
                   >Založit novou výdejku</a
                 >
+                {% if request.user|has_group:"stockkeeper" %}
                 <hr />
                 <a
                   class="dropdown-item"
@@ -159,6 +162,7 @@
                 >
                   Založit novou příjemku
                 </a>
+                {% endif %}
               </div>
             </li>
             {% endif %} {% if request.user|has_group:"cook" %}
@@ -185,6 +189,8 @@
                 >
               </div>
             </li>
+            {% endif %}
+            {% if request.user|has_group:"cook" %}
             <li class="nav-item dropdown">
               <a
                 class="nav-link active dropdown-toggle"
@@ -217,6 +223,8 @@
                 >
               </div>
             </li>
+            {% endif %}
+            {% if request.user|has_group:"cook" %}
             <li class="nav-item dropdown">
               <a
                 class="nav-link active dropdown-toggle"
@@ -246,6 +254,7 @@
                 >
               </div>
             </li>
+            {% endif %}
             <li class="nav-item active">
               <a class="nav-link" href="{% url 'kitchen:help' %}"
                 >Nápověda</a
@@ -290,7 +299,7 @@
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                {% endif %} {% if request.user|has_group:"chef" %}
+                {% if request.user|has_group:"chef" %}
                 <a class="dropdown-item" href="/admin">Administrace</a>
                 {% endif %}
                 <a
@@ -326,7 +335,6 @@
         </button>
       </div>
       {% endfor %} {% endif %} {% block content %}
-      <!-- <p>Use this document as a way to quick start any new project.</p> -->
       {% endblock content %}
     </div>
     <!-- /container -->

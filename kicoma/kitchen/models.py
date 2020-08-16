@@ -1,4 +1,5 @@
 from decimal import Decimal
+import datetime
 
 from django.db import models
 from django.db.models import Sum
@@ -211,7 +212,7 @@ class DailyMenu(TimeStampedModel):
     class Meta:
         verbose_name_plural = _('Denní jídla')
         verbose_name = _('Denní jídlo')
-        ordering = ['-date']
+        ordering = ['-date', 'meal_group']
 
     date = models.DateField(verbose_name='Datum', help_text='Datum denního menu ve formátu dd.mm.rrrr')
     meal_group = models.ForeignKey(MealGroup, on_delete=models.CASCADE, verbose_name='Skupina strávníka',
@@ -273,6 +274,7 @@ class StockReceipt(TimeStampedModel):
         verbose_name = _('Příjemka')
         ordering = ['-created']
 
+    date_created = models.DateField(default=datetime.date.today, verbose_name='Datum založení')
     user_created = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                                      related_name='usrcreated', verbose_name='Vytvořil')
     approved = models.BooleanField(default=False, blank=True, null=True, verbose_name='Naskladněno')

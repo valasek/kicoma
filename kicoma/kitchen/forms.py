@@ -230,7 +230,7 @@ class StockReceiptForm(forms.ModelForm):
 
     class Meta:
         model = StockReceipt
-        fields = ["comment"]
+        fields = ["date_created", "comment"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -242,7 +242,8 @@ class StockReceiptForm(forms.ModelForm):
         # self.helper.template = 'bootstrap/table_inline_formset.html'
         self.helper.layout = Layout(
             Row(
-                Column('comment', css_class='col-md-12')
+                Column('date_created', css_class='col-md-2'),
+                Column('comment', css_class='col-md-10')
             )
         )
 
