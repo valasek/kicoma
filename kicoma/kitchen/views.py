@@ -618,7 +618,11 @@ class StockIssueArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Creat
         context = self.get_context_data()
         stock_issue = context['stockissue']
         stock_issue_article = form.save(commit=False)
-        stock_issue_article.stock_issue = StockIssue.objects.filter(pk=stock_issue.id)[0]
+        stock_issue_article.stock_issue = StockIssue.objects.filter(pk=stock_issue.id).get()
+        if stock_issue_article.stock_issue.approved:
+            messages.warning(self.request, 'Přidání zboží neprovedeno, výdejka je již vyskladněna')
+            return HttpResponseRedirect(
+                reverse_lazy('kitchen:showStockIssueArticles', kwargs={'pk': stock_issue.id}))
         stock_issue_article.save()
         return super(StockIssueArticleCreateView, self).form_valid(form)
 
@@ -640,6 +644,10 @@ class StockIssueArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Updat
     def form_valid(self, form):
         stock_issue_article = form.save(commit=False)
         stock_issue_article.stock_issue = StockIssueArticle.objects.filter(pk=stock_issue_article.id)[0].stock_issue
+        if stock_issue_article.stock_issue.approved:
+            messages.warning(self.request, 'Aktualizace zboží neprovedena, výdejka je již vyskladněna')
+            return HttpResponseRedirect(
+                reverse_lazy('kitchen:showStockIssueArticles', kwargs={'pk': stock_issue_article.stock_issue.id}))
         stock_issue_article.save()
         self.kwargs = {'pk': stock_issue_article.stock_issue.id}
         return super(StockIssueArticleUpdateView, self).form_valid(form)
@@ -657,6 +665,10 @@ class StockIssueArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, Delet
 
     def delete(self, request, *args, **kwargs):
         stock_issue_article = get_object_or_404(StockIssueArticle, pk=self.kwargs['pk'])
+        if stock_issue_article.stock_issue.approved:
+            messages.warning(self.request, 'Odstranění zboží neprovedeno, výdejka je již vyskladněna')
+            return HttpResponseRedirect(
+                reverse_lazy('kitchen:showStockIssueArticles', kwargs={'pk': stock_issue_article.stock_issue.id}))
         self.stock_issue_id = stock_issue_article.stock_issue.id
         return super(StockIssueArticleDeleteView, self).delete(request, *args, **kwargs)
 
@@ -798,7 +810,11 @@ class StockReceiptArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Cre
         context = self.get_context_data()
         stock_receipt = context['stockreceipt']
         stock_receipt_article = form.save(commit=False)
-        stock_receipt_article.stock_receipt = StockReceipt.objects.filter(pk=stock_receipt.id)[0]
+        stock_receipt_article.stock_receipt = StockReceipt.objects.filter(pk=stock_receipt.id).get()
+        if stock_receipt_article.stock_receipt.approved:
+            messages.warning(self.request, 'Přidání zboží neprovedeno, příjemka je již naskladněna')
+            return HttpResponseRedirect(
+                reverse_lazy('kitchen:showStockReceiptArticles', kwargs={'pk': stock_receipt.id}))
         stock_receipt_article.save()
         return super(StockReceiptArticleCreateView, self).form_valid(form)
 
@@ -821,6 +837,10 @@ class StockReceiptArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Upd
         stock_receipt_article = form.save(commit=False)
         stock_receipt_article.stock_receipt = StockReceiptArticle.objects.filter(pk=stock_receipt_article.id)[
             0].stock_receipt
+        if stock_receipt_article.stock_receipt.approved:
+            messages.warning(self.request, 'Aktualizace zboží neprovedena, příjemka je již naskladněna')
+            return HttpResponseRedirect(
+                reverse_lazy('kitchen:showStockReceiptArticles', kwargs={'pk': stock_receipt_article.id}))
         stock_receipt_article.save()
         return super(StockReceiptArticleUpdateView, self).form_valid(form)
 
@@ -837,6 +857,10 @@ class StockReceiptArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, Del
 
     def delete(self, request, *args, **kwargs):
         stock_receipt_article = get_object_or_404(StockReceiptArticle, pk=self.kwargs['pk'])
+        if stock_receipt_article.stock_receipt.approved:
+            messages.warning(self.request, 'Odstranění zboží neprovedeno, příjemka je již naskladněna')
+            return HttpResponseRedirect(
+                reverse_lazy('kitchen:showStockReceiptArticles', kwargs={'pk': self.kwargs['pk']}))
         self.stock_receipt_id = stock_receipt_article.stock_receipt.id
         return super(StockReceiptArticleDeleteView, self).delete(request, *args, **kwargs)
 
