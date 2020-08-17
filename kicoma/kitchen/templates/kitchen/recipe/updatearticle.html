@@ -1,14 +1,12 @@
 {% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
 <div class="container-fluid">
-  <h4>Aktualizace zboží v receptu</h4>
+  <h4>Aktualizace zboží v receptu {{recipe_article_before.recipe.recipe}}, {{recipe_article_before.recipe.norm_amount}} porcí</h4>
   <hr />
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
       <a href="{% url 'kitchen:showRecipeArticles' recipe_article_before.id %}"
         ><button class="btn btn-secondary">Zpět na recept</button></a
       >
-      <b>Recept:</b> {{recipe_article_before.recipe.recipe}},
-      <b>Počet jídel:</b> {{recipe_article_before.recipe.norm_amount}}
     </div>
   </div>
   <br />

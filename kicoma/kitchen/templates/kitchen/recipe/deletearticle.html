@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
 <div class="container-fluid">
-  <h4>Odstranění ingredence</h4>
+  <h4>Chcete odstranit zboží v receptu {{recipe_article_before.recipe.recipe}}, {{recipe_article_before.recipe.norm_amount}} porcí?</h4>
   <hr />
   <p>
     <a href="{% url 'kitchen:showRecipeArticles' object.recipe.id%}"
@@ -12,7 +12,6 @@
     action="{% url 'kitchen:deleteRecipeArticle' pk=object.id %}"
   >
     {% csrf_token %} {{ form|crispy }}
-    <p>Chcete odstranit ingredienci:</p>
     <ul>
       <li>Zboží: {{ object.article }}</li>
       <li>Množství: {{ object.amount }} {{ object.unit }}</li>

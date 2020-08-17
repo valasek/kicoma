@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
+from django.core.exceptions import ValidationError
 
 from django.db import transaction
 from django.db.models import F
@@ -229,21 +230,27 @@ class RecipeArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateVie
     model = RecipeArticle
     form_class = RecipeArticleForm
     template_name = 'kitchen/recipe/createarticle.html'
-    success_message = "Ingedence %(article)s byla přidána do receptu"
+    success_message = "Zboží %(article)s bylo přidáno do receptu"
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showRecipeArticles', kwargs={'pk': self.kwargs['pk']})
 
     def get_context_data(self, **kwargs):
         context = super(RecipeArticleCreateView, self).get_context_data(**kwargs)
-        context['recipe'] = Recipe.objects.filter(pk=self.kwargs['pk'])[0]
+        context['recipe'] = Recipe.objects.filter(pk=self.kwargs['pk']).get()
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
         recipe = context['recipe']
         recipe_article = form.save(commit=False)
-        recipe_article.recipe = Recipe.objects.filter(pk=recipe.id)[0]
+        try:
+            convertUnits(recipe_article.amount,
+                         recipe_article.unit, recipe_article.article.unit)
+        except ValidationError as err:
+            messages.warning(self.request, err.message)
+            return super(RecipeArticleCreateView, self).form_invalid(form)
+        recipe_article.recipe = Recipe.objects.filter(pk=recipe.id).get()
         recipe_article.save()
         return super(RecipeArticleCreateView, self).form_valid(form)
 
@@ -252,7 +259,7 @@ class RecipeArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateVie
     model = RecipeArticle
     form_class = RecipeArticleForm
     template_name = 'kitchen/recipe/updatearticle.html'
-    success_message = "Ingedience %(article)s byla aktualizována"
+    success_message = "Zboží %(article)s bylo aktualizováno"
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showRecipeArticles', kwargs={'pk': self.kwargs['pk']})
@@ -264,6 +271,12 @@ class RecipeArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateVie
 
     def form_valid(self, form):
         recipe_article = form.save(commit=False)
+        try:
+            convertUnits(recipe_article.amount,
+                         recipe_article.unit, recipe_article.article.unit)
+        except ValidationError as err:
+            messages.warning(self.request, err.message)
+            return super(RecipeArticleUpdateView, self).form_invalid(form)
         recipe_article.recipe = RecipeArticle.objects.filter(pk=recipe_article.id)[0].recipe
         recipe_article.save()
         self.kwargs = {'pk': recipe_article.recipe.id}
@@ -273,12 +286,16 @@ class RecipeArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateVie
 class RecipeArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = RecipeArticle
     template_name = 'kitchen/recipe/deletearticle.html'
-    success_message = "Ingredience byla odstraněna"
-    # success_url = reverse_lazy('kitchen:showStockReceipts')
+    success_message = "Zboží bylo odstraněno"
     recipe_id = 0
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showRecipeArticles', kwargs={'pk': self.recipe_id})
+
+    def get_context_data(self, **kwargs):
+        context = super(RecipeArticleDeleteView, self).get_context_data(**kwargs)
+        context['recipe_article_before'] = RecipeArticle.objects.filter(pk=self.kwargs['pk']).get()
+        return context
 
     def delete(self, request, *args, **kwargs):
         recipe_article = get_object_or_404(RecipeArticle, pk=self.kwargs['pk'])
@@ -611,13 +628,19 @@ class StockIssueArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Creat
 
     def get_context_data(self, **kwargs):
         context = super(StockIssueArticleCreateView, self).get_context_data(**kwargs)
-        context['stockissue'] = StockIssue.objects.filter(pk=self.kwargs['pk'])[0]
+        context['stockissue'] = StockIssue.objects.filter(pk=self.kwargs['pk']).get()
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
         stock_issue = context['stockissue']
         stock_issue_article = form.save(commit=False)
+        try:
+            convertUnits(stock_issue_article.amount,
+                         stock_issue_article.unit, stock_issue_article.article.unit)
+        except ValidationError as err:
+            messages.warning(self.request, err.message)
+            return super(StockIssueArticleCreateView, self).form_invalid(form)
         stock_issue_article.stock_issue = StockIssue.objects.filter(pk=stock_issue.id).get()
         if stock_issue_article.stock_issue.approved:
             messages.warning(self.request, 'Přidání zboží neprovedeno, výdejka je již vyskladněna')
@@ -638,11 +661,17 @@ class StockIssueArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Updat
 
     def get_context_data(self, **kwargs):
         context = super(StockIssueArticleUpdateView, self).get_context_data(**kwargs)
-        context['stock_issue_article_before'] = StockIssueArticle.objects.filter(pk=self.kwargs['pk'])[0]
+        context['stock_issue_article_before'] = StockIssueArticle.objects.filter(pk=self.kwargs['pk']).get()
         return context
 
     def form_valid(self, form):
         stock_issue_article = form.save(commit=False)
+        try:
+            convertUnits(stock_issue_article.amount,
+                         stock_issue_article.unit, stock_issue_article.article.unit)
+        except ValidationError as err:
+            messages.warning(self.request, err.message)
+            return super(StockIssueArticleUpdateView, self).form_invalid(form)
         stock_issue_article.stock_issue = StockIssueArticle.objects.filter(pk=stock_issue_article.id)[0].stock_issue
         if stock_issue_article.stock_issue.approved:
             messages.warning(self.request, 'Aktualizace zboží neprovedena, výdejka je již vyskladněna')
@@ -784,7 +813,7 @@ class StockReceiptArticleListView(SingleTableMixin, LoginRequiredMixin, FilterVi
 
     def get_context_data(self, **kwargs):
         context = super(StockReceiptArticleListView, self).get_context_data(**kwargs)
-        context['stockreceipt'] = StockReceipt.objects.filter(pk=self.kwargs['pk'])[0]
+        context['stockreceipt'] = StockReceipt.objects.filter(pk=self.kwargs['pk']).get()
         return context
 
     def get_queryset(self):
@@ -810,6 +839,12 @@ class StockReceiptArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Cre
         context = self.get_context_data()
         stock_receipt = context['stockreceipt']
         stock_receipt_article = form.save(commit=False)
+        try:
+            convertUnits(stock_receipt_article.amount,
+                         stock_receipt_article.unit, stock_receipt_article.article.unit)
+        except ValidationError as err:
+            messages.warning(self.request, err.message)
+            return super(StockReceiptArticleCreateView, self).form_invalid(form)
         stock_receipt_article.stock_receipt = StockReceipt.objects.filter(pk=stock_receipt.id).get()
         if stock_receipt_article.stock_receipt.approved:
             messages.warning(self.request, 'Přidání zboží neprovedeno, příjemka je již naskladněna')
@@ -830,11 +865,17 @@ class StockReceiptArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Upd
 
     def get_context_data(self, **kwargs):
         context = super(StockReceiptArticleUpdateView, self).get_context_data(**kwargs)
-        context['stock_receipt_article_before'] = StockReceiptArticle.objects.filter(pk=self.kwargs['pk'])[0]
+        context['stock_receipt_article_before'] = StockReceiptArticle.objects.filter(pk=self.kwargs['pk']).get()
         return context
 
     def form_valid(self, form):
         stock_receipt_article = form.save(commit=False)
+        try:
+            convertUnits(stock_receipt_article.amount,
+                         stock_receipt_article.unit, stock_receipt_article.article.unit)
+        except ValidationError as err:
+            messages.warning(self.request, err.message)
+            return super(StockReceiptArticleUpdateView, self).form_invalid(form)
         stock_receipt_article.stock_receipt = StockReceiptArticle.objects.filter(pk=stock_receipt_article.id)[
             0].stock_receipt
         if stock_receipt_article.stock_receipt.approved:

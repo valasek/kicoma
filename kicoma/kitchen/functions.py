@@ -14,7 +14,7 @@ def convertUnits(number, unitIn, unitOut):
     if unitIn == 'ml' and unitOut == 'l':
         return number/100
     print('ERROR: chyba konverze', number, unitIn, unitOut)
-    raise ValidationError("Nedokáži provést {} konverzi {} na {}".format(number, unitIn, unitOut))
+    raise ValidationError("Není možné provést konverzi {} {} na {}".format(number, unitIn, unitOut))
 
 
 # returns total Article price, Article amount is converted using Article unit

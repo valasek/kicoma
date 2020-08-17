@@ -19,23 +19,24 @@ def updateArticleStock(stock_id, stock_direction):
             stock_articles = StockIssueArticle.objects.filter(stock_issue=stock_id)
         else:
             raise Exception(
-                "Article is not linked to StockReceiptArticle or StockIssueArticle or linked to both. Only one should be populated.")
+                "Article is not linked to StockReceiptArticle or StockIssueArticle or linked to both. Only one should be populated. \
+                    You can fix this in Administration.")
     for stock_article in stock_articles:
         article = Article.objects.filter(pk=stock_article.article.id).values_list(
             'on_stock', 'total_price', 'unit').get()
         on_stock = article[0]
         total_price = article[1]
         article_unit = article[2]
+        converted_amount = convertUnits(stock_article.amount, stock_article.unit, article_unit)
+        average_price = convertUnits(stock_article.article.average_price, article_unit, stock_article.unit)
         if stock_direction == 'receipt':
             Article.objects.filter(pk=stock_article.article_id).update(
-                on_stock=on_stock + convertUnits(stock_article.amount, stock_article.unit, article_unit),
-                total_price=total_price + convertUnits(stock_article.total_price_with_vat, article_unit, stock_article.unit))
+                on_stock=on_stock + converted_amount,
+                total_price=total_price + average_price)
             print(stock_direction, stock_article.article, stock_article.article.id,
-                  "mnozství: ", on_stock, "+", convertUnits(stock_article.amount, stock_article.unit, article_unit),
-                  "cena: ", total_price, "+", convertUnits(stock_article.total_price_with_vat, article_unit, stock_article.unit))
+                  "mnozství: ", on_stock, "+", converted_amount,
+                  "cena: ", total_price, "+", average_price)
         if stock_direction == 'issue':
-            average_price = convertUnits(stock_article.article.average_price, article_unit, stock_article.unit)
-            converted_amount = convertUnits(stock_article.amount, stock_article.unit, article_unit)
             if on_stock < 0 or on_stock - converted_amount < 0:
                 print(on_stock, converted_amount)
                 return "Není možné vyskladnit zboží {}, vyskladňuješ {} a na skladu je jenom {}".format(
@@ -44,8 +45,8 @@ def updateArticleStock(stock_id, stock_direction):
                 on_stock=on_stock - converted_amount,
                 total_price=total_price - average_price)
             print(stock_direction, stock_article.article, stock_article.article.id,
-                  "mnozství: ", on_stock, "-", convertUnits(stock_article.amount, stock_article.unit, article_unit),
-                  "cena: ", total_price, "-", convertUnits(stock_article.article.average_price, article_unit, stock_article.unit))
+                  "mnozství: ", on_stock, "-", converted_amount,
+                  "cena: ", total_price, "-", average_price)
     return None
 
 
