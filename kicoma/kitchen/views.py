@@ -140,6 +140,12 @@ class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 class ArticlePDFView(LoginRequiredMixin, PDFTemplateView):
     template_name = 'kitchen/article/pdf.html'
     filename = 'Seznam_zbozi.pdf'
+    cmd_options = {
+        'margin-top': 15,
+        'margin-bottom': 15,
+        'margin-left': 15,
+        'margin-right': 15,
+    }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -646,6 +652,7 @@ class StockIssueArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Creat
             messages.warning(self.request, 'Přidání zboží neprovedeno, výdejka je již vyskladněna')
             return HttpResponseRedirect(
                 reverse_lazy('kitchen:showStockIssueArticles', kwargs={'pk': stock_issue.id}))
+        stock_issue_article.average_unit_price = stock_issue_article.article.average_price
         stock_issue_article.save()
         return super(StockIssueArticleCreateView, self).form_valid(form)
 
@@ -677,6 +684,7 @@ class StockIssueArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Updat
             messages.warning(self.request, 'Aktualizace zboží neprovedena, výdejka je již vyskladněna')
             return HttpResponseRedirect(
                 reverse_lazy('kitchen:showStockIssueArticles', kwargs={'pk': stock_issue_article.stock_issue.id}))
+        stock_issue_article.average_unit_price = stock_issue_article.article.average_price
         stock_issue_article.save()
         self.kwargs = {'pk': stock_issue_article.stock_issue.id}
         return super(StockIssueArticleUpdateView, self).form_valid(form)
