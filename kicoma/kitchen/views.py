@@ -9,9 +9,10 @@ from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import ValidationError
 
 from django.db import transaction
-from django.db.models import F
+from django.db.models import F, CharField, Value
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
 from django.views.generic.base import TemplateView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -89,8 +90,8 @@ def index(request):
     })
 
 
-def help(request):
-    return render(request, 'kitchen/help.html')
+def docs(request):
+    return render(request, 'kitchen/docs.html')
 
 
 class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
@@ -931,3 +932,22 @@ class FoodConsumptionPrintView(LoginRequiredMixin, CreateView):
     model = DailyMenu
     form_class = FoodConsumptionPrintForm
     template_name = 'kitchen/report/food_consumption.html'
+
+
+class IncorrectUnitsListView(SingleTableMixin, LoginRequiredMixin, ListView):
+    model = Recipe
+    template_name = 'kitchen/report/incorrect-units.html'
+
+    def get_queryset(self):
+        # show only recipes where article unit cannot be converted to stock article unit
+        recipes = super().get_queryset()
+        incorrect_recipes = set()
+        for recipe in recipes:
+            recipe_articles = RecipeArticle.objects.filter(recipe=recipe)
+            for recipe_article in recipe_articles:
+                try:
+                    convertUnits(recipe_article.amount,
+                                 recipe_article.unit, recipe_article.article.unit)
+                except ValidationError:
+                    incorrect_recipes.add(recipe.pk)
+        return Recipe.objects.filter(pk__in=incorrect_recipes)

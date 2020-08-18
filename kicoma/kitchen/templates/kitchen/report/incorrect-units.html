@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
+<div class="container-fluid">
+  <h4>Seznam receptů k opravě</h4>
+  <hr />
+  {% if object_list %}
+    Prosím oprav jednotky v receptu nebo jednotky v kterých je evidováno zboží na
+    skladu. Důvodem je, že není možno převést jednotku z receptu na skladovou
+    jednotku.<br/>
+    <br/>
+    Klikni na recept a oprav zboží, kde je místo čísla v "Celková cena s DPH" zobrazena hodnota "—".
+    <hr/>
+    Celkem jde o {{ object_list|length }} receptů:<br/>
+    <ul>
+    {% for object in object_list %}
+      <li><a href="{% url 'kitchen:showRecipeArticles' object.pk %}">{{ object }}</a></li>
+    {% endfor %}
+    </ul>
+  {% else %}
+      Všechny recepty jsou zadány správně. Není nutná žádná další akce.
+  {% endif %}
+</div>
+{% endblock content %}

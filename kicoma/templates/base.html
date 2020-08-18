@@ -252,11 +252,18 @@
                 >
                   Rozpis spotřeby potravin dle jídel</a
                 >
+                <a
+                  class="dropdown-item"
+                  href="{% url 'kitchen:showIncorrectUnits' %}"
+                  onclick="alert('Prosím o strpení, tvorba reportu trvá cca 1 minutu.');"
+                >
+                  Zobrazit recepty, kde jednotky nesedí ze skladem</a
+                >
               </div>
             </li>
             {% endif %}
             <li class="nav-item active">
-              <a class="nav-link" href="{% url 'kitchen:help' %}"
+              <a class="nav-link" href="{% url 'kitchen:docs' %}"
                 >Nápověda</a
               >
             </li>

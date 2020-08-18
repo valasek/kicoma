@@ -18,14 +18,14 @@ from .views import DailyMenuListView, DailyMenuCreateView, DailyMenuUpdateView, 
     DailyMenuPDFView, DailyMenuPrintView
 from .views import DailyMenuRecipeListView, DailyMenuRecipeCreateView, DailyMenuRecipeUpdateView, \
     DailyMenuRecipeDeleteView
-from .views import FoodConsumptionPrintView, FoodConsumptionPDFView
+from .views import FoodConsumptionPrintView, FoodConsumptionPDFView, IncorrectUnitsListView
 
-from .views import index, help
+from .views import index, docs
 
 app_name = "kitchen"
 urlpatterns = [
     path('overview', index, name='overview'),
-    path('help', help, name='help'),
+    path('docs', docs, name='docs'),
 
     path('article/list', ArticleListView.as_view(), name='showArticles'),
     path('article/listlack', ArticleLackListView.as_view(), name='showLackArticles'),
@@ -80,4 +80,5 @@ urlpatterns = [
 
     path('report/filterfoodconsumption', FoodConsumptionPrintView.as_view(), name='filterFoodConsumption'),
     path('report/print/foodconsumption', FoodConsumptionPDFView.as_view(), name='printFoodConsumption'),
+    path('report/incorrectunits', IncorrectUnitsListView.as_view(), name='showIncorrectUnits'),
 ]
