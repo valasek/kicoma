@@ -5,10 +5,6 @@ from .models import StockReceipt, StockIssue, StockIssueArticle, StockReceiptArt
     Article, Recipe, DailyMenu, DailyMenuRecipe
 
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
-
-
 class ArticleForm(forms.ModelForm):
 
     class Meta:
@@ -94,16 +90,13 @@ class DailyMenuForm(forms.ModelForm):
     class Meta:
         model = DailyMenu
         fields = ["date", "meal_group", "meal_type", "comment"]
-        # widgets = {'date': DateInput(format="%d/%m/%Y")}
-        # widgets = {'date': DateInput(attrs={"type": "date"}, format='%d.%m.%Y')}
-        # date = forms.DateField(widget=forms.widgets.DateInput(attrs={"type": "date"}))
-        # forms.DateField(widget=forms.DateInput(format='%m/%d/%Y',
-        #                                        attrs={'class': 'datepicker'}), input_formats=('%m/%d/%Y',))
+        widgets = {
+            'date': forms.DateInput(format=('%Y-%m-%d'),
+                                    attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['date'].widget = forms.DateInput(attrs={"type": "date"}, format='%d.%m.%Y')
-        # self.fields['date'].input_formats = settings.DATE_INPUT_FORMATS
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout(
@@ -125,6 +118,10 @@ class DailyMenuPrintForm(forms.ModelForm):
     class Meta:
         model = DailyMenu
         fields = ["date", "meal_group"]
+        widgets = {
+            'date': forms.DateInput(format=('%Y-%m-%d'),
+                                    attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -191,6 +188,10 @@ class StockIssueFromDailyMenuForm(forms.ModelForm):
     class Meta:
         model = DailyMenu
         fields = ["date"]
+        widgets = {
+            'date': forms.DateInput(format=('%Y-%m-%d'),
+                                    attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -282,6 +283,10 @@ class FoodConsumptionPrintForm(forms.ModelForm):
     class Meta:
         model = DailyMenu
         fields = ["date"]
+        widgets = {
+            'date': forms.DateInput(format=('%Y-%m-%d'),
+                                    attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

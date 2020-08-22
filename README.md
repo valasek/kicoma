@@ -44,6 +44,9 @@ Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
 ## Initial set-up
 https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
 
+## Set email domain
+`heroku config:set MAILGUN_DOMAIN=hospic-cercany.cz`
+
 ## Update
 `git push heroku master`
 
