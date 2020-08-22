@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid">
+  <h4>{{ article_name }} - historie změn na skladu</h4>
+  <hr/>
+  <p><a href="{% url 'kitchen:showArticles' %}"><button class="btn btn-secondary">Zpět na seznam zboží</button></a></p>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Datum změny</th>
+      <th>Typ změny</th>
+      <th>Změnila</th>
+      <th>Název zboží</th>
+      <th>Na skladu</th>
+      <th>Minimálně na skladu</th>
+      <th>Celková cena s DPH</th>
+      <th>Poznámka</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for article in table %}
+      <tr>
+        <td>{{article.history_date}}</td>
+        <td>{{article.history_type}}</td>
+        <td>{{article.history_user}}</td>
+        <td>{{article.article}}</td>
+        <td>{{article.on_stock}} {{article.unit}}</td>
+        <td>{{article.min_on_stock}} {{article.unit}}</td>
+        <td>{{article.total_price}} Kč</td>
+        <td>{{article.comment}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

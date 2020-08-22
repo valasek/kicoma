@@ -39,26 +39,26 @@ class StockReceiptResource(resources.ModelResource):
         report_skipped = True
 
 
-class StockIssueArticleResource(resources.ModelResource):
-
-    class Meta:
-        model = StockIssueArticle
-        skip_unchanged = True
-        report_skipped = True
-
-
-class StockReceiptArticleResource(resources.ModelResource):
-
-    class Meta:
-        model = StockReceiptArticle
-        skip_unchanged = True
-        report_skipped = True
-
-
 class MealTypeResource(resources.ModelResource):
 
     class Meta:
         model = MealType
+        skip_unchanged = True
+        report_skipped = True
+
+
+class MealGroupResource(resources.ModelResource):
+
+    class Meta:
+        model = MealGroup
+        skip_unchanged = True
+        report_skipped = True
+
+
+class ArticleResource(resources.ModelResource):
+
+    class Meta:
+        model = Article
         skip_unchanged = True
         report_skipped = True
 
@@ -95,18 +95,18 @@ class RecipeArticleResource(resources.ModelResource):
         report_skipped = True
 
 
-class MealGroupResource(resources.ModelResource):
+class StockIssueArticleResource(resources.ModelResource):
 
     class Meta:
-        model = MealGroup
+        model = StockIssueArticle
         skip_unchanged = True
         report_skipped = True
 
 
-class ArticleResource(resources.ModelResource):
+class StockReceiptArticleResource(resources.ModelResource):
 
     class Meta:
-        model = Article
+        model = StockReceiptArticle
         skip_unchanged = True
         report_skipped = True
 

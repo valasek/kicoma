@@ -162,6 +162,19 @@
                 >
                   Založit novou příjemku
                 </a>
+                <hr />
+                <a
+                  class="dropdown-item"
+                  href="{% url 'kitchen:exportArticles' %}"
+                >
+                  Inventura - export zboží
+                </a>
+                <a
+                  class="dropdown-item"
+                  href="{% url 'kitchen:importArticles' %}"
+                >
+                  Inventura - import zboží
+                </a>
                 {% endif %}
               </div>
             </li>
@@ -255,7 +268,7 @@
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:showIncorrectUnits' %}"
-                  onclick="alert('Prosím o strpení, tvorba reportu trvá cca 1 minutu.');"
+                  id="reportMenu"
                 >
                   Zobrazit recepty, kde jednotky nesedí ze skladem</a
                 >
@@ -346,7 +359,33 @@
     </div>
     <!-- /container -->
 
-    {% block modal %} {% endblock modal %}
+    {% block modal %}
+    <div class="modal" id="report" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Report se připravuje</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Odhadovaná doba trvání je 1 minuta.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Rozumím</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+    $(document).ready(function(){
+      $("#reportMenu").click(function(){
+        $("#report").modal();
+      });
+    });
+    </script>
+    {% endblock modal %}
 
     <!-- Javascript
     ================================================== -->

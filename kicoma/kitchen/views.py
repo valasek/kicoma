@@ -3,17 +3,18 @@ from decimal import Decimal
 from datetime import datetime
 
 from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import ValidationError
 
 from django.db import transaction
-from django.db.models import F, CharField, Value
+from django.db.models import F
 
+from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, View
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -22,6 +23,8 @@ from django.contrib.auth.models import Group
 from wkhtmltopdf.views import PDFTemplateView
 from django_tables2 import SingleTableMixin
 from django_filters.views import FilterView
+
+from tablib import Dataset
 
 from kicoma.users.models import User
 
@@ -43,6 +46,8 @@ from .forms import DailyMenuSearchForm, DailyMenuPrintForm, DailyMenuForm, Daily
 from .forms import FoodConsumptionPrintForm
 
 from .functions import convertUnits
+
+from .admin import ArticleResource
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -153,6 +158,62 @@ class ArticlePDFView(LoginRequiredMixin, PDFTemplateView):
         context['articles'] = Article.objects.all()
         context['title'] = "Seznam zboží na skladu"
         context['total_stock_price'] = Article.sum_total_price()
+        return context
+
+
+class ArticleExportView(LoginRequiredMixin, View):
+
+    def get(self, *args, **kwargs):
+        data = ArticleResource().export()
+        print(data)
+        response = HttpResponse(
+            data.xlsx, content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        response['Content-Disposition'] = 'attachment; filename=seznam-zbozi.xlsx'
+        messages.success(self.request, "Seznam zboží byl exportován")
+        return response
+
+# https://simpleisbetterthancomplex.com/packages/2016/08/11/django-import-export.html
+# https://stackoverflow.com/questions/24008820/use-django-import-export-with-class-based-views
+
+
+class ArticleImportView(TemplateView):
+    template_name = 'kitchen/article/import.html'
+
+    def post(self, request, **kwargs):
+        article_resource = ArticleResource()
+        dataset = Dataset()
+        context = {}  # set your context
+        # context[''] = {}  # set your context
+        if len(request.FILES) == 0:
+            messages.error(
+                self.request,
+                "Není vybrán vstupní soubor, použij tlačítko Browse a vyber exportovaný a upravený MS Excel soubor.")
+            return super(ArticleImportView, self).render_to_response(context)
+        new_articles = request.FILES['myfile']
+        imported_data = dataset.load(new_articles.read())
+        print("imported", len(imported_data))
+        result = article_resource.import_data(imported_data, dry_run=True,
+                                              collect_failed_rows=True)  # Test the data import
+        if result.has_errors() or result.has_validation_errors():
+            messages.error(self.request, "Chyba v průběhu importu. Chybná data: {}".format(result.failed_dataset))
+        else:
+            article_resource.import_data(imported_data, dry_run=False)  # Actually import now
+            messages.success(self.request, "Seznam zboží byl importován. Importováno {} řádků, z toho {} vloženo, \
+                {} aktualizováno, {} vymazáno, {} přeskočeno, {} s chybou a {} neplatných řádků"
+                             .format(result.total_rows, result.totals['new'], result.totals['update'],
+                                     result.totals['delete'], result.totals['skip'], result.totals['error'],
+                                     result.totals['invalid']))
+        return super(ArticleImportView, self).render_to_response(context)
+
+
+class ArticleHistoryDetailView(LoginRequiredMixin, DetailView):
+    model = Article
+    template_name = 'kitchen/article/listhistory.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ArticleHistoryDetailView, self).get_context_data(**kwargs)
+        context['article_name'] = kwargs['object'].article
+        context['table'] = kwargs['object'].history.all()
         return context
 
 

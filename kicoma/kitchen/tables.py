@@ -6,11 +6,11 @@ from .models import Recipe, RecipeArticle, StockReceipt, StockIssue, Article, Da
 
 
 class ArticleTable(tables.Table):
-    # vat__percentage = tables.Column(verbose_name='DPH')
     average_price = tables.Column(verbose_name='Průměrná jednotková cena s DPH')
     allergens = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name='Alergény')
     change = tables.TemplateColumn(
-        '''<a href="/kitchen/article/update/{{ record.id }}">Upravit</a>''',
+        '''<a href="/kitchen/article/update/{{ record.id }}">Upravit</a>
+        | <a href="/kitchen/article/history/{{ record.id }}">Historie</a>''',
         verbose_name=u'Akce', )
 
     class Meta:

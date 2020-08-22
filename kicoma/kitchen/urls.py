@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import ArticleListView, ArticleCreateView, ArticleUpdateView, ArticlePDFView, \
-    ArticleLackListView
+from .views import ArticleListView, ArticleHistoryDetailView, ArticleCreateView, ArticleUpdateView, ArticlePDFView, \
+    ArticleLackListView, ArticleExportView, ArticleImportView
 from .views import StockReceiptListView, StockReceiptCreateView, StockReceiptUpdateView, \
     StockReceiptDeleteView, StockReceiptPDFView, StockReceiptApproveView
 from .views import StockReceiptArticleListView, StockReceiptArticleCreateView, StockReceiptArticleUpdateView, \
@@ -32,6 +32,9 @@ urlpatterns = [
     path('article/create', ArticleCreateView.as_view(), name='createArticle'),
     path('article/update/<int:pk>', ArticleUpdateView.as_view(), name='updateArticle'),
     path('article/print', ArticlePDFView.as_view(), name='printArticles'),
+    path('article/export', ArticleExportView.as_view(), name='exportArticles'),
+    path('article/import', ArticleImportView.as_view(), name='importArticles'),
+    path('article/history/<int:pk>', ArticleHistoryDetailView.as_view(), name='showArticleHistory'),
 
     path('stockissue/list', StockIssueListView.as_view(), name='showStockIssues'),
     path('stockissue/articlelist/<int:pk>', StockIssueArticleListView.as_view(), name='showStockIssueArticles'),

@@ -2,12 +2,13 @@ from decimal import Decimal
 import datetime
 
 from django.db import models
-from django.urls import reverse
 from django.db.models import Sum
 from django.conf import settings
 from django.forms import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
+
+from simple_history.models import HistoricalRecords
 
 from .functions import convertUnits, totalRecipeArticlePrice, totalStockReceiptArticlePrice
 
@@ -20,34 +21,28 @@ def updateArticleStock(stock_id, stock_direction):
             stock_articles = StockIssueArticle.objects.filter(stock_issue=stock_id)
         else:
             raise Exception(
-                "Article is not linked to StockReceiptArticle or StockIssueArticle or linked to both. Only one should be populated. \
-                    You can fix this in Administration.")
+                "Article is not linked to StockReceiptArticle or StockIssueArticle or linked to both. \
+                    Only one should be populated. You can fix this in Administration.")
     for stock_article in stock_articles:
-        article = Article.objects.filter(pk=stock_article.article.id).values_list(
-            'on_stock', 'total_price', 'unit').get()
-        on_stock = article[0]
-        total_price = article[1]
-        article_unit = article[2]
-        converted_amount = convertUnits(stock_article.amount, stock_article.unit, article_unit)
-        average_price = convertUnits(stock_article.article.average_price, article_unit, stock_article.unit)
+        article = Article.objects.filter(pk=stock_article.article.id).get()
+        converted_amount = convertUnits(stock_article.amount, stock_article.unit, article.unit)
         if stock_direction == 'receipt':
-            Article.objects.filter(pk=stock_article.article_id).update(
-                on_stock=on_stock + converted_amount,
-                total_price=total_price + average_price)
-            print(stock_direction, stock_article.article, stock_article.article.id,
-                  "mnozství: ", on_stock, "+", converted_amount,
-                  "cena: ", total_price, "+", average_price)
+            new_total_price = convertUnits(stock_article.total_price_with_vat, stock_article.unit, article.unit)
+            print("StockReceipt - mnozství: ", article.on_stock, "+", converted_amount,
+                  " - cena: ", article.total_price, "+", new_total_price)
+            article.on_stock += converted_amount
+            article.total_price += new_total_price
+            article.save()
         if stock_direction == 'issue':
-            if on_stock < 0 or on_stock - converted_amount < 0:
-                print(on_stock, converted_amount)
+            if article.on_stock < 0 or article.on_stock - converted_amount < 0:
                 return "Není možné vyskladnit zboží {}, vyskladňuješ {} a na skladu je jenom {}".format(
-                    stock_article.article, converted_amount, on_stock)
-            Article.objects.filter(pk=stock_article.article_id).update(
-                on_stock=on_stock - converted_amount,
-                total_price=total_price - average_price)
-            print(stock_direction, stock_article.article, stock_article.article.id,
-                  "mnozství: ", on_stock, "-", converted_amount,
-                  "cena: ", total_price, "-", average_price)
+                    stock_article.article, converted_amount, article.on_stock)
+            new_total_price = convertUnits(stock_article.total_average_price_with_vat, stock_article.unit, article.unit)
+            print("StockIssue | mnozství: ", article.on_stock, "-", converted_amount,
+                  "| cena:", article.total_price, "-", new_total_price)
+            article.on_stock -= converted_amount
+            article.total_price -= new_total_price
+            article.save()
     return None
 
 
@@ -143,6 +138,7 @@ class Article(TimeStampedModel):
         default=0, verbose_name='Celková cena s DPH', help_text='Celková cena zboží na skladu')
     allergen = models.ManyToManyField(Allergen, blank=True, verbose_name='Alergény')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.article
@@ -348,7 +344,7 @@ class StockReceiptArticle(TimeStampedModel):
 
     @property
     def price_with_vat(self):
-        if self.price_without_vat is not None and self.price_without_vat is not None and self.vat.percentage is not None:
+        if self.price_without_vat is not None and self.vat.percentage is not None:
             return self.price_without_vat + self.price_without_vat * self.vat.percentage/100
         return 0
 
