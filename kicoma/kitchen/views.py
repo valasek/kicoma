@@ -570,17 +570,19 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
                 daily_menu_amount = DailyMenuRecipe.objects.filter(
                     recipe=recipe_article.recipe, daily_menu__in=daily_menus.values_list('id', flat=True)).values_list('amount', flat=True).first()
                 recipe_article_coeficient = Decimal(daily_menu_amount / recipe_article.recipe.norm_amount)
-                stock_receipt_article = StockReceiptArticle.objects.filter(article=recipe_article.article)
-                if len(stock_receipt_article) < 1:
+                recipe_article_amount = convertUnits(recipe_article.amount, recipe_article.unit,
+                                                     recipe_article.article.unit) * recipe_article_coeficient
+                if recipe_article.article.on_stock < recipe_article_amount:
                     form.add_error(
-                        None, "Zboží {} není naskladněno".format(recipe_article.article))
+                        None, "Zboží {} nutno naskladnit. Vyskladňuješ {} {} a na skladu je {} {}."
+                        .format(recipe_article.article, recipe_article_amount, recipe_article.article.unit,
+                                recipe_article.article.on_stock, recipe_article.article.unit))
                     formError = True
                 else:
                     stock_issue_article = StockIssueArticle(
                         stock_issue=stock_issue,
                         article=recipe_article.article,
-                        amount=convertUnits(recipe_article.amount, recipe_article.unit,
-                                            recipe_article.article.unit) * recipe_article_coeficient,
+                        amount=recipe_article_amount,
                         unit=recipe_article.article.unit,
                         average_unit_price=recipe_article.article.average_price,
                         comment=""
@@ -591,7 +593,7 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
             form.add_error(None, "Bez naskladnění není možné vytvořit výdejku")
             stock_issue.delete()
             return super(StockIssueFromDailyMenuCreateView, self).form_invalid(form)
-        messages.success(self.request, 'Výdejka pro den {} vytvořena a vyskladňuje {} druhy zboží'.format(date, count))
+        messages.success(self.request, 'Výdejka pro den {} vytvořena a vyskladňuje {} druhů zboží'.format(date, count))
         return HttpResponseRedirect(self.success_url)
 
 

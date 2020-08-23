@@ -135,7 +135,7 @@
                   class="dropdown-item"
                   href="{% url 'kitchen:createArticle' %}"
                 >
-                  Založit novou skladovou kartu
+                  Nová skladová karta
                 </a>
                 {% endif %}
                 <hr />
@@ -148,7 +148,12 @@
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:createStockIssue' %}"
-                  >Založit novou výdejku</a
+                  >Nová výdejka</a
+                >
+                <a
+                  class="dropdown-item"
+                  href="{% url 'kitchen:createStockIssueFromDailyMenu' %}"
+                  >Nová výdejka z denního menu</a
                 >
                 {% if request.user|has_group:"stockkeeper" %}
                 <hr />
@@ -162,7 +167,7 @@
                   class="dropdown-item"
                   href="{% url 'kitchen:createStockReceipt' %}"
                 >
-                  Založit novou příjemku
+                  Nová příjemka
                 </a>
                 {% endif %}
               </div>
@@ -216,7 +221,7 @@
                   >Seznam receptů</a
                 >
                 <a class="dropdown-item" href="{% url 'kitchen:createRecipe' %}"
-                  >Založit nový recept</a
+                  >Nový recept</a
                 >
               </div>
             </li>
@@ -245,7 +250,7 @@
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:createDailyMenu' %}"
-                  >Založit denní menu</a
+                  >Nové denní menu</a
                 >
                 <a
                   class="dropdown-item"
