@@ -1,14 +1,31 @@
 [
   {
     "model": "kitchen.article",
+    "pk": 100227,
+    "fields": {
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
+      "article": "alobal",
+      "on_stock": 0,
+      "unit": "ks",
+      "allergen": [],
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.article",
     "pk": 100001,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "b\u00e1bovka",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "10", "14"],
+      "allergen": [
+        "2",
+        "10",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -16,8 +33,8 @@
     "model": "kitchen.article",
     "pk": 100002,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "bobkov\u00fd list",
       "on_stock": 0,
       "unit": "ks",
@@ -29,12 +46,16 @@
     "model": "kitchen.article",
     "pk": 100003,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "bramborov\u00e9 knedl\u00edky",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "10", "14"],
+      "allergen": [
+        "2",
+        "10",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -42,12 +63,14 @@
     "model": "kitchen.article",
     "pk": 100004,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "citronov\u00e1 \u0161t\u00e1va",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["25"],
+      "allergen": [
+        "25"
+      ],
       "comment": ""
     }
   },
@@ -55,8 +78,8 @@
     "model": "kitchen.article",
     "pk": 100005,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "cukr krupice,krystal",
       "on_stock": 0,
       "unit": "kg",
@@ -68,8 +91,8 @@
     "model": "kitchen.article",
     "pk": 100006,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "cukr mou\u010dka",
       "on_stock": 0,
       "unit": "kg",
@@ -81,8 +104,8 @@
     "model": "kitchen.article",
     "pk": 100007,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "cukr vanilkov\u00fd",
       "on_stock": 0,
       "unit": "ks",
@@ -94,8 +117,8 @@
     "model": "kitchen.article",
     "pk": 100008,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "divok\u00e9 ko\u0159en\u00ed raj\u010d.",
       "on_stock": 0,
       "unit": "kg",
@@ -107,12 +130,14 @@
     "model": "kitchen.article",
     "pk": 100009,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "d\u017eem 400g",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["27"],
+      "allergen": [
+        "27"
+      ],
       "comment": ""
     }
   },
@@ -120,12 +145,14 @@
     "model": "kitchen.article",
     "pk": 100010,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "d\u017eem porce",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["27"],
+      "allergen": [
+        "27"
+      ],
       "comment": ""
     }
   },
@@ -133,8 +160,8 @@
     "model": "kitchen.article",
     "pk": 100011,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "dro\u017ed\u00ed ks",
       "on_stock": 0,
       "unit": "ks",
@@ -146,8 +173,8 @@
     "model": "kitchen.article",
     "pk": 100012,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "granko",
       "on_stock": 0,
       "unit": "ks",
@@ -159,12 +186,15 @@
     "model": "kitchen.article",
     "pk": 100013,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "halali",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["24", "1"],
+      "allergen": [
+        "24",
+        "1"
+      ],
       "comment": ""
     }
   },
@@ -172,12 +202,14 @@
     "model": "kitchen.article",
     "pk": 100014,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "mouka hladk\u00e1",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2"],
+      "allergen": [
+        "2"
+      ],
       "comment": ""
     }
   },
@@ -185,12 +217,14 @@
     "model": "kitchen.article",
     "pk": 100015,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "mouka hrub\u00e1",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2"],
+      "allergen": [
+        "2"
+      ],
       "comment": ""
     }
   },
@@ -198,12 +232,14 @@
     "model": "kitchen.article",
     "pk": 100016,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "mouka polohrub\u00e1",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2"],
+      "allergen": [
+        "2"
+      ],
       "comment": ""
     }
   },
@@ -211,8 +247,8 @@
     "model": "kitchen.article",
     "pk": 100017,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "mu\u0161k\u00e1tov\u00fd kv\u011bt",
       "on_stock": 0,
       "unit": "ks",
@@ -224,8 +260,8 @@
     "model": "kitchen.article",
     "pk": 100018,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "nov\u00e9 ko\u0159en\u00ed",
       "on_stock": 0,
       "unit": "kg",
@@ -237,12 +273,14 @@
     "model": "kitchen.article",
     "pk": 100019,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ocet",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["27"],
+      "allergen": [
+        "27"
+      ],
       "comment": ""
     }
   },
@@ -250,12 +288,15 @@
     "model": "kitchen.article",
     "pk": 100020,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "okurky sterilovan\u00e9",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["25", "27"],
+      "allergen": [
+        "25",
+        "27"
+      ],
       "comment": ""
     }
   },
@@ -263,8 +304,8 @@
     "model": "kitchen.article",
     "pk": 100021,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "olej",
       "on_stock": 0,
       "unit": "ks",
@@ -276,12 +317,14 @@
     "model": "kitchen.article",
     "pk": 100022,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ovesn\u00e9 vlo\u010dky",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["5"],
+      "allergen": [
+        "5"
+      ],
       "comment": ""
     }
   },
@@ -289,8 +332,8 @@
     "model": "kitchen.article",
     "pk": 100023,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "paprika mlet\u00e1",
       "on_stock": 0,
       "unit": "kg",
@@ -302,12 +345,14 @@
     "model": "kitchen.article",
     "pk": 100024,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pa\u0161tiky 100g",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2"],
+      "allergen": [
+        "2"
+      ],
       "comment": ""
     }
   },
@@ -315,12 +360,14 @@
     "model": "kitchen.article",
     "pk": 100025,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pa\u0161tiky 48g",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2"],
+      "allergen": [
+        "2"
+      ],
       "comment": ""
     }
   },
@@ -328,8 +375,8 @@
     "model": "kitchen.article",
     "pk": 100026,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pep\u0159 cel\u00fd",
       "on_stock": 0,
       "unit": "kg",
@@ -341,8 +388,8 @@
     "model": "kitchen.article",
     "pk": 100027,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pep\u0159 mlet\u00fd",
       "on_stock": 0,
       "unit": "kg",
@@ -354,12 +401,16 @@
     "model": "kitchen.article",
     "pk": 100028,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pern\u00edk na strouh\u00e1n\u00ed",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "10", "14"],
+      "allergen": [
+        "2",
+        "10",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -367,8 +418,8 @@
     "model": "kitchen.article",
     "pk": 100029,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pit\u00ed\u010dko",
       "on_stock": 0,
       "unit": "ks",
@@ -380,12 +431,15 @@
     "model": "kitchen.article",
     "pk": 100030,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pi\u0161koty",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["10", "14"],
+      "allergen": [
+        "10",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -393,8 +447,8 @@
     "model": "kitchen.article",
     "pk": 100031,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pohanka",
       "on_stock": 0,
       "unit": "kg",
@@ -406,12 +460,15 @@
     "model": "kitchen.article",
     "pk": 100032,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "zmrzliny, nanuky",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["14", "10"],
+      "allergen": [
+        "14",
+        "10"
+      ],
       "comment": ""
     }
   },
@@ -419,12 +476,19 @@
     "model": "kitchen.article",
     "pk": 100033,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pol\u00e9vkov\u00e9 ko\u0159en\u00ed",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "10", "13", "14", "24", "28"],
+      "allergen": [
+        "2",
+        "10",
+        "13",
+        "14",
+        "24",
+        "28"
+      ],
       "comment": ""
     }
   },
@@ -432,8 +496,8 @@
     "model": "kitchen.article",
     "pk": 100034,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "povidla \u0161vestkov\u00e1",
       "on_stock": 0,
       "unit": "ks",
@@ -445,8 +509,8 @@
     "model": "kitchen.article",
     "pk": 100035,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pr\u00e1\u0161ek do pern\u00edku",
       "on_stock": 0,
       "unit": "ks",
@@ -458,8 +522,8 @@
     "model": "kitchen.article",
     "pk": 100036,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pr\u00e1\u0161ek do pe\u010diva",
       "on_stock": 0,
       "unit": "ks",
@@ -471,12 +535,17 @@
     "model": "kitchen.article",
     "pk": 100037,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pudink pr\u00e1\u0161ek",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "10", "14", "28"],
+      "allergen": [
+        "2",
+        "10",
+        "14",
+        "28"
+      ],
       "comment": ""
     }
   },
@@ -484,12 +553,15 @@
     "model": "kitchen.article",
     "pk": 100038,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pudink se \u0161leha\u010dkou",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["14", "27"],
+      "allergen": [
+        "14",
+        "27"
+      ],
       "comment": ""
     }
   },
@@ -497,8 +569,8 @@
     "model": "kitchen.article",
     "pk": 100039,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "p\u0159esn\u00edd\u00e1vky",
       "on_stock": 0,
       "unit": "ks",
@@ -510,8 +582,8 @@
     "model": "kitchen.article",
     "pk": 100040,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "raj\u010datov\u00fd protlak",
       "on_stock": 0,
       "unit": "ks",
@@ -523,12 +595,15 @@
     "model": "kitchen.article",
     "pk": 100041,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "rohl\u00edky",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "4"],
+      "allergen": [
+        "2",
+        "4"
+      ],
       "comment": ""
     }
   },
@@ -536,12 +611,14 @@
     "model": "kitchen.article",
     "pk": 100042,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "rozinky",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["27"],
+      "allergen": [
+        "27"
+      ],
       "comment": ""
     }
   },
@@ -549,8 +626,8 @@
     "model": "kitchen.article",
     "pk": 100043,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "r\u00fd\u017ee",
       "on_stock": 0,
       "unit": "kg",
@@ -562,12 +639,14 @@
     "model": "kitchen.article",
     "pk": 100044,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "rybi\u010dky 170g",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["11"],
+      "allergen": [
+        "11"
+      ],
       "comment": ""
     }
   },
@@ -575,8 +654,8 @@
     "model": "kitchen.article",
     "pk": 100045,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "s\u016fl",
       "on_stock": 0,
       "unit": "kg",
@@ -588,8 +667,8 @@
     "model": "kitchen.article",
     "pk": 100046,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "sirup",
       "on_stock": 0,
       "unit": "ks",
@@ -601,8 +680,8 @@
     "model": "kitchen.article",
     "pk": 100047,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "sko\u0159ice",
       "on_stock": 0,
       "unit": "ks",
@@ -614,12 +693,14 @@
     "model": "kitchen.article",
     "pk": 100048,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "sojov\u00e1 om\u00e1\u010dka",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["13"],
+      "allergen": [
+        "13"
+      ],
       "comment": ""
     }
   },
@@ -627,12 +708,16 @@
     "model": "kitchen.article",
     "pk": 100049,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "sojov\u00e9 maso",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "13", "14"],
+      "allergen": [
+        "2",
+        "13",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -640,8 +725,8 @@
     "model": "kitchen.article",
     "pk": 100050,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "solamyl",
       "on_stock": 0,
       "unit": "ks",
@@ -653,12 +738,15 @@
     "model": "kitchen.article",
     "pk": 100051,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "strouhanka",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "4"],
+      "allergen": [
+        "2",
+        "4"
+      ],
       "comment": ""
     }
   },
@@ -666,12 +754,15 @@
     "model": "kitchen.article",
     "pk": 100052,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "housky",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "4"],
+      "allergen": [
+        "2",
+        "4"
+      ],
       "comment": ""
     }
   },
@@ -679,12 +770,14 @@
     "model": "kitchen.article",
     "pk": 100053,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ho\u0159\u010dice 400g",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["25"],
+      "allergen": [
+        "25"
+      ],
       "comment": ""
     }
   },
@@ -692,12 +785,14 @@
     "model": "kitchen.article",
     "pk": 100054,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ho\u0159\u010dice porce",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["25"],
+      "allergen": [
+        "25"
+      ],
       "comment": ""
     }
   },
@@ -705,8 +800,8 @@
     "model": "kitchen.article",
     "pk": 100055,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "hr\u00e1ch",
       "on_stock": 0,
       "unit": "kg",
@@ -718,8 +813,8 @@
     "model": "kitchen.article",
     "pk": 100056,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "hranolky",
       "on_stock": 0,
       "unit": "kg",
@@ -731,8 +826,8 @@
     "model": "kitchen.article",
     "pk": 100057,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "h\u0159eb\u00ed\u010dek",
       "on_stock": 0,
       "unit": "kg",
@@ -744,12 +839,16 @@
     "model": "kitchen.article",
     "pk": 100058,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "chl\u00e9b",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "3", "13"],
+      "allergen": [
+        "2",
+        "3",
+        "13"
+      ],
       "comment": ""
     }
   },
@@ -757,8 +856,8 @@
     "model": "kitchen.article",
     "pk": 100059,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "j\u00e1hly",
       "on_stock": 0,
       "unit": "kg",
@@ -770,8 +869,8 @@
     "model": "kitchen.article",
     "pk": 100060,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kakao",
       "on_stock": 0,
       "unit": "kg",
@@ -783,12 +882,14 @@
     "model": "kitchen.article",
     "pk": 100061,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kapu\u010dino",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -796,12 +897,14 @@
     "model": "kitchen.article",
     "pk": 100062,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "karo",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["3"],
+      "allergen": [
+        "3"
+      ],
       "comment": ""
     }
   },
@@ -809,8 +912,8 @@
     "model": "kitchen.article",
     "pk": 100063,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ke\u010dup 500g",
       "on_stock": 0,
       "unit": "ks",
@@ -822,8 +925,8 @@
     "model": "kitchen.article",
     "pk": 100064,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "km\u00edn",
       "on_stock": 0,
       "unit": "kg",
@@ -835,12 +938,16 @@
     "model": "kitchen.article",
     "pk": 100065,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kol\u00e1\u010de",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "10", "14"],
+      "allergen": [
+        "2",
+        "10",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -848,8 +955,8 @@
     "model": "kitchen.article",
     "pk": 100066,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kompot 2500g",
       "on_stock": 0,
       "unit": "ks",
@@ -861,8 +968,8 @@
     "model": "kitchen.article",
     "pk": 100067,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kompot 3500g",
       "on_stock": 0,
       "unit": "ks",
@@ -874,8 +981,8 @@
     "model": "kitchen.article",
     "pk": 100068,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kompot 350g",
       "on_stock": 0,
       "unit": "ks",
@@ -887,8 +994,8 @@
     "model": "kitchen.article",
     "pk": 100069,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kompot 400-600g",
       "on_stock": 0,
       "unit": "ks",
@@ -900,8 +1007,8 @@
     "model": "kitchen.article",
     "pk": 100070,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kompot 700g",
       "on_stock": 0,
       "unit": "ks",
@@ -913,8 +1020,8 @@
     "model": "kitchen.article",
     "pk": 100071,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kopr sterilovan\u00fd",
       "on_stock": 0,
       "unit": "ks",
@@ -926,12 +1033,14 @@
     "model": "kitchen.article",
     "pk": 100072,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kroupy",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["4"],
+      "allergen": [
+        "4"
+      ],
       "comment": ""
     }
   },
@@ -939,12 +1048,14 @@
     "model": "kitchen.article",
     "pk": 100073,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "krupice hrub\u00e1",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2"],
+      "allergen": [
+        "2"
+      ],
       "comment": ""
     }
   },
@@ -952,12 +1063,14 @@
     "model": "kitchen.article",
     "pk": 100074,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "krupi\u010dka d\u011btsk\u00e1",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2"],
+      "allergen": [
+        "2"
+      ],
       "comment": ""
     }
   },
@@ -965,12 +1078,14 @@
     "model": "kitchen.article",
     "pk": 100075,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kus kus",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2"],
+      "allergen": [
+        "2"
+      ],
       "comment": ""
     }
   },
@@ -978,12 +1093,15 @@
     "model": "kitchen.article",
     "pk": 100076,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "k\u0159en steril",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["14", "27"],
+      "allergen": [
+        "14",
+        "27"
+      ],
       "comment": ""
     }
   },
@@ -991,12 +1109,14 @@
     "model": "kitchen.article",
     "pk": 100077,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "l\u00e1manka",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2"],
+      "allergen": [
+        "2"
+      ],
       "comment": ""
     }
   },
@@ -1004,8 +1124,8 @@
     "model": "kitchen.article",
     "pk": 100078,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "le\u010do zeleninov\u00e9 670g",
       "on_stock": 0,
       "unit": "ks",
@@ -1017,12 +1137,15 @@
     "model": "kitchen.article",
     "pk": 100079,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "listov\u00e9 t\u011bsto",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "10"],
+      "allergen": [
+        "2",
+        "10"
+      ],
       "comment": ""
     }
   },
@@ -1030,8 +1153,8 @@
     "model": "kitchen.article",
     "pk": 100080,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "major\u00e1nka",
       "on_stock": 0,
       "unit": "kg",
@@ -1043,8 +1166,8 @@
     "model": "kitchen.article",
     "pk": 100081,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "m\u00e1k",
       "on_stock": 0,
       "unit": "kg",
@@ -1056,12 +1179,14 @@
     "model": "kitchen.article",
     "pk": 100083,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "mandle",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["16"],
+      "allergen": [
+        "16"
+      ],
       "comment": ""
     }
   },
@@ -1069,8 +1194,8 @@
     "model": "kitchen.article",
     "pk": 100084,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "med kv\u011btov\u00fd 250g",
       "on_stock": 0,
       "unit": "ks",
@@ -1082,8 +1207,8 @@
     "model": "kitchen.article",
     "pk": 100085,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "med porce",
       "on_stock": 0,
       "unit": "ks",
@@ -1095,8 +1220,8 @@
     "model": "kitchen.article",
     "pk": 100086,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "meloun",
       "on_stock": 0,
       "unit": "kg",
@@ -1108,8 +1233,8 @@
     "model": "kitchen.article",
     "pk": 100087,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "miner\u00e1lka",
       "on_stock": 0,
       "unit": "ks",
@@ -1121,8 +1246,8 @@
     "model": "kitchen.article",
     "pk": 100088,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pomeran\u010de",
       "on_stock": 0,
       "unit": "kg",
@@ -1134,8 +1259,8 @@
     "model": "kitchen.article",
     "pk": 100091,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u010daj porce ks",
       "on_stock": 0,
       "unit": "ks",
@@ -1147,8 +1272,8 @@
     "model": "kitchen.article",
     "pk": 100092,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u010daj viatex 80g",
       "on_stock": 0,
       "unit": "ks",
@@ -1160,8 +1285,8 @@
     "model": "kitchen.article",
     "pk": 100093,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "tatranky, su\u0161enky",
       "on_stock": 0,
       "unit": "ks",
@@ -1173,12 +1298,16 @@
     "model": "kitchen.article",
     "pk": 100094,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ta\u0161ti\u010dky tvarohov\u00e9",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "10", "14"],
+      "allergen": [
+        "2",
+        "10",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -1186,8 +1315,8 @@
     "model": "kitchen.article",
     "pk": 100095,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u010derven\u00e1 \u0159epa",
       "on_stock": 0,
       "unit": "ks",
@@ -1199,8 +1328,8 @@
     "model": "kitchen.article",
     "pk": 100096,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u010dokol\u00e1da na va\u0159en\u00ed",
       "on_stock": 0,
       "unit": "ks",
@@ -1212,8 +1341,8 @@
     "model": "kitchen.article",
     "pk": 100097,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u010do\u010dka",
       "on_stock": 0,
       "unit": "kg",
@@ -1225,12 +1354,14 @@
     "model": "kitchen.article",
     "pk": 100098,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "tu\u0148\u00e1k",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["11"],
+      "allergen": [
+        "11"
+      ],
       "comment": ""
     }
   },
@@ -1238,8 +1369,8 @@
     "model": "kitchen.article",
     "pk": 100099,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "tymi\u00e1n",
       "on_stock": 0,
       "unit": "ks",
@@ -1251,12 +1382,15 @@
     "model": "kitchen.article",
     "pk": 100100,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "t\u011bstoviny",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "10"],
+      "allergen": [
+        "2",
+        "10"
+      ],
       "comment": ""
     }
   },
@@ -1264,12 +1398,17 @@
     "model": "kitchen.article",
     "pk": 100102,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "v\u00e1no\u010dky",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "10", "14", "18"],
+      "allergen": [
+        "2",
+        "10",
+        "14",
+        "18"
+      ],
       "comment": ""
     }
   },
@@ -1277,12 +1416,16 @@
     "model": "kitchen.article",
     "pk": 100103,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "veky",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "4", "13"],
+      "allergen": [
+        "2",
+        "4",
+        "13"
+      ],
       "comment": ""
     }
   },
@@ -1290,8 +1433,8 @@
     "model": "kitchen.article",
     "pk": 100104,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vep\u0159ov\u00e1 konzerva",
       "on_stock": 0,
       "unit": "ks",
@@ -1303,11 +1446,11 @@
     "model": "kitchen.article",
     "pk": 100105,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "v\u00edno",
       "on_stock": 0,
-      "unit": "l",
+      "unit": "ks",
       "allergen": [],
       "comment": ""
     }
@@ -1316,8 +1459,8 @@
     "model": "kitchen.article",
     "pk": 100106,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "worcester",
       "on_stock": 0,
       "unit": "ks",
@@ -1329,12 +1472,17 @@
     "model": "kitchen.article",
     "pk": 100107,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "z\u00e1kusky",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "10", "14", "18"],
+      "allergen": [
+        "2",
+        "10",
+        "14",
+        "18"
+      ],
       "comment": ""
     }
   },
@@ -1342,12 +1490,15 @@
     "model": "kitchen.article",
     "pk": 100108,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "zav\u00e1\u0159ka",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "10"],
+      "allergen": [
+        "2",
+        "10"
+      ],
       "comment": ""
     }
   },
@@ -1355,8 +1506,8 @@
     "model": "kitchen.article",
     "pk": 100109,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "z\u00e1zvor",
       "on_stock": 0,
       "unit": "kg",
@@ -1368,12 +1519,14 @@
     "model": "kitchen.article",
     "pk": 100110,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "zel\u00ed ster.640,kysan\u00e9",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["27"],
+      "allergen": [
+        "27"
+      ],
       "comment": ""
     }
   },
@@ -1381,12 +1534,17 @@
     "model": "kitchen.article",
     "pk": 100111,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u0161\u00e1te\u010dky",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "3", "10", "14"],
+      "allergen": [
+        "2",
+        "3",
+        "10",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -1394,12 +1552,16 @@
     "model": "kitchen.article",
     "pk": 100112,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u0161pagety",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "3", "10"],
+      "allergen": [
+        "2",
+        "3",
+        "10"
+      ],
       "comment": ""
     }
   },
@@ -1407,8 +1569,8 @@
     "model": "kitchen.article",
     "pk": 100113,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "podravka",
       "on_stock": 0,
       "unit": "ks",
@@ -1420,8 +1582,8 @@
     "model": "kitchen.article",
     "pk": 100197,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "fazole",
       "on_stock": 0,
       "unit": "kg",
@@ -1433,8 +1595,8 @@
     "model": "kitchen.article",
     "pk": 100198,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "olivy",
       "on_stock": 0,
       "unit": "ks",
@@ -1446,8 +1608,8 @@
     "model": "kitchen.article",
     "pk": 100199,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "grilovac\u00ed ko\u0159en\u00ed",
       "on_stock": 0,
       "unit": "kg",
@@ -1459,12 +1621,14 @@
     "model": "kitchen.article",
     "pk": 100200,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "brusinky",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["27"],
+      "allergen": [
+        "27"
+      ],
       "comment": ""
     }
   },
@@ -1472,8 +1636,8 @@
     "model": "kitchen.article",
     "pk": 100201,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "olej olivov\u00fd",
       "on_stock": 0,
       "unit": "ks",
@@ -1485,12 +1649,14 @@
     "model": "kitchen.article",
     "pk": 100202,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "zelenina sterilovan\u00e1",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["24"],
+      "allergen": [
+        "24"
+      ],
       "comment": ""
     }
   },
@@ -1498,8 +1664,8 @@
     "model": "kitchen.article",
     "pk": 100203,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "hr\u00e1\u0161ek sterilovan\u00fd",
       "on_stock": 0,
       "unit": "ks",
@@ -1511,8 +1677,8 @@
     "model": "kitchen.article",
     "pk": 100204,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kari",
       "on_stock": 0,
       "unit": "kg",
@@ -1524,8 +1690,8 @@
     "model": "kitchen.article",
     "pk": 100205,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ko\u0159en\u00ed houbov\u00e9",
       "on_stock": 0,
       "unit": "kg",
@@ -1537,8 +1703,8 @@
     "model": "kitchen.article",
     "pk": 100206,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ko\u0159en\u00ed gyros",
       "on_stock": 0,
       "unit": "kg",
@@ -1550,8 +1716,8 @@
     "model": "kitchen.article",
     "pk": 100207,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kokos strouhan\u00fd",
       "on_stock": 0,
       "unit": "ks",
@@ -1563,8 +1729,8 @@
     "model": "kitchen.article",
     "pk": 100208,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u010desnekov\u00e1 pasta",
       "on_stock": 0,
       "unit": "ks",
@@ -1576,12 +1742,17 @@
     "model": "kitchen.article",
     "pk": 100209,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "sma\u017een\u00fd hr\u00e1\u0161ek",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "3", "10", "14"],
+      "allergen": [
+        "2",
+        "3",
+        "10",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -1589,8 +1760,8 @@
     "model": "kitchen.article",
     "pk": 100210,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "fazole sterilovan\u00e9",
       "on_stock": 0,
       "unit": "ks",
@@ -1602,8 +1773,8 @@
     "model": "kitchen.article",
     "pk": 100211,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ko\u0159en\u00ed na ryby",
       "on_stock": 0,
       "unit": "kg",
@@ -1615,8 +1786,8 @@
     "model": "kitchen.article",
     "pk": 100212,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "dobr\u00e1 voda",
       "on_stock": 0,
       "unit": "ks",
@@ -1628,12 +1799,17 @@
     "model": "kitchen.article",
     "pk": 100213,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "loup\u00e1ky",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "4", "10", "14"],
+      "allergen": [
+        "2",
+        "4",
+        "10",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -1641,12 +1817,16 @@
     "model": "kitchen.article",
     "pk": 100214,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "koblihy",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "10", "14"],
+      "allergen": [
+        "2",
+        "10",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -1654,12 +1834,16 @@
     "model": "kitchen.article",
     "pk": 100215,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "z\u00e1vin makov\u00fd",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "10", "14"],
+      "allergen": [
+        "2",
+        "10",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -1667,12 +1851,17 @@
     "model": "kitchen.article",
     "pk": 100216,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "makovky",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["2", "4", "10", "14"],
+      "allergen": [
+        "2",
+        "4",
+        "10",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -1680,12 +1869,14 @@
     "model": "kitchen.article",
     "pk": 100217,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u0161leha\u010dka sprej",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["27"],
+      "allergen": [
+        "27"
+      ],
       "comment": ""
     }
   },
@@ -1693,12 +1884,14 @@
     "model": "kitchen.article",
     "pk": 100218,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ka\u0161e bramborov\u00e1",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -1706,8 +1899,8 @@
     "model": "kitchen.article",
     "pk": 100219,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "v\u00fdvar,uzen\u00fd,dr\u016fb,hov",
       "on_stock": 0,
       "unit": "kg",
@@ -1719,8 +1912,8 @@
     "model": "kitchen.article",
     "pk": 100220,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "s\u00e1\u010dky igelitov\u00e9",
       "on_stock": 0,
       "unit": "ks",
@@ -1732,8 +1925,8 @@
     "model": "kitchen.article",
     "pk": 100221,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ubrousky",
       "on_stock": 0,
       "unit": "ks",
@@ -1745,12 +1938,14 @@
     "model": "kitchen.article",
     "pk": 100222,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "fazolov\u00e9 lusky steri",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["27"],
+      "allergen": [
+        "27"
+      ],
       "comment": ""
     }
   },
@@ -1758,12 +1953,14 @@
     "model": "kitchen.article",
     "pk": 100223,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "mrkev sterilovan\u00e1",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["27"],
+      "allergen": [
+        "27"
+      ],
       "comment": ""
     }
   },
@@ -1771,8 +1968,8 @@
     "model": "kitchen.article",
     "pk": 100224,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "bezlepkov\u00e9 potraviny",
       "on_stock": 0,
       "unit": "ks",
@@ -1784,8 +1981,8 @@
     "model": "kitchen.article",
     "pk": 100225,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vaje\u010dn\u00e1 \u017eelatina",
       "on_stock": 0,
       "unit": "ks",
@@ -1797,22 +1994,9 @@
     "model": "kitchen.article",
     "pk": 100226,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "rum",
-      "on_stock": 0,
-      "unit": "ks",
-      "allergen": [],
-      "comment": ""
-    }
-  },
-  {
-    "model": "kitchen.article",
-    "pk": 100227,
-    "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
-      "article": "alobal",
       "on_stock": 0,
       "unit": "ks",
       "allergen": [],
@@ -1823,8 +2007,8 @@
     "model": "kitchen.article",
     "pk": 100228,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pap\u00edr pe\u010d\u00edc\u00ed",
       "on_stock": 0,
       "unit": "ks",
@@ -1836,8 +2020,8 @@
     "model": "kitchen.article",
     "pk": 100229,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "chilli sladk\u00e9",
       "on_stock": 0,
       "unit": "ks",
@@ -1849,8 +2033,8 @@
     "model": "kitchen.article",
     "pk": 100230,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "chl\u00e9b toustov\u00fd",
       "on_stock": 0,
       "unit": "ks",
@@ -1862,8 +2046,8 @@
     "model": "kitchen.article",
     "pk": 100231,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "s\u00e1\u010dky mraz\u00edc\u00ed",
       "on_stock": 0,
       "unit": "ks",
@@ -1875,8 +2059,8 @@
     "model": "kitchen.article",
     "pk": 100232,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "bulgur",
       "on_stock": 0,
       "unit": "kg",
@@ -1888,8 +2072,8 @@
     "model": "kitchen.article",
     "pk": 100233,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "spatzle",
       "on_stock": 0,
       "unit": "kg",
@@ -1901,8 +2085,8 @@
     "model": "kitchen.article",
     "pk": 100234,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "tortilla",
       "on_stock": 0,
       "unit": "ks",
@@ -1914,8 +2098,8 @@
     "model": "kitchen.article",
     "pk": 100236,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "Menubox jednod\u00edln\u00fd",
       "on_stock": 0,
       "unit": "ks",
@@ -1927,8 +2111,8 @@
     "model": "kitchen.article",
     "pk": 100237,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kurkuma",
       "on_stock": 0,
       "unit": "kg",
@@ -1940,8 +2124,8 @@
     "model": "kitchen.article",
     "pk": 100238,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ka\u0161e natural",
       "on_stock": 0,
       "unit": "ks",
@@ -1953,8 +2137,8 @@
     "model": "kitchen.article",
     "pk": 100239,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "lasagne",
       "on_stock": 0,
       "unit": "kg",
@@ -1966,8 +2150,8 @@
     "model": "kitchen.article",
     "pk": 100240,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u0161od\u00f3 sypk\u00e1 sm\u011bs",
       "on_stock": 0,
       "unit": "ks",
@@ -1979,8 +2163,8 @@
     "model": "kitchen.article",
     "pk": 100241,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "bramborov\u00e9 kruc\u00e1nky",
       "on_stock": 0,
       "unit": "kg",
@@ -1992,12 +2176,15 @@
     "model": "kitchen.article",
     "pk": 100242,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "krupi\u010dka instantn\u00ed",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["10", "14"],
+      "allergen": [
+        "10",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -2005,8 +2192,8 @@
     "model": "kitchen.article",
     "pk": 200001,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ban\u00e1ny",
       "on_stock": 0,
       "unit": "kg",
@@ -2018,8 +2205,8 @@
     "model": "kitchen.article",
     "pk": 200002,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "brambory",
       "on_stock": 0,
       "unit": "kg",
@@ -2031,8 +2218,8 @@
     "model": "kitchen.article",
     "pk": 200003,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "brokolice mra\u017een\u00e1",
       "on_stock": 0,
       "unit": "kg",
@@ -2044,8 +2231,8 @@
     "model": "kitchen.article",
     "pk": 200004,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "broskve",
       "on_stock": 0,
       "unit": "kg",
@@ -2057,12 +2244,14 @@
     "model": "kitchen.article",
     "pk": 200005,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "celer",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["24"],
+      "allergen": [
+        "24"
+      ],
       "comment": ""
     }
   },
@@ -2070,8 +2259,8 @@
     "model": "kitchen.article",
     "pk": 200006,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "cibule",
       "on_stock": 0,
       "unit": "kg",
@@ -2083,8 +2272,8 @@
     "model": "kitchen.article",
     "pk": 200007,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "citrony",
       "on_stock": 0,
       "unit": "kg",
@@ -2096,8 +2285,8 @@
     "model": "kitchen.article",
     "pk": 200008,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "fazolov\u00e9 lusky mra\u017e",
       "on_stock": 0,
       "unit": "kg",
@@ -2109,8 +2298,8 @@
     "model": "kitchen.article",
     "pk": 200009,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "houby mra\u017een\u00e9",
       "on_stock": 0,
       "unit": "kg",
@@ -2122,8 +2311,8 @@
     "model": "kitchen.article",
     "pk": 200010,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "hr\u00e1\u0161ek mra\u017een\u00fd",
       "on_stock": 0,
       "unit": "kg",
@@ -2135,8 +2324,8 @@
     "model": "kitchen.article",
     "pk": 200011,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "hru\u0161ky",
       "on_stock": 0,
       "unit": "kg",
@@ -2148,8 +2337,8 @@
     "model": "kitchen.article",
     "pk": 200012,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "jablka",
       "on_stock": 0,
       "unit": "kg",
@@ -2161,12 +2350,14 @@
     "model": "kitchen.article",
     "pk": 200013,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "p\u00e1rky",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["13"],
+      "allergen": [
+        "13"
+      ],
       "comment": ""
     }
   },
@@ -2174,8 +2365,8 @@
     "model": "kitchen.article",
     "pk": 200014,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kapusta",
       "on_stock": 0,
       "unit": "kg",
@@ -2187,8 +2378,8 @@
     "model": "kitchen.article",
     "pk": 200015,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kedlubny",
       "on_stock": 0,
       "unit": "ks",
@@ -2200,8 +2391,8 @@
     "model": "kitchen.article",
     "pk": 200016,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kiwi ks",
       "on_stock": 0,
       "unit": "ks",
@@ -2213,8 +2404,8 @@
     "model": "kitchen.article",
     "pk": 200017,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kv\u011bt\u00e1k",
       "on_stock": 0,
       "unit": "ks",
@@ -2226,8 +2417,8 @@
     "model": "kitchen.article",
     "pk": 200018,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "mandarinky",
       "on_stock": 0,
       "unit": "kg",
@@ -2239,8 +2430,8 @@
     "model": "kitchen.article",
     "pk": 200019,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "meru\u0148ky",
       "on_stock": 0,
       "unit": "kg",
@@ -2252,8 +2443,8 @@
     "model": "kitchen.article",
     "pk": 200020,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "mrkev",
       "on_stock": 0,
       "unit": "kg",
@@ -2265,8 +2456,8 @@
     "model": "kitchen.article",
     "pk": 200021,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "nektarinky",
       "on_stock": 0,
       "unit": "kg",
@@ -2278,8 +2469,8 @@
     "model": "kitchen.article",
     "pk": 200022,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u017eampiony",
       "on_stock": 0,
       "unit": "kg",
@@ -2291,8 +2482,8 @@
     "model": "kitchen.article",
     "pk": 200023,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "okurky sal\u00e1tov\u00e9",
       "on_stock": 0,
       "unit": "kg",
@@ -2304,8 +2495,8 @@
     "model": "kitchen.article",
     "pk": 200024,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pa\u017eitka",
       "on_stock": 0,
       "unit": "kg",
@@ -2317,8 +2508,8 @@
     "model": "kitchen.article",
     "pk": 200025,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "papriky",
       "on_stock": 0,
       "unit": "kg",
@@ -2330,8 +2521,8 @@
     "model": "kitchen.article",
     "pk": 200026,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "petr\u017eel ko\u0159enov\u00e1",
       "on_stock": 0,
       "unit": "kg",
@@ -2343,8 +2534,8 @@
     "model": "kitchen.article",
     "pk": 200027,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kudrnka na\u0165",
       "on_stock": 0,
       "unit": "kg",
@@ -2356,8 +2547,8 @@
     "model": "kitchen.article",
     "pk": 200028,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "p\u00f3rek",
       "on_stock": 0,
       "unit": "kg",
@@ -2369,8 +2560,8 @@
     "model": "kitchen.article",
     "pk": 200029,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "raj\u010data",
       "on_stock": 0,
       "unit": "kg",
@@ -2382,8 +2573,8 @@
     "model": "kitchen.article",
     "pk": 200030,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ryngle",
       "on_stock": 0,
       "unit": "kg",
@@ -2395,8 +2586,8 @@
     "model": "kitchen.article",
     "pk": 200031,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u010desnek",
       "on_stock": 0,
       "unit": "kg",
@@ -2408,8 +2599,8 @@
     "model": "kitchen.article",
     "pk": 200032,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "v\u00edno hroznov\u00e9",
       "on_stock": 0,
       "unit": "kg",
@@ -2421,12 +2612,14 @@
     "model": "kitchen.article",
     "pk": 200033,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "zelenina mra\u017e.pol\u00e9vk",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["24"],
+      "allergen": [
+        "24"
+      ],
       "comment": ""
     }
   },
@@ -2434,12 +2627,14 @@
     "model": "kitchen.article",
     "pk": 200034,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "zelenina pod sv\u00ed\u010dko",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["24"],
+      "allergen": [
+        "24"
+      ],
       "comment": ""
     }
   },
@@ -2447,8 +2642,8 @@
     "model": "kitchen.article",
     "pk": 200035,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "zel\u00ed hl\u00e1vkov\u00e9",
       "on_stock": 0,
       "unit": "kg",
@@ -2460,8 +2655,8 @@
     "model": "kitchen.article",
     "pk": 200036,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "zel\u00ed \u010d\u00ednsk\u00e9",
       "on_stock": 0,
       "unit": "kg",
@@ -2473,8 +2668,8 @@
     "model": "kitchen.article",
     "pk": 200037,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u0161pen\u00e1t mra\u017een\u00fd",
       "on_stock": 0,
       "unit": "kg",
@@ -2486,8 +2681,8 @@
     "model": "kitchen.article",
     "pk": 200038,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u0161vestky,blumy",
       "on_stock": 0,
       "unit": "kg",
@@ -2499,8 +2694,8 @@
     "model": "kitchen.article",
     "pk": 200039,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u0159edkvi\u010dky svazek",
       "on_stock": 0,
       "unit": "ks",
@@ -2512,8 +2707,8 @@
     "model": "kitchen.article",
     "pk": 200040,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "sal\u00e1t hl\u00e1vkov\u00fd",
       "on_stock": 0,
       "unit": "ks",
@@ -2525,8 +2720,8 @@
     "model": "kitchen.article",
     "pk": 200041,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kiwi kg",
       "on_stock": 0,
       "unit": "kg",
@@ -2538,8 +2733,8 @@
     "model": "kitchen.article",
     "pk": 200042,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "cuketa",
       "on_stock": 0,
       "unit": "ks",
@@ -2551,8 +2746,8 @@
     "model": "kitchen.article",
     "pk": 200043,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "lilek",
       "on_stock": 0,
       "unit": "ks",
@@ -2564,8 +2759,8 @@
     "model": "kitchen.article",
     "pk": 200044,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kuku\u0159ice mra\u017een\u00e1",
       "on_stock": 0,
       "unit": "kg",
@@ -2577,12 +2772,14 @@
     "model": "kitchen.article",
     "pk": 200045,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "zelenina mra\u017e.v\u00edcedr",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["24"],
+      "allergen": [
+        "24"
+      ],
       "comment": ""
     }
   },
@@ -2590,8 +2787,8 @@
     "model": "kitchen.article",
     "pk": 300001,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "dr\u016fbe\u017e\u00ed sekan\u00e1 mr.",
       "on_stock": 0,
       "unit": "kg",
@@ -2603,8 +2800,8 @@
     "model": "kitchen.article",
     "pk": 300002,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "dr\u0161tky",
       "on_stock": 0,
       "unit": "kg",
@@ -2616,8 +2813,8 @@
     "model": "kitchen.article",
     "pk": 300003,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "hov\u011bz\u00ed p\u0159edn\u00ed, o\u0159ez",
       "on_stock": 0,
       "unit": "kg",
@@ -2629,8 +2826,8 @@
     "model": "kitchen.article",
     "pk": 300004,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "hov\u011bz\u00ed zadn\u00ed",
       "on_stock": 0,
       "unit": "kg",
@@ -2642,8 +2839,8 @@
     "model": "kitchen.article",
     "pk": 300005,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "j\u00e1tra",
       "on_stock": 0,
       "unit": "kg",
@@ -2655,8 +2852,8 @@
     "model": "kitchen.article",
     "pk": 300006,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "klob\u00e1sy",
       "on_stock": 0,
       "unit": "kg",
@@ -2668,8 +2865,8 @@
     "model": "kitchen.article",
     "pk": 300007,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kosti",
       "on_stock": 0,
       "unit": "kg",
@@ -2681,8 +2878,8 @@
     "model": "kitchen.article",
     "pk": 300008,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ku\u0159ec\u00ed k\u0159\u00eddla",
       "on_stock": 0,
       "unit": "kg",
@@ -2694,8 +2891,8 @@
     "model": "kitchen.article",
     "pk": 300009,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ku\u0159ec\u00ed prsa",
       "on_stock": 0,
       "unit": "kg",
@@ -2707,8 +2904,8 @@
     "model": "kitchen.article",
     "pk": 300010,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ku\u0159ec\u00ed stehna",
       "on_stock": 0,
       "unit": "kg",
@@ -2720,12 +2917,15 @@
     "model": "kitchen.article",
     "pk": 300011,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vep\u0159ov\u00fd o\u0159ez",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "13"],
+      "allergen": [
+        "2",
+        "13"
+      ],
       "comment": ""
     }
   },
@@ -2733,12 +2933,14 @@
     "model": "kitchen.article",
     "pk": 300012,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "file kostky mra\u017een\u00e9",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["11"],
+      "allergen": [
+        "11"
+      ],
       "comment": ""
     }
   },
@@ -2746,12 +2948,17 @@
     "model": "kitchen.article",
     "pk": 300015,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pangas fil.mra\u017een\u00e9",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "10", "14", "11"],
+      "allergen": [
+        "2",
+        "10",
+        "14",
+        "11"
+      ],
       "comment": ""
     }
   },
@@ -2759,8 +2966,8 @@
     "model": "kitchen.article",
     "pk": 300016,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "s\u00e1dlo",
       "on_stock": 0,
       "unit": "kg",
@@ -2772,12 +2979,15 @@
     "model": "kitchen.article",
     "pk": 300017,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "sal\u00e1m gothaj",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "13"],
+      "allergen": [
+        "2",
+        "13"
+      ],
       "comment": ""
     }
   },
@@ -2785,12 +2995,15 @@
     "model": "kitchen.article",
     "pk": 300018,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "sal\u00e1m v\u00fdrobn\u00ed",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "13"],
+      "allergen": [
+        "2",
+        "13"
+      ],
       "comment": ""
     }
   },
@@ -2798,8 +3011,8 @@
     "model": "kitchen.article",
     "pk": 300019,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "sal\u00e1m \u0161unkov\u00fd",
       "on_stock": 0,
       "unit": "kg",
@@ -2811,8 +3024,8 @@
     "model": "kitchen.article",
     "pk": 300020,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "slanina anglick\u00e1",
       "on_stock": 0,
       "unit": "kg",
@@ -2824,8 +3037,8 @@
     "model": "kitchen.article",
     "pk": 300021,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "slepice",
       "on_stock": 0,
       "unit": "kg",
@@ -2837,8 +3050,8 @@
     "model": "kitchen.article",
     "pk": 300022,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "telec\u00ed maso",
       "on_stock": 0,
       "unit": "kg",
@@ -2850,8 +3063,8 @@
     "model": "kitchen.article",
     "pk": 300023,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "tla\u010denka",
       "on_stock": 0,
       "unit": "kg",
@@ -2863,8 +3076,8 @@
     "model": "kitchen.article",
     "pk": 300024,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vep\u0159o krkovice uzen\u00e1",
       "on_stock": 0,
       "unit": "kg",
@@ -2876,8 +3089,8 @@
     "model": "kitchen.article",
     "pk": 300025,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vep\u0159o bok uzen\u00fd",
       "on_stock": 0,
       "unit": "kg",
@@ -2889,8 +3102,8 @@
     "model": "kitchen.article",
     "pk": 300026,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vep\u0159ov\u00e1 kotl.,pe\u010den\u011b",
       "on_stock": 0,
       "unit": "kg",
@@ -2902,8 +3115,8 @@
     "model": "kitchen.article",
     "pk": 300027,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vep\u0159ov\u00e1 krkovice",
       "on_stock": 0,
       "unit": "kg",
@@ -2915,8 +3128,8 @@
     "model": "kitchen.article",
     "pk": 300028,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vep\u0159ov\u00e1 k\u00fdta",
       "on_stock": 0,
       "unit": "kg",
@@ -2928,8 +3141,8 @@
     "model": "kitchen.article",
     "pk": 300029,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vep\u0159ov\u00e1 plec",
       "on_stock": 0,
       "unit": "kg",
@@ -2941,12 +3154,14 @@
     "model": "kitchen.article",
     "pk": 300030,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vinn\u00e1 klob\u00e1sa 150",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2"],
+      "allergen": [
+        "2"
+      ],
       "comment": ""
     }
   },
@@ -2954,12 +3169,15 @@
     "model": "kitchen.article",
     "pk": 300031,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vu\u0159ty",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "13"],
+      "allergen": [
+        "2",
+        "13"
+      ],
       "comment": ""
     }
   },
@@ -2967,8 +3185,8 @@
     "model": "kitchen.article",
     "pk": 300033,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u0161pek",
       "on_stock": 0,
       "unit": "kg",
@@ -2980,8 +3198,8 @@
     "model": "kitchen.article",
     "pk": 300034,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u0161unka",
       "on_stock": 0,
       "unit": "kg",
@@ -2993,8 +3211,8 @@
     "model": "kitchen.article",
     "pk": 300035,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ledvinky",
       "on_stock": 0,
       "unit": "kg",
@@ -3006,12 +3224,16 @@
     "model": "kitchen.article",
     "pk": 300036,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "maliny,lesn\u00ed sm.mra\u017e",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "10", "14"],
+      "allergen": [
+        "2",
+        "10",
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3019,8 +3241,8 @@
     "model": "kitchen.article",
     "pk": 300037,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "meru\u0148ky mra\u017een\u00e9",
       "on_stock": 0,
       "unit": "kg",
@@ -3032,8 +3254,8 @@
     "model": "kitchen.article",
     "pk": 300038,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "porek mra\u017een\u00fd",
       "on_stock": 0,
       "unit": "kg",
@@ -3045,8 +3267,8 @@
     "model": "kitchen.article",
     "pk": 300039,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u0161vestky mra\u017een\u00e9",
       "on_stock": 0,
       "unit": "kg",
@@ -3058,12 +3280,16 @@
     "model": "kitchen.article",
     "pk": 300040,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "bram.\u0161i\u0161ky s m\u00e1kem",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "3", "10"],
+      "allergen": [
+        "2",
+        "3",
+        "10"
+      ],
       "comment": ""
     }
   },
@@ -3071,8 +3297,8 @@
     "model": "kitchen.article",
     "pk": 300041,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "sal\u00e1m turistick\u00fd",
       "on_stock": 0,
       "unit": "kg",
@@ -3084,8 +3310,8 @@
     "model": "kitchen.article",
     "pk": 300042,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "huspenina",
       "on_stock": 0,
       "unit": "kg",
@@ -3097,8 +3323,8 @@
     "model": "kitchen.article",
     "pk": 300043,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "sal\u00e1m vyso\u010dina,poli\u010d",
       "on_stock": 0,
       "unit": "kg",
@@ -3110,8 +3336,8 @@
     "model": "kitchen.article",
     "pk": 300044,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "sal\u00e1m \u0161unkov\u00e9 koleno",
       "on_stock": 0,
       "unit": "kg",
@@ -3123,8 +3349,8 @@
     "model": "kitchen.article",
     "pk": 300045,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u0161kvarky",
       "on_stock": 0,
       "unit": "kg",
@@ -3136,12 +3362,15 @@
     "model": "kitchen.article",
     "pk": 300046,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vep\u0159o mlet\u00e9,polotov.",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "10"],
+      "allergen": [
+        "2",
+        "10"
+      ],
       "comment": ""
     }
   },
@@ -3149,12 +3378,16 @@
     "model": "kitchen.article",
     "pk": 300047,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pa\u0161tika kr\u00e1jen\u00e1",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2", "10", "13"],
+      "allergen": [
+        "2",
+        "10",
+        "13"
+      ],
       "comment": ""
     }
   },
@@ -3162,12 +3395,14 @@
     "model": "kitchen.article",
     "pk": 300048,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "jaternice",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["2"],
+      "allergen": [
+        "2"
+      ],
       "comment": ""
     }
   },
@@ -3175,8 +3410,8 @@
     "model": "kitchen.article",
     "pk": 300049,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vep\u0159ov\u00fd bok",
       "on_stock": 0,
       "unit": "kg",
@@ -3188,8 +3423,8 @@
     "model": "kitchen.article",
     "pk": 300050,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kr\u00e1li\u010d\u00ed maso",
       "on_stock": 0,
       "unit": "kg",
@@ -3201,8 +3436,8 @@
     "model": "kitchen.article",
     "pk": 300051,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vep\u0159ov\u00e9 srdce",
       "on_stock": 0,
       "unit": "kg",
@@ -3214,8 +3449,8 @@
     "model": "kitchen.article",
     "pk": 300052,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vep\u0159ov\u00e9 koleno",
       "on_stock": 0,
       "unit": "kg",
@@ -3227,8 +3462,8 @@
     "model": "kitchen.article",
     "pk": 300053,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "hov\u011bz\u00ed \u017eebra, pupek",
       "on_stock": 0,
       "unit": "kg",
@@ -3240,12 +3475,14 @@
     "model": "kitchen.article",
     "pk": 300054,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kapr mra\u017een\u00fd",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["11"],
+      "allergen": [
+        "11"
+      ],
       "comment": ""
     }
   },
@@ -3253,8 +3490,8 @@
     "model": "kitchen.article",
     "pk": 300055,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "prejt jel\u00edtkov\u00fd",
       "on_stock": 0,
       "unit": "kg",
@@ -3266,8 +3503,8 @@
     "model": "kitchen.article",
     "pk": 300056,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "hov\u011bz\u00ed l\u00ed\u010dka",
       "on_stock": 0,
       "unit": "kg",
@@ -3279,8 +3516,8 @@
     "model": "kitchen.article",
     "pk": 300057,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ryb\u00ed prsty",
       "on_stock": 0,
       "unit": "kg",
@@ -3292,8 +3529,8 @@
     "model": "kitchen.article",
     "pk": 300058,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kachn\u00ed stehna",
       "on_stock": 0,
       "unit": "kg",
@@ -3305,12 +3542,14 @@
     "model": "kitchen.article",
     "pk": 400001,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "s\u00fdr eidam",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["13"],
+      "allergen": [
+        "13"
+      ],
       "comment": ""
     }
   },
@@ -3318,12 +3557,14 @@
     "model": "kitchen.article",
     "pk": 400002,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "hermel\u00edn",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["13"],
+      "allergen": [
+        "13"
+      ],
       "comment": ""
     }
   },
@@ -3331,12 +3572,14 @@
     "model": "kitchen.article",
     "pk": 400003,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "jogurt",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["13"],
+      "allergen": [
+        "13"
+      ],
       "comment": ""
     }
   },
@@ -3344,12 +3587,14 @@
     "model": "kitchen.article",
     "pk": 400004,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "lu\u010dina 1ks",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["13"],
+      "allergen": [
+        "13"
+      ],
       "comment": ""
     }
   },
@@ -3357,12 +3602,15 @@
     "model": "kitchen.article",
     "pk": 400005,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "majon\u00e9za 440g",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["10", "1"],
+      "allergen": [
+        "10",
+        "1"
+      ],
       "comment": ""
     }
   },
@@ -3370,12 +3618,14 @@
     "model": "kitchen.article",
     "pk": 400006,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "m\u00e1slo",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3383,12 +3633,14 @@
     "model": "kitchen.article",
     "pk": 400007,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "m\u00e1slo pomaz\u00e1nkov\u00e9",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3396,12 +3648,14 @@
     "model": "kitchen.article",
     "pk": 400008,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "m\u00e1slo porce",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3409,12 +3663,14 @@
     "model": "kitchen.article",
     "pk": 400009,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ml\u00e9ko",
       "on_stock": 0,
       "unit": "l",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3422,12 +3678,14 @@
     "model": "kitchen.article",
     "pk": 400010,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "ml\u00e9ko ochucen\u00e9",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3435,12 +3693,14 @@
     "model": "kitchen.article",
     "pk": 400011,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "smetana zakysan\u00e1",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3448,12 +3708,15 @@
     "model": "kitchen.article",
     "pk": 400012,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "s\u00fdr balk\u00e1nsk\u00fd",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["14", "13"],
+      "allergen": [
+        "14",
+        "13"
+      ],
       "comment": ""
     }
   },
@@ -3461,12 +3724,14 @@
     "model": "kitchen.article",
     "pk": 400013,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "s\u00fdr taven\u00fd",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3474,12 +3739,14 @@
     "model": "kitchen.article",
     "pk": 400014,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "s\u00fdr troj",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3487,12 +3754,15 @@
     "model": "kitchen.article",
     "pk": 400015,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "tatarsk\u00e1 om\u00e1\u010dka ks",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["10", "1"],
+      "allergen": [
+        "10",
+        "1"
+      ],
       "comment": ""
     }
   },
@@ -3500,12 +3770,14 @@
     "model": "kitchen.article",
     "pk": 400016,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "termix",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3513,12 +3785,14 @@
     "model": "kitchen.article",
     "pk": 400017,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "tuk hera",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3526,12 +3800,14 @@
     "model": "kitchen.article",
     "pk": 400018,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "tvaroh m\u011bkk\u00fd",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3539,12 +3815,14 @@
     "model": "kitchen.article",
     "pk": 400019,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "tvaroh tvrd\u00fd",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3552,12 +3830,14 @@
     "model": "kitchen.article",
     "pk": 400020,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "vejce",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["10"],
+      "allergen": [
+        "10"
+      ],
       "comment": ""
     }
   },
@@ -3565,12 +3845,14 @@
     "model": "kitchen.article",
     "pk": 400023,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "\u0161leha\u010dka 200ml",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3578,12 +3860,14 @@
     "model": "kitchen.article",
     "pk": 400024,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "flora 400g",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3591,12 +3875,14 @@
     "model": "kitchen.article",
     "pk": 400025,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "s\u00fdr niva",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3604,12 +3890,14 @@
     "model": "kitchen.article",
     "pk": 400026,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "s\u00fdr mozzarela",
       "on_stock": 0,
       "unit": "kg",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3617,12 +3905,14 @@
     "model": "kitchen.article",
     "pk": 400027,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "kef\u00edrov\u00e9 ml\u00e9ko",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3630,12 +3920,14 @@
     "model": "kitchen.article",
     "pk": 400028,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pol\u00e1rkov\u00fd dort",
       "on_stock": 0,
       "unit": "ks",
-      "allergen": ["14"],
+      "allergen": [
+        "14"
+      ],
       "comment": ""
     }
   },
@@ -3643,8 +3935,8 @@
     "model": "kitchen.article",
     "pk": 400029,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "pivo",
       "on_stock": 0,
       "unit": "ks",
@@ -3656,8 +3948,8 @@
     "model": "kitchen.article",
     "pk": 400030,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "portobello",
       "on_stock": 0,
       "unit": "kg",
@@ -3669,8 +3961,8 @@
     "model": "kitchen.article",
     "pk": 400031,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "hl\u00edva \u00fast\u0159i\u010dn\u00e1",
       "on_stock": 0,
       "unit": "kg",
@@ -3682,8 +3974,8 @@
     "model": "kitchen.article",
     "pk": 400032,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "halu\u0161ky mra\u017een\u00e9",
       "on_stock": 0,
       "unit": "kg",
@@ -3695,8 +3987,8 @@
     "model": "kitchen.article",
     "pk": 400033,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
       "article": "dyne",
       "on_stock": 0,
       "unit": "kg",
@@ -3708,9 +4000,48 @@
     "model": "kitchen.article",
     "pk": 400034,
     "fields": {
-      "created": "2020-07-05 09:28-0100",
-      "modified": "2020-07-05 09:28-0100",
-      "article": "kure,rolada",
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
+      "article": "kure, rolada",
+      "on_stock": 0,
+      "unit": "kg",
+      "allergen": [],
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.article",
+    "pk": 400035,
+    "fields": {
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
+      "article": "tarhona",
+      "on_stock": 0,
+      "unit": "kg",
+      "allergen": [],
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.article",
+    "pk": 400036,
+    "fields": {
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
+      "article": "gnocchi bramborove",
+      "on_stock": 0,
+      "unit": "kg",
+      "allergen": [],
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.article",
+    "pk": 400037,
+    "fields": {
+      "created": "2020-08-23 13:14-0100",
+      "modified": "2020-08-23 13:14-0100",
+      "article": "kruti maso",
       "on_stock": 0,
       "unit": "kg",
       "allergen": [],

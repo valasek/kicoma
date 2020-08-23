@@ -1,74 +1,54 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>{{ title|default:"PDF tisková šablona" }}</title>
-  <style type="text/css">
-    @page {
-        size: A4;
-        padding: 2cm;
-        margin: 1cm auto;
-        border: 1px #D3D3D3 solid;
-        border-radius: 5px;
-        background: white;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    }
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ title|default:"PDF tisková šablona" }}</title>
+    <style type="text/css">
+.rTable {
+		    	display: table;
+		    	width: 100%;
+		}
+		.rTableRow {
+		    	display: table-row;
+		}
+		.rTableHeading {
+		    	display: table-header-group;
+		    	background-color: #ddd;
+		}
+		.rTableCell {
+          display: table-cell;
+		    	padding: 3px 10px;
+		    	border: 1px solid #999999;
+		}
+    .rTableHead {
+		    	display: table-cell;
+		    	padding: 3px 10px;
+		    	border: 1px solid #999999;
+          background: #CFCFCF;
+          font-weight: bold;
+		}
+		.rTableHeading {
+		    	display: table-header-group;
+		    	background-color: #ddd;
+		    	font-weight: bold;
+		}
+		.rTableBody {
+		    	display: table-row-group;
+		}
 
-    table.minimalistBlack {
-      width: 100%;
-      text-align: left;
-      border-collapse: collapse;
-    }
-    table.minimalistBlack td, table.minimalistBlack th {
-      border: 0px solid #000000;
-      padding: 5px 4px;
-    }
-    table.minimalistBlack tbody td {
-      font-size: 13px;
-    }
-    table.minimalistBlack tr:nth-child(even) {
-      background: #D5E2F1;
-    }
-    table.minimalistBlack thead {
-      background: #CFCFCF;
-    }
-    table.minimalistBlack thead th {
-      font-size: 15px;
-      font-weight: bold;
-      color: #000000;
-      text-align: left;
-    }
-    table.minimalistBlack tfoot td {
-      font-size: 14px;
-    }
-
-    .list-group {
-        display: block;
-        width: 100%;
-        list-style: none;
-        margin-top: 15px;
-        margin-bottom: 15px;
-    }
-
-    .list-group p {
-        width: 100%;
-        height: 20px;
-        line-height: 20px;
-        list-style: none;
-        font-size: 1.1em;
-    }
-
-  </style>
-</head>
-<body>
-  <br>
-  <h1 style="text-align:center">{{ title|default:"PDF tisková šablona" }}</h1>
-  {% block content %}
-  <!-- <p>Use this document as a way to quick start any new project.</p> -->
-  {% endblock content %}
-  <br/>
-  <div>
-    <p style="text-align:center">Generováno dne: {% now "j.n.Y H:i:s" %}</p>
-  </div>
-</body>
+    </style>
+  </head>
+  <body>
+    <br />
+    <h1 style="text-align: center;">
+      {{ title|default:"PDF tisková šablona" }}
+    </h1>
+    {% block content %}
+    <!-- <p>Use this document as a way to quick start any new project.</p> -->
+    {% endblock content %}
+    <br />
+    <div>
+      <p style="text-align: center;">Generováno dne: {% now "j.n.Y H:i:s" %}</p>
+    </div>
+  </body>
 </html>

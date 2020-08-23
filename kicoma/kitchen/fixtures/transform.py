@@ -29,7 +29,7 @@ recipeInFile = 'recepty-in.csv'
 recipeInFilePath = folder + recipeInFile
 articleInFile = 'sklad-in.csv'
 articleInFilePath = folder + articleInFile
-recipe_articleInFile = 'ingredience-in.csv'
+recipe_articleInFile = 'recipe_article-in.csv'
 recipe_articleInFilePath = folder + recipe_articleInFile
 
 
@@ -100,13 +100,13 @@ def transformRecipeArticleRecordJSON(inputRow, **kwargs):
                 }
             }
         else:
-            # print(
-            #     "Skipped - recipe id: {} is not in imported, not able to create a parent relationship".format(inputRow[0]))
+            print("Skipped - recipe id: {} is not in imported, not able to create a parent relationship"
+                  .format(inputRow[0]))
             kwargs['skippedRecipes'] += + 1
             return {}, kwargs
     else:
-        # print(
-        #     "Skipped - Stock article id: {} is not in imported, not able to create a parent relationship".format(inputRow[1]))
+        print("Skipped - Stock article id: {} is not in imported, not able to create a parent relationship"
+              .format(inputRow[1]))
         kwargs['skippedArticles'] += 1
         return {}, kwargs
 
@@ -183,6 +183,9 @@ def transformJSON(fileInPath, fileOut, rowFnc, **kwargs):
 def main():
     skippedRecipes = 0
     skippedArticles = 0
+    if len(sys.argv) != 2:
+        print("Usage: /transform.py article|recipe|recipe_article|all")
+        exit()
     if sys.argv[1] == 'article':
         transformJSON(articleInFilePath, 'article.json', transformArticleRecordJSON)
     if sys.argv[1] == 'recipe':

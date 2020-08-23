@@ -2,13 +2,13 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Nové zboží</h4>
+  <h4>Nová skladová karta zboží</h4>
   <hr/>
   <p><a href="{% url 'kitchen:showArticles' %}"><button class="btn btn-secondary">Zpět na seznam zboží</button></a></p>
   <form method="post" action="{% url 'kitchen:createArticle' %}">
     {% csrf_token %}
     {% crispy form form.helper %}
-    <button type="submit" class="btn btn-success">Založit nové zboží</button>
+    <button type="submit" class="btn btn-success">Založit novou skladovou kartu</button>
   </form>
 </div>
 {% endblock content %}

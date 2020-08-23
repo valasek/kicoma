@@ -1,47 +1,41 @@
 {% extends "../pdf_page.html" %} {% block content %}
-<table class="minimalistBlack">
-  <thead>
-    <tr>
-      <th>Celková cena s DPH</th>
-      <th>Počet vyskladňovaného zboží</th>
-      <th>Vytvořena dne</th>
-      <th>Vytvořila</th>
-      <th>Schválena dne</th>
-      <th>Schválila</th>
-      <th>Poznámka</th>
-    </tr>
-  </thead>
-  <tbody>
-    <td>{{ total_price }} Kč</td>
-    <td>{{ stock_issue_articles.count }}</td>
-    <td>{{ stock_issue.created }}</td>
-    <td>{{ stock_issue.user_created.name }}</td>
-    <td>{{ stock_issue.date_approved }}</td>
-    <td>{{ stock_issue.user_approved.name }}</td>
-    <td>{{ stock_issue.comment }}</td>
-  </tbody>
-</table>
+<div class="rTable">
+  <div class="rTableRow">
+    <div class="rTableHead">Celková cena s DPH</div>
+    <div class="rTableHead">Počet vyskladňovaného zboží</div>
+    <div class="rTableHead">Vytvořena dne</div>
+    <div class="rTableHead">Vytvořila</div>
+    <div class="rTableHead">Schválena dne</div>
+    <div class="rTableHead">Schválila</div>
+    <div class="rTableHead">Poznámka</div>
+  </div>
+  <div class="rTableRow">
+    <div class="rTableCell">{{ total_price }} Kč</div>
+    <div class="rTableCell">{{ stock_issue_articles.count }}</div>
+    <div class="rTableCell">{{ stock_issue.created }}</div>
+    <div class="rTableCell">{{ stock_issue.user_created.name }}</div>
+    <div class="rTableCell">{{ stock_issue.date_approved }}</div>
+    <div class="rTableCell">{{ stock_issue.user_approved.name }}</div>
+    <div class="rTableCell">{{ stock_issue.comment }}</div>
+  </div>
+</div>
 <h3 style="text-align: center;">Vyskladněné zboží</h3>
-<table class="minimalistBlack">
-  <thead>
-    <tr>
-      <th>Zboží</th>
-      <th>Množství</th>
-      <th>Jednotková cena s DPH</th>
-      <th>Cena celkem s DPH</th>
-      <th>Poznámka</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for stock_issue_article in stock_issue_articles %}
-    <tr>
-      <td>{{ stock_issue_article.article }}</td>
-      <td>{{ stock_issue_article.amount }} {{ stock_issue_article.unit }}</td>
-      <td>{{ stock_issue_article.article.average_price }} Kč</td>
-      <td>{{ stock_issue_article.total_average_price_with_vat }} Kč</td>
-      <td>{{ stock_issue_article.comment }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="rTable">
+  <div class="rTableRow">
+    <div class="rTableHead">Zboží</div>
+    <div class="rTableHead">Množství</div>
+    <div class="rTableHead">Jednotková cena s DPH</div>
+    <div class="rTableHead">Cena celkem s DPH</div>
+    <div class="rTableHead">Poznámka</div>
+  </div>
+  {% for stock_issue_article in stock_issue_articles %}
+  <div class="rTableRow">
+    <div class="rTableCell">{{ stock_issue_article.article }}</div>
+    <div class="rTableCell">{{ stock_issue_article.amount }} {{ stock_issue_article.unit }}</div>
+    <div class="rTableCell">{{ stock_issue_article.article.average_price }} Kč</div>
+    <div class="rTableCell">{{ stock_issue_article.total_average_price_with_vat }} Kč</div>
+    <div class="rTableCell">{{ stock_issue_article.comment }}</div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

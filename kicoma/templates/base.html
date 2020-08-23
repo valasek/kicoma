@@ -130,12 +130,14 @@
                 >
                   Seznam zboží vyžadující naskladnění
                 </a>
+                {% if request.user|has_group:"chef" %}
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:createArticle' %}"
                 >
-                  Založit nové zboží
+                  Založit novou skladovou kartu
                 </a>
+                {% endif %}
                 <hr />
                 {% endif %}
                 <a
@@ -162,23 +164,39 @@
                 >
                   Založit novou příjemku
                 </a>
-                <hr />
-                <a
-                  class="dropdown-item"
-                  href="{% url 'kitchen:exportArticles' %}"
-                >
-                  Inventura - export zboží
-                </a>
-                <a
-                  class="dropdown-item"
-                  href="{% url 'kitchen:importArticles' %}"
-                >
-                  Inventura - import zboží
-                </a>
                 {% endif %}
               </div>
             </li>
-            {% endif %} {% if request.user|has_group:"cook" %}
+            {% endif %}
+	          {% if request.user|has_group:"stockkeeper" or request.user|has_group:"cook" %}
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link active dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLink"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Inventura skladu
+              </a>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <a
+                  class="dropdown-item"
+                  href="{% url 'kitchen:printStockArticles' %}"
+                  >PDF pro zjištění stavu zboží na skladu</a
+                >
+                {% if request.user|has_group:"stockkeeper" %}
+                <a class="dropdown-item" href="{% url 'kitchen:printStockArticles' %}"
+                  >Zadání skutečného stavu zboží</a>
+                {% endif %}
+              </div>
+            </li>
+            {% endif %}
+            {% if request.user|has_group:"cook" %}
             <li class="nav-item dropdown">
               <a
                 class="nav-link active dropdown-toggle"

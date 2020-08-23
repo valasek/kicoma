@@ -1,42 +1,34 @@
 {% extends "../pdf_page.html" %} {% block content %}
-<table class="minimalistBlack">
-  <thead>
-    <tr>
-      <th>Porcí</th>
-      <th>Cena receptu</th>
-      <th>Komentář</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{{recipe.norm_amount}}</td>
-      <td>{{recipe.total_recipe_articles_price}} Kč</td>
-      <td>{{recipe.comment}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="rTable">
+  <div class="rTableRow">
+    <div class="rTableHead">Porcí</div>
+    <div class="rTableHead">Cena receptu</div>
+    <div class="rTableHead">Komentář</div>
+  </div>
+  <div class="rTableRow">
+    <div class="rTableCell">{{recipe.norm_amount}}</div>
+    <div class="rTableCell">{{recipe.total_recipe_articles_price}} Kč</div>
+    <div class="rTableCell">{{recipe.comment}}</div>
+  </div>
+</div>
 
 <h2>Seznam ingrediencí</h2>
-<table class="minimalistBlack">
-  <thead>
-    <tr>
-      <th>Zboží</th>
-      <th>Množství</th>
-      <th>Průměrná jednotková cena s DPH</th>
-      <th>Celková cena s DPH</th>
-      <th>Komentář</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for recipe_article in recipe_articles %}
-    <tr>
-      <td>{{recipe_article.article}}</td>
-      <td>{{recipe_article.amount}} {{recipe_article.unit}}</td>
-      <td>{{recipe_article.article.average_price}} Kč</td>
-      <td>{{recipe_article.total_average_price}} Kč</td>
-      <td>{{recipe_article.comment}}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="rTable">
+  <div class="rTableRow">
+    <div class="rTableHead">Zboží</div>
+    <div class="rTableHead">Množství</div>
+    <div class="rTableHead">Průměrná jednotková cena s DPH</div>
+    <div class="rTableHead">Celková cena s DPH</div>
+    <div class="rTableHead">Komentář</div>
+  </div>
+  {% for recipe_article in recipe_articles %}
+  <div class="rTableRow">
+    <div class="rTableCell">{{recipe_article.article}}</div>
+    <div class="rTableCell">{{recipe_article.amount}} {{recipe_article.unit}}</div>
+    <div class="rTableCell">{{recipe_article.article.average_price}} Kč</div>
+    <div class="rTableCell">{{recipe_article.total_average_price}} Kč</div>
+    <div class="rTableCell">{{recipe_article.comment}}</div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

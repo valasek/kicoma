@@ -1,53 +1,47 @@
 {% extends "../pdf_page.html" %} {% block content %}
-<table class="minimalistBlack">
-  <thead>
-    <tr>
-      <th>Celková cena s DPH</th>
-      <th>Počet zboží</th>
-      <th>Vytvořena dne</th>
-      <th>Vytvořila</th>
-      <th>Schválena dne</th>
-      <th>Schválila</th>
-      <th>Poznámka</th>
-    </tr>
-  </thead>
-  <tbody>
-    <td><b>{{ total_price }} Kč</b></td>
-    <td>{{ stock_receipt_articles.count }}</td>
-    <td>{{ stock_receipt.created }}</td>
-    <td>{{ stock_receipt.user_created.name }}</td>
-    <td>{{ stock_receipt.date_approved }}</td>
-    <td>{{ stock_receipt.user_approved.name }}</td>
-    <td>{{ stock_receipt.comment }}</td>
-  </tbody>
-</table>
+<div class="rTable">
+  <div class="rTableRow">
+    <div class="rTableHead">Celková cena s DPH</div>
+    <div class="rTableHead">Počet zboží</div>
+    <div class="rTableHead">Vytvořena dne</div>
+    <div class="rTableHead">Vytvořila</div>
+    <div class="rTableHead">Schválena dne</div>
+    <div class="rTableHead">Schválila</div>
+    <div class="rTableHead">Poznámka</div>
+  </div>
+  <div class="rTableRow">
+    <div class="rTableCell"><b>{{ total_price }} Kč</b></div>
+    <div class="rTableCell">{{ stock_receipt_articles.count }}</div>
+    <div class="rTableCell">{{ stock_receipt.created }}</div>
+    <div class="rTableCell">{{ stock_receipt.user_created.name }}</div>
+    <div class="rTableCell">{{ stock_receipt.date_approved }}</div>
+    <div class="rTableCell">{{ stock_receipt.user_approved.name }}</div>
+    <div class="rTableCell">{{ stock_receipt.comment }}</div>
+  </div>
+</div>
 <h3 style="text-align: center;">Naskladněné zboží</h3>
-<table class="minimalistBlack">
-  <thead>
-    <tr>
-      <th>Zboží</th>
-      <th>Množství</th>
-      <th>Jednotková cena bez DPH</th>
-      <th>DPH</th>
-      <th>Jednotková cena s DPH</th>
-      <th>Celková cena s DPH</th>
-      <th>Poznámka</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for stock_receipt_article in stock_receipt_articles %}
-    <tr>
-      <td>{{ stock_receipt_article.article }}</td>
-      <td>
-        {{ stock_receipt_article.amount }} {{ stock_receipt_article.unit }}
-      </td>
-      <td>{{ stock_receipt_article.price_without_vat }} Kč</td>
-      <td>{{ stock_receipt_article.vat }}</td>
-      <td>{{ stock_receipt_article.price_with_vat }} Kč</td>
-      <td>{{ stock_receipt_article.total_price_with_vat }} Kč</td>
-      <td>{{ stock_receipt_article.comment }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="rTable">
+  <div class="rTableRow">
+    <div class="rTableHead">Zboží</div>
+    <div class="rTableHead">Množství</div>
+    <div class="rTableHead">Jednotková cena bez DPH</div>
+    <div class="rTableHead">DPH</div>
+    <div class="rTableHead">Jednotková cena s DPH</div>
+    <div class="rTableHead">Celková cena s DPH</div>
+    <div class="rTableHead">Poznámka</div>
+  </div>
+  {% for stock_receipt_article in stock_receipt_articles %}
+  <div class="rTableRow">
+    <div class="rTableCell">{{ stock_receipt_article.article }}</div>
+    <div class="rTableCell">
+      {{ stock_receipt_article.amount }} {{ stock_receipt_article.unit }}
+    </div>
+    <div class="rTableCell">{{ stock_receipt_article.price_without_vat }} Kč</div>
+    <div class="rTableCell">{{ stock_receipt_article.vat }}</div>
+    <div class="rTableCell">{{ stock_receipt_article.price_with_vat }} Kč</div>
+    <div class="rTableCell">{{ stock_receipt_article.total_price_with_vat }} Kč</div>
+    <div class="rTableCell">{{ stock_receipt_article.comment }}</div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

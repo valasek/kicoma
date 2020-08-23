@@ -1,7 +1,8 @@
 from django.urls import path
+from django.views.generic import RedirectView
 
 from .views import ArticleListView, ArticleHistoryDetailView, ArticleCreateView, ArticleUpdateView, ArticlePDFView, \
-    ArticleLackListView, ArticleExportView, ArticleImportView
+    ArticleLackListView, ArticleStockPDFView # ArticleExportView, ArticleImportView
 from .views import StockReceiptListView, StockReceiptCreateView, StockReceiptUpdateView, \
     StockReceiptDeleteView, StockReceiptPDFView, StockReceiptApproveView
 from .views import StockReceiptArticleListView, StockReceiptArticleCreateView, StockReceiptArticleUpdateView, \
@@ -26,14 +27,16 @@ app_name = "kitchen"
 urlpatterns = [
     path('overview', index, name='overview'),
     path('docs', docs, name='docs'),
+    path('favicon.ico', RedirectView.as_view(url='/static/images/favicons/favicon.ico')),
 
     path('article/list', ArticleListView.as_view(), name='showArticles'),
     path('article/listlack', ArticleLackListView.as_view(), name='showLackArticles'),
     path('article/create', ArticleCreateView.as_view(), name='createArticle'),
     path('article/update/<int:pk>', ArticleUpdateView.as_view(), name='updateArticle'),
     path('article/print', ArticlePDFView.as_view(), name='printArticles'),
-    path('article/export', ArticleExportView.as_view(), name='exportArticles'),
-    path('article/import', ArticleImportView.as_view(), name='importArticles'),
+    path('article/stockprint', ArticleStockPDFView.as_view(), name='printStockArticles'),
+    # path('article/export', ArticleExportView.as_view(), name='exportArticles'),
+    # path('article/import', ArticleImportView.as_view(), name='importArticles'),
     path('article/history/<int:pk>', ArticleHistoryDetailView.as_view(), name='showArticleHistory'),
 
     path('stockissue/list', StockIssueListView.as_view(), name='showStockIssues'),

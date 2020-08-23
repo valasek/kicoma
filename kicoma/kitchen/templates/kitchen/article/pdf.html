@@ -1,29 +1,21 @@
 {% extends "../pdf_page.html" %} {% block content %}
 <p>Celková cena zboží na skladu s DPH: {{ total_stock_price }} Kč</p>
-<table class="minimalistBlack">
-  <thead>
-    <tr>
-      <th>Zboží</th>
-      <th>Na skladu</th>
-      <th>Minimálně na skladu</th>
-      <th>Průměrná jednotková cena s DPH</th>
-      <th>Celková cena s DPH</th>
-      <th>Alergény</th>
-      <th>Poznámka</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for article in articles %}
-    <tr>
-      <td>{{article.article}}</td>
-      <td>{{article.on_stock}} {{article.unit}}</td>
-      <td>{{article.min_on_stock}} {{article.unit}}</td>
-      <td>{{article.average_price}} Kč / {{article.unit}}</td>
-      <td>{{article.total_price}} Kč</td>
-      <td>{{article.display_allergens}}</td>
-      <td>{{article.comment}}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="rTable">
+  <div class="rTableRow">
+    <div class="rTableHead">Zboží</div>
+    <div class="rTableHead">Na skladu</div>
+    <div class="rTableHead">Minimálně na skladu</div>
+    <div class="rTableHead">Průměrná jednotková cena s DPH</div>
+    <div class="rTableHead">Celková cena s DPH</div>
+  </div>
+  {% for article in articles %}
+  <div class="rTableRow">
+    <div class="rTableCell">{{article.article}}</div>
+    <div class="rTableCell">{{article.on_stock}} {{article.unit}}</div>
+    <div class="rTableCell">{{article.min_on_stock}} {{article.unit}}</div>
+    <div class="rTableCell">{{article.average_price}} Kč / {{article.unit}}</div>
+    <div class="rTableCell">{{article.total_price}} Kč</div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}
