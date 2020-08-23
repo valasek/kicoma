@@ -1022,3 +1022,15 @@ class IncorrectUnitsListView(SingleTableMixin, LoginRequiredMixin, ListView):
                 except ValidationError:
                     incorrect_recipes.add(recipe.pk)
         return Recipe.objects.filter(pk__in=incorrect_recipes)
+
+
+class ArticlesNotInRecipesListView(SingleTableMixin, LoginRequiredMixin, ListView):
+    model = Article
+    template_name = 'kitchen/report/articles_not_in_recipe.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        articles_on_recipes = RecipeArticle.objects.values_list('article__id')
+        articles = Article.objects.exclude(pk__in=articles_on_recipes)
+        context['articles'] = articles
+        return context

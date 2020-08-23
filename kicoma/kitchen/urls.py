@@ -2,7 +2,7 @@ from django.urls import path
 from django.views.generic import RedirectView
 
 from .views import ArticleListView, ArticleHistoryDetailView, ArticleCreateView, ArticleUpdateView, ArticlePDFView, \
-    ArticleLackListView, ArticleStockPDFView # ArticleExportView, ArticleImportView
+    ArticleLackListView, ArticleStockPDFView  # ArticleExportView, ArticleImportView
 from .views import StockReceiptListView, StockReceiptCreateView, StockReceiptUpdateView, \
     StockReceiptDeleteView, StockReceiptPDFView, StockReceiptApproveView
 from .views import StockReceiptArticleListView, StockReceiptArticleCreateView, StockReceiptArticleUpdateView, \
@@ -19,7 +19,8 @@ from .views import DailyMenuListView, DailyMenuCreateView, DailyMenuUpdateView, 
     DailyMenuPDFView, DailyMenuPrintView
 from .views import DailyMenuRecipeListView, DailyMenuRecipeCreateView, DailyMenuRecipeUpdateView, \
     DailyMenuRecipeDeleteView
-from .views import FoodConsumptionPrintView, FoodConsumptionPDFView, IncorrectUnitsListView
+from .views import FoodConsumptionPrintView, FoodConsumptionPDFView, IncorrectUnitsListView, \
+    ArticlesNotInRecipesListView
 
 from .views import index, docs
 
@@ -42,7 +43,8 @@ urlpatterns = [
     path('stockissue/list', StockIssueListView.as_view(), name='showStockIssues'),
     path('stockissue/articlelist/<int:pk>', StockIssueArticleListView.as_view(), name='showStockIssueArticles'),
     path('stockissue/create', StockIssueCreateView.as_view(), name='createStockIssue'),
-    path('stockissue/createfrommenu', StockIssueFromDailyMenuCreateView.as_view(), name='createStockIssueFromDailyMenu'),
+    path('stockissue/createfrommenu', StockIssueFromDailyMenuCreateView.as_view(),
+         name='createStockIssueFromDailyMenu'),
     path('stockissue/createarticle/<int:pk>', StockIssueArticleCreateView.as_view(), name='createStockIssueArticle'),
     path('stockissue/update/<int:pk>', StockIssueUpdateView.as_view(), name='updateStockIssue'),
     path('stockissue/updatearticle/<int:pk>', StockIssueArticleUpdateView.as_view(), name='updateStockIssueArticle'),
@@ -54,11 +56,14 @@ urlpatterns = [
     path('stockreceipt/list', StockReceiptListView.as_view(), name='showStockReceipts'),
     path('stockreceipt/articlelist/<int:pk>', StockReceiptArticleListView.as_view(), name='showStockReceiptArticles'),
     path('stockreceipt/create', StockReceiptCreateView.as_view(), name='createStockReceipt'),
-    path('stockreceipt/createarticle/<int:pk>', StockReceiptArticleCreateView.as_view(), name='createStockReceiptArticle'),
+    path('stockreceipt/createarticle/<int:pk>', StockReceiptArticleCreateView.as_view(),
+         name='createStockReceiptArticle'),
     path('stockreceipt/update/<int:pk>', StockReceiptUpdateView.as_view(), name='updateStockReceipt'),
-    path('stockreceipt/updatearticle/<int:pk>', StockReceiptArticleUpdateView.as_view(), name='updateStockReceiptArticle'),
+    path('stockreceipt/updatearticle/<int:pk>', StockReceiptArticleUpdateView.as_view(),
+         name='updateStockReceiptArticle'),
     path('stockreceipt/delete/<int:pk>', StockReceiptDeleteView.as_view(), name='deleteStockReceipt'),
-    path('stockreceipt/deletearticle/<int:pk>', StockReceiptArticleDeleteView.as_view(), name='deleteStockReceiptArticle'),
+    path('stockreceipt/deletearticle/<int:pk>', StockReceiptArticleDeleteView.as_view(),
+         name='deleteStockReceiptArticle'),
     path('stockreceipt/print/<int:pk>', StockReceiptPDFView.as_view(), name='printStockReceipt'),
     path('stockreceipt/approve/<int:pk>', StockReceiptApproveView.as_view(), name='approveStockReceipt'),
 
@@ -87,4 +92,5 @@ urlpatterns = [
     path('report/filterfoodconsumption', FoodConsumptionPrintView.as_view(), name='filterFoodConsumption'),
     path('report/print/foodconsumption', FoodConsumptionPDFView.as_view(), name='printFoodConsumption'),
     path('report/incorrectunits', IncorrectUnitsListView.as_view(), name='showIncorrectUnits'),
+    path('report/articlesnotinrecipes', ArticlesNotInRecipesListView.as_view(), name='showArticlesNotInRecipes'),
 ]

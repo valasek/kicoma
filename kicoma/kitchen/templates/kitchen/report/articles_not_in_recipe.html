@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
+<div class="container-fluid">
+  <h4>Seznam zboží, které není v žádném receptu</h4>
+  <hr />
+  {% if articles %}
+    Níže uvedené zboží na skladu není použito v žádném receptu a jestli dále není potřeba, může být vymazáno.
+    <hr/>
+    Celkem jde o {{ articles|length }} druhů zboží:<br/>
+    <ul>
+    {% for article in articles %}
+      <li><a href="#">{{ article }}</a></li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    Každé zboží je použito alespoň v jednom receptu.
+  {% endif %}
+</div>
+{% endblock content %}
