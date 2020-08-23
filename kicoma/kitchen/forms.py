@@ -90,10 +90,10 @@ class DailyMenuForm(forms.ModelForm):
     class Meta:
         model = DailyMenu
         fields = ["date", "meal_group", "meal_type", "comment"]
-        widgets = {
-            'date': forms.DateInput(format=('%Y-%m-%d'),
-                                    attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
-        }
+        # widgets = {
+        #     'date': forms.DateInput(format=('%Y-%m-%d'),
+        #                             attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
+        # }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -118,10 +118,10 @@ class DailyMenuPrintForm(forms.ModelForm):
     class Meta:
         model = DailyMenu
         fields = ["date", "meal_group"]
-        widgets = {
-            'date': forms.DateInput(format=('%Y-%m-%d'),
-                                    attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
-        }
+        # widgets = {
+        #     'date': forms.DateInput(format=('%Y-%m-%d'),
+        #                             attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
+        # }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -188,10 +188,10 @@ class StockIssueFromDailyMenuForm(forms.ModelForm):
     class Meta:
         model = DailyMenu
         fields = ["date"]
-        widgets = {
-            'date': forms.DateInput(format=('%Y-%m-%d'),
-                                    attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
-        }
+        # widgets = {
+        #     'date': forms.DateInput(format=('%Y-%m-%d'),
+        #                             attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
+        # }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -283,10 +283,10 @@ class FoodConsumptionPrintForm(forms.ModelForm):
     class Meta:
         model = DailyMenu
         fields = ["date"]
-        widgets = {
-            'date': forms.DateInput(format=('%Y-%m-%d'),
-                                    attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
-        }
+        # widgets = {
+        #     'date': forms.DateInput(format=('%Y-%m-%d'),
+        #                             attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
+        # }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
