@@ -342,7 +342,7 @@ class RecipeArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateVie
 
     def get_context_data(self, **kwargs):
         context = super(RecipeArticleUpdateView, self).get_context_data(**kwargs)
-        context['recipe_article_before'] = RecipeArticle.objects.filter(pk=self.kwargs['pk'])[0]
+        context['recipe_article_before'] = RecipeArticle.objects.filter(pk=self.kwargs['pk']).get()
         return context
 
     def form_valid(self, form):
@@ -510,6 +510,11 @@ class DailyMenuRecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteV
     def get_success_url(self):
         return reverse_lazy('kitchen:showDailyMenuRecipes', kwargs={'pk': self.daily_menu_id})
 
+    def get_context_data(self, **kwargs):
+        context = super(DailyMenuRecipeDeleteView, self).get_context_data(**kwargs)
+        context['dailymenurecipe_before'] = DailyMenuRecipe.objects.filter(pk=self.kwargs['pk']).get()
+        return context
+
     def delete(self, request, *args, **kwargs):
         recipe = get_object_or_404(DailyMenuRecipe, pk=self.kwargs['pk'])
         self.daily_menu_id = recipe.daily_menu.id
@@ -572,23 +577,23 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
                 recipe_article_coeficient = Decimal(daily_menu_amount / recipe_article.recipe.norm_amount)
                 recipe_article_amount = convertUnits(recipe_article.amount, recipe_article.unit,
                                                      recipe_article.article.unit) * recipe_article_coeficient
-                if recipe_article.article.on_stock < recipe_article_amount:
-                    form.add_error(
-                        None, "Zboží {} nutno naskladnit. Vyskladňuješ {} {} a na skladu je {} {}."
-                        .format(recipe_article.article, recipe_article_amount, recipe_article.article.unit,
-                                recipe_article.article.on_stock, recipe_article.article.unit))
-                    formError = True
-                else:
-                    stock_issue_article = StockIssueArticle(
-                        stock_issue=stock_issue,
-                        article=recipe_article.article,
-                        amount=recipe_article_amount,
-                        unit=recipe_article.article.unit,
-                        average_unit_price=recipe_article.article.average_price,
-                        comment=""
-                    )
-                    stock_issue_article.save()
-                    count += 1
+                # if recipe_article.article.on_stock < recipe_article_amount:
+                #     form.add_error(
+                #         None, "Zboží {} nutno naskladnit. Vyskladňuješ {} {} a na skladu je {} {}."
+                #         .format(recipe_article.article, recipe_article_amount, recipe_article.article.unit,
+                #                 recipe_article.article.on_stock, recipe_article.article.unit))
+                #     formError = True
+                # else:
+                stock_issue_article = StockIssueArticle(
+                    stock_issue=stock_issue,
+                    article=recipe_article.article,
+                    amount=recipe_article_amount,
+                    unit=recipe_article.article.unit,
+                    average_unit_price=recipe_article.article.average_price,
+                    comment=""
+                )
+                stock_issue_article.save()
+                count += 1
         if formError:
             form.add_error(None, "Bez naskladnění není možné vytvořit výdejku")
             stock_issue.delete()
