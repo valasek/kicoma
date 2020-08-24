@@ -131,7 +131,7 @@ class Article(TimeStampedModel):
         decimal_places=2, max_digits=8,
         default=0, verbose_name='Na skladu', help_text='Celkové množství zboží na skladu')
     min_on_stock = models.DecimalField(
-        decimal_places=2, max_digits=8, validators=[MinValueValidator(Decimal('0.1'))],
+        decimal_places=2, max_digits=8, blank=True, validators=[MinValueValidator(Decimal('0'))],
         default=0, verbose_name='Minimálně na skladu', help_text='Minimální množství zboží na skladu')
     total_price = models.DecimalField(
         max_digits=8, blank=True, null=True, decimal_places=2,
