@@ -198,6 +198,15 @@
                 <a class="dropdown-item" href="{% url 'kitchen:printStockArticles' %}"
                   >Zadání skutečného stavu zboží</a>
                 {% endif %}
+                {% if request.user|has_group:"chef" %}
+                <a
+                  class="dropdown-item"
+                  href="{% url 'kitchen:exportArticles' %}"
+                  >Export zboží na skladu</a
+                >
+                <a class="dropdown-item" href="{% url 'kitchen:importArticles' %}"
+                  >Import zboží na skladu</a>
+                {% endif %}
               </div>
             </li>
             {% endif %}
