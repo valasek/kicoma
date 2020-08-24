@@ -568,8 +568,7 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
             recipes = Recipe.objects.filter(pk__in=daily_menu_recipes.values_list(
                 'recipe', flat=True)).values_list('id', flat=True)
             recipe_articles = RecipeArticle.objects.filter(recipe__in=recipes)
-            count = 0
-            formError = False
+            # formError = False
             for recipe_article in recipe_articles:
                 # get the coeficient between daily menu amount and recipe amount
                 daily_menu_amount = DailyMenuRecipe.objects.filter(
@@ -593,12 +592,13 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
                     comment=""
                 )
                 stock_issue_article.save()
-                count += 1
-        if formError:
-            form.add_error(None, "Bez naskladnění není možné vytvořit výdejku")
-            stock_issue.delete()
-            return super(StockIssueFromDailyMenuCreateView, self).form_invalid(form)
-        messages.success(self.request, 'Výdejka pro den {} vytvořena a vyskladňuje {} druhů zboží'.format(date, count))
+            count = stock_issue.consolidateByArticle()
+        # if formError:
+        #     form.add_error(None, "Bez naskladnění není možné vytvořit výdejku")
+        #     stock_issue.delete()
+        #     return super(StockIssueFromDailyMenuCreateView, self).form_invalid(form)
+        messages.success(
+            self.request, 'Výdejka pro den {} vytvořena a vyskladňuje {} druhů zboží'.format(date, count))
         return HttpResponseRedirect(self.success_url)
 
 

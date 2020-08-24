@@ -2,7 +2,7 @@ from decimal import Decimal
 import datetime
 
 from django.db import models
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from django.conf import settings
 from django.forms import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -263,6 +263,29 @@ class StockIssue(TimeStampedModel):
     def total_price(self):
         stock_issue_articles = StockIssueArticle.objects.filter(stock_issue=self.id)
         return round(totalRecipeArticlePrice(stock_issue_articles, 1), 2)
+
+    def consolidateByArticle(self):
+        # select all articles where count > 1
+        # group by article_id and sum amount and average_unit_price
+        articles_to_consolidate = StockIssueArticle.objects.filter(
+            stock_issue_id=self.pk).values('article_id').annotate(total=Count('article_id'), sumAmount=Sum('amount'), sumPrice=Sum('average_unit_price')).filter(total__gt=1)
+        article_ids = []
+        for a in articles_to_consolidate:
+            article_ids.append(a['article_id'])
+        # remove all articles where count > 1
+        StockIssueArticle.objects.filter(stock_issue_id=self.pk, article_id__in=article_ids).delete()
+        # insert consolidated articles
+        for aa in articles_to_consolidate:
+            x = StockIssueArticle(
+                stock_issue=self,
+                article=Article.objects.filter(pk=aa['article_id']).get(),
+                amount=aa['sumAmount'],
+                unit=Article.objects.filter(pk=aa['article_id']).get().unit,
+                average_unit_price=aa['sumPrice'],
+                comment='consolidated article'
+            )
+            x.save()
+        return len(StockIssueArticle.objects.filter(stock_issue_id=self.pk))
 
 
 class StockReceipt(TimeStampedModel):
