@@ -562,36 +562,12 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
             stock_issue = StockIssue(comment="Pro " + date, user_created=self.request.user)
             stock_issue.save()
             # save all StockIssue Articles
-            # daily_menu_recipes = DailyMenuRecipe.objects.filter(daily_menu__in=daily_menus.values_list('id', flat=True))
             daily_menu_recipe_ids = DailyMenuRecipe.objects.select_related('recipe').filter(daily_menu__in=daily_menus).values_list(
                 'recipe', flat=True).values_list('recipe_id', flat=True)
-            print("daily_menu_recipes", len(daily_menu_recipe_ids), daily_menu_recipe_ids)
-            # print("Recipes", len(daily_menu_recipes), daily_menu_recipes)
-            # recipes = Recipe.objects.filter(pk__in=daily_menu_recipes.values_list(
-            #     'recipe', flat=True)).values_list('id', flat=True)
-            # print("recipes", len(recipes), recipes)
-            # recipe_articles = RecipeArticle.objects.select_related('recipe').filter(recipe_id__in=x)
             recipe_articles = []
             for daily_menu_recipe_id in daily_menu_recipe_ids:
                 jeden_recept = RecipeArticle.objects.filter(recipe_id=str(daily_menu_recipe_id))
-                print("jeden_recept", daily_menu_recipe_id, len(jeden_recept), jeden_recept)
                 recipe_articles += list(jeden_recept)
-                print("vsechno zbozi v cyklu", len(recipe_articles), recipe_articles)
-            print("vsechno zbozi", len(recipe_articles), recipe_articles)
-            # recipe_articles = RecipeArticle.objects.select_related('recipe').filter(Q(recipe__isnull=True) | Q(recipe_id__in=x))
-            # rr = RecipeArticle.objects.raw('''
-            # select *
-            # from kitchen_recipearticle
-            # left outer join ('3090', '3090', '3260', '3003', '1057') as ids
-            # on kitchen_recipearticle.id == ids
-            # ''')
-            # left join (select topic_id as tid, value from bar_record where user_id = 1) AS subq
-            # on tid = bar_topic.id
-            # ''')
-
-            print("zboží má být 30", len(recipe_articles))
-            # print("zboží má být 30", len(rr))
-            # formError = False
             for recipe_article in recipe_articles:
                 # get the coeficient between daily menu amount and recipe amount
                 daily_menu_amount = DailyMenuRecipe.objects.filter(
@@ -599,13 +575,6 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
                 recipe_article_coeficient = Decimal(daily_menu_amount / recipe_article.recipe.norm_amount)
                 recipe_article_amount = convertUnits(recipe_article.amount, recipe_article.unit,
                                                      recipe_article.article.unit) * recipe_article_coeficient
-                # if recipe_article.article.on_stock < recipe_article_amount:
-                #     form.add_error(
-                #         None, "Zboží {} nutno naskladnit. Vyskladňuješ {} {} a na skladu je {} {}."
-                #         .format(recipe_article.article, recipe_article_amount, recipe_article.article.unit,
-                #                 recipe_article.article.on_stock, recipe_article.article.unit))
-                #     formError = True
-                # else:
                 stock_issue_article = StockIssueArticle(
                     stock_issue=stock_issue,
                     article=recipe_article.article,
@@ -615,13 +584,7 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
                     comment=""
                 )
                 stock_issue_article.save()
-            # for s in recipe_articles:
-            #     print(s.article)
             count = stock_issue.consolidateByArticle()
-        # if formError:
-        #     form.add_error(None, "Bez naskladnění není možné vytvořit výdejku")
-        #     stock_issue.delete()
-        #     return super(StockIssueFromDailyMenuCreateView, self).form_invalid(form)
         messages.success(
             self.request, 'Výdejka pro den {} vytvořena a vyskladňuje {} druhů zboží'.format(date, count))
         return HttpResponseRedirect(self.success_url)
