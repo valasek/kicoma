@@ -113,6 +113,7 @@ class DailyMenuFilter(django_filters.FilterSet):
 
 
 class DailyMenuRecipeTable(tables.Table):
+    recipe = tables.Column(linkify=True)
     change = tables.TemplateColumn(
         '''<a href="/kitchen/dailymenu/updaterecipe/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/dailymenu/deleterecipe/{{ record.id }}" >Vymazat</a>

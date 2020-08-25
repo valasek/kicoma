@@ -176,7 +176,6 @@ class ArticleExportView(LoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
         data = ArticleResource().export()
-        print(data)
         response = HttpResponse(
             data.xlsx, content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
         response['Content-Disposition'] = 'attachment; filename=seznam-zbozi.xlsx'
@@ -199,7 +198,6 @@ class ArticleImportView(TemplateView):
             return super(ArticleImportView, self).render_to_response(context)
         new_articles = request.FILES['myfile']
         imported_data = dataset.load(new_articles.read())
-        print("imported", len(imported_data))
         result = article_resource.import_data(imported_data, dry_run=True,
                                               collect_failed_rows=True)  # Test the data import
         if result.has_errors() or result.has_validation_errors():
@@ -564,10 +562,35 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
             stock_issue = StockIssue(comment="Pro " + date, user_created=self.request.user)
             stock_issue.save()
             # save all StockIssue Articles
-            daily_menu_recipes = DailyMenuRecipe.objects.filter(daily_menu__in=daily_menus.values_list('id', flat=True))
-            recipes = Recipe.objects.filter(pk__in=daily_menu_recipes.values_list(
-                'recipe', flat=True)).values_list('id', flat=True)
-            recipe_articles = RecipeArticle.objects.filter(recipe__in=recipes)
+            # daily_menu_recipes = DailyMenuRecipe.objects.filter(daily_menu__in=daily_menus.values_list('id', flat=True))
+            daily_menu_recipe_ids = DailyMenuRecipe.objects.select_related('recipe').filter(daily_menu__in=daily_menus).values_list(
+                'recipe', flat=True).values_list('recipe_id', flat=True)
+            print("daily_menu_recipes", len(daily_menu_recipe_ids), daily_menu_recipe_ids)
+            # print("Recipes", len(daily_menu_recipes), daily_menu_recipes)
+            # recipes = Recipe.objects.filter(pk__in=daily_menu_recipes.values_list(
+            #     'recipe', flat=True)).values_list('id', flat=True)
+            # print("recipes", len(recipes), recipes)
+            # recipe_articles = RecipeArticle.objects.select_related('recipe').filter(recipe_id__in=x)
+            recipe_articles = []
+            for daily_menu_recipe_id in daily_menu_recipe_ids:
+                jeden_recept = RecipeArticle.objects.filter(recipe_id=str(daily_menu_recipe_id))
+                print("jeden_recept", daily_menu_recipe_id, len(jeden_recept), jeden_recept)
+                recipe_articles += list(jeden_recept)
+                print("vsechno zbozi v cyklu", len(recipe_articles), recipe_articles)
+            print("vsechno zbozi", len(recipe_articles), recipe_articles)
+            # recipe_articles = RecipeArticle.objects.select_related('recipe').filter(Q(recipe__isnull=True) | Q(recipe_id__in=x))
+            # rr = RecipeArticle.objects.raw('''
+            # select *
+            # from kitchen_recipearticle
+            # left outer join ('3090', '3090', '3260', '3003', '1057') as ids
+            # on kitchen_recipearticle.id == ids
+            # ''')
+            # left join (select topic_id as tid, value from bar_record where user_id = 1) AS subq
+            # on tid = bar_topic.id
+            # ''')
+
+            print("zboží má být 30", len(recipe_articles))
+            # print("zboží má být 30", len(rr))
             # formError = False
             for recipe_article in recipe_articles:
                 # get the coeficient between daily menu amount and recipe amount
@@ -592,6 +615,8 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
                     comment=""
                 )
                 stock_issue_article.save()
+            # for s in recipe_articles:
+            #     print(s.article)
             count = stock_issue.consolidateByArticle()
         # if formError:
         #     form.add_error(None, "Bez naskladnění není možné vytvořit výdejku")
@@ -640,7 +665,8 @@ class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, PDFTemplateView
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         stock_issue = StockIssue.objects.filter(pk=self.kwargs['pk']).get()
-        stock_issue_articles = StockIssueArticle.objects.filter(stock_issue_id=self.kwargs['pk'])
+        stock_issue_articles = StockIssueArticle.objects.filter(
+            stock_issue_id=self.kwargs['pk']).order_by('article__article')
         context['stock_issue'] = stock_issue
         context['stock_issue_articles'] = stock_issue_articles
         context['title'] = "Výdejka"
@@ -697,7 +723,7 @@ class StockIssueArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView
 
     def get_queryset(self):
         # show only StockIssueArticles
-        return super().get_queryset().filter(stock_issue=self.kwargs["pk"])
+        return super().get_queryset().filter(stock_issue=self.kwargs["pk"]).order_by('article__article')
 
 
 class StockIssueArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):

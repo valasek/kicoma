@@ -3,6 +3,7 @@ import datetime
 
 from django.db import models
 from django.db.models import Sum, Count
+from django.urls import reverse_lazy
 from django.conf import settings
 from django.forms import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -10,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 
 from simple_history.models import HistoricalRecords
 
-from .functions import convertUnits, totalRecipeArticlePrice, totalStockReceiptArticlePrice
+from .functions import convertUnits, totalStockReceiptArticlePrice, totalRecipeArticlePrice
 
 
 def updateArticleStock(stock_id, stock_direction):
@@ -175,10 +176,17 @@ class Recipe(TimeStampedModel):
     def __str__(self):
         return self.recipe
 
+    # used due to django-tables2 linkify
+    def get_absolute_url(self):
+        return reverse_lazy('kitchen:showRecipeArticles', args=[str(self.id)])
+
     @property
     def total_recipe_articles_price(self):
-        recipe_articles = RecipeArticle.objects.filter(recipe=self.id)
-        return round(totalRecipeArticlePrice(recipe_articles, self.norm_amount), 2)
+        recipes = RecipeArticle.objects.filter(recipe=self.id)
+        total = 0
+        for recipe in recipes:
+            total += recipe.total_average_price
+        return total
 
 
 class RecipeArticle(TimeStampedModel):
@@ -269,6 +277,10 @@ class StockIssue(TimeStampedModel):
         # group by article_id and sum amount and average_unit_price
         articles_to_consolidate = StockIssueArticle.objects.filter(
             stock_issue_id=self.pk).values('article_id').annotate(total=Count('article_id'), sumAmount=Sum('amount'), sumPrice=Sum('average_unit_price')).filter(total__gt=1)
+
+        articles_to_consolidate = StockIssueArticle.objects.filter(
+            stock_issue_id=self.pk).values('article_id').annotate(total=Count('article_id'), sumAmount=Sum('amount'), sumPrice=Sum('average_unit_price')).filter(total__gt=1)
+
         article_ids = []
         for a in articles_to_consolidate:
             article_ids.append(a['article_id'])
