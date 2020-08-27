@@ -105,7 +105,7 @@ def docs(request):
 def exportData(request):
     file_name = 'data.json'
     with open(file_name, "w") as f:
-        management.call_command('dumpdata', exclude=['contenttypes', 'auth'], natural_foreign=True, stdout=f)
+        management.call_command('dumpdata', 'kitchen', exclude=['contenttypes', 'auth'], stdout=f)
         f.close()
         response = HttpResponse(open(file_name, "rb"), content_type="application/json")
         response['Content-Disposition'] = 'attachment; filename='+file_name
@@ -126,7 +126,7 @@ class ImportDataView(TemplateView):
         uploaded_file = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(uploaded_file.name, uploaded_file)
-        management.call_command('loaddata', fs.path(filename), verbosity=0)
+        management.call_command('loaddata', fs.path(filename), verbosity=1)
         messages.success(self.request, "Data úspěšně nahrána")
         return super(ImportDataView, self).render_to_response(context)
 

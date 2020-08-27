@@ -153,7 +153,8 @@ class Article(TimeStampedModel):
 
     @staticmethod
     def sum_total_price():
-        return round(Article.objects.aggregate(total_price=Sum('total_price'))['total_price'], 2)
+        sum_price = Article.objects.aggregate(total_price=Sum('total_price'))['total_price']
+        return 0 if sum_price is None else round(sum_price, 2)
 
     def display_allergens(self):
         '''Create a string for the Allergens. This is required to display allergen in Admin and user table view.'''

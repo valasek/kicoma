@@ -1,7 +1,7 @@
 # Remove a dev DB and initialize from fixtures
 rm kicoma.sqlite3
-rm -R kicoma/kitchen/migrations/0*.py
-python manage.py makemigrations
+# rm -R kicoma/kitchen/migrations/0*.py
+# python manage.py makemigrations
 python manage.py migrate
 python manage.py loaddata kicoma/kitchen/fixtures/druhy-jidla.json
 python manage.py loaddata kicoma/kitchen/fixtures/alergeny.json
