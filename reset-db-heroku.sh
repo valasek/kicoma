@@ -14,8 +14,8 @@ heroku run python manage.py loaddata kicoma/kitchen/fixtures/dph.json
 heroku run python manage.py loaddata kicoma/kitchen/fixtures/skupiny-stravniku.json
 heroku run python manage.py loaddata kicoma/kitchen/fixtures/skupiny.json
 heroku run python manage.py loaddata kicoma/kitchen/fixtures/uzivatele.json
-heroku run python manage.py loaddata kicoma/kitchen/fixtures/article.json
-heroku run python manage.py loaddata kicoma/kitchen/fixtures/recipe.json
-heroku run python manage.py loaddata kicoma/kitchen/fixtures/recipe_article.json
+# heroku run python manage.py loaddata kicoma/kitchen/fixtures/article.json
+# heroku run python manage.py loaddata kicoma/kitchen/fixtures/recipe.json
+# heroku run python manage.py loaddata kicoma/kitchen/fixtures/recipe_article.json
 
 heroku run python manage.py createsuperuser --username admin

@@ -3,6 +3,7 @@ from decimal import Decimal
 from datetime import datetime
 
 from django.core import management
+from django.core.files.storage import FileSystemStorage
 
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect, HttpResponse
@@ -104,7 +105,7 @@ def docs(request):
 def exportData(request):
     file_name = 'data.json'
     with open(file_name, "w") as f:
-        management.call_command('dumpdata', natural_foreign=True, stdout=f)
+        management.call_command('dumpdata', exclude=['contenttypes', 'auth'], natural_foreign=True, stdout=f)
         f.close()
         response = HttpResponse(open(file_name, "rb"), content_type="application/json")
         response['Content-Disposition'] = 'attachment; filename='+file_name
@@ -122,8 +123,10 @@ class ImportDataView(TemplateView):
                 self.request,
                 "Není vybrán vstupní soubor, použij tlačítko Browse a vyber soubor.")
             return super(ImportDataView, self).render_to_response(context)
-        data = request.FILES['myfile']
-        management.call_command('loaddata', data, verbosity=0)
+        uploaded_file = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(uploaded_file.name, uploaded_file)
+        management.call_command('loaddata', fs.path(filename), verbosity=0)
         messages.success(self.request, "Data úspěšně nahrána")
         return super(ImportDataView, self).render_to_response(context)
 
@@ -218,7 +221,6 @@ class ArticleImportView(TemplateView):
         article_resource = ArticleResource()
         dataset = Dataset()
         context = {}  # set your context
-        # context[''] = {}  # set your context
         if len(request.FILES) == 0:
             messages.error(
                 self.request,
