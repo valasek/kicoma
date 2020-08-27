@@ -12,7 +12,7 @@ django-import-export==2.3.0
 django-tables2==2.3.1
 django-bootstrap4==2.2.0
 django-wkhtmltopdf==3.3.0
-sentry-sdk==0.16.5
+sentry-sdk==0.17.0
 django-simple-history==2.11.0
 
 # Django

@@ -1,8 +1,8 @@
 from decimal import Decimal
 import datetime
 
-from django.db import models
-from django.db.models import Sum, Count
+from django.db import models, transaction
+from django.db.models import Sum, Count, Min
 from django.urls import reverse_lazy
 from django.conf import settings
 from django.forms import ValidationError
@@ -144,6 +144,7 @@ class Article(TimeStampedModel):
     def __str__(self):
         return self.article
 
+    # average unit price with VAT
     @property
     def average_price(self):
         if self.on_stock != 0:
@@ -216,8 +217,8 @@ class RecipeArticle(TimeStampedModel):
 class DailyMenu(TimeStampedModel):
 
     class Meta:
-        verbose_name_plural = _('Denní jídla')
-        verbose_name = _('Denní jídlo')
+        verbose_name_plural = _('Denní menu')
+        verbose_name = _('Denní menu')
         ordering = ['-date', 'meal_group']
 
     date = models.DateField(verbose_name='Datum', help_text='Datum denního menu ve formátu dd.mm.rrrr')
@@ -276,28 +277,30 @@ class StockIssue(TimeStampedModel):
         # select all articles where count > 1
         # group by article_id and sum amount and average_unit_price
         articles_to_consolidate = StockIssueArticle.objects.filter(
-            stock_issue_id=self.pk).values('article_id').annotate(total=Count('article_id'), sumAmount=Sum('amount'), sumPrice=Sum('average_unit_price')).filter(total__gt=1)
-
-        articles_to_consolidate = StockIssueArticle.objects.filter(
-            stock_issue_id=self.pk).values('article_id').annotate(total=Count('article_id'), sumAmount=Sum('amount'), sumPrice=Sum('average_unit_price')).filter(total__gt=1)
-
+            stock_issue_id=self.pk).values('article_id').annotate(average_unit_price=Min('average_unit_price'), total=Count('article_id'), sumAmount=Sum('amount')).filter(total__gt=1)
         article_ids = []
-        for a in articles_to_consolidate:
-            article_ids.append(a['article_id'])
+        for article in articles_to_consolidate:
+            article_ids.append(article['article_id'])
         # remove all articles where count > 1
         StockIssueArticle.objects.filter(stock_issue_id=self.pk, article_id__in=article_ids).delete()
         # insert consolidated articles
-        for aa in articles_to_consolidate:
+        for article in articles_to_consolidate:
+            print("article", article)
             x = StockIssueArticle(
                 stock_issue=self,
-                article=Article.objects.filter(pk=aa['article_id']).get(),
-                amount=aa['sumAmount'],
-                unit=Article.objects.filter(pk=aa['article_id']).get().unit,
-                average_unit_price=aa['sumPrice'],
+                article=Article.objects.filter(pk=article['article_id']).get(),
+                amount=article['sumAmount'],
+                unit=Article.objects.filter(pk=article['article_id']).get().unit,
+                average_unit_price=article['average_unit_price'],
                 comment='consolidated article'
             )
             x.save()
         return len(StockIssueArticle.objects.filter(stock_issue_id=self.pk))
+
+    @staticmethod
+    def createFromDailyMenu(date, user):
+        count = -1
+        return count
 
 
 class StockReceipt(TimeStampedModel):
@@ -338,7 +341,7 @@ class StockIssueArticle(TimeStampedModel):
         MinValueValidator(Decimal('0.1'))], verbose_name='Množství')
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
     average_unit_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[
-        MinValueValidator(Decimal('0.1'))], blank=True, null=True, verbose_name='Průměrná jednotková cena bez DPH')
+        MinValueValidator(Decimal('0.1'))], blank=True, null=True, verbose_name='Průměrná jednotková cena s DPH')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     @property

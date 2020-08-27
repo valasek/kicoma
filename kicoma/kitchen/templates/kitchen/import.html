@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+  <h4>Import dat</h4>
+  <hr/>
+  <div class="jumbotron">
+    <h1 class="display-4">Upozornění</h1>
+    <p class="lead">
+      Import vymaže a nahradí všechna data v aplikaci včetně uživatelských účtů nahranýma.<br/>
+      Primárním cílem je přesun dat mezi testovacím a produkčním prostředím.
+    </p>
+  </div>
+  <p>Vyber soubor, který jsi exportovala (<a href="{% url 'kitchen:export' %}">Export všech dat</a>):</p>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="myfile"><br/> <br/>
+    <button type="submit" class="btn btn-success" id="myBtn">Import všech dat</button>
+  </form>
+  <div class="modal" id="myModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Import zahájen</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Odhadovaná doba trvání je 1 minuta.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Rozumím</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+$(document).ready(function(){
+  $("#myBtn").click(function(){
+    $("#myModal").modal();
+  });
+});
+</script>
+
+</div>
+{% endblock %}

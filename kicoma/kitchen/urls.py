@@ -7,7 +7,7 @@ from .views import StockReceiptListView, StockReceiptCreateView, StockReceiptUpd
     StockReceiptDeleteView, StockReceiptPDFView, StockReceiptApproveView
 from .views import StockReceiptArticleListView, StockReceiptArticleCreateView, StockReceiptArticleUpdateView, \
     StockReceiptArticleDeleteView
-from .views import StockIssueListView, StockIssueCreateView, StockIssueUpdateView, \
+from .views import StockIssueListView, StockIssueCreateView, StockIssueUpdateView, StockIssueRefreshView, \
     StockIssueDeleteView, StockIssuePDFView, StockIssueApproveView, StockIssueFromDailyMenuCreateView
 from .views import StockIssueArticleListView, StockIssueArticleCreateView, StockIssueArticleUpdateView, \
     StockIssueArticleDeleteView
@@ -22,12 +22,14 @@ from .views import DailyMenuRecipeListView, DailyMenuRecipeCreateView, DailyMenu
 from .views import FoodConsumptionPrintView, FoodConsumptionPDFView, IncorrectUnitsListView, \
     ArticlesNotInRecipesListView
 
-from .views import index, docs
+from .views import index, docs, exportData, ImportDataView
 
 app_name = "kitchen"
 urlpatterns = [
     path('overview', index, name='overview'),
     path('docs', docs, name='docs'),
+    path('export', exportData, name='export'),
+    path('import', ImportDataView.as_view(), name='import'),
     path('favicon.ico', RedirectView.as_view(url='/static/images/favicons/favicon.ico')),
 
     path('article/list', ArticleListView.as_view(), name='showArticles'),
@@ -47,6 +49,7 @@ urlpatterns = [
          name='createStockIssueFromDailyMenu'),
     path('stockissue/createarticle/<int:pk>', StockIssueArticleCreateView.as_view(), name='createStockIssueArticle'),
     path('stockissue/update/<int:pk>', StockIssueUpdateView.as_view(), name='updateStockIssue'),
+    path('stockissue/refresh/<int:pk>', StockIssueRefreshView.as_view(), name='refreshStockIssue'),
     path('stockissue/updatearticle/<int:pk>', StockIssueArticleUpdateView.as_view(), name='updateStockIssueArticle'),
     path('stockissue/delete/<int:pk>', StockIssueDeleteView.as_view(), name='deleteStockIssue'),
     path('stockissue/deletearticle/<int:pk>', StockIssueArticleDeleteView.as_view(), name='deleteStockIssueArticle'),

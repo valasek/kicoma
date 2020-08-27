@@ -71,7 +71,7 @@ class DailyMenuResource(resources.ModelResource):
         report_skipped = True
 
 
-class DailyMenuRecipesResource(resources.ModelResource):
+class DailyMenuRecipeResource(resources.ModelResource):
 
     class Meta:
         model = DailyMenuRecipe
@@ -144,7 +144,7 @@ class ArticleAdmin(ImportExportActionModelAdmin):
               ('on_stock', 'min_on_stock', 'total_price'),
               'allergen', 'comment', ]
     # list_filter = ('unit', 'coefficient')
-    search_fields = ('name',)
+    search_fields = ('article',)
     resource_class = ArticleResource
 
 
@@ -166,8 +166,8 @@ class DailyMenuAdmin(ImportExportActionModelAdmin):
 
 
 class DailyMenuRecipeAdmin(ImportExportActionModelAdmin):
-    list_display = ('amount', 'recipe', 'comment')
-    resource_class = DailyMenuRecipe
+    list_display = ('daily_menu', 'amount', 'recipe', 'comment')
+    resource_class = DailyMenuRecipeResource
 
 
 class StockIssueAdmin(ImportExportActionModelAdmin):

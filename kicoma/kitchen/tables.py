@@ -133,6 +133,7 @@ class StockIssueTable(tables.Table):
         | <a href="/kitchen/stockissue/articlelist/{{ record.id }}">Zobrazit zboží</a>
         {% load auth_extras %}
         {% if request.user|has_group:"stockkeeper" %}
+        | <a href="/kitchen/stockissue/refresh/{{ record.id }}">Aktualizovat</a>
         | <a href="/kitchen/stockissue/approve/{{ record.id }}">Vyskladnit</a>
         | <a href="/kitchen/stockissue/delete/{{ record.id }}">Vymazat</a>
         {% endif %}

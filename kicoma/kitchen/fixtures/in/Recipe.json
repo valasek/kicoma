@@ -1,0 +1,4601 @@
+[
+  {
+    "id": 10001,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "b\u00e1bovka 1/4",
+    "norm_amount": 8,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3261,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "b\u00e1bovka kynut\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3262,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "b\u00e1bovka t\u0159en\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 814,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ban\u00e1ny",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3267,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "boch\u00e1nky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3177,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "brambor\u00e1k sma\u017een\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3248,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bramborov\u00e1 ka\u0161e",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3172,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bramborov\u00e9 knedl\u00edky pln\u011bn\u00e9 uzen\u00fdm masem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3178,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bramborov\u00e9 knedl\u00edky s cibulkou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56684,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bramborov\u00e9 knedl\u00edky s vaj\u00ed\u010dkem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3252,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bramborov\u00e9 knedl\u00edky z pr\u00e1\u0161ku",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57263,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bramborov\u00e9 kruc\u00e1nky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57289,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bramborove krucanky zapecene se sunkou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3249,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bramborov\u00e9 placky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56647,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bramborov\u00e9 \u0161i\u0161ky pln\u011bn\u00e9 m\u00e1kem-polotovar",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3201,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bramborov\u00e9 \u0161i\u0161ky s houskou a m\u00e1slem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3170,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bramborov\u00fd gul\u00e1\u0161",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56608,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bramborov\u00fd sal\u00e1t selsk\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3250,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bramborov\u00fd sal\u00e1t s majon\u00e9zou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3187,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "brambory nov\u00e9 s tvarohem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3387,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "brambory \u0161\u0165ouchan\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3254,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "brambory va\u0159en\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3169,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "brambory zape\u010den\u00e9 se sal\u00e1mem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56619,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "brambory zape\u010den\u00e9 s ryb\u00edm masem a \u0161pen\u00e1t",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3303,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bratislavsk\u00e9 vep\u0159ov\u00e9 plecko",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56674,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "brokolice du\u0161en\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3369,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "brokolice zapecena s bramborem a syrem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 815,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "broskve",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3265,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bublanina",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3270,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "buchta na plech s kakaovou polevou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3188,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "buchti\u010dky duk\u00e1tov\u00e9 s kr\u00e9mem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3266,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "buchty",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56666,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bulgur",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57259,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bulgur s kuku\u0159ic\u00ed a hl\u00edvou \u00fast\u0159i\u010dnou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57277,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bulgur s kukurici a veprovym masem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56667,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bulgur s tu\u0148\u00e1kem a ledov\u00fdm sal\u00e1tem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56671,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "bu\u0159ty na \u010dern\u00e9m pivu",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56598,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u010daj na patra",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1048,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u010daj viatex",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56690,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "CDS- cukr krupice",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56691,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "CDS- cukr mou\u010dka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56689,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "CDS- ml\u00e9ko",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56688,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "CDS- mouka hladk\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56687,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "CDS- vejce",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57278,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "celer smazeny",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56585,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u010derven\u00e1 \u0159epa",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3107,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u010devab\u010di\u010di",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1057,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "chl\u00e9b 6",
+    "norm_amount": 6,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1058,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "chl\u00e9b 9",
+    "norm_amount": 9,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56607,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "chleb\u00ed\u010dek oblo\u017een\u00fd 20ks",
+    "norm_amount": 20,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3384,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "chlebov\u00e1 sma\u017eenka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3382,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u010d\u00edna z dr\u016fbe\u017e\u00edho masa",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3383,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u010d\u00edna z vep\u0159ov\u00e9ho masa",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57260,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u010d\u00ednsk\u00e9 zel\u00ed s tu\u0148\u00e1kem a vaj\u00ed\u010dkem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3181,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u010do\u010dka na kyselo",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56640,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u010do\u010dkov\u00fd sal\u00e1t s mozzarelou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1055,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "cukr na patra",
+    "norm_amount": 20,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56569,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "cukrovinky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56605,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "dobr\u00e1 voda",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56601,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "dresing",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 993,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "d\u017eem porce",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57291,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "dzem volny",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1062,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "eidam 30",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1063,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "eidam 50",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56629,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "fazole mexick\u00e9 s klob\u00e1sou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56588,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "fazolky na smetan\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56596,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "fazolov\u00e9 lusky na slanin\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57294,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "gnocchi bramborove",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3055,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "gul\u00e1\u0161 debrec\u00ednsk\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56609,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "gul\u00e1\u0161 dr\u016fbe\u017e\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3056,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "gul\u00e1\u0161 hov\u011bz\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3390,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "halu\u0161ky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57265,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "halu\u0161ky mra\u017een\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1059,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hermel\u00edn 1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1061,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hermel\u00edn 1/2",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57297,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hermelin grilovany",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57261,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hermel\u00edn sma\u017een\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56594,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "holansk\u00e1 om\u00e1\u010dka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3099,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "holansk\u00fd \u0159\u00edzek",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56600,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ho\u0159\u010dice",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56624,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "houbov\u00fd kuba",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3256,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "houskov\u00e9 knedl\u00edky s dro\u017ed\u00edm",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3255,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "houskov\u00e9 knedl\u00edky s pr\u00e1\u0161kem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1035,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "housky 2",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1036,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "housky 3",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56650,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed jazyk na v\u00edn\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56665,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "Hov\u011bz\u00ed l\u00ed\u010dka na v\u00edn\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3058,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed maso du\u0161en\u00e9 v kapust\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3373,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed maso va\u0159en\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56590,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed na \u010desneku",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3062,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed pe\u010den\u011b cik\u00e1nsk\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3063,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed pe\u010den\u011b frankfurtsk\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3064,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed pe\u010den\u011b na zelenin\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56574,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed pe\u010den\u011b po burgu\u0148sku",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57268,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed pe\u010den\u011b po zahradnicku",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56615,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed pe\u010den\u011b pra\u017esk\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3061,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed pe\u010den\u011b p\u0159\u00edrodn\u00ed-na pep\u0159i-z\u00e1zvoru",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3065,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed pe\u010den\u011b \u0161t\u011bp\u00e1nsk\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56616,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed pe\u010den\u011b znojemsk\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3125,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed s polskou om\u00e1\u010dkou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3059,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed sv\u00ed\u010dkov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3069,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hovezi zavitek plneny vejcem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3066,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hov\u011bz\u00ed z\u00e1vitek-\u0161pan\u011blsk\u00fd pt\u00e1\u010dek",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3257,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hrachov\u00e1 ka\u0161e s cibulkou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3185,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hr\u00e1ch va\u0159en\u00fd se slaninou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1041,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hranolky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 817,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "hru\u0161ky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57267,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "husarsk\u00e1 rol\u00e1da",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 819,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "jablka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3106,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "jaternicov\u00fd prejt",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3123,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "j\u00e1tra dr\u016fbe\u017e\u00ed du\u0161en\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57282,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "jatra drubezi na vine s mandlemi",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3121,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "j\u00e1tra na slanin\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56622,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "j\u00e1tra restovan\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1040,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "j\u00e1tra sma\u017een\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57271,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "jednohubky20ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3271,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "jid\u00e1\u0161e",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 983,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "jogurt",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57269,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kachn\u00ed stehna pe\u010den\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1052,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kakao granko",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1053,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kakao oby\u010dejn\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56676,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kapr po mlyn\u00e1\u0159sku",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56654,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kapr sma\u017een\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1050,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kapu\u010dino",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3210,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kapusta du\u0161en\u00e1 se sal\u00e1mem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3211,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "karban\u00e1tky kapustov\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3108,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "karban\u00e1tky sma\u017een\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 654,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ka\u0161e instantn\u00ed",
+    "norm_amount": 5,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3191,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ka\u0161e  krupicov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3258,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ka\u0161e nastavovan\u00e1 s cibulkou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3192,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ka\u0161e r\u00fd\u017eov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56679,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ka\u0161e vlo\u010dkov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1051,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "k\u00e1va karo",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1562,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "k\u00e1va melta",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 658,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kedlubny",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56637,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kef\u00edr",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 822,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kiwi",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56657,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "klob\u00e1sa 150g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3109,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "klopsy s hr\u00e1\u0161kem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3343,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "knedliky houskove",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3193,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "knedl\u00edky kynut\u00e9 s povidly",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56662,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "knedl\u00edky ovocn\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56602,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "knedl\u00edky ovocn\u00e9 tvarohov\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3375,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "knedl\u00edky \u0161pekov\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3186,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "knedl\u00edky s vejci",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3272,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "koblihy",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3365,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "koktejl ml\u00e9\u010dn\u00fd ban\u00e1nov\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3366,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "koktejl ml\u00e9\u010dn\u00fd \u010dokol\u00e1dov\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3356,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "koktejl ml\u00e9\u010dn\u00fd jahodov\u00fd kompot",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1038,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kol\u00e1\u010de 2ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3274,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kol\u00e1\u010de ovocn\u00e9 kynut\u00e9-mou\u010dn\u00edk",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3275,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kol\u00e1\u010de rohov\u00e9 s drobenkou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56583,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kol\u00e1\u010d m\u0159\u00ed\u017ekov\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57272,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kol\u00e1\u010d s ovocem a drobenkou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1060,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kol\u00e1\u010d \u0161vestkov\u00fd s m\u00e1kem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3277,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kol\u00e1\u010d t\u0159en\u00fd na plech",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3273,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kol\u00e1\u010d tvarohov\u00fd na plech",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3379,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kompot 2500g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3380,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kompot 3500g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3381,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kompot 350g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3378,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kompot 400g-600g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 827,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kompot 700g-820g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3158,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "koprov\u00e1 om\u00e1\u010dka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56643,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kr\u00e1l\u00edk na \u010derno",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56644,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kr\u00e1l\u00edk na cibuli a ho\u0159\u010dici",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56645,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kr\u00e1l\u00edk na m\u00e1sle",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57292,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kralik na zelenine",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3168,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "k\u0159enov\u00e1 om\u00e1\u010dka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57301,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kruti rizecky s hribkovou omackou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3357,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159ec\u00ed maso na ho\u0159\u010dici",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56580,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159ec\u00ed maso na raj\u010datech",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3339,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159ec\u00ed maso na zelenin\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3208,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159ec\u00ed maso v s\u00fdrov\u00e9 om\u00e1\u010dce",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 13211,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159ec\u00ed nudli\u010dky s nivou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56611,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159ec\u00ed nugetky na ledov\u00e9m sal\u00e1t\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56627,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159ec\u00ed nugetky sma\u017een\u00e9 na ledov\u00e9m sal\u00e1t\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57288,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kureci platek na houbach",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56658,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159ec\u00ed pl\u00e1tek na paprice",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57298,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kureci prsa na paprice",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56610,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159ec\u00ed \u0159\u00edzek p\u0159\u00edrodn\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56606,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159ec\u00ed \u0159\u00edzek sma\u017een\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57285,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kureci rolada",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3370,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159ec\u00ed stehna pe\u010den\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57302,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kureci stehna po horacku",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1037,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159ec\u00ed stehna sma\u017een\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56631,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159ec\u00ed z\u00e1vitky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3344,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159e na divoko",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56656,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159e na paprice",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56617,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159e na ro\u0161tu",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 13210,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159e na zp\u016fsob ba\u017eanta",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57275,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159e po hor\u00e1cku",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56587,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159e s n\u00e1divkou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56672,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ku\u0159e t\u0159\u00ed ho\u0159\u010dic",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3336,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kus kus",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56632,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kus kus s vep\u0159ov\u00fdm masem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3214,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kv\u011bt\u00e1kov\u00fd moze\u010dek",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3212,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "kv\u011bt\u00e1k sma\u017een\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 13213,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "lasagne s mlet\u00fdm masem a zeleninou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3385,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ledvinky na cibulce",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56628,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ledvinky na smetan\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3276,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "l\u00edvance",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1066,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "lu\u010dina 1ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3233,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "majoneza z\u00e1kladn\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1073,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "makov\u00fd z\u00e1vin 1/3 ks",
+    "norm_amount": 9,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1074,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "makov\u00fd z\u00e1vin 1/4 ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 834,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "mandarinky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1017,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "m\u00e1slo 10 g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1019,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "m\u00e1slo 20 g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1081,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "m\u00e1slo porce 1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1082,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "m\u00e1slo porce 2",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3372,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "masov\u00e9 kuli\u010dky v rajsk\u00e9 om\u00e1\u010dce",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3278,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "mazanec",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56599,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "medov\u00e9 m\u00e1slo",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 10085,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "med porce",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57290,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "med volny",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 835,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "meloun",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 836,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "meru\u0148ky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56668,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "mexick\u00e1 ku\u0159ec\u00ed p\u00e1nev",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 991,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "miner\u00e1lka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3333,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ml\u00e9ko 0,2",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3334,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ml\u00e9ko 0,25",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3335,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ml\u00e9ko 0,3",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 997,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ml\u00e9ko ochucen\u00e9 krabi\u010dka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3119,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "mlet\u00fd \u0159\u00edzek m\u00e1slov\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 979,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "moravsk\u00fd vrabec",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3216,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "mrkev du\u0161en\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56579,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "mrkvov\u00e1 \u0161\u0165\u00e1va",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56591,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "mysliveck\u00e1 hov\u011bz\u00ed pe\u010den\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56673,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "n\u00e1divka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3196,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "n\u00e1kyp krupicov\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56638,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "n\u00e1kyp  kus kus s kompotem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3198,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "n\u00e1kyp r\u00fd\u017eov\u00fd s ovocem - kompotem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57280,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "namornicke maso",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3280,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "n\u00e1pl\u0148 makov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3282,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "n\u00e1pl\u0148 povidlov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3279,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "n\u00e1pl\u0148 tvarohov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 816,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "nektarinky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56639,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "oblo\u017een\u00e1 m\u00edsa",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3235,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "oblo\u017een\u00fd chl\u00e9b 1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3236,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "oblo\u017een\u00fd chl\u00e9b 2",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3338,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "okurka sterilovan\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3164,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "okurkov\u00e1 om\u00e1\u010dka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56603,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "okurky sal\u00e1tov\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3301,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ostravsk\u00e9 nudle",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56651,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ovarov\u00e9 koleno",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56623,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ovocn\u00e9 \u017eel\u00e9 se zakysanou smetanou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57258,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ovocn\u00fd sal\u00e1t s \u010d\u00ednsk\u00fdm zel\u00edm",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3199,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pala\u010dinky se zava\u0159eninou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56625,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pala\u010dinky zape\u010den\u00e9 s tvarohem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 657,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "papriky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3114,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "papriky pln\u011bn\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1084,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "p\u00e1rky 100g s ho\u0159\u010dic\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3134,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "p\u00e1rky 150g s ho\u0159\u010dic\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1078,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pa\u0161tika kr\u00e1jen\u00e1 100g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1077,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pa\u0161tika kr\u00e1jen\u00e1 150g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1047,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pa\u0161tiky 100g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1046,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pa\u0161tiky 48g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57281,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pastyzrsky rizek",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3302,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pern\u00edk dom\u00e1c\u00ed 4ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3281,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pern\u00edk-mou\u010dn\u00edk 1ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1067,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pi\u0161kotov\u00e1 rol\u00e1da",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 774,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pi\u0161koty",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 990,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pit\u00ed\u010dko",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1080,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pizza",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3115,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pln\u011bn\u00e9 zel\u00ed na slanin\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 980,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e1rkov\u00fd dort",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3003,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka bramborov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3005,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka bramborov\u00e1 s krupkami",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56621,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka brokolicov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3006,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka celerov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3007,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka \u010desne\u010dka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3020,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka chlebov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3008,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka \u010do\u010dkov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3011,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka dro\u017e\u010fov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3012,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka dr\u0161tkov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3013,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka dr\u016fbkov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57284,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "polevka dynova",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3014,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka fazolov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3015,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka frankfurtsk\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3016,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka gul\u00e1\u0161ov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56572,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka holandsk\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3017,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka houbov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3001,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka hov\u011bz\u00ed s masem a t\u011bstovinami",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3018,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka hrachov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56577,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka hr\u00e1\u0161kov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3019,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka hrstkov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56570,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka j\u00e1hlov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57276,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "polevka jarni",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56573,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka kaldon",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3022,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka kapustov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3023,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka km\u00ednov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3345,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "polevka krkonoska cibulacka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3024,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka kroupov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3009,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka krupicov\u00e1 s vejcem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57299,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "polevka kukuricova s bramborem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3189,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka kulajda",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3025,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka kv\u011bt\u00e1kov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3027,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka masov\u00e1 rag\u016f",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57296,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "polevka mrkvova s krupici",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56575,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka pohankov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3030,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka p\u00f3rkov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57300,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "polevka rajska s  ryzi",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3031,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka rajsk\u00e1 s t\u011bstovinou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56581,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka rusk\u00fd bor\u0161\u010d",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56630,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka ryb\u00ed s krupic\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3033,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka r\u00fd\u017eov\u00e1 b\u00edl\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3034,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka selsk\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3052,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka se strouh\u00e1n\u00edm",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3046,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka s j\u00e1tr.knedl\u00ed\u010dky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3045,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka s kap\u00e1n\u00edm",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3010,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka s kapustou a r\u00fd\u017e\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3342,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka s krupicovymi noky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3035,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka slepi\u010d\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57286,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "polevka s masovymi knedlicky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3393,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka s opra\u017eenou krupic\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56571,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka \u0161pen\u00e1tov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56655,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka s vaje\u010dn\u00fdm sv\u00edtkem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3341,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka uzen\u00e1 s r\u00fd\u017e\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3039,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka vlo\u010dkov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3347,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka \u017eampionov\u00fd kr\u00e9m",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3040,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka zeleninov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3042,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pol\u00e9vka zelna\u010dka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57295,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "polevka zemlova",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3241,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomaz\u00e1nka dro\u017e\u010fov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1039,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomaz\u00e1nka mrkvov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3340,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomaz\u00e1nka pa\u0161tikov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3243,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomaz\u00e1nka sal\u00e1mov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56592,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomaz\u00e1nka \u0161kvarkov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3244,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomaz\u00e1nka s\u00fdrov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3242,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomaz\u00e1nka turistick\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3245,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomaz\u00e1nka tvarohov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3246,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomaz\u00e1nka vaje\u010dn\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56670,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomaz\u00e1nka z lu\u010diny",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3247,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomaz\u00e1nka z tu\u0148\u00e1ka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57287,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomazanka z uzeneho masa",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56597,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomaz\u00e1nka z vep\u0159ov\u00fdch konzerv",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 992,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomaz\u00e1nkov\u00e9 m\u00e1slo",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 838,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pomeran\u010de",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3166,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "p\u00f3rkov\u00e1 om\u00e1\u010dka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 13212,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "portobello pln\u011bn\u00e9 mlet\u00fdm masem a s\u00fdrem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 988,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "p\u0159esn\u00edd\u00e1vky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3194,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "puding",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1070,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pudink se \u0161leha\u010dkou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3351,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "pudink s tvarohem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 655,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "raj\u010data",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3159,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "rajsk\u00e1 om\u00e1\u010dka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 656,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u0159edkvi\u010dky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57264,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "rizoto srbsk\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3222,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "rizoto zeleninov\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3363,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "rizoto zeleninov\u00e9- mra\u017een\u00e1 zelenina",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3148,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "rizoto z ku\u0159ec\u00edho masa",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3083,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "rizoto z vep\u0159ov\u00e9ho masa",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1042,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "rohl\u00edky 1ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1033,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "rohl\u00edky 2ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3332,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ro\u0161\u0165\u00e1ci",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3070,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ro\u0161t\u011bn\u00e1 na paprice",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3071,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ro\u0161t\u011bn\u00e1 p\u0159\u00edrodn\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3072,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ro\u0161t\u011bn\u00e1 znojemsk\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56641,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "rusk\u00e9 vejce",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1034,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ryb\u00ed file na bylink\u00e1ch",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3348,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ryb\u00ed file na raj\u010datech",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56646,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ryb\u00ed file po italsku",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1079,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ryb\u00ed file p\u0159\u00edrodn\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3155,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ryb\u00ed fil\u00e9 sma\u017een\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 987,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ryb\u00ed file zape\u010den\u00e9 se s\u00fdrem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56626,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ryb\u00ed koktejl /z krab\u00edch ty\u010dinek/",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3355,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ryb\u00ed prsty",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 843,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ryngle",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3264,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "r\u00fd\u017ee du\u0161en\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1056,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1m 30g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1049,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1m 50g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3135,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1m ope\u010den\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3352,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1m s cibul\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3136,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1m sma\u017een\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3226,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1t hl\u00e1vkov\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56661,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1t m\u00edchan\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3228,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1t mrkvov\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3227,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1t okurkov\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56653,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1t raj\u010datov\u00fd s mozarelou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 778,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1t raj\u010datov\u00fd s vejci",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56604,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1t \u0159eck\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3377,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1t \u0161opsk\u00fd 400G",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3354,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1t z \u010d\u00ednsk\u00e9ho zel\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3230,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1t z hl\u00e1vkov\u00e9ho zel\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3231,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1t z kysel\u00e9ho zel\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3232,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sal\u00e1t z raj\u010dat",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1071,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u0161\u00e1te\u010dky 1 ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1069,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u0161\u00e1te\u010dky 2ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3293,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u0161\u00e1te\u010dky tvarohov\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3337,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sekan\u00e1 dr\u016fbe\u017e\u00ed mra\u017een\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3116,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sekan\u00e1 pe\u010den\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56620,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sekan\u00e1 pe\u010den\u011b pln\u011bn\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3117,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sekan\u00e1 se sojou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56686,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "sekan\u00e1 sv\u00ed\u010dkov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57283,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "skoricove sisky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3202,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u0161kub\u00e1nky s m\u00e1kem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56660,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u0161kvarkov\u00e9 placky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3149,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "slepice na paprice",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3391,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u0161pagety po italsku",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3205,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u0161pagety se s\u00fdrem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57273,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "spatzle se \u0161pen\u00e1tem a smetanou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56680,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "spatzle s m\u00e1kem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56681,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "spatzle s tvarohem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56682,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "spatzle va\u0159en\u00e9- p\u0159\u00edloha",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3218,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u0161pen\u00e1t du\u0161en\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3132,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "srdce na slanin\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3237,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "studen\u00e1 m\u00edsa",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3238,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "studen\u00e1 m\u00edsa 2",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 956,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u0161unka 30g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 957,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u0161unka 50g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 775,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "su\u0161enky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 844,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u0161vestky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57270,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "s\u00fdrov\u00e1 om\u00e1\u010dka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56578,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "s\u00fdr sma\u017een\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3359,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "s\u00fdr taven\u00fd 100g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3358,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "s\u00fdr taven\u00fd 50g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1043,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "s\u00fdr troj",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57293,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "tarhona",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56576,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ta\u0161ti\u010dky tvarohov\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56669,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "ta\u0161ti\u010dky tvarohov\u00e9 polotovar",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3368,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "tatarsk\u00e1 om\u00e1\u010dka ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3362,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "tatarsk\u00e1 om\u00e1\u010dka z majon\u00e9zy",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3078,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "telec\u00ed pe\u010den\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3082,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "telec\u00ed \u017eeb\u00edrko na m\u00e1sle",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 965,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "termix",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57266,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "t\u011bstovinov\u00e9 nudle se \u0161pen\u00e1tem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56636,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "t\u011bstovinov\u00fd n\u00e1kyp s tvarohem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3389,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "t\u011bstovinov\u00fd sal\u00e1t se zeleninou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3260,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "t\u011bstoviny",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56675,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "t\u011bstoviny po italsku",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56618,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "t\u011bstoviny s h\u0159\u00edbkovou om\u00e1\u010dkou a ku\u0159ec\u00edm",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 13209,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "t\u011bstoviny s ku\u0159ec\u00edm masem a hl\u00edvou \u00fast\u0159i",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3204,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "t\u011bstoviny s m\u00e1kem -tvarohem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56633,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "t\u011bstoviny s tu\u0148\u00e1kem a zeleninou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3176,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "t\u011bstoviny zape\u010den\u00e9 se sal\u00e1mem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 13208,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "t\u011bstoviny zape\u010den\u00e9 s houbama",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3175,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "t\u011bstoviny zape\u010den\u00e9 s masem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3263,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "t\u011bstoviny-zav\u00e1\u0159ka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3138,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "tla\u010denka s cibul\u00ed 150g",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3239,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "topinky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56683,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "tortila s ku\u0159ec\u00edm masem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56663,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "tousty \u0161unkov\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3349,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "tvaroh \u0161lehan\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3371,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "uhl\u00ed\u0159ina",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56586,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "uzen\u00e9 maso",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3376,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vaje\u010dn\u00e1 omeleta se \u0161pen\u00e1tem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56677,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vaje\u010dn\u00e1 omeleta se zeleninou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56652,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vaje\u010dn\u00e1 omeleta s p\u00e1rkem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56593,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vaje\u010dn\u00e1 tla\u010denka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3296,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "v\u00e1no\u010dka",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1044,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "v\u00e1no\u010dka 1/3",
+    "norm_amount": 9,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1045,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "v\u00e1no\u010dka 1/4",
+    "norm_amount": 8,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3298,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vdole\u010dky sma\u017een\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3361,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vejce m\u00edchan\u00e1 2ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57274,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vejce s\u00e1zen\u00e1  1ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3360,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vejce va\u0159en\u00e9 1ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3350,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "veky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3346,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e1 k\u00fdta hambursk\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3392,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e1 k\u00fdta na paprice",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3084,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e1 pe\u010den\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56664,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "Vep\u0159ov\u00e1 pe\u010den\u011b chorvatsk\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3085,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e1 pe\u010den\u011b selsk\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56613,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e1 plec na zelenin\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3097,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e1 rol\u00e1da",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3075,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e9 du\u0161en\u00e9 na paprice",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3087,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e9 maso du\u0161en\u00e9 v kapust\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3088,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e9 maso du\u0161en\u00e9 v kedlubn\u00e1ch",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3089,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e9 maso du\u0161en\u00e9 v mrkvi",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 911,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e9 maso na houb\u00e1ch",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3090,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e9 maso na km\u00edn\u011b",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1076,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e9 maso plovdivsk\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3386,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e9 maso po se\u010du\u00e1nsku",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3091,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e9 maso uzen\u00e9 s kost\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 989,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e9 ra\u017eni\u010di",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56614,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e9 v\u00fdpe\u010dky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3092,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e9 \u017eeb\u00edrko sma\u017een\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1083,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00e9 \u017eeb\u00edrko srbsk\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3093,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00fd b\u016f\u010dek nad\u00edvan\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3094,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00fd gul\u00e1\u0161",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3095,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00fd gul\u00e1\u0161 seged\u00ednsk\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3096,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00fd kotlet p\u0159\u00edrodn\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56635,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00fd perkelt",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3388,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00fd pl\u00e1tek p\u0159\u00edrodn\u00ed",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56634,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00fd pl\u00e1tek zape\u010den\u00fd s bramborem a s\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3098,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vep\u0159ov\u00fd \u0159\u00edzek sma\u017een\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1075,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vinn\u00e1 klob\u00e1sa 150",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 846,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vino hroznov\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3139,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "vu\u0159ty",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3304,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "z\u00e1hor\u00e1ck\u00fd z\u00e1vitek",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56584,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u017eahour jahodov\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 777,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "zahradnick\u00fd \u0159\u00edzek",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 776,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "z\u00e1kusky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56589,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u017eampiony sma\u017een\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56595,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "zav\u00e1\u0159ka - p\u0159\u00edloha",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56648,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "z\u00e1vin jablkov\u00fd l\u00edskov\u00e9 t\u011bsto 3ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3374,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "z\u00e1vin jablkov\u00fd l\u00edskov\u00e9 t\u011bsto-mou\u010dn\u00edk 1ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3299,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "z\u00e1vin jablkov\u00fd- mou\u010dn\u00edk 1ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56678,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "z\u00e1vin sal\u00e1mov\u00fd",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56649,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "z\u00e1vin tvarohov\u00fd l\u00edskov\u00e9 t\u011bsto 3ks",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56612,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "zbojnick\u00e1 rol\u00e1da",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56642,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "zelenina du\u0161en\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 1065,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "zelenina grilovan\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3364,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "zelenina sterilovan\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 57262,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "zeleninov\u00e9 le\u010do",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3215,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "zeleninov\u00e9 le\u010do s uzeninou",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3224,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "zel\u00ed hl\u00e1vkov\u00e9 du\u0161en\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3225,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "zel\u00ed kysel\u00e9 du\u0161en\u00e9",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3206,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u017eemlovka jablkov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 56659,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u017eemlovka jablkov\u00e1 s tvarohem",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3207,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "\u017eemlovka tvarohov\u00e1",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  },
+  {
+    "id": 3353,
+    "created": "2020-08-23 16:14:00",
+    "modified": "2020-08-23 16:14:00",
+    "recipe": "zmrzlina,nanuky",
+    "norm_amount": 10,
+    "procedure": "",
+    "comment": ""
+  }
+]

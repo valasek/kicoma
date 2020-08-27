@@ -1,0 +1,782 @@
+[
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 91,
+    "fields": {
+      "created": "2020-08-26 06:35:39+0000",
+      "modified": "2020-08-26 06:35:39+0000",
+      "date": "2020-09-01",
+      "meal_group": 4,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 90,
+    "fields": {
+      "created": "2020-08-25 16:43:49+0000",
+      "modified": "2020-08-25 16:43:49+0000",
+      "date": "2020-08-30",
+      "meal_group": 1,
+      "meal_type": 10,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 88,
+    "fields": {
+      "created": "2020-08-25 16:41:57+0000",
+      "modified": "2020-08-25 16:41:57+0000",
+      "date": "2020-08-30",
+      "meal_group": 1,
+      "meal_type": 8,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 84,
+    "fields": {
+      "created": "2020-08-25 16:39:15+0000",
+      "modified": "2020-08-25 16:39:15+0000",
+      "date": "2020-08-30",
+      "meal_group": 1,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 83,
+    "fields": {
+      "created": "2020-08-25 16:38:37+0000",
+      "modified": "2020-08-25 16:38:37+0000",
+      "date": "2020-08-30",
+      "meal_group": 1,
+      "meal_type": 6,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 81,
+    "fields": {
+      "created": "2020-08-25 16:36:51+0000",
+      "modified": "2020-08-25 16:36:51+0000",
+      "date": "2020-08-30",
+      "meal_group": 1,
+      "meal_type": 1,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 89,
+    "fields": {
+      "created": "2020-08-25 16:42:30+0000",
+      "modified": "2020-08-25 16:42:30+0000",
+      "date": "2020-08-30",
+      "meal_group": 2,
+      "meal_type": 9,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 85,
+    "fields": {
+      "created": "2020-08-25 16:40:08+0000",
+      "modified": "2020-08-25 16:40:08+0000",
+      "date": "2020-08-30",
+      "meal_group": 2,
+      "meal_type": 5,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 82,
+    "fields": {
+      "created": "2020-08-25 16:38:10+0000",
+      "modified": "2020-08-25 16:38:10+0000",
+      "date": "2020-08-30",
+      "meal_group": 2,
+      "meal_type": 2,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 87,
+    "fields": {
+      "created": "2020-08-25 16:41:25+0000",
+      "modified": "2020-08-25 16:41:25+0000",
+      "date": "2020-08-30",
+      "meal_group": 3,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 86,
+    "fields": {
+      "created": "2020-08-25 16:40:42+0000",
+      "modified": "2020-08-25 16:40:42+0000",
+      "date": "2020-08-30",
+      "meal_group": 4,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 80,
+    "fields": {
+      "created": "2020-08-25 16:35:53+0000",
+      "modified": "2020-08-25 16:35:53+0000",
+      "date": "2020-08-29",
+      "meal_group": 1,
+      "meal_type": 10,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 78,
+    "fields": {
+      "created": "2020-08-25 16:34:26+0000",
+      "modified": "2020-08-25 16:34:26+0000",
+      "date": "2020-08-29",
+      "meal_group": 1,
+      "meal_type": 8,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 74,
+    "fields": {
+      "created": "2020-08-25 16:29:36+0000",
+      "modified": "2020-08-25 16:29:36+0000",
+      "date": "2020-08-29",
+      "meal_group": 1,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 72,
+    "fields": {
+      "created": "2020-08-25 16:28:45+0000",
+      "modified": "2020-08-25 16:28:45+0000",
+      "date": "2020-08-29",
+      "meal_group": 1,
+      "meal_type": 6,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 71,
+    "fields": {
+      "created": "2020-08-25 16:23:30+0000",
+      "modified": "2020-08-25 16:23:30+0000",
+      "date": "2020-08-29",
+      "meal_group": 1,
+      "meal_type": 1,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 79,
+    "fields": {
+      "created": "2020-08-25 16:35:13+0000",
+      "modified": "2020-08-25 16:35:13+0000",
+      "date": "2020-08-29",
+      "meal_group": 2,
+      "meal_type": 9,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 75,
+    "fields": {
+      "created": "2020-08-25 16:31:30+0000",
+      "modified": "2020-08-25 16:31:30+0000",
+      "date": "2020-08-29",
+      "meal_group": 2,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 73,
+    "fields": {
+      "created": "2020-08-25 16:29:16+0000",
+      "modified": "2020-08-25 16:29:16+0000",
+      "date": "2020-08-29",
+      "meal_group": 2,
+      "meal_type": 7,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 70,
+    "fields": {
+      "created": "2020-08-25 12:54:51+0000",
+      "modified": "2020-08-25 16:27:07+0000",
+      "date": "2020-08-29",
+      "meal_group": 2,
+      "meal_type": 2,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 77,
+    "fields": {
+      "created": "2020-08-25 16:33:34+0000",
+      "modified": "2020-08-25 16:33:34+0000",
+      "date": "2020-08-29",
+      "meal_group": 3,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 76,
+    "fields": {
+      "created": "2020-08-25 16:32:30+0000",
+      "modified": "2020-08-25 16:32:30+0000",
+      "date": "2020-08-29",
+      "meal_group": 4,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 61,
+    "fields": {
+      "created": "2020-08-24 15:19:45+0000",
+      "modified": "2020-08-24 15:19:45+0000",
+      "date": "2020-08-28",
+      "meal_group": 1,
+      "meal_type": 10,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 59,
+    "fields": {
+      "created": "2020-08-24 15:18:27+0000",
+      "modified": "2020-08-24 15:18:27+0000",
+      "date": "2020-08-28",
+      "meal_group": 1,
+      "meal_type": 8,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 55,
+    "fields": {
+      "created": "2020-08-24 15:13:57+0000",
+      "modified": "2020-08-24 15:13:57+0000",
+      "date": "2020-08-28",
+      "meal_group": 1,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 52,
+    "fields": {
+      "created": "2020-08-24 15:12:37+0000",
+      "modified": "2020-08-24 15:12:37+0000",
+      "date": "2020-08-28",
+      "meal_group": 1,
+      "meal_type": 6,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 50,
+    "fields": {
+      "created": "2020-08-24 15:10:01+0000",
+      "modified": "2020-08-24 15:10:01+0000",
+      "date": "2020-08-28",
+      "meal_group": 1,
+      "meal_type": 1,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 60,
+    "fields": {
+      "created": "2020-08-24 15:19:09+0000",
+      "modified": "2020-08-24 15:19:09+0000",
+      "date": "2020-08-28",
+      "meal_group": 2,
+      "meal_type": 9,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 56,
+    "fields": {
+      "created": "2020-08-24 15:15:20+0000",
+      "modified": "2020-08-24 15:15:20+0000",
+      "date": "2020-08-28",
+      "meal_group": 2,
+      "meal_type": 5,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 54,
+    "fields": {
+      "created": "2020-08-24 15:13:33+0000",
+      "modified": "2020-08-24 15:13:33+0000",
+      "date": "2020-08-28",
+      "meal_group": 2,
+      "meal_type": 7,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 51,
+    "fields": {
+      "created": "2020-08-24 15:11:51+0000",
+      "modified": "2020-08-24 15:11:51+0000",
+      "date": "2020-08-28",
+      "meal_group": 2,
+      "meal_type": 2,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 57,
+    "fields": {
+      "created": "2020-08-24 15:16:09+0000",
+      "modified": "2020-08-24 15:16:09+0000",
+      "date": "2020-08-28",
+      "meal_group": 3,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 58,
+    "fields": {
+      "created": "2020-08-24 15:17:14+0000",
+      "modified": "2020-08-24 15:17:14+0000",
+      "date": "2020-08-28",
+      "meal_group": 4,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 47,
+    "fields": {
+      "created": "2020-08-24 15:06:03+0000",
+      "modified": "2020-08-24 15:06:03+0000",
+      "date": "2020-08-27",
+      "meal_group": 1,
+      "meal_type": 8,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 43,
+    "fields": {
+      "created": "2020-08-24 15:02:27+0000",
+      "modified": "2020-08-24 15:02:27+0000",
+      "date": "2020-08-27",
+      "meal_group": 1,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 42,
+    "fields": {
+      "created": "2020-08-24 15:01:58+0000",
+      "modified": "2020-08-24 15:01:58+0000",
+      "date": "2020-08-27",
+      "meal_group": 1,
+      "meal_type": 6,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 40,
+    "fields": {
+      "created": "2020-08-24 14:58:06+0000",
+      "modified": "2020-08-24 14:58:06+0000",
+      "date": "2020-08-27",
+      "meal_group": 1,
+      "meal_type": 1,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 48,
+    "fields": {
+      "created": "2020-08-24 15:07:08+0000",
+      "modified": "2020-08-24 15:07:08+0000",
+      "date": "2020-08-27",
+      "meal_group": 2,
+      "meal_type": 9,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 44,
+    "fields": {
+      "created": "2020-08-24 15:03:48+0000",
+      "modified": "2020-08-24 15:03:48+0000",
+      "date": "2020-08-27",
+      "meal_group": 2,
+      "meal_type": 5,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 41,
+    "fields": {
+      "created": "2020-08-24 15:00:31+0000",
+      "modified": "2020-08-24 15:00:31+0000",
+      "date": "2020-08-27",
+      "meal_group": 2,
+      "meal_type": 2,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 45,
+    "fields": {
+      "created": "2020-08-24 15:04:19+0000",
+      "modified": "2020-08-24 15:04:19+0000",
+      "date": "2020-08-27",
+      "meal_group": 3,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 46,
+    "fields": {
+      "created": "2020-08-24 15:05:13+0000",
+      "modified": "2020-08-24 15:05:13+0000",
+      "date": "2020-08-27",
+      "meal_group": 4,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 23,
+    "fields": {
+      "created": "2020-08-24 07:32:58+0000",
+      "modified": "2020-08-24 07:32:58+0000",
+      "date": "2020-08-26",
+      "meal_group": 1,
+      "meal_type": 10,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 21,
+    "fields": {
+      "created": "2020-08-24 07:30:03+0000",
+      "modified": "2020-08-24 07:30:03+0000",
+      "date": "2020-08-26",
+      "meal_group": 1,
+      "meal_type": 8,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 18,
+    "fields": {
+      "created": "2020-08-24 07:27:12+0000",
+      "modified": "2020-08-24 07:27:12+0000",
+      "date": "2020-08-26",
+      "meal_group": 1,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 17,
+    "fields": {
+      "created": "2020-08-24 07:22:31+0000",
+      "modified": "2020-08-24 07:22:31+0000",
+      "date": "2020-08-26",
+      "meal_group": 1,
+      "meal_type": 6,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 14,
+    "fields": {
+      "created": "2020-08-24 07:18:01+0000",
+      "modified": "2020-08-24 07:18:01+0000",
+      "date": "2020-08-26",
+      "meal_group": 1,
+      "meal_type": 1,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 62,
+    "fields": {
+      "created": "2020-08-24 16:29:21+0000",
+      "modified": "2020-08-24 16:29:21+0000",
+      "date": "2020-08-26",
+      "meal_group": 2,
+      "meal_type": 5,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 38,
+    "fields": {
+      "created": "2020-08-24 14:49:47+0000",
+      "modified": "2020-08-24 14:49:47+0000",
+      "date": "2020-08-26",
+      "meal_group": 2,
+      "meal_type": 7,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 22,
+    "fields": {
+      "created": "2020-08-24 07:32:12+0000",
+      "modified": "2020-08-24 07:32:12+0000",
+      "date": "2020-08-26",
+      "meal_group": 2,
+      "meal_type": 8,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 16,
+    "fields": {
+      "created": "2020-08-24 07:21:17+0000",
+      "modified": "2020-08-24 07:21:17+0000",
+      "date": "2020-08-26",
+      "meal_group": 2,
+      "meal_type": 2,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 19,
+    "fields": {
+      "created": "2020-08-24 07:28:27+0000",
+      "modified": "2020-08-24 07:28:27+0000",
+      "date": "2020-08-26",
+      "meal_group": 3,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 20,
+    "fields": {
+      "created": "2020-08-24 07:29:11+0000",
+      "modified": "2020-08-24 07:29:11+0000",
+      "date": "2020-08-26",
+      "meal_group": 4,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 37,
+    "fields": {
+      "created": "2020-08-24 14:38:30+0000",
+      "modified": "2020-08-24 14:38:30+0000",
+      "date": "2020-08-25",
+      "meal_group": 1,
+      "meal_type": 10,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 35,
+    "fields": {
+      "created": "2020-08-24 14:36:38+0000",
+      "modified": "2020-08-24 14:36:38+0000",
+      "date": "2020-08-25",
+      "meal_group": 1,
+      "meal_type": 8,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 31,
+    "fields": {
+      "created": "2020-08-24 14:29:43+0000",
+      "modified": "2020-08-24 14:29:43+0000",
+      "date": "2020-08-25",
+      "meal_group": 1,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 29,
+    "fields": {
+      "created": "2020-08-24 14:28:58+0000",
+      "modified": "2020-08-24 14:28:58+0000",
+      "date": "2020-08-25",
+      "meal_group": 1,
+      "meal_type": 6,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 27,
+    "fields": {
+      "created": "2020-08-24 14:23:25+0000",
+      "modified": "2020-08-24 14:23:25+0000",
+      "date": "2020-08-25",
+      "meal_group": 1,
+      "meal_type": 1,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 39,
+    "fields": {
+      "created": "2020-08-24 14:52:06+0000",
+      "modified": "2020-08-24 14:52:06+0000",
+      "date": "2020-08-25",
+      "meal_group": 2,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 36,
+    "fields": {
+      "created": "2020-08-24 14:37:46+0000",
+      "modified": "2020-08-24 14:37:46+0000",
+      "date": "2020-08-25",
+      "meal_group": 2,
+      "meal_type": 9,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 32,
+    "fields": {
+      "created": "2020-08-24 14:31:50+0000",
+      "modified": "2020-08-24 14:31:50+0000",
+      "date": "2020-08-25",
+      "meal_group": 2,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 30,
+    "fields": {
+      "created": "2020-08-24 14:29:19+0000",
+      "modified": "2020-08-24 14:29:19+0000",
+      "date": "2020-08-25",
+      "meal_group": 2,
+      "meal_type": 7,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 28,
+    "fields": {
+      "created": "2020-08-24 14:27:40+0000",
+      "modified": "2020-08-24 14:27:40+0000",
+      "date": "2020-08-25",
+      "meal_group": 2,
+      "meal_type": 2,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 33,
+    "fields": {
+      "created": "2020-08-24 14:32:41+0000",
+      "modified": "2020-08-24 14:32:41+0000",
+      "date": "2020-08-25",
+      "meal_group": 3,
+      "meal_type": 3,
+      "comment": ""
+    }
+  },
+  {
+    "model": "kitchen.dailymenu",
+    "pk": 34,
+    "fields": {
+      "created": "2020-08-24 14:34:14+0000",
+      "modified": "2020-08-24 14:34:14+0000",
+      "date": "2020-08-25",
+      "meal_group": 4,
+      "meal_type": 3,
+      "comment": ""
+    }
+  }
+]

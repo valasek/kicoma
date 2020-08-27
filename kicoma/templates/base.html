@@ -96,11 +96,6 @@
               >
             </li>
             {% else %} {% if request.user.is_authenticated %}
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'kitchen:overview' %}"
-                >Přehled <span class="sr-only">(current)</span></a
-              >
-            </li>
             {% if request.user|has_group:"stockkeeper" or request.user|has_group:"cook"%}
             <li class="nav-item dropdown">
               <a
@@ -291,6 +286,7 @@
                 >
                   Rozpis spotřeby potravin dle jídel a receptů</a
                 >
+                <hr/>
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:showArticlesNotInRecipes' %}"
@@ -307,10 +303,31 @@
               </div>
             </li>
             {% endif %}
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'kitchen:docs' %}"
-                >Nápověda</a
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link active dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLink"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
               >
+                O programu
+              </a>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <a class="dropdown-item" href="{% url 'kitchen:overview' %}"
+                  >Přehled <span class="sr-only">(current)</span></a>
+                <a class="dropdown-item" href="{% url 'kitchen:docs' %}"
+                  >Nápověda</a>
+                {% if request.user|has_group:"chef" %}
+                <hr/>
+                <a class="dropdown-item" href="{% url 'kitchen:export' %}">Export všech dat</a>
+                <a class="dropdown-item" href="{% url 'kitchen:import' %}">Import všech dat</a>
+                {% endif %}
+              </div>
             </li>
           </ul>
           <ul class="navbar-nav">

@@ -2,6 +2,8 @@ import logging
 from decimal import Decimal
 from datetime import datetime
 
+from django.core import management
+
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
@@ -99,6 +101,33 @@ def docs(request):
     return render(request, 'kitchen/docs.html')
 
 
+def exportData(request):
+    file_name = 'data.json'
+    with open(file_name, "w") as f:
+        management.call_command('dumpdata', natural_foreign=True, stdout=f)
+        f.close()
+        response = HttpResponse(open(file_name, "rb"), content_type="application/json")
+        response['Content-Disposition'] = 'attachment; filename='+file_name
+        messages.success(request, "Všechna data byla exportována")
+        return response
+
+
+class ImportDataView(TemplateView):
+    template_name = 'kitchen/import.html'
+
+    def post(self, request, **kwargs):
+        context = {}
+        if len(request.FILES) == 0:
+            messages.error(
+                self.request,
+                "Není vybrán vstupní soubor, použij tlačítko Browse a vyber soubor.")
+            return super(ImportDataView, self).render_to_response(context)
+        data = request.FILES['myfile']
+        management.call_command('loaddata', data, verbosity=0)
+        messages.success(self.request, "Data úspěšně nahrána")
+        return super(ImportDataView, self).render_to_response(context)
+
+
 class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = Article
     table_class = ArticleTable
@@ -124,7 +153,6 @@ class ArticleLackListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     def get_queryset(self):
         # show only articles where
         return super().get_queryset().filter(on_stock__lt=F('min_on_stock'))
-        # return self.filter(on_stock__lte=min_on_stock, **kwargs)
 
 
 class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -596,6 +624,26 @@ class StockIssueUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     template_name = 'kitchen/stockissue/update.html'
     success_message = "Poznámka výdejky byla aktualizována"
     success_url = reverse_lazy('kitchen:showStockIssues')
+
+
+class StockIssueRefreshView(LoginRequiredMixin, View):
+    model = StockIssue
+
+    def get(self, *args, **kwargs):
+        stock_issue = StockIssue.objects.filter(pk=kwargs['pk']).get()
+        comment = stock_issue.comment
+        if "Pro " not in comment:
+            messages.warning(self.request, "Aktualizace zboží je možná jenom pro výdejku vytvořenou z denního menu")
+        else:
+            try:
+                with transaction.atomic():
+                    # stock_issue.delete()
+                    count = -1  # stock_issue.createFromDailyMenu(comment[4:], self.request.user)
+                # messages.success(self.request, "Seznam zboží na výdejce byl aktualizován a vyskladňuje {} druhů zboží".format(count))
+                messages.success(self.request, "Zatím nezprovozněna funkcionalita")
+            except Exception as e:
+                messages.warning(self.request, e)
+        return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues'))
 
 
 class StockIssueDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
