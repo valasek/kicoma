@@ -586,35 +586,7 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
         if len(daily_menus) < 1:
             form.add_error('date', "Pro zadané datum není vytvořeno denní menu")
             return super(StockIssueFromDailyMenuCreateView, self).form_invalid(form)
-        with transaction.atomic():
-            # save the StockIssue
-            form.instance.user_created = self.request.user
-            stock_issue = StockIssue(comment="Pro " + date, user_created=self.request.user)
-            stock_issue.save()
-            # save all StockIssue Articles
-            daily_menu_recipe_ids = DailyMenuRecipe.objects.select_related('recipe').filter(daily_menu__in=daily_menus).values_list(
-                'recipe', flat=True).values_list('recipe_id', flat=True)
-            recipe_articles = []
-            for daily_menu_recipe_id in daily_menu_recipe_ids:
-                jeden_recept = RecipeArticle.objects.filter(recipe_id=str(daily_menu_recipe_id))
-                recipe_articles += list(jeden_recept)
-            for recipe_article in recipe_articles:
-                # get the coeficient between daily menu amount and recipe amount
-                daily_menu_amount = DailyMenuRecipe.objects.filter(
-                    recipe=recipe_article.recipe, daily_menu__in=daily_menus.values_list('id', flat=True)).values_list('amount', flat=True).first()
-                recipe_article_coeficient = Decimal(daily_menu_amount / recipe_article.recipe.norm_amount)
-                recipe_article_amount = convertUnits(recipe_article.amount, recipe_article.unit,
-                                                     recipe_article.article.unit) * recipe_article_coeficient
-                stock_issue_article = StockIssueArticle(
-                    stock_issue=stock_issue,
-                    article=recipe_article.article,
-                    amount=recipe_article_amount,
-                    unit=recipe_article.article.unit,
-                    average_unit_price=recipe_article.article.average_price,
-                    comment=""
-                )
-                stock_issue_article.save()
-            count = stock_issue.consolidateByArticle()
+        count = StockIssue.createFromDailyMenu(daily_menus, date, self.request.user)
         messages.success(
             self.request, 'Výdejka pro den {} vytvořena a vyskladňuje {} druhů zboží'.format(date, count))
         return HttpResponseRedirect(self.success_url)
@@ -637,14 +609,16 @@ class StockIssueRefreshView(LoginRequiredMixin, View):
         if "Pro " not in comment:
             messages.warning(self.request, "Aktualizace zboží je možná jenom pro výdejku vytvořenou z denního menu")
         else:
-            try:
-                with transaction.atomic():
-                    # stock_issue.delete()
-                    count = -1  # stock_issue.createFromDailyMenu(comment[4:], self.request.user)
-                # messages.success(self.request, "Seznam zboží na výdejce byl aktualizován a vyskladňuje {} druhů zboží".format(count))
-                messages.success(self.request, "Zatím nezprovozněna funkcionalita")
-            except Exception as e:
-                messages.warning(self.request, e)
+            date = comment[4:]
+            with transaction.atomic():
+                stock_issue.delete()
+                daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%d.%m.%Y"))
+                if len(daily_menus) < 1:
+                    messages.error('date', "Pro zadané datum není vytvořeno denní menu")
+                    return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues'))
+                count = StockIssue.createFromDailyMenu(daily_menus, date, self.request.user)
+                messages.success(
+                    self.request, "Seznam zboží na výdejce byl aktualizován dle aktuálních receptů na denním menu a vyskladňuje {} druhů zboží".format(count))
         return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues'))
 
 

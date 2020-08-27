@@ -24,8 +24,6 @@ def totalStockReceiptArticlePrice(stock_receipt_articles):
         convertedAmount = convertUnits(stock_receipt_article.amount,
                                        stock_receipt_article.unit, stock_receipt_article.article.unit)
         stock_receipt_article_price = convertedAmount * stock_receipt_article.price_with_vat
-        # print("totalStockReceiptArticlePrice: stock_receipt_article, stock_receipt_article_price, convertedAmount, stock_receipt_article.price_with_vat\n",
-        #       stock_receipt_article, stock_receipt_article_price, convertedAmount, stock_receipt_article.price_with_vat)
         total_price += stock_receipt_article_price
     return total_price
 
@@ -34,6 +32,6 @@ def totalRecipeArticlePrice(recipe_articles, norm_amount):
     total_price = 0
     for recipe_article in recipe_articles:
         convertedAmount = convertUnits(recipe_article.amount, recipe_article.unit, recipe_article.article.unit)
-        recipe_article_price = convertedAmount * recipe_article.article.average_price * norm_amount
+        recipe_article_price = convertedAmount * recipe_article.average_unit_price * norm_amount
         total_price += recipe_article_price
     return total_price

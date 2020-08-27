@@ -29,8 +29,8 @@ def updateArticleStock(stock_id, stock_direction):
         converted_amount = convertUnits(stock_article.amount, stock_article.unit, article.unit)
         if stock_direction == 'receipt':
             new_total_price = convertUnits(stock_article.total_price_with_vat, stock_article.unit, article.unit)
-            print("StockReceipt - mnozství: ", article.on_stock, "+", converted_amount,
-                  " - cena: ", article.total_price, "+", new_total_price)
+            # print("StockReceipt - mnozství: ", article.on_stock, "+", converted_amount,
+            #       " - cena: ", article.total_price, "+", new_total_price)
             article.on_stock += converted_amount
             article.total_price += new_total_price
             article.save()
@@ -39,8 +39,8 @@ def updateArticleStock(stock_id, stock_direction):
                 return "Není možné vyskladnit zboží {}, vyskladňuješ {} a na skladu je jenom {}".format(
                     stock_article.article, converted_amount, article.on_stock)
             new_total_price = convertUnits(stock_article.total_average_price_with_vat, stock_article.unit, article.unit)
-            print("StockIssue | mnozství: ", article.on_stock, "-", converted_amount,
-                  "| cena:", article.total_price, "-", new_total_price)
+            # print("StockIssue | mnozství: ", article.on_stock, "-", converted_amount,
+            #       "| cena:", article.total_price, "-", new_total_price)
             article.on_stock -= converted_amount
             article.total_price -= new_total_price
             article.save()
@@ -286,7 +286,6 @@ class StockIssue(TimeStampedModel):
         StockIssueArticle.objects.filter(stock_issue_id=self.pk, article_id__in=article_ids).delete()
         # insert consolidated articles
         for article in articles_to_consolidate:
-            print("article", article)
             x = StockIssueArticle(
                 stock_issue=self,
                 article=Article.objects.filter(pk=article['article_id']).get(),
@@ -299,8 +298,30 @@ class StockIssue(TimeStampedModel):
         return len(StockIssueArticle.objects.filter(stock_issue_id=self.pk))
 
     @staticmethod
-    def createFromDailyMenu(date, user):
-        count = -1
+    def createFromDailyMenu(daily_menus, date, user):
+        with transaction.atomic():
+            # save the StockIssue
+            stock_issue = StockIssue(comment="Pro " + date, user_created=user)
+            stock_issue.save()
+            # save all StockIssue Articles
+            daily_menu_recipes = DailyMenuRecipe.objects.select_related('recipe').filter(daily_menu__in=daily_menus)
+            for daily_menu_recipe in daily_menu_recipes:
+                recipe_articles = RecipeArticle.objects.filter(recipe_id=daily_menu_recipe.recipe_id)
+                for recipe_article in recipe_articles:
+                    # get the coeficient between daily menu amount and recipe amount
+                    recipe_article_coeficient = Decimal(daily_menu_recipe.amount / recipe_article.recipe.norm_amount)
+                    recipe_article_amount = convertUnits(recipe_article.amount, recipe_article.unit,
+                                                        recipe_article.article.unit) * recipe_article_coeficient
+                    stock_issue_article = StockIssueArticle(
+                        stock_issue=stock_issue,
+                        article=recipe_article.article,
+                        amount=recipe_article_amount,
+                        unit=recipe_article.article.unit,
+                        average_unit_price=recipe_article.article.average_price,
+                        comment=""
+                    )
+                    stock_issue_article.save()
+            count = stock_issue.consolidateByArticle()
         return count
 
 
