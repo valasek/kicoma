@@ -25,7 +25,7 @@
   <br />
   <form
     method="post"
-    action="{% url 'kitchen:updateStockReceiptArticle' stock_receipt_article_before.stock_receipt.id %}"
+    action="{% url 'kitchen:updateStockReceiptArticle' stock_receipt_article_before.id %}"
   >
     {% csrf_token %} {% crispy form form.helper %}
     <button type="submit" class="btn btn-success">Uložit</button>

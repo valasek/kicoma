@@ -772,7 +772,7 @@ class StockIssueArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Updat
         except ValidationError as err:
             messages.warning(self.request, err.message)
             return super(StockIssueArticleUpdateView, self).form_invalid(form)
-        stock_issue_article.stock_issue = StockIssueArticle.objects.filter(pk=stock_issue_article.id)[0].stock_issue
+        stock_issue_article.stock_issue = StockIssueArticle.objects.filter(pk=stock_issue_article.id).get().stock_issue
         if stock_issue_article.stock_issue.approved:
             messages.warning(self.request, 'Aktualizace zboží neprovedena, výdejka je již vyskladněna')
             return HttpResponseRedirect(
@@ -977,14 +977,14 @@ class StockReceiptArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Upd
         except ValidationError as err:
             messages.warning(self.request, err.message)
             return super(StockReceiptArticleUpdateView, self).form_invalid(form)
-        # stock_receipt_article.stock_receipt = StockReceiptArticle.objects.filter(
-        #     pk=stock_receipt_article.id).get().stock_receipt
-        stock_receipt_article.stock_receipt = StockReceipt.objects.filter(pk=self.kwargs['pk']).get()
+        stock_receipt_article.stock_receipt = StockReceiptArticle.objects.filter(
+            pk=stock_receipt_article.id).get().stock_receipt
         if stock_receipt_article.stock_receipt.approved:
             messages.warning(self.request, 'Aktualizace zboží neprovedena, příjemka je již naskladněna')
             return HttpResponseRedirect(
-                reverse_lazy('kitchen:showStockReceiptArticles', kwargs={'pk': stock_receipt_article.id}))
+                reverse_lazy('kitchen:showStockReceiptArticles', kwargs={'pk': stock_receipt_article.stock_receipt.id}))
         stock_receipt_article.save()
+        self.kwargs = {'pk': stock_receipt_article.stock_receipt.id}
         return super(StockReceiptArticleUpdateView, self).form_valid(form)
 
 
