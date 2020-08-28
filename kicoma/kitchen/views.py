@@ -977,8 +977,9 @@ class StockReceiptArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Upd
         except ValidationError as err:
             messages.warning(self.request, err.message)
             return super(StockReceiptArticleUpdateView, self).form_invalid(form)
-        stock_receipt_article.stock_receipt = StockReceiptArticle.objects.filter(pk=stock_receipt_article.id)[
-            0].stock_receipt
+        # stock_receipt_article.stock_receipt = StockReceiptArticle.objects.filter(
+        #     pk=stock_receipt_article.id).get().stock_receipt
+        stock_receipt_article.stock_receipt = StockReceipt.objects.filter(pk=self.kwargs['pk']).get()
         if stock_receipt_article.stock_receipt.approved:
             messages.warning(self.request, 'Aktualizace zboží neprovedena, příjemka je již naskladněna')
             return HttpResponseRedirect(

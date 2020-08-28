@@ -362,11 +362,10 @@ class StockIssueArticle(TimeStampedModel):
 
     stock_issue = models.ForeignKey(StockIssue, on_delete=models.CASCADE, verbose_name='Výdejka')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží')
-    amount = models.DecimalField(decimal_places=2, max_digits=8, validators=[
-        MinValueValidator(Decimal('0.1'))], verbose_name='Množství')
+    amount = models.DecimalField(decimal_places=2, max_digits=8, verbose_name='Množství')
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
-    average_unit_price = models.DecimalField(max_digits=10, decimal_places=2, validators=[
-        MinValueValidator(Decimal('0.1'))], blank=True, null=True, verbose_name='Průměrná jednotková cena s DPH')
+    average_unit_price = models.DecimalField(max_digits=10, decimal_places=2,
+        blank=True, null=True, verbose_name='Průměrná jednotková cena s DPH')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     @property
