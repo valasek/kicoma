@@ -10,6 +10,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
 from simple_history.models import HistoricalRecords
+from simple_history.utils import update_change_reason
 
 from .functions import convertUnits, totalStockReceiptArticlePrice, totalRecipeArticlePrice
 
@@ -34,6 +35,7 @@ def updateArticleStock(stock_id, stock_direction):
             article.on_stock += converted_amount
             article.total_price += new_total_price
             article.save()
+            update_change_reason(article, 'Příjemka')
         if stock_direction == 'issue':
             if article.on_stock < 0 or article.on_stock - converted_amount < 0:
                 return "Není možné vyskladnit zboží {}, vyskladňuješ {} a na skladu je jenom {}".format(
@@ -44,6 +46,7 @@ def updateArticleStock(stock_id, stock_direction):
             article.on_stock -= converted_amount
             article.total_price -= new_total_price
             article.save()
+            update_change_reason(article, 'Výdejka')
     return None
 
 
@@ -139,7 +142,7 @@ class Article(TimeStampedModel):
         default=0, verbose_name='Celková cena s DPH', help_text='Celková cena zboží na skladu')
     allergen = models.ManyToManyField(Allergen, blank=True, verbose_name='Alergény')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
-    history = HistoricalRecords()
+    history = HistoricalRecords(cascade_delete_history=True)
 
     def __str__(self):
         return self.article
