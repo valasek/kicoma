@@ -137,7 +137,7 @@ class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     template_name = 'kitchen/article/list.html'
     filterset_class = ArticleFilter
     form_class = ArticleSearchForm
-    paginate_by = 12
+    paginate_by = 15
 
     def get_context_data(self, **kwargs):
         context = super(ArticleListView, self).get_context_data(**kwargs)
@@ -151,7 +151,7 @@ class ArticleLackListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     template_name = 'kitchen/article/listlack.html'
     filterset_class = ArticleFilter
     form_class = ArticleSearchForm
-    paginate_by = 12
+    paginate_by = 15
 
     def get_queryset(self):
         # show only articles where
@@ -259,7 +259,7 @@ class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     template_name = 'kitchen/recipe/list.html'
     filterset_class = RecipeFilter
     form_class = RecipeSearchForm
-    paginate_by = 12
+    paginate_by = 15
 
 
 class RecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -318,7 +318,7 @@ class RecipeArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = RecipeArticle
     table_class = RecipeArticleTable
     template_name = 'kitchen/recipe/listarticles.html'
-    paginate_by = 12
+    paginate_by = 15
 
     def get_context_data(self, **kwargs):
         context = super(RecipeArticleListView, self).get_context_data(**kwargs)
@@ -413,7 +413,7 @@ class DailyMenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     template_name = 'kitchen/dailymenu/list.html'
     filterset_class = DailyMenuFilter
     form_class = DailyMenuSearchForm
-    paginate_by = 12
+    paginate_by = 15
 
 
 class DailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -472,7 +472,7 @@ class DailyMenuRecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = DailyMenuRecipe
     table_class = DailyMenuRecipeTable
     template_name = 'kitchen/dailymenu/listrecipe.html'
-    paginate_by = 12
+    paginate_by = 15
 
     def get_context_data(self, **kwargs):
         context = super(DailyMenuRecipeListView, self).get_context_data(**kwargs)
@@ -555,7 +555,7 @@ class StockIssueListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     template_name = 'kitchen/stockissue/list.html'
     filterset_class = StockIssueFilter
     form_class = StockIssueSearchForm
-    paginate_by = 12
+    paginate_by = 15
 
 
 class StockIssueCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -605,6 +605,9 @@ class StockIssueRefreshView(LoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
         stock_issue = StockIssue.objects.filter(pk=kwargs['pk']).get()
+        if stock_issue.approved:
+            messages.warning(self.request, "Aktualizace neprovedena - výdejka je již vyskladněna")
+            return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
         comment = stock_issue.comment
         if "Pro " not in comment:
             messages.warning(self.request, "Aktualizace zboží je možná jenom pro výdejku vytvořenou z denního menu")
@@ -701,7 +704,7 @@ class StockIssueArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView
     model = StockIssueArticle
     table_class = StockIssueArticleTable
     template_name = 'kitchen/stockissue/listarticles.html'
-    paginate_by = 12
+    paginate_by = 15
 
     def get_context_data(self, **kwargs):
         context = super(StockIssueArticleListView, self).get_context_data(**kwargs)
@@ -907,7 +910,7 @@ class StockReceiptArticleListView(SingleTableMixin, LoginRequiredMixin, FilterVi
     model = StockReceiptArticle
     table_class = StockReceiptArticleTable
     template_name = 'kitchen/stockreceipt/listarticles.html'
-    paginate_by = 12
+    paginate_by = 15
 
     def get_context_data(self, **kwargs):
         context = super(StockReceiptArticleListView, self).get_context_data(**kwargs)
