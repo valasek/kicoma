@@ -896,13 +896,13 @@ class StockReceiptApproveView(LoginRequiredMixin, TemplateView):
             messages.warning(
                 self.request, 'Naskladnění neprovedeno - nulová cena zboží, přidejte alespoň jedno zboží na příjemku')
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
-        stock_receipt.approved = True
-        stock_receipt.date_approved = datetime.now()
-        stock_receipt.user_approved = self.request.user
         with transaction.atomic():
+            stock_receipt.approved = True
+            stock_receipt.date_approved = datetime.now()
+            stock_receipt.user_approved = self.request.user
             updateArticleStock(stock_receipt.id, 'receipt')
             stock_receipt.save(update_fields=('approved', 'date_approved', 'user_approved',))
-        messages.success(self.request, "Příjemka byla naskladněna")
+            messages.success(self.request, "Příjemka byla naskladněna")
         return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
 
 

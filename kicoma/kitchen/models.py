@@ -374,14 +374,14 @@ class StockIssueArticle(TimeStampedModel):
             return round(self.amount * self.average_unit_price, 2)
         return 0
 
-    def clean(self):
-        article = Article.objects.filter(pk=self.article.id).values_list('on_stock', 'unit')
-        on_stock = article[0][0]
-        stock_unit = article[0][1]
-        issued_amount = convertUnits(self.amount, self.unit, stock_unit)
-        if on_stock - issued_amount < 0:
-            raise ValidationError(
-                {'amount': _("Na skladu je {0} {1} a vydáváte {2} {1}.".format(on_stock, stock_unit, issued_amount))})
+    # def clean(self):
+    #     article = Article.objects.filter(pk=self.article.id).values_list('on_stock', 'unit')
+    #     on_stock = article[0][0]
+    #     stock_unit = article[0][1]
+    #     issued_amount = convertUnits(self.amount, self.unit, stock_unit)
+    #     if on_stock - issued_amount < 0:
+    #         raise ValidationError(
+    #             {'amount': _("Na skladu je {0} {1} a vydáváte {2} {1}.".format(on_stock, stock_unit, issued_amount))})
 
     def __str__(self):
         return self.article.article + ' - ' + str(self.amount) + self.unit
