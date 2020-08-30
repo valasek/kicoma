@@ -3,10 +3,10 @@ rm kicoma.sqlite3
 # rm -R kicoma/kitchen/migrations/0*.py
 # python manage.py makemigrations
 python manage.py migrate
-python manage.py loaddata kicoma/kitchen/fixtures/druhy-jidla.json
-python manage.py loaddata kicoma/kitchen/fixtures/alergeny.json
-python manage.py loaddata kicoma/kitchen/fixtures/dph.json
-python manage.py loaddata kicoma/kitchen/fixtures/skupiny-stravniku.json
+# python manage.py loaddata kicoma/kitchen/fixtures/druhy-jidla.json
+# python manage.py loaddata kicoma/kitchen/fixtures/alergeny.json
+# python manage.py loaddata kicoma/kitchen/fixtures/dph.json
+# python manage.py loaddata kicoma/kitchen/fixtures/skupiny-stravniku.json
 python manage.py loaddata kicoma/kitchen/fixtures/skupiny.json
 python manage.py loaddata kicoma/kitchen/fixtures/uzivatele.json
 # python manage.py loaddata kicoma/kitchen/fixtures/article.json

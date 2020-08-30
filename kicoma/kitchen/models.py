@@ -5,7 +5,6 @@ from django.db import models, transaction
 from django.db.models import Sum, Count, Min
 from django.urls import reverse_lazy
 from django.conf import settings
-from django.forms import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
@@ -13,42 +12,6 @@ from simple_history.models import HistoricalRecords
 from simple_history.utils import update_change_reason
 
 from .functions import convertUnits, totalStockReceiptArticlePrice, totalRecipeArticlePrice
-
-
-def updateArticleStock(stock_id, stock_direction):
-    if stock_direction == 'receipt':
-        stock_articles = StockReceiptArticle.objects.filter(stock_receipt=stock_id)
-    else:
-        if stock_direction == 'issue':
-            stock_articles = StockIssueArticle.objects.filter(stock_issue=stock_id)
-        else:
-            raise Exception(
-                "Article is not linked to StockReceiptArticle or StockIssueArticle or linked to both. \
-                    Only one should be populated. You can fix this in Administration.")
-    for stock_article in stock_articles:
-        article = Article.objects.filter(pk=stock_article.article.id).get()
-        converted_amount = convertUnits(stock_article.amount, stock_article.unit, article.unit)
-        if stock_direction == 'receipt':
-            new_total_price = convertUnits(stock_article.total_price_with_vat, stock_article.unit, article.unit)
-            # print("StockReceipt - mnozství: ", article.on_stock, "+", converted_amount,
-            #       " - cena: ", article.total_price, "+", new_total_price)
-            article.on_stock += converted_amount
-            article.total_price += new_total_price
-            article.save()
-            update_change_reason(article, 'Příjemka')
-        if stock_direction == 'issue':
-            if article.on_stock < 0 or article.on_stock - converted_amount < 0:
-                return "Není možné vyskladnit zboží {}, vyskladňuješ {} a na skladu je jenom {}".format(
-                    stock_article.article, converted_amount, article.on_stock)
-            new_total_price = convertUnits(stock_article.total_average_price_with_vat, stock_article.unit, article.unit)
-            # print("StockIssue | mnozství: ", article.on_stock, "-", converted_amount,
-            #       "| cena:", article.total_price, "-", new_total_price)
-            article.on_stock -= converted_amount
-            article.total_price -= new_total_price
-            article.save()
-            update_change_reason(article, 'Výdejka')
-    return None
-
 
 UNIT = (
     ('kg', _('kg')),
@@ -314,7 +277,7 @@ class StockIssue(TimeStampedModel):
                     # get the coeficient between daily menu amount and recipe amount
                     recipe_article_coeficient = Decimal(daily_menu_recipe.amount / recipe_article.recipe.norm_amount)
                     recipe_article_amount = convertUnits(recipe_article.amount, recipe_article.unit,
-                                                        recipe_article.article.unit) * recipe_article_coeficient
+                                                         recipe_article.article.unit) * recipe_article_coeficient
                     stock_issue_article = StockIssueArticle(
                         stock_issue=stock_issue,
                         article=recipe_article.article,
@@ -326,6 +289,38 @@ class StockIssue(TimeStampedModel):
                     stock_issue_article.save()
             count = stock_issue.consolidateByArticle()
         return count
+
+    @staticmethod
+    def updateStockIssueArticleAverageUnitPrice(stock_issue_id):
+        stock_issue_articles = StockIssueArticle.objects.filter(stock_issue_id=stock_issue_id)
+        print("def updateStockIssueArticleAverageUnitPrice(stock_issue_id):",
+              stock_issue_id, len(stock_issue_articles), stock_issue_articles)
+        for stock_issue_article in stock_issue_articles:
+            print(stock_issue_article, "aktualizace z", stock_issue_article.average_unit_price,
+                  "na", stock_issue_article.article.average_price)
+            stock_issue_article.average_unit_price = stock_issue_article.article.average_price
+            stock_issue_article.save()
+
+    @staticmethod
+    def updateArticleOnStock(stock_id, fake):
+        stock_articles = StockIssueArticle.objects.filter(stock_issue=stock_id)
+        messages = ''
+        for stock_article in stock_articles:
+            article = Article.objects.filter(pk=stock_article.article.id).get()
+            converted_amount = convertUnits(stock_article.amount, stock_article.unit, article.unit)
+            if article.on_stock < 0 or article.on_stock - converted_amount < 0:
+                messages += "{} - na výdejce {}, na skladu {}<br/>".format(
+                    stock_article.article, converted_amount, article.on_stock)
+            if not fake:
+                new_total_price = convertUnits(stock_article.total_average_price_with_vat, stock_article.unit,
+                                               article.unit)
+                # print("StockIssue | mnozství: ", article.on_stock, "-", converted_amount,
+                #       "| cena:", article.total_price, "-", new_total_price)
+                article.on_stock -= converted_amount
+                article.total_price -= new_total_price
+                article.save()
+                update_change_reason(article, 'Výdejka')
+        return messages
 
 
 class StockReceipt(TimeStampedModel):
@@ -352,6 +347,20 @@ class StockReceipt(TimeStampedModel):
         stock_receipt_articles = StockReceiptArticle.objects.filter(stock_receipt=self.id)
         return round(totalStockReceiptArticlePrice(stock_receipt_articles), 2)
 
+    @staticmethod
+    def updateArticleOnStock(stock_id):
+        stock_articles = StockReceiptArticle.objects.filter(stock_receipt=stock_id)
+        for stock_article in stock_articles:
+            article = Article.objects.filter(pk=stock_article.article.id).get()
+            converted_amount = convertUnits(stock_article.amount, stock_article.unit, article.unit)
+            new_total_price = convertUnits(stock_article.total_price_with_vat, stock_article.unit, article.unit)
+            # print("StockReceipt - mnozství: ", article.on_stock, "+", converted_amount,
+            #       " - cena: ", article.total_price, "+", new_total_price)
+            article.on_stock += converted_amount
+            article.total_price += new_total_price
+            article.save()
+            update_change_reason(article, 'Příjemka')
+
 
 class StockIssueArticle(TimeStampedModel):
 
@@ -365,7 +374,7 @@ class StockIssueArticle(TimeStampedModel):
     amount = models.DecimalField(decimal_places=2, max_digits=8, verbose_name='Množství')
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
     average_unit_price = models.DecimalField(max_digits=10, decimal_places=2,
-        blank=True, null=True, verbose_name='Průměrná jednotková cena s DPH')
+                                             blank=True, null=True, verbose_name='Průměrná jednotková cena s DPH')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     @property

@@ -1,11 +1,12 @@
-import logging
-from decimal import Decimal
+import logging, io
 from datetime import datetime
+from contextlib import redirect_stdout
 
 from django.core import management
 from django.core.files.storage import FileSystemStorage
 
 from django.urls import reverse_lazy
+from django.utils.safestring import mark_safe
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
@@ -32,7 +33,7 @@ from tablib import Dataset
 from kicoma.users.models import User
 
 from .models import StockIssueArticle, StockReceiptArticle, Recipe, Allergen, MealType, MealGroup, VAT, \
-    Article, RecipeArticle, StockIssue, StockReceipt, DailyMenu, DailyMenuRecipe, updateArticleStock
+    Article, RecipeArticle, StockIssue, StockReceipt, DailyMenu, DailyMenuRecipe
 
 from .tables import StockReceiptTable, StockReceiptArticleTable, StockReceiptFilter
 from .tables import StockIssueTable, StockIssueArticleTable, StockIssueFilter
@@ -126,8 +127,15 @@ class ImportDataView(TemplateView):
         uploaded_file = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(uploaded_file.name, uploaded_file)
-        management.call_command('loaddata', fs.path(filename), verbosity=1)
-        messages.success(self.request, "Data úspěšně nahrána")
+        f = io.StringIO()
+        with redirect_stdout(f):
+            # management.call_command('flush', interactive=False, verbosity=1)
+            # inFile = open('./kicoma/kitchen/fixtures/skupiny.json', "r")
+            # management.call_command('loaddata', "--format=json", inFile.read(), verbosity=1)
+            # inFile = open('./kicoma/kitchen/fixtures/uzivatele.json', "r")
+            # management.call_command('loaddata', inFile.read(), verbosity=1)
+            management.call_command('loaddata', fs.path(filename), verbosity=1)
+        messages.success(self.request, "Data úspěšně nahrána: "+f.getvalue())
         return super(ImportDataView, self).render_to_response(context)
 
 
@@ -687,14 +695,17 @@ class StockIssueApproveView(LoginRequiredMixin, TemplateView):
             messages.warning(
                 self.request, 'Vyskladnění neprovedeno - nulová cena zboží, je zboží naskladněno?')
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
-        stock_issue.approved = True
-        stock_issue.date_approved = datetime.now()
-        stock_issue.user_approved = self.request.user
         with transaction.atomic():
-            message = updateArticleStock(stock_issue.id, 'issue')
-            if message:
-                messages.error(self.request, message)
+            stock_issue.approved = True
+            stock_issue.date_approved = datetime.now()
+            stock_issue.user_approved = self.request.user
+            StockIssue.updateStockIssueArticleAverageUnitPrice(stock_issue.id)
+            errors = StockIssue.updateArticleOnStock(stock_issue.id, True)
+            if errors:
+                errors = "Níže uvedené zboží není možné vyskladnit:<br/>" + errors
+                messages.error(self.request, mark_safe(errors))
                 return HttpResponseRedirect(reverse_lazy('kitchen:approveStockIssue', kwargs={'pk': self.kwargs['pk']}))
+            _ = StockIssue.updateArticleOnStock(stock_issue.id, False)
             stock_issue.save(update_fields=('approved', 'date_approved', 'user_approved',))
             messages.success(self.request, "Výdejka byla vyskladněna")
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
@@ -900,7 +911,7 @@ class StockReceiptApproveView(LoginRequiredMixin, TemplateView):
             stock_receipt.approved = True
             stock_receipt.date_approved = datetime.now()
             stock_receipt.user_approved = self.request.user
-            updateArticleStock(stock_receipt.id, 'receipt')
+            StockReceipt.updateArticleOnStock(stock_receipt.id)
             stock_receipt.save(update_fields=('approved', 'date_approved', 'user_approved',))
             messages.success(self.request, "Příjemka byla naskladněna")
         return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
