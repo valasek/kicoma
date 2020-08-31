@@ -22,11 +22,12 @@ from .views import DailyMenuRecipeListView, DailyMenuRecipeCreateView, DailyMenu
 from .views import FoodConsumptionPrintView, FoodConsumptionPDFView, IncorrectUnitsListView, \
     ArticlesNotInRecipesListView
 
-from .views import index, docs, exportData, ImportDataView
+from .views import about, changelog, docs, exportData, ImportDataView
 
 app_name = "kitchen"
 urlpatterns = [
-    path('overview', index, name='overview'),
+    path('about', about, name='about'),
+    path('changelog', changelog, name='changelog'),
     path('docs', docs, name='docs'),
     path('export', exportData, name='export'),
     path('import', ImportDataView.as_view(), name='import'),

@@ -1,4 +1,5 @@
-import logging, io
+import logging
+import io
 from datetime import datetime
 from contextlib import redirect_stdout
 
@@ -57,7 +58,7 @@ from .admin import ArticleResource
 logger = logging.getLogger(__name__)
 
 
-def index(request):
+def about(request):
     allergenCount = Allergen.objects.all().count()
     meal_typeCount = MealType.objects.all().count()
     mealGroupCount = MealGroup.objects.all().count()
@@ -78,7 +79,7 @@ def index(request):
 
     logger.info("processing index")
 
-    return render(request, 'kitchen/home.html', {
+    return render(request, 'kitchen/about.html', {
         'allergenCount': allergenCount,
         'meal_typeCount': meal_typeCount,
         'mealGroupCount': mealGroupCount,
@@ -97,6 +98,10 @@ def index(request):
         "groupCount": groupCount,
         "userCount": userCount
     })
+
+
+def changelog(request):
+    return render(request, 'kitchen/changelog.html')
 
 
 def docs(request):

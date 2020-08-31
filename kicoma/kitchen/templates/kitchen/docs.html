@@ -1,20 +1,21 @@
 {% extends "base.html" %}
-{% load static %}
 {% block content %}
-
 <h4>Nápověda</h4>
 <hr />
+<div class="container-fluid">
 <div class="row">
   <div class="col-sm-7">
     <h5>Správa zboží</h5>
     <p>Zboží je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showArticles' %}">Zboží na skladu</a>. Vymazat se dá v <a href="admin/kitchen/article">administraci</a>.
-    Výše zásob na skladu nebo cena zboží se mění jenom pomocí příjemky/výdejky.
+    Výše zásob na skladu nebo cena zboží se mění pomocí příjemky/výdejky.
     </p>
     <h5>Příjem zboží na sklad</h5>
     <p>Příjem zboží na sklad probíhá pomocí <a href="{% url 'kitchen:showStockReceipts' %}">příjemek</a> uživatelem ve skupine "Stockkeeper - skladník".
     Před příjmem musí být zboží na skladu založeno. Výše zásob a cena zboží je aktualizována jenom když je příjemka schválená.
+    Úprava zboží a vyskladnění již naskladněné přijemky není možná.
     <h5>Výdej zboží ze skladu</h5>
     <p>Výdejku je možno vytvořit manuálně nebo ji <a href="{% url 'kitchen:createStockIssueFromDailyMenu' %}">založit dle všech denních menu pro zadaný den</a>.<br />
+    Když se denní menu změní, je možno Výdejku "Aktualizovat" a tím se vymaže všechno zboží a znovu se vytvoří ve výdejce dle zadaného dne.
     Příjem zboží na sklad probíhá pomocí <a href="{% url 'kitchen:showStockIssues' %}">výdejek</a> uživatelem ve skupine "Stockkeeper - skladník".
     Před výdejem musí být zboží v minimálně vyskladňované výši naskladněno. Výše zásob a cena zboží je aktualizována jenom když je výdejka schválená.
     </p>
@@ -33,7 +34,7 @@
     <a href="admin/kitchen/mealtype">druhy jídla</a>,
     <a href="admin/kitchen/mealgroup">skupinu strávníků</a>.</p>
   </div>
-  <div class="col-sm">
+  <divJosef class="col-sm">
     <h5>Uživatelské skupiny</h5>
       <p>Založení, úprava nebo výmaz uživatele je možný v <a href="admin/users/user/">administraci</a>.</p>
       <table class="table table-responsive table-sm">
@@ -48,36 +49,32 @@
           <th>Chef - šéfkuchař</th>
           <td>trmalova, slavicek</td>
           <td>
-            Administrátor<br />Správce skupin i uživatelů<br />Správce všech
-            číselníků. Právo založit novou skladovou kartu.
+            Administrátor<br />
+            Správa skupin i uživatelů, všech
+            číselníků.<br/>
+            Export a import jakýchkoli dat.<br/>
+            Právo založit novou skladovou kartu.
           </td>
         </tr>
         <tr>
           <th>Cook - kuchař</th>
-          <td>drabkova</td>
-          <td>Tvorba denního menu, správa výdejek kromě schvalování a PDF reporty</td>
+          <td>drabkova, ???</td>
+          <td>Tvorba denního menu, tvorba a správa výdejek kromě schvalování a PDF reporty</td>
         </tr>
         <tr>
           <th>Stockkeeper - skladník</th>
           <td>drazdikova, klinderova</td>
           <td>
-            Správa skladu, zadávání a schvalování příjemek, schvalování a tvorba výdejek
+            Správa skladu - zadávání a schvalování příjemek, schvalování a tvorba výdejek<br/>
+            Inventura
           </td>
         </tr>
       </table>
-      <h5>Administrace, import a export</h5>
-      <p>Každý uživatel ve skupině "Chef - šéfkuchař" má právo na Administrační sekci.
-      Každou datovou tabulku včetně uživatelů je možno plně zpravovat v <a href="admin/kitchen">administraci</a>.
+      <h5>Administrace aplikace</h5>
+      <p>Uživatel ve skupině "Chef - šéfkuchař" má právo na Administrační sekci.
+      Každou datovou tabulku včetně uživatelů je možno plně zpravovat v <a href="admin/kitchen">administraci</a> a nejsou aplikovány žádné dodatečné kontroly.
       Není doporučeno měnit sekce <a href="admin/auth">Autentizace a autorizace</a>, <a href="admin/sites">Weby</a>,
       <a href="admin/account">Účty</a> a <a href="admin/socialaccount">Účty sociálních sítí</a>.</p>
-      <h5>Hlášení změn nebo chyb</h5>
-      Zadat do <a href="https://forms.gle/akbzoiLsPCLTU7gP8">formuláře</a>,
-      Josef přímo do <a href="https://docs.google.com/spreadsheets/d/1-dznqZ2MkhfJmeXWMZ4sWs0rehxQBSEeopGulCl8oy4/edit#gid=99582909">sdíleného excelu</a>,
-      nebo email na <a href="mailto:valasek@gmail.com">valasek@gmail.com</a> nebo volat na 724 323 948.
   </div>
 </div>
-<hr />
-<h5>Datový model</h5>
-<img src="{% static 'images/datamodel.png'%}" width="100%" alt="data model" />
-
 {% endblock content %}

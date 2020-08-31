@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>Změny v aplikaci</h4>
+<hr/>
+<div class="container-fluid">
+  31. 8. 2020
+  <ul>
+    <li>Oddělení nápovědy, O Aplikaci a Změn v aplikaci. Přidání odkazu na technickou podporu</li>
+  </ul>
+  30. 8. 2020
+  <ul>
+    <li>Oprava - výdejka - zobrazení všeho zboží, které není naskladněno, při nenaskladnění nedochází k částečnému odepsání</li>
+    <li>Oprava - export obsahuje všechna data aplikace a import úplně resetuje DB</li>
+  </ul>
+  28. 8. 2020
+  <ul>
+    <li>Zadání a aktualizace zboží na výdejce umožní zadat zboží s 0 množstvím</li>
+    <li>Oprava - Příjemka - možno upravit zboží</li>
+    <li>Oprava - Výdejka - možno zadat i větší počet zboží, než je na skladu</li>
+    <li>Oprava - Příjemka - řazení zboží dle pořadí zadání</li>
+    <li>Oprava - Výdejka - Průměrná jednotková cena zboží se uloží při vytvoření výdejky dle aktuální ceny zboží na skladě a po schválení se aktualizuje a pak nemění.</li>
+  </ul>
+  27. 8. 2020
+  <ul>
+    <li>Přesun menu Přehled a Nápověda do menu O aplikaci</li>
+    <li>Možnost exportu a importu všech dat aplikace</li>
+    <li>Oprava - Výdejka - celková cena zboží na výdejce se počíta z průměrné ceny zboží vyskladnění a ne z ceny zboží na skladu</li>
+    <li>Oprava - Výdejka - konsolidované zboží je počítáno ve správném množství</li>
+    <li>Do doby vyskladnění je možnost aktualizovat vyskladňované zboží na výdejce</li>
+    <li>Přehlednější zobrazení všech tabulek</li>
+    <li>V historii zboží zobrazení příjemka/výdejka</li>
+  </ul>
+  26. 8. 2020
+  <ul>
+    <li>Oprava - Možnost exportu všech receptů v denním menu </li>
+    <li>Oprava - hledání zboží v administraci již funguje</li>
+  </ul>
+  25. 8. 2020
+  <ul>
+    <li>Výdejka - Zboží řazeno abecedně v PDF i s seznamu</li>
+    <li>Oprava počítání celkové ceny receptu</li>
+    <li>Přidání zobrazení ingrediencí receptu z denního menu</li>
+    <li>Oprava - Správné počítání ceny zboží na výdejce</li>
+  </ul>
+  24. 8. 2020
+  <ul>
+    <li>Inventura - možnost importu a exportu zboží pro roli Šéfkuchař - Dáša, Josef</li>
+    <li>Recepce/Kuchyň, oprava - Tvorba výdejky z denního menu nekontroluje skutečné množství na skladu, to je kontrolováno až při schválení výdejky</li>
+    <li>Oprava - Recept z denního menu již jde vymazat</li>
+    <li>Oprava - Tlačítko Zpět na ingrediencích receptu již funguje</li>
+    <li>Oprava - Minimální množství na skladu je nepovinné pole a min hodnota je 0</li>
+    <li>Kuchyně/recepce - Zboží se na výdejce z denního menu vyskytuje jenom jednou</li>
+  </ul>
+  23. 8. 2020
+  <ul>
+    <li>Importována data ze Stravníčka z dne 18.8.2020</li>
+    <li>Jenom role chef má právo na Založení nové skladové karty - nového druhu zboží na sklad (pí. Trmalová, Josef Slavíček)</li>
+    <li>Oprava PDF formátování - text se nepřekrývá od druhé stránky dál</li>
+    <li>Recepce/Kuchyň - Inventura - tisk PDF pro zjištění skutečného stavu zásob na skladu</li>
+    <li>Kuchyň - Nový report - Zboží nepoužito na žádném receptu</li>
+    <li>Recepce/Kuchyň, oprava - Tvorba výdejky z denního menu již není blokována neexistenci výdejky, ale kontroluje skutečné množství na skladu</li>
+  </ul>
+  22. 8. 2020
+  <ul>
+    <li>Recepce - Možnost zobrazení historie změn u zboží</li>
+    <li>Recepce - Oprava chyby - Vydejka po schválení teď zmení stav zboží na skladu</li>
+    <li>Recepce - Oprava ceny zboží při schválení příjemky/výdejky je správně aktualizována</li>
+  </ul>
+  19. 8. 2020
+  <ul>
+    <li>Kontrola konverze jednotek u zboží na receptech, příjemkách a výdejkách</li>
+    <li>Recepce - Výdejka - v PDF i seznamu není zobrazena správná jednotková a sumární cena zboží</li>
+    <li>Paní Trmalová - Report na kontrolu správnosti zadaných jednotek</li>
+  </ul>
+  17. 8. 2020
+  <ul>
+    <li>Recepce - možnost zadat datum na příjemce</li>
+    <li>Recepce - V menu zobrazit nápovědu</li>
+    <li>Recepce - Přeložit Log-in a Register</li>
+    <li>Kuchyně - přidány práva na správu výdejek kromě schválení a výmazu</li>
+    <li>Kuchyně - v denním menu je řazeno dle datumu a pak typu jidla</li>
+    <li>Recepce - kontrola a nemožnost úpravy/přidání/výmazu zboží PO schválení příjemky/výdejky</li>
+  </ul>
+  Přesun standardní funkcionality Strávníčka
+  <ul>
+    <li>Správa číselníků</li>
+    <li>Přesunut a nahrán obsah Strávníčka (Zboží, Recepty, Ingredience)</li>
+    <li>PDF s denním menu dle datumu s možností filtrace na skupinu strávníků<br/></s>
+    <li>PDF se seznam receptů a jednotlivého receptu<br/></s>
+    <li>Je možno vytvořit výdejku na základě receptů z denního menu<br/></s>
+  </ul>
+</div>
+{% endblock content %}
