@@ -178,7 +178,7 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Inventura skladu
+                Inventura
               </a>
               <div
                 class="dropdown-menu"
@@ -190,10 +190,6 @@
                   >PDF pro zjištění stavu zboží na skladu</a
                 >
                 {% if request.user|has_group:"stockkeeper" %}
-                <a class="dropdown-item" href="{% url 'kitchen:printStockArticles' %}"
-                  >Zadání skutečného stavu zboží</a>
-                {% endif %}
-                {% if request.user|has_group:"chef" %}
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:exportArticles' %}"

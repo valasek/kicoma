@@ -1,4 +1,6 @@
-{% extends "../pdf_page.html" %} {% block content %}
+{% extends "../pdf_page.html" %}
+{% load humanize %}
+{% block content %}
 <div class="rTable">
   <div class="rTableRow">
     <div class="rTableHead">Porcí</div>
@@ -7,7 +9,7 @@
   </div>
   <div class="rTableRow">
     <div class="rTableCell">{{recipe.norm_amount}}</div>
-    <div class="rTableCell">{{recipe.total_recipe_articles_price}} Kč</div>
+    <div class="rTableCell">{{recipe.total_recipe_articles_price|intcomma}} Kč</div>
     <div class="rTableCell">{{recipe.comment}}</div>
   </div>
 </div>
@@ -25,8 +27,8 @@
   <div class="rTableRow">
     <div class="rTableCell">{{recipe_article.article}}</div>
     <div class="rTableCell">{{recipe_article.amount}} {{recipe_article.unit}}</div>
-    <div class="rTableCell">{{recipe_article.article.average_price}} Kč</div>
-    <div class="rTableCell">{{recipe_article.total_average_price}} Kč</div>
+    <div class="rTableCell">{{recipe_article.article.average_price|intcomma}}} Kč</div>
+    <div class="rTableCell">{{recipe_article.total_average_price|intcomma}} Kč</div>
     <div class="rTableCell">{{recipe_article.comment}}</div>
   </div>
   {% endfor %}

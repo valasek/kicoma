@@ -1,5 +1,6 @@
 import django_tables2 as tables
 import django_filters
+from django.contrib.humanize.templatetags.humanize import intcomma
 
 from .models import Recipe, RecipeArticle, StockReceipt, StockIssue, Article, DailyMenu, \
     StockIssueArticle, StockReceiptArticle, DailyMenuRecipe
@@ -21,10 +22,10 @@ class ArticleTable(tables.Table):
                   "total_price", "allergens", "comment", "change")
 
     def render_average_price(self, value, record):
-        return '{} Kč / {}'.format(value, record.unit)
+        return '{} Kč / {}'.format(intcomma(value), record.unit)
 
     def render_total_price(self, value, record):
-        return '{} Kč'.format(value)
+        return '{} Kč'.format(intcomma(value))
 
     def render_on_stock(self, value, record):
         return '{} {}'.format(value, record.unit)
@@ -58,7 +59,7 @@ class RecipeTable(tables.Table):
         fields = ("recipe", "norm_amount", "total_recipe_articles_price", "comment", "change")
 
     def render_total_recipe_articles_price(self, value, record):
-        return '{} Kč'.format(value)
+        return '{} Kč'.format(intcomma(value))
 
 
 class RecipeFilter(django_filters.FilterSet):
@@ -87,10 +88,10 @@ class RecipeArticleTable(tables.Table):
         return '{} {}'.format(value, record.unit)
 
     def render_average_price(self, value, record):
-        return '{} Kč / {}'.format(value, record.article.unit)
+        return '{} Kč / {}'.format(intcomma(value), record.article.unit)
 
     def render_total_average_price(self, value, record):
-        return '{} Kč'.format(value)
+        return '{} Kč'.format(intcomma(value))
 
 
 class DailyMenuTable(tables.Table):
@@ -153,7 +154,7 @@ class StockIssueTable(tables.Table):
                   "user_approved", "total_price", "comment", "change")
 
     def render_total_price(self, value, record):
-        return '{} Kč'.format(value)
+        return '{} Kč'.format(intcomma(intcomma(value)))
 
 
 class StockIssueFilter(django_filters.FilterSet):
@@ -181,10 +182,10 @@ class StockIssueArticleTable(tables.Table):
         return '{} {}'.format(value, record.unit)
 
     def render_average_unit_price(self, value, record):
-        return '{} Kč / {}'.format(value, record.article.unit)
+        return '{} Kč / {}'.format(intcomma(value), record.article.unit)
 
     def render_total_average_price_with_vat(self, value, record):
-        return '{} Kč'.format(value)
+        return '{} Kč'.format(intcomma(value))
 
 
 class StockReceiptTable(tables.Table):
@@ -205,7 +206,7 @@ class StockReceiptTable(tables.Table):
                   "user_approved", "total_price", "comment", "change")
 
     def render_total_price(self, value, record):
-        return '{} Kč'.format(value)
+        return '{} Kč'.format(intcomma(value))
 
 
 class StockReceiptFilter(django_filters.FilterSet):
@@ -236,10 +237,10 @@ class StockReceiptArticleTable(tables.Table):
         return '{} {}'.format(value, record.unit)
 
     def render_price_without_vat(self, value, record):
-        return '{} Kč'.format(value)
+        return '{} Kč'.format(intcomma(value))
 
     def render_price_with_vat(self, value, record):
-        return '{} Kč'.format(value)
+        return '{} Kč'.format(intcomma(value))
 
     def render_total_price_with_vat(self, value, record):
-        return '{} Kč'.format(value)
+        return '{} Kč'.format(intcomma(value))

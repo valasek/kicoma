@@ -1,4 +1,7 @@
-{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
+{% extends "base.html" %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block content %}
 <div class="container-fluid">
   <h4>Odstranění zboží z výdejky</h4>
   <hr />
@@ -17,7 +20,7 @@
     <p>Chcete odstranit zboží z výdejky:</p>
     <ul>
       <li>Zboží: {{ object.article }}</li>
-      <li>Cena bez DPH: {{ object.price_without_vat }} Kč</li>
+      <li>Cena bez DPH: {{ object.price_without_vat|intcomma }} Kč</li>
       <li>Poznámka: {{ object.comment }}</li>
     </ul>
     <button type="submit" class="btn btn-success">Odstranit</button>

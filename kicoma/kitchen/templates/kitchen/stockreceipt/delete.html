@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load humanize %}
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container-fluid">
@@ -19,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <td>{{ total_price }} Kč</td>
+        <td>{{ total_price|intcomma }} Kč</td>
         <td>{{ stock_receipt_articles.count }}</td>
         <td>{{ stock_receipt.created }}</td>
         <td>{{ stock_receipt.user_created.name }}</td>
@@ -47,10 +48,10 @@
       <tr>
         <td>{{stock_receipt_article.article}}</td>
         <td>{{stock_receipt_article.amount}} {{stock_receipt_article.unit}}</td>
-        <td>{{stock_receipt_article.price_without_vat}} Kč</td>
+        <td>{{stock_receipt_article.price_without_vat|intcomma}} Kč</td>
         <td>{{stock_receipt_article.vat}}</td>
-        <td>{{stock_receipt_article.price_with_vat}} Kč</td>
-        <td>{{stock_receipt_article.total_price_with_vat}} Kč</td>
+        <td>{{stock_receipt_article.price_with_vat|intcomma}} Kč</td>
+        <td>{{stock_receipt_article.total_price_with_vat|intcomma}} Kč</td>
         <td>{{stock_receipt_article.comment}}</td>
       </tr>
       {% endfor %}

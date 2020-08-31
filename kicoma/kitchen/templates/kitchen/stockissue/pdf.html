@@ -1,4 +1,6 @@
-{% extends "../pdf_page.html" %} {% block content %}
+{% extends "../pdf_page.html" %}
+{% load humanize %}
+{% block content %}
 <div class="rTable">
   <div class="rTableRow">
     <div class="rTableHead">Celková cena s DPH</div>
@@ -10,7 +12,7 @@
     <div class="rTableHead">Poznámka</div>
   </div>
   <div class="rTableRow">
-    <div class="rTableCell">{{ total_price }} Kč</div>
+    <div class="rTableCell">{{ total_price|intcomma }} Kč</div>
     <div class="rTableCell">{{ stock_issue_articles.count }}</div>
     <div class="rTableCell">{{ stock_issue.created }}</div>
     <div class="rTableCell">{{ stock_issue.user_created.name }}</div>
@@ -32,8 +34,8 @@
   <div class="rTableRow">
     <div class="rTableCell">{{ stock_issue_article.article }}</div>
     <div class="rTableCell">{{ stock_issue_article.amount }} {{ stock_issue_article.unit }}</div>
-    <div class="rTableCell">{{ stock_issue_article.average_unit_price }} Kč</div>
-    <div class="rTableCell">{{ stock_issue_article.total_average_price_with_vat }} Kč</div>
+    <div class="rTableCell">{{ stock_issue_article.average_unit_price|intcomma }} Kč</div>
+    <div class="rTableCell">{{ stock_issue_article.total_average_price_with_vat|intcomma }} Kč</div>
     <div class="rTableCell">{{ stock_issue_article.comment }}</div>
   </div>
   {% endfor %}

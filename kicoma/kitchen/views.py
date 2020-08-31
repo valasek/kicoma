@@ -205,17 +205,6 @@ class ArticlePDFView(LoginRequiredMixin, PDFTemplateView):
         return context
 
 
-class ArticleStockPDFView(LoginRequiredMixin, PDFTemplateView):
-    template_name = 'kitchen/article/stock_pdf.html'
-    filename = 'Seznam_zbozi_na_skladu.pdf'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['articles'] = Article.objects.all()
-        context['title'] = "Seznam zboží na skladu ke kontrole"
-        return context
-
-
 class ArticleExportView(LoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
@@ -263,6 +252,17 @@ class ArticleHistoryDetailView(LoginRequiredMixin, DetailView):
         context = super(ArticleHistoryDetailView, self).get_context_data(**kwargs)
         context['article_name'] = kwargs['object'].article
         context['table'] = kwargs['object'].history.all()
+        return context
+
+
+class StockTakePDFView(LoginRequiredMixin, PDFTemplateView):
+    template_name = 'kitchen/stocktake/pdf.html'
+    filename = 'Seznam_zbozi_na_skladu.pdf'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['articles'] = Article.objects.all()
+        context['title'] = "Seznam zboží na skladu ke kontrole"
         return context
 
 

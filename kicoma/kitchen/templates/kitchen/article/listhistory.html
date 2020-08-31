@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load humanize %}
 {% block content %}
 <div class="container-fluid">
   <h4>{{ article_name }} - historie změn na skladu</h4>
@@ -30,7 +31,7 @@
         <td>{{article.unit}}</td>
         <td>{{article.on_stock}} {{article.unit}}</td>
         <td>{{article.min_on_stock}} {{article.unit}}</td>
-        <td>{{article.total_price}} Kč</td>
+        <td>{{article.total_price|intcomma}} Kč</td>
         <td>{{article.comment}}</td>
       </tr>
     {% endfor %}

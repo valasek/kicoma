@@ -1,4 +1,6 @@
-{% extends "../pdf_page.html" %} {% block content %}
+{% extends "../pdf_page.html" %}
+{% load humanize %}
+{% block content %}
 <div class="rTable">
   <div class="rTableRow">
     <div class="rTableHead">Celková cena s DPH</div>
@@ -10,7 +12,7 @@
     <div class="rTableHead">Poznámka</div>
   </div>
   <div class="rTableRow">
-    <div class="rTableCell"><b>{{ total_price }} Kč</b></div>
+    <div class="rTableCell"><b>{{ total_price|intcomma }} Kč</b></div>
     <div class="rTableCell">{{ stock_receipt_articles.count }}</div>
     <div class="rTableCell">{{ stock_receipt.created }}</div>
     <div class="rTableCell">{{ stock_receipt.user_created.name }}</div>
@@ -36,10 +38,10 @@
     <div class="rTableCell">
       {{ stock_receipt_article.amount }} {{ stock_receipt_article.unit }}
     </div>
-    <div class="rTableCell">{{ stock_receipt_article.price_without_vat }} Kč</div>
+    <div class="rTableCell">{{ stock_receipt_article.price_without_vat|intcomma }} Kč</div>
     <div class="rTableCell">{{ stock_receipt_article.vat }}</div>
-    <div class="rTableCell">{{ stock_receipt_article.price_with_vat }} Kč</div>
-    <div class="rTableCell">{{ stock_receipt_article.total_price_with_vat }} Kč</div>
+    <div class="rTableCell">{{ stock_receipt_article.price_with_vat|intcomma }} Kč</div>
+    <div class="rTableCell">{{ stock_receipt_article.total_price_with_vat|intcomma }} Kč</div>
     <div class="rTableCell">{{ stock_receipt_article.comment }}</div>
   </div>
   {% endfor %}
