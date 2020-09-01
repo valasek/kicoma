@@ -1026,12 +1026,19 @@ class StockReceiptArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, Del
 
 class FoodConsumptionPDFView(LoginRequiredMixin, PDFTemplateView):
     template_name = 'kitchen/report/food_consumption_pdf.html'
-    filename = 'Spotřeba potravin.pdf'
+    filename = 'Spotreba_potravin.pdf'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         date = self.request.GET['date']
-        daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%d.%m.%Y"))
+        meal_group = self.request.GET['meal_group']
+        if len(meal_group) == 0:
+            daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%d.%m.%Y"))
+        else:
+            daily_menus = DailyMenu.objects.filter(date=datetime.strptime(
+                date, "%d.%m.%Y"), meal_group=meal_group)
+            context['meal_group_filter'] = "Filtrováno pro skupinu strávníků: " + \
+                MealGroup.objects.filter(pk=meal_group).get().meal_group
         context['title'] = "Spotřeba potravin pro " + date
         context['daily_menus'] = daily_menus
         return context

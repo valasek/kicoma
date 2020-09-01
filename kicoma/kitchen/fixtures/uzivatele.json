@@ -88,5 +88,23 @@
       "date_joined": "2020-06-19T21:31:10.980Z",
       "user_permissions": []
     }
+  },
+  {
+    "model": "users.user",
+    "pk": 6,
+    "fields": {
+      "username": "kohnerova",
+      "email": "kuchyne@hospic-cercany.cz",
+      "name": "Alena Kohnerová",
+      "first_name": "Alena",
+      "last_name": "Kohnerová",
+      "password": "argon2$argon2i$v=19$m=512,t=2,p=2$bmJpQWZvblZUdVlw$pLXmwIujKhGfyPSzcs5eUg",
+      "is_superuser": false,
+      "is_active": true,
+      "is_staff": false,
+      "groups": [2],
+      "date_joined": "2020-05-02T21:31:10.980Z",
+      "user_permissions": []
+    }
   }
 ]

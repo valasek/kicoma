@@ -270,7 +270,6 @@ class StockReceiptArticleForm(forms.ModelForm):
                 Column('article', css_class='col-md-2'),
                 Column('amount', css_class='col-md-1'),
                 Column('unit', css_class='col-md-1'),
-                # Column(AppendedText('priceWithoutVat', 'Kč', active=True), css_class='col-md-2'),
                 Column('price_without_vat', css_class='col-md-2'),
                 Column('vat', css_class='col-md-1'),
                 Column('comment', css_class='col-md-4'),
@@ -282,7 +281,7 @@ class FoodConsumptionPrintForm(forms.ModelForm):
 
     class Meta:
         model = DailyMenu
-        fields = ["date"]
+        fields = ["date", "meal_group", ]
         # widgets = {
         #     'date': forms.DateInput(format=('%Y-%m-%d'),
         #                             attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
@@ -291,9 +290,11 @@ class FoodConsumptionPrintForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.fields['meal_group'].required = False
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
                 Column('date', css_class='col-md-2'),
+                Column('meal_group', css_class='col-md-2'),
             )
         )

@@ -1,5 +1,6 @@
 {% extends "../pdf_page.html" %}
 {% block content %}
+<p align="center">{{ meal_group_filter }}</p>
 {% for daily_menu in daily_menus.all %}
   <h2>{{ daily_menu.meal_type }} pro {{ daily_menu.meal_group }}</h2>
   {% if daily_menu.dailymenurecipe_set %}

@@ -3,7 +3,6 @@
 <p align="center">{{ meal_group_filter }}</p>
 <div class="rTable">
   <div class="rTableRow">
-    <div class="rTableHead">Datum</div>
     <div class="rTableHead">Skupina strávníka</div>
     <div class="rTableHead">Druh jídla</div>
     <div class="rTableHead">Recept</div>
@@ -11,7 +10,6 @@
   </div>
   {% for recipe in daily_menu_recipes %}
   <div class="rTableRow">
-    <div class="rTableCell">{{ recipe.daily_menu.date }}</div>
     <div class="rTableCell">{{ recipe.daily_menu.meal_group }}</div>
     <div class="rTableCell">{{ recipe.daily_menu.meal_type }}</div>
     <div class="rTableCell">{{ recipe.recipe }}</div>

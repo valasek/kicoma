@@ -401,7 +401,7 @@ class StockReceiptArticle(TimeStampedModel):
     class Meta:
         verbose_name_plural = _('Zboží na příjemce')
         verbose_name = _('Zboží na výdejce')
-        ordering = ['id']
+        ordering = ['-id']
 
     stock_receipt = models.ForeignKey(StockReceipt, on_delete=models.CASCADE, verbose_name='Příjemka')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží')
