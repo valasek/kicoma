@@ -17,16 +17,6 @@ def convertUnits(number, unitIn, unitOut):
     raise ValidationError("Není možné provést konverzi {} {} na {}".format(number, unitIn, unitOut))
 
 
-# returns total Article price, Article amount is converted using Article unit
-def totalStockReceiptArticlePrice(stock_receipt_articles):
-    total_price = 0
-    for stock_receipt_article in stock_receipt_articles:
-        convertedAmount = convertUnits(stock_receipt_article.amount,
-                                       stock_receipt_article.unit, stock_receipt_article.article.unit)
-        stock_receipt_article_price = convertedAmount * stock_receipt_article.price_with_vat
-        total_price += stock_receipt_article_price
-    return total_price
-
 # returns total RecipeArticle price, RecipeArticle amount is converted using Article unit
 def totalRecipeArticlePrice(recipe_articles, norm_amount):
     total_price = 0

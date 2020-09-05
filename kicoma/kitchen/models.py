@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
 from simple_history.utils import update_change_reason
 
-from .functions import convertUnits, totalStockReceiptArticlePrice, totalRecipeArticlePrice
+from .functions import convertUnits, totalRecipeArticlePrice
 
 UNIT = (
     ('kg', _('kg')),
@@ -345,7 +345,10 @@ class StockReceipt(TimeStampedModel):
     @property
     def total_price(self):
         stock_receipt_articles = StockReceiptArticle.objects.filter(stock_receipt=self.id)
-        return round(totalStockReceiptArticlePrice(stock_receipt_articles), 2)
+        total_price = 0
+        for stock_receipt_article in stock_receipt_articles:
+            total_price += stock_receipt_article.total_price_with_vat
+        return round(total_price, 2)
 
     @staticmethod
     def updateArticleOnStock(stock_id):
