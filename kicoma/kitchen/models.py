@@ -314,10 +314,8 @@ class StockIssue(TimeStampedModel):
             if not fake:
                 new_total_price = convertUnits(stock_article.total_average_price_with_vat, stock_article.unit,
                                                article.unit)
-                # print("StockIssue | mnozství: ", article.on_stock, "-", converted_amount,
-                #       "| cena:", article.total_price, "-", new_total_price)
-                article.on_stock -= converted_amount
-                article.total_price -= new_total_price
+                article.on_stock -= round(converted_amount,2)
+                article.total_price -= round(new_total_price,2)
                 article.save()
                 update_change_reason(article, 'Výdejka')
         return messages
@@ -359,8 +357,8 @@ class StockReceipt(TimeStampedModel):
             new_total_price = convertUnits(stock_article.total_price_with_vat, stock_article.unit, article.unit)
             # print("StockReceipt - mnozství: ", article.on_stock, "+", converted_amount,
             #       " - cena: ", article.total_price, "+", new_total_price)
-            article.on_stock += converted_amount
-            article.total_price += new_total_price
+            article.on_stock += round(converted_amount,2)
+            article.total_price += round(new_total_price,2)
             article.save()
             update_change_reason(article, 'Příjemka')
 
@@ -403,7 +401,7 @@ class StockReceiptArticle(TimeStampedModel):
 
     class Meta:
         verbose_name_plural = _('Zboží na příjemce')
-        verbose_name = _('Zboží na výdejce')
+        verbose_name = _('Zboží na příjemce')
         ordering = ['-id']
 
     stock_receipt = models.ForeignKey(StockReceipt, on_delete=models.CASCADE, verbose_name='Příjemka')

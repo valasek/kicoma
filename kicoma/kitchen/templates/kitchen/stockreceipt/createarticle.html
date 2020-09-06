@@ -10,13 +10,18 @@
     >
     Po uložení budou dopočteny: Jednotková cena s DHP, Cena celkem s DPH
   </p>
-
   <form
     method="post"
     action="{% url 'kitchen:createStockReceiptArticle' stockreceipt.id %}"
   >
     {% csrf_token %} {% crispy form form.helper %}
-    <button type="submit" class="btn btn-success">Uložit</button>
+    <button type="submit" class="btn btn-success">Uložit a zadat další zboží</button>
   </form>
+  <hr/>
+  <a href="{% url 'kitchen:showStockReceiptArticles' stockreceipt.id %}"
+      ><button class="btn btn-secondary">
+        Ukončit zadávání
+      </button></a
+    >
 </div>
 {% endblock content %}

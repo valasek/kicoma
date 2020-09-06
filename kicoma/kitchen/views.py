@@ -945,7 +945,7 @@ class StockReceiptArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Cre
     success_message = 'Zboží %(article)s bylo přidáno'
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showStockReceiptArticles', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('kitchen:createStockReceiptArticle', kwargs={'pk': self.kwargs['pk']})
 
     def get_context_data(self, **kwargs):
         context = super(StockReceiptArticleCreateView, self).get_context_data(**kwargs)
