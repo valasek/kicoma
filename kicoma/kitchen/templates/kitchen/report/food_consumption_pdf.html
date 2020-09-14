@@ -1,29 +1,45 @@
 {% extends "../pdf_page.html" %}
 {% block content %}
 <p align="center">{{ meal_group_filter }}</p>
-{% for daily_menu in daily_menus.all %}
-  <h2>{{ daily_menu.meal_type }} pro {{ daily_menu.meal_group }}</h2>
-  {% if daily_menu.dailymenurecipe_set %}
-    {% for daily_menu_recipe in daily_menu.dailymenurecipe_set.all %}
-      <h3>{{ daily_menu_recipe.recipe }}, {{ daily_menu_recipe.amount }} porcí</h3>
-      {% if daily_menu_recipe.recipe.recipearticle_set %}
-        <div class="rTable">
-          <div class="rTableRow">
-            <div class="rTableHead">Ingredience</div>
-            <div class="rTableHead">Objem</div>
-            <div class="rTableHead">Alergény</div>
-          </div>
-          {% for recipe_article in daily_menu_recipe.recipe.recipearticle_set.all %}
-          <div class="rTableRow">
-            <div class="rTableCell">{{recipe_article.article}}</div>
-            <div class="rTableCell">Dokončit: {{recipe_article.amount}} {{recipe_article.unit}} * {{ daily_menu_recipe.amount }}, {{ daily_menu_recipe.recipe.norm_amount }}
-            </div>
-            <div class="rTableCell">{{recipe_article.article.display_allergens}}</div>
-          </div>
-          {% endfor %}
-        </div>
-      {% endif %}
+{% for d in daily_menus_dedup %}
+  <p><b>{{ d.meal_type }}</b></p>
+  <div class="rTable">
+    <div class="rTableRow">
+      <div class="rTableHead">Recept</div>
+      <div class="rTableHead">Ingredience</div>
+    </div>
+    {% for recipe in d.recipes %}
+    <div class="rTableRow">
+      <div class="rTableCell">{{ recipe.name }}, {{ recipe.amount }} porcií</div>
+      <div class="rTableCell">
+      {% for article in recipe.articles %}
+        {{ article.article }} - {{ article.amount }} {{ article.unit }}<br/>
+      {% endfor %}
+      </div>
+    </div>
     {% endfor %}
-  {% endif %}
+  </div>
+{% endfor %}
+
+<hr/>
+
+{% for d in daily_menus %}
+  <p><b>{{ d.meal_type }}</b></p>
+  <div class="rTable">
+    <div class="rTableRow">
+      <div class="rTableHead">Recept</div>
+      <div class="rTableHead">Ingredience</div>
+    </div>
+    {% for recipe in d.recipes %}
+    <div class="rTableRow">
+      <div class="rTableCell">{{ recipe.name }}, {{ recipe.amount }} porcií</div>
+      <div class="rTableCell">
+      {% for article in recipe.articles %}
+        {{ article.article }} - {{ article.amount }} {{ article.unit }}<br/>
+      {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 {% endfor %}
 {% endblock %}

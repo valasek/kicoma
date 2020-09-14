@@ -13,8 +13,8 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import ValidationError
 
-from django.db import transaction
-from django.db.models import F
+from django.db import transaction, connection
+from django.db.models import F, Count
 
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -23,7 +23,7 @@ from django.views.generic.base import TemplateView, View
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, ContentType, Permission
 
 from wkhtmltopdf.views import PDFTemplateView
 from django_tables2 import SingleTableMixin
@@ -34,7 +34,7 @@ from tablib import Dataset
 from kicoma.users.models import User
 
 from .models import StockIssueArticle, StockReceiptArticle, Recipe, Allergen, MealType, MealGroup, VAT, \
-    Article, RecipeArticle, StockIssue, StockReceipt, DailyMenu, DailyMenuRecipe
+    Article, HistoricalArticle, RecipeArticle, StockIssue, StockReceipt, DailyMenu, DailyMenuRecipe
 
 from .tables import StockReceiptTable, StockReceiptArticleTable, StockReceiptFilter
 from .tables import StockIssueTable, StockIssueArticleTable, StockIssueFilter
@@ -66,7 +66,9 @@ def about(request):
 
     recipeCount = Recipe.objects.all().count()
     recipe_article_count = RecipeArticle.objects.all().count()
-    articleCount = Article.objects.all().count()
+    article_count = Article.objects.all().count()
+    article_allergen_count = Article.objects.all().aggregate(count=Count('allergen'))['count']
+    historical_article_count = HistoricalArticle.objects.all().count()
     stockIssueCount = StockIssue.objects.all().count()
     stockReceiptCount = StockReceipt.objects.all().count()
     stock_issue_article_count = StockIssueArticle.objects.all().count()
@@ -76,6 +78,36 @@ def about(request):
 
     userCount = User.objects.all().count()
     groupCount = Group.objects.all().count()
+
+    # service tables content
+    content_type_count = ContentType.objects.all().count()
+    permission_count = Permission.objects.all().count()
+    with connection.cursor() as cursor:
+        cursor.execute('select count(*) from django_migrations')
+        row = cursor.fetchone()
+        migration_count = row[0]
+
+    with connection.cursor() as cursor:
+        cursor.execute('select count(*) from django_session')
+        row = cursor.fetchone()
+        session_count = row[0]
+
+    with connection.cursor() as cursor:
+        cursor.execute('select count(*) from django_site')
+        row = cursor.fetchone()
+        site_count = row[0]
+
+    with connection.cursor() as cursor:
+        cursor.execute('select count(*) from users_user_groups')
+        row = cursor.fetchone()
+        user_group_rel_count = row[0]
+
+
+    total_records = allergenCount + meal_typeCount + mealGroupCount + \
+        vatCount + recipeCount + recipe_article_count + article_count + article_allergen_count + \
+        historical_article_count + stockIssueCount + stockReceiptCount + stock_issue_article_count + \
+        stock_receipt_article_count + dailyMenuCount + dailyMenuRecipeCount + userCount + groupCount + \
+        content_type_count + permission_count + migration_count + session_count + site_count + user_group_rel_count
 
     logger.info("processing index")
 
@@ -87,7 +119,9 @@ def about(request):
 
         'recipeCount': recipeCount,
         'recipe_article_count': recipe_article_count,
-        'articleCount': articleCount,
+        'article_count': article_count,
+        'article_allergen_count': article_allergen_count,
+        'historical_article_count': historical_article_count,
         'stockIssueCount': stockIssueCount,
         'stockReceiptCount': stockReceiptCount,
         'stock_issue_article_count': stock_issue_article_count,
@@ -96,7 +130,16 @@ def about(request):
         'dailyMenuRecipeCount': dailyMenuRecipeCount,
 
         "groupCount": groupCount,
-        "userCount": userCount
+        "userCount": userCount,
+
+        "content_type_count": content_type_count,
+        'permission_count': permission_count,
+        "migration_count": migration_count,
+        "session_count": session_count,
+        'site_count': site_count,
+        'user_group_rel_count': user_group_rel_count,
+
+        'total_records': total_records
     })
 
 
@@ -1032,6 +1075,10 @@ class FoodConsumptionPDFView(LoginRequiredMixin, PDFTemplateView):
         context = super().get_context_data(**kwargs)
         date = self.request.GET['date']
         meal_group = self.request.GET['meal_group']
+        # typ jidla (snidane i bc)
+        # # recept, počet ks
+        # # # article, množství
+
         if len(meal_group) == 0:
             daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%d.%m.%Y"))
         else:
@@ -1039,8 +1086,86 @@ class FoodConsumptionPDFView(LoginRequiredMixin, PDFTemplateView):
                 date, "%d.%m.%Y"), meal_group=meal_group)
             context['meal_group_filter'] = "Filtrováno pro skupinu strávníků: " + \
                 MealGroup.objects.filter(pk=meal_group).get().meal_group
-        context['title'] = "Spotřeba potravin pro " + date
-        context['daily_menus'] = daily_menus
+
+        output = []
+        for daily_menu in daily_menus:
+            # for recipe in daily_menu
+            dmrs = DailyMenuRecipe.objects.filter(daily_menu=daily_menu).select_related('recipe')
+            daily_menu_recipes = []
+            for dmr in dmrs:
+                ras = RecipeArticle.objects.filter(recipe=dmr.recipe).select_related('article')
+                daily_menu_recipe_articles = []
+                for ra in ras:
+                    daily_menu_recipe_article = {
+                        "article": ra.article,
+                        "amount": round(ra.amount * dmr.amount / ra.recipe.norm_amount, 2),  # konverze amount
+                        "unit": ra.unit
+                    }
+                    daily_menu_recipe_articles.append(daily_menu_recipe_article)
+                daily_menu_recipe = {
+                    "name": dmr.recipe,
+                    "amount": dmr.amount,
+                    "articles": daily_menu_recipe_articles
+                }
+                daily_menu_recipes.append(daily_menu_recipe)
+            output_new = {
+                "meal_type": daily_menu.meal_type,
+                "recipes": daily_menu_recipes
+            }
+            output.append(output_new)
+
+        output_dedup = []
+        for daily_menu in daily_menus:
+            # for recipe in daily_menu
+            dmrs = DailyMenuRecipe.objects.filter(daily_menu=daily_menu).select_related('recipe')
+            daily_menu_recipes = []
+            for dmr in dmrs:
+                ras = RecipeArticle.objects.filter(recipe=dmr.recipe).select_related('article')
+                daily_menu_recipe_articles = []
+                for ra in ras:
+                    daily_menu_recipe_article = {
+                        "article": ra.article,
+                        "amount": round(ra.amount * dmr.amount / ra.recipe.norm_amount, 2),  # konverze amount
+                        "unit": ra.unit
+                    }
+                    daily_menu_recipe_articles.append(daily_menu_recipe_article)
+                daily_menu_recipe = {
+                    "name": dmr.recipe,
+                    "amount": dmr.amount,
+                    "articles": daily_menu_recipe_articles
+                }
+                daily_menu_recipes.append(daily_menu_recipe)
+            output_new = {
+                "meal_type": daily_menu.meal_type,
+                "recipes": daily_menu_recipes
+            }
+            # deduplikace dle meal type
+            # pak dle receptu, spočíst amount
+            # pak dle ingrediencií - spočíst amount
+            dup = False
+            for dmn in output_dedup:
+                if output_new['meal_type'] == dmn['meal_type']:
+                    dup = True
+                    # add amount to the existing recipe or insert new recipe
+                    for recipe in dmn['recipes']:
+                        for recipe_new in output_new['recipes']:
+                            found = False
+                            if recipe['name'] == recipe_new['name']:
+                                found = True
+                                break
+                                # add ingredient amount
+                        if found:
+                            print("same recipe", output_new['meal_type'], recipe['name'], recipe['amount'])
+                        else:
+                            print("adding recipe", output_new['meal_type'], recipe['name'], recipe['amount'])
+            if dup:
+                print("duplicita:", output_new['meal_type'])
+            else:
+                output_dedup.append(output_new)
+
+        context['title'] = "Rozpis pro kuchyň dle receptur na den " + date
+        context['daily_menus'] = output
+        context['daily_menus_dedup'] = output_dedup
         return context
 
 

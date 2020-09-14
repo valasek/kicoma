@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Rozpis spotřeby potravin dle jídel a receptů</h4>
+  <h4>Rozpis pro kuchyň dle receptů na den</h4>
   <hr/>
   <p>Vyber datum a volitelně skupinu strávníka - bez výběru se zobrazí report pro všechny skupiny:</p>
   <form method="get" action="{% url 'kitchen:printFoodConsumption' %}">
