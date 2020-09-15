@@ -102,7 +102,6 @@ def about(request):
         row = cursor.fetchone()
         user_group_rel_count = row[0]
 
-
     total_records = allergenCount + meal_typeCount + mealGroupCount + \
         vatCount + recipeCount + recipe_article_count + article_count + article_allergen_count + \
         historical_article_count + stockIssueCount + stockReceiptCount + stock_issue_article_count + \
@@ -176,14 +175,15 @@ class ImportDataView(TemplateView):
         fs = FileSystemStorage()
         filename = fs.save(uploaded_file.name, uploaded_file)
         f = io.StringIO()
-        with redirect_stdout(f):
-            # management.call_command('flush', interactive=False, verbosity=1)
-            # inFile = open('./kicoma/kitchen/fixtures/skupiny.json', "r")
-            # management.call_command('loaddata', "--format=json", inFile.read(), verbosity=1)
-            # inFile = open('./kicoma/kitchen/fixtures/uzivatele.json', "r")
-            # management.call_command('loaddata', inFile.read(), verbosity=1)
-            management.call_command('loaddata', fs.path(filename), verbosity=1)
-        messages.success(self.request, "Data úspěšně nahrána: "+f.getvalue())
+        try:
+            with redirect_stdout(f):
+                management.call_command('flush', interactive=False, verbosity=1)
+                management.call_command('loaddata', "./kicoma/kitchen/fixtures/skupiny.json", verbosity=1)
+                management.call_command('loaddata', "./kicoma/kitchen/fixtures/uzivatele.json", verbosity=1)
+                management.call_command('loaddata', fs.path(filename), verbosity=1)
+                messages.success(self.request, "Data úspěšně nahrána: "+f.getvalue())
+        except Exception as e:
+            messages.success(self.request, "Chyba při výmazu dat před importem: "+e)
         return super(ImportDataView, self).render_to_response(context)
 
 
@@ -501,6 +501,15 @@ class DailyMenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 class DailyMenuPDFView(LoginRequiredMixin, PDFTemplateView):
     template_name = 'kitchen/dailymenu/pdf.html'
     filename = 'Denni_menu.pdf'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            date = request.GET['date']
+            datetime.strptime(date, "%d.%m.%Y")
+        except ValueError as e:
+            messages.warning(self.request, "Chybně zadané datum. Požadovaný formát je dd.mm.rr. Chyba: {}".format(e))
+            return HttpResponseRedirect(reverse_lazy('kitchen:filterPrintDailyMenu'))
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -1071,6 +1080,15 @@ class FoodConsumptionPDFView(LoginRequiredMixin, PDFTemplateView):
     template_name = 'kitchen/report/food_consumption_pdf.html'
     filename = 'Spotreba_potravin.pdf'
 
+    def get(self, request, *args, **kwargs):
+        try:
+            date = request.GET['date']
+            datetime.strptime(date, "%d.%m.%Y")
+        except ValueError as e:
+            messages.warning(self.request, "Chybně zadané datum. Požadovaný formát je dd.mm.rr. Chyba: {}".format(e))
+            return HttpResponseRedirect(reverse_lazy('kitchen:filterFoodConsumption'))
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         date = self.request.GET['date']
@@ -1078,7 +1096,6 @@ class FoodConsumptionPDFView(LoginRequiredMixin, PDFTemplateView):
         # typ jidla (snidane i bc)
         # # recept, počet ks
         # # # article, množství
-
         if len(meal_group) == 0:
             daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%d.%m.%Y"))
         else:
@@ -1114,58 +1131,58 @@ class FoodConsumptionPDFView(LoginRequiredMixin, PDFTemplateView):
             }
             output.append(output_new)
 
-        output_dedup = []
-        for daily_menu in daily_menus:
-            # for recipe in daily_menu
-            dmrs = DailyMenuRecipe.objects.filter(daily_menu=daily_menu).select_related('recipe')
-            daily_menu_recipes = []
-            for dmr in dmrs:
-                ras = RecipeArticle.objects.filter(recipe=dmr.recipe).select_related('article')
-                daily_menu_recipe_articles = []
-                for ra in ras:
-                    daily_menu_recipe_article = {
-                        "article": ra.article,
-                        "amount": round(ra.amount * dmr.amount / ra.recipe.norm_amount, 2),  # konverze amount
-                        "unit": ra.unit
-                    }
-                    daily_menu_recipe_articles.append(daily_menu_recipe_article)
-                daily_menu_recipe = {
-                    "name": dmr.recipe,
-                    "amount": dmr.amount,
-                    "articles": daily_menu_recipe_articles
-                }
-                daily_menu_recipes.append(daily_menu_recipe)
-            output_new = {
-                "meal_type": daily_menu.meal_type,
-                "recipes": daily_menu_recipes
-            }
-            # deduplikace dle meal type
-            # pak dle receptu, spočíst amount
-            # pak dle ingrediencií - spočíst amount
-            dup = False
-            for dmn in output_dedup:
-                if output_new['meal_type'] == dmn['meal_type']:
-                    dup = True
-                    # add amount to the existing recipe or insert new recipe
-                    for recipe in dmn['recipes']:
-                        for recipe_new in output_new['recipes']:
-                            found = False
-                            if recipe['name'] == recipe_new['name']:
-                                found = True
-                                break
-                                # add ingredient amount
-                        if found:
-                            print("same recipe", output_new['meal_type'], recipe['name'], recipe['amount'])
-                        else:
-                            print("adding recipe", output_new['meal_type'], recipe['name'], recipe['amount'])
-            if dup:
-                print("duplicita:", output_new['meal_type'])
-            else:
-                output_dedup.append(output_new)
+        # output_dedup = []
+        # for daily_menu in daily_menus:
+        #     # for recipe in daily_menu
+        #     dmrs = DailyMenuRecipe.objects.filter(daily_menu=daily_menu).select_related('recipe')
+        #     daily_menu_recipes = []
+        #     for dmr in dmrs:
+        #         ras = RecipeArticle.objects.filter(recipe=dmr.recipe).select_related('article')
+        #         daily_menu_recipe_articles = []
+        #         for ra in ras:
+        #             daily_menu_recipe_article = {
+        #                 "article": ra.article,
+        #                 "amount": round(ra.amount * dmr.amount / ra.recipe.norm_amount, 2),  # konverze amount
+        #                 "unit": ra.unit
+        #             }
+        #             daily_menu_recipe_articles.append(daily_menu_recipe_article)
+        #         daily_menu_recipe = {
+        #             "name": dmr.recipe,
+        #             "amount": dmr.amount,
+        #             "articles": daily_menu_recipe_articles
+        #         }
+        #         daily_menu_recipes.append(daily_menu_recipe)
+        #     output_new = {
+        #         "meal_type": daily_menu.meal_type,
+        #         "recipes": daily_menu_recipes
+        #     }
+        #     # deduplikace dle meal type
+        #     # pak dle receptu, spočíst amount
+        #     # pak dle ingrediencií - spočíst amount
+        #     dup = False
+        #     for dmn in output_dedup:
+        #         if output_new['meal_type'] == dmn['meal_type']:
+        #             dup = True
+        #             print("duplicitaXXX:", output_new['meal_type'])
+        #             dmn['recipes'].append(daily_menu_recipes)
+        #             # add amount to the existing recipe or insert new recipe
+        #             # for recipe in dmn['recipes']:
+        #             #     for recipe_new in output_new['recipes']:
+        #             #         found = False
+        #             #         if recipe['name'] == recipe_new['name']:
+        #             #             found = True
+        #             #             break
+        #             #             # add ingredient amount
+        #             #     if found:
+        #             #         print("same recipe", output_new['meal_type'], recipe['name'], recipe['amount'])
+        #             #     else:
+        #             #         print("adding recipe", output_new['meal_type'], recipe['name'], recipe['amount'])
+        #     if not dup:
+        #         output_dedup.append(output_new)
 
         context['title'] = "Rozpis pro kuchyň dle receptur na den " + date
         context['daily_menus'] = output
-        context['daily_menus_dedup'] = output_dedup
+        # context['daily_menus_dedup'] = output_dedup
         return context
 
 
