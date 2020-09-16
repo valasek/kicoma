@@ -110,7 +110,7 @@ class DailyMenuForm(forms.ModelForm):
 
 
 class DailyMenuSearchForm(forms.Form):
-    date = forms.CharField()
+    date = forms.DateField()
 
 
 class DailyMenuPrintForm(forms.ModelForm):
@@ -179,7 +179,7 @@ class StockIssueForm(forms.ModelForm):
 
 class StockIssueSearchForm(forms.Form):
     approved = forms.BooleanField()
-    created = forms.CharField()
+    created = forms.DateField()
     userApproved__name = forms.CharField()
 
 
@@ -250,7 +250,7 @@ class StockReceiptForm(forms.ModelForm):
 
 
 class StockReceiptSearchForm(forms.Form):
-    created = forms.CharField()
+    created = forms.DateField()
     userCreated__name = forms.CharField()
 
 

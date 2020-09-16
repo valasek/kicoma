@@ -110,7 +110,7 @@ class DailyMenuTable(tables.Table):
 
 
 class DailyMenuFilter(django_filters.FilterSet):
-    date = django_filters.CharFilter(lookup_expr='icontains')
+    date = django_filters.DateFilter(lookup_expr='contains')
 
     class Meta:
         model = DailyMenu
@@ -158,7 +158,7 @@ class StockIssueTable(tables.Table):
 
 
 class StockIssueFilter(django_filters.FilterSet):
-    created = django_filters.CharFilter(lookup_expr='icontains')
+    created = django_filters.DateFilter(lookup_expr='contains')
 
     class Meta:
         model = StockIssue
@@ -210,7 +210,7 @@ class StockReceiptTable(tables.Table):
 
 
 class StockReceiptFilter(django_filters.FilterSet):
-    date_created = django_filters.CharFilter(lookup_expr='icontains')
+    date_created = django_filters.DateFilter(lookup_expr='contains')
     # user_created = django_filters.CharFilter(lookup_expr='icontains')
 
     class Meta:
