@@ -994,10 +994,18 @@ class StockReceiptArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Cre
     model = StockReceiptArticle
     form_class = StockReceiptArticleForm
     template_name = 'kitchen/stockreceipt/createarticle.html'
-    success_message = 'Zboží %(article)s bylo přidáno'
+    success_message = 'Zboží %(article)s bylo přidáno: %(amount)s %(unit)s * %(unit_price)s Kč = %(total_price)s Kč'
 
     def get_success_url(self):
         return reverse_lazy('kitchen:createStockReceiptArticle', kwargs={'pk': self.kwargs['pk']})
+
+    def get_success_message(self, cleaned_data):
+        print(cleaned_data, self.object.total_price_with_vat)
+        return self.success_message % dict(
+            cleaned_data,
+            unit_price=self.object.price_with_vat,
+            total_price=self.object.total_price_with_vat
+        )
 
     def get_context_data(self, **kwargs):
         context = super(StockReceiptArticleCreateView, self).get_context_data(**kwargs)
