@@ -258,7 +258,7 @@ class StockIssue(TimeStampedModel):
                 amount=article['sumAmount'],
                 unit=Article.objects.filter(pk=article['article_id']).get().unit,
                 average_unit_price=article['average_unit_price'],
-                comment='consolidated article'
+                comment='ca'
             )
             x.save()
         return len(StockIssueArticle.objects.filter(stock_issue_id=self.pk))

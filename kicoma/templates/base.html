@@ -125,14 +125,12 @@
                 >
                   Seznam zboží vyžadující naskladnění
                 </a>
-                {% if request.user|has_group:"chef" %}
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:createArticle' %}"
                 >
                   Nová skladová karta
                 </a>
-                {% endif %}
                 <hr />
                 {% endif %}
                 <a

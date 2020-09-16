@@ -141,8 +141,8 @@ class StockIssueTable(tables.Table):
         {% if request.user|has_group:"stockkeeper" %}
         | <a href="/kitchen/stockissue/refresh/{{ record.id }}">Aktualizovat</a>
         | <a href="/kitchen/stockissue/approve/{{ record.id }}">Vyskladnit</a>
-        | <a href="/kitchen/stockissue/delete/{{ record.id }}">Vymazat</a>
         {% endif %}
+        | <a href="/kitchen/stockissue/delete/{{ record.id }}">Vymazat</a>
         | <a href="/kitchen/stockissue/print/{{ record.id }}">PDF</a>''',
         verbose_name=u'Akce', )
 
