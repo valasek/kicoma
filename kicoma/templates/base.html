@@ -112,7 +112,7 @@
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
-                {% if request.user|has_group:"stockkeeper" %}
+                {% if request.user|has_group:"stockkeeper" or request.user.get_username == "drabkova" %}
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:showArticles' %}"

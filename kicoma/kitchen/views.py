@@ -772,7 +772,8 @@ class StockIssueArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView
     model = StockIssueArticle
     table_class = StockIssueArticleTable
     template_name = 'kitchen/stockissue/listarticles.html'
-    paginate_by = 15
+    table_pagination = False
+    # paginate_by = 15
 
     def get_context_data(self, **kwargs):
         context = super(StockIssueArticleListView, self).get_context_data(**kwargs)
@@ -978,7 +979,8 @@ class StockReceiptArticleListView(SingleTableMixin, LoginRequiredMixin, FilterVi
     model = StockReceiptArticle
     table_class = StockReceiptArticleTable
     template_name = 'kitchen/stockreceipt/listarticles.html'
-    paginate_by = 15
+    table_pagination = False
+    # paginate_by = 15
 
     def get_context_data(self, **kwargs):
         context = super(StockReceiptArticleListView, self).get_context_data(**kwargs)

@@ -1,9 +1,16 @@
-{% extends "base.html" %} {% load render_table from django_tables2 %} {% load
-crispy_forms_tags %} {% block content %}
+{% extends "base.html" %}
+{% load render_table from django_tables2 %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block content %}
 <div class="container-fluid">
   <h4>
-    Seznam zboží na příjemce z {{stockreceipt.created}}, kterou vytvořila
-    {{stockreceipt.user_created.name}}
+    Seznam zboží na příjemce z {{ stockreceipt.created }}, vytvořil: {{ stockreceipt.user_created.name }}, celková cena: {{ stockreceipt.total_price|intcomma }} Kč, naskladněno:
+    {% if stockreceipt.approved %}
+    ANO
+    {% else %}
+    NE
+    {% endif %}
   </h4>
   <hr />
   <div class="row">
