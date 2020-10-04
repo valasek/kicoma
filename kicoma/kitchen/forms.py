@@ -218,8 +218,8 @@ class StockIssueArticleForm(forms.ModelForm):
         self.helper.layout = Layout(
             Row(
                 Column('article', css_class='col-md-2'),
-                Column('amount', css_class='col-md-1'),
-                Column('unit', css_class='col-md-1'),
+                Column('amount', css_class='col-md-2'),
+                Column('unit', css_class='col-md-2'),
                 Column('comment', css_class='col-md-4'),
             )
         )
@@ -268,11 +268,11 @@ class StockReceiptArticleForm(forms.ModelForm):
         self.helper.layout = Layout(
             Row(
                 Column('article', css_class='col-md-2'),
-                Column('amount', css_class='col-md-1'),
-                Column('unit', css_class='col-md-1'),
+                Column('amount', css_class='col-md-2'),
+                Column('unit', css_class='col-md-2'),
                 Column('price_without_vat', css_class='col-md-2'),
-                Column('vat', css_class='col-md-1'),
-                Column('comment', css_class='col-md-4'),
+                Column('vat', css_class='col-md-2'),
+                Column('comment', css_class='col-md-2'),
             )
         )
 
