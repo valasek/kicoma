@@ -71,7 +71,7 @@ class RecipeFilter(django_filters.FilterSet):
 
 
 class RecipeArticleTable(tables.Table):
-    average_price = tables.Column(accessor="article.average_price", verbose_name="Průměrná jednotková cena s DPH")
+    # average_price = tables.Column(accessor="article.average_price", verbose_name="Průměrná jednotková cena s DPH")
     total_average_price = tables.Column(verbose_name="Celková cena s DPH")
     change = tables.TemplateColumn(
         '''<a href="/kitchen/recipe/updatearticle/{{ record.id }}">Upravit</a>
@@ -82,7 +82,7 @@ class RecipeArticleTable(tables.Table):
         model = RecipeArticle
         template_name = "django_tables2/bootstrap4.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
-        fields = ("article", "amount", "average_price", "total_average_price", "change")
+        fields = ("article", "amount", "total_average_price", "comment", "change")
 
     def render_amount(self, value, record):
         return '{} {}'.format(value, record.unit)
@@ -98,6 +98,7 @@ class DailyMenuTable(tables.Table):
     change = tables.TemplateColumn(
         '''<a href="/kitchen/dailymenu/update/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/dailymenu/recipelist/{{ record.id }}">Zobrazit recepty</a>
+        | <a href="/kitchen/report/print/foodconsumption?date={{ record.date }}&meal_group=">PDF - spotřeba potravin</a>
         | <a href="/kitchen/dailymenu/delete/{{ record.id }}">Vymazat</a>
         ''',
         verbose_name=u'Akce', )

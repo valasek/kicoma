@@ -204,7 +204,7 @@ class DailyMenuRecipe(TimeStampedModel):
     class Meta:
         verbose_name_plural = _('Recepty denního menu')
         verbose_name = _('Recepty denního menu')
-        ordering = ['-recipe']
+        ordering = ['recipe']
 
     daily_menu = models.ForeignKey(DailyMenu, on_delete=models.CASCADE, verbose_name='Denní menu')
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept',

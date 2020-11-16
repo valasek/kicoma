@@ -1,44 +1,29 @@
 {% extends "../pdf_page.html" %}
+{% load humanize %}
 {% block content %}
 <p align="center">{{ meal_group_filter }}</p>
-{% for d in daily_menus_dedup %}
-  <p><b>{{ d.meal_type }}</b></p>
-  <!-- <div class="rTable">
-    <div class="rTableRow">
-      <div class="rTableHead">Recept</div>
-      <div class="rTableHead">Ingredience</div>
-    </div>
-    {% for recipe in d.recipes %}
-    <div class="rTableRow">
-      <div class="rTableCell">{{ recipe.name }}, {{ recipe.amount }} porcií</div>
-      <div class="rTableCell">
-      {% for article in recipe.articles %}
-        {{ article.article }} - {{ article.amount }} {{ article.unit }}<br/>
-      {% endfor %}
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-{% endfor %}
-
-<hr/>-->
-
 {% for d in daily_menus %}
   <p><b>{{ d.meal_type }}</b></p>
   <div class="rTable">
     <div class="rTableRow">
-      <div class="rTableHead">Recept</div>
-      <div class="rTableHead">Ingredience</div>
+      <div class="rTableHead">Název receptu</div>
+      <div class="rTableHead">Počet porcí</div>
+      <div class="rTableHead">Název ingredience</div>
+      <div class="rTableHead">Objem ingredience</div>
     </div>
     {% for recipe in d.recipes %}
-    <div class="rTableRow">
-      <div class="rTableCell">{{ recipe.name }}, {{ recipe.amount }} porcií</div>
-      <div class="rTableCell">
       {% for article in recipe.articles %}
-        {{ article.article }} - {{ article.amount }} {{ article.unit }}<br/>
+        <div class="rTableRow">
+          <div class="rTableCell">{{ recipe.name }}</div>
+          <div class="rTableCell">{{ recipe.amount|intcomma }}</div>
+          <div class="rTableCell">{{ article.article }}</div>
+          <div class="rTableCell">{{ article.amount|intcomma }} {{ article.unit }}</div>
+        </div>
       {% endfor %}
+      <div class="rTableRow">
+        <div class="rTableCell"></div><div class="rTableCell"></div>
+        <div class="rTableCell"></div><div class="rTableCell"></div>
       </div>
-    </div>
     {% endfor %}
   </div>
 {% endfor %}
