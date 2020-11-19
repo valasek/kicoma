@@ -759,12 +759,12 @@ class StockIssueApproveView(LoginRequiredMixin, TemplateView):
             stock_issue.date_approved = datetime.now()
             stock_issue.user_approved = self.request.user
             StockIssue.updateStockIssueArticleAverageUnitPrice(stock_issue.id)
-            errors = StockIssue.updateArticleOnStock(stock_issue.id, True)
+            errors = StockIssue.updateArticleOnStock(stock_issue.id, stock_issue.comment, True)
             if errors:
                 errors = "Níže uvedené zboží není možné vyskladnit:<br/>" + errors
                 messages.error(self.request, mark_safe(errors))
                 return HttpResponseRedirect(reverse_lazy('kitchen:approveStockIssue', kwargs={'pk': self.kwargs['pk']}))
-            _ = StockIssue.updateArticleOnStock(stock_issue.id, False)
+            _ = StockIssue.updateArticleOnStock(stock_issue.id, stock_issue.comment, False)
             stock_issue.save(update_fields=('approved', 'date_approved', 'user_approved',))
             messages.success(self.request, "Výdejka byla vyskladněna")
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
@@ -971,7 +971,7 @@ class StockReceiptApproveView(LoginRequiredMixin, TemplateView):
             stock_receipt.approved = True
             stock_receipt.date_approved = datetime.now()
             stock_receipt.user_approved = self.request.user
-            StockReceipt.updateArticleOnStock(stock_receipt.id)
+            StockReceipt.updateArticleOnStock(stock_receipt.id, stock_receipt.comment)
             stock_receipt.save(update_fields=('approved', 'date_approved', 'user_approved',))
             messages.success(self.request, "Příjemka byla naskladněna")
         return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
@@ -1210,8 +1210,9 @@ class MonthlyCostsPerMealGroup(LoginRequiredMixin, PDFTemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        meal_price = StockIssue.objects.annotate(year=TruncMonth('created')).values('year').aggregate(totalPrice=Count('id'))
-        # rok a měsíc, meal group, 
+        meal_price = StockIssue.objects.annotate(year=TruncMonth(
+            'created')).values('year').aggregate(totalPrice=Count('id'))
+        # rok a měsíc, meal group,
         # group by created month and year
         # # typ jidla (snidane i bc)
         # # # recept, počet ks
@@ -1254,6 +1255,7 @@ class MonthlyCostsPerMealGroup(LoginRequiredMixin, PDFTemplateView):
         context['title'] = "Měsíční cena jídla dle skupiny strávníka"
         context['meal_price'] = meal_price
         return context
+
 
 class IncorrectUnitsListView(SingleTableMixin, LoginRequiredMixin, ListView):
     model = Recipe

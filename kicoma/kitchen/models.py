@@ -293,16 +293,16 @@ class StockIssue(TimeStampedModel):
     @staticmethod
     def updateStockIssueArticleAverageUnitPrice(stock_issue_id):
         stock_issue_articles = StockIssueArticle.objects.filter(stock_issue_id=stock_issue_id)
-        print("def updateStockIssueArticleAverageUnitPrice(stock_issue_id):",
-              stock_issue_id, len(stock_issue_articles), stock_issue_articles)
+        # print("def updateStockIssueArticleAverageUnitPrice(stock_issue_id):",
+        #       stock_issue_id, len(stock_issue_articles), stock_issue_articles)
         for stock_issue_article in stock_issue_articles:
-            print(stock_issue_article, "aktualizace z", stock_issue_article.average_unit_price,
-                  "na", stock_issue_article.article.average_price)
+            # print(stock_issue_article, "aktualizace z", stock_issue_article.average_unit_price,
+            #       "na", stock_issue_article.article.average_price)
             stock_issue_article.average_unit_price = stock_issue_article.article.average_price
             stock_issue_article.save()
 
     @staticmethod
-    def updateArticleOnStock(stock_id, fake):
+    def updateArticleOnStock(stock_id, comment, fake):
         stock_articles = StockIssueArticle.objects.filter(stock_issue=stock_id)
         messages = ''
         for stock_article in stock_articles:
@@ -314,10 +314,10 @@ class StockIssue(TimeStampedModel):
             if not fake:
                 new_total_price = convertUnits(stock_article.total_average_price_with_vat, stock_article.unit,
                                                article.unit)
-                article.on_stock -= round(converted_amount,2)
-                article.total_price -= round(new_total_price,2)
+                article.on_stock -= round(converted_amount, 2)
+                article.total_price -= round(new_total_price, 2)
                 article.save()
-                update_change_reason(article, 'Výdejka')
+                update_change_reason(article, 'Výdej - ' + comment)
         return messages
 
 
@@ -349,7 +349,7 @@ class StockReceipt(TimeStampedModel):
         return round(total_price, 2)
 
     @staticmethod
-    def updateArticleOnStock(stock_id):
+    def updateArticleOnStock(stock_id, comment):
         stock_articles = StockReceiptArticle.objects.filter(stock_receipt=stock_id)
         for stock_article in stock_articles:
             article = Article.objects.filter(pk=stock_article.article.id).get()
@@ -357,10 +357,10 @@ class StockReceipt(TimeStampedModel):
             new_total_price = convertUnits(stock_article.total_price_with_vat, stock_article.unit, article.unit)
             # print("StockReceipt - mnozství: ", article.on_stock, "+", converted_amount,
             #       " - cena: ", article.total_price, "+", new_total_price)
-            article.on_stock += round(converted_amount,2)
-            article.total_price += round(new_total_price,2)
+            article.on_stock += round(converted_amount, 2)
+            article.total_price += round(new_total_price, 2)
             article.save()
-            update_change_reason(article, 'Příjemka')
+            update_change_reason(article, 'Příjem - ' + comment)
 
 
 class StockIssueArticle(TimeStampedModel):
@@ -381,7 +381,7 @@ class StockIssueArticle(TimeStampedModel):
     @property
     def total_average_price_with_vat(self):
         if self.amount is not None and self.average_unit_price is not None:
-            return round(self.amount * self.average_unit_price, 2)
+            return round(self.average_unit_price * convertUnits(self.amount, self.unit, self.article.unit), 2)
         return 0
 
     # def clean(self):
@@ -423,7 +423,7 @@ class StockReceiptArticle(TimeStampedModel):
     @property
     def total_price_with_vat(self):
         if self.price_with_vat is not None and self.amount is not None:
-            return round(self.price_with_vat * self.amount, 2)
+            return round(self.price_with_vat * convertUnits(self.amount, self.unit, self.article.unit), 2)
         return 0
 
     def __str__(self):
