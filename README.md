@@ -12,7 +12,7 @@ Check the lastest version at:
 
 ## License
 
-All source code in the [KiCoMa](https://github.com/valasek/kima) is available under the GNU GPL v3 License. See [LICENSE.md](LICENSE.md) for details.
+All source code in the [KiCoMa](https://github.com/valasek/kicoma) is available under the GNU GPL v3 License. See [LICENSE.md](LICENSE.md) for details.
 
 ## Data Model
 
