@@ -9,10 +9,10 @@
       "first_name": "Dáša",
       "last_name": "Trmalová",
       "password": "argon2$argon2i$v=19$m=512,t=2,p=2$cGJqM1RrU01ubDJr$SY1H9VxP9nNFoD6G0vZUJA",
-      "is_superuser": true,
-      "is_active": true,
-      "is_staff": true,
-      "groups": [1, 2, 3],
+      "is_superuser": false,
+      "is_active": false,
+      "is_staff": false,
+      "groups": [],
       "date_joined": "2020-05-02T21:31:10.980Z",
       "user_permissions": []
     }
@@ -22,7 +22,7 @@
     "pk": 2,
     "fields": {
       "username": "klinderova",
-      "email": "klinderova@@hospic-cercany.cz",
+      "email": "klinderova@hospic-cercany.cz",
       "name": "Iva Klinderová",
       "first_name": "Iva",
       "last_name": "Klinderová",

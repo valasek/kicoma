@@ -3,226 +3,235 @@
 <h4>Změny v aplikaci</h4>
 <hr/>
 <div class="container-fluid">
-17. 11. 2020
-  <ul>
-    <li>Oprava počítání celkové ceny zboží na řádku zboží na příjemce i výdejce</li>
-    <li>V rámci historie zboží se zobrazí i poznámka z příjemky a výdejky</li>
-  </ul>
-  17. 11. 2020
-  <ul>
-    <li>Aktualizace na Django <a href="https://docs.djangoproject.com/en/3.1/releases/3.1.3/">3.1.3 a aktualizace systémových balíků</a></li>
-    <li>Zpřehlednění zobrazení seznamu změn v aplikaci</li>
-  </ul>
-  16. 11. 2020
-  <ul>
-    <li>Zjednodušení požadavků na heslo na minimum 8 znaků</li>
-  </ul>
-  7. 11. 2020
-  <ul>
-    <li>Přidán report měsíční ceny jídla dle skupiny strávníka</li>
-  </ul>
-  1. 11. 2020
-  <ul>
-    <li>Úprava formátování PDF reportu spotřeby potravin, možnost rychleho zobrazení z denního menu</li>
-    <li>Abecedné řazení receptů na denním menu</li>
-  </ul>
-  31. 10. 2020
-  <ul>
-    <li>Při zadávání zboží do receptu je možnost přímého uložení a zadání dalšího zboí</li>
-  </ul>
-  <hr/>
-  Starší změny<br/>
-  <div data-toggle="collapse" data-target="#d19" class="btn btn-light">4. 10. 2020</div>
-  <div id="d19" class="collapse">
-    <ul>
-      <li>Aktualizace SW balíků bez dopadu na funkcionalitu</li>
-      <li>Uživatel Drábková má právo na Seznam zboží na skladu, seznam zboží k naskladnění a vytvoření skladové karty</li>
-      <li>Do nadpisu v rámci úpravy zboží doplněna celková cena a informace o vyskladnění/naskladnění pro příjemku a výdejku</li>
-      <li>Zvětšení polí při úpravě zboží na příjemce/výdejce</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d18" class="btn btn-light">21. 9. 2020</div>
-  <div id="d18" class="collapse">
-    <ul>
-      <li>Aktualizace hostingu - získání podpory pro uložení do 10 milionů záznamů v datech</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d17" class="btn btn-light">16. 9. 2020</div>
-  <div id="d17" class="collapse">
-    <ul>
-      <li>Recepce má právo na založení skladové karty</li>
-      <li>Kuchyně má právo na výmaz výdejky</li>
-      <li>PDF - zmenšení písma</li>
-      <li>Recepce - zpráva po přidáni zboží na příjemku obsahuje informaci o počtu, jednotkové a celkové ceně</li>
-      <li>Opraveno vyhledávání dle datumů v denní menu, příjemkách a výdejkách</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d16" class="btn btn-light">15. 9. 2020</div>
-  <div id="d16" class="collapse">
-    <ul>
-      <li>Kontrola formátu zadaního datumu v PDF u denního menu a reportu rozpis pro kuchyň</li>
-      <li>Import všech dat vymaže celou db kromě uživatelů a skupin</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d15" class="btn btn-light">14. 9. 2020</div>
-  <div id="d15" class="collapse">
-    <ul>
-      <li>O aplikaci - zobrazení celkového počtu záznamů v databázi</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d14" class="btn btn-light">6. 9. 2020</div>
-  <div id="d14" class="collapse">
-    <ul>
-      <li>Příjemka - oprava zaokrouhlování ceny a množství zboží</li>
-      <li>Příjemka - zrychlení zadávání: možnost uložení a přechod na další zboží</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d13" class="btn btn-light">5. 9. 2020</div>
-  <div id="d13" class="collapse">
-    <ul>
-      <li>PDF - změnšení písma</li>
-      <li>Příjemka - oprava počítání celkové ceny</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d12" class="btn btn-light">1. 9. 2020</div>
-  <div id="d12" class="collapse">
-    <ul>
-      <li>Příjemky - řazení zboží od nejnověji zadaného</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d11" class="btn btn-light">31. 8. 2020</div>
-  <div id="d11" class="collapse">
-    <ul>
-      <li>Export a import všech dat obsahuje vše kromě uživatelů a skupin</li>
-      <li>Oddělení nápovědy, O Aplikaci a Změn v aplikaci. Přidání odkazu na technickou podporu</li>
-      <li>Formátování  všech cen - oddělení tisíců mezerou a , místo .</li>
-      <li>Inventura - povolení exportu a importu skladu pro roli skladník</li>
-      <li>Denní menu - neobsahuje duplikovaný sloupec datum</li>
-      <li>Doplnění uživatele v roli kuchař - pí. Kohnerová</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d10" class="btn btn-light">30. 8. 2020</div>
-  <div id="d10" class="collapse">
-    <ul>
-      <li>Oprava - výdejka - zobrazení všeho zboží, které není naskladněno, při nenaskladnění nedochází k částečnému odepsání</li>
-      <li>Oprava - export obsahuje všechna data aplikace a import úplně resetuje DB</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d9" class="btn btn-light">28. 8. 2020</div>
-  <div id="d9" class="collapse">
-    <ul>
-      <li>Zadání a aktualizace zboží na výdejce umožní zadat zboží s 0 množstvím</li>
-      <li>Oprava - Příjemka - možno upravit zboží</li>
-      <li>Oprava - Výdejka - možno zadat i větší počet zboží, než je na skladu</li>
-      <li>Oprava - Příjemka - řazení zboží dle pořadí zadání</li>
-      <li>Oprava - Výdejka - Průměrná jednotková cena zboží se uloží při vytvoření výdejky dle aktuální ceny zboží na skladě a po schválení se aktualizuje a pak nemění.</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d8" class="btn btn-light">27. 8. 2020</div>
-  <div id="d8" class="collapse">
-    <ul>
-      <li>Přesun menu Přehled a Nápověda do menu O aplikaci</li>
-      <li>Možnost exportu a importu všech dat aplikace</li>
-      <li>Oprava - Výdejka - celková cena zboží na výdejce se počíta z průměrné ceny zboží vyskladnění a ne z ceny zboží na skladu</li>
-      <li>Oprava - Výdejka - konsolidované zboží je počítáno ve správném množství</li>
-      <li>Do doby vyskladnění je možnost aktualizovat vyskladňované zboží na výdejce</li>
-      <li>Přehlednější zobrazení všech tabulek</li>
-      <li>V historii zboží zobrazení příjemka/výdejka</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d7" class="btn btn-light">26. 8. 2020</div>
-  <div id="d7" class="collapse">
-    <ul>
-      <li>Oprava - Možnost exportu všech receptů v denním menu </li>
-      <li>Oprava - hledání zboží v administraci již funguje</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d6" class="btn btn-light">25. 8. 2020</div>
-  <div id="d6" class="collapse">
-    <ul>
-      <li>Výdejka - Zboží řazeno abecedně v PDF i s seznamu</li>
-      <li>Oprava počítání celkové ceny receptu</li>
-      <li>Přidání zobrazení ingrediencí receptu z denního menu</li>
-      <li>Oprava - Správné počítání ceny zboží na výdejce</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d5" class="btn btn-light">24. 8. 2020</div>
-  <div id="d5" class="collapse">
-    <ul>
-      <li>Inventura - možnost importu a exportu zboží pro roli Šéfkuchař - Dáša, Josef</li>
-      <li>Recepce/Kuchyň, oprava - Tvorba výdejky z denního menu nekontroluje skutečné množství na skladu, to je kontrolováno až při schválení výdejky</li>
-      <li>Oprava - Recept z denního menu již jde vymazat</li>
-      <li>Oprava - Tlačítko Zpět na ingrediencích receptu již funguje</li>
-      <li>Oprava - Minimální množství na skladu je nepovinné pole a min hodnota je 0</li>
-      <li>Kuchyně/recepce - Zboží se na výdejce z denního menu vyskytuje jenom jednou</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d4" class="btn btn-light">23. 8. 2020</div>
-  <div id="d4" class="collapse">
-    <ul>
-      <li>Importována data ze Stravníčka z dne 18.8.2020</li>
-      <li>Jenom role chef má právo na Založení nové skladové karty - nového druhu zboží na sklad (pí. Trmalová, Josef Slavíček)</li>
-      <li>Oprava PDF formátování - text se nepřekrývá od druhé stránky dál</li>
-      <li>Recepce/Kuchyň - Inventura - tisk PDF pro zjištění skutečného stavu zásob na skladu</li>
-      <li>Kuchyň - Nový report - Zboží nepoužito na žádném receptu</li>
-      <li>Recepce/Kuchyň, oprava - Tvorba výdejky z denního menu již není blokována neexistenci výdejky, ale kontroluje skutečné množství na skladu</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d3" class="btn btn-light">22. 8. 2020</div>
-  <div id="d3" class="collapse">
-    <ul>
-      <li>Recepce - Možnost zobrazení historie změn u zboží</li>
-      <li>Recepce - Oprava chyby - Vydejka po schválení teď zmení stav zboží na skladu</li>
-      <li>Recepce - Oprava ceny zboží při schválení příjemky/výdejky je správně aktualizována</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d2" class="btn btn-light">19. 8. 2020</div>
-  <div id="d2" class="collapse">
-    <ul>
-      <li>Kontrola konverze jednotek u zboží na receptech, příjemkách a výdejkách</li>
-      <li>Recepce - Výdejka - v PDF i seznamu není zobrazena správná jednotková a sumární cena zboží</li>
-      <li>Paní Trmalová - Report na kontrolu správnosti zadaných jednotek</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d1" class="btn btn-light">17. 8. 2020</div>
-  <div id="d1" class="collapse">
-    <ul>
-      <li>Recepce - možnost zadat datum na příjemce</li>
-      <li>Recepce - V menu zobrazit nápovědu</li>
-      <li>Recepce - Přeložit Log-in a Register</li>
-      <li>Kuchyně - přidány práva na správu výdejek kromě schválení a výmazu</li>
-      <li>Kuchyně - v denním menu je řazeno dle datumu a pak typu jidla</li>
-      <li>Recepce - kontrola a nemožnost úpravy/přidání/výmazu zboží PO schválení příjemky/výdejky</li>
-    </ul>
-  </div>
-  <br/>
-  <div data-toggle="collapse" data-target="#d0" class="btn btn-light">Přesun standardní funkcionality Strávníčka</div>
-  <div id="d0" class="collapse">
-    <ul>
-      <li>Správa číselníků</li>
-      <li>Přesunut a nahrán obsah Strávníčka (Zboží, Recepty, Ingredience)</li>
-      <li>PDF s denním menu dle datumu s možností filtrace na skupinu strávníků<br/></s>
-      <li>PDF se seznam receptů a jednotlivého receptu<br/></s>
-      <li>Je možno vytvořit výdejku na základě receptů z denního menu<br/></s>
-    </ul>
+  <div class="row">
+    <div class="col">
+      <h5>Poslední změny</h5>
+      26. 12. 2020
+      <ul>
+        <li>Aktualizace na Django <a href="https://docs.djangoproject.com/en/3.1/releases/3.1.4/">3.1.4</a></li>
+        <li>Export a import je povolen jenom přihlášenému uživateli</li>
+        <li>Podpora pro více společností formou samostatných instancí aplikace</li>
+      </ul>
+      17. 11. 2020
+      <ul>
+        <li>Oprava počítání celkové ceny zboží na řádku zboží na příjemce i výdejce</li>
+        <li>V rámci historie zboží se zobrazí i poznámka z příjemky a výdejky</li>
+      </ul>
+      17. 11. 2020
+      <ul>
+        <li>Aktualizace na Django <a href="https://docs.djangoproject.com/en/3.1/releases/3.1.3/">3.1.3</a>< a aktualizace systémových balíků/li>
+        <li>Zpřehlednění zobrazení seznamu změn v aplikaci</li>
+      </ul>
+      16. 11. 2020
+      <ul>
+        <li>Zjednodušení požadavků na heslo na minimum 8 znaků</li>
+      </ul>
+      7. 11. 2020
+      <ul>
+        <li>Přidán report měsíční ceny jídla dle skupiny strávníka</li>
+      </ul>
+      1. 11. 2020
+      <ul>
+        <li>Úprava formátování PDF reportu spotřeby potravin, možnost rychleho zobrazení z denního menu</li>
+        <li>Abecedné řazení receptů na denním menu</li>
+      </ul>
+      31. 10. 2020
+      <ul>
+        <li>Při zadávání zboží do receptu je možnost přímého uložení a zadání dalšího zboí</li>
+      </ul>
+      4. 10. 2020
+      <ul>
+        <li>Aktualizace SW balíků bez dopadu na funkcionalitu</li>
+        <li>Uživatel Drábková má právo na Seznam zboží na skladu, seznam zboží k naskladnění a vytvoření skladové karty</li>
+        <li>Do nadpisu v rámci úpravy zboží doplněna celková cena a informace o vyskladnění/naskladnění pro příjemku a výdejku</li>
+        <li>Zvětšení polí při úpravě zboží na příjemce/výdejce</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h5>Starší změny</h5>
+      <div data-toggle="collapse" data-target="#d18" class="btn btn-light">21. 9. 2020</div>
+      <div id="d18" class="collapse">
+        <ul>
+          <li>Aktualizace hostingu - získání podpory pro uložení do 10 milionů záznamů v datech</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d17" class="btn btn-light">16. 9. 2020</div>
+      <div id="d17" class="collapse">
+        <ul>
+          <li>Recepce má právo na založení skladové karty</li>
+          <li>Kuchyně má právo na výmaz výdejky</li>
+          <li>PDF - zmenšení písma</li>
+          <li>Recepce - zpráva po přidáni zboží na příjemku obsahuje informaci o počtu, jednotkové a celkové ceně</li>
+          <li>Opraveno vyhledávání dle datumů v denní menu, příjemkách a výdejkách</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d16" class="btn btn-light">15. 9. 2020</div>
+      <div id="d16" class="collapse">
+        <ul>
+          <li>Kontrola formátu zadaního datumu v PDF u denního menu a reportu rozpis pro kuchyň</li>
+          <li>Import všech dat vymaže celou db kromě uživatelů a skupin</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d15" class="btn btn-light">14. 9. 2020</div>
+      <div id="d15" class="collapse">
+        <ul>
+          <li>O aplikaci - zobrazení celkového počtu záznamů v databázi</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d14" class="btn btn-light">6. 9. 2020</div>
+      <div id="d14" class="collapse">
+        <ul>
+          <li>Příjemka - oprava zaokrouhlování ceny a množství zboží</li>
+          <li>Příjemka - zrychlení zadávání: možnost uložení a přechod na další zboží</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d13" class="btn btn-light">5. 9. 2020</div>
+      <div id="d13" class="collapse">
+        <ul>
+          <li>PDF - změnšení písma</li>
+          <li>Příjemka - oprava počítání celkové ceny</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d12" class="btn btn-light">1. 9. 2020</div>
+      <div id="d12" class="collapse">
+        <ul>
+          <li>Příjemky - řazení zboží od nejnověji zadaného</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d11" class="btn btn-light">31. 8. 2020</div>
+      <div id="d11" class="collapse">
+        <ul>
+          <li>Export a import všech dat obsahuje vše kromě uživatelů a skupin</li>
+          <li>Oddělení nápovědy, O Aplikaci a Změn v aplikaci. Přidání odkazu na technickou podporu</li>
+          <li>Formátování  všech cen - oddělení tisíců mezerou a , místo .</li>
+          <li>Inventura - povolení exportu a importu skladu pro roli skladník</li>
+          <li>Denní menu - neobsahuje duplikovaný sloupec datum</li>
+          <li>Doplnění uživatele v roli kuchař - pí. Kohnerová</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d10" class="btn btn-light">30. 8. 2020</div>
+      <div id="d10" class="collapse">
+        <ul>
+          <li>Oprava - výdejka - zobrazení všeho zboží, které není naskladněno, při nenaskladnění nedochází k částečnému odepsání</li>
+          <li>Oprava - export obsahuje všechna data aplikace a import úplně resetuje DB</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d9" class="btn btn-light">28. 8. 2020</div>
+      <div id="d9" class="collapse">
+        <ul>
+          <li>Zadání a aktualizace zboží na výdejce umožní zadat zboží s 0 množstvím</li>
+          <li>Oprava - Příjemka - možno upravit zboží</li>
+          <li>Oprava - Výdejka - možno zadat i větší počet zboží, než je na skladu</li>
+          <li>Oprava - Příjemka - řazení zboží dle pořadí zadání</li>
+          <li>Oprava - Výdejka - Průměrná jednotková cena zboží se uloží při vytvoření výdejky dle aktuální ceny zboží na skladě a po schválení se aktualizuje a pak nemění.</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d8" class="btn btn-light">27. 8. 2020</div>
+      <div id="d8" class="collapse">
+        <ul>
+          <li>Přesun menu Přehled a Nápověda do menu O aplikaci</li>
+          <li>Možnost exportu a importu všech dat aplikace</li>
+          <li>Oprava - Výdejka - celková cena zboží na výdejce se počíta z průměrné ceny zboží vyskladnění a ne z ceny zboží na skladu</li>
+          <li>Oprava - Výdejka - konsolidované zboží je počítáno ve správném množství</li>
+          <li>Do doby vyskladnění je možnost aktualizovat vyskladňované zboží na výdejce</li>
+          <li>Přehlednější zobrazení všech tabulek</li>
+          <li>V historii zboží zobrazení příjemka/výdejka</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d7" class="btn btn-light">26. 8. 2020</div>
+      <div id="d7" class="collapse">
+        <ul>
+          <li>Oprava - Možnost exportu všech receptů v denním menu </li>
+          <li>Oprava - hledání zboží v administraci již funguje</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d6" class="btn btn-light">25. 8. 2020</div>
+      <div id="d6" class="collapse">
+        <ul>
+          <li>Výdejka - Zboží řazeno abecedně v PDF i s seznamu</li>
+          <li>Oprava počítání celkové ceny receptu</li>
+          <li>Přidání zobrazení ingrediencí receptu z denního menu</li>
+          <li>Oprava - Správné počítání ceny zboží na výdejce</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d5" class="btn btn-light">24. 8. 2020</div>
+      <div id="d5" class="collapse">
+        <ul>
+          <li>Inventura - možnost importu a exportu zboží pro roli Šéfkuchař - Dáša, Josef</li>
+          <li>Recepce/Kuchyň, oprava - Tvorba výdejky z denního menu nekontroluje skutečné množství na skladu, to je kontrolováno až při schválení výdejky</li>
+          <li>Oprava - Recept z denního menu již jde vymazat</li>
+          <li>Oprava - Tlačítko Zpět na ingrediencích receptu již funguje</li>
+          <li>Oprava - Minimální množství na skladu je nepovinné pole a min hodnota je 0</li>
+          <li>Kuchyně/recepce - Zboží se na výdejce z denního menu vyskytuje jenom jednou</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d4" class="btn btn-light">23. 8. 2020</div>
+      <div id="d4" class="collapse">
+        <ul>
+          <li>Importována data ze Stravníčka z dne 18.8.2020</li>
+          <li>Jenom role chef má právo na Založení nové skladové karty - nového druhu zboží na sklad (pí. Trmalová, Josef Slavíček)</li>
+          <li>Oprava PDF formátování - text se nepřekrývá od druhé stránky dál</li>
+          <li>Recepce/Kuchyň - Inventura - tisk PDF pro zjištění skutečného stavu zásob na skladu</li>
+          <li>Kuchyň - Nový report - Zboží nepoužito na žádném receptu</li>
+          <li>Recepce/Kuchyň, oprava - Tvorba výdejky z denního menu již není blokována neexistenci výdejky, ale kontroluje skutečné množství na skladu</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d3" class="btn btn-light">22. 8. 2020</div>
+      <div id="d3" class="collapse">
+        <ul>
+          <li>Recepce - Možnost zobrazení historie změn u zboží</li>
+          <li>Recepce - Oprava chyby - Vydejka po schválení teď zmení stav zboží na skladu</li>
+          <li>Recepce - Oprava ceny zboží při schválení příjemky/výdejky je správně aktualizována</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d2" class="btn btn-light">19. 8. 2020</div>
+      <div id="d2" class="collapse">
+        <ul>
+          <li>Kontrola konverze jednotek u zboží na receptech, příjemkách a výdejkách</li>
+          <li>Recepce - Výdejka - v PDF i seznamu není zobrazena správná jednotková a sumární cena zboží</li>
+          <li>Paní Trmalová - Report na kontrolu správnosti zadaných jednotek</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d1" class="btn btn-light">17. 8. 2020</div>
+      <div id="d1" class="collapse">
+        <ul>
+          <li>Recepce - možnost zadat datum na příjemce</li>
+          <li>Recepce - V menu zobrazit nápovědu</li>
+          <li>Recepce - Přeložit Log-in a Register</li>
+          <li>Kuchyně - přidány práva na správu výdejek kromě schválení a výmazu</li>
+          <li>Kuchyně - v denním menu je řazeno dle datumu a pak typu jidla</li>
+          <li>Recepce - kontrola a nemožnost úpravy/přidání/výmazu zboží PO schválení příjemky/výdejky</li>
+        </ul>
+      </div>
+      <br/>
+      <div data-toggle="collapse" data-target="#d0" class="btn btn-light">Přesun standardní funkcionality Strávníčka</div>
+      <div id="d0" class="collapse">
+        <ul>
+          <li>Správa číselníků</li>
+          <li>Přesunut a nahrán obsah Strávníčka (Zboží, Recepty, Ingredience)</li>
+          <li>PDF s denním menu dle datumu s možností filtrace na skupinu strávníků<br/></s>
+          <li>PDF se seznam receptů a jednotlivého receptu<br/></s>
+          <li>Je možno vytvořit výdejku na základě receptů z denního menu<br/></s>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock content %}

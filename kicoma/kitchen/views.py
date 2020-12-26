@@ -12,6 +12,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import ValidationError
+from django.conf import settings
 
 from django.db import transaction, connection
 from django.db.models import F, Count
@@ -23,6 +24,7 @@ from django.views.generic.list import ListView
 from django.views.generic.base import TemplateView, View
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import Group, ContentType, Permission
 
@@ -151,6 +153,7 @@ def docs(request):
     return render(request, 'kitchen/docs.html')
 
 
+@login_required
 def exportData(request):
     file_name = 'data.json'
     with open(file_name, "w") as f:
@@ -162,7 +165,7 @@ def exportData(request):
         return response
 
 
-class ImportDataView(TemplateView):
+class ImportDataView(LoginRequiredMixin, TemplateView):
     template_name = 'kitchen/import.html'
 
     def post(self, request, **kwargs):
@@ -180,11 +183,17 @@ class ImportDataView(TemplateView):
             with redirect_stdout(f):
                 management.call_command('flush', interactive=False, verbosity=1)
                 management.call_command('loaddata', "./kicoma/kitchen/fixtures/skupiny.json", verbosity=1)
-                management.call_command('loaddata', "./kicoma/kitchen/fixtures/uzivatele.json", verbosity=1)
+                tenant = settings.TENANT.lower()
+                if tenant == "tri":
+                    management.call_command('loaddata', "./kicoma/kitchen/fixtures/uzivatele-tri.json", verbosity=1)
+                elif tenant == "dobrovec":
+                    management.call_command('loaddata', "./kicoma/kitchen/fixtures/uzivatele-dobrovec.json", verbosity=1)
+                else:
+                    raise Exception('Neznáma instance: '+tenant)
                 management.call_command('loaddata', fs.path(filename), verbosity=1)
                 messages.success(self.request, "Data úspěšně nahrána: "+f.getvalue())
         except Exception as e:
-            messages.success(self.request, "Chyba při výmazu dat před importem: "+e)
+            messages.success(self.request, "Chyba při výmazu dat před importem: "+str(e))
         return super(ImportDataView, self).render_to_response(context)
 
 
@@ -260,7 +269,7 @@ class ArticleExportView(LoginRequiredMixin, View):
         return response
 
 
-class ArticleImportView(TemplateView):
+class ArticleImportView(LoginRequiredMixin, TemplateView):
     template_name = 'kitchen/article/import.html'
 
     def post(self, request, **kwargs):

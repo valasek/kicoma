@@ -2,12 +2,8 @@
 Base settings to build other settings files upon.
 """
 from pathlib import Path
-import os
+# import os
 import environ
-
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
-
 from django.utils.translation import gettext_lazy as _
 
 ROOT_DIR = Path(__file__).parents[2]
@@ -50,17 +46,31 @@ LANGUAGES = [
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-
+# Local SQLite DB
 # DATABASES = {
-#     "default": env.db("DATABASE_URL", default="postgres:///kicoma")
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(ROOT_DIR, 'kicoma.sqlite3'),
+#     }
 # }
 # DATABASES["default"]["ATOMIC_REQUESTS"] = True
+# Local PostgreSQL as defined
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'kicoma',
+#         'USER': 'kicoma',
+#         'PASSWORD': 'kicoma',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+# Local PostgreSQL as devined via command line
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(ROOT_DIR, 'kicoma.sqlite3'),
-    }
+    'default': env.db('DATABASE_URL'),  # noqa F405
 }
+# Set the instance
+TENANT = env('TENANT')
 
 # URLS
 # ------------------------------------------------------------------------------
@@ -78,7 +88,7 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.humanize", # Handy template tags
+    "django.contrib.humanize",  # Handy template tags
     "django.contrib.admin",
     "django.forms",
 ]
@@ -290,4 +300,3 @@ SOCIALACCOUNT_ADAPTER = "kicoma.users.adapters.SocialAccountAdapter"
 
 # Your stuff...
 # ------------------------------------------------------------------------------
-

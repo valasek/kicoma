@@ -6,7 +6,9 @@ KiCoMa - Kitchen cooking management
 [![Build Status](https://travis-ci.org/valasek/kicoma.svg?branch=master)](https://travis-ci.org/valasek/kima) [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg)](https://github.com/pydanny/cookiecutter-django/) [![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 ## Demo
-Check the lastest version at [kicoma.herokuapp.com](https://kicoma.herokuapp.com).
+Check the lastest version at:
+- [kicoma-tri.herokuapp.com](https://kicoma-tri.herokuapp.com) or
+- [kicoma-dobrovec.herokuapp.com](https://kicoma-dobrovec.herokuapp.com).
 
 ## License
 
@@ -41,21 +43,15 @@ Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
 
 # Deploy to Heroku
 
-## Initial set-up
-https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
-
-## Set email domain
-`heroku config:set MAILGUN_DOMAIN=hospic-cercany.cz`
-
 ## Update
-`git push heroku master`
+`git push kicoma-tri master`
+`git push kicoma-dobrovec master`
 
 ## Generate user password for fixture
 
 `./manage.py shell`
 `from django.contrib.auth.hashers import make_password`
 `make_password('password')`
-
 
 ## External dependencies
 
@@ -64,18 +60,10 @@ https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
 * Postgresql
 * wkhtmltopdf**
 
-Local
-- `sudo apt-get install wkhtmltopdf`
-
-Heroku
-- https://github.com/tutorcruncher/pydf
-- https://github.com/dscout/wkhtmltopdf-buildpack
-- https://razorjack.net/wkhtmltopdf-on-heroku-evaluating-different-installation-options/
-
 
 ## Getting started
 
-To get started with the app, clone the repo and then install Python 3 and Django 3.0:
+To get started with the app, clone the repo and then install Python 3:
 
 ```
 $ cd ~/tmp
@@ -83,7 +71,19 @@ $ git clone https://github.com/valasek/kima
 $ cd kima
 ```
 
-Next, migrate the database:
+App supports tenants as a separate deployments. New Django code and new DB. If you want to create another one, you should update the following files:
+* `reset_db.sh`
+* `local.py` and
+* `views.py`
+
+Next, create the <PostgreSQL></PostgreSQL> DB and SET
+`export DATABASE_URL=postgres://user:pwd@localhost/dbname`
+`export DATABASE_URL=postgres://kicoma:kicoma@localhost:5432/kicoma`
+
+Set tenant (localy and set it on Heroku as well):
+`export TENANT=tri`
+
+migrate the database:
 
 ```
 $ ./manage.py makemigrations
@@ -101,6 +101,15 @@ If the test suite passes, you'll be ready to run the app in a local server:
 ```
 $ ./manage.py runserver
 ```
+
+Getting up and running locally:
+https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html
+
+Do not forget to set a tenant:
+`export TENANT=tri`
+
+And install WKHTML2PDF:
+- `sudo apt-get install wkhtmltopdf`
 
 
 Settings
@@ -157,24 +166,32 @@ Moved to `Live reloading and SASS compilation`_.
 .. _`Live reloading and SASS compilation`: http://cookiecutter-django.readthedocs.io/en/latest/live-reloading-and-sass-compilation.html
 
 
-
-
-
 Deployment
 ----------
 
 The following details how to deploy this application.
 
-
 Heroku
 ^^^^^^
 
-See detailed `cookiecutter-django Heroku documentation`_.
+## Initial set-up
+https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
 
-.. _`cookiecutter-django Heroku documentation`: http://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
+Managing Multiple Environments for an App - https://devcenter.heroku.com/articles/multiple-environments
 
+Do not forget to add the following argument at the end of every command:
+` --app <app-name>`
+`--app kicoma-dobrovec` or `--app kicoma-tri`
 
+Do not forget to set a tenant:
+`export TENANT=tri`
 
+Install WKHTMLtoPDF
+`heroku buildpacks:add https://github.com/dscout/wkhtmltopdf-buildpack.git`
+More info:
+- https://github.com/tutorcruncher/pydf
+- https://github.com/dscout/wkhtmltopdf-buildpack
+- https://razorjack.net/wkhtmltopdf-on-heroku-evaluating-different-installation-options/
 
-Getting up and running locally:
-https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html
+## Set email domain
+`heroku config:set MAILGUN_DOMAIN=hospic-cercany.cz`

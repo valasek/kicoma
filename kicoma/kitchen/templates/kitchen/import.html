@@ -9,6 +9,9 @@
       Import vymaže a nahradí všechna data v aplikaci včetně uživatelských účtů nahranýma.<br/>
       Primárním cílem je přesun dat mezi testovacím a produkčním prostředím.
     </p>
+    <p class="font-weight-bold">
+      Zkontroluj, že máš zálohovaná data! Pomocí <a href="{% url 'kitchen:export' %}">Exportu všech dat</a>.
+    </p>
   </div>
   <p>Vyber soubor, který jsi exportovala (<a href="{% url 'kitchen:export' %}">Export všech dat</a>):</p>
   <form method="post" enctype="multipart/form-data">
