@@ -21,10 +21,10 @@ All source code in the [KiCoMa](https://github.com/valasek/kima) is available un
 # Useful Commands
 
 ## Reset Development DB
-`./reset-db.sh`
+`./reset-db.sh <tri|dobrovec>`
 
 ## Reset Heroku DB
-`./reset-db-heroku.sh`
+`./reset-db-heroku.sh <tri|dobrovec>`
 
 ## Check the production settings
 ./manage.py check --deploy --settings=config.settings.production
@@ -108,9 +108,11 @@ https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html
 Do not forget to set a tenant:
 `export TENANT=tri`
 
-And install WKHTML2PDF:
+Install WKHTML2PDF:
 - `sudo apt-get install wkhtmltopdf`
 
+## Reset DB
+`./reset-db.sh <tri|dobrovec>`
 
 Settings
 --------
@@ -184,7 +186,8 @@ Do not forget to add the following argument at the end of every command:
 `--app kicoma-dobrovec` or `--app kicoma-tri`
 
 Do not forget to set a tenant:
-`export TENANT=tri`
+`heroku config:set TENANT=tri --app kicoma-tri`
+`heroku config:set TENANT=dobrovec --app kicoma-dobrovec`
 
 Install WKHTMLtoPDF
 `heroku buildpacks:add https://github.com/dscout/wkhtmltopdf-buildpack.git`
@@ -195,3 +198,6 @@ More info:
 
 ## Set email domain
 `heroku config:set MAILGUN_DOMAIN=hospic-cercany.cz`
+
+## Initialize DB
+`./reset-db-heroku.sh <tri|dobrovec>`

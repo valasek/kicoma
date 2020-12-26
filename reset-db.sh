@@ -2,7 +2,7 @@ if [[ $1 == "tri" ]] || [[ $1 == "dobrovec" ]]
 then
 echo Schema $1
 else
-echo Valid schema required tri/dobrovec but provided: $1
+echo Valid database required tri/dobrovec but provided: $1
 exit
 fi
 

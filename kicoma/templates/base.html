@@ -320,7 +320,7 @@
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 {% if request.user|has_group:"chef" %}
-                <a class="dropdown-item" href="/admin">Administrace</a>
+                <a class="dropdown-item" href="{% url 'admin:index' %}">Administrace</a>
                 <a class="dropdown-item" href="{% url 'kitchen:export' %}">Export všech dat</a>
                 <a class="dropdown-item" href="{% url 'kitchen:import' %}">Import všech dat</a>
                 <hr/>

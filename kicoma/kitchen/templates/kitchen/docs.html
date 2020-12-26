@@ -6,7 +6,7 @@
 <div class="row">
   <div class="col-sm-7">
     <h5>Správa zboží</h5>
-    <p>Zboží je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showArticles' %}">Zboží na skladu</a>. Vymazat se dá v <a href="admin/kitchen/article">administraci</a>.
+    <p>Zboží je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showArticles' %}">Zboží na skladu</a>. Vymazat se dá v <a href="{% url 'admin:index' %}kitchen/article">administraci</a>.
     Výše zásob na skladu nebo cena zboží se mění pomocí příjemky/výdejky.
     </p>
     <h5>Příjem zboží na sklad</h5>
@@ -28,17 +28,17 @@
     <h5>Reporty a tisky</h5>
     <p>Všechny tisky probíhají pomocí generování PDF, které je možno zobrazit, uložit nebo vytisknout.</p>
     <h5>Správa číselníků</h5>
-    <p>Číselníky spravuje uživatel ve skupině "Chef - šéfkuchař" v <a href="admin/kitchen">Administraci</a>.
+    <p>Číselníky spravuje uživatel ve skupině "Chef - šéfkuchař" v <a href="{% url 'admin:index' %}kitchen">Administraci</a>.
     Nahrané jsou stejné hodnoty jako ve Strávníčku.
     <br />
-    Přímý odkaz na správu číselníku: <a href="admin/kitchen/allergen/">alergény</a>,
-    <a href="admin/kitchen/vat">DPH</a>,
-    <a href="admin/kitchen/mealtype">druhy jídla</a>,
-    <a href="admin/kitchen/mealgroup">skupinu strávníků</a>.</p>
+    Přímý odkaz na správu číselníku: <a href="{% url 'admin:index' %}kitchen/allergen/">alergény</a>,
+    <a href="{% url 'admin:index' %}kitchen/vat">DPH</a>,
+    <a href="{% url 'admin:index' %}kitchen/mealtype">druhy jídla</a>,
+    <a href="{% url 'admin:index' %}kitchen/mealgroup">skupinu strávníků</a>.</p>
   </div>
   <divJosef class="col-sm">
     <h5>Uživatelské skupiny</h5>
-      <p>Založení, úprava nebo výmaz uživatele je možný v <a href="admin/users/user/">administraci</a>.</p>
+      <p>Založení, úprava nebo výmaz uživatele je možný v <a href="{% url 'admin:index' %}users/user/">administraci</a>.</p>
       <table class="table table-responsive table-sm">
         <thead class="thead-light">
           <tr>
@@ -73,9 +73,9 @@
       </table>
       <h5>Administrace aplikace</h5>
       <p>Uživatel ve skupině "Chef - šéfkuchař" má právo na Administrační sekci a export nebo import dat.
-      Každou datovou tabulku včetně uživatelů je možno plně zpravovat v <a href="admin/kitchen">administraci</a> a nejsou aplikovány žádné dodatečné kontroly.
-      Není doporučeno měnit sekce <a href="admin/auth">Autentizace a autorizace</a>, <a href="admin/sites">Weby</a>,
-      <a href="admin/account">Účty</a> a <a href="admin/socialaccount">Účty sociálních sítí</a>.</p>
+      Každou datovou tabulku včetně uživatelů je možno plně zpravovat v <a href="{% url 'admin:index' %}kitchen">administraci</a> a nejsou aplikovány žádné dodatečné kontroly.
+      Není doporučeno měnit sekce <a href="{% url 'admin:index' %}auth">Autentizace a autorizace</a>, <a href="{% url 'admin:index' %}sites">Weby</a>,
+      <a href="{% url 'admin:index' %}account">Účty</a> a <a href="{% url 'admin:index' %}socialaccount">Účty sociálních sítí</a>.</p>
       <p>Export nebo import dat obsahuje všechna data KiCoMa kromě seznamu uživatelů a skupin. Ty je nutno v nové aplikaci nastavit programově.</p>
   </div>
 </div>
