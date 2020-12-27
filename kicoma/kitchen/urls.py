@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf.urls import include
 from django.views.generic import RedirectView
 
 from .views import ArticleListView, ArticleHistoryDetailView, ArticleCreateView, ArticleUpdateView, ArticlePDFView, \
@@ -23,7 +24,7 @@ from .views import DailyMenuRecipeListView, DailyMenuRecipeCreateView, DailyMenu
 from .views import FoodConsumptionPrintView, FoodConsumptionPDFView, IncorrectUnitsListView, \
     ArticlesNotInRecipesListView, MonthlyCostsPerMealGroup
 
-from .views import about, changelog, docs, exportData, ImportDataView
+from .views import about, changelog, docs, exportData, ImportDataView, set_language
 
 app_name = "kitchen"
 urlpatterns = [
@@ -33,6 +34,8 @@ urlpatterns = [
     path('export', exportData, name='export'),
     path('import', ImportDataView.as_view(), name='import'),
     path('favicon.ico', RedirectView.as_view(url='/static/images/favicons/favicon.ico')),
+    path('lang', set_language, name='lang'),
+    path('i18n', include('django.conf.urls.i18n'), name='i18n'),
 
     path('article/list', ArticleListView.as_view(), name='showArticles'),
     path('article/listlack', ArticleLackListView.as_view(), name='showLackArticles'),

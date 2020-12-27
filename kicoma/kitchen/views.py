@@ -197,6 +197,10 @@ class ImportDataView(LoginRequiredMixin, TemplateView):
         return super(ImportDataView, self).render_to_response(context)
 
 
+def set_language(request):
+    return render(request, 'kitchen/i18n.html')
+
+
 class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = Article
     table_class = ArticleTable
