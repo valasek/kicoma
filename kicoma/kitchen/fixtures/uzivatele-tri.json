@@ -106,5 +106,77 @@
       "date_joined": "2020-05-02T21:31:10.980Z",
       "user_permissions": []
     }
+  },
+  {
+    "model": "users.user",
+    "pk": 7,
+    "fields": {
+      "username": "valasek",
+      "email": "valasek@gmail.com",
+      "name": "Stanislav Valášek",
+      "first_name": "Stanislav",
+      "last_name": "Valášek",
+      "password": "argon2$argon2i$v=19$m=512,t=2,p=2$QmJLd0tFQWFlMzBo$B2cgIlLl9aNIqopniB8FBA",
+      "is_superuser": true,
+      "is_active": true,
+      "is_staff": true,
+      "groups": [1, 2, 3],
+      "date_joined": "2020-05-02T21:31:10.980Z",
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 8,
+    "fields": {
+      "username": "valasek8",
+      "email": "valasek@gmail.com",
+      "name": "Stanislav Valášek",
+      "first_name": "Stanislav",
+      "last_name": "Valášek",
+      "password": "argon2$argon2i$v=19$m=512,t=2,p=2$QmJLd0tFQWFlMzBo$B2cgIlLl9aNIqopniB8FBA",
+      "is_superuser": false,
+      "is_active": true,
+      "is_staff": false,
+      "groups": [1, 2, 3],
+      "date_joined": "2020-05-02T21:31:10.980Z",
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 9,
+    "fields": {
+      "username": "valasek9",
+      "email": "valasek@gmail.com",
+      "name": "Stanislav Valášek",
+      "first_name": "Stanislav",
+      "last_name": "Valášek",
+      "password": "argon2$argon2i$v=19$m=512,t=2,p=2$QmJLd0tFQWFlMzBo$B2cgIlLl9aNIqopniB8FBA",
+      "is_superuser": false,
+      "is_active": true,
+      "is_staff": false,
+      "groups": [1, 2, 3],
+      "date_joined": "2020-05-02T21:31:10.980Z",
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 10,
+    "fields": {
+      "username": "valasek10",
+      "email": "valasek@gmail.com",
+      "name": "Stanislav Valášek",
+      "first_name": "Stanislav",
+      "last_name": "Valášek",
+      "password": "argon2$argon2i$v=19$m=512,t=2,p=2$QmJLd0tFQWFlMzBo$B2cgIlLl9aNIqopniB8FBA",
+      "is_superuser": false,
+      "is_active": true,
+      "is_staff": false,
+      "groups": [1, 2, 3],
+      "date_joined": "2020-05-02T21:31:10.980Z",
+      "user_permissions": []
+    }
   }
 ]

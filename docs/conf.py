@@ -22,7 +22,7 @@ import sys
 # -- Project information -----------------------------------------------------
 
 project = "KiCoMa"
-copyright = """2020, Stanislav Valasek"""
+copyright = """2020 - 2021, Stanislav Valasek"""
 author = "Stanislav Valasek"
 
 

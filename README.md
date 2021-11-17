@@ -70,6 +70,8 @@ $ cd ~/tmp
 $ git clone https://github.com/valasek/kima
 $ cd kima
 ```
+Switch to the virtual environment:
+`source venv/bin/activate`
 
 App supports tenants as a separate deployments. New Django code and new DB. If you want to create another one, you should update the following files:
 * `reset_db.sh`
@@ -82,6 +84,7 @@ Next, create the <PostgreSQL></PostgreSQL> DB and SET
 
 Set tenant (localy and set it on Heroku as well):
 `export TENANT=tri`
+`export TENANT=kicoma`
 
 migrate the database:
 

@@ -7,7 +7,7 @@
 <hr/>
 <form action="{% url 'kitchen:set_language' %}" method="post">{% csrf_token %}
   <div class="row">
-    <div class="col">
+    <div class="col-2">
       <input name="next" type="hidden" value="{{ redirect_to }}">
       <select name="language" class="form-control">
           {% get_current_language as LANGUAGE_CODE %}

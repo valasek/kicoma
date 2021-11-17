@@ -1,5 +1,5 @@
 import django_tables2 as tables
-import django_filters
+from django_filters import FilterSet, CharFilter, DateFilter
 from django.contrib.humanize.templatetags.humanize import intcomma
 
 from .models import Recipe, RecipeArticle, StockReceipt, StockIssue, Article, DailyMenu, \
@@ -34,8 +34,8 @@ class ArticleTable(tables.Table):
         return '{} {}'.format(value, record.unit)
 
 
-class ArticleFilter(django_filters.FilterSet):
-    article = django_filters.CharFilter(lookup_expr='icontains')
+class ArticleFilter(FilterSet):
+    article = CharFilter(lookup_expr='icontains')
 
     class Meta:
         model = Article
@@ -62,8 +62,8 @@ class RecipeTable(tables.Table):
         return '{} Kč'.format(intcomma(value))
 
 
-class RecipeFilter(django_filters.FilterSet):
-    recipe = django_filters.CharFilter(lookup_expr='icontains')
+class RecipeFilter(FilterSet):
+    recipe = CharFilter(lookup_expr='icontains')
 
     class Meta:
         model = Recipe
@@ -110,8 +110,8 @@ class DailyMenuTable(tables.Table):
         fields = ("date", "meal_group", "meal_type", "comment", "change")
 
 
-class DailyMenuFilter(django_filters.FilterSet):
-    date = django_filters.DateFilter(lookup_expr='contains')
+class DailyMenuFilter(FilterSet):
+    date = DateFilter(lookup_expr='contains')
 
     class Meta:
         model = DailyMenu
@@ -158,8 +158,8 @@ class StockIssueTable(tables.Table):
         return '{} Kč'.format(intcomma(intcomma(value)))
 
 
-class StockIssueFilter(django_filters.FilterSet):
-    created = django_filters.DateFilter(lookup_expr='contains')
+class StockIssueFilter(FilterSet):
+    created = DateFilter(lookup_expr='contains')
 
     class Meta:
         model = StockIssue
@@ -210,8 +210,8 @@ class StockReceiptTable(tables.Table):
         return '{} Kč'.format(intcomma(value))
 
 
-class StockReceiptFilter(django_filters.FilterSet):
-    date_created = django_filters.DateFilter(lookup_expr='contains')
+class StockReceiptFilter(FilterSet):
+    date_created = DateFilter(lookup_expr='contains')
     # user_created = django_filters.CharFilter(lookup_expr='icontains')
 
     class Meta:
