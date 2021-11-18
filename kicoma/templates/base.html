@@ -349,7 +349,7 @@
               </div>
             </li>
             {% endif %}
-            {% if request.user|has_group:"cook" %}
+            {% if request.user|has_group:"stockkeeper" or request.user|has_group:"cook" %}
             <li class="nav-item dropdown">
               <a
                 class="nav-link active dropdown-toggle"
