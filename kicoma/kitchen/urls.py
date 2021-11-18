@@ -22,7 +22,7 @@ from .views import DailyMenuListView, DailyMenuCreateView, DailyMenuUpdateView, 
 from .views import DailyMenuRecipeListView, DailyMenuRecipeCreateView, DailyMenuRecipeUpdateView, \
     DailyMenuRecipeDeleteView
 from .views import FoodConsumptionPrintView, FoodConsumptionPDFView, IncorrectUnitsListView, \
-    ArticlesNotInRecipesListView, MonthlyCostsPerMealGroup
+    ArticlesNotInRecipesListView, MonthlyCostsPerMealGroup, ShowFoodConsumptionTotalPrice
 
 from .views import about, changelog, docs, exportData, ImportDataView, set_language
 
@@ -98,6 +98,8 @@ urlpatterns = [
     path('dailymenu/filterprint', DailyMenuPrintView.as_view(), name='filterPrintDailyMenu'),
     path('dailymenu/print', DailyMenuPDFView.as_view(), name='printDailyMenu'),
 
+    path('report/showFoodConsumptionTotalPrice',
+         ShowFoodConsumptionTotalPrice.as_view(), name='showFoodConsumptionTotalPrice'),
     path('report/filterfoodconsumption', FoodConsumptionPrintView.as_view(), name='filterFoodConsumption'),
     path('report/print/foodconsumption', FoodConsumptionPDFView.as_view(), name='printFoodConsumption'),
     path('report/print/monthlycostspermealgroup', MonthlyCostsPerMealGroup.as_view(), name='printMonthlyCostsPerMealGroup'),

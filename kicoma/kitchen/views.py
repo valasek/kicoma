@@ -1,10 +1,12 @@
 import logging
 import io
 from datetime import datetime
+from dateutil import relativedelta
 from contextlib import redirect_stdout
 
 from django.core import management
 from django.core.files.storage import FileSystemStorage
+from django.db.models.aggregates import Aggregate
 
 from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
@@ -36,8 +38,8 @@ from tablib import Dataset
 
 from kicoma.users.models import User
 
-from .models import StockIssueArticle, StockReceiptArticle, Recipe, Allergen, MealType, MealGroup, VAT, \
-    Article, HistoricalArticle, RecipeArticle, StockIssue, StockReceipt, DailyMenu, DailyMenuRecipe
+from .models import StockIssueArticle, StockReceiptArticle, Recipe, Allergen, MealType, MealGroup, \
+    VAT, Article, HistoricalArticle, RecipeArticle, StockIssue, StockReceipt, DailyMenu, DailyMenuRecipe
 
 from .tables import StockReceiptTable, StockReceiptArticleTable, StockReceiptFilter
 from .tables import StockIssueTable, StockIssueArticleTable, StockIssueFilter
@@ -187,7 +189,8 @@ class ImportDataView(LoginRequiredMixin, TemplateView):
                 if tenant == "tri":
                     management.call_command('loaddata', "./kicoma/kitchen/fixtures/uzivatele-tri.json", verbosity=1)
                 elif tenant == "dobrovec":
-                    management.call_command('loaddata', "./kicoma/kitchen/fixtures/uzivatele-dobrovec.json", verbosity=1)
+                    management.call_command(
+                        'loaddata', "./kicoma/kitchen/fixtures/uzivatele-dobrovec.json", verbosity=1)
                 else:
                     raise Exception('Neznáma instance: '+tenant)
                 management.call_command('loaddata', fs.path(filename), verbosity=1)
@@ -1099,6 +1102,45 @@ class StockReceiptArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, Del
                 reverse_lazy('kitchen:showStockReceiptArticles', kwargs={'pk': self.kwargs['pk']}))
         self.stock_receipt_id = stock_receipt_article.stock_receipt.id
         return super(StockReceiptArticleDeleteView, self).delete(request, *args, **kwargs)
+
+
+def stockIssuesReceiptsData(month):
+    month = datetime.now() + relativedelta.relativedelta(months=-month)
+    month_year = month.year
+    month_month = month.month
+    stock_issues = StockIssue.objects.filter(
+        date_approved__year=month_year, date_approved__month=month_month)
+    stock_receipts = StockReceipt.objects.filter(
+        date_approved__year=month_year, date_approved__month=month_month)
+    stock_issues_price = -1
+    for si in stock_issues:
+        stock_issues_price += si.total_price
+    stock_receipts_price = -1
+    for sr in stock_receipts:
+        stock_receipts_price += sr.total_price
+    return {
+        'year': month_year,
+        'month': month_month,
+        'stock_issues_count': stock_issues.count(),
+        'stock_issues_price': stock_issues_price,
+        'stock_receipts_count': stock_receipts.count(),
+        'stock_receipts_price': stock_receipts_price
+    }
+
+
+class ShowFoodConsumptionTotalPrice(LoginRequiredMixin, TemplateView):
+    template_name = 'kitchen/report/show_stock_issues_receipts_total_price.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['all_data'] = [
+            stockIssuesReceiptsData(0),
+            stockIssuesReceiptsData(1),
+            stockIssuesReceiptsData(2),
+        ]
+
+        return context
 
 
 class FoodConsumptionPDFView(LoginRequiredMixin, PDFTemplateView):

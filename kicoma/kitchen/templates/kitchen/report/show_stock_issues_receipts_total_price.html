@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+  <h4>Celková částka za přijaté příjemky a vydané výdejky za poslední 3 měsíce</h4>
+  <hr/>
+  {% for data in all_data %}
+  {{ data.month }}.{{ data.year }}<br />
+  <strong>Příjemky</strong> ({{ data.stock_receipts_count }}ks): {{ data.stock_receipts_price|intcomma }} Kč<br/>
+  <strong>Výdejky</strong> ({{ data.stock_issues_count }}ks): {{ data.stock_issues_price|intcomma }} Kč
+  <br/>
+  <br/>
+  {% endfor %}
+</div>
+{% endblock content %}

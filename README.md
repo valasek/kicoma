@@ -44,6 +44,9 @@ Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
 # Deploy to Heroku
 
 ## Update
+`heroku login`
+
+## Update
 `git push kicoma-tri master`
 `git push kicoma-dobrovec master`
 
