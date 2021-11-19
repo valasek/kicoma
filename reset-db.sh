@@ -1,11 +1,3 @@
-if [[ $1 == "tri" ]] || [[ $1 == "dobrovec" ]]
-then
-echo Schema $1
-else
-echo Valid database required tri/dobrovec but provided: $1
-exit
-fi
-
 # Remove a dev DB and initialize from fixtures
 echo DB: flushing ...
 python manage.py flush --noinput
@@ -19,7 +11,7 @@ python manage.py migrate
 echo DB: loading groups ...
 python manage.py loaddata kicoma/kitchen/fixtures/skupiny.json
 echo DB: loading users ...
-python manage.py loaddata kicoma/kitchen/fixtures/uzivatele-$1.json
+python manage.py loaddata kicoma/kitchen/fixtures/uzivatele.json
 # python manage.py loaddata kicoma/kitchen/fixtures/article.json
 # python manage.py loaddata kicoma/kitchen/fixtures/recipe.json
 # python manage.py loaddata kicoma/kitchen/fixtures/recipe_article.json

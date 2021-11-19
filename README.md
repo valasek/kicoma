@@ -6,9 +6,7 @@ KiCoMa - Kitchen cooking management
 [![Build Status](https://travis-ci.org/valasek/kicoma.svg?branch=master)](https://travis-ci.org/valasek/kima) [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg)](https://github.com/pydanny/cookiecutter-django/) [![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 ## Demo
-Check the lastest version at:
-- [kicoma-tri.herokuapp.com](https://kicoma-tri.herokuapp.com) or
-- [kicoma-dobrovec.herokuapp.com](https://kicoma-dobrovec.herokuapp.com).
+Check the lastest version at [kicoma-tri.herokuapp.com](https://kicoma-tri.herokuapp.com).
 
 ## License
 
@@ -21,10 +19,10 @@ All source code in the [KiCoMa](https://github.com/valasek/kicoma) is available 
 # Useful Commands
 
 ## Reset Development DB
-`./reset-db.sh <tri|dobrovec>`
+`./reset-db.sh`
 
 ## Reset Heroku DB
-`./reset-db-heroku.sh <tri|dobrovec>`
+`./reset-db-heroku.sh`
 
 ## Check the production settings
 ./manage.py check --deploy --settings=config.settings.production
@@ -48,7 +46,6 @@ Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
 
 ## Update
 `git push kicoma-tri master`
-`git push kicoma-dobrovec master`
 
 ## Generate user password for fixture
 
@@ -76,19 +73,6 @@ $ cd kima
 Switch to the virtual environment:
 `source venv/bin/activate`
 
-App supports tenants as a separate deployments. New Django code and new DB. If you want to create another one, you should update the following files:
-* `reset_db.sh`
-* `local.py` and
-* `views.py`
-
-Next, create the <PostgreSQL></PostgreSQL> DB and SET
-`export DATABASE_URL=postgres://user:pwd@localhost/dbname`
-`export DATABASE_URL=postgres://kicoma:kicoma@localhost:5432/kicoma`
-
-Set tenant (localy and set it on Heroku as well):
-`export TENANT=tri`
-`export TENANT=kicoma`
-
 migrate the database:
 
 ```
@@ -111,14 +95,11 @@ $ ./manage.py runserver
 Getting up and running locally:
 https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html
 
-Do not forget to set a tenant:
-`export TENANT=tri`
-
 Install WKHTML2PDF:
 - `sudo apt-get install wkhtmltopdf`
 
 ## Reset DB
-`./reset-db.sh <tri|dobrovec>`
+`./reset-db.sh`
 
 Settings
 --------
@@ -189,12 +170,7 @@ Managing Multiple Environments for an App - https://devcenter.heroku.com/article
 
 Do not forget to add the following argument at the end of every command:
 ` --app <app-name>`
-`--app kicoma-dobrovec` or `--app kicoma-tri`
-
-Do not forget to set a tenant:
-`heroku config:set TENANT=tri --app kicoma-tri`
-`heroku config:set TENANT=dobrovec --app kicoma-dobrovec`
-
+``--app kicoma-tri`
 Install WKHTMLtoPDF
 `heroku buildpacks:add https://github.com/dscout/wkhtmltopdf-buildpack.git`
 More info:
@@ -206,4 +182,4 @@ More info:
 `heroku config:set MAILGUN_DOMAIN=hospic-cercany.cz`
 
 ## Initialize DB
-`./reset-db-heroku.sh <tri|dobrovec>`
+`./reset-db-heroku.sh`

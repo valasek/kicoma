@@ -185,14 +185,7 @@ class ImportDataView(LoginRequiredMixin, TemplateView):
             with redirect_stdout(f):
                 management.call_command('flush', interactive=False, verbosity=1)
                 management.call_command('loaddata', "./kicoma/kitchen/fixtures/skupiny.json", verbosity=1)
-                tenant = settings.TENANT.lower()
-                if tenant == "tri":
-                    management.call_command('loaddata', "./kicoma/kitchen/fixtures/uzivatele-tri.json", verbosity=1)
-                elif tenant == "dobrovec":
-                    management.call_command(
-                        'loaddata', "./kicoma/kitchen/fixtures/uzivatele-dobrovec.json", verbosity=1)
-                else:
-                    raise Exception('Neznáma instance: '+tenant)
+                management.call_command('loaddata', "./kicoma/kitchen/fixtures/uzivatele.json", verbosity=1)
                 management.call_command('loaddata', fs.path(filename), verbosity=1)
                 messages.success(self.request, "Data úspěšně nahrána: "+f.getvalue())
         except Exception as e:

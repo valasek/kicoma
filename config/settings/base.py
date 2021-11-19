@@ -55,22 +55,20 @@ LANGUAGES = [
 # }
 # DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # Local PostgreSQL as defined
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'kicoma',
-#         'USER': 'kicoma',
-#         'PASSWORD': 'kicoma',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-# Local PostgreSQL as devined via command line
 DATABASES = {
-    'default': env.db('DATABASE_URL'),  # noqa F405
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'kicoma',
+        'USER': 'kicoma',
+        'PASSWORD': 'kicoma',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
-# Set the instance
-TENANT = env('TENANT')
+# Local PostgreSQL as defined via command line
+# DATABASES = {
+    # 'default': env.db('DATABASE_URL'),  # noqa F405
+# }
 
 # URLS
 # ------------------------------------------------------------------------------
