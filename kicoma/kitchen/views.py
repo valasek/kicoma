@@ -228,7 +228,7 @@ class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Article
     form_class = ArticleForm
     template_name = 'kitchen/article/create.html'
-    success_message = "Zboží %(article)s bylo založeno, je možné zadávat příjemky"
+    success_message = "SKladová karta %(article)s byla založeno, je možné zadávat příjemky a recepty"
     success_url = reverse_lazy('kitchen:showArticles')
 
 
@@ -236,8 +236,29 @@ class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Article
     form_class = ArticleForm
     template_name = 'kitchen/article/update.html'
-    success_message = "Zboží %(article)s bylo aktualizováno"
+    success_message = "Skladová karta %(article)s byla aktualizováno"
     success_url = reverse_lazy('kitchen:showArticles')
+
+
+class ArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+    model = Article
+    form_class = ArticleForm
+    template_name = 'kitchen/article/delete.html'
+    success_message = "SKladová karta %(article)s byla odstraněna"
+    success_url = reverse_lazy('kitchen:showArticles')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = self.get_object()
+        recipe_articles = RecipeArticle.objects.filter(article=obj)
+        context['recipe_articles']=recipe_articles
+        return context
+
+
+    def delete(self, request, *args, **kwargs):
+        obj = self.get_object()
+        messages.success(self.request, self.success_message % obj.__dict__)
+        return super(ArticleDeleteView, self).delete(request, *args, **kwargs)
 
 
 class ArticlePDFView(LoginRequiredMixin, PDFTemplateView):
@@ -353,6 +374,11 @@ class RecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     template_name = 'kitchen/recipe/delete.html'
     success_message = "Recept %(recipe)s byl odstraněn"
     success_url = reverse_lazy('kitchen:showRecipes')
+
+    def delete(self, request, *args, **kwargs):
+        obj = self.get_object()
+        messages.success(self.request, self.success_message % obj.__dict__)
+        return super(RecipeDeleteView, self).delete(request, *args, **kwargs)
 
 
 class RecipeListPDFView(LoginRequiredMixin, PDFTemplateView):
@@ -471,6 +497,8 @@ class RecipeArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteVie
     def delete(self, request, *args, **kwargs):
         recipe_article = get_object_or_404(RecipeArticle, pk=self.kwargs['pk'])
         self.recipe_id = recipe_article.recipe.id
+        obj = self.get_object()
+        messages.success(self.request, self.success_message % obj.__dict__)
         return super(RecipeArticleDeleteView, self).delete(request, *args, **kwargs)
 
 
@@ -508,6 +536,10 @@ class DailyMenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     success_message = "Denní menu pro den %(date)s bylo odstraněno"
     success_url = reverse_lazy('kitchen:showDailyMenus')
 
+    def delete(self, request, *args, **kwargs):
+        obj = self.get_object()
+        messages.success(self.request, self.success_message % obj.__dict__)
+        return super(DailyMenuDeleteView, self).delete(request, *args, **kwargs)
 
 class DailyMenuPDFView(LoginRequiredMixin, PDFTemplateView):
     template_name = 'kitchen/dailymenu/pdf.html'
@@ -622,6 +654,8 @@ class DailyMenuRecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteV
     def delete(self, request, *args, **kwargs):
         recipe = get_object_or_404(DailyMenuRecipe, pk=self.kwargs['pk'])
         self.daily_menu_id = recipe.daily_menu.id
+        obj = self.get_object()
+        messages.success(self.request, self.success_message % obj.__dict__)
         return super(DailyMenuRecipeDeleteView, self).delete(request, *args, **kwargs)
 
 

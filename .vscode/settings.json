@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "../env/bin",
+    "python.pythonPath": "/bin/python3.10",
     "python.linting.pylintEnabled": true,
     "yaml.customTags": [
         "!And",

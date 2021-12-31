@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+  <h4>Odstranění skladové karty: {{ object.article }}</h4>
+  <hr/>
+  <p><a href="{% url 'kitchen:showArticles' %}"><button class="btn btn-secondary">Zpět na seznam skladových karet</button></a></p>
+
+  {% if recipe_articles %}
+  <p>Zboží je použité na {{ recipe_articles | length }} receptech.<br/>
+  Vymazat půjde až když nebude na žádném receptu. Odstraňte jej z výše uvedených receptů, nebo jestli je to ok, odstraňte přímo recepty.</p>
+  <ol>
+  {% for recipe_article in recipe_articles %}
+    <li><a href="{% url 'kitchen:showRecipeArticles' pk=recipe_article.recipe.id %}">{{ recipe_article.recipe }}</a><br/></li>
+  {% endfor %}
+  </ol>
+  {% else %}
+  <form method="post" action="{% url 'kitchen:deleteArticle' pk=object.id %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <p>Chcete odstranit skladovou kartu:</p>
+    <ul>
+      <li>Název: {{ object.article }}</li>
+      <li>Na skladu: {{ object.on_stock | intcomma }} {{ object.unit }}</li>
+      <li>Celková cena: {{ object.total_price | intcomma }} Kč</li>
+    </ul>
+    <button type="submit" class="btn btn-success">Odstranit</button>
+  </form>
+  {% endif %}
+
+</div>
+{% endblock content %}

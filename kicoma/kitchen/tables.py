@@ -11,7 +11,8 @@ class ArticleTable(tables.Table):
     allergens = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name='Alergény')
     change = tables.TemplateColumn(
         '''<a href="/kitchen/article/update/{{ record.id }}">Upravit</a>
-        | <a href="/kitchen/article/history/{{ record.id }}">Historie</a>''',
+        | <a href="/kitchen/article/history/{{ record.id }}">Historie</a>
+        | <a href="/kitchen/article/delete/{{ record.id }}">Vymazat</a>''',
         verbose_name=u'Akce', )
 
     class Meta:
