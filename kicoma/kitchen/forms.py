@@ -35,6 +35,30 @@ class ArticleForm(forms.ModelForm):
         )
 
 
+class ArticleRestrictedForm(forms.ModelForm):
+
+    class Meta:
+        model = Article
+        fields = ["article", "unit", "min_on_stock", "comment", "allergen", ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        # self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        self.helper.layout = Layout(
+            Row(
+                Column('article', css_class='col-md-2'),
+                Column('unit', css_class='col-md-2'),
+                Column('min_on_stock', css_class='col-md-2'),
+            ),
+            Row(
+                Column('allergen', css_class='col-md-6'),
+                Column('comment', css_class='col-md-6'),
+            )
+        )
+
+
 class ArticleSearchForm(forms.Form):
     article = forms.CharField()
 
@@ -132,6 +156,26 @@ class DailyMenuPrintForm(forms.ModelForm):
             Row(
                 Column('date', css_class='col-md-2'),
                 Column('meal_group', css_class='col-md-2'),
+            )
+        )
+
+class DailyMenuCateringUnitForm(forms.ModelForm):
+
+    class Meta:
+        model = DailyMenu
+        fields = ["date"]
+        # widgets = {
+        #     'date': forms.DateInput(format=('%Y-%m-%d'),
+        #                             attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
+        # }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Column('date', css_class='col-md-2'),
             )
         )
 

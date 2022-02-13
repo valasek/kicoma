@@ -2,7 +2,8 @@ from django.urls import path
 from django.conf.urls import include
 from django.views.generic import RedirectView
 
-from .views import ArticleListView, ArticleHistoryDetailView, ArticleCreateView, ArticleUpdateView, ArticleDeleteView, \
+from .views import ArticleListView, ArticleRestrictedListView, ArticleHistoryDetailView, ArticleCreateView, \
+    ArticleRestrictedUpdateView, ArticleUpdateView, ArticleDeleteView, \
     ArticlePDFView, ArticleLackListView, ArticleExportView, ArticleImportView
 from .views import StockTakePDFView
 from .views import StockReceiptListView, StockReceiptCreateView, StockReceiptUpdateView, \
@@ -22,7 +23,8 @@ from .views import DailyMenuListView, DailyMenuCreateView, DailyMenuUpdateView, 
 from .views import DailyMenuRecipeListView, DailyMenuRecipeCreateView, DailyMenuRecipeUpdateView, \
     DailyMenuRecipeDeleteView
 from .views import FoodConsumptionPrintView, FoodConsumptionPDFView, IncorrectUnitsListView, \
-    ArticlesNotInRecipesListView, MonthlyCostsPerMealGroup, ShowFoodConsumptionTotalPrice
+    ArticlesNotInRecipesListView, MonthlyCostsPerMealGroup, ShowFoodConsumptionTotalPrice, \
+    CateringUnitFilterView, CateringUnitShowView
 
 from .views import about, changelog, docs, exportData, ImportDataView, set_language
 
@@ -38,9 +40,11 @@ urlpatterns = [
     path('i18n', include('django.conf.urls.i18n'), name='i18n'),
 
     path('article/list', ArticleListView.as_view(), name='showArticles'),
+    path('article/restrictedlist', ArticleRestrictedListView.as_view(), name='showRestrictedArticles'),
     path('article/listlack', ArticleLackListView.as_view(), name='showLackArticles'),
     path('article/create', ArticleCreateView.as_view(), name='createArticle'),
     path('article/update/<int:pk>', ArticleUpdateView.as_view(), name='updateArticle'),
+    path('article/restrictedupdate/<int:pk>', ArticleRestrictedUpdateView.as_view(), name='restrictedupdateArticle'),
     path('article/delete/<int:pk>', ArticleDeleteView.as_view(), name='deleteArticle'),
     path('article/print', ArticlePDFView.as_view(), name='printArticles'),
     path('article/export', ArticleExportView.as_view(), name='exportArticles'),
@@ -103,6 +107,8 @@ urlpatterns = [
          ShowFoodConsumptionTotalPrice.as_view(), name='showFoodConsumptionTotalPrice'),
     path('report/filterfoodconsumption', FoodConsumptionPrintView.as_view(), name='filterFoodConsumption'),
     path('report/print/foodconsumption', FoodConsumptionPDFView.as_view(), name='printFoodConsumption'),
+    path('report/filtercateringunit', CateringUnitFilterView.as_view(), name='filterCateringUnit'),
+    path('report/print/cateringunit', CateringUnitShowView.as_view(), name='showCateringUnit'),
     path('report/print/monthlycostspermealgroup', MonthlyCostsPerMealGroup.as_view(), name='printMonthlyCostsPerMealGroup'),
     path('report/incorrectunits', IncorrectUnitsListView.as_view(), name='showIncorrectUnits'),
     path('report/articlesnotinrecipes', ArticlesNotInRecipesListView.as_view(), name='showArticlesNotInRecipes'),

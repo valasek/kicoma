@@ -29,5 +29,6 @@
         "!Select sequence",
         "!Split",
         "!Split sequence"
-    ]
+    ],
+    "python.linting.enabled": true
 }

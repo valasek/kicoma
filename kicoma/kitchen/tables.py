@@ -34,6 +34,21 @@ class ArticleTable(tables.Table):
     def render_min_on_stock(self, value, record):
         return '{} {}'.format(value, record.unit)
 
+class ArticleRestrictedTable(tables.Table):
+    allergens = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name='Alergény')
+    change = tables.TemplateColumn(
+        '''<a href="/kitchen/article/restrictedupdate/{{ record.id }}">Upravit</a>''',
+        verbose_name=u'Akce', )
+
+    class Meta:
+        model = Article
+        template_name = "django_tables2/bootstrap4.html"
+        attrs = {"class": "table table-striped table-hover table-sm"}
+        fields = ("article", "unit", "min_on_stock", "allergens", "comment", "change")
+
+    def render_min_on_stock(self, value, record):
+        return '{} {}'.format(value, record.unit)
+
 
 class ArticleFilter(FilterSet):
     article = CharFilter(lookup_expr='icontains')

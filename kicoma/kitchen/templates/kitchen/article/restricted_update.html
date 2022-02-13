@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+  <h4>Úprava zboží</h4>
+  <hr/>
+  <form method="post" action="">
+    {% csrf_token %}
+    {% crispy form form.helper %}
+    <button type="submit" class="btn btn-success">Uložit</button>
+  </form>
+</div>
+{% endblock content %}

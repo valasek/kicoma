@@ -17,7 +17,7 @@ from django.core.exceptions import ValidationError
 from django.conf import settings
 
 from django.db import transaction, connection
-from django.db.models import F, Count
+from django.db.models import F, Count, Sum
 from django.db.models.functions import TruncYear, TruncMonth
 
 from django.views.generic import DetailView
@@ -43,7 +43,7 @@ from .models import StockIssueArticle, StockReceiptArticle, Recipe, Allergen, Me
 
 from .tables import StockReceiptTable, StockReceiptArticleTable, StockReceiptFilter
 from .tables import StockIssueTable, StockIssueArticleTable, StockIssueFilter
-from .tables import ArticleTable, ArticleFilter
+from .tables import ArticleTable, ArticleRestrictedTable, ArticleFilter
 from .tables import DailyMenuTable, DailyMenuFilter
 from .tables import DailyMenuRecipeTable
 from .tables import RecipeTable, RecipeFilter, RecipeArticleTable
@@ -51,8 +51,9 @@ from .tables import RecipeTable, RecipeFilter, RecipeArticleTable
 from .forms import RecipeForm, RecipeArticleForm, RecipeSearchForm
 from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptArticleForm
 from .forms import StockIssueForm, StockIssueSearchForm, StockIssueArticleForm, StockIssueFromDailyMenuForm
-from .forms import ArticleForm, ArticleSearchForm
+from .forms import ArticleForm, ArticleRestrictedForm, ArticleSearchForm
 from .forms import DailyMenuSearchForm, DailyMenuPrintForm, DailyMenuForm, DailyMenuRecipeForm
+from .forms import DailyMenuCateringUnitForm
 from .forms import FoodConsumptionPrintForm
 
 from .functions import convertUnits
@@ -210,6 +211,14 @@ class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         context['total_stock_price'] = Article.sum_total_price()
         return context
 
+class ArticleRestrictedListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+    model = Article
+    table_class = ArticleRestrictedTable
+    template_name = 'kitchen/article/restricted_list.html'
+    filterset_class = ArticleFilter
+    form_class = ArticleSearchForm
+    paginate_by = 15
+
 
 class ArticleLackListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = Article
@@ -236,8 +245,16 @@ class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Article
     form_class = ArticleForm
     template_name = 'kitchen/article/update.html'
-    success_message = "Skladová karta %(article)s byla aktualizováno"
+    success_message = "Skladová karta %(article)s byla aktualizována"
     success_url = reverse_lazy('kitchen:showArticles')
+
+
+class ArticleRestrictedUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = Article
+    form_class = ArticleRestrictedForm
+    template_name = 'kitchen/article/restricted_update.html'
+    success_message = "Skladová karta %(article)s byla aktualizována"
+    success_url = reverse_lazy('kitchen:showRestrictedArticles')
 
 
 class ArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
@@ -760,7 +777,7 @@ class StockIssueDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 
 class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, PDFTemplateView):
     template_name = 'kitchen/stockissue/pdf.html'
-    filename = 'Vydejka.pdf'
+    filename = 'Vydejka-' + datetime.now().strftime("%Y.%m.%d_%H-%M-%S-%f") + '.pdf'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -1225,55 +1242,6 @@ class FoodConsumptionPDFView(LoginRequiredMixin, PDFTemplateView):
             }
             output.append(output_new)
 
-        # output_dedup = []
-        # for daily_menu in daily_menus:
-        #     # for recipe in daily_menu
-        #     dmrs = DailyMenuRecipe.objects.filter(daily_menu=daily_menu).select_related('recipe')
-        #     daily_menu_recipes = []
-        #     for dmr in dmrs:
-        #         ras = RecipeArticle.objects.filter(recipe=dmr.recipe).select_related('article')
-        #         daily_menu_recipe_articles = []
-        #         for ra in ras:
-        #             daily_menu_recipe_article = {
-        #                 "article": ra.article,
-        #                 "amount": round(ra.amount * dmr.amount / ra.recipe.norm_amount, 2),  # konverze amount
-        #                 "unit": ra.unit
-        #             }
-        #             daily_menu_recipe_articles.append(daily_menu_recipe_article)
-        #         daily_menu_recipe = {
-        #             "name": dmr.recipe,
-        #             "amount": dmr.amount,
-        #             "articles": daily_menu_recipe_articles
-        #         }
-        #         daily_menu_recipes.append(daily_menu_recipe)
-        #     output_new = {
-        #         "meal_type": daily_menu.meal_type,
-        #         "recipes": daily_menu_recipes
-        #     }
-        #     # deduplikace dle meal type
-        #     # pak dle receptu, spočíst amount
-        #     # pak dle ingrediencií - spočíst amount
-        #     dup = False
-        #     for dmn in output_dedup:
-        #         if output_new['meal_type'] == dmn['meal_type']:
-        #             dup = True
-        #             print("duplicitaXXX:", output_new['meal_type'])
-        #             dmn['recipes'].append(daily_menu_recipes)
-        #             # add amount to the existing recipe or insert new recipe
-        #             # for recipe in dmn['recipes']:
-        #             #     for recipe_new in output_new['recipes']:
-        #             #         found = False
-        #             #         if recipe['name'] == recipe_new['name']:
-        #             #             found = True
-        #             #             break
-        #             #             # add ingredient amount
-        #             #     if found:
-        #             #         print("same recipe", output_new['meal_type'], recipe['name'], recipe['amount'])
-        #             #     else:
-        #             #         print("adding recipe", output_new['meal_type'], recipe['name'], recipe['amount'])
-        #     if not dup:
-        #         output_dedup.append(output_new)
-
         context['title'] = "Spotřeba potravin dle receptů na den " + date
         context['daily_menus'] = output
         # context['daily_menus_dedup'] = output_dedup
@@ -1294,46 +1262,6 @@ class MonthlyCostsPerMealGroup(LoginRequiredMixin, PDFTemplateView):
         context = super().get_context_data(**kwargs)
         meal_price = StockIssue.objects.annotate(year=TruncMonth(
             'created')).values('year').aggregate(totalPrice=Count('id'))
-        # rok a měsíc, meal group,
-        # group by created month and year
-        # # typ jidla (snidane i bc)
-        # # # recept, počet ks
-        # # # # article, množství
-        # if len(meal_group) == 0:
-        #     daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%d.%m.%Y"))
-        # else:
-        #     daily_menus = DailyMenu.objects.filter(date=datetime.strptime(
-        #         date, "%d.%m.%Y"), meal_group=meal_group)
-        #     context['meal_group_filter'] = "Filtrováno pro skupinu strávníků: " + \
-        #         MealGroup.objects.filter(pk=meal_group).get().meal_group
-
-        # output = []
-        # for daily_menu in daily_menus:
-        #     # for recipe in daily_menu
-        #     dmrs = DailyMenuRecipe.objects.filter(daily_menu=daily_menu).select_related('recipe')
-        #     daily_menu_recipes = []
-        #     for dmr in dmrs:
-        #         ras = RecipeArticle.objects.filter(recipe=dmr.recipe).select_related('article')
-        #         daily_menu_recipe_articles = []
-        #         for ra in ras:
-        #             daily_menu_recipe_article = {
-        #                 "article": ra.article,
-        #                 "amount": round(ra.amount * dmr.amount / ra.recipe.norm_amount, 2),  # konverze amount
-        #                 "unit": ra.unit
-        #             }
-        #             daily_menu_recipe_articles.append(daily_menu_recipe_article)
-        #         daily_menu_recipe = {
-        #             "name": dmr.recipe,
-        #             "amount": dmr.amount,
-        #             "articles": daily_menu_recipe_articles
-        #         }
-        #         daily_menu_recipes.append(daily_menu_recipe)
-        #     output_new = {
-        #         "meal_type": daily_menu.meal_type,
-        #         "recipes": daily_menu_recipes
-        #     }
-        #     output.append(output_new)
-
         context['title'] = "Měsíční cena jídla dle skupiny strávníka"
         context['meal_price'] = meal_price
         return context
@@ -1368,3 +1296,39 @@ class ArticlesNotInRecipesListView(SingleTableMixin, LoginRequiredMixin, ListVie
         articles = Article.objects.exclude(pk__in=articles_on_recipes)
         context['articles'] = articles
         return context
+
+
+class CateringUnitShowView(LoginRequiredMixin, TemplateView):
+    template_name = 'kitchen/report/catering_unit_show.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        date = self.request.GET['date']
+        daily_menu_ids = DailyMenu.objects.filter(date=datetime.strptime(date, "%d.%m.%Y")).values('id')
+        daily_menu_recipes = DailyMenuRecipe.objects.filter(daily_menu__in=daily_menu_ids)
+        recipes = Recipe.objects.filter(id__in=daily_menu_recipes.values('recipe'))
+
+        output = []
+        total_price = 0
+        for recipe in recipes:
+            dmrs = DailyMenuRecipe.objects.filter(daily_menu__in=daily_menu_ids).filter(recipe=recipe).values('recipe').annotate(amount=Sum('amount'))[0]
+            output_new = {
+                "recipe": recipe.recipe,
+                "unit_price": recipe.total_recipe_articles_price,
+                "amount": dmrs['amount'],
+                "total_price": recipe.total_recipe_articles_price * dmrs['amount']
+            }
+            output.append(output_new)
+            total_price += recipe.total_recipe_articles_price * dmrs['amount']
+
+        context['date'] = date
+        context['daily_menu_recipes'] = output
+        context['daily_menu_recipes_total'] = len(output)
+        context['daily_menu_recipes_total_price'] = total_price
+        return context
+
+
+class CateringUnitFilterView(LoginRequiredMixin, CreateView):
+    model = DailyMenu
+    form_class = DailyMenuCateringUnitForm
+    template_name = 'kitchen/report/catering_unit_filter.html'

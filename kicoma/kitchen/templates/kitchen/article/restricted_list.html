@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+  <h4>Seznam zboží na skladu - pro kuchaře</h4>
+  <hr/>
+  <div class="row">
+    {% if filter %}
+    <form method="get" action="" class="col justify-content-end form-inline mb-2">
+      {% csrf_token %}
+      {{ filter.form | crispy }}
+      <button type="submit" class="btn btn-success mx-2">Search</button>
+    </form>
+    {% endif %}
+  </div>
+  {% render_table table %}
+</div>
+{% endblock content %}
