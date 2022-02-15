@@ -1,5 +1,6 @@
 [MASTER]
 load-plugins=pylint_django
+django-settings-module=kicoma.settings.local
 
 [FORMAT]
 max-line-length=120
