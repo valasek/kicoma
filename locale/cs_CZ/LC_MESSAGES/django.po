@@ -68,13 +68,13 @@ msgstr "číselník - DPH"
 #: kicoma/kitchen/models.py:51
 #, fuzzy
 #| msgid "číselník - DPH"
-msgid "číselník - Alergény"
+msgid "číselník - Alergeny"
 msgstr "číselník - DPH"
 
 #: kicoma/kitchen/models.py:52
 #, fuzzy
 #| msgid "číselník - DPH"
-msgid "číselník - Alergén"
+msgid "číselník - Alergen"
 msgstr "číselník - DPH"
 
 #: kicoma/kitchen/models.py:64
@@ -102,7 +102,7 @@ msgid "Zboží"
 msgstr ""
 
 #: kicoma/kitchen/models.py:128
-msgid "Alergény"
+msgid "Alergeny"
 msgstr ""
 
 #: kicoma/kitchen/models.py:134

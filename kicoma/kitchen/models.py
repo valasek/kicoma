@@ -48,11 +48,11 @@ class VAT(models.Model):
 class Allergen(models.Model):
 
     class Meta:
-        verbose_name_plural = _('číselník - Alergény')
-        verbose_name = _('číselník - Alergén')
+        verbose_name_plural = _('číselník - Alergeny')
+        verbose_name = _('číselník - Alergen')
 
-    code = models.CharField(max_length=10, unique=True, verbose_name='Kód', help_text='Kód alergénu')
-    description = models.CharField(max_length=150, unique=True, verbose_name='Název', help_text='Název alergénu')
+    code = models.CharField(max_length=10, unique=True, verbose_name='Kód', help_text='Kód alergenu')
+    description = models.CharField(max_length=150, unique=True, verbose_name='Název', help_text='Název alergenu')
 
     def __str__(self):
         return self.code + ' - ' + self.description
@@ -103,7 +103,7 @@ class Article(TimeStampedModel):
     total_price = models.DecimalField(
         max_digits=8, blank=True, null=True, decimal_places=2,
         default=0, verbose_name='Celková cena s DPH', help_text='Celková cena zboží na skladu')
-    allergen = models.ManyToManyField(Allergen, blank=True, verbose_name='Alergény')
+    allergen = models.ManyToManyField(Allergen, blank=True, verbose_name='Alergeny')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
     history = HistoricalRecords(cascade_delete_history=True)
 
@@ -125,7 +125,7 @@ class Article(TimeStampedModel):
     def display_allergens(self):
         '''Create a string for the Allergens. This is required to display allergen in Admin and user table view.'''
         return ', '.join(allergen.code for allergen in self.allergen.all())
-    display_allergens.short_description = _('Alergény')
+    display_allergens.short_description = _('Alergeny')
 
 
 class Recipe(TimeStampedModel):
@@ -156,6 +156,22 @@ class Recipe(TimeStampedModel):
             total += recipe.total_average_price
         return total
 
+    @classmethod
+    def get_allergens(cls, recipe_id):
+        recipe_articles = RecipeArticle.objects.filter(recipe=recipe_id).select_related('article')
+        allergens = ""
+        # get allergens
+        for ra in recipe_articles:
+            separator = ", "
+            if len(ra.article.display_allergens()) > 0:
+                allergens += ra.article.display_allergens() + separator
+        # remove last separator
+        if allergens.endswith(separator):
+            allergens = allergens[0:len(allergens) - len(separator)]
+        # deduplicate allergens
+        words = allergens.split(separator)
+        allergens = separator.join(sorted(set(set(words)), key=words.index))
+        return allergens if len(allergens) > 0 else '-'
 
 class RecipeArticle(TimeStampedModel):
 

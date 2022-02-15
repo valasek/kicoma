@@ -8,7 +8,7 @@ from .models import Recipe, RecipeArticle, StockReceipt, StockIssue, Article, Da
 
 class ArticleTable(tables.Table):
     average_price = tables.Column(verbose_name='Průměrná jednotková cena s DPH')
-    allergens = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name='Alergény')
+    allergens = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name='Alergeny')
     change = tables.TemplateColumn(
         '''<a href="/kitchen/article/update/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/article/history/{{ record.id }}">Historie</a>
@@ -35,7 +35,7 @@ class ArticleTable(tables.Table):
         return '{} {}'.format(value, record.unit)
 
 class ArticleRestrictedTable(tables.Table):
-    allergens = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name='Alergény')
+    allergens = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name='Alergeny')
     change = tables.TemplateColumn(
         '''<a href="/kitchen/article/restrictedupdate/{{ record.id }}">Upravit</a>''',
         verbose_name=u'Akce', )
@@ -60,6 +60,7 @@ class ArticleFilter(FilterSet):
 
 class RecipeTable(tables.Table):
     total_recipe_articles_price = tables.Column(verbose_name='Cena receptu s DPH')
+    allergens = tables.Column(verbose_name='Alergeny', empty_values=())
     change = tables.TemplateColumn(
         '''<a href="/kitchen/recipe/update/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/recipe/articlelist/{{ record.id }}">Zobrazit ingredience</a>
@@ -72,10 +73,13 @@ class RecipeTable(tables.Table):
         model = Recipe
         template_name = "django_tables2/bootstrap4.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
-        fields = ("recipe", "norm_amount", "total_recipe_articles_price", "comment", "change")
+        fields = ("recipe", "norm_amount", "total_recipe_articles_price", "allergens", "change")
 
-    def render_total_recipe_articles_price(self, value, record):
+    def render_total_recipe_articles_price(self, value):
         return '{} Kč'.format(intcomma(value))
+
+    def render_allergens(self, record):
+        return record.get_allergens(record.id)
 
 
 class RecipeFilter(FilterSet):
