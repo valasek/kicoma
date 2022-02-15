@@ -111,6 +111,7 @@ class RecipeArticleTable(tables.Table):
 
 
 class DailyMenuTable(tables.Table):
+    max_amount_number = tables.Column(verbose_name='Počet porcí', empty_values=())
     change = tables.TemplateColumn(
         '''<a href="/kitchen/dailymenu/update/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/dailymenu/recipelist/{{ record.id }}">Zobrazit recepty</a>
@@ -123,7 +124,10 @@ class DailyMenuTable(tables.Table):
         model = DailyMenu
         template_name = "django_tables2/bootstrap4.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
-        fields = ("date", "meal_group", "meal_type", "comment", "change")
+        fields = ("date", "meal_group", "meal_type", "max_amount_number", "change")
+
+    def render_max_amount_number(self, record):
+        return DailyMenu.max_amount_number(record.id)
 
 
 class DailyMenuFilter(FilterSet):
@@ -170,7 +174,7 @@ class StockIssueTable(tables.Table):
         fields = ("created", "user_created", "approved", "date_approved",
                   "user_approved", "total_price", "comment", "change")
 
-    def render_total_price(self, value, record):
+    def render_total_price(self, value):
         return '{} Kč'.format(intcomma(intcomma(value)))
 
 

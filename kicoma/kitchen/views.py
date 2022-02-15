@@ -54,7 +54,6 @@ from .forms import StockIssueForm, StockIssueSearchForm, StockIssueArticleForm, 
 from .forms import ArticleForm, ArticleRestrictedForm, ArticleSearchForm
 from .forms import DailyMenuSearchForm, DailyMenuPrintForm, DailyMenuForm, DailyMenuRecipeForm
 from .forms import DailyMenuCateringUnitForm
-from .forms import FoodConsumptionPrintForm
 
 from .functions import convertUnits
 
@@ -1184,86 +1183,6 @@ class ShowFoodConsumptionTotalPrice(LoginRequiredMixin, TemplateView):
             stockIssuesReceiptsData(2),
         ]
 
-        return context
-
-
-class FoodConsumptionPDFView(LoginRequiredMixin, PDFTemplateView):
-    template_name = 'kitchen/report/food_consumption_pdf.html'
-    filename = 'Spotreba_potravin.pdf'
-
-    def get(self, request, *args, **kwargs):
-        try:
-            date = request.GET['date']
-            datetime.strptime(date, "%d.%m.%Y")
-        except ValueError as e:
-            messages.warning(self.request, "Chybně zadané datum. Požadovaný formát je dd.mm.rr. Chyba: {}".format(e))
-            return HttpResponseRedirect(reverse_lazy('kitchen:filterFoodConsumption'))
-        return super().get(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        date = self.request.GET['date']
-        meal_group = self.request.GET['meal_group']
-        # typ jidla (snidane i bc)
-        # # recept, počet ks
-        # # # article, množství
-        if len(meal_group) == 0:
-            daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%d.%m.%Y"))
-        else:
-            daily_menus = DailyMenu.objects.filter(date=datetime.strptime(
-                date, "%d.%m.%Y"), meal_group=meal_group)
-            context['meal_group_filter'] = "Filtrováno pro skupinu strávníků: " + \
-                MealGroup.objects.filter(pk=meal_group).get().meal_group
-
-        output = []
-        for daily_menu in daily_menus:
-            # for recipe in daily_menu
-            dmrs = DailyMenuRecipe.objects.filter(daily_menu=daily_menu).select_related('recipe')
-            daily_menu_recipes = []
-            for dmr in dmrs:
-                ras = RecipeArticle.objects.filter(recipe=dmr.recipe).select_related('article')
-                daily_menu_recipe_articles = []
-                for ra in ras:
-                    daily_menu_recipe_article = {
-                        "article": ra.article,
-                        "amount": round(ra.amount * dmr.amount / ra.recipe.norm_amount, 2),  # konverze amount
-                        "unit": ra.unit
-                    }
-                    daily_menu_recipe_articles.append(daily_menu_recipe_article)
-                daily_menu_recipe = {
-                    "name": dmr.recipe,
-                    "amount": dmr.amount,
-                    "articles": daily_menu_recipe_articles
-                }
-                daily_menu_recipes.append(daily_menu_recipe)
-            output_new = {
-                "meal_type": daily_menu.meal_type,
-                "recipes": daily_menu_recipes
-            }
-            output.append(output_new)
-
-        context['title'] = "Spotřeba potravin dle receptů na den " + date
-        context['daily_menus'] = output
-        # context['daily_menus_dedup'] = output_dedup
-        return context
-
-
-class FoodConsumptionPrintView(LoginRequiredMixin, CreateView):
-    model = DailyMenu
-    form_class = FoodConsumptionPrintForm
-    template_name = 'kitchen/report/food_consumption.html'
-
-
-class MonthlyCostsPerMealGroup(LoginRequiredMixin, PDFTemplateView):
-    template_name = 'kitchen/report/monthly_costs_per_meal_group_pdf.html'
-    filename = 'Mesicni_cena_jidla_dle_skupiny_stravnika.pdf'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        meal_price = StockIssue.objects.annotate(year=TruncMonth(
-            'created')).values('year').aggregate(totalPrice=Count('id'))
-        context['title'] = "Měsíční cena jídla dle skupiny strávníka"
-        context['meal_price'] = meal_price
         return context
 
 

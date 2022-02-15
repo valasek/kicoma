@@ -2,7 +2,7 @@ from decimal import Decimal
 import datetime
 
 from django.db import models, transaction
-from django.db.models import Sum, Count, Min
+from django.db.models import Sum, Count, Min, Max
 from django.urls import reverse_lazy
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -197,6 +197,11 @@ class DailyMenu(TimeStampedModel):
 
     def __str__(self):
         return str(self.date) + ' - ' + self.meal_type.meal_type + ' - ' + self.meal_group.meal_group
+
+    @classmethod
+    def max_amount_number(cls, daily_menu_id):
+        dmr = DailyMenuRecipe.objects.filter(daily_menu=daily_menu_id).aggregate(max_amount=Max('amount'))['max_amount']
+        return dmr
 
 
 class DailyMenuRecipe(TimeStampedModel):
