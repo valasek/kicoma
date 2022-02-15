@@ -1231,14 +1231,15 @@ class CateringUnitShowView(LoginRequiredMixin, TemplateView):
         total_price = 0
         for recipe in recipes:
             dmrs = DailyMenuRecipe.objects.filter(daily_menu__in=daily_menu_ids).filter(recipe=recipe).values('recipe').annotate(amount=Sum('amount'))[0]
+            unit_price = recipe.total_recipe_articles_price / recipe.norm_amount
             output_new = {
                 "recipe": recipe.recipe,
-                "unit_price": recipe.total_recipe_articles_price,
+                "unit_price": unit_price,
                 "amount": dmrs['amount'],
-                "total_price": recipe.total_recipe_articles_price * dmrs['amount']
+                "total_price": unit_price * dmrs['amount']
             }
             output.append(output_new)
-            total_price += recipe.total_recipe_articles_price * dmrs['amount']
+            total_price += unit_price * dmrs['amount']
 
         context['date'] = date
         context['daily_menu_recipes'] = output
