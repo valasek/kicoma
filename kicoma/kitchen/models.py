@@ -161,6 +161,7 @@ class Recipe(TimeStampedModel):
         recipe_articles = RecipeArticle.objects.filter(recipe=recipe_id).select_related('article')
         allergens = ""
         # get allergens
+        separator = ", "
         for ra in recipe_articles:
             separator = ", "
             if len(ra.article.display_allergens()) > 0:
@@ -197,6 +198,44 @@ class RecipeArticle(TimeStampedModel):
         return round(convertUnits(self.amount, self.unit, self.article.unit) * self.article.average_price, 2)
 
 
+class Menu(TimeStampedModel):
+
+    class Meta:
+        verbose_name_plural = _('Menu')
+        verbose_name = _('Menu')
+        ordering = ['menu']
+
+    menu = models.CharField(max_length=100, unique=True, verbose_name='menu', help_text='Název menu')
+    meal_type = models.ForeignKey(MealType, on_delete=models.CASCADE, verbose_name='Druh jídla',
+                                help_text='Druh jídla v rámci dne')
+    comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
+
+    def __str__(self):
+        return self.menu
+
+    @property
+    def recipe_count(self):
+        count = MenuRecipe.objects.filter(menu=self.id).aggregate(recipe_count=Count('recipe'))['recipe_count']
+        return count
+
+
+class MenuRecipe(TimeStampedModel):
+
+    class Meta:
+        verbose_name_plural = _('Recepty menu')
+        verbose_name = _('Recepty menu')
+        ordering = ['menu', 'recipe', 'amount']
+
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, verbose_name='Menu')
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept',
+                               help_text='Vybraný recept')
+    amount = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(1000)],
+                                              verbose_name='Porcí', help_text='Počet porcí')
+
+    def __str__(self):
+        return self.recipe.recipe + ' - ' + str(self.amount)
+
+
 class DailyMenu(TimeStampedModel):
 
     class Meta:
@@ -205,6 +244,8 @@ class DailyMenu(TimeStampedModel):
         ordering = ['-date', 'meal_group']
 
     date = models.DateField(verbose_name='Datum', help_text='Datum denního menu ve formátu dd.mm.rrrr')
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True, blank=True, verbose_name = 'Menu',
+                             help_text='Přeber recepty z připraveného menu')
     meal_group = models.ForeignKey(MealGroup, on_delete=models.CASCADE, verbose_name='Skupina strávníka',
                                    help_text='Skupina pro kterou se připravuje jídlo')
     meal_type = models.ForeignKey(MealType, on_delete=models.CASCADE, verbose_name='Druh jídla',
@@ -217,7 +258,7 @@ class DailyMenu(TimeStampedModel):
     @classmethod
     def max_amount_number(cls, daily_menu_id):
         dmr = DailyMenuRecipe.objects.filter(daily_menu=daily_menu_id).aggregate(max_amount=Max('amount'))['max_amount']
-        return dmr
+        return '-' if dmr==None else dmr
 
 
 class DailyMenuRecipe(TimeStampedModel):
@@ -314,11 +355,7 @@ class StockIssue(TimeStampedModel):
     @staticmethod
     def updateStockIssueArticleAverageUnitPrice(stock_issue_id):
         stock_issue_articles = StockIssueArticle.objects.filter(stock_issue_id=stock_issue_id)
-        # print("def updateStockIssueArticleAverageUnitPrice(stock_issue_id):",
-        #       stock_issue_id, len(stock_issue_articles), stock_issue_articles)
         for stock_issue_article in stock_issue_articles:
-            # print(stock_issue_article, "aktualizace z", stock_issue_article.average_unit_price,
-            #       "na", stock_issue_article.article.average_price)
             stock_issue_article.average_unit_price = stock_issue_article.article.average_price
             stock_issue_article.save()
 
@@ -376,8 +413,6 @@ class StockReceipt(TimeStampedModel):
             article = Article.objects.filter(pk=stock_article.article.id).get()
             converted_amount = convertUnits(stock_article.amount, stock_article.unit, article.unit)
             new_total_price = convertUnits(stock_article.total_price_with_vat, stock_article.unit, article.unit)
-            # print("StockReceipt - mnozství: ", article.on_stock, "+", converted_amount,
-            #       " - cena: ", article.total_price, "+", new_total_price)
             article.on_stock += round(converted_amount, 2)
             article.total_price += round(new_total_price, 2)
             article.save()

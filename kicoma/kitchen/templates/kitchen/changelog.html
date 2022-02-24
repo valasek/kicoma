@@ -6,6 +6,18 @@
   <div class="row">
     <div class="col">
       <h5>Poslední změny</h5>
+      24. 2. 2022
+      <ul>
+        <li>Zjednodušení tvorby denního menu pomocí <a href="{% url 'kitchen:showMenus' %}">menu</a>, které má přiřazené recepty a počet porcí.
+          Jak to funguje?
+          <ul>
+            <li>Vytvoř <a href="{% url 'kitchen:createMenu' %}">Nově menu</a>, přidej požadované recepty a množství porcí.</li>
+            <li>Následně, když vytváříš <a href="{% url 'kitchen:createDailyMenu' %}">denní menu</a>, vyber
+              připravené menu a recepty se do denního menu přepíšou automaticky.</li>
+          </ul>
+        </li>
+        <li>Tabulky zobrazují místo 15ti standardně 30 řádků.</li>
+      </ul>
       15. 2. 2022
       <ul>
         <li>Na seznamu receptů se místo sloupce Poznámka zobrazuje sloupec Alergeny, automaticky převzatý z alergenů všech položek receptu.</li>

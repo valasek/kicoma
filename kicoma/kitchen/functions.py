@@ -13,7 +13,6 @@ def convertUnits(number, unitIn, unitOut):
         return number*100
     if unitIn == 'ml' and unitOut == 'l':
         return number/100
-    print('ERROR: chyba konverze', number, unitIn, unitOut)
     raise ValidationError("Není možné provést konverzi {} {} na {}".format(number, unitIn, unitOut))
 
 

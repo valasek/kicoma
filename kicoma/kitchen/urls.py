@@ -20,6 +20,8 @@ from .views import RecipeArticleListView, RecipeArticleCreateView, RecipeArticle
     RecipeArticleDeleteView
 from .views import DailyMenuListView, DailyMenuCreateView, DailyMenuUpdateView, DailyMenuDeleteView, \
     DailyMenuPDFView, DailyMenuPrintView
+from .views import MenuListView, MenuCreateView, MenuUpdateView, MenuDeleteView
+from .views import MenuRecipeListView, MenuRecipeCreateView, MenuRecipeUpdateView, MenuRecipeDeleteView
 from .views import DailyMenuRecipeListView, DailyMenuRecipeCreateView, DailyMenuRecipeUpdateView, \
     DailyMenuRecipeDeleteView
 from .views import IncorrectUnitsListView, ArticlesNotInRecipesListView, ShowFoodConsumptionTotalPrice, \
@@ -101,6 +103,17 @@ urlpatterns = [
     path('dailymenu/deleterecipe/<int:pk>', DailyMenuRecipeDeleteView.as_view(), name='deleteDailyMenuRecipe'),
     path('dailymenu/filterprint', DailyMenuPrintView.as_view(), name='filterPrintDailyMenu'),
     path('dailymenu/print', DailyMenuPDFView.as_view(), name='printDailyMenu'),
+
+
+    path('menu/list', MenuListView.as_view(), name='showMenus'),
+    path('menu/recipelist/<int:pk>', MenuRecipeListView.as_view(), name='showMenuRecipes'),
+    path('menu/create', MenuCreateView.as_view(), name='createMenu'),
+    path('menu/createrecipe/<int:pk>', MenuRecipeCreateView.as_view(), name='createMenuRecipe'),
+    path('menu/update/<int:pk>', MenuUpdateView.as_view(), name='updateMenu'),
+    path('menu/updaterecipe/<int:pk>', MenuRecipeUpdateView.as_view(), name='updateMenuRecipe'),
+    path('menu/delete/<int:pk>', MenuDeleteView.as_view(), name='deleteMenu'),
+    path('menu/deleterecipe/<int:pk>', MenuRecipeDeleteView.as_view(), name='deleteMenuRecipe'),
+
 
     path('report/showFoodConsumptionTotalPrice',
          ShowFoodConsumptionTotalPrice.as_view(), name='showFoodConsumptionTotalPrice'),

@@ -2,7 +2,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
 from .models import StockReceipt, StockIssue, StockIssueArticle, StockReceiptArticle, RecipeArticle, \
-    Article, Recipe, DailyMenu, DailyMenuRecipe
+    Article, Recipe, Menu, MenuRecipe, DailyMenu, DailyMenuRecipe
 
 
 class ArticleForm(forms.ModelForm):
@@ -109,7 +109,32 @@ class RecipeArticleForm(forms.ModelForm):
         )
 
 
-class DailyMenuForm(forms.ModelForm):
+class DailyMenuCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = DailyMenu
+        fields = ["date", "menu", "meal_group", "meal_type", "comment"]
+        # widgets = {
+        #     'date': forms.DateInput(format=('%Y-%m-%d'),
+        #                             attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
+        # }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Column('date', css_class='col-md-2'),
+                Column('menu', css_class='col-md-2'),
+                Column('meal_group', css_class='col-md-2'),
+                Column('meal_type', css_class='col-md-2'),
+                Column('comment', css_class='col-md-4'),
+            )
+        )
+
+
+class DailyMenuEditForm(forms.ModelForm):
 
     class Meta:
         model = DailyMenu
@@ -128,7 +153,7 @@ class DailyMenuForm(forms.ModelForm):
                 Column('date', css_class='col-md-2'),
                 Column('meal_group', css_class='col-md-2'),
                 Column('meal_type', css_class='col-md-2'),
-                Column('comment', css_class='col-md-6'),
+                Column('comment', css_class='col-md-4'),
             )
         )
 
@@ -195,6 +220,43 @@ class DailyMenuRecipeForm(forms.ModelForm):
                 Column('recipe', css_class='col-md-2'),
                 Column('amount', css_class='col-md-2'),
                 Column('comment', css_class='col-md-6'),
+            )
+        )
+
+
+class MenuForm(forms.ModelForm):
+
+    class Meta:
+        model = Menu
+        fields = ["menu", "meal_type", "comment"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Column('menu', css_class='col-md-2'),
+                Column('meal_type', css_class='col-md-2'),
+                Column('comment', css_class='col-md-6'),
+            )
+        )
+
+
+class MenuRecipeForm(forms.ModelForm):
+
+    class Meta:
+        model = MenuRecipe
+        fields = ["recipe", "amount"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            Row(
+                Column('recipe', css_class='col-md-2'),
+                Column('amount', css_class='col-md-2'),
             )
         )
 

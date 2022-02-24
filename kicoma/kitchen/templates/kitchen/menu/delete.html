@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+  <h4>Odstranění menu: {{object.menu}}</h4>
+  <hr/>
+  <p><a href="{% url 'kitchen:showMenus'%}" class="btn btn-secondary mb-2">Zpět na seznam menu</a></p>
+  <form method="post" action="{% url 'kitchen:deleteMenu' pk=object.id %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <p>Skutečně odstranit menu: {{object.menu}}?</p>
+    <button type="submit" class="btn btn-success">Odstranit</button></p>
+  </form>
+</div>
+{% endblock content %}

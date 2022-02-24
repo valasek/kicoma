@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+  <h4>Aktualizace receptu v menu: {{menurecipe_before.menu}}</h4>
+  <hr/>
+  <div class="row">
+    <div class="col-8 justify-content-start d-inline">
+      <a href="{% url 'kitchen:showMenuRecipes' menurecipe_before.menu.id%}"><button class="btn btn-secondary">Zpět na seznam receptů</button></a>
+    </div>
+  </div>
+  <br/>
+  <form method="post" action="{% url 'kitchen:updateMenuRecipe' menurecipe_before.id %}">
+    {% csrf_token %}
+    {% crispy form form.helper %}
+    <button type="submit" class="btn btn-success">Uložit</button>
+  </form>
+</div>
+{% endblock content %}

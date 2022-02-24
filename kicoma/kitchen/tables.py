@@ -3,7 +3,7 @@ from django_filters import FilterSet, CharFilter, DateFilter
 from django.contrib.humanize.templatetags.humanize import intcomma
 
 from .models import Recipe, RecipeArticle, StockReceipt, StockIssue, Article, DailyMenu, \
-    StockIssueArticle, StockReceiptArticle, DailyMenuRecipe
+    Menu, MenuRecipe, StockIssueArticle, StockReceiptArticle, DailyMenuRecipe
 
 
 class ArticleTable(tables.Table):
@@ -152,6 +152,40 @@ class DailyMenuRecipeTable(tables.Table):
 
     class Meta:
         model = DailyMenuRecipe
+        template_name = "django_tables2/bootstrap4.html"
+        attrs = {"class": "table table-striped table-hover table-sm"}
+        fields = ("recipe", "amount", "change")
+
+
+class MenuTable(tables.Table):
+    rc = tables.Column(verbose_name='Počet receptů', empty_values=())
+    change = tables.TemplateColumn(
+        '''<a href="/kitchen/menu/update/{{ record.id }}">Upravit</a>
+        | <a href="/kitchen/menu/recipelist/{{ record.id }}">Zobrazit recepty</a>
+        | <a href="/kitchen/menu/delete/{{ record.id }}">Vymazat</a>
+        ''',
+        verbose_name=u'Akce', )
+
+    class Meta:
+        model = Menu
+        template_name = "django_tables2/bootstrap4.html"
+        attrs = {"class": "table table-striped table-hover table-sm"}
+        fields = ("menu", "meal_type", "rc", "comment", "change")
+
+    def render_rc(self, record):
+        return record.recipe_count
+
+
+class MenuRecipeTable(tables.Table):
+    recipe = tables.Column(linkify=True)
+    change = tables.TemplateColumn(
+        '''<a href="/kitchen/menu/updaterecipe/{{ record.id }}">Upravit</a>
+        | <a href="/kitchen/menu/deleterecipe/{{ record.id }}" >Vymazat</a>
+        ''',
+        verbose_name=u'Akce', )
+
+    class Meta:
+        model = MenuRecipe
         template_name = "django_tables2/bootstrap4.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("recipe", "amount", "change")

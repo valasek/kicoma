@@ -2,7 +2,7 @@ from import_export import resources
 from import_export.admin import ImportExportActionModelAdmin
 from django.contrib import admin
 from . models import StockReceipt, StockIssue, StockIssueArticle, StockReceiptArticle, Allergen, MealType, Recipe, \
-    RecipeArticle, MealGroup, VAT, DailyMenu, Article, DailyMenuRecipe
+    RecipeArticle, MealGroup, VAT, Menu, MenuRecipe, DailyMenu, Article, DailyMenuRecipe
 
 # create import export resources
 
@@ -59,6 +59,22 @@ class ArticleResource(resources.ModelResource):
 
     class Meta:
         model = Article
+        skip_unchanged = True
+        report_skipped = True
+
+
+class MenuResource(resources.ModelResource):
+
+    class Meta:
+        model = Menu
+        skip_unchanged = True
+        report_skipped = True
+
+
+class MenuRecipeResource(resources.ModelResource):
+
+    class Meta:
+        model = MenuRecipe
         skip_unchanged = True
         report_skipped = True
 
@@ -160,8 +176,18 @@ class RecipeArticleAdmin(ImportExportActionModelAdmin):
     resource_class = RecipeArticleResource
 
 
+class MenuAdmin(ImportExportActionModelAdmin):
+    list_display = ('menu', 'meal_type', 'comment')
+    resource_class = MenuResource
+
+
+class MenuRecipeAdmin(ImportExportActionModelAdmin):
+    list_display = ('menu', 'recipe', 'amount')
+    resource_class = MenuRecipeResource
+
+
 class DailyMenuAdmin(ImportExportActionModelAdmin):
-    list_display = ('date', 'meal_group', 'meal_type', 'comment')
+    list_display = ('date','menu', 'meal_group', 'meal_type', 'comment')
     resource_class = DailyMenuResource
 
 
@@ -210,6 +236,8 @@ admin.site.register(MealGroup, MealGroupAdmin)
 admin.site.register(MealType, MealTypeAdmin)
 admin.site.register(RecipeArticle, RecipeArticleAdmin)
 admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(Menu, MenuAdmin)
+admin.site.register(MenuRecipe, MenuRecipeAdmin)
 admin.site.register(DailyMenu, DailyMenuAdmin)
 admin.site.register(DailyMenuRecipe, DailyMenuRecipeAdmin)
 admin.site.register(Article, ArticleAdmin)

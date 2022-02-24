@@ -39,20 +39,20 @@ from tablib import Dataset
 from kicoma.users.models import User
 
 from .models import StockIssueArticle, StockReceiptArticle, Recipe, Allergen, MealType, MealGroup, \
-    VAT, Article, HistoricalArticle, RecipeArticle, StockIssue, StockReceipt, DailyMenu, DailyMenuRecipe
+    VAT, Article, HistoricalArticle, RecipeArticle, StockIssue, StockReceipt, DailyMenu, Menu, MenuRecipe, DailyMenuRecipe
 
 from .tables import StockReceiptTable, StockReceiptArticleTable, StockReceiptFilter
 from .tables import StockIssueTable, StockIssueArticleTable, StockIssueFilter
 from .tables import ArticleTable, ArticleRestrictedTable, ArticleFilter
-from .tables import DailyMenuTable, DailyMenuFilter
-from .tables import DailyMenuRecipeTable
+from .tables import DailyMenuTable, MenuTable, DailyMenuFilter
+from .tables import DailyMenuRecipeTable, MenuRecipeTable
 from .tables import RecipeTable, RecipeFilter, RecipeArticleTable
 
 from .forms import RecipeForm, RecipeArticleForm, RecipeSearchForm
 from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptArticleForm
 from .forms import StockIssueForm, StockIssueSearchForm, StockIssueArticleForm, StockIssueFromDailyMenuForm
 from .forms import ArticleForm, ArticleRestrictedForm, ArticleSearchForm
-from .forms import DailyMenuSearchForm, DailyMenuPrintForm, DailyMenuForm, DailyMenuRecipeForm
+from .forms import DailyMenuSearchForm, DailyMenuPrintForm, MenuForm, MenuRecipeForm, DailyMenuCreateForm, DailyMenuEditForm, DailyMenuRecipeForm
 from .forms import DailyMenuCateringUnitForm
 
 from .functions import convertUnits
@@ -203,7 +203,7 @@ class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     template_name = 'kitchen/article/list.html'
     filterset_class = ArticleFilter
     form_class = ArticleSearchForm
-    paginate_by = 15
+    paginate_by = settings.PAGINATE_BY
 
     def get_context_data(self, **kwargs):
         context = super(ArticleListView, self).get_context_data(**kwargs)
@@ -216,7 +216,7 @@ class ArticleRestrictedListView(SingleTableMixin, LoginRequiredMixin, FilterView
     template_name = 'kitchen/article/restricted_list.html'
     filterset_class = ArticleFilter
     form_class = ArticleSearchForm
-    paginate_by = 15
+    paginate_by = settings.PAGINATE_BY
 
 
 class ArticleLackListView(SingleTableMixin, LoginRequiredMixin, FilterView):
@@ -225,7 +225,7 @@ class ArticleLackListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     template_name = 'kitchen/article/listlack.html'
     filterset_class = ArticleFilter
     form_class = ArticleSearchForm
-    paginate_by = 15
+    paginate_by = settings.PAGINATE_BY
 
     def get_queryset(self):
         # show only articles where
@@ -362,7 +362,7 @@ class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     template_name = 'kitchen/recipe/list.html'
     filterset_class = RecipeFilter
     form_class = RecipeSearchForm
-    paginate_by = 15
+    paginate_by = settings.PAGINATE_BY
 
 
 class RecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -426,7 +426,7 @@ class RecipeArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = RecipeArticle
     table_class = RecipeArticleTable
     template_name = 'kitchen/recipe/listarticles.html'
-    paginate_by = 15
+    paginate_by = settings.PAGINATE_BY
 
     def get_context_data(self, **kwargs):
         context = super(RecipeArticleListView, self).get_context_data(**kwargs)
@@ -524,22 +524,35 @@ class DailyMenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     template_name = 'kitchen/dailymenu/list.html'
     filterset_class = DailyMenuFilter
     form_class = DailyMenuSearchForm
-    paginate_by = 15
+    paginate_by = settings.PAGINATE_BY
 
 
 class DailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = DailyMenu
-    form_class = DailyMenuForm
+    form_class = DailyMenuCreateForm
     template_name = 'kitchen/dailymenu/create.html'
     success_message = "Denní menu pro den %(date)s bylo vytvořeno, přidej recepty"
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showDailyMenuRecipes', kwargs={'pk': self.object.id})
+        return reverse_lazy('kitchen:showDailyMenus')
+
+    def form_valid(self, form):
+        daily_menu = form.save()
+        if form.data['menu']:
+            menu_recipes = MenuRecipe.objects.filter(menu=daily_menu.menu)
+            for menu_recipe in menu_recipes:
+                DailyMenuRecipe.objects.create(
+                    daily_menu=daily_menu,
+                    recipe=menu_recipe.recipe,
+                    amount=menu_recipe.amount,
+                    comment="Recept byl převzatý z menu"
+                )
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class DailyMenuUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = DailyMenu
-    form_class = DailyMenuForm
+    form_class = DailyMenuEditForm
     template_name = 'kitchen/dailymenu/update.html'
     success_message = "Denní menu pro den %(date)s bylo aktualizováno včetně výdejky ke schválení"
     success_url = reverse_lazy('kitchen:showDailyMenus')
@@ -592,11 +605,132 @@ class DailyMenuPrintView(LoginRequiredMixin, CreateView):
     template_name = 'kitchen/dailymenu/print.html'
 
 
+class MenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+    model = Menu
+    table_class = MenuTable
+    template_name = 'kitchen/menu/list.html'
+    paginate_by = settings.PAGINATE_BY
+
+
+class MenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+    model = Menu
+    form_class = MenuForm
+    template_name = 'kitchen/menu/create.html'
+    success_message = "Menu bylo vytvořeno, přidej recepty"
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showMenuRecipes', kwargs={'pk': self.object.id})
+
+
+class MenuUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = Menu
+    form_class = MenuForm
+    template_name = 'kitchen/menu/update.html'
+    success_message = "Menu bylo aktualizováno"
+    success_url = reverse_lazy('kitchen:showMenus')
+
+
+class MenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+    model = Menu
+    fields = "__all__"
+    template_name = 'kitchen/menu/delete.html'
+    success_message = "Menu bylo odstraněno"
+    success_url = reverse_lazy('kitchen:showMenus')
+
+    def delete(self, request, *args, **kwargs):
+        obj = self.get_object()
+        messages.success(self.request, self.success_message % obj.__dict__)
+        return super(MenuDeleteView, self).delete(request, *args, **kwargs)
+
+
+class MenuRecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+    model = MenuRecipe
+    table_class = MenuRecipeTable
+    template_name = 'kitchen/menu/listrecipe.html'
+    paginate_by = settings.PAGINATE_BY
+
+    def get_context_data(self, **kwargs):
+        context = super(MenuRecipeListView, self).get_context_data(**kwargs)
+        context['menu'] = Menu.objects.filter(pk=self.kwargs['pk'])[0]
+        return context
+
+    def get_queryset(self):
+        # show only DailyMeny recipes
+        return super().get_queryset().filter(menu=self.kwargs["pk"])
+
+
+class MenuRecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+    model = MenuRecipe
+    form_class = MenuRecipeForm
+    template_name = 'kitchen/menu/createrecipe.html'
+    success_message = "Recept %(recipe)s byl přidán"
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showMenuRecipes', kwargs={'pk': self.object.menu.id})
+
+    def get_context_data(self, **kwargs):
+        context = super(MenuRecipeCreateView, self).get_context_data(**kwargs)
+        context['menu'] = Menu.objects.filter(pk=self.kwargs['pk']).get()
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        menu = context['menu']
+        menu_recipe = form.save(commit=False)
+        menu_recipe.menu = Menu.objects.filter(pk=menu.id)[0]
+        menu_recipe.save()
+        return super(MenuRecipeCreateView, self).form_valid(form)
+
+
+class MenuRecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = MenuRecipe
+    form_class = MenuRecipeForm
+    template_name = 'kitchen/menu/updaterecipe.html'
+    success_message = "Recet %(recipe)s byl aktualizován"
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showMenuRecipes', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super(MenuRecipeUpdateView, self).get_context_data(**kwargs)
+        context['menurecipe_before'] = MenuRecipe.objects.filter(pk=self.kwargs['pk'])[0]
+        return context
+
+    def form_valid(self, form):
+        menu_recipe = form.save(commit=False)
+        menu_recipe.menu = MenuRecipe.objects.filter(pk=menu_recipe.id)[0].menu
+        menu_recipe.save()
+        self.kwargs = {'pk': menu_recipe.menu.id}
+        return super(MenuRecipeUpdateView, self).form_valid(form)
+
+
+class MenuRecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+    model = MenuRecipe
+    template_name = 'kitchen/menu/deleterecipe.html'
+    success_message = "Recept byl z menu odstraněn"
+    daily_menu_id = 0
+
+    def get_success_url(self):
+        return reverse_lazy('kitchen:showMenuRecipes', kwargs={'pk': self.menu_id})
+
+    def get_context_data(self, **kwargs):
+        context = super(MenuRecipeDeleteView, self).get_context_data(**kwargs)
+        context['menurecipe_before'] = MenuRecipe.objects.filter(pk=self.kwargs['pk']).get()
+        return context
+
+    def delete(self, request, *args, **kwargs):
+        recipe = get_object_or_404(MenuRecipe, pk=self.kwargs['pk'])
+        self.menu_id = recipe.menu.id
+        obj = self.get_object()
+        messages.success(self.request, self.success_message % obj.__dict__)
+        return super(MenuRecipeDeleteView, self).delete(request, *args, **kwargs)
+
+
 class DailyMenuRecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = DailyMenuRecipe
     table_class = DailyMenuRecipeTable
     template_name = 'kitchen/dailymenu/listrecipe.html'
-    paginate_by = 15
+    paginate_by = settings.PAGINATE_BY
 
     def get_context_data(self, **kwargs):
         context = super(DailyMenuRecipeListView, self).get_context_data(**kwargs)
@@ -681,7 +815,7 @@ class StockIssueListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     template_name = 'kitchen/stockissue/list.html'
     filterset_class = StockIssueFilter
     form_class = StockIssueSearchForm
-    paginate_by = 15
+    paginate_by = settings.PAGINATE_BY
 
 
 class StockIssueCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -834,7 +968,7 @@ class StockIssueArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView
     table_class = StockIssueArticleTable
     template_name = 'kitchen/stockissue/listarticles.html'
     table_pagination = False
-    # paginate_by = 15
+    paginate_by = settings.PAGINATE_BY
 
     def get_context_data(self, **kwargs):
         context = super(StockIssueArticleListView, self).get_context_data(**kwargs)
@@ -939,7 +1073,7 @@ class StockReceiptListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     template_name = 'kitchen/stockreceipt/list.html'
     filterset_class = StockReceiptFilter
     form_class = StockReceiptSearchForm
-    paginate_by = 12
+    paginate_by = settings.PAGINATE_BY
 
 
 class StockReceiptCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -1041,7 +1175,6 @@ class StockReceiptArticleListView(SingleTableMixin, LoginRequiredMixin, FilterVi
     table_class = StockReceiptArticleTable
     template_name = 'kitchen/stockreceipt/listarticles.html'
     table_pagination = False
-    # paginate_by = 15
 
     def get_context_data(self, **kwargs):
         context = super(StockReceiptArticleListView, self).get_context_data(**kwargs)
@@ -1063,7 +1196,6 @@ class StockReceiptArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Cre
         return reverse_lazy('kitchen:createStockReceiptArticle', kwargs={'pk': self.kwargs['pk']})
 
     def get_success_message(self, cleaned_data):
-        print(cleaned_data, self.object.total_price_with_vat)
         return self.success_message % dict(
             cleaned_data,
             unit_price=self.object.price_with_vat,

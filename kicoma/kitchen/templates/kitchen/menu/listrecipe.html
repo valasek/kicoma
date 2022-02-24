@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+  <h4>Seznam receptů pro menu: {{menu}}</h4>
+  <hr/>
+  <div class="row">
+    <div class="col-8 justify-content-start d-inline">
+      <a href="{% url 'kitchen:showMenus' %}" class="btn btn-secondary mb-2">Zpět na seznam menu</a>
+      <a href="{% url 'kitchen:createMenuRecipe' menu.id %}" class="btn btn-primary mb-2">Přidat recept</a>
+      Poznámka: {{menu.comment}}
+    </div>
+  </div>
+  {% render_table table %}
+</div>
+{% endblock content %}
