@@ -6,7 +6,6 @@ from contextlib import redirect_stdout
 
 from django.core import management
 from django.core.files.storage import FileSystemStorage
-from django.db.models.aggregates import Aggregate
 
 from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
@@ -18,7 +17,6 @@ from django.conf import settings
 
 from django.db import transaction, connection
 from django.db.models import F, Count, Sum
-from django.db.models.functions import TruncYear, TruncMonth
 
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -64,25 +62,25 @@ logger = logging.getLogger(__name__)
 
 
 def about(request):
-    allergenCount = Allergen.objects.all().count()
-    meal_typeCount = MealType.objects.all().count()
-    mealGroupCount = MealGroup.objects.all().count()
-    vatCount = VAT.objects.all().count()
+    allergen_count = Allergen.objects.all().count()
+    meal_type_count = MealType.objects.all().count()
+    meal_group_count = MealGroup.objects.all().count()
+    vat_count = VAT.objects.all().count()
 
-    recipeCount = Recipe.objects.all().count()
+    recipe_count = Recipe.objects.all().count()
     recipe_article_count = RecipeArticle.objects.all().count()
     article_count = Article.objects.all().count()
     article_allergen_count = Article.objects.all().aggregate(count=Count('allergen'))['count']
     historical_article_count = HistoricalArticle.objects.all().count()
-    stockIssueCount = StockIssue.objects.all().count()
-    stockReceiptCount = StockReceipt.objects.all().count()
+    stock_issue_count = StockIssue.objects.all().count()
+    stock_receipt_count = StockReceipt.objects.all().count()
     stock_issue_article_count = StockIssueArticle.objects.all().count()
     stock_receipt_article_count = StockReceiptArticle.objects.all().count()
-    dailyMenuCount = DailyMenu.objects.all().count()
-    dailyMenuRecipeCount = DailyMenuRecipe.objects.all().count()
+    daily_menu_count = DailyMenu.objects.all().count()
+    daily_menu_recipe_count = DailyMenuRecipe.objects.all().count()
 
-    userCount = User.objects.all().count()
-    groupCount = Group.objects.all().count()
+    user_count = User.objects.all().count()
+    group_count = Group.objects.all().count()
 
     # service tables content
     content_type_count = ContentType.objects.all().count()
@@ -107,34 +105,34 @@ def about(request):
         row = cursor.fetchone()
         user_group_rel_count = row[0]
 
-    total_records = allergenCount + meal_typeCount + mealGroupCount + \
-        vatCount + recipeCount + recipe_article_count + article_count + article_allergen_count + \
-        historical_article_count + stockIssueCount + stockReceiptCount + stock_issue_article_count + \
-        stock_receipt_article_count + dailyMenuCount + dailyMenuRecipeCount + userCount + groupCount + \
+    total_records = allergen_count + meal_type_count + meal_group_count + \
+        vat_count + recipe_count + recipe_article_count + article_count + article_allergen_count + \
+        historical_article_count + stock_issue_count + stock_receipt_count + stock_issue_article_count + \
+        stock_receipt_article_count + daily_menu_count + daily_menu_recipe_count + user_count + group_count + \
         content_type_count + permission_count + migration_count + session_count + site_count + user_group_rel_count
 
     logger.info("processing index")
 
     return render(request, 'kitchen/about.html', {
-        'allergenCount': allergenCount,
-        'meal_typeCount': meal_typeCount,
-        'mealGroupCount': mealGroupCount,
-        'vatCount': vatCount,
+        'allergenCount': allergen_count,
+        'meal_typeCount': meal_type_count,
+        'mealGroupCount': meal_group_count,
+        'vatCount': vat_count,
 
-        'recipeCount': recipeCount,
+        'recipeCount': recipe_count,
         'recipe_article_count': recipe_article_count,
         'article_count': article_count,
         'article_allergen_count': article_allergen_count,
         'historical_article_count': historical_article_count,
-        'stockIssueCount': stockIssueCount,
-        'stockReceiptCount': stockReceiptCount,
+        'stockIssueCount': stock_issue_count,
+        'stockReceiptCount': stock_receipt_count,
         'stock_issue_article_count': stock_issue_article_count,
         'stock_receipt_article_count': stock_receipt_article_count,
-        'dailyMenuCount': dailyMenuCount,
-        'dailyMenuRecipeCount': dailyMenuRecipeCount,
+        'dailyMenuCount': daily_menu_count,
+        'dailyMenuRecipeCount': daily_menu_recipe_count,
 
-        "groupCount": groupCount,
-        "userCount": userCount,
+        "groupCount": group_count,
+        "userCount": user_count,
 
         "content_type_count": content_type_count,
         'permission_count': permission_count,
@@ -156,7 +154,7 @@ def docs(request):
 
 
 @login_required
-def exportData(request):
+def export_data(request):
     file_name = 'data.json'
     with open(file_name, "w") as f:
         management.call_command('dumpdata', 'kitchen', exclude=['contenttypes', 'auth'], stdout=f)
@@ -170,7 +168,7 @@ def exportData(request):
 class ImportDataView(LoginRequiredMixin, TemplateView):
     template_name = 'kitchen/import.html'
 
-    def post(self, request, **kwargs):
+    def post(self, request):
         context = {}
         if len(request.FILES) == 0:
             messages.error(
@@ -210,6 +208,7 @@ class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         context['total_stock_price'] = Article.sum_total_price()
         return context
 
+
 class ArticleRestrictedListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = Article
     table_class = ArticleRestrictedTable
@@ -236,7 +235,7 @@ class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Article
     form_class = ArticleForm
     template_name = 'kitchen/article/create.html'
-    success_message = "SKladová karta %(article)s byla založeno, je možné zadávat příjemky a recepty"
+    success_message = "Skladová karta %(article)s byla založeno, je možné zadávat příjemky a recepty"
     success_url = reverse_lazy('kitchen:showArticles')
 
 
@@ -260,16 +259,15 @@ class ArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = Article
     form_class = ArticleForm
     template_name = 'kitchen/article/delete.html'
-    success_message = "SKladová karta %(article)s byla odstraněna"
+    success_message = "Skladová karta %(article)s byla odstraněna"
     success_url = reverse_lazy('kitchen:showArticles')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         obj = self.get_object()
         recipe_articles = RecipeArticle.objects.filter(article=obj)
-        context['recipe_articles']=recipe_articles
+        context['recipe_articles'] = recipe_articles
         return context
-
 
     def delete(self, request, *args, **kwargs):
         obj = self.get_object()
@@ -297,7 +295,7 @@ class ArticlePDFView(LoginRequiredMixin, PDFTemplateView):
 
 class ArticleExportView(LoginRequiredMixin, View):
 
-    def get(self, *args, **kwargs):
+    def get(self):
         data = ArticleResource().export()
         response = HttpResponse(
             data.xlsx, content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
@@ -686,7 +684,7 @@ class MenuRecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = MenuRecipe
     form_class = MenuRecipeForm
     template_name = 'kitchen/menu/updaterecipe.html'
-    success_message = "Recet %(recipe)s byl aktualizován"
+    success_message = "Recept %(recipe)s byl aktualizován"
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showMenuRecipes', kwargs={'pk': self.kwargs['pk']})
@@ -846,7 +844,7 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
         if len(daily_menus) < 1:
             form.add_error('date', "Pro zadané datum není vytvořeno denní menu")
             return super(StockIssueFromDailyMenuCreateView, self).form_invalid(form)
-        count = StockIssue.createFromDailyMenu(daily_menus, date, self.request.user)
+        count = StockIssue.create_from_daily_menu(daily_menus, date, self.request.user)
         messages.success(
             self.request, 'Výdejka pro den {} vytvořena a vyskladňuje {} druhů zboží'.format(date, count))
         return HttpResponseRedirect(self.success_url)
@@ -879,7 +877,7 @@ class StockIssueRefreshView(LoginRequiredMixin, View):
                 if len(daily_menus) < 1:
                     messages.error('date', "Pro zadané datum není vytvořeno denní menu")
                     return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues'))
-                count = StockIssue.createFromDailyMenu(daily_menus, date, self.request.user)
+                count = StockIssue.create_from_daily_menu(daily_menus, date, self.request.user)
                 messages.success(
                     self.request, "Seznam zboží na výdejce byl aktualizován dle aktuálních receptů na denním menu a vyskladňuje {} druhů zboží".format(count))
         return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues'))
@@ -910,7 +908,7 @@ class StockIssueDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 
 class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, PDFTemplateView):
     template_name = 'kitchen/stockissue/pdf.html'
-    filename = 'Vydejka-' + datetime.now().strftime("%Y.%m.%d_%H-%M-%S-%f") + '.pdf'
+    filename = 'Výdejka-' + datetime.now().strftime("%Y.%m.%d_%H-%M-%S-%f") + '.pdf'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -951,13 +949,13 @@ class StockIssueApproveView(LoginRequiredMixin, TemplateView):
             stock_issue.approved = True
             stock_issue.date_approved = datetime.now()
             stock_issue.user_approved = self.request.user
-            StockIssue.updateStockIssueArticleAverageUnitPrice(stock_issue.id)
-            errors = StockIssue.updateArticleOnStock(stock_issue.id, stock_issue.comment, True)
+            StockIssue.update_stock_issue_article_average_unit_price(stock_issue.id)
+            errors = StockIssue.update_article_on_stock(stock_issue.id, stock_issue.comment, True)
             if errors:
                 errors = "Níže uvedené zboží není možné vyskladnit:<br/>" + errors
                 messages.error(self.request, mark_safe(errors))
                 return HttpResponseRedirect(reverse_lazy('kitchen:approveStockIssue', kwargs={'pk': self.kwargs['pk']}))
-            _ = StockIssue.updateArticleOnStock(stock_issue.id, stock_issue.comment, False)
+            _ = StockIssue.update_article_on_stock(stock_issue.id, stock_issue.comment, False)
             stock_issue.save(update_fields=('approved', 'date_approved', 'user_approved',))
             messages.success(self.request, "Výdejka byla vyskladněna")
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
@@ -1124,7 +1122,7 @@ class StockReceiptDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView
 
 class StockReceiptPDFView(LoginRequiredMixin, PDFTemplateView):
     template_name = 'kitchen/stockreceipt/pdf.html'
-    filename = 'Prijemka.pdf'
+    filename = 'Příjemka.pdf'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -1164,7 +1162,7 @@ class StockReceiptApproveView(LoginRequiredMixin, TemplateView):
             stock_receipt.approved = True
             stock_receipt.date_approved = datetime.now()
             stock_receipt.user_approved = self.request.user
-            StockReceipt.updateArticleOnStock(stock_receipt.id, stock_receipt.comment)
+            StockReceipt.update_article_on_stock(stock_receipt.id, stock_receipt.comment)
             stock_receipt.save(update_fields=('approved', 'date_approved', 'user_approved',))
             messages.success(self.request, "Příjemka byla naskladněna")
         return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
@@ -1362,16 +1360,16 @@ class CateringUnitShowView(LoginRequiredMixin, TemplateView):
         output = []
         total_price = 0
         for recipe in recipes:
-            dmrs = DailyMenuRecipe.objects.filter(daily_menu__in=daily_menu_ids).filter(recipe=recipe).values('recipe').annotate(amount=Sum('amount'))[0]
+            daily_menu_recipes = DailyMenuRecipe.objects.filter(daily_menu__in=daily_menu_ids).filter(recipe=recipe).values('recipe').annotate(amount=Sum('amount'))[0]
             unit_price = recipe.total_recipe_articles_price / recipe.norm_amount
             output_new = {
                 "recipe": recipe.recipe,
                 "unit_price": unit_price,
-                "amount": dmrs['amount'],
-                "total_price": unit_price * dmrs['amount']
+                "amount": daily_menu_recipes['amount'],
+                "total_price": unit_price * daily_menu_recipes['amount']
             }
             output.append(output_new)
-            total_price += unit_price * dmrs['amount']
+            total_price += unit_price * daily_menu_recipes['amount']
 
         context['date'] = date
         context['daily_menu_recipes'] = output

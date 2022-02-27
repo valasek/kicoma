@@ -27,14 +27,14 @@ from .views import DailyMenuRecipeListView, DailyMenuRecipeCreateView, DailyMenu
 from .views import IncorrectUnitsListView, ArticlesNotInRecipesListView, ShowFoodConsumptionTotalPrice, \
     CateringUnitFilterView, CateringUnitShowView
 
-from .views import about, changelog, docs, exportData, ImportDataView, set_language
+from .views import about, changelog, docs, export_data, ImportDataView, set_language
 
 app_name = "kitchen"
 urlpatterns = [
     path('about', about, name='about'),
     path('changelog', changelog, name='changelog'),
     path('docs', docs, name='docs'),
-    path('export', exportData, name='export'),
+    path('export', export_data, name='export'),
     path('import', ImportDataView.as_view(), name='import'),
     path('favicon.ico', RedirectView.as_view(url='/static/images/favicons/favicon.ico')),
     path('lang', set_language, name='lang'),

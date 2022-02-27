@@ -187,7 +187,7 @@ class MenuRecipeAdmin(ImportExportActionModelAdmin):
 
 
 class DailyMenuAdmin(ImportExportActionModelAdmin):
-    list_display = ('date','menu', 'meal_group', 'meal_type', 'comment')
+    list_display = ('date', 'menu', 'meal_group', 'meal_type', 'comment')
     resource_class = DailyMenuResource
 
 

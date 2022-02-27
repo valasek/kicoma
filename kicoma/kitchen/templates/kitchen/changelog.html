@@ -6,6 +6,13 @@
   <div class="row">
     <div class="col">
       <h5>Poslední změny</h5>
+      27. 2. 2022
+      <ul>
+        <li>Pro nově vytvořené výdejky:<br/>
+          Když se vytváří výdejka a na skladu je 0 jednotek zboží, na výdejku se do "Jednotková cena s DPH" použije poslední naskladněná cena.<br/>
+          Z tohoto důvodu se na skladě zobrazuje "Průměrná jednotková cena s DPH" i když je "Na skladu" 0 jednotek zboží.
+        </li>
+      </ul>
       24. 2. 2022
       <ul>
         <li>Zjednodušení tvorby denního menu pomocí <a href="{% url 'kitchen:showMenus' %}">menu</a>, které má přiřazené recepty a počet porcí.

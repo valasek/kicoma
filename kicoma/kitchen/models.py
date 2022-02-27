@@ -31,7 +31,6 @@ class TimeStampedModel(models.Model):
 
 
 class VAT(models.Model):
-
     class Meta:
         verbose_name_plural = _('číselník - DPH')
         verbose_name = _('číselník - DPH')
@@ -46,7 +45,6 @@ class VAT(models.Model):
 
 
 class Allergen(models.Model):
-
     class Meta:
         verbose_name_plural = _('číselník - Alergeny')
         verbose_name = _('číselník - Alergen')
@@ -59,7 +57,6 @@ class Allergen(models.Model):
 
 
 class MealGroup(models.Model):
-
     class Meta:
         verbose_name_plural = _('číselník - Skupiny strávníků')
         verbose_name = _('číselník - Skupina strávníků')
@@ -72,7 +69,6 @@ class MealGroup(models.Model):
 
 
 class MealType(models.Model):
-
     class Meta:
         verbose_name_plural = _('číselník - Druhy jídla')
         verbose_name = _('číselník - Druh jídla')
@@ -85,7 +81,6 @@ class MealType(models.Model):
 
 
 class Article(TimeStampedModel):
-
     class Meta:
         verbose_name_plural = _('Zboží')
         verbose_name = _('Zboží')
@@ -110,26 +105,31 @@ class Article(TimeStampedModel):
     def __str__(self):
         return self.article
 
-    # average unit price with VAT
+    # average unit price with VAT or last unit price with vat from stockreceipt
     @property
     def average_price(self):
         if self.on_stock != 0:
             return round(self.total_price / self.on_stock, 2)
-        return 0
+        else:
+            stock_receipt_article = StockReceiptArticle.objects.filter(article__id=self.id)
+            if len(stock_receipt_article) == 0:
+                return 0
+            else:
+                return stock_receipt_article[0].price_with_vat
 
     @staticmethod
     def sum_total_price():
         sum_price = Article.objects.aggregate(total_price=Sum('total_price'))['total_price']
         return 0 if sum_price is None else round(sum_price, 2)
 
+    '''Create a string for the Allergens. This is required to display allergen in Admin and user table view.'''
     def display_allergens(self):
-        '''Create a string for the Allergens. This is required to display allergen in Admin and user table view.'''
         return ', '.join(allergen.code for allergen in self.allergen.all())
+
     display_allergens.short_description = _('Alergeny')
 
 
 class Recipe(TimeStampedModel):
-
     class Meta:
         verbose_name_plural = _('Recepty')
         verbose_name = _('Recept')
@@ -174,8 +174,8 @@ class Recipe(TimeStampedModel):
         allergens = separator.join(sorted(set(set(words)), key=words.index))
         return allergens if len(allergens) > 0 else '-'
 
-class RecipeArticle(TimeStampedModel):
 
+class RecipeArticle(TimeStampedModel):
     class Meta:
         verbose_name_plural = _('Suroviny v receptu')
         verbose_name = _('Surovina v receptu')
@@ -199,7 +199,6 @@ class RecipeArticle(TimeStampedModel):
 
 
 class Menu(TimeStampedModel):
-
     class Meta:
         verbose_name_plural = _('Menu')
         verbose_name = _('Menu')
@@ -207,7 +206,7 @@ class Menu(TimeStampedModel):
 
     menu = models.CharField(max_length=100, unique=True, verbose_name='menu', help_text='Název menu')
     meal_type = models.ForeignKey(MealType, on_delete=models.CASCADE, verbose_name='Druh jídla',
-                                help_text='Druh jídla v rámci dne')
+                                  help_text='Druh jídla v rámci dne')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
@@ -220,7 +219,6 @@ class Menu(TimeStampedModel):
 
 
 class MenuRecipe(TimeStampedModel):
-
     class Meta:
         verbose_name_plural = _('Recepty menu')
         verbose_name = _('Recepty menu')
@@ -237,14 +235,13 @@ class MenuRecipe(TimeStampedModel):
 
 
 class DailyMenu(TimeStampedModel):
-
     class Meta:
         verbose_name_plural = _('Denní menu')
         verbose_name = _('Denní menu')
         ordering = ['-date', 'meal_group']
 
     date = models.DateField(verbose_name='Datum', help_text='Datum denního menu ve formátu dd.mm.rrrr')
-    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True, blank=True, verbose_name = 'Menu',
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Menu',
                              help_text='Přeber recepty z připraveného menu')
     meal_group = models.ForeignKey(MealGroup, on_delete=models.CASCADE, verbose_name='Skupina strávníka',
                                    help_text='Skupina pro kterou se připravuje jídlo')
@@ -258,11 +255,10 @@ class DailyMenu(TimeStampedModel):
     @classmethod
     def max_amount_number(cls, daily_menu_id):
         dmr = DailyMenuRecipe.objects.filter(daily_menu=daily_menu_id).aggregate(max_amount=Max('amount'))['max_amount']
-        return '-' if dmr==None else dmr
+        return '-' if dmr is None else dmr
 
 
 class DailyMenuRecipe(TimeStampedModel):
-
     class Meta:
         verbose_name_plural = _('Recepty denního menu')
         verbose_name = _('Recepty denního menu')
@@ -280,18 +276,17 @@ class DailyMenuRecipe(TimeStampedModel):
 
 
 class StockIssue(TimeStampedModel):
-
     class Meta:
         verbose_name_plural = _('Výdejky')
         verbose_name = _('Výdejka')
         ordering = ['-created']
 
     user_created = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-                                     related_name='usicreated', verbose_name='Vytvořil')
+                                     related_name='user_is_created', verbose_name='Vytvořil')
     approved = models.BooleanField(default=False, blank=True, null=True, verbose_name='Vyskladněno')
     date_approved = models.DateField(blank=True, null=True, verbose_name='Datum vyskladnění')
     user_approved = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True,
-                                      related_name='usiapproved', verbose_name='Vyskladnil')
+                                      related_name='user_is_approved', verbose_name='Vyskladnil')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
@@ -302,11 +297,13 @@ class StockIssue(TimeStampedModel):
         stock_issue_articles = StockIssueArticle.objects.filter(stock_issue=self.id)
         return round(totalRecipeArticlePrice(stock_issue_articles, 1), 2)
 
-    def consolidateByArticle(self):
+    def consolidate_by_article(self):
         # select all articles where count > 1
         # group by article_id and sum amount and average_unit_price
         articles_to_consolidate = StockIssueArticle.objects.filter(
-            stock_issue_id=self.pk).values('article_id').annotate(average_unit_price=Min('average_unit_price'), total=Count('article_id'), sumAmount=Sum('amount')).filter(total__gt=1)
+            stock_issue_id=self.pk).values('article_id').annotate(average_unit_price=Min('average_unit_price'),
+                                                                  total=Count('article_id'),
+                                                                  sumAmount=Sum('amount')).filter(total__gt=1)
         article_ids = []
         for article in articles_to_consolidate:
             article_ids.append(article['article_id'])
@@ -326,7 +323,7 @@ class StockIssue(TimeStampedModel):
         return len(StockIssueArticle.objects.filter(stock_issue_id=self.pk))
 
     @staticmethod
-    def createFromDailyMenu(daily_menus, date, user):
+    def create_from_daily_menu(daily_menus, date, user):
         with transaction.atomic():
             # save the StockIssue
             stock_issue = StockIssue(comment="Pro " + date, user_created=user)
@@ -336,10 +333,10 @@ class StockIssue(TimeStampedModel):
             for daily_menu_recipe in daily_menu_recipes:
                 recipe_articles = RecipeArticle.objects.filter(recipe_id=daily_menu_recipe.recipe_id)
                 for recipe_article in recipe_articles:
-                    # get the coeficient between daily menu amount and recipe amount
-                    recipe_article_coeficient = Decimal(daily_menu_recipe.amount / recipe_article.recipe.norm_amount)
+                    # get the coefficient between daily menu amount and recipe amount
+                    recipe_article_coefficient = Decimal(daily_menu_recipe.amount / recipe_article.recipe.norm_amount)
                     recipe_article_amount = convertUnits(recipe_article.amount, recipe_article.unit,
-                                                         recipe_article.article.unit) * recipe_article_coeficient
+                                                         recipe_article.article.unit) * recipe_article_coefficient
                     stock_issue_article = StockIssueArticle(
                         stock_issue=stock_issue,
                         article=recipe_article.article,
@@ -349,18 +346,18 @@ class StockIssue(TimeStampedModel):
                         comment=""
                     )
                     stock_issue_article.save()
-            count = stock_issue.consolidateByArticle()
+            count = stock_issue.consolidate_by_article()
         return count
 
     @staticmethod
-    def updateStockIssueArticleAverageUnitPrice(stock_issue_id):
+    def update_stock_issue_article_average_unit_price(stock_issue_id):
         stock_issue_articles = StockIssueArticle.objects.filter(stock_issue_id=stock_issue_id)
         for stock_issue_article in stock_issue_articles:
             stock_issue_article.average_unit_price = stock_issue_article.article.average_price
             stock_issue_article.save()
 
     @staticmethod
-    def updateArticleOnStock(stock_id, comment, fake):
+    def update_article_on_stock(stock_id, comment, fake):
         stock_articles = StockIssueArticle.objects.filter(stock_issue=stock_id)
         messages = ''
         for stock_article in stock_articles:
@@ -380,7 +377,6 @@ class StockIssue(TimeStampedModel):
 
 
 class StockReceipt(TimeStampedModel):
-
     class Meta:
         verbose_name_plural = _('Příjemky')
         verbose_name = _('Příjemka')
@@ -388,11 +384,11 @@ class StockReceipt(TimeStampedModel):
 
     date_created = models.DateField(default=datetime.date.today, verbose_name='Datum založení')
     user_created = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-                                     related_name='usrcreated', verbose_name='Vytvořil')
+                                     related_name='user_created', verbose_name='Vytvořil')
     approved = models.BooleanField(default=False, blank=True, null=True, verbose_name='Naskladněno')
     date_approved = models.DateField(blank=True, null=True, verbose_name='Datum naskladnění')
     user_approved = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True,
-                                      related_name='usrapproved', verbose_name='Naskladnil')
+                                      related_name='user_approved', verbose_name='Naskladnil')
     comment = models.CharField(max_length=200, blank=True, null=True, verbose_name='Poznámka')
 
     def __str__(self):
@@ -407,7 +403,7 @@ class StockReceipt(TimeStampedModel):
         return round(total_price, 2)
 
     @staticmethod
-    def updateArticleOnStock(stock_id, comment):
+    def update_article_on_stock(stock_id, comment):
         stock_articles = StockReceiptArticle.objects.filter(stock_receipt=stock_id)
         for stock_article in stock_articles:
             article = Article.objects.filter(pk=stock_article.article.id).get()
@@ -420,7 +416,6 @@ class StockReceipt(TimeStampedModel):
 
 
 class StockIssueArticle(TimeStampedModel):
-
     class Meta:
         verbose_name_plural = _('Zboží na výdejce')
         verbose_name = _('Zboží na výdejce')
@@ -454,7 +449,6 @@ class StockIssueArticle(TimeStampedModel):
 
 
 class StockReceiptArticle(TimeStampedModel):
-
     class Meta:
         verbose_name_plural = _('Zboží na příjemce')
         verbose_name = _('Zboží na příjemce')
@@ -473,7 +467,7 @@ class StockReceiptArticle(TimeStampedModel):
     @property
     def price_with_vat(self):
         if self.price_without_vat is not None and self.vat.percentage is not None:
-            return self.price_without_vat + self.price_without_vat * self.vat.percentage/100
+            return self.price_without_vat + self.price_without_vat * self.vat.percentage / 100
         return 0
 
     @property
