@@ -37,7 +37,8 @@ from tablib import Dataset
 from kicoma.users.models import User
 
 from .models import StockIssueArticle, StockReceiptArticle, Recipe, Allergen, MealType, MealGroup, \
-    VAT, Article, HistoricalArticle, RecipeArticle, StockIssue, StockReceipt, DailyMenu, Menu, MenuRecipe, DailyMenuRecipe
+    VAT, Article, HistoricalArticle, RecipeArticle, StockIssue, StockReceipt, DailyMenu, Menu, MenuRecipe, \
+    DailyMenuRecipe
 
 from .tables import StockReceiptTable, StockReceiptArticleTable, StockReceiptFilter
 from .tables import StockIssueTable, StockIssueArticleTable, StockIssueFilter
@@ -50,10 +51,11 @@ from .forms import RecipeForm, RecipeArticleForm, RecipeSearchForm
 from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptArticleForm
 from .forms import StockIssueForm, StockIssueSearchForm, StockIssueArticleForm, StockIssueFromDailyMenuForm
 from .forms import ArticleForm, ArticleRestrictedForm, ArticleSearchForm
-from .forms import DailyMenuSearchForm, DailyMenuPrintForm, MenuForm, MenuRecipeForm, DailyMenuCreateForm, DailyMenuEditForm, DailyMenuRecipeForm
+from .forms import DailyMenuSearchForm, DailyMenuPrintForm, MenuForm, MenuRecipeForm, DailyMenuCreateForm, \
+                   DailyMenuEditForm, DailyMenuRecipeForm
 from .forms import DailyMenuCateringUnitForm
 
-from .functions import convertUnits
+from .functions import convert_units
 
 from .admin import ArticleResource
 
@@ -66,7 +68,6 @@ def about(request):
     meal_type_count = MealType.objects.all().count()
     meal_group_count = MealGroup.objects.all().count()
     vat_count = VAT.objects.all().count()
-
     recipe_count = Recipe.objects.all().count()
     recipe_article_count = RecipeArticle.objects.all().count()
     article_count = Article.objects.all().count()
@@ -432,7 +433,7 @@ class RecipeArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         return context
 
     def get_queryset(self):
-        # show only recipe ingedients
+        # show only recipe ingredients
         return super().get_queryset().filter(recipe=self.kwargs["pk"])
 
 
@@ -456,8 +457,8 @@ class RecipeArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateVie
         recipe = context['recipe']
         recipe_article = form.save(commit=False)
         try:
-            convertUnits(recipe_article.amount,
-                         recipe_article.unit, recipe_article.article.unit)
+            convert_units(recipe_article.amount,
+                          recipe_article.unit, recipe_article.article.unit)
         except ValidationError as err:
             messages.warning(self.request, err.message)
             return super(RecipeArticleCreateView, self).form_invalid(form)
@@ -483,8 +484,8 @@ class RecipeArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateVie
     def form_valid(self, form):
         recipe_article = form.save(commit=False)
         try:
-            convertUnits(recipe_article.amount,
-                         recipe_article.unit, recipe_article.article.unit)
+            convert_units(recipe_article.amount,
+                          recipe_article.unit, recipe_article.article.unit)
         except ValidationError as err:
             messages.warning(self.request, err.message)
             return super(RecipeArticleUpdateView, self).form_invalid(form)
@@ -567,6 +568,7 @@ class DailyMenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
         obj = self.get_object()
         messages.success(self.request, self.success_message % obj.__dict__)
         return super(DailyMenuDeleteView, self).delete(request, *args, **kwargs)
+
 
 class DailyMenuPDFView(LoginRequiredMixin, PDFTemplateView):
     template_name = 'kitchen/dailymenu/pdf.html'
@@ -997,8 +999,8 @@ class StockIssueArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Creat
         stock_issue = context['stockissue']
         stock_issue_article = form.save(commit=False)
         try:
-            convertUnits(stock_issue_article.amount,
-                         stock_issue_article.unit, stock_issue_article.article.unit)
+            convert_units(stock_issue_article.amount,
+                          stock_issue_article.unit, stock_issue_article.article.unit)
         except ValidationError as err:
             messages.warning(self.request, err.message)
             return super(StockIssueArticleCreateView, self).form_invalid(form)
@@ -1029,8 +1031,8 @@ class StockIssueArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Updat
     def form_valid(self, form):
         stock_issue_article = form.save(commit=False)
         try:
-            convertUnits(stock_issue_article.amount,
-                         stock_issue_article.unit, stock_issue_article.article.unit)
+            convert_units(stock_issue_article.amount,
+                          stock_issue_article.unit, stock_issue_article.article.unit)
         except ValidationError as err:
             messages.warning(self.request, err.message)
             return super(StockIssueArticleUpdateView, self).form_invalid(form)
@@ -1210,8 +1212,8 @@ class StockReceiptArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Cre
         stock_receipt = context['stockreceipt']
         stock_receipt_article = form.save(commit=False)
         try:
-            convertUnits(stock_receipt_article.amount,
-                         stock_receipt_article.unit, stock_receipt_article.article.unit)
+            convert_units(stock_receipt_article.amount,
+                          stock_receipt_article.unit, stock_receipt_article.article.unit)
         except ValidationError as err:
             messages.warning(self.request, err.message)
             return super(StockReceiptArticleCreateView, self).form_invalid(form)
@@ -1241,8 +1243,8 @@ class StockReceiptArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Upd
     def form_valid(self, form):
         stock_receipt_article = form.save(commit=False)
         try:
-            convertUnits(stock_receipt_article.amount,
-                         stock_receipt_article.unit, stock_receipt_article.article.unit)
+            convert_units(stock_receipt_article.amount,
+                          stock_receipt_article.unit, stock_receipt_article.article.unit)
         except ValidationError as err:
             messages.warning(self.request, err.message)
             return super(StockReceiptArticleUpdateView, self).form_invalid(form)
@@ -1277,7 +1279,7 @@ class StockReceiptArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, Del
         return super(StockReceiptArticleDeleteView, self).delete(request, *args, **kwargs)
 
 
-def stockIssuesReceiptsData(month):
+def stock_issues_receipts_data(month):
     month = datetime.now() + relativedelta.relativedelta(months=-month)
     month_year = month.year
     month_month = month.month
@@ -1308,9 +1310,9 @@ class ShowFoodConsumptionTotalPrice(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
 
         context['all_data'] = [
-            stockIssuesReceiptsData(0),
-            stockIssuesReceiptsData(1),
-            stockIssuesReceiptsData(2),
+            stock_issues_receipts_data(0),
+            stock_issues_receipts_data(1),
+            stock_issues_receipts_data(2),
         ]
 
         return context
@@ -1328,8 +1330,8 @@ class IncorrectUnitsListView(SingleTableMixin, LoginRequiredMixin, ListView):
             recipe_articles = RecipeArticle.objects.filter(recipe=recipe)
             for recipe_article in recipe_articles:
                 try:
-                    convertUnits(recipe_article.amount,
-                                 recipe_article.unit, recipe_article.article.unit)
+                    convert_units(recipe_article.amount,
+                                  recipe_article.unit, recipe_article.article.unit)
                 except ValidationError:
                     incorrect_recipes.add(recipe.pk)
         return Recipe.objects.filter(pk__in=incorrect_recipes)
@@ -1360,7 +1362,9 @@ class CateringUnitShowView(LoginRequiredMixin, TemplateView):
         output = []
         total_price = 0
         for recipe in recipes:
-            daily_menu_recipes = DailyMenuRecipe.objects.filter(daily_menu__in=daily_menu_ids).filter(recipe=recipe).values('recipe').annotate(amount=Sum('amount'))[0]
+            daily_menu_recipes = DailyMenuRecipe.objects.filter(
+                daily_menu__in=daily_menu_ids
+            ).filter(recipe=recipe).values('recipe').annotate(amount=Sum('amount'))[0]
             unit_price = recipe.total_recipe_articles_price / recipe.norm_amount
             output_new = {
                 "recipe": recipe.recipe,

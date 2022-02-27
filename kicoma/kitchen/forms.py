@@ -184,6 +184,7 @@ class DailyMenuPrintForm(forms.ModelForm):
             )
         )
 
+
 class DailyMenuCateringUnitForm(forms.ModelForm):
 
     class Meta:

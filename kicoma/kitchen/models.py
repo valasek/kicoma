@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
 from simple_history.utils import update_change_reason
 
-from .functions import convertUnits, totalRecipeArticlePrice
+from .functions import convert_units, total_recipe_article_price
 
 UNIT = (
     ('kg', _('kg')),
@@ -195,7 +195,7 @@ class RecipeArticle(TimeStampedModel):
 
     @property
     def total_average_price(self):
-        return round(convertUnits(self.amount, self.unit, self.article.unit) * self.article.average_price, 2)
+        return round(convert_units(self.amount, self.unit, self.article.unit) * self.article.average_price, 2)
 
 
 class Menu(TimeStampedModel):
@@ -295,7 +295,7 @@ class StockIssue(TimeStampedModel):
     @property
     def total_price(self):
         stock_issue_articles = StockIssueArticle.objects.filter(stock_issue=self.id)
-        return round(totalRecipeArticlePrice(stock_issue_articles, 1), 2)
+        return round(total_recipe_article_price(stock_issue_articles, 1), 2)
 
     def consolidate_by_article(self):
         # select all articles where count > 1
@@ -335,8 +335,8 @@ class StockIssue(TimeStampedModel):
                 for recipe_article in recipe_articles:
                     # get the coefficient between daily menu amount and recipe amount
                     recipe_article_coefficient = Decimal(daily_menu_recipe.amount / recipe_article.recipe.norm_amount)
-                    recipe_article_amount = convertUnits(recipe_article.amount, recipe_article.unit,
-                                                         recipe_article.article.unit) * recipe_article_coefficient
+                    recipe_article_amount = convert_units(recipe_article.amount, recipe_article.unit,
+                                                          recipe_article.article.unit) * recipe_article_coefficient
                     stock_issue_article = StockIssueArticle(
                         stock_issue=stock_issue,
                         article=recipe_article.article,
@@ -362,13 +362,13 @@ class StockIssue(TimeStampedModel):
         messages = ''
         for stock_article in stock_articles:
             article = Article.objects.filter(pk=stock_article.article.id).get()
-            converted_amount = convertUnits(stock_article.amount, stock_article.unit, article.unit)
+            converted_amount = convert_units(stock_article.amount, stock_article.unit, article.unit)
             if article.on_stock < 0 or article.on_stock - converted_amount < 0:
                 messages += "{} - na výdejce {}, na skladu {}<br/>".format(
                     stock_article.article, converted_amount, article.on_stock)
             if not fake:
-                new_total_price = convertUnits(stock_article.total_average_price_with_vat, stock_article.unit,
-                                               article.unit)
+                new_total_price = convert_units(stock_article.total_average_price_with_vat, stock_article.unit,
+                                                article.unit)
                 article.on_stock -= round(converted_amount, 2)
                 article.total_price -= round(new_total_price, 2)
                 article.save()
@@ -407,8 +407,8 @@ class StockReceipt(TimeStampedModel):
         stock_articles = StockReceiptArticle.objects.filter(stock_receipt=stock_id)
         for stock_article in stock_articles:
             article = Article.objects.filter(pk=stock_article.article.id).get()
-            converted_amount = convertUnits(stock_article.amount, stock_article.unit, article.unit)
-            new_total_price = convertUnits(stock_article.total_price_with_vat, stock_article.unit, article.unit)
+            converted_amount = convert_units(stock_article.amount, stock_article.unit, article.unit)
+            new_total_price = convert_units(stock_article.total_price_with_vat, stock_article.unit, article.unit)
             article.on_stock += round(converted_amount, 2)
             article.total_price += round(new_total_price, 2)
             article.save()
@@ -432,7 +432,7 @@ class StockIssueArticle(TimeStampedModel):
     @property
     def total_average_price_with_vat(self):
         if self.amount is not None and self.average_unit_price is not None:
-            return round(self.average_unit_price * convertUnits(self.amount, self.unit, self.article.unit), 2)
+            return round(self.average_unit_price * convert_units(self.amount, self.unit, self.article.unit), 2)
         return 0
 
     # def clean(self):
@@ -473,7 +473,7 @@ class StockReceiptArticle(TimeStampedModel):
     @property
     def total_price_with_vat(self):
         if self.price_with_vat is not None and self.amount is not None:
-            return round(self.price_with_vat * convertUnits(self.amount, self.unit, self.article.unit), 2)
+            return round(self.price_with_vat * convert_units(self.amount, self.unit, self.article.unit), 2)
         return 0
 
     def __str__(self):

@@ -22,16 +22,20 @@ class ArticleTable(tables.Table):
         fields = ("article", "on_stock", "min_on_stock", "average_price",
                   "total_price", "allergens", "comment", "change")
 
-    def render_average_price(self, value, record):
+    @staticmethod
+    def render_average_price(value, record):
         return '{} Kč / {}'.format(intcomma(value), record.unit)
 
-    def render_total_price(self, value):
+    @staticmethod
+    def render_total_price(value):
         return '{} Kč'.format(intcomma(value))
 
-    def render_on_stock(self, value, record):
+    @staticmethod
+    def render_on_stock(value, record):
         return '{} {}'.format(value, record.unit)
 
-    def render_min_on_stock(self, value, record):
+    @staticmethod
+    def render_min_on_stock(value, record):
         return '{} {}'.format(value, record.unit)
 
 
@@ -47,7 +51,8 @@ class ArticleRestrictedTable(tables.Table):
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("article", "unit", "min_on_stock", "allergen", "comment", "change")
 
-    def render_min_on_stock(self, value, record):
+    @staticmethod
+    def render_min_on_stock(value, record):
         return '{} {}'.format(value, record.unit)
 
 
@@ -76,10 +81,12 @@ class RecipeTable(tables.Table):
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("recipe", "norm_amount", "total_recipe_articles_price", "allergens", "change")
 
-    def render_total_recipe_articles_price(self, value):
+    @staticmethod
+    def render_total_recipe_articles_price(value):
         return '{} Kč'.format(intcomma(value))
 
-    def render_allergens(self, record):
+    @staticmethod
+    def render_allergens(record):
         return record.get_allergens(record.id)
 
 
@@ -105,13 +112,16 @@ class RecipeArticleTable(tables.Table):
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("article", "amount", "total_average_price", "comment", "change")
 
-    def render_amount(self, value, record):
+    @staticmethod
+    def render_amount(value, record):
         return '{} {}'.format(value, record.unit)
 
-    def render_average_price(self, value, record):
+    @staticmethod
+    def render_average_price(value, record):
         return '{} Kč / {}'.format(intcomma(value), record.article.unit)
 
-    def render_total_average_price(self, value):
+    @staticmethod
+    def render_total_average_price(value):
         return '{} Kč'.format(intcomma(value))
 
 
@@ -131,7 +141,8 @@ class DailyMenuTable(tables.Table):
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("date", "meal_group", "meal_type", "max_amount_number", "change")
 
-    def render_max_amount_number(self, record):
+    @staticmethod
+    def render_max_amount_number(record):
         return DailyMenu.max_amount_number(record.id)
 
 
@@ -173,7 +184,8 @@ class MenuTable(tables.Table):
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("menu", "meal_type", "rc", "comment", "change")
 
-    def render_rc(self, record):
+    @staticmethod
+    def render_rc(record):
         return record.recipe_count
 
 
@@ -213,7 +225,8 @@ class StockIssueTable(tables.Table):
         fields = ("created", "user_created", "approved", "date_approved",
                   "user_approved", "total_price", "comment", "change")
 
-    def render_total_price(self, value):
+    @staticmethod
+    def render_total_price(value):
         return '{} Kč'.format(intcomma(intcomma(value)))
 
 
@@ -238,13 +251,16 @@ class StockIssueArticleTable(tables.Table):
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("article", "amount", "average_unit_price", "total_average_price_with_vat", "change")
 
-    def render_amount(self, value, record):
+    @staticmethod
+    def render_amount(value, record):
         return '{} {}'.format(value, record.unit)
 
-    def render_average_unit_price(self, value, record):
+    @staticmethod
+    def render_average_unit_price(value, record):
         return '{} Kč / {}'.format(intcomma(value), record.article.unit)
 
-    def render_total_average_price_with_vat(self, value, record):
+    @staticmethod
+    def render_total_average_price_with_vat(value):
         return '{} Kč'.format(intcomma(value))
 
 
@@ -265,7 +281,8 @@ class StockReceiptTable(tables.Table):
         fields = ("date_created", "user_created", "approved", "date_approved",
                   "user_approved", "total_price", "comment", "change")
 
-    def render_total_price(self, value, record):
+    @staticmethod
+    def render_total_price(value):
         return '{} Kč'.format(intcomma(value))
 
 
@@ -293,14 +310,18 @@ class StockReceiptArticleTable(tables.Table):
         fields = ("article", "amount", "price_without_vat", "vat",
                   "price_with_vat", "total_price_with_vat", "change")
 
-    def render_amount(self, value, record):
+    @staticmethod
+    def render_amount(value, record):
         return '{} {}'.format(value, record.unit)
 
-    def render_price_without_vat(self, value):
+    @staticmethod
+    def render_price_without_vat(value):
         return '{} Kč'.format(intcomma(value))
 
-    def render_price_with_vat(self, value):
+    @staticmethod
+    def render_price_with_vat(value):
         return '{} Kč'.format(intcomma(value))
 
-    def render_total_price_with_vat(self, value):
+    @staticmethod
+    def render_total_price_with_vat(value):
         return '{} Kč'.format(intcomma(value))
