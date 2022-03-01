@@ -29,7 +29,7 @@ limit-inference-results=100
 # List of plugins (as comma separated values of python modules names) to load,
 # usually to register additional checkers.
 #load-plugins=pylint_django
-#django-settings-module=kicoma.settings.local
+#django-settings-module=config.settings.local
 
 # Pickle collected data for later comparisons.
 persistent=yes
