@@ -296,7 +296,7 @@ class ArticlePDFView(LoginRequiredMixin, PDFTemplateView):
 
 class ArticleExportView(LoginRequiredMixin, View):
 
-    def get(self):
+    def get(self, *args, **kwargs):
         data = ArticleResource().export()
         response = HttpResponse(
             data.xlsx, content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")

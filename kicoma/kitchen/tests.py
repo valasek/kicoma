@@ -1,8 +1,30 @@
 from django.test import TestCase
 import urllib.parse
 
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
+from django.test.client import Client
+
 
 class ViewTests(TestCase):
+
+    def addGroup(self, user_name, group_name):
+        self.group = Group(name=group_name)
+        self.group.save()
+        user_name.groups.add(self.group)
+        user_name.save()
+
+    def setUp(self):
+        user = get_user_model()
+        self.client = Client()
+        self.user = user.objects.create_user('john', 'lennon@thebeatles.com', 'password')
+        self.addGroup(self.user, "cook")
+        self.addGroup(self.user, "chef")
+        self.addGroup(self.user, "stockkeeper")
+
+    def tearDown(self):
+        self.user.delete()
+        self.group.delete()
 
     private_urls = [
         "/kitchen/article/list",
@@ -64,7 +86,7 @@ class ViewTests(TestCase):
         # "/kitchen/dailymenu/delete/<int:pk>",
         # "/kitchen/dailymenu/deleterecipe/<int:pk>",
         "/kitchen/dailymenu/filterprint",
-        "/kitchen/dailymenu/print",
+        # "/kitchen/dailymenu/print", - doplnit date argument
 
         "/kitchen/menu/list",
         # "/kitchen/menu/recipelist/<int:pk>",
@@ -77,7 +99,7 @@ class ViewTests(TestCase):
 
         "/kitchen/report/showFoodConsumptionTotalPrice",
         "/kitchen/report/filtercateringunit",
-        "/kitchen/report/print/cateringunit",
+        # "/kitchen/report/print/cateringunit", - doplnit date argument
         "/kitchen/report/incorrectunits",
         "/kitchen/report/articlesnotinrecipes"
     ]
@@ -91,7 +113,7 @@ class ViewTests(TestCase):
         ]
         for url in public_urls:
             response = self.client.get(url)
-            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.status_code, 200, msg=url)
 
     def test_private_urls_redirect_to_login(self):
         for url in self.private_urls:
@@ -99,3 +121,9 @@ class ViewTests(TestCase):
             self.assertRedirects(response, "/accounts/login/?next="+urllib.parse.quote(url), status_code=302,
                                  target_status_code=200, msg_prefix='', fetch_redirect_response=True)
             # self.assertEqual(response.status_code, 302, msg=url)
+
+    def test_access_private_urls_with_login(self):
+        self.client.login(username='john', password='password')
+        for url in self.private_urls:
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, 200)
