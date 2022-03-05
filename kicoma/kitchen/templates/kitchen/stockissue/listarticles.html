@@ -29,5 +29,18 @@
     </div>
   </div>
   {% render_table table %}
+  <script type="text/javascript">
+
+    window.onbeforeunload = function() {
+      let scrollPosition = $(document).scrollTop();
+      localStorage.setItem("scrollPosition", scrollPosition);
+    }
+
+    window.onload = function () {
+      if (localStorage.scrollPosition) {
+        $(document).scrollTop(localStorage.getItem("scrollPosition"));
+      }
+    }
+  </script>
 </div>
 {% endblock content %}
