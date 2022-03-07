@@ -41,6 +41,7 @@ class ArticleTable(tables.Table):
 
 class ArticleRestrictedTable(tables.Table):
     allergen = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name='Alergeny')
+    average_price = tables.Column(verbose_name='Průměrná jednotková cena s DPH')
     change = tables.TemplateColumn(
         '''<a href="/kitchen/article/restrictedupdate/{{ record.id }}">Upravit</a>''',
         verbose_name=u'Akce', )
@@ -49,11 +50,15 @@ class ArticleRestrictedTable(tables.Table):
         model = Article
         template_name = "django_tables2/bootstrap4.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
-        fields = ("article", "unit", "min_on_stock", "allergen", "comment", "change")
+        fields = ("article", "unit", "min_on_stock", "allergen", "average_price", "comment", "change")
 
     @staticmethod
     def render_min_on_stock(value, record):
         return '{} {}'.format(value, record.unit)
+
+    @staticmethod
+    def render_average_price(value, record):
+        return '{} Kč / {}'.format(intcomma(value), record.unit)
 
 
 class ArticleFilter(FilterSet):

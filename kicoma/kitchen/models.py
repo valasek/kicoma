@@ -115,7 +115,7 @@ class Article(TimeStampedModel):
             if len(stock_receipt_article) == 0:
                 return 0
             else:
-                return stock_receipt_article[0].price_with_vat
+                return round(stock_receipt_article[0].price_with_vat, 2)
 
     @staticmethod
     def sum_total_price():
