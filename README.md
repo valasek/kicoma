@@ -70,8 +70,15 @@ $ cd ~/tmp
 $ git clone https://github.com/valasek/kima
 $ cd kima
 ```
+Create python virtual environment, tested is python 3.10.2
+`https://towardsdatascience.com/python-environment-101-1d68bda3094d`
+`python3 -m venv <virtual env path>`
+
 Switch to the virtual environment:
-`source venv/bin/activate`
+`source ./env/bin/activate`
+
+Install dependenciec
+`pip install -r requirements/local.txt`
 
 migrate the database:
 
