@@ -157,9 +157,6 @@ LOGGING = {
 # Your stuff...
 # ------------------------------------------------------------------------------
 
-# set due to Heroku deployment
-WKHTMLTOPDF_CMD = '/app/bin/wkhtmltopdf'
-
 # Sentry
 sentry_sdk.init(
     dsn="https://137388df23d648d9bae72c0adcc12e06@o417369.ingest.sentry.io/5316934",

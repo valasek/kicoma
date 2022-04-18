@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load humanize %}
-{% load crispy_forms_tags %}
 {% block content %}
 <div class="container-fluid">
   <h4>Odstranění skladové karty: {{ object.article }}</h4>
@@ -18,7 +17,6 @@
   {% else %}
   <form method="post" action="{% url 'kitchen:deleteArticle' pk=object.id %}">
     {% csrf_token %}
-    {{ form|crispy }}
     <p>Chcete odstranit skladovou kartu:</p>
     <ul>
       <li>Název: {{ object.article }}</li>

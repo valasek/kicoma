@@ -1,36 +1,44 @@
 {% extends "../pdf_page.html" %}
 {% load humanize %}
 {% block content %}
-<div class="rTable">
-  <div class="rTableRow">
-    <div class="rTableHead">Porcí</div>
-    <div class="rTableHead">Cena receptu</div>
-    <div class="rTableHead">Komentář</div>
-  </div>
-  <div class="rTableRow">
-    <div class="rTableCell">{{recipe.norm_amount}}</div>
-    <div class="rTableCell">{{recipe.total_recipe_articles_price|intcomma}} Kč</div>
-    <div class="rTableCell">{{recipe.comment}}</div>
-  </div>
-</div>
+<table class="table w-auto">
+  <thead>
+    <tr>
+      <th scope="col">Porcí</th>
+      <th scope="col">Cena receptu</th>
+      <th scope="col">Komentář</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">{{recipe.norm_amount}}</th>
+      <td>{{recipe.total_recipe_articles_price|intcomma}} Kč</td>
+      <td>{{recipe.comment}}</td>
+    </td>
+  </tbody>
+</table>
 
 <h2>Seznam ingrediencí</h2>
-<div class="rTable">
-  <div class="rTableRow">
-    <div class="rTableHead">Zboží</div>
-    <div class="rTableHead">Množství</div>
-    <div class="rTableHead">Průměrná jednotková cena s DPH</div>
-    <div class="rTableHead">Celková cena s DPH</div>
-    <div class="rTableHead">Komentář</div>
-  </div>
+<table class="table w-auto">
+  <thead>
+    <tr>
+      <th scope="col">Zboží</th>
+      <th scope="col">Množství</th>
+      <th scope="col">Průměrná jednotková cena s DPH</th>
+      <th scope="col">Celková cena s DPH</th>
+      <th scope="col">Komentář</th>
+    </tr>
+  </thead>
   {% for recipe_article in recipe_articles %}
-  <div class="rTableRow">
-    <div class="rTableCell">{{recipe_article.article}}</div>
-    <div class="rTableCell">{{recipe_article.amount}} {{recipe_article.unit}}</div>
-    <div class="rTableCell">{{recipe_article.article.average_price|intcomma}}} Kč</div>
-    <div class="rTableCell">{{recipe_article.total_average_price|intcomma}} Kč</div>
-    <div class="rTableCell">{{recipe_article.comment}}</div>
-  </div>
+  <tbody>
+    <tr>
+      <th scope="row">{{recipe_article.article}}</th>
+      <td>{{recipe_article.amount}} {{recipe_article.unit}}</td>
+      <td>{{recipe_article.article.average_price|intcomma}}} Kč</td>
+      <td>{{recipe_article.total_average_price|intcomma}} Kč</td>
+      <td>{{recipe_article.comment}}</td>
+    </tr>
+  </tbody>
   {% endfor %}
-</div>
+</table>
 {% endblock %}

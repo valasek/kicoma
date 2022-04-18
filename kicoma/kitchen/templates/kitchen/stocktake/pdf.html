@@ -1,18 +1,22 @@
 {% extends "../pdf_page.html" %} {% block content %}
-<div class="rTable">
-  <div class="rTableRow">
-    <div class="rTableHead">Zboží</div>
-    <div class="rTableHead">Jednotka</div>
-    <div class="rTableHead">Skutečný stav na skladu</div>
-    <div class="rTableHead">Poznámka</div>
-  </div>
+<table class="table w-auto">
+  <thead>
+    <tr>
+      <th scope="col">Zboží</th>
+      <th scope="col">Jednotka</th>
+      <th scope="col">Skutečný stav na skladu</th>
+      <th scope="col">Poznámka</th>
+    </tr>
+  </thead>
   {% for article in articles %}
-  <div class="rTableRow">
-    <div class="rTableCell">{{article.article}}</div>
-    <div class="rTableCell">{{article.unit}}</div>
-    <div class="rTableCell"></div>
-    <div class="rTableCell"></div>
-  </div>
+  <tbody>
+    <tr>
+      <th scope="row">{{article.article}}</th>
+      <div class="rTableCell">{{article.unit}}</td>
+      <div class="rTableCell"></td>
+      <div class="rTableCell"></td>
+    </tr>
+  </tbody>
   {% endfor %}
-</div>
+</table>
 {% endblock %}

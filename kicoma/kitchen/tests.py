@@ -1,9 +1,12 @@
-from django.test import TestCase
 import urllib.parse
+from django.test import TestCase
+from django.urls import reverse
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test.client import Client
+
+from kicoma.kitchen.models import VAT, UNIT, Article
 
 
 class ViewTests(TestCase):
@@ -21,13 +24,12 @@ class ViewTests(TestCase):
         self.addGroup(self.user, "cook")
         self.addGroup(self.user, "chef")
         self.addGroup(self.user, "stockkeeper")
-
+        
     def tearDown(self):
         self.user.delete()
         self.group.delete()
 
     private_urls = [
-        "/kitchen/article/list",
         "/kitchen/article/list",
         "/kitchen/article/restrictedlist",
         "/kitchen/article/listlack",
@@ -115,15 +117,63 @@ class ViewTests(TestCase):
             response = self.client.get(url)
             self.assertEqual(response.status_code, 200, msg=url)
 
-    def test_private_urls_redirect_to_login(self):
+    def test_private_url_redirects_to_login(self):
         for url in self.private_urls:
             response = self.client.get(url)
             self.assertRedirects(response, "/accounts/login/?next="+urllib.parse.quote(url), status_code=302,
                                  target_status_code=200, msg_prefix='', fetch_redirect_response=True)
-            # self.assertEqual(response.status_code, 302, msg=url)
 
     def test_access_private_urls_with_login(self):
         self.client.login(username='john', password='password')
         for url in self.private_urls:
             response = self.client.get(url)
             self.assertEqual(response.status_code, 200)
+
+    def article_test(self, test_url):
+        self.client.login(username='john', password='password')
+        article = Article.objects.create(
+            article = "Test article",
+            unit = UNIT[0][0],
+            on_stock = 0,
+            min_on_stock = 0,
+            total_price = 10,
+            comment = "Comment"
+        )
+        response = self.client.get(reverse(test_url))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, article.article)
+        article.delete()
+
+    def test_article_read_views(self):
+        self.article_test("kitchen:showArticles")
+        self.article_test("kitchen:showRestrictedArticles")
+        self.article_test("kitchen:showRestrictedArticles")
+        self.article_test("kitchen:printArticles")
+
+    def test_update_article(self):
+        self.client.login(username='john', password='password')
+        article = Article.objects.create(
+            article = "Test article",
+            unit = UNIT[0][0],
+            on_stock = 0,
+            min_on_stock = 0,
+            total_price = 10,
+            comment = "Comment"
+        )
+        response = self.client.get(reverse('kitchen:updateArticle', args=(article.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, article.article)
+
+# HistoricalArticle
+# StockIssueArticle
+# StockReceiptArticle
+# Recipe
+# Article
+# RecipeArticle, StockIssue, StockReceipt
+# DailyMenu, Menu, MenuRecipe, DailyMenuRecipe
+
+# seed
+# Allergen
+# MealType
+# MealGroup
+# VAT, 

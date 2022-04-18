@@ -58,7 +58,6 @@ Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
 * Python
 * Django
 * Postgresql
-* wkhtmltopdf**
 
 
 ## Getting started
@@ -101,9 +100,6 @@ $ ./manage.py runserver
 
 Getting up and running locally:
 https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html
-
-Install WKHTML2PDF:
-- `sudo apt-get install wkhtmltopdf`
 
 ## Reset DB
 `./reset-db.sh`
@@ -181,12 +177,6 @@ Managing Multiple Environments for an App - https://devcenter.heroku.com/article
 Do not forget to add the following argument at the end of every command:
 ` --app <app-name>`
 ``--app kicoma-tri`
-Install WKHTMLtoPDF
-`heroku buildpacks:add https://github.com/dscout/wkhtmltopdf-buildpack.git`
-More info:
-- https://github.com/tutorcruncher/pydf
-- https://github.com/dscout/wkhtmltopdf-buildpack
-- https://razorjack.net/wkhtmltopdf-on-heroku-evaluating-different-installation-options/
 
 ## Set email domain
 `heroku config:set MAILGUN_DOMAIN=hospic-cercany.cz`
