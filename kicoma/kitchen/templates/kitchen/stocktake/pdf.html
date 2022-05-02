@@ -8,15 +8,15 @@
       <th scope="col">Poznámka</th>
     </tr>
   </thead>
-  {% for article in articles %}
   <tbody>
+  {% for article in articles %}
     <tr>
       <th scope="row">{{article.article}}</th>
-      <div class="rTableCell">{{article.unit}}</td>
-      <div class="rTableCell"></td>
-      <div class="rTableCell"></td>
+      <td class="rTableCell">{{article.unit}}</td>
+      <td class="rTableCell"></td>
+      <td class="rTableCell"></td>
     </tr>
-  </tbody>
   {% endfor %}
+  </tbody>
 </table>
 {% endblock %}
