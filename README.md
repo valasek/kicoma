@@ -46,6 +46,7 @@ Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
 
 ## Update
 `git push kicoma-tri master`
+`git push heroku master`
 
 ## Generate user password for fixture
 
