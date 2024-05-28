@@ -65,7 +65,7 @@ class MealGroup(models.Model):
                                   help_text='Skupina pro kterou se připravuje jídlo')
 
     def __str__(self):
-        return self.meal_group
+        return str(self.meal_group)
 
 
 class MealType(models.Model):

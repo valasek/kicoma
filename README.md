@@ -48,6 +48,12 @@ Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
 `git push kicoma-tri master`
 `git push heroku master`
 
+## Usefull heroku commands
+heroku git:remote -a kicoma-tri
+heroku apps:info -a kicoma-tri
+heroku apps:stacks -a kicoma-tri
+heroku buildpacks -a kicoma-tri
+
 ## Generate user password for fixture
 
 `./manage.py shell`
@@ -60,16 +66,21 @@ Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
 * Django
 * Postgresql
 
-
 ## Getting started
 
 To get started with the app, clone the repo and then install Python 3:
 
 ```
 $ cd ~/tmp
-$ git clone https://github.com/valasek/kima
-$ cd kima
+$ git clone https://github.com/valasek/kicoma
+$ cd kicoma
 ```
+
+Install docker and docker compose and run
+`docker-compose up`
+
+DEPRECATED - local dev server
+
 Create python virtual environment, tested is python 3.10.2
 `https://towardsdatascience.com/python-environment-101-1d68bda3094d`
 `python3 -m venv <virtual env path>`
@@ -79,6 +90,10 @@ Switch to the virtual environment:
 
 Install dependenciec
 `pip install -r requirements/local.txt`
+
+Install PostgreSql, I use Postgres.app and PgAdmin as a client
+
+Create DB with a name kicoma
 
 migrate the database:
 

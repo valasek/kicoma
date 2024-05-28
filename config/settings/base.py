@@ -58,10 +58,10 @@ LANGUAGES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'kicoma',
-        'USER': 'kicoma',
-        'PASSWORD': 'kicoma',
-        'HOST': 'localhost',
+        'NAME': 'kicoma-dev',
+        'USER': 'kicoma-dev',
+        'PASSWORD': 'kicoma-dev',
+        'HOST': 'postgres-dev',
         'PORT': '5432',
     }
 }

@@ -1,3 +1,4 @@
+""" Functions used for """
 from django.forms import ValidationError
 
 
@@ -13,7 +14,7 @@ def convert_units(number, unit_in, unit_out):
         return number*100
     if unit_in == 'ml' and unit_out == 'l':
         return number/100
-    raise ValidationError("Není možné provést konverzi {} {} na {}".format(number, unit_in, unit_out))
+    raise ValidationError(f"Není možné provést konverzi {number} {unit_in} na {unit_out}")
 
 
 # returns total RecipeArticle price, RecipeArticle amount is converted using Article unit

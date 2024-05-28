@@ -1,6 +1,5 @@
 {
     "python.pythonPath": "/bin/python3.10",
-    "python.linting.pylintEnabled": true,
     "yaml.customTags": [
         "!And",
         "!And sequence",
@@ -30,5 +29,10 @@
         "!Split",
         "!Split sequence"
     ],
-    "python.linting.enabled": true
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django",
+        "--django-settings-module",
+        "kicoma.settings",
+    ],
 }
