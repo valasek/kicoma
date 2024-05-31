@@ -39,8 +39,8 @@ USE_TZ = True
 LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 
 LANGUAGES = [
-    ('en', _('English')),
     ('cs', _('Czech')),
+    ('en', _('English')),
 ]
 
 # DATABASES
@@ -58,10 +58,10 @@ LANGUAGES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'kicoma-dev',
-        'USER': 'kicoma-dev',
-        'PASSWORD': 'kicoma-dev',
-        'HOST': 'postgres-dev',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }

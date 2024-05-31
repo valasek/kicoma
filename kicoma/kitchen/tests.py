@@ -176,4 +176,4 @@ class ViewTests(TestCase):
 # Allergen
 # MealType
 # MealGroup
-# VAT, 
+# VAT

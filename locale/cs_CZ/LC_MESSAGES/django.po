@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-27 01:40+0100\n"
+"POT-Creation-Date: 2024-05-31 10:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: config/settings/base.py:42
-msgid "English"
-msgstr "Anglicky"
-
-#: config/settings/base.py:43
 msgid "Czech"
 msgstr "Česky"
+
+#: config/settings/base.py:43
+msgid "English"
+msgstr "Anglicky"
 
 #: config/urls.py:10
 msgid "Settings"
@@ -61,47 +61,47 @@ msgstr "ml"
 msgid "ks"
 msgstr ""
 
-#: kicoma/kitchen/models.py:36 kicoma/kitchen/models.py:37
+#: kicoma/kitchen/models.py:35 kicoma/kitchen/models.py:36
 msgid "číselník - DPH"
 msgstr "číselník - DPH"
 
-#: kicoma/kitchen/models.py:51
+#: kicoma/kitchen/models.py:49
 #, fuzzy
 #| msgid "číselník - DPH"
 msgid "číselník - Alergeny"
 msgstr "číselník - DPH"
 
-#: kicoma/kitchen/models.py:52
+#: kicoma/kitchen/models.py:50
 #, fuzzy
 #| msgid "číselník - DPH"
 msgid "číselník - Alergen"
 msgstr "číselník - DPH"
 
-#: kicoma/kitchen/models.py:64
+#: kicoma/kitchen/models.py:61
 msgid "číselník - Skupiny strávníků"
 msgstr ""
 
-#: kicoma/kitchen/models.py:65
+#: kicoma/kitchen/models.py:62
 msgid "číselník - Skupina strávníků"
 msgstr ""
 
-#: kicoma/kitchen/models.py:77
+#: kicoma/kitchen/models.py:73
 #, fuzzy
 #| msgid "číselník - DPH"
 msgid "číselník - Druhy jídla"
 msgstr "číselník - DPH"
 
-#: kicoma/kitchen/models.py:78
+#: kicoma/kitchen/models.py:74
 #, fuzzy
 #| msgid "číselník - DPH"
 msgid "číselník - Druh jídla"
 msgstr "číselník - DPH"
 
-#: kicoma/kitchen/models.py:90 kicoma/kitchen/models.py:91
+#: kicoma/kitchen/models.py:85 kicoma/kitchen/models.py:86
 msgid "Zboží"
 msgstr ""
 
-#: kicoma/kitchen/models.py:128
+#: kicoma/kitchen/models.py:129
 msgid "Alergeny"
 msgstr ""
 
@@ -113,45 +113,57 @@ msgstr ""
 msgid "Recept"
 msgstr ""
 
-#: kicoma/kitchen/models.py:163
+#: kicoma/kitchen/models.py:180
 msgid "Suroviny v receptu"
 msgstr ""
 
-#: kicoma/kitchen/models.py:164
+#: kicoma/kitchen/models.py:181
 msgid "Surovina v receptu"
 msgstr ""
 
-#: kicoma/kitchen/models.py:187 kicoma/kitchen/models.py:188
+#: kicoma/kitchen/models.py:203 kicoma/kitchen/models.py:204
+msgid "Menu"
+msgstr "Menu"
+
+#: kicoma/kitchen/models.py:223 kicoma/kitchen/models.py:224
+msgid "Recepty menu"
+msgstr "Recipies menu"
+
+#: kicoma/kitchen/models.py:239 kicoma/kitchen/models.py:240
 msgid "Denní menu"
 msgstr ""
 
-#: kicoma/kitchen/models.py:205 kicoma/kitchen/models.py:206
+#: kicoma/kitchen/models.py:263 kicoma/kitchen/models.py:264
 msgid "Recepty denního menu"
 msgstr ""
 
-#: kicoma/kitchen/models.py:223
+#: kicoma/kitchen/models.py:280
 msgid "Výdejky"
 msgstr ""
 
-#: kicoma/kitchen/models.py:224
+#: kicoma/kitchen/models.py:281
 msgid "Výdejka"
 msgstr ""
 
-#: kicoma/kitchen/models.py:327
+#: kicoma/kitchen/models.py:381
 msgid "Příjemky"
 msgstr ""
 
-#: kicoma/kitchen/models.py:328
+#: kicoma/kitchen/models.py:382
 msgid "Příjemka"
 msgstr ""
 
-#: kicoma/kitchen/models.py:369 kicoma/kitchen/models.py:370
+#: kicoma/kitchen/models.py:420 kicoma/kitchen/models.py:421
 msgid "Zboží na výdejce"
 msgstr ""
 
-#: kicoma/kitchen/models.py:403 kicoma/kitchen/models.py:404
+#: kicoma/kitchen/models.py:453 kicoma/kitchen/models.py:454
 msgid "Zboží na příjemce"
 msgstr ""
+
+#: kicoma/kitchen/templates/kitchen/about_content.html:143
+msgid "source code"
+msgstr "zdrojový kód"
 
 #: kicoma/kitchen/templates/kitchen/i18n.html:6
 msgid "Change the language"
@@ -282,7 +294,7 @@ msgstr ""
 
 #: kicoma/templates/account/logout.html:5
 #: kicoma/templates/account/logout.html:8
-#: kicoma/templates/account/logout.html:17 kicoma/templates/base.html:511
+#: kicoma/templates/account/logout.html:17 kicoma/templates/base.html:176
 msgid "Sign Out"
 msgstr "Odhlásit se"
 
@@ -417,66 +429,61 @@ msgstr ""
 msgid "Register"
 msgstr "Registrace"
 
-#: kicoma/templates/base.html:95
+#: kicoma/templates/base.html:97
 msgid "Log In"
 msgstr "Přihlásit"
 
-#: kicoma/templates/base.html:112
-msgid "Store"
-msgstr "Sklad"
-
-#: kicoma/templates/base.html:223
-msgid "Inventory"
-msgstr "Inventura"
-
-#: kicoma/templates/base.html:276
-msgid "Recipies"
-msgstr "Recepty"
-
-#: kicoma/templates/base.html:315
-msgid "Daily Menu"
-msgstr "Denní menu"
-
-#: kicoma/templates/base.html:365
-msgid "Reports"
-msgstr "Reporty"
-
-#: kicoma/templates/base.html:414 kicoma/templates/base.html:455
-#: kicoma/templates/pages/home.html:12
-msgid "About"
-msgstr "O programu"
-
-#: kicoma/templates/base.html:425
-msgid "Change language"
-msgstr "Změnit jazyk"
-
-#: kicoma/templates/base.html:432
-msgid "Administration"
-msgstr "Administrace"
-
-#: kicoma/templates/base.html:439
-msgid "Export of all data"
-msgstr "Export všech dat"
-
-#: kicoma/templates/base.html:446
-msgid "Import of all data"
-msgstr "Import všech dat"
-
-#: kicoma/templates/base.html:463 kicoma/templates/pages/home.html:20
-msgid "Changelog"
-msgstr "Změny v aplikaci"
-
-#: kicoma/templates/base.html:470 kicoma/templates/pages/home.html:27
-msgid "Help"
-msgstr "Nápověda"
-
-#: kicoma/templates/base.html:503
+#: kicoma/templates/base.html:136
 msgid "My Profile"
 msgstr "Profil"
 
-#: kicoma/templates/pages/home.html:34
-msgid "Source code"
-msgstr "Zdrojový kód"
+#: kicoma/templates/base.html:143
+msgid "Change language"
+msgstr "Změnit jazyk"
+
+#: kicoma/templates/base.html:151
+msgid "Administration"
+msgstr "Administrace"
+
+#: kicoma/templates/base.html:158
+msgid "Export of all data"
+msgstr "Export všech dat"
+
+#: kicoma/templates/base.html:165
+msgid "Import of all data"
+msgstr "Import všech dat"
+
+#: kicoma/templates/menu_about.html:16 kicoma/templates/menu_about.html:27
+msgid "About"
+msgstr "O programu"
+
+#: kicoma/templates/menu_about.html:35
+msgid "Changelog"
+msgstr "Změny v aplikaci"
+
+#: kicoma/templates/menu_about.html:42
+msgid "Help"
+msgstr "Nápověda"
+
+#: kicoma/templates/menu_dailymenu.html:17
+msgid "Daily Menu"
+msgstr "Denní menu"
+
+#: kicoma/templates/menu_inventory.html:16
+msgid "Inventory"
+msgstr "Inventura"
+
+#: kicoma/templates/menu_recipes.html:17
+msgid "Recipies"
+msgstr "Recepty"
+
+#: kicoma/templates/menu_reports.html:16
+msgid "Reports"
+msgstr "Reporty"
+
+#: kicoma/templates/menu_store.html:16
+msgid "Store"
+msgstr "Sklad"
 
 #: kicoma/users/apps.py:7
 msgid "Users"
@@ -493,3 +500,6 @@ msgstr "Uživatelské jméno"
 #: kicoma/users/views.py:34
 msgid "Infos successfully updated"
 msgstr ""
+
+#~ msgid "pcs"
+#~ msgstr "ks"

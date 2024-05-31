@@ -12,7 +12,7 @@ admin.site.site_header = _('KiCoMa')
 admin.site.site_title = _('Kitchen Settings')
 
 urlpatterns = i18n_patterns(
-    path('', TemplateView.as_view(template_name="pages/home.html"), name="home"),
+    path('', TemplateView.as_view(template_name="kitchen/about.html"), name="home"),
     path('kitchen/', include("kicoma.kitchen.urls", namespace="kitchen")),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),

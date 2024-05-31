@@ -104,7 +104,6 @@ urlpatterns = [
     path('dailymenu/filterprint', DailyMenuPrintView.as_view(), name='filterPrintDailyMenu'),
     path('dailymenu/print', DailyMenuPDFView.as_view(), name='printDailyMenu'),
 
-
     path('menu/list', MenuListView.as_view(), name='showMenus'),
     path('menu/recipelist/<int:pk>', MenuRecipeListView.as_view(), name='showMenuRecipes'),
     path('menu/create', MenuCreateView.as_view(), name='createMenu'),
@@ -113,7 +112,6 @@ urlpatterns = [
     path('menu/updaterecipe/<int:pk>', MenuRecipeUpdateView.as_view(), name='updateMenuRecipe'),
     path('menu/delete/<int:pk>', MenuDeleteView.as_view(), name='deleteMenu'),
     path('menu/deleterecipe/<int:pk>', MenuRecipeDeleteView.as_view(), name='deleteMenuRecipe'),
-
 
     path('report/showFoodConsumptionTotalPrice',
          ShowFoodConsumptionTotalPrice.as_view(), name='showFoodConsumptionTotalPrice'),

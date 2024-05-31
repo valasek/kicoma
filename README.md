@@ -34,7 +34,7 @@ Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
 
 ## Update Translations
 ### Generate message files for a desired language
-`./manage.py makemessages -l cs_CZ --ignore=env/*`
+`./manage.py makemessages -l cs_CZ --ignore=venv/*`
  
 ### After adding translations to the .po files, compile the messages
 `./manage.py compilemessages`
@@ -199,3 +199,8 @@ Do not forget to add the following argument at the end of every command:
 
 ## Initialize DB
 `./reset-db-heroku.sh`
+
+
+ToDo:
+- upgrade na Django 5 a vš. balíky
+- jazyka na lište z vlajkou

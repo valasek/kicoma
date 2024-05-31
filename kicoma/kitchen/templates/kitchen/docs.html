@@ -4,13 +4,19 @@
 <hr />
 <div class="container-fluid">
 <div class="row">
+  <div class="col">
+    {% include "kitchen/about_short_intro.html" %}
+    <hr />
+  </div>
+</div>
+  <div class="row">
   <div class="col-sm-7">
     <h5>Správa zboží</h5>
     <p>Zboží je možné vytvořit nebo upravit v menu <a href="{% url 'kitchen:showArticles' %}">Zboží na skladu</a>. Vymazat se dá v <a href="{% url 'admin:index' %}kitchen/article">administraci</a>.
     Výše zásob na skladu nebo cena zboží se mění pomocí příjemky/výdejky.
     </p>
     <h5>Příjem zboží na sklad</h5>
-    <p>Příjem zboží na sklad probíhá pomocí <a href="{% url 'kitchen:showStockReceipts' %}">příjemek</a> uživatelem ve skupine "Stockkeeper - skladník".
+    <p>Příjem zboží na sklad probíhá pomocí <a href="{% url 'kitchen:showStockReceipts' %}">příjemek</a> uživatelem ve skupine "Skladník".
     Před příjmem musí být zboží na skladu založeno. Výše zásob a cena zboží je aktualizována jenom když je příjemka schválená.
     Úprava zboží a vyskladnění již naskladněné přijemky není možná.
     <h5>Inventura</h5>
@@ -18,7 +24,7 @@
     <h5>Výdej zboží ze skladu</h5>
     <p>Výdejku je možno vytvořit manuálně nebo ji <a href="{% url 'kitchen:createStockIssueFromDailyMenu' %}">založit dle všech denních menu pro zadaný den</a>.<br />
     Když se denní menu změní, je možno Výdejku "Aktualizovat" a tím se vymaže všechno zboží a znovu se vytvoří ve výdejce dle zadaného dne.
-    Příjem zboží na sklad probíhá pomocí <a href="{% url 'kitchen:showStockIssues' %}">výdejek</a> uživatelem ve skupine "Stockkeeper - skladník".
+    Příjem zboží na sklad probíhá pomocí <a href="{% url 'kitchen:showStockIssues' %}">výdejek</a> uživatelem ve skupine "Skladník".
     Před výdejem musí být zboží v minimálně vyskladňované výši naskladněno. Výše zásob a cena zboží je aktualizována jenom když je výdejka schválená.
     </p>
     <h5>Správa receptů</h5>
@@ -28,28 +34,25 @@
     <h5>Reporty a tisky</h5>
     <p>Všechny tisky probíhají pomocí generování PDF, které je možno zobrazit, uložit nebo vytisknout.</p>
     <h5>Správa číselníků</h5>
-    <p>Číselníky spravuje uživatel ve skupině "Chef - šéfkuchař" v <a href="{% url 'admin:index' %}kitchen">Administraci</a>.
-    Nahrané jsou stejné hodnoty jako ve Strávníčku.
+    <p>Číselníky spravuje uživatel ve skupině "Šéfkuchař" v <a href="{% url 'admin:index' %}kitchen">Administraci</a>.
     <br />
-    Přímý odkaz na správu číselníku: <a href="{% url 'admin:index' %}kitchen/allergen">alergeny</a>,
+    Odkaz na úpravu konkrétního číselníku: <a href="{% url 'admin:index' %}kitchen/allergen">alergeny</a>,
     <a href="{% url 'admin:index' %}kitchen/vat">DPH</a>,
     <a href="{% url 'admin:index' %}kitchen/mealtype">druhy jídla</a>,
     <a href="{% url 'admin:index' %}kitchen/mealgroup">skupinu strávníků</a>.</p>
   </div>
-  <divJosef class="col-sm">
+  <div class="col-sm">
     <h5>Uživatelské skupiny</h5>
       <p>Založení, úprava nebo výmaz uživatele je možný v <a href="{% url 'admin:index' %}users/user/">administraci</a>.</p>
       <table class="table table-responsive table-sm">
         <thead class="thead-light">
           <tr>
             <th>Skupina</th>
-            <th>Uživatelé</th>
             <th>Oprávnění</th>
           </tr>
         </thead>
         <tr>
-          <th>Chef - šéfkuchař</th>
-          <td>slavicek</td>
+          <th>Šéfkuchař (Chef)</th>
           <td>
             Administrátor<br />
             Správa skupin i uživatelů, všech
@@ -58,13 +61,11 @@
           </td>
         </tr>
         <tr>
-          <th>Cook - kuchař</th>
-          <td>drabkova, kohnerova</td>
+          <th>Kuchař (Cook)</th>
           <td>Tvorba denního menu, tvorba a správa výdejek kromě schvalování a PDF reporty</td>
         </tr>
         <tr>
-          <th>Stockkeeper - skladník</th>
-          <td>drazdikova, klinderova</td>
+          <th>Skladník (Stockkeeper)</th>
           <td>
             Správa skladu - založení nové skladové karty, úprava zboží, zadávání a schvalování příjemek, schvalování a tvorba výdejek<br/>
             Inventura
@@ -72,11 +73,13 @@
         </tr>
       </table>
       <h5>Administrace aplikace</h5>
-      <p>Uživatel ve skupině "Chef - šéfkuchař" má právo na Administrační sekci a export nebo import dat.
+      <p>Uživatel ve skupině "Šéfkuchař" má právo na Administrační sekci a export nebo import dat.
       Každou datovou tabulku včetně uživatelů je možno plně zpravovat v <a href="{% url 'admin:index' %}kitchen">administraci</a> a nejsou aplikovány žádné dodatečné kontroly.
       Není doporučeno měnit sekce <a href="{% url 'admin:index' %}auth">Autentizace a autorizace</a>, <a href="{% url 'admin:index' %}sites">Weby</a>,
       <a href="{% url 'admin:index' %}account">Účty</a> a <a href="{% url 'admin:index' %}socialaccount">Účty sociálních sítí</a>.</p>
       <p>Export nebo import dat obsahuje všechna data KiCoMa kromě seznamu uživatelů a skupin. Ty je nutno v nové aplikaci nastavit programově.</p>
   </div>
 </div>
+<hr/>
+{% include "kitchen/about_author.html" %}
 {% endblock content %}
