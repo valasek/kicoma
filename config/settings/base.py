@@ -92,6 +92,7 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
+    "crispy_bootstrap4",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -159,6 +160,7 @@ MIDDLEWARE = [
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 # STATIC
@@ -303,3 +305,7 @@ SOCIALACCOUNT_ADAPTER = "kicoma.users.adapters.SocialAccountAdapter"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PAGINATE_BY = 30
+
+# due to https://github.com/django-crispy-forms/crispy-bootstrap4
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
