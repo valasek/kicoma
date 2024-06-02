@@ -1,19 +1,21 @@
 import logging
 import io
 from datetime import datetime
-from dateutil import relativedelta
 from contextlib import redirect_stdout
+from dateutil import relativedelta
+from urllib.parse import urlparse, urlunparse
 
 from django.core import management
 from django.core.files.storage import FileSystemStorage
 
 from django.urls import reverse_lazy
 from django.utils.safestring import mark_safe
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
 from django.contrib import messages
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ValidationError
 from django.conf import settings
+from django.utils import translation
 
 from django.db import transaction, connection
 from django.db.models import F, Count, Sum
@@ -36,8 +38,8 @@ from tablib import Dataset
 from kicoma.users.models import User
 
 from .models import StockIssueArticle, StockReceiptArticle, Recipe, Allergen, MealType, MealGroup, \
-    VAT, Article, HistoricalArticle, RecipeArticle, StockIssue, StockReceipt, DailyMenu, Menu, MenuRecipe, \
-    DailyMenuRecipe
+    VAT, Article, RecipeArticle, StockIssue, StockReceipt, DailyMenu, Menu, MenuRecipe, DailyMenuRecipe
+from .models import HistoricalArticle
 
 from .tables import StockReceiptTable, StockReceiptArticleTable, StockReceiptFilter
 from .tables import StockIssueTable, StockIssueArticleTable, StockIssueFilter
@@ -191,8 +193,24 @@ class ImportDataView(LoginRequiredMixin, TemplateView):
         return super(ImportDataView, self).render_to_response(context)
 
 
-def set_language(request):
-    return render(request, 'kitchen/i18n.html')
+def switch_language(request):
+    if request.method == 'POST':
+        user_language = request.POST.get('language', translation.get_language())
+        translation.activate(user_language)
+        request.session[settings.LANGUAGE_COOKIE_NAME] = user_language
+        request.session.save()
+        referer = request.META.get('HTTP_REFERER', '/')
+        parsed_url = urlparse(referer)
+        relative_url = urlunparse(('', '', parsed_url.path, parsed_url.params, parsed_url.query, ''))
+        # Ensure the URL has the correct language prefix
+        if user_language == "cs":
+            response = redirect(f'{relative_url[3:]}')
+        else:
+            response = redirect(f'/{user_language}{relative_url}')
+        response.set_cookie(settings.LANGUAGE_COOKIE_NAME, user_language)
+        return response
+    else:
+        return HttpResponseBadRequest('Invalid request method.')
 
 
 class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):

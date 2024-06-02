@@ -27,7 +27,7 @@ from .views import DailyMenuRecipeListView, DailyMenuRecipeCreateView, DailyMenu
 from .views import IncorrectUnitsListView, ArticlesNotInRecipesListView, ShowFoodConsumptionTotalPrice, \
     CateringUnitFilterView, CateringUnitShowView
 
-from .views import about, changelog, docs, export_data, ImportDataView, set_language
+from .views import about, changelog, docs, export_data, switch_language, ImportDataView
 
 app_name = "kitchen"
 urlpatterns = [
@@ -37,7 +37,7 @@ urlpatterns = [
     path('export', export_data, name='export'),
     path('import', ImportDataView.as_view(), name='import'),
     path('favicon.ico', RedirectView.as_view(url='/static/images/favicons/favicon.ico')),
-    path('lang', set_language, name='lang'),
+    path('switchlang', switch_language, name='switchlang'),
     path('i18n', include('django.conf.urls.i18n'), name='i18n'),
 
     path('article/list', ArticleListView.as_view(), name='showArticles'),

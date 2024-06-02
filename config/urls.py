@@ -7,9 +7,9 @@ from django.views.generic import TemplateView
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import gettext_lazy as _
 
-admin.site.index_title = _('Settings')
+admin.site.index_title = _('Nastaveni')
 admin.site.site_header = _('KiCoMa')
-admin.site.site_title = _('Kitchen Settings')
+admin.site.site_title = _('Kuchyna nastavení')
 
 urlpatterns = i18n_patterns(
     path('', TemplateView.as_view(template_name="kitchen/about.html"), name="home"),

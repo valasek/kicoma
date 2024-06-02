@@ -1,0 +1,507 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-02 18:25+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: config/settings/base.py:42
+msgid "Czech"
+msgstr ""
+
+#: config/settings/base.py:43 kicoma/templates/menu_switch_lang.html:17
+msgid "English"
+msgstr "Čeština"
+
+#: config/urls.py:10
+msgid "Nastaveni"
+msgstr ""
+
+#: config/urls.py:11
+msgid "KiCoMa"
+msgstr ""
+
+#: config/urls.py:12
+msgid "Kuchyna nastavení"
+msgstr ""
+
+#: kicoma/kitchen/apps.py:7
+msgid "Kitchen"
+msgstr ""
+
+#: kicoma/kitchen/models.py:17
+msgid "kg"
+msgstr ""
+
+#: kicoma/kitchen/models.py:18
+msgid "g"
+msgstr ""
+
+#: kicoma/kitchen/models.py:19
+msgid "l"
+msgstr ""
+
+#: kicoma/kitchen/models.py:20
+msgid "ml"
+msgstr ""
+
+#: kicoma/kitchen/models.py:21
+msgid "ks"
+msgstr ""
+
+#: kicoma/kitchen/models.py:35 kicoma/kitchen/models.py:36
+msgid "číselník - DPH"
+msgstr ""
+
+#: kicoma/kitchen/models.py:49
+msgid "číselník - Alergeny"
+msgstr ""
+
+#: kicoma/kitchen/models.py:50
+msgid "číselník - Alergen"
+msgstr ""
+
+#: kicoma/kitchen/models.py:61
+msgid "číselník - Skupiny strávníků"
+msgstr ""
+
+#: kicoma/kitchen/models.py:62
+msgid "číselník - Skupina strávníků"
+msgstr ""
+
+#: kicoma/kitchen/models.py:73
+msgid "číselník - Druhy jídla"
+msgstr ""
+
+#: kicoma/kitchen/models.py:74
+msgid "číselník - Druh jídla"
+msgstr ""
+
+#: kicoma/kitchen/models.py:85 kicoma/kitchen/models.py:86
+msgid "Zboží"
+msgstr ""
+
+#: kicoma/kitchen/models.py:129
+msgid "Alergeny"
+msgstr ""
+
+#: kicoma/kitchen/models.py:134 kicoma/templates/menu_recipes.html:17
+msgid "Recepty"
+msgstr "Recipes"
+
+#: kicoma/kitchen/models.py:135
+msgid "Recept"
+msgstr ""
+
+#: kicoma/kitchen/models.py:180
+msgid "Suroviny v receptu"
+msgstr ""
+
+#: kicoma/kitchen/models.py:181
+msgid "Surovina v receptu"
+msgstr ""
+
+#: kicoma/kitchen/models.py:203 kicoma/kitchen/models.py:204
+msgid "Menu"
+msgstr ""
+
+#: kicoma/kitchen/models.py:223 kicoma/kitchen/models.py:224
+msgid "Recepty menu"
+msgstr "Recipies menu"
+
+#: kicoma/kitchen/models.py:239 kicoma/kitchen/models.py:240
+#: kicoma/templates/menu_dailymenu.html:17
+msgid "Denní menu"
+msgstr "Daily menu"
+
+#: kicoma/kitchen/models.py:263 kicoma/kitchen/models.py:264
+msgid "Recepty denního menu"
+msgstr ""
+
+#: kicoma/kitchen/models.py:280
+msgid "Výdejky"
+msgstr ""
+
+#: kicoma/kitchen/models.py:281
+msgid "Výdejka"
+msgstr ""
+
+#: kicoma/kitchen/models.py:381
+msgid "Příjemky"
+msgstr ""
+
+#: kicoma/kitchen/models.py:382
+msgid "Příjemka"
+msgstr ""
+
+#: kicoma/kitchen/models.py:420 kicoma/kitchen/models.py:421
+msgid "Zboží na výdejce"
+msgstr ""
+
+#: kicoma/kitchen/models.py:453 kicoma/kitchen/models.py:454
+msgid "Zboží na příjemce"
+msgstr ""
+
+#: kicoma/kitchen/templates/kitchen/about_author.html:3
+msgid "Autor programu"
+msgstr "Author"
+
+#: kicoma/kitchen/templates/kitchen/about_author.html:7
+msgid "Stanislav Valášek"
+msgstr "Stanislav Valasek"
+
+#: kicoma/kitchen/templates/kitchen/about_author.html:8
+msgid "Zadejte"
+msgstr "Got a suggestion for a new feature or found a bug?"
+
+#: kicoma/kitchen/templates/kitchen/about_author.html:9
+msgid "požadavek na novou vlastnost nebo nahlašte chybu"
+msgstr ""
+
+#: kicoma/kitchen/templates/kitchen/about_content.html:21
+msgid "Historie vzniku programu"
+msgstr "The Story Behind KiCoMa"
+
+#: kicoma/kitchen/templates/kitchen/i18n.html:5
+msgid "Change the language"
+msgstr "Změna jazyka"
+
+#: kicoma/kitchen/templates/kitchen/i18n.html:23
+msgid "Go"
+msgstr ""
+
+#: kicoma/templates/account/account_inactive.html:5
+#: kicoma/templates/account/account_inactive.html:8
+msgid "Account Inactive"
+msgstr ""
+
+#: kicoma/templates/account/account_inactive.html:10
+msgid "This account is inactive."
+msgstr ""
+
+#: kicoma/templates/account/email.html:7
+msgid "Account"
+msgstr ""
+
+#: kicoma/templates/account/email.html:10
+msgid "E-mail Addresses"
+msgstr ""
+
+#: kicoma/templates/account/email.html:13
+msgid "The following e-mail addresses are associated with your account:"
+msgstr ""
+
+#: kicoma/templates/account/email.html:27
+msgid "Verified"
+msgstr ""
+
+#: kicoma/templates/account/email.html:29
+msgid "Unverified"
+msgstr ""
+
+#: kicoma/templates/account/email.html:31
+msgid "Primary"
+msgstr ""
+
+#: kicoma/templates/account/email.html:37
+msgid "Make Primary"
+msgstr ""
+
+#: kicoma/templates/account/email.html:38
+msgid "Re-send Verification"
+msgstr ""
+
+#: kicoma/templates/account/email.html:39
+msgid "Remove"
+msgstr ""
+
+#: kicoma/templates/account/email.html:46
+msgid "Warning:"
+msgstr ""
+
+#: kicoma/templates/account/email.html:46
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+
+#: kicoma/templates/account/email.html:51
+msgid "Add E-mail Address"
+msgstr ""
+
+#: kicoma/templates/account/email.html:56
+msgid "Add E-mail"
+msgstr ""
+
+#: kicoma/templates/account/email.html:66
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr ""
+
+#: kicoma/templates/account/email_confirm.html:6
+#: kicoma/templates/account/email_confirm.html:10
+msgid "Confirm E-mail Address"
+msgstr ""
+
+#: kicoma/templates/account/email_confirm.html:16
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+
+#: kicoma/templates/account/email_confirm.html:20
+msgid "Confirm"
+msgstr ""
+
+#: kicoma/templates/account/email_confirm.html:27
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+
+#: kicoma/templates/account/login.html:7 kicoma/templates/account/login.html:11
+#: kicoma/templates/account/login.html:44
+msgid "Sign In"
+msgstr ""
+
+#: kicoma/templates/account/login.html:16
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
+"up</a>\n"
+"for a %(site_name)s account and sign in below:"
+msgstr ""
+
+#: kicoma/templates/account/login.html:26
+msgid "or"
+msgstr ""
+
+#: kicoma/templates/account/login.html:33
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"<a href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
+
+#: kicoma/templates/account/login.html:43
+msgid "Forgot Password?"
+msgstr ""
+
+#: kicoma/templates/account/logout.html:5
+#: kicoma/templates/account/logout.html:8
+#: kicoma/templates/account/logout.html:17
+msgid "Sign Out"
+msgstr ""
+
+#: kicoma/templates/account/logout.html:10
+msgid "Are you sure you want to sign out?"
+msgstr ""
+
+#: kicoma/templates/account/password_change.html:6
+#: kicoma/templates/account/password_change.html:9
+#: kicoma/templates/account/password_change.html:14
+#: kicoma/templates/account/password_reset_from_key.html:5
+#: kicoma/templates/account/password_reset_from_key.html:8
+#: kicoma/templates/account/password_reset_from_key_done.html:4
+#: kicoma/templates/account/password_reset_from_key_done.html:7
+msgid "Change Password"
+msgstr ""
+
+#: kicoma/templates/account/password_reset.html:7
+#: kicoma/templates/account/password_reset.html:11
+#: kicoma/templates/account/password_reset_done.html:6
+#: kicoma/templates/account/password_reset_done.html:9
+msgid "Password Reset"
+msgstr ""
+
+#: kicoma/templates/account/password_reset.html:16
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+
+#: kicoma/templates/account/password_reset.html:21
+msgid "Reset My Password"
+msgstr ""
+
+#: kicoma/templates/account/password_reset.html:24
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+
+#: kicoma/templates/account/password_reset_done.html:15
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: kicoma/templates/account/password_reset_from_key.html:8
+msgid "Bad Token"
+msgstr ""
+
+#: kicoma/templates/account/password_reset_from_key.html:12
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+
+#: kicoma/templates/account/password_reset_from_key.html:18
+msgid "change password"
+msgstr ""
+
+#: kicoma/templates/account/password_reset_from_key.html:21
+#: kicoma/templates/account/password_reset_from_key_done.html:8
+msgid "Your password is now changed."
+msgstr ""
+
+#: kicoma/templates/account/password_set.html:6
+#: kicoma/templates/account/password_set.html:9
+#: kicoma/templates/account/password_set.html:14
+msgid "Set Password"
+msgstr ""
+
+#: kicoma/templates/account/signup.html:6
+msgid "Signup"
+msgstr ""
+
+#: kicoma/templates/account/signup.html:9
+#: kicoma/templates/account/signup.html:19
+msgid "Sign Up"
+msgstr ""
+
+#: kicoma/templates/account/signup.html:11
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+
+#: kicoma/templates/account/signup_closed.html:5
+#: kicoma/templates/account/signup_closed.html:8
+msgid "Sign Up Closed"
+msgstr ""
+
+#: kicoma/templates/account/signup_closed.html:10
+msgid "We are sorry, but the sign up is currently closed."
+msgstr ""
+
+#: kicoma/templates/account/verification_sent.html:5
+#: kicoma/templates/account/verification_sent.html:8
+#: kicoma/templates/account/verified_email_required.html:5
+#: kicoma/templates/account/verified_email_required.html:8
+msgid "Verify Your E-mail Address"
+msgstr ""
+
+#: kicoma/templates/account/verification_sent.html:10
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: kicoma/templates/account/verified_email_required.html:12
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+
+#: kicoma/templates/account/verified_email_required.html:16
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: kicoma/templates/account/verified_email_required.html:20
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+
+#: kicoma/templates/base.html:86
+msgid "Register"
+msgstr ""
+
+#: kicoma/templates/base.html:97
+msgid "Přihlásit"
+msgstr "Log in"
+
+#: kicoma/templates/base.html:138
+msgid "Můj profil"
+msgstr ""
+
+#: kicoma/templates/base.html:146
+msgid "Administrace"
+msgstr ""
+
+#: kicoma/templates/base.html:153
+msgid "Export všech dat"
+msgstr ""
+
+#: kicoma/templates/base.html:160
+msgid "Import všech dat"
+msgstr ""
+
+#: kicoma/templates/base.html:171
+msgid "Odhlásit"
+msgstr "Log out"
+
+#: kicoma/templates/menu_about.html:16 kicoma/templates/menu_about.html:27
+msgid "O programu"
+msgstr "About"
+
+#: kicoma/templates/menu_about.html:35
+msgid "Změny v aplikaci"
+msgstr "Changelog"
+
+#: kicoma/templates/menu_about.html:42
+msgid "Nápověda"
+msgstr "Help"
+
+#: kicoma/templates/menu_inventory.html:16
+msgid "Inventura"
+msgstr "Inventory"
+
+#: kicoma/templates/menu_reports.html:16
+msgid "Reporty"
+msgstr "Reports"
+
+#: kicoma/templates/menu_store.html:16
+msgid "Sklad"
+msgstr "Store"
+
+#: kicoma/users/apps.py:7
+msgid "Users"
+msgstr ""
+
+#: kicoma/users/forms.py:16
+msgid "This username has already been taken."
+msgstr ""
+
+#: kicoma/users/models.py:11
+msgid "Name of User"
+msgstr ""
+
+#: kicoma/users/views.py:34
+msgid "Infos successfully updated"
+msgstr ""
+
+#~ msgid "Jazyk"
+#~ msgstr "Česky"

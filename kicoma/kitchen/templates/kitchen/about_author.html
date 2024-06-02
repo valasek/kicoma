@@ -1,3 +1,11 @@
-<h5>Autor programu</h5>
-<p>&copy; <a href="https://www.linkedin.com/in/stanislavvalasek/" target="_blank">Stanislav Valášek</a>, 2019 - {% now "Y" %}.<br/>
-Zadejte <a href="https://forms.gle/RiksHZua81UX748L7" target="_blank">požadavek na novou vlastnost nebo nahlášte chybu</a>.</p>
+{% load static i18n %}
+
+<h5>{% trans "Autor programu" %}</h5>
+<p>
+    &copy;
+    <a href="https://www.linkedin.com/in/stanislavvalasek/" target="_blank">
+        {% trans "Stanislav Valášek" %}</a>, 2019 - {% now "Y" %}.<br/>
+        {% trans "Zadejte" %} <a href="https://forms.gle/RiksHZua81UX748L7" target="_blank">
+            {% trans "požadavek na novou vlastnost nebo nahlašte chybu" %}
+    </a>.
+</p>

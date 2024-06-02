@@ -34,7 +34,7 @@ Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
 
 ## Update Translations
 ### Generate message files for a desired language
-`./manage.py makemessages -l cs_CZ --ignore=venv/*`
+`./manage.py makemessages -l en -l cs`
  
 ### After adding translations to the .po files, compile the messages
 `./manage.py compilemessages`
@@ -49,10 +49,10 @@ Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
 `git push heroku master`
 
 ## Usefull heroku commands
-heroku git:remote -a kicoma-tri
-heroku apps:info -a kicoma-tri
-heroku apps:stacks -a kicoma-tri
-heroku buildpacks -a kicoma-tri
+`heroku git:remote -a kicoma-tri`
+`heroku apps:info -a kicoma-tri`
+`heroku apps:stacks -a kicoma-tri`
+`heroku buildpacks -a kicoma-tri`
 
 ## Generate user password for fixture
 
