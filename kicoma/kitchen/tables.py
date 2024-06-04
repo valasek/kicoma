@@ -148,8 +148,9 @@ class DailyMenuTable(tables.Table):
 
     @staticmethod
     def render_max_amount_number(record):
-        daily_menus = DailyMenuRecipe.objects.filter(daily_menu=record.id).select_related('meal_group', 'meal_type')
-        return daily_menus.max_amount_number(record.id)
+        # daily_menus = DailyMenu.objects.filter(daily_menu=record.id).select_related('meal_group', 'meal_type')
+        # return daily_menus.max_amount_number(record.id)
+        return DailyMenu.max_amount_number(record.id)
 
 
 class DailyMenuFilter(FilterSet):
