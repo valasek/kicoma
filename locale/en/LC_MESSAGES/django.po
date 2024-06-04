@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 18:25+0200\n"
+"POT-Creation-Date: 2024-06-04 18:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -156,32 +156,143 @@ msgid "Zboží na příjemce"
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/about_author.html:3
-msgid "Autor programu"
+msgid "Autor"
 msgstr "Author"
 
 #: kicoma/kitchen/templates/kitchen/about_author.html:7
 msgid "Stanislav Valášek"
 msgstr "Stanislav Valasek"
 
-#: kicoma/kitchen/templates/kitchen/about_author.html:8
-msgid "Zadejte"
-msgstr "Got a suggestion for a new feature or found a bug?"
-
-#: kicoma/kitchen/templates/kitchen/about_author.html:9
-msgid "požadavek na novou vlastnost nebo nahlašte chybu"
+#: kicoma/kitchen/templates/kitchen/about_author.html:10
+msgid "Máte nápad na novou funkci nebo jste narazili na chybu? Neváhejte a"
 msgstr ""
+"Do you have an idea for a new feature or have you encountered a bug? Do not "
+"hesitate to"
 
-#: kicoma/kitchen/templates/kitchen/about_content.html:21
-msgid "Historie vzniku programu"
-msgstr "The Story Behind KiCoMa"
+#: kicoma/kitchen/templates/kitchen/about_author.html:11
+msgid "kontaktujte přímo autora"
+msgstr "contact the author directly"
 
-#: kicoma/kitchen/templates/kitchen/i18n.html:5
-msgid "Change the language"
-msgstr "Změna jazyka"
-
-#: kicoma/kitchen/templates/kitchen/i18n.html:23
-msgid "Go"
+#: kicoma/kitchen/templates/kitchen/about_author.html:13
+msgid ""
+"Jsme tu pro vás a těšíme se na vaše podněty. Pomozte nám zlepšovat KiCoMa a "
+"udělejte svůj kuchyňský provoz ještě efektivnější!"
 msgstr ""
+"We are here for you and look forward to your feedback. Help us improve "
+"KiCoMa and make your kitchen operations even more efficient!"
+
+#: kicoma/kitchen/templates/kitchen/about_content.html:4
+msgid "Objevte KiCoMa - Váš spolehlivý pomocník pro správu kuchyně!"
+msgstr "Introducing KiCoMa - Your Reliable Kitchen Management Assistant!"
+
+#: kicoma/kitchen/templates/kitchen/about_content.html:10
+msgid "Pročtěte si "
+msgstr "Read "
+
+#: kicoma/kitchen/templates/kitchen/about_content.html:10
+msgid "nápovědu"
+msgstr "help"
+
+#: kicoma/kitchen/templates/kitchen/about_content.html:19
+msgid "Připojte se ke KiCoMa ještě dnes!"
+msgstr "Join KiCoMa Today!"
+
+#: kicoma/kitchen/templates/kitchen/about_content.html:22
+msgid "Zeptejte se, co vás zajíma"
+msgstr "Ask all what you need to know"
+
+#: kicoma/kitchen/templates/kitchen/about_content.html:24
+msgid "rezervace online schůzky s autorem."
+msgstr "book an online meet with an author."
+
+#: kicoma/kitchen/templates/kitchen/about_short_intro.html:3
+msgid ""
+"KiCoMa je špičkový program určený pro efektivní správu skladu potravin, "
+"receptů a menu. S naším programem bude vaše kuchyně fungovat jako hodinky. "
+"Pojďte se podívat, jak vám KiCoMa může pomoci:"
+msgstr ""
+"KiCoMa is a top-notch program designed for efficient management of food "
+"inventory,  recipes, and menus. With our program, your kitchen will run like "
+"clockwork. Come see how KiCoMa can help you:"
+
+#: kicoma/kitchen/templates/kitchen/about_short_intro.html:6
+msgid ""
+"<b>Snadné plánování</b>: Výživová poradkyně jednoduše naplánuje recepty a "
+"denní menu."
+msgstr ""
+"<b>Effortless Planning</b>: The nutritionist easily plans recipes and daily "
+"menus."
+
+#: kicoma/kitchen/templates/kitchen/about_short_intro.html:7
+msgid ""
+"<b>Bezproblémové vaření</b>: Kuchyně vaří přesně podle denního menu, bez "
+"stresu a zmatků."
+msgstr ""
+"<b>Hassle-Free Cooking</b>: The kitchen cooks precisely according to the "
+"daily menu, without stress or confusion."
+
+#: kicoma/kitchen/templates/kitchen/about_short_intro.html:8
+msgid ""
+"<b>Perfektní synchronizace</b>: Recepty a menu jsou propojené se skladem "
+"potravin, což znamená, že vždy víte, co máte na skladě."
+msgstr ""
+"<b>Perfect Synchronization</b>: Recipes and menus are linked to the food "
+"inventory, which means you always know what you have in stock."
+
+#: kicoma/kitchen/templates/kitchen/about_short_intro.html:9
+msgid ""
+"<b>Aktuální stav skladu</b>: Stav skladu se automaticky mění pomocí příjemek "
+"a výdejek sestavených podle vydávaných jídel, nebo jednorázovou inventurou."
+msgstr ""
+"<b>Real-Time Inventory Status</b>: Inventory levels are automatically "
+"updated using receipts and disbursements prepared according to the meals "
+"issued, or by one-time inventory."
+
+#: kicoma/kitchen/templates/kitchen/about_short_intro.html:10
+msgid ""
+"<b>Jednoduché reporty</b>: Vytvářejte přehledné reporty jedním kliknutím. "
+"Program je intuitivní a snadno ovladatelný, s nápovědou a podrobným popisem "
+"funkcí."
+msgstr ""
+"<b>Easy Reports</b>: Generate clear reports with a single click. The program "
+"is intuitive and easy to use, with help and detailed function descriptions."
+
+#: kicoma/kitchen/templates/kitchen/docs.html:92
+msgid "Datový model"
+msgstr "Data model"
+
+#: kicoma/kitchen/templates/kitchen/docs.html:236
+msgid "Historie programu"
+msgstr "Program history"
+
+#: kicoma/kitchen/templates/kitchen/docs.html:238
+msgid ""
+"KiCoMa - <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement byla vytvořena "
+"jako\n"
+"      moderní nástupce na základě požadavků společnosti"
+msgstr ""
+"KiCoMa  - <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement was created as a "
+"modern successor, based on the requirements of the company"
+
+#: kicoma/kitchen/templates/kitchen/docs.html:241
+msgid ""
+"Současný program je inspirován původním programem Strávníček, který v letech "
+"1997 - 1998 vyvinuli Josef Dalibába a Dáša Trmalová."
+msgstr ""
+"Current program is inspired by the original Strávníček, which was developed "
+"by Josef Dalibába and Dáša Trmalová in 1997-1998."
+
+#: kicoma/kitchen/templates/kitchen/docs.html:243
+msgid "Prohlédněte si, "
+msgstr "Discover"
+
+#: kicoma/kitchen/templates/kitchen/docs.html:244
+msgid "jakými změnami"
+msgstr "all changes"
+
+#: kicoma/kitchen/templates/kitchen/docs.html:245
+msgid "program prošel od té doby do současnosti."
+msgstr "of the program from that time up to now."
 
 #: kicoma/templates/account/account_inactive.html:5
 #: kicoma/templates/account/account_inactive.html:8
@@ -502,6 +613,3 @@ msgstr ""
 #: kicoma/users/views.py:34
 msgid "Infos successfully updated"
 msgstr ""
-
-#~ msgid "Jazyk"
-#~ msgstr "Česky"

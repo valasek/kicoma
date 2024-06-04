@@ -1,14 +1,20 @@
 {% extends "base.html" %}
+{% load static i18n %}
+{% load auth_extras %}
+{% load humanize %}
 {% block content %}
 <h4>Nápověda</h4>
 <hr />
 <div class="container-fluid">
-<div class="row">
-  <div class="col">
-    {% include "kitchen/about_short_intro.html" %}
-    <hr />
+  <div class="row">
+    <div class="col">
+      {% include "kitchen/about_short_intro.html" %}
+    </div>
+    <div class="col">
+      {% include "kitchen/about_author.html" %}
+    </div>
   </div>
-</div>
+  <hr/>
   <div class="row">
   <div class="col-sm-7">
     <h5>Správa zboží</h5>
@@ -81,5 +87,166 @@
   </div>
 </div>
 <hr/>
-{% include "kitchen/about_author.html" %}
+<div class="row">
+  <div class="col">
+    <h5>{% trans "Datový model" %}</h5>
+    <img src="{% static 'images/datamodel.png'%}" width="100%" alt="data model" />
+  </div>
+</div>
+<hr/>
+{% if request.user.is_authenticated %}
+<div class="row">
+  <div class="col">
+    <h5>Stav a objem dát</h5>
+    <p scope="row">Databáze obsahuje celkem {{ total_records | intcomma }} záznamů.</p>
+    <div class="row">  
+      <div class="col-sm">
+        <h5>Uživatelská data</h5>
+        <table class="table table-striped table-sm table-responsive">
+          <tr>
+            <th scope="col">Tabulka</th>
+            <th scope="col">Záznamů</th>
+          </tr>
+          <tr>
+            <td scope="row">Zboží</td>
+            <td >{{ article_count | intcomma }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Vazby mezi zboží a alergeny</td>
+            <td >{{ article_allergen_count| intcomma }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Zboží - historie</td>
+            <td >{{ historical_article_count | intcomma }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Recepty</td>
+            <td >{{ recipeCount | intcomma }}</td>
+          </tr>
+          <tr>
+            <td scope="row">Surovin v receptech</td>
+            <td >{{ recipe_article_count | intcomma }}</td>
+          </tr>
+          <tr>
+            <td scope="row">Příjemky</td>
+            <td >{{ stockReceiptCount | intcomma }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Zboží na příjemkách</td>
+            <td >{{ stock_receipt_article_count | intcomma }}</td>
+          </tr>
+          <tr>
+            <td scope="row">Výdejky</td>
+            <td >{{ stockIssueCount | intcomma }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Zboží na výdejkách</td>
+            <td >{{ stock_issue_article_count | intcomma }}</td>
+          </tr>
+          <tr>
+            <td scope="row">Denní menu</td>
+            <td >{{ dailyMenuCount | intcomma }}</td>
+          </tr>
+          <tr>
+            <td scope="row">Recepty v denních menu</td>
+            <td >{{ dailyMenuRecipeCount | intcomma }}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm">
+        <h5>Číselníky</h5>
+        <table class="table table-striped table-sm table-responsive">
+          <tr>
+            <th scope="col">Tabulka</th>
+            <th scope="col">Záznamů</th>
+          </tr>
+          <tr>
+            <td scope="row">Druhy jídla</td>
+            <td >{{ meal_typeCount | intcomma }}</ts>
+          </tr>
+            <tr>
+            <td scope="row">Skupiny strávníků</td>
+            <td >{{ mealGroupCount | intcomma }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Alergeny</td>
+            <td >{{ allergenCount | intcomma }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">DPH</td>
+            <td >{{ vatCount | intcomma }}</ts>
+          </tr>
+        </table>
+        <h5>Práva</h5>
+        <table class="table table-striped table-sm table-responsive">
+          <tr>
+            <th scope="col">Tabulka</th>
+            <th scope="col">Záznamů</th>
+          </tr>
+          <tr>
+            <td scope="row">Uživatelé</td>
+            <td >{{ userCount | intcomma }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Skupiny</td>
+            <td >{{ groupCount | intcomma }}</ts>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm">
+        <h5>Servisní tabulky</h5>
+        <table class="table table-striped table-sm table-responsive">
+          <tr>
+            <th scope="col">Tabulka</th>
+            <th scope="col">Záznamů</th>
+          </tr>
+          <tr>
+            <td scope="row">Content types</td>
+            <td >{{ content_type_count | intcomma }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Group permissions</td>
+            <td >{{ permission_count | intcomma }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">DB migrations</td>
+            <td >{{ migration_count | intcomma }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Sessions</td>
+            <td >{{ session_count | intcomma }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">Sites</td>
+            <td >{{ site_count | intcomma }}</ts>
+          </tr>
+          <tr>
+            <td scope="row">User group relationships</td>
+            <td >{{ user_group_rel_count | intcomma }}</ts>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+<hr/>
+<div class="row">
+  <div class="col">
+    <h5>{% trans "Historie programu" %}</h5>
+    <p>
+      {% blocktrans %}KiCoMa - <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement byla vytvořena jako
+      moderní nástupce na základě požadavků společnosti{% endblocktrans %}
+      <a href="https://www.hospic-cercany.cz/" target="_blank">TŘI, z.ú.</a>
+      {% trans "Současný program je inspirován původním programem Strávníček, který v letech 1997 - 1998 vyvinuli Josef Dalibába a Dáša Trmalová." %}
+      <p>
+        {% trans "Prohlédněte si, " %}
+        <a href="changelog">{% trans "jakými změnami" %}</a>
+        {% trans "program prošel od té doby do současnosti." %}
+      </p>
+    </p>
+    <p>A malé nostalgické okénko - takhle vypadal původní program:</p>
+    <img src="{% static 'images/stravnicek.png'%}" alt="Stravnicek" />
+  </div>
+</div>
 {% endblock content %}

@@ -65,6 +65,14 @@ logger = logging.getLogger(__name__)
 
 
 def about(request):
+    return render(request, 'kitchen/about.html')
+
+
+def changelog(request):
+    return render(request, 'kitchen/changelog.html')
+
+
+def docs(request):
     allergen_count = Allergen.objects.all().count()
     meal_type_count = MealType.objects.all().count()
     meal_group_count = MealGroup.objects.all().count()
@@ -113,9 +121,7 @@ def about(request):
         stock_receipt_article_count + daily_menu_count + daily_menu_recipe_count + user_count + group_count + \
         content_type_count + permission_count + migration_count + session_count + site_count + user_group_rel_count
 
-    logger.info("processing index")
-
-    return render(request, 'kitchen/about.html', {
+    return render(request, 'kitchen/docs.html', {
         'allergenCount': allergen_count,
         'meal_typeCount': meal_type_count,
         'mealGroupCount': meal_group_count,
@@ -145,14 +151,6 @@ def about(request):
 
         'total_records': total_records
     })
-
-
-def changelog(request):
-    return render(request, 'kitchen/changelog.html')
-
-
-def docs(request):
-    return render(request, 'kitchen/docs.html')
 
 
 @login_required

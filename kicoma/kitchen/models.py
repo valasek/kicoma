@@ -478,3 +478,10 @@ class StockReceiptArticle(TimeStampedModel):
 
     def __str__(self):
         return self.article.article + ' - ' + str(self.amount) + self.unit
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.prefetch_related(
+            'stockreceiptarticle_set__article',
+            'stockreceiptarticle_set__vat'
+        )

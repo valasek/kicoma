@@ -199,8 +199,3 @@ Do not forget to add the following argument at the end of every command:
 
 ## Initialize DB
 `./reset-db-heroku.sh`
-
-
-ToDo:
-- upgrade na Django 5 a vš. balíky
-- jazyka na lište z vlajkou

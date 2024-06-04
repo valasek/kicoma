@@ -1,11 +1,13 @@
 {% load static i18n %}
 
-<h5>{% trans "Autor programu" %}</h5>
+<h5>{% trans "Autor" %}</h5>
 <p>
     &copy;
     <a href="https://www.linkedin.com/in/stanislavvalasek/" target="_blank">
-        {% trans "Stanislav Valášek" %}</a>, 2019 - {% now "Y" %}.<br/>
-        {% trans "Zadejte" %} <a href="https://forms.gle/RiksHZua81UX748L7" target="_blank">
-            {% trans "požadavek na novou vlastnost nebo nahlašte chybu" %}
-    </a>.
+        {% trans "Stanislav Valášek" %}</a>, 2019 - {% now "Y" %}.
+    </a>
 </p>
+{% trans "Máte nápad na novou funkci nebo jste narazili na chybu? Neváhejte a" %}
+<a href="https://forms.gle/RiksHZua81UX748L7" target="_blank">{% trans "kontaktujte přímo autora" %}</a>!
+<br/><br/>
+{% trans "Jsme tu pro vás a těšíme se na vaše podněty. Pomozte nám zlepšovat KiCoMa a udělejte svůj kuchyňský provoz ještě efektivnější!" %}
