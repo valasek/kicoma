@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Celková částka za přijaté příjemky a vydané výdejky za poslední 3 měsíce</h4>
+  <h4>Celková částka za přijaté příjemky a vydané výdejky za posledních 6 měsíců</h4>
   <hr/>
   {% for data in all_data %}
   {{ data.month }}.{{ data.year }}<br />

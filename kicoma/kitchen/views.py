@@ -1303,19 +1303,19 @@ class ShowFoodConsumptionTotalPrice(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
 
         context['all_data'] = [
-            #stock_issues_receipts_data(0),
-            #stock_issues_receipts_data(1),
-            #stock_issues_receipts_data(2),
-            #stock_issues_receipts_data(3),
-            #stock_issues_receipts_data(4),
-            #stock_issues_receipts_data(5),
+            stock_issues_receipts_data(0),
+            stock_issues_receipts_data(1),
+            stock_issues_receipts_data(2),
+            stock_issues_receipts_data(3),
+            stock_issues_receipts_data(4),
+            stock_issues_receipts_data(5),
             #stock_issues_receipts_data(6),
-            stock_issues_receipts_data(7),
-            stock_issues_receipts_data(8),
-            stock_issues_receipts_data(9),
-            stock_issues_receipts_data(10),
-            stock_issues_receipts_data(11),
-            stock_issues_receipts_data(12),
+            #stock_issues_receipts_data(7),
+            #stock_issues_receipts_data(8),
+            #stock_issues_receipts_data(9),
+            #stock_issues_receipts_data(10),
+            #stock_issues_receipts_data(11),
+            #stock_issues_receipts_data(12),
             #stock_issues_receipts_data(13),
         ]
 
