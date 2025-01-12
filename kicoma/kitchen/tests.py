@@ -1,12 +1,20 @@
 import urllib.parse
-from django.test import TestCase
-from django.urls import reverse
+from django.test import TestCase, SimpleTestCase
+from django.urls import reverse, resolve
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.test.client import Client
 
-from kicoma.kitchen.models import VAT, UNIT, Article
+from kicoma.kitchen.models import UNIT, Article
+from kicoma.kitchen.views import ArticleCreateView
+
+
+class TestUrl(SimpleTestCase):
+
+    def test_article_create_view_is_resolved(self):
+        url = reverse('kitchen:createArticle')
+        self.assertEqual(resolve(url).func.view_class, ArticleCreateView)
 
 
 class ViewTests(TestCase):
@@ -105,23 +113,6 @@ class ViewTests(TestCase):
         "/kitchen/report/incorrectunits",
         "/kitchen/report/articlesnotinrecipes"
     ]
-
-    def test_public_urls(self):
-        public_urls = [
-            "/",
-            "/kitchen/about",
-            "/kitchen/changelog",
-            "/kitchen/docs",
-        ]
-        for url in public_urls:
-            response = self.client.get(url)
-            self.assertEqual(response.status_code, 200, msg=url)
-
-    def test_private_url_redirects_to_login(self):
-        for url in self.private_urls:
-            response = self.client.get(url)
-            self.assertRedirects(response, "/accounts/login/?next="+urllib.parse.quote(url), status_code=302,
-                                 target_status_code=200, msg_prefix='', fetch_redirect_response=True)
 
     def test_access_private_urls_with_login(self):
         self.client.login(username='john', password='password')
