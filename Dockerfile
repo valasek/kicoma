@@ -1,5 +1,5 @@
 # Use the official Python image from the DockerHub
-FROM --platform=linux/amd64 python:3.11.9-slim
+FROM --platform=linux/amd64 python:3.13.2-slim
 
 # Set the working directory in docker
 WORKDIR /app
