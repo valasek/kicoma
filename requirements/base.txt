@@ -1,9 +1,9 @@
-pytz==2024.1  # https://github.com/stub42/pytz
+pytz==2025.2  # https://github.com/stub42/pytz
 python-slugify==8.0.4  # https://github.com/un33k/python-slugify
-Pillow==10.3.0  # https://github.com/python-pillow/Pillow
+Pillow==11.1.0  # https://github.com/python-pillow/Pillow
 argon2-cffi==23.1.0  # https://github.com/hynek/argon2_cffi
-whitenoise==6.6.0  # https://github.com/evansd/whitenoise
-redis==5.0.4 # https://github.com/andymccurdy/redis-py
+whitenoise==6.9.0  # https://github.com/evansd/whitenoise
+redis==5.2.1 # https://github.com/andymccurdy/redis-py
 python-dateutil==2.9.0.post0 # https://github.com/dateutil/dateutil
 
 # Project specific

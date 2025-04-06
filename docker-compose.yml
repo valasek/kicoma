@@ -7,10 +7,10 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - postgres-dev
+      - db
 
-  postgres-dev:
+  db:
     image: postgres
     environment:
-      POSTGRES_USER: "kicoma-dev"
-      POSTGRES_PASSWORD: "kicoma-dev"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
