@@ -15,6 +15,7 @@ django-bootstrap4==24.3
 sentry-sdk==2.3.1
 django-simple-history==3.7.0
 tablib~=3.5.0
+openpyxl==3.1.2
 
 # Django
 # ------------------------------------------------------------------------------
