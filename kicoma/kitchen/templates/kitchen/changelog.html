@@ -7,6 +7,11 @@
     <div class="col">
       <h5>Změny za 2025</h5>
       <hr/>
+      12. 4. 2025
+      <ul>
+        <li>Rozšíření aplikace o Údržbu dat - výmaz neaktivních záznamů starších 2 let.</li>
+        <li>Oprava - přidání uživatele přes Administraci již nepíše chybu.</li>
+      </ul>
       6. 4. 2025
       <ul>
         <li>Aktualizace na nejnovější verzi <a href="https://www.djangoproject.com/weblog/2025/apr/02/django-52-released/" target="_blank">Django 5.2</a> a aktualizace souvisejících knihoven.</li>
@@ -22,57 +27,59 @@
       <ul>
         <li>Aktualizace na nejnovější verzi <a href="https://www.djangoproject.com/weblog/2023/dec/04/django-50-released/" target="_blank">Django 5.0.6</a> a aktualizace souvisejících knihoven.</li>
       </ul>
-      <h5>Změny za 2022</h5>
-      <hr/>
-      14. 4. 2022
-      <ul>
-        <li>Aktualizace na nejnovější verzi <a href="https://www.djangoproject.com/weblog/2022/apr/11/security-releases/">Django 4.0.4</a> a aktualizace souvisejících knihoven.</li>
-        <li>Změna generování PDF z wkhtml na jsPDF.</li>
-        <li>Přidání testů pro zvýšení kvality kódu.</li>
-      </ul>
-      7. 3. 2022
-      <ul>
-        <li>V <a href="{% url 'kitchen:showRestrictedArticles' %}">Seznamu zboží na skladu - pro kuchaře</a> byla přidaná 	Průměrná jednotková cena s DPH.</li>
-      </ul>
-      5. 3. 2022
-      <ul>
-        <li>V případě úpravy zboží na výdejce si tabulka zboží uchová pozici a neskáče na začátek.</li>
-      </ul>
-      27. 2. 2022
-      <ul>
-        <li>Pro nově vytvořené výdejky:<br/>
-          Když se vytváří výdejka a na skladu je 0 jednotek zboží, na výdejku se do "Jednotková cena s DPH" použije poslední naskladněná cena.<br/>
-          Z tohoto důvodu se na skladě zobrazuje "Průměrná jednotková cena s DPH" i když je "Na skladu" 0 jednotek zboží.
-        </li>
-        <li>Na <a href="{% url 'kitchen:showRestrictedArticles' %}">Seznamu zboží na skladu - pro kuchaře</a> byl odstraněn problém u řazení tabulky dle sloupce Alergeny.</li>
-      </ul>
-      24. 2. 2022
-      <ul>
-        <li>Zjednodušení tvorby denního menu pomocí <a href="{% url 'kitchen:showMenus' %}">menu</a>, které má přiřazené recepty a počet porcí.
-          Jak to funguje?
-          <ul>
-            <li>Vytvoř <a href="{% url 'kitchen:createMenu' %}">Nově menu</a>, přidej požadované recepty a množství porcí.</li>
-            <li>Následně, když vytváříš <a href="{% url 'kitchen:createDailyMenu' %}">denní menu</a>, vyber
-              připravené menu a recepty se do denního menu přepíšou automaticky.</li>
-          </ul>
-        </li>
-        <li>Tabulky zobrazují místo 15ti standardně 30 řádků.</li>
-      </ul>
-      15. 2. 2022
-      <ul>
-        <li>Na seznamu receptů se místo sloupce Poznámka zobrazuje sloupec Alergeny, automaticky převzatý z alergenů všech položek receptu.</li>
-      </ul>
-      14. 2. 2022
-      <ul>
-        <li>Odstranění reportů Spotřeba potravin dle receptů na den a Měšíční cena jídla dle skupiny strávníka.</li>
-        <li><a href="{% url 'kitchen:showDailyMenus' %}">Denní menu</a> obsahuje místo pole poznámka maximální počet porcí ze všech receptů.</li>
-        <li>PDF pro výdejka má název: Vydejka-%Y.%m.%d_%H-%M-%S-%f.pdf. Popis symbolů - <a href="https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior">formátováni datumu</a>.</li>
-        <li>Přidán seznam <a href="{% url 'kitchen:showRestrictedArticles' %}">Zboží na skladu - pohled kuchaře</a> s možností editace alergenů, minimálního množství na skladu a editace názvu zboží</li>
-        <li>Přidán report <a href="{% url 'kitchen:filterCateringUnit' %}">Stravovací jednotka</a></li>
-      </ul>
     </div>
     <div class="col">
       <h5>Změny za předchozí roky</h5>
+      <hr/>
+      <div data-toggle="collapse" data-target="#d2022" class="btn btn-light">2022</div>
+      <div id="d2022" class="collapse">
+        14. 4. 2022
+        <ul>
+          <li>Aktualizace na nejnovější verzi <a href="https://www.djangoproject.com/weblog/2022/apr/11/security-releases/">Django 4.0.4</a> a aktualizace souvisejících knihoven.</li>
+          <li>Změna generování PDF z wkhtml na jsPDF.</li>
+          <li>Přidání testů pro zvýšení kvality kódu.</li>
+        </ul>
+        7. 3. 2022
+        <ul>
+          <li>V <a href="{% url 'kitchen:showRestrictedArticles' %}">Seznamu zboží na skladu - pro kuchaře</a> byla přidaná 	Průměrná jednotková cena s DPH.</li>
+        </ul>
+        5. 3. 2022
+        <ul>
+          <li>V případě úpravy zboží na výdejce si tabulka zboží uchová pozici a neskáče na začátek.</li>
+        </ul>
+        27. 2. 2022
+        <ul>
+          <li>Pro nově vytvořené výdejky:<br/>
+            Když se vytváří výdejka a na skladu je 0 jednotek zboží, na výdejku se do "Jednotková cena s DPH" použije poslední naskladněná cena.<br/>
+            Z tohoto důvodu se na skladě zobrazuje "Průměrná jednotková cena s DPH" i když je "Na skladu" 0 jednotek zboží.
+          </li>
+          <li>Na <a href="{% url 'kitchen:showRestrictedArticles' %}">Seznamu zboží na skladu - pro kuchaře</a> byl odstraněn problém u řazení tabulky dle sloupce Alergeny.</li>
+        </ul>
+        24. 2. 2022
+        <ul>
+          <li>Zjednodušení tvorby denního menu pomocí <a href="{% url 'kitchen:showMenus' %}">menu</a>, které má přiřazené recepty a počet porcí.
+            Jak to funguje?
+            <ul>
+              <li>Vytvoř <a href="{% url 'kitchen:createMenu' %}">Nově menu</a>, přidej požadované recepty a množství porcí.</li>
+              <li>Následně, když vytváříš <a href="{% url 'kitchen:createDailyMenu' %}">denní menu</a>, vyber
+                připravené menu a recepty se do denního menu přepíšou automaticky.</li>
+            </ul>
+          </li>
+          <li>Tabulky zobrazují místo 15ti standardně 30 řádků.</li>
+        </ul>
+        15. 2. 2022
+        <ul>
+          <li>Na seznamu receptů se místo sloupce Poznámka zobrazuje sloupec Alergeny, automaticky převzatý z alergenů všech položek receptu.</li>
+        </ul>
+        14. 2. 2022
+        <ul>
+          <li>Odstranění reportů Spotřeba potravin dle receptů na den a Měšíční cena jídla dle skupiny strávníka.</li>
+          <li><a href="{% url 'kitchen:showDailyMenus' %}">Denní menu</a> obsahuje místo pole poznámka maximální počet porcí ze všech receptů.</li>
+          <li>PDF pro výdejka má název: Vydejka-%Y.%m.%d_%H-%M-%S-%f.pdf. Popis symbolů - <a href="https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior">formátováni datumu</a>.</li>
+          <li>Přidán seznam <a href="{% url 'kitchen:showRestrictedArticles' %}">Zboží na skladu - pohled kuchaře</a> s možností editace alergenů, minimálního množství na skladu a editace názvu zboží</li>
+          <li>Přidán report <a href="{% url 'kitchen:filterCateringUnit' %}">Stravovací jednotka</a></li>
+        </ul>
+      </div>
       <hr/>
       <div data-toggle="collapse" data-target="#d2021" class="btn btn-light">2021</div>
       <div id="d2021" class="collapse">
@@ -113,7 +120,7 @@
         </ul>
         17. 11. 2020
         <ul>
-          <li>Aktualizace na Django <a href="https://docs.djangoproject.com/en/3.1/releases/3.1.3/">3.1.3</a>< a aktualizace systémových balíků/li>
+          <li>Aktualizace na Django <a href="https://docs.djangoproject.com/en/3.1/releases/3.1.3/">3.1.3</a> a aktualizace systémových balíků</li>
           <li>Zpřehlednění zobrazení seznamu změn v aplikaci</li>
         </ul>
         16. 11. 2020

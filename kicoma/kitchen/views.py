@@ -32,6 +32,7 @@ from django.contrib.auth.models import Group, ContentType, Permission
 
 from django_tables2 import SingleTableMixin
 from django_filters.views import FilterView
+from django.db.models.functions import ExtractYear
 
 from tablib import Dataset
 
@@ -190,6 +191,78 @@ class ImportDataView(LoginRequiredMixin, TemplateView):
             messages.success(self.request, "Chyba při výmazu dat před importem: "+str(e))
         return super(ImportDataView, self).render_to_response(context)
 
+
+class DataCleanUpView(SuccessMessageMixin, LoginRequiredMixin, TemplateView):
+    template_name = 'kitchen/data_cleanup.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        two_years_ago = datetime.now().year - 2
+        stockreceipts_year_counts = StockReceipt.objects.annotate(
+            year=ExtractYear('modified')
+                ).values('year').annotate(
+                    count=Count('id')
+                ).order_by('year')
+        stockreceiptarticles_year_counts = StockReceiptArticle.objects.annotate(
+            year=ExtractYear('modified')
+                ).values('year').annotate(
+                    count=Count('id')
+                ).order_by('year')
+        stockissues_year_counts = StockIssue.objects.annotate(
+            year=ExtractYear('modified')
+                ).values('year').annotate(
+                    count=Count('id')
+                ).order_by('year')
+        stockissuearticles_year_counts = StockIssueArticle.objects.annotate(
+            year=ExtractYear('modified')
+                ).values('year').annotate(
+                    count=Count('id')
+                ).order_by('year')
+        dailymenu_year_counts = DailyMenu.objects.annotate(
+            year=ExtractYear('modified')
+                ).values('year').annotate(
+                    count=Count('id')
+                ).order_by('year')
+        dailymenuarticles_year_counts = DailyMenuRecipe.objects.annotate(
+            year=ExtractYear('modified')
+                ).values('year').annotate(
+                    count=Count('id')
+                ).order_by('year')
+        historicalarticles_year_counts = HistoricalArticle.objects.annotate(
+            year=ExtractYear('modified')
+                ).values('year').annotate(
+                    count=Count('id')
+                ).order_by('year')
+        context['stockreceipts_year_counts'] = stockreceipts_year_counts
+        context['stockreceiptarticles_year_counts'] = stockreceiptarticles_year_counts
+        context['stockissues_year_counts'] = stockissues_year_counts
+        context['stockissuearticles_year_counts'] = stockissuearticles_year_counts
+        context['dailymenu_year_counts'] = dailymenu_year_counts
+        context['dailymenuarticles_year_counts'] = dailymenuarticles_year_counts
+        context['two_years_ago'] = two_years_ago
+        context['historicalarticles_year_counts'] = historicalarticles_year_counts
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        year_ago = datetime.now().year - 1
+        try:
+            deleted_historical_articles_count, _ = HistoricalArticle.objects.filter(modified__year__lt=year_ago).delete()
+            if deleted_historical_articles_count > 0:
+                messages.success(self.request, f"Zboží - historie, úspěšne vymazáno: {deleted_historical_articles_count} záznamů")
+            deleted_stock_issues_count, _ = StockIssue.objects.filter(modified__year__lt=year_ago).delete()
+            if deleted_stock_issues_count > 0:
+                messages.success(self.request, f"Výdejky, úspěšne vymazáno: {deleted_stock_issues_count} záznamů")
+            deleted_stock_receipts_count, _ = StockReceipt.objects.filter(modified__year__lt=year_ago).delete()
+            if deleted_stock_receipts_count > 0:
+                messages.success(self.request, f"Příjemky, úspěšne vymazáno: {deleted_stock_receipts_count} záznamů")
+            daily_menus_count, _ = DailyMenu.objects.filter(modified__year__lt=year_ago).delete()
+            if daily_menus_count > 0:
+                messages.success(self.request, f"Denné menu, úspěšne vymazáno: {daily_menus_count} záznamů")
+        except Exception as e:
+            messages.error(self.request, "Chyba při mazání historických záznamů: "+str(e))
+        messages.success(self.request, "Výmaz dokončen")
+        return super(DataCleanUpView, self).render_to_response(context)
 
 def switch_language(request):
     if request.method == 'POST':

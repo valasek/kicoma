@@ -10,6 +10,7 @@ class UserChangeForm(forms.UserChangeForm):
         model = User
 
 
+# may be obsolete class as it was replaced by AdminUserCreationForm
 class UserCreationForm(forms.UserCreationForm):
 
     error_message = forms.UserCreationForm.error_messages.update(

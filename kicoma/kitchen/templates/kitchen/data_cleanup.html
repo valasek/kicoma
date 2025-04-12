@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+<div class="container-fluid">
+  <h4>Údržba dat</h4>
+  <p>Bezpečné vymazání záznamů z roku {{ two_years_ago }} (včetně) a starších povede ke zrychlení aplikace.</p>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger" id="myBtn">Vymazat záznamy z roku {{ two_years_ago }} (včetně) a starších</button>
+  </form>
+  <br/>
+  <p>Aktuálni počty záznamů v dotčených tabulkách:</p>
+  <div class="row">  
+    <div class="col-sm">
+      <h5>Příjemky</h5>
+        <table class="table table-striped table-sm table-responsive">
+            <tr>
+                <th scope="col">Rok</th>
+                <th scope="col">Počet záznamů</th>
+            </tr>
+            {% for item in stockreceipts_year_counts %}
+            <tr>
+                <td scope="row">{{ item.year }}</td>
+                <td >{{ item.count | intcomma }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-sm">
+        <h5>Zboží na příjemkách</h5>
+        <table class="table table-striped table-sm table-responsive">
+            <tr>
+                <th scope="col">Rok</th>
+                <th scope="col">Počet záznamů</th>
+            </tr>
+            {% for item in stockreceiptarticles_year_counts %}
+            <tr>
+                <td scope="row">{{ item.year }}</td>
+                <td >{{ item.count | intcomma }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-sm">
+        <h5>Výdejky</h5>
+        <table class="table table-striped table-sm table-responsive">
+            <tr>
+                <th scope="col">Rok</th>
+                <th scope="col">Počet záznamů</th>
+            </tr>
+            {% for item in stockissues_year_counts %}
+            <tr>
+                <td scope="row">{{ item.year }}</td>
+                <td >{{ item.count | intcomma }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-sm">
+        <h5>Zboží na výdejkách</h5>
+        <table class="table table-striped table-sm table-responsive">
+            <tr>
+                <th scope="col">Rok</th>
+                <th scope="col">Počet záznamů</th>
+            </tr>
+            {% for item in stockissuearticles_year_counts %}
+            <tr>
+                <td scope="row">{{ item.year }}</td>
+                <td >{{ item.count | intcomma }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-sm">
+        <h5>Denní menu</h5>
+        <table class="table table-striped table-sm table-responsive">
+            <tr>
+                <th scope="col">Rok</th>
+                <th scope="col">Počet záznamů</th>
+            </tr>
+            {% for item in dailymenu_year_counts %}
+            <tr>
+                <td scope="row">{{ item.year }}</td>
+                <td >{{ item.count | intcomma }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-sm">
+        <h5>Recepty na denních menu</h5>
+        <table class="table table-striped table-sm table-responsive">
+            <tr>
+                <th scope="col">Rok</th>
+                <th scope="col">Počet záznamů</th>
+            </tr>
+            {% for item in dailymenuarticles_year_counts %}
+            <tr>
+                <td scope="row">{{ item.year }}</td>
+                <td >{{ item.count | intcomma }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-sm">
+        <h5>Zboží - historie</h5>
+        <table class="table table-striped table-sm table-responsive">
+            <tr>
+                <th scope="col">Rok</th>
+                <th scope="col">Počet záznamů</th>
+            </tr>
+            {% for item in historicalarticles_year_counts %}
+            <tr>
+                <td scope="row">{{ item.year }}</td>
+                <td >{{ item.count | intcomma }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
