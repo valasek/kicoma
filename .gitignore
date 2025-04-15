@@ -6,6 +6,7 @@ __pycache__/
 
 #database
 kicoma.sqlite3
+full_dump.json
 
 # C extensions
 *.so
@@ -285,6 +286,7 @@ kicoma/media/
 
 .pytest_cache/
 
+master.key
 .env
 .envs/*
 !.envs/.local/

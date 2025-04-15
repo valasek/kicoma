@@ -2,7 +2,7 @@
 Base settings to build other settings files upon.
 """
 from pathlib import Path
-# import os
+import os
 import environ
 from django.utils.translation import gettext_lazy as _
 
@@ -47,24 +47,24 @@ LANGUAGES = [
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 # Local SQLite DB
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(ROOT_DIR, 'kicoma.sqlite3'),
-#     }
-# }
-# DATABASES["default"]["ATOMIC_REQUESTS"] = True
-# Local PostgreSQL as defined
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(ROOT_DIR, 'storage/kicoma.sqlite3'),
     }
 }
+# DATABASES["default"]["ATOMIC_REQUESTS"] = True
+# Local PostgreSQL as defined
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': 'db',
+#         'PORT': '5432',
+#     }
+# }
 # Local PostgreSQL as defined via command line
 # DATABASES = {
     # 'default': env.db('DATABASE_URL'),  # noqa F405
