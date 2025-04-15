@@ -286,7 +286,12 @@ kicoma/media/
 
 .pytest_cache/
 
-master.key
+django_secret.key
+django_admin_url.key
+mailgun_api.key
+mailgun_public.key
+mailgun_smtp_login.key
+mailgun_smtp_password.key
 .env
 .envs/*
 !.envs/.local/
