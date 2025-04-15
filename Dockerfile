@@ -72,6 +72,9 @@ RUN python manage.py compilemessages
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
+# Create /storage folder
+RUN mkdir -p /storage && chmod 777 /storage
+
 # Run migrations
 RUN python manage.py migrate
 
