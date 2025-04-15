@@ -33,6 +33,7 @@ ENV DJANGO_ALLOWED_HOSTS=kicoma.stanislavvalasek.com
 ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
 ENV REDIS_URL=redis://redis:6379/0
 ENV DATABASE_URL=/storage/kicoma.sqlite
+ENV DJANGO_ADMIN_URL=GUJaThdRqbhhRvPryYPfMwuA5qNLzyER
 
 # Set the working directory in docker
 WORKDIR /app
