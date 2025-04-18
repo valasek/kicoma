@@ -48,7 +48,15 @@ env:
   secret:
       - DJANGO_SECRET_KEY
   clear:
+    # Django environments
     DJANGO_ALLOWED_HOSTS: kicoma.stanislavvalasek.com
+    DJANGO_SETTINGS_MODULE: config.settings.production
+    DJANGO_ALLOWED_HOSTS: kicoma.stanislavvalasek.com
+    DJANGO_DEBUG: False
+    # Runtime environemnts
+    WEB_CONCURRENCY: 4
+    PYTHONHASHSEED: random
+    LANG: en_US.UTF-8
 
 
 # Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
@@ -67,8 +75,8 @@ aliases:
 # Use a persistent storage volume.
 #
 volumes:
-  #- "kicoma_storage:/app/storage"
-  - "./storage:/django/storage"
+  - "kicoma_storage:/app/storage"
+# - "./storage:/django/storage"
 
 # Bridge fingerprinted assets, like JS and CSS, between versions to avoid
 # hitting 404 on in-flight requests. Combines all files from new and old

@@ -28,27 +28,21 @@ FROM python:$PYTHON_VERSION-slim
 # Copy the Python dependencies from the builder stage
 COPY --from=builder /usr/local/lib/python3.13/site-packages/ /usr/local/lib/python3.13/site-packages/
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
+
+# Set Django environment variables
 ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
-# Set Django environments
-ENV DJANGO_SETTINGS_MODULE=config.settings.production
-ENV DJANGO_ALLOWED_HOSTS=kicoma.stanislavvalasek.com
-# ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
-# ENV REDIS_URL=redis://redis:6379/0
 ENV DATABASE_URL=sqlite:////storage/kicoma.sqlite
 # ENV DJANGO_ADMIN_URL=${DJANGO_ADMIN_URL}
 ENV DJANGO_ADMIN_URL=admin/
-ENV PYTHONHASHSEED=random
 ENV MAILGUN_API_KEY=${MAILGUN_API_KEY}
 ENV MAILGUN_SMTP_PORT=587
 ENV MAILGUN_PUBLIC_KEY=${MAILGUN_PUBLIC_KEY}
-ENV LANG=en_US.UTF-8
 ENV MAILGUN_DOMAIN=stanislavvalasek.com
-#ENV FORWARDED_ALLOW_IPS=*
 ENV MAILGUN_SMTP_LOGIN=${MAILGUN_SMTP_LOGIN}
-ENV DJANGO_DEBUG=False
 ENV MAILGUN_SMTP_SERVER=smtp.mailgun.org
 ENV MAILGUN_SMTP_PASSWORD=${MAILGUN_SMTP_PASSWORD}
-ENV WEB_CONCURRENCY=4
+# ENV FORWARDED_ALLOW_IPS=*
+# ENV REDIS_URL=redis://redis:6379/0
 
 # Set the working directory in docker
 WORKDIR /app
@@ -82,8 +76,8 @@ RUN python manage.py migrate
 
 # Create super users admim/admin
 #echo "Creating super user"
-RUN DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=admin \
-python manage.py createsuperuser --email=admin@admin.com --noinput
+# RUN DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=admin \
+# python manage.py createsuperuser --email=admin@admin.com --noinput
 
 # Expose the application port
 EXPOSE 8000 
