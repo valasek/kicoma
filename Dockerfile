@@ -29,7 +29,16 @@ FROM python:$PYTHON_VERSION-slim
 COPY --from=builder /usr/local/lib/python3.13/site-packages/ /usr/local/lib/python3.13/site-packages/
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
 
+# Set runtime variables
+ENV WEB_CONCURRENCY=4
+ENV PYTHONHASHSEED=random
+ENV LANG=en_US.UTF-8
+
 # Set Django environment variables
+ENV DJANGO_ALLOWED_HOSTS=kicoma.stanislavvalasek.com
+ENV DJANGO_SETTINGS_MODULE=config.settings.production
+ENV DJANGO_ALLOWED_HOSTS=kicoma.stanislavvalasek.com
+ENV DJANGO_DEBUG=False
 ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
 ENV DATABASE_URL=sqlite:////storage/kicoma.sqlite
 # ENV DJANGO_ADMIN_URL=${DJANGO_ADMIN_URL}

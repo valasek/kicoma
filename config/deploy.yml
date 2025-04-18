@@ -48,16 +48,6 @@ env:
   secret:
       - DJANGO_SECRET_KEY
   clear:
-    # Django environments
-    DJANGO_ALLOWED_HOSTS: kicoma.stanislavvalasek.com
-    DJANGO_SETTINGS_MODULE: config.settings.production
-    DJANGO_ALLOWED_HOSTS: kicoma.stanislavvalasek.com
-    DJANGO_DEBUG: False
-    # Runtime environemnts
-    WEB_CONCURRENCY: 4
-    PYTHONHASHSEED: random
-    LANG: en_US.UTF-8
-
 
 # Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
 # "bin/kamal app logs -r job" will tail logs from the first server in the job section.
