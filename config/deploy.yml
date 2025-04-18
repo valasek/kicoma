@@ -47,8 +47,9 @@ builder:
 env:
   secret:
     - DJANGO_SECRET_KEY
-  clear:
-    DJANGO_ADMIN_URL: admin/
+    - DJANGO_ADMIN_URL
+  # clear:
+
 
 # Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
 # "bin/kamal app logs -r job" will tail logs from the first server in the job section.
