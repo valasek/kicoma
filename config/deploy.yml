@@ -45,10 +45,11 @@ builder:
 # Inject ENV variables into containers (secrets come from .kamal/secrets).
 #
 env:
-  clear:
-    DJANGO_ALLOWED_HOSTS: kicoma.stanislavvalasek.com
   secret:
       - DJANGO_SECRET_KEY
+  clear:
+    DJANGO_ALLOWED_HOSTS: kicoma.stanislavvalasek.com
+
 
 # Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
 # "bin/kamal app logs -r job" will tail logs from the first server in the job section.
