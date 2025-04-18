@@ -1,3 +1,6 @@
+# syntax=docker/dockerfile:1
+# check=error=true
+
 # Stage 1: Base build stage
 # Make sure PYTHON_VERSION matches the Python version in .python-version
 ARG PYTHON_VERSION=3.13.3
@@ -33,7 +36,8 @@ ENV DJANGO_ALLOWED_HOSTS=kicoma.stanislavvalasek.com
 ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
 # ENV REDIS_URL=redis://redis:6379/0
 ENV DATABASE_URL=sqlite:////storage/kicoma.sqlite
-ENV DJANGO_ADMIN_URL=${DJANGO_ADMIN_URL}
+# ENV DJANGO_ADMIN_URL=${DJANGO_ADMIN_URL}
+ENV DJANGO_ADMIN_URL=admin/
 ENV PYTHONHASHSEED=random
 ENV MAILGUN_API_KEY=${MAILGUN_API_KEY}
 ENV MAILGUN_SMTP_PORT=587
@@ -72,15 +76,15 @@ RUN python manage.py compilemessages
 RUN python manage.py collectstatic --noinput
 
 # Create /storage folder
-RUN mkdir -p /storage && chmod 777 /storage
+# RUN mkdir -p /storage && chmod 777 /storage
 
 # Run migrations
 RUN python manage.py migrate
 
 # Create super users admim/admin
 #echo "Creating super user"
-#DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=admin \
-#python manage.py createsuperuser --email=admin@admin.com --noinput
+RUN DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=admin \
+python manage.py createsuperuser --email=admin@admin.com --noinput
 
 # Expose the application port
 EXPOSE 8000 
