@@ -37,12 +37,10 @@ ENV LANG=en_US.UTF-8
 # Set Django environment variables
 ENV DJANGO_ALLOWED_HOSTS=kicoma.stanislavvalasek.com
 ENV DJANGO_SETTINGS_MODULE=config.settings.production
-ENV DJANGO_ALLOWED_HOSTS=kicoma.stanislavvalasek.com
 ENV DJANGO_DEBUG=False
-ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
-ENV DATABASE_URL=sqlite:////storage/kicoma.sqlite
+# ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+ENV DATABASE_URL=sqlite:////storage/kicoma.sqlite3
 ENV DJANGO_ADMIN_URL=${DJANGO_ADMIN_URL}
-# ENV DJANGO_ADMIN_URL=admin/
 ENV MAILGUN_API_KEY=${MAILGUN_API_KEY}
 ENV MAILGUN_SMTP_PORT=587
 ENV MAILGUN_PUBLIC_KEY=${MAILGUN_PUBLIC_KEY}
@@ -78,7 +76,7 @@ RUN python manage.py compilemessages
 RUN python manage.py collectstatic --noinput
 
 # Create /storage folder
-RUN mkdir -p /storage && chmod 777 /storage
+# RUN mkdir -p /storage && chmod 777 /storage
 
 # Run migrations
 RUN python manage.py migrate
