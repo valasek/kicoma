@@ -71,7 +71,7 @@ aliases:
 # Use a persistent storage volume.
 #
 volumes:
-  - "kicoma_storage:/app/storage"
+  - "kicoma_storage:/storage"
 
 # Bridge fingerprinted assets, like JS and CSS, between versions to avoid
 # hitting 404 on in-flight requests. Combines all files from new and old
