@@ -29,7 +29,7 @@ COPY --from=builder /usr/local/bin/ /usr/local/bin/
 
 # Set Django environments
 ENV DJANGO_SETTINGS_MODULE=config.settings.production
-ENV DJANGO_ALLOWED_HOSTS=*
+ENV DJANGO_ALLOWED_HOSTS=kicoma.stanislavvalasek.com
 ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
 ENV REDIS_URL=redis://redis:6379/0
 ENV DATABASE_URL=sqlite:////storage/kicoma.sqlite
@@ -38,10 +38,9 @@ ENV PYTHONHASHSEED=random
 ENV MAILGUN_API_KEY=${MAILGUN_API_KEY}
 ENV MAILGUN_SMTP_PORT=587
 ENV MAILGUN_PUBLIC_KEY=${MAILGUN_PUBLIC_KEY}
-# ENV GUNICORN_CMD_ARGS=--access-logfile -
 ENV LANG=en_US.UTF-8
 ENV MAILGUN_DOMAIN=stanislavvalasek.com
-ENV FORWARDED_ALLOW_IPS=*
+#ENV FORWARDED_ALLOW_IPS=*
 ENV MAILGUN_SMTP_LOGIN=${MAILGUN_SMTP_LOGIN}
 ENV DJANGO_DEBUG=False
 ENV MAILGUN_SMTP_SERVER=smtp.mailgun.org
@@ -88,9 +87,3 @@ EXPOSE 8000
 
 # Start the application using Gunicorn
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "config.wsgi:application"]
-
-# Specify the command to run on container start
-# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-# COPY entrypoint.sh /entrypoint.sh
-# RUN chmod +x /entrypoint.sh
-# ENTRYPOINT ["/entrypoint.sh"]
