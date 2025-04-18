@@ -66,28 +66,19 @@ ENV PYTHONUNBUFFERED=1
 # https://stackoverflow.com/questions/52032712/django-cannot-compilemessages-in-alpine
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y --no-install-recommends gettext
-### Generate message files for a desired language
-RUN python ./manage.py makemessages -l cs_CZ --ignore=venv/*
- 
-### After adding translations to the .po files, compile the messages
-RUN python manage.py compilemessages
-
-# Collect static files
-RUN python manage.py collectstatic --noinput
 
 # Create /storage folder
 RUN mkdir -p /storage && chmod 777 /storage
-
-# Run migrations
-RUN python manage.py migrate
-
-# Create super users admim/admin
-#echo "Creating super user"
-RUN DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=admin \
-python manage.py createsuperuser --email=admin@admin.com --noinput
 
 # Expose the application port
 EXPOSE 8000 
 
 # Start the application using Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "config.wsgi:application"]
+# CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "config.wsgi:application"]
+
+# Add these lines before your CMD:
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Change the CMD to:
+CMD ["/entrypoint.sh"]
