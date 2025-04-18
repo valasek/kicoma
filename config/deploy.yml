@@ -97,10 +97,10 @@ accessories:
 #       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
 #     directories:
 #       - data:/var/lib/mysql
-  redis:
-    image: redis:7.4.2
-    host: 162.55.185.37
-    port: 6379
-    cmd: --maxmemory 200m --maxmemory-policy allkeys-lru
-    directories:
-      - /var/redis/data:/data
+# redis:
+#   image: redis:7.4.2
+#   host: 162.55.185.37
+#   port: 6379
+#   cmd: --maxmemory 200m --maxmemory-policy allkeys-lru
+#   directories:
+#     - /var/redis/data:/data

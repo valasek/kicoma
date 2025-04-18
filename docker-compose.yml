@@ -7,12 +7,12 @@ services:
       - ./storage:/django/storage
     ports:
       - "8000:8000"
-    depends_on:
-      - redis
+    # depends_on:
+    #   - redis
 
-  redis:
-    image: redis:7.4.2
-    ports:
-      - "6379:6379"
-    volumes:
-      - /var/redis/data:/data
+  # redis:
+  #   image: redis:7.4.2
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - /var/redis/data:/data
