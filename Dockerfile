@@ -83,8 +83,8 @@ RUN python manage.py migrate
 
 # Create super users admim/admin
 #echo "Creating super user"
-# RUN DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=admin \
-# python manage.py createsuperuser --email=admin@admin.com --noinput
+RUN DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=admin \
+python manage.py createsuperuser --email=admin@admin.com --noinput
 
 # Expose the application port
 EXPOSE 8000 
