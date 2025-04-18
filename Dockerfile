@@ -1,5 +1,4 @@
-# syntax=docker/dockerfile:1
-# check=error=true
+
 
 # Stage 1: Base build stage
 # Make sure PYTHON_VERSION matches the Python version in .python-version
