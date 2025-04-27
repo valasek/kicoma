@@ -908,7 +908,7 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
     # do not save form which contains DailyMenu but save StockIssue on that date
     def form_valid(self, form):
         date = self.request.POST['date']
-        daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%d.%m.%Y"))
+        daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%Y-%m-%d"))
         if len(daily_menus) < 1:
             form.add_error('date', "Pro zadané datum není vytvořeno denní menu")
             return super(StockIssueFromDailyMenuCreateView, self).form_invalid(form)
