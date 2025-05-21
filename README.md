@@ -31,6 +31,22 @@ Just rebuild the dev container, app is running on port 8000
 
 ## Deploy to Hetzner
 
+### Make sure these files exist
+
+config/django_secret.key
+
+config/django_admin_url.key
+
+config/mailgun_api.key
+
+config/mailgun_public.key
+
+config/mailgun_smtp_login.key
+
+config/mailgun_smtp_password.key
+
+Commit all relevant files into repo and:
+
 ```bash
 export KAMAL_REGISTRY_PASSWORD=<value>
 kamal deploy
@@ -179,6 +195,7 @@ heroku git:remote -a kicoma-tri
 heroku apps:info -a kicoma-tri
 heroku apps:stacks -a kicoma-tri
 heroku buildpacks -a kicoma-tri
+heroku config -a kicoma-tri
 ```
 
 ## Additional info for local development and Cookiecutter info
