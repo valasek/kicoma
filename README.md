@@ -139,13 +139,26 @@ open htmlcov/index.html
 
 ### Data migration
 
-#### Export data from Heroku and save it on local machine
+#### Export data from Heroku DB
+
+```heroku run "python manage.py dumpdata --exclude auth.permission --exclude contenttypes" --app kicoma-tri > full_dump.json```
+
+Log out all users by deleting all sessions
+
+heroku run python manage.py shell -c --app kicoma-tri "from django.contrib.sessions.models import Session; Session.objects.all().delete()"
+
+#### Import exported data on local machine
 
 ```bash
-heroku run "python manage.py dumpdata --exclude auth.permission --exclude contenttypes" --app kicoma-tri > full_dump.json
-docker-compose exec web python manage.py flush --noinput
+docker-compose exec kicoma_devcontainer-app python manage.py flush --noinput
 docker-compose exec web python manage.py migrate
-scp ./full_dump.json root@162.55.185.37:/root/full_dump.json
+docker-compose exec web python manage.py loaddata full_dump.json
+
+or 
+
+docker exec b44a5dc4cfce87e70ab01036acf924d6496bcf974a974998488fdf3bc77ce13b python manage.py flush --noinput
+docker exec b44a5dc4cfce87e70ab01036acf924d6496bcf974a974998488fdf3bc77ce13b python manage.py migrate
+docker exec b44a5dc4cfce87e70ab01036acf924d6496bcf974a974998488fdf3bc77ce13b python manage.py loaddata full_dump.json
 ```
 
 #### Import data from local machine into it into docker on Hetzner
@@ -153,9 +166,11 @@ scp ./full_dump.json root@162.55.185.37:/root/full_dump.json
 **Get container ID**:
 
 ```bash
+scp ./full_dump.json root@162.55.185.37:/root/full_dump.json
 ssh root@162.55.185.37
 CONTAINER_ID=$(docker ps --format '{{.ID}}' --filter 'name=kicoma-web-' --filter 'ancestor=svalasek/kicoma')
-docker cp /root/kicoma_full_dump.json $CONTAINER_ID:/app/full_dump.json
+docker cp /root/full_dump.json $CONTAINER_ID:/app/full_dump.json
+docker exec -it $CONTAINER_ID python3 manage.py flush --noinput
 docker exec -it $CONTAINER_ID python3 manage.py loaddata full_dump.json
 ```
 
