@@ -181,9 +181,9 @@ heroku apps:stacks -a kicoma-tri
 heroku buildpacks -a kicoma-tri
 ```
 
-## Additional infor for local development and Cookiecutter info
+## Additional info for local development and Cookiecutter info
 
-Check the original repo remplate:
+Check the original repo template:
 [Developing locally](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html)
 
 ### Settings
