@@ -4,6 +4,15 @@
 [![GitHub issues](https://img.shields.io/github/issues/valasek/kicoma.svg)](https://github.com/valasek/kicoma/issues)
 [![Build Status](https://travis-ci.org/valasek/kicoma.svg?branch=master)](https://travis-ci.org/valasek/kima) [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg)](https://github.com/pydanny/cookiecutter-django/) [![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
+To be fixed:
+1/ datum v sekci Nová výdejka z denního menu. Musí se pokaždé ručně zadávat, není možné aby se zobrazilo naposledy použité datum?
+
+2/ je zpřeházené abecední řazení surovin i receptů jak v programu, tak  i na výdejce. Stará verze tento problém neměla.
+
+3/ při tvorbě denního menu při vyhledávání receptů nebo surovin dle počátečního písmena se na poprvé objeví jen jedna náhodná surovina nebo recept začínající na dané písmeno, až při druhém zadání je to správně
+
+4/ v seznamu výdejek bych prosil vrátit starý formát datumu, jde sice jen o zvyk, ale starší verze byla přecejen přehlednější
+
 ## Demo
 
 Check the lastest version at [https://kicoma.stanislavvalasek.com](https://kicoma.stanislavvalasek.com).
@@ -22,12 +31,11 @@ git clone https://github.com/valasek/kicoma
 cd kicoma
 ```
 
-Install docker and docker compose and run
-`docker-compose up`
-
 ### Start server locally
 
 Just rebuild the dev container, app is running on port 8000
+
+Alternativelly, install docker and docker compose and run `docker-compose up`
 
 ## Deploy to Hetzner
 

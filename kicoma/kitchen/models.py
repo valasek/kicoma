@@ -419,7 +419,7 @@ class StockIssueArticle(TimeStampedModel):
     class Meta:
         verbose_name_plural = _('Zboží na výdejce')
         verbose_name = _('Zboží na výdejce')
-        ordering = ['-article__article']
+        ordering = ['article__article']
 
     stock_issue = models.ForeignKey(StockIssue, on_delete=models.CASCADE, verbose_name='Výdejka')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží')
