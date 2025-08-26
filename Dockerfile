@@ -34,21 +34,23 @@ COPY --from=builder /usr/local/bin/ /usr/local/bin/
 ENV WEB_CONCURRENCY=4
 ENV PYTHONHASHSEED=random
 ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+ENV LANGUAGE=en_US.UTF-8
 
 # Set Django environment variables
 ENV DJANGO_ALLOWED_HOSTS=kicoma.stanislavvalasek.com
 ENV DJANGO_SETTINGS_MODULE=config.settings.production
 ENV DJANGO_DEBUG=False
-ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+# ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
 ENV DATABASE_URL=sqlite:////storage/kicoma.sqlite3
-ENV DJANGO_ADMIN_URL=${DJANGO_ADMIN_URL}
-ENV MAILGUN_API_KEY=${MAILGUN_API_KEY}
-ENV MAILGUN_SMTP_PORT=587
-ENV MAILGUN_PUBLIC_KEY=${MAILGUN_PUBLIC_KEY}
-ENV MAILGUN_DOMAIN=stanislavvalasek.com
-ENV MAILGUN_SMTP_LOGIN=${MAILGUN_SMTP_LOGIN}
-ENV MAILGUN_SMTP_SERVER=smtp.mailgun.org
-ENV MAILGUN_SMTP_PASSWORD=${MAILGUN_SMTP_PASSWORD}
+# ENV DJANGO_ADMIN_URL=${DJANGO_ADMIN_URL}
+# ENV MAILGUN_API_KEY=${MAILGUN_API_KEY}
+# ENV MAILGUN_SMTP_PORT=587
+# ENV MAILGUN_PUBLIC_KEY=${MAILGUN_PUBLIC_KEY}
+# ENV MAILGUN_DOMAIN=stanislavvalasek.com
+# ENV MAILGUN_SMTP_LOGIN=${MAILGUN_SMTP_LOGIN}
+# ENV MAILGUN_SMTP_SERVER=smtp.mailgun.org
+# ENV MAILGUN_SMTP_PASSWORD=${MAILGUN_SMTP_PASSWORD}
 # ENV FORWARDED_ALLOW_IPS=*
 # ENV REDIS_URL=redis://redis:6379/0
 
@@ -65,8 +67,14 @@ ENV PYTHONUNBUFFERED=1
 # Compile traslations
 # TODO: remove this from final image, when it will be deployed onto production
 # https://stackoverflow.com/questions/52032712/django-cannot-compilemessages-in-alpine
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y --no-install-recommends gettext
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
+    gettext \
+    locales && \
+    locale-gen en_US.UTF-8 && \
+    update-locale LANG=en_US.UTF-8 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Create /storage folder
 RUN mkdir -p /storage && chmod 777 /storage
