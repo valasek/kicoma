@@ -69,14 +69,13 @@ COPY . .
 # Create /storage folder
 RUN mkdir -p /storage && chmod 777 /storage
 
-# DO THESE OPERATIONS AT BUILD TIME INSTEAD OF RUNTIME:
-# Create locale directories
-RUN mkdir -p locale/cs/LC_MESSAGES locale/en/LC_MESSAGES
-
 # Generate and compile messages at build time
-RUN python ./manage.py makemessages -l cs --ignore=venv/* || echo "makemessages cs failed, continuing..."
-RUN python ./manage.py makemessages -l en --ignore=venv/* || echo "makemessages en failed, continuing..."
-RUN python manage.py compilemessages || echo "compilemessages failed, continuing..."
+RUN python ./manage.py makemessages -l cs --ignore=venv/*
+# || echo "makemessages cs failed, continuing..."
+RUN python ./manage.py makemessages -l en --ignore=venv/*
+# || echo "makemessages en failed, continuing..."
+RUN python manage.py compilemessages
+# || echo "compilemessages failed, continuing..."
 
 # Collect static files at build time
 RUN python manage.py collectstatic --noinput || echo "collectstatic failed, continuing..."
