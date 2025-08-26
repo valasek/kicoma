@@ -6,10 +6,6 @@ FROM python:$PYTHON_VERSION-slim AS builder
 # Set the working directory in docker
 WORKDIR /app
 
-# Set environment variables to optimize Python
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1 
-
 # Copy uv from the official uv image
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
@@ -30,19 +26,35 @@ FROM python:$PYTHON_VERSION-slim
 COPY --from=builder /usr/local/lib/python3.13/site-packages/ /usr/local/lib/python3.13/site-packages/
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
 
-# Set runtime variables
-ENV WEB_CONCURRENCY=4
-ENV PYTHONHASHSEED=random
+# Compile traslations
+# TODO: remove this from final image, when it will be deployed onto production
+# https://stackoverflow.com/questions/52032712/django-cannot-compilemessages-in-alpine
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
+    gettext \
+    locales && \
+    locale-gen en_US.UTF-8 && \
+    update-locale LANG=en_US.UTF-8 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# set the locale environment variables
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
+
+# Set environment variables to optimize Python
+ENV WEB_CONCURRENCY=4
+ENV PYTHONHASHSEED=random
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1 
 
 # Set Django environment variables
 ENV DJANGO_ALLOWED_HOSTS=kicoma.stanislavvalasek.com
 ENV DJANGO_SETTINGS_MODULE=config.settings.production
 ENV DJANGO_DEBUG=False
-# ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
 ENV DATABASE_URL=sqlite:////storage/kicoma.sqlite3
+# ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
 # ENV DJANGO_ADMIN_URL=${DJANGO_ADMIN_URL}
 # ENV MAILGUN_API_KEY=${MAILGUN_API_KEY}
 # ENV MAILGUN_SMTP_PORT=587
@@ -63,18 +75,6 @@ COPY . .
 # Set environment variables to optimize Python
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1 
-
-# Compile traslations
-# TODO: remove this from final image, when it will be deployed onto production
-# https://stackoverflow.com/questions/52032712/django-cannot-compilemessages-in-alpine
-RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends \
-    gettext \
-    locales && \
-    locale-gen en_US.UTF-8 && \
-    update-locale LANG=en_US.UTF-8 && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
 
 # Create /storage folder
 RUN mkdir -p /storage && chmod 777 /storage
