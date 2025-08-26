@@ -65,8 +65,8 @@ ENV PYTHONUNBUFFERED=1
 # Compile traslations
 # TODO: remove this from final image, when it will be deployed onto production
 # https://stackoverflow.com/questions/52032712/django-cannot-compilemessages-in-alpine
-# RUN apt-get update && apt-get upgrade -y
-# RUN apt-get install -y --no-install-recommends gettext
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y --no-install-recommends gettext
 
 # Create /storage folder
 RUN mkdir -p /storage && chmod 777 /storage
