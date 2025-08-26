@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     ruby \
     ruby-dev \
     build-essential \
+    gettext \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Kamal gem
@@ -28,8 +29,11 @@ WORKDIR /app
 COPY requirements/base.txt .
 COPY requirements/local.txt .
 
+# Copy uv from the official uv image
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
 # Install any dependencies
-RUN pip install --no-cache-dir -r local.txt
+RUN uv pip install --system --no-cache-dir -r local.txt
 
 # Copy the content of the local src directory to the working directory
 COPY . .
@@ -37,8 +41,8 @@ COPY . .
 # Compile traslations
 # TODO: remove this from final image, when it will be deployed onto production
 # https://stackoverflow.com/questions/52032712/django-cannot-compilemessages-in-alpine
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y --no-install-recommends gettext
+# RUN apt-get update && apt-get upgrade -y
+# RUN apt-get install -y --no-install-recommends gettext
 ### Generate message files for a desired language
 RUN python ./manage.py makemessages -l cs_CZ --ignore=venv/*
  

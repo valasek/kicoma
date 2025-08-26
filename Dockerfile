@@ -1,5 +1,3 @@
-
-
 # Stage 1: Base build stage
 # Make sure PYTHON_VERSION matches the Python version in .python-version
 ARG PYTHON_VERSION=3.13.3
@@ -12,15 +10,18 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1 
 
+# Copy uv from the official uv image
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
 # Upgrade pip and install dependencies
-RUN pip install --upgrade pip 
+# RUN pip install --upgrade pip 
 
 # Copy the dependencies file to the working directory
 COPY ./requirements/base.txt .
 COPY ./requirements/production.txt .
 
 # Install any dependencies
-RUN pip install --no-cache-dir -r production.txt
+RUN uv pip install --system --no-cache-dir -r production.txt
 
 # Stage 2: Production stage
 FROM python:$PYTHON_VERSION-slim
@@ -64,8 +65,8 @@ ENV PYTHONUNBUFFERED=1
 # Compile traslations
 # TODO: remove this from final image, when it will be deployed onto production
 # https://stackoverflow.com/questions/52032712/django-cannot-compilemessages-in-alpine
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y --no-install-recommends gettext
+# RUN apt-get update && apt-get upgrade -y
+# RUN apt-get install -y --no-install-recommends gettext
 
 # Create /storage folder
 RUN mkdir -p /storage && chmod 777 /storage
