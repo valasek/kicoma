@@ -1,16 +1,11 @@
 # Stage 1: Base build stage
-# Make sure PYTHON_VERSION matches the Python version in .python-version
 ARG PYTHON_VERSION=3.13.3
 FROM python:$PYTHON_VERSION-slim AS builder
 
-# Set the working directory in docker
 WORKDIR /app
 
 # Copy uv from the official uv image
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
-
-# Upgrade pip and install dependencies
-# RUN pip install --upgrade pip 
 
 # Copy the dependencies file to the working directory
 COPY ./requirements/base.txt .
@@ -26,9 +21,7 @@ FROM python:$PYTHON_VERSION-slim
 COPY --from=builder /usr/local/lib/python3.13/site-packages/ /usr/local/lib/python3.13/site-packages/
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
 
-# Compile traslations
-# TODO: remove this from final image, when it will be deployed onto production
-# https://stackoverflow.com/questions/52032712/django-cannot-compilemessages-in-alpine
+# Install locale dependencies
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
     gettext \
@@ -39,12 +32,12 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# set the locale environment variables
+# Set locale environment variables
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 
-# Set environment variables to optimize Python
+# Set environment variables
 ENV WEB_CONCURRENCY=4
 ENV PYTHONHASHSEED=random
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -58,37 +51,33 @@ ENV DATABASE_URL=sqlite:////storage/kicoma.sqlite3
 ENV MAILGUN_DOMAIN=stanislavvalasek.com
 ENV MAILGUN_SMTP_PORT=587
 ENV MAILGUN_SMTP_SERVER=smtp.mailgun.org
-# ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
-# ENV DJANGO_ADMIN_URL=${DJANGO_ADMIN_URL}
-# ENV MAILGUN_API_KEY=${MAILGUN_API_KEY}
-# ENV MAILGUN_PUBLIC_KEY=${MAILGUN_PUBLIC_KEY}
-# ENV MAILGUN_SMTP_LOGIN=${MAILGUN_SMTP_LOGIN}
-# ENV MAILGUN_SMTP_PASSWORD=${MAILGUN_SMTP_PASSWORD}
-# ENV FORWARDED_ALLOW_IPS=*
-# ENV REDIS_URL=redis://redis:6379/0
 
-# Set the working directory in docker
+# Set the working directory
 WORKDIR /app
 
-# Copy the content of the local src directory to the working directory
+# Copy the application code
 COPY . .
-
-# Set environment variables to optimize Python
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1 
 
 # Create /storage folder
 RUN mkdir -p /storage && chmod 777 /storage
 
+# DO THESE OPERATIONS AT BUILD TIME INSTEAD OF RUNTIME:
+# Create locale directories
+RUN mkdir -p locale/cs/LC_MESSAGES locale/en/LC_MESSAGES
+
+# Generate and compile messages at build time
+RUN python ./manage.py makemessages -l cs --ignore=venv/* || echo "makemessages cs failed, continuing..."
+RUN python ./manage.py makemessages -l en --ignore=venv/* || echo "makemessages en failed, continuing..."
+RUN python manage.py compilemessages || echo "compilemessages failed, continuing..."
+
+# Collect static files at build time
+RUN python manage.py collectstatic --noinput || echo "collectstatic failed, continuing..."
+
 # Expose the application port
 EXPOSE 8000 
 
-# Start the application using Gunicorn
-# CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "config.wsgi:application"]
-
-# Add these lines before your CMD:
+# Simple entrypoint that just runs migrations and starts the server
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Change the CMD to:
 CMD ["/entrypoint.sh"]
