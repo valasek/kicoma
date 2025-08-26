@@ -34,6 +34,7 @@ RUN apt-get update && apt-get upgrade -y && \
     gettext \
     locales && \
     sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
+    sed -i '/cs_CZ.UTF-8/s/^# //g' /etc/locale.gen && \
     locale-gen && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
