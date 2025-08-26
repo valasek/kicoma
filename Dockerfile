@@ -52,6 +52,14 @@ ENV MAILGUN_DOMAIN=stanislavvalasek.com
 ENV MAILGUN_SMTP_PORT=587
 ENV MAILGUN_SMTP_SERVER=smtp.mailgun.org
 
+# Set dummy build-time environment variables due to need to compile messages at build time
+ENV DJANGO_SECRET_KEY=dummy-build-key-not-used-in-production
+ENV DJANGO_ADMIN_URL=admin/
+ENV MAILGUN_API_KEY=dummy-key
+ENV MAILGUN_PUBLIC_KEY=dummy-key
+ENV MAILGUN_SMTP_LOGIN=dummy-login
+ENV MAILGUN_SMTP_PASSWORD=dummy-password
+
 # Set the working directory
 WORKDIR /app
 
