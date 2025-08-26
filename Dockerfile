@@ -22,15 +22,18 @@ COPY --from=builder /usr/local/lib/python3.13/site-packages/ /usr/local/lib/pyth
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
 
 # Install locale dependencies
-RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends \
-    gettext \
-    locales && \
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends --no-install-suggests \
+        gettext \
+        locales && \
     sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
     sed -i '/cs_CZ.UTF-8/s/^# //g' /etc/locale.gen && \
     locale-gen && \
+    apt-get autoremove -y && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Set locale environment variables
 ENV LANG=en_US.UTF-8
@@ -71,14 +74,11 @@ RUN mkdir -p /storage && chmod 777 /storage
 
 # Generate and compile messages at build time
 RUN python ./manage.py makemessages -l cs --ignore=venv/*
-# || echo "makemessages cs failed, continuing..."
 RUN python ./manage.py makemessages -l en --ignore=venv/*
-# || echo "makemessages en failed, continuing..."
 RUN python manage.py compilemessages
-# || echo "compilemessages failed, continuing..."
 
 # Collect static files at build time
-RUN python manage.py collectstatic --noinput || echo "collectstatic failed, continuing..."
+RUN python manage.py collectstatic --noinput
 
 # Expose the application port
 EXPOSE 8000 
