@@ -4,15 +4,6 @@
 [![GitHub issues](https://img.shields.io/github/issues/valasek/kicoma.svg)](https://github.com/valasek/kicoma/issues)
 [![Build Status](https://travis-ci.org/valasek/kicoma.svg?branch=master)](https://travis-ci.org/valasek/kima) [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg)](https://github.com/pydanny/cookiecutter-django/) [![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
-To be fixed:
-1/ datum v sekci Nová výdejka z denního menu. Musí se pokaždé ručně zadávat, není možné aby se zobrazilo naposledy použité datum?
-
-2/ je zpřeházené abecední řazení surovin i receptů jak v programu, tak  i na výdejce. Stará verze tento problém neměla.
-
-3/ při tvorbě denního menu při vyhledávání receptů nebo surovin dle počátečního písmena se na poprvé objeví jen jedna náhodná surovina nebo recept začínající na dané písmeno, až při druhém zadání je to správně
-
-4/ v seznamu výdejek bych prosil vrátit starý formát datumu, jde sice jen o zvyk, ale starší verze byla přecejen přehlednější
-
 ## Demo
 
 Check the lastest version at [https://kicoma.stanislavvalasek.com](https://kicoma.stanislavvalasek.com).
@@ -39,11 +30,22 @@ Alternativelly, install docker and docker compose and run `docker-compose up`
 
 ## Deploy to Hetzner
 
-### Make sure these files exist
+Commit your changes all relevant files into repo.
+
+```bash
+export KAMAL_REGISTRY_PASSWORD=<value>
+kamal deploy
+```
+
+Connect to server: `ssh root@162.55.185.37`
+
+### When deploying for the first time, make sure these LOCAL ONLY config files exist
 
 config/django_secret.key
+e.g. ghenerate it using https://djecrety.ir
 
 config/django_admin_url.key
+/admin/ or more secure version
 
 config/mailgun_api.key
 
@@ -52,15 +54,6 @@ config/mailgun_public.key
 config/mailgun_smtp_login.key
 
 config/mailgun_smtp_password.key
-
-Commit all relevant files into repo and:
-
-```bash
-export KAMAL_REGISTRY_PASSWORD=<value>
-kamal deploy
-```
-
-Connect to server: `ssh root@162.55.185.37`
 
 ### Update Kamal or kamal proxy on localhost
 
