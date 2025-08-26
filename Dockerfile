@@ -1,5 +1,5 @@
 # Stage 1: Base build stage
-ARG PYTHON_VERSION=3.13.3
+ARG PYTHON_VERSION=3.13.7
 FROM python:$PYTHON_VERSION-slim AS builder
 
 WORKDIR /app

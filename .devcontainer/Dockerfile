@@ -1,6 +1,6 @@
 # Use the official Python image from the DockerHub
 # Make sure PYTHON_VERSION matches the Python version in .python-version
-ARG PYTHON_VERSION=3.13.3
+ARG PYTHON_VERSION=3.13.7
 FROM python:$PYTHON_VERSION-slim
 
 # Create the dev-user with appropriate permissions
@@ -44,7 +44,8 @@ COPY . .
 # RUN apt-get update && apt-get upgrade -y
 # RUN apt-get install -y --no-install-recommends gettext
 ### Generate message files for a desired language
-RUN python ./manage.py makemessages -l cs_CZ --ignore=venv/*
+RUN python ./manage.py makemessages -l cs --ignore=venv/*
+RUN python ./manage.py makemessages -l en --ignore=venv/*
  
 ### After adding translations to the .po files, compile the messages
 RUN python manage.py compilemessages
