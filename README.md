@@ -39,6 +39,39 @@ kamal deploy
 
 Connect to server: `ssh root@162.55.185.37`
 
+## Upgrade packages
+
+Run uv lock whenever you change pyproject.toml
+
+uv sync --extra dev        # Install from lockfile
+
+## Update all dependencies to latest compatible versions
+
+Show outdated packages
+uv tree --outdated --depth=1
+
+uv lock --upgrade
+
+## Generate lockfile without installing
+
+uv lock --no-install
+
+uv add new-package        # Adds to pyproject.toml and updates lockfile
+
+uv remove old-package     # Removes from pyproject.toml and updates lockfile
+
+## Generate lockfile for specific Python version
+
+uv lock --python 3.11
+
+## Update specific package
+
+uv lock --upgrade-package django
+
+## Update packages in specific group
+
+uv lock --upgrade-package django --upgrade-package gunicorn
+
 ### When deploying for the first time, make sure these LOCAL ONLY config files exist
 
 config/django_secret.key

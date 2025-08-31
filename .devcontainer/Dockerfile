@@ -1,7 +1,7 @@
 # Use the official Python image from the DockerHub
 # Make sure PYTHON_VERSION matches the Python version in .python-version
 ARG PYTHON_VERSION=3.13.7
-FROM python:$PYTHON_VERSION-slim
+FROM python:$PYTHON_VERSION-slim-bookworm
 
 # Create the dev-user with appropriate permissions
 RUN groupadd --gid 1000 dev-user \
@@ -25,15 +25,17 @@ RUN gem install kamal
 # Set the working directory in docker
 WORKDIR /app
 
-# Copy the dependencies file to the working directory
-COPY requirements/base.txt .
-COPY requirements/local.txt .
+# Copy the pyproject.toml and README.md files to the working directory
+COPY pyproject.toml README.md ./
 
 # Copy uv from the official uv image
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-# Install any dependencies
-RUN uv pip install --system --no-cache-dir -r local.txt
+# Install dependencies using uv (creates .venv but that's fine in Docker)
+RUN uv sync --extra dev --no-cache --no-install-project
+
+# Make the virtual environment the default Python environment
+ENV PATH="/app/.venv/bin:$PATH"
 
 # Copy the content of the local src directory to the working directory
 COPY . .
@@ -44,11 +46,11 @@ COPY . .
 # RUN apt-get update && apt-get upgrade -y
 # RUN apt-get install -y --no-install-recommends gettext
 ### Generate message files for a desired language
-RUN python ./manage.py makemessages -l cs --ignore=venv/*
-RUN python ./manage.py makemessages -l en --ignore=venv/*
+RUN python ./manage.py makemessages -l cs --ignore=.venv
+RUN python ./manage.py makemessages -l en --ignore=.venv
  
 ### After adding translations to the .po files, compile the messages
-RUN python manage.py compilemessages
+RUN python manage.py compilemessages --ignore=.venv
 
 # Specify the command to run on container start
 # CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
