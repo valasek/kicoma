@@ -5,6 +5,8 @@ from contextlib import redirect_stdout
 from dateutil import relativedelta
 from urllib.parse import urlparse, urlunparse
 
+from django.db.models.functions import Lower
+
 from django.core import management
 from django.core.files.storage import FileSystemStorage
 
@@ -908,7 +910,7 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
     # do not save form which contains DailyMenu but save StockIssue on that date
     def form_valid(self, form):
         date = self.request.POST['date']
-        daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%d.%m.%Y"))
+        daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%Y-%m-%d"))
         if len(daily_menus) < 1:
             form.add_error('date', "Pro zadané datum není vytvořeno denní menu")
             return super(StockIssueFromDailyMenuCreateView, self).form_invalid(form)
@@ -982,7 +984,7 @@ class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         stock_issue = StockIssue.objects.filter(pk=self.kwargs['pk']).get()
         stock_issue_articles = StockIssueArticle.objects.filter(
-            stock_issue_id=self.kwargs['pk']).order_by('article__article')
+            stock_issue_id=self.kwargs['pk']).select_related('article').order_by(Lower('article__article'))
         context['stock_issue'] = stock_issue
         context['stock_issue_articles'] = stock_issue_articles
         context['title'] = "Výdejka"
@@ -1041,9 +1043,13 @@ class StockIssueArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView
         context['stockissue'] = StockIssue.objects.filter(pk=self.kwargs['pk']).get()
         return context
 
-    def get_queryset(self):
+    # def get_queryset(self):
         # show only StockIssueArticles
-        return super().get_queryset().filter(stock_issue=self.kwargs["pk"]).order_by('article__article')
+    #    return super().get_queryset().filter(stock_issue=self.kwargs["pk"]).order_by('article__article')
+    def get_queryset(self):
+        return super().get_queryset().filter(
+            stock_issue=self.kwargs["pk"]
+        ).select_related('article').order_by(Lower('article__article'))
 
 
 class StockIssueArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):

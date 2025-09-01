@@ -1,9 +1,4 @@
-KiCoMa - Kitchen cooking management
-==================
-
-[![GitHub release](https://img.shields.io/github/release-pre/valasek/kicoma.svg)](https://github.com/valasek/kicoma)
-[![GitHub issues](https://img.shields.io/github/issues/valasek/kicoma.svg)](https://github.com/valasek/kicoma/issues)
-[![Build Status](https://travis-ci.org/valasek/kicoma.svg?branch=master)](https://travis-ci.org/valasek/kima) [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg)](https://github.com/pydanny/cookiecutter-django/) [![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+# KiCoMa - Kitchen cooking management
 
 ## Demo
 Check the lastest version at [kicoma.stanislavvalasek.com](https://kicoma.stanislavvalasek.com).
@@ -23,186 +18,250 @@ If you'd like to use this software commercially, please [contact me](https://www
 
 ![Data model](./kicoma/static/images/datamodel.png)
 
-# Useful Commands
-
-## Reset Development DB
-`./reset-db.sh`
-
-## Reset Heroku DB
-`./reset-db-heroku.sh`
-
-## Check the production settings
-./manage.py check --deploy --settings=config.settings.production
-
-## Generate DB model
-Using https://django-extensions.readthedocs.io/en/latest/graph_models.html
-* `python3 manage.py graph_models -a -g -o datamodel.png` or
-* `python3 manage.py graph_models kitchen -g -o datamodel.png` and copy the file to statics/images
-
-## Update Translations
-### Generate message files for a desired language
-`./manage.py makemessages -l en -l cs`
- 
-### After adding translations to the .po files, compile the messages
-`./manage.py compilemessages`
-
-# Deploy to Heroku
-
-## Update
-`heroku login`
-
-## Update
-`git push kicoma-tri master`
-`git push heroku master`
-
-## Usefull heroku commands
-`heroku git:remote -a kicoma-tri`
-`heroku apps:info -a kicoma-tri`
-`heroku apps:stacks -a kicoma-tri`
-`heroku buildpacks -a kicoma-tri`
-
-## Generate user password for fixture
-
-`./manage.py shell`
-`from django.contrib.auth.hashers import make_password`
-`make_password('password')`
-
-## External dependencies
-
-* Python
-* Django
-* Postgresql
-
 ## Getting started
 
 To get started with the app, clone the repo and then install Python 3:
 
-```
-$ cd ~/tmp
-$ git clone https://github.com/valasek/kicoma
-$ cd kicoma
-```
-
-Install docker and docker compose and run
-`docker-compose up`
-
-DEPRECATED - local dev server
-
-Create python virtual environment, tested is python 3.10.2
-`https://towardsdatascience.com/python-environment-101-1d68bda3094d`
-`python3 -m venv <virtual env path>`
-
-Switch to the virtual environment:
-`source ./env/bin/activate`
-
-Install dependenciec
-`pip install -r requirements/local.txt`
-
-Install PostgreSql, I use Postgres.app and PgAdmin as a client
-
-Create DB with a name kicoma
-
-migrate the database:
-
-```
-$ ./manage.py makemigrations
-$ ./manage.py migrate
+```bash
+cd ~/tmp
+git clone https://github.com/valasek/kicoma
+cd kicoma
 ```
 
-Finally, run the test suite to verify that everything is working correctly:
+### Start server locally
 
+Just rebuild the dev container, app is running on port 8000
+
+Alternativelly, install docker and docker compose and run `docker-compose up`
+
+## Deploy to Hetzner
+
+Commit your changes all relevant files into repo.
+
+```bash
+export KAMAL_REGISTRY_PASSWORD=<value>
+kamal deploy
 ```
-$ ./manage.py test
+
+Connect to server: `ssh root@162.55.185.37`
+
+## Upgrade packages
+
+Run uv lock whenever you change pyproject.toml
+
+uv sync --extra dev        # Install from lockfile
+
+## Update all dependencies to latest compatible versions
+
+Show outdated packages
+uv tree --outdated --depth=1
+
+uv lock --upgrade
+
+## Generate lockfile without installing
+
+uv lock --no-install
+
+uv add new-package        # Adds to pyproject.toml and updates lockfile
+
+uv remove old-package     # Removes from pyproject.toml and updates lockfile
+
+## Generate lockfile for specific Python version
+
+uv lock --python 3.11
+
+## Update specific package
+
+uv lock --upgrade-package django
+
+## Update packages in specific group
+
+uv lock --upgrade-package django --upgrade-package gunicorn
+
+### When deploying for the first time, make sure these LOCAL ONLY config files exist
+
+config/django_secret.key
+e.g. ghenerate it using https://djecrety.ir
+
+config/django_admin_url.key
+/admin/ or more secure version
+
+config/mailgun_api.key
+
+config/mailgun_public.key
+
+config/mailgun_smtp_login.key
+
+config/mailgun_smtp_password.key
+
+### Update Kamal or kamal proxy on localhost
+
+```bash
+gem update kamal
+kamal proxy upgrade
 ```
 
-If the test suite passes, you'll be ready to run the app in a local server:
+### Path to sqlite
 
-```
-$ ./manage.py runserver
-```
+`/var/lib/docker/volumes/kicoma_storage/_data/`
 
-Getting up and running locally:
-https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html
+### Sqlite backups to S3
 
-## Reset DB
+Check if litestream is running:
+
+`sudo journalctl -u litestream -f`
+
+## Usefull Commands
+
+### Run bash inside cosker container
+
+`docker exec -it kicoma-web-1 bash`
+
+### Reset Development DB
+
 `./reset-db.sh`
 
-Settings
---------
+### Generate user password for fixture
 
-Moved to settings_.
+```bash
+./manage.py shell
+from django.contrib.auth.hashers import make_password
+make_password('password')
+```
 
-.. _settings: http://cookiecutter-django.readthedocs.io/en/latest/settings.html
+### Generate DB model
 
-Basic Commands
---------------
+Using [Graph models](https://django-extensions.readthedocs.io/en/latest/graph_models.html)
 
-Setting Up Your Users
-^^^^^^^^^^^^^^^^^^^^^
+`python3 manage.py graph_models -a -g -o datamodel.png` or
 
-* To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+`python3 manage.py graph_models kitchen -g -o datamodel.png` and copy the file to statics/images
 
-* To create an **superuser account**, use this command::
+### Update Translations
 
-    $ python manage.py createsuperuser
+#### Generate message files for a desired language
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+`./manage.py makemessages -l en -l cs`
 
-Type checks
-^^^^^^^^^^^
+#### After adding translations to the .po files, compile the messages
+
+`./manage.py compilemessages`
+
+### Type checks
 
 Running type checks with mypy:
 
-::
+`mypy kicoma`
 
-  $ mypy kicoma
-
-Test coverage
-^^^^^^^^^^^^^
+### Test coverage
 
 To run the tests, check your test coverage, and generate an HTML coverage report::
 
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
+```bash
+coverage run -m pytest
+coverage html
+open htmlcov/index.html
+```
 
-Running tests
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+### Running tests
 
  ./manage.py test kitchen
 
+### Check the production settings
 
-::
+`./manage.py check --deploy --settings=config.settings.production`
 
-  $ pytest
+## Data Model
 
-Live reloading and Sass CSS compilation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+![Data model](./kicoma/static/images/datamodel.png)
 
-Moved to `Live reloading and SASS compilation`_.
+## Legacy
 
-.. _`Live reloading and SASS compilation`: http://cookiecutter-django.readthedocs.io/en/latest/live-reloading-and-sass-compilation.html
+### Data migration
 
+#### Export data from Heroku DB
 
-Deployment
-----------
+```heroku run "python manage.py dumpdata --exclude auth.permission --exclude contenttypes" --app kicoma-tri > full_dump.json```
 
-The following details how to deploy this application.
+Log out all users by deleting all sessions
 
-Heroku
-^^^^^^
+heroku run python manage.py shell -c --app kicoma-tri "from django.contrib.sessions.models import Session; Session.objects.all().delete()"
 
-## Initial set-up
-https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html
+#### Import exported data on local machine
 
-Managing Multiple Environments for an App - https://devcenter.heroku.com/articles/multiple-environments
+```bash
+docker-compose exec kicoma_devcontainer-app python manage.py flush --noinput
+docker-compose exec web python manage.py migrate
+docker-compose exec web python manage.py loaddata full_dump.json
+
+or 
+
+docker exec b44a5dc4cfce87e70ab01036acf924d6496bcf974a974998488fdf3bc77ce13b python manage.py flush --noinput
+docker exec b44a5dc4cfce87e70ab01036acf924d6496bcf974a974998488fdf3bc77ce13b python manage.py migrate
+docker exec b44a5dc4cfce87e70ab01036acf924d6496bcf974a974998488fdf3bc77ce13b python manage.py loaddata full_dump.json
+```
+
+#### Import data from local machine into it into docker on Hetzner
+
+**Get container ID**:
+
+```bash
+scp ./full_dump.json root@162.55.185.37:/root/full_dump.json
+ssh root@162.55.185.37
+CONTAINER_ID=$(docker ps --format '{{.ID}}' --filter 'name=kicoma-web-' --filter 'ancestor=svalasek/kicoma')
+docker cp /root/full_dump.json $CONTAINER_ID:/app/full_dump.json
+docker exec -it $CONTAINER_ID python3 manage.py flush --noinput
+docker exec -it $CONTAINER_ID python3 manage.py loaddata full_dump.json
+```
+
+### Deploy to Heroku
+
+```bash
+heroku login
+git push kicoma-tri master
+```
+
+[deployment-on-heroku](https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html)
+
+[Managing Multiple Environments for an App](https://devcenter.heroku.com/articles/multiple-environments)
 
 Do not forget to add the following argument at the end of every command:
-` --app <app-name>`
-``--app kicoma-tri`
 
-## Set email domain
+`--app <app-name>`
+
+`--app kicoma-tri`
+
+#### Set email domain
+
 `heroku config:set MAILGUN_DOMAIN=hospic-cercany.cz`
 
-## Initialize DB
+#### Initialize DB
+
+### Reset Heroku DB
+
+`heroku login`
+
 `./reset-db-heroku.sh`
+
+#### Usefull Heroku commands
+
+```bash
+heroku git:remote -a kicoma-tri
+heroku apps:info -a kicoma-tri
+heroku apps:stacks -a kicoma-tri
+heroku buildpacks -a kicoma-tri
+heroku config -a kicoma-tri
+```
+
+## Additional info for local development and Cookiecutter info
+
+Check the original repo template:
+[Developing locally](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html)
+
+### Settings
+
+[Settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html)
+
+### Live reloading and Sass CSS compilation
+
+[Live reloading and SASS compilation](http://cookiecutter-django.readthedocs.io/en/latest/live-reloading-and-sass-compilation.html)
