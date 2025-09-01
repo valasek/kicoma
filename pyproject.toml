@@ -1,0 +1,78 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "KiCoMa"
+version = "1.0.0"
+description = "Kitchen Cooking Management"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    # Core utilities
+    "pytz",  # https://github.com/stub42/pytz
+    "python-slugify",  # https://github.com/un33k/python-slugify
+    "Pillow",  # https://github.com/python-pillow/Pillow
+    "argon2-cffi",  # https://github.com/hynek/argon2_cffi
+    "whitenoise",  # https://github.com/evansd/whitenoise
+    "python-dateutil",  # https://github.com/dateutil/dateutil
+    
+    # Project specific
+    "django-filter",
+    "django-import-export",
+    "django-tables2",
+    "django-bootstrap4",
+    "sentry-sdk",
+    "django-simple-history",
+    "tablib",
+    "openpyxl",
+    
+    # Django
+    "django",  # https://www.djangoproject.com/
+    "django-environ",  # https://github.com/joke2k/django-environ
+    "django-model-utils",  # https://github.com/jazzband/django-model-utils
+    "django-allauth",  # https://github.com/pennersr/django-allauth
+    "django-crispy-forms",  # https://github.com/django-crispy-forms/django-crispy-forms
+    "crispy-bootstrap4",  # https://github.com/django-crispy-forms/crispy-bootstrap4
+]
+
+[project.optional-dependencies]
+dev = [
+    # Development tools
+    "Werkzeug",  # https://github.com/pallets/werkzeug
+    "ipdb",  # https://github.com/gotcha/ipdb
+    "Sphinx",  # https://github.com/sphinx-doc/sphinx
+    
+    # Testing
+    "mypy",  # https://github.com/python/mypy
+    "django-stubs",  # https://github.com/typeddjango/django-stubs
+    "pytest",  # https://github.com/pytest-dev/
+    "pytest-sugar",  # https://github.com/Frozenball/pytest-sugar
+    "pytest-django",  # https://github.com/pytest-dev/pytest-django
+    
+    # Code quality
+    "flake8",  # https://github.com/PyCQA/flake8
+    "flake8-isort",  # https://github.com/gforcada/flake8-isort
+    "coverage",  # https://github.com/nedbat/coveragepy
+    "black",  # https://github.com/ambv/black
+    "pylint-django",  # https://github.com/PyCQA/pylint-django
+    "pre-commit",  # https://github.com/pre-commit/pre-commit
+    
+    # Django development
+    "factory-boy",              # https://github.com/FactoryBoy/factory_boy
+    "django-debug-toolbar",     # https://github.com/jazzband/django-debug-toolbar
+    "django-extensions",        # https://github.com/django-extensions/django-extensions
+    "django-coverage-plugin",   # https://github.com/nedbat/django_coverage_plugin
+]
+
+prod = [
+    # Production dependencies
+    "gunicorn",  # https://github.com/benoitc/gunicorn
+    "django-anymail[mailgun]",  # https://github.com/anymail/django-anymail
+]
+
+# Commented out redis dependencies - uncomment if needed
+# redis = [
+#     "redis",  # https://github.com/andymccurdy/redis-py
+#     "django-redis",  # https://github.com/niwinz/django-redis
+# ]

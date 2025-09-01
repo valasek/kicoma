@@ -6,6 +6,9 @@ __pycache__/
 
 #database
 kicoma.sqlite3
+kicoma.sqlite3-shm
+kicoma.sqlite3-wal
+full_dump.json
 
 # C extensions
 *.so
@@ -285,6 +288,18 @@ kicoma/media/
 
 .pytest_cache/
 
+django_secret.key
+django_admin_url.key
+mailgun_api.key
+mailgun_public.key
+mailgun_smtp_login.key
+mailgun_smtp_password.key
+.venv/
+venv/
+env/
 .env
 .envs/*
 !.envs/.local/
+
+# UV cache (optional - can speed up CI if cached)
+.uv_cache/

@@ -214,7 +214,7 @@ class MenuRecipeTable(tables.Table):
 class StockIssueTable(tables.Table):
     total_price = tables.Column(verbose_name='Celková cena s DPH')
     change = tables.TemplateColumn(
-        '''<a href="/kitchen/stockissue/update/{{ record.id }}">Upravit poznámku</a>
+        '''<a href="/kitchen/stockissue/update/{{ record.id }}">Poznámka</a>
         | <a href="/kitchen/stockissue/articlelist/{{ record.id }}">Zobrazit zboží</a>
         {% load auth_extras %}
         {% if request.user|has_group:"stockkeeper" %}
@@ -235,6 +235,10 @@ class StockIssueTable(tables.Table):
     @staticmethod
     def render_total_price(value):
         return '{} Kč'.format(intcomma(intcomma(value)))
+
+    @staticmethod
+    def render_created(value):
+        return value.strftime('%d.%m.%Y')
 
 
 class StockIssueFilter(FilterSet):

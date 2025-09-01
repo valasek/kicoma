@@ -295,10 +295,10 @@ class StockIssueFromDailyMenuForm(forms.ModelForm):
     class Meta:
         model = DailyMenu
         fields = ["date"]
-        # widgets = {
-        #     'date': forms.DateInput(format=('%Y-%m-%d'),
-        #                             attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
-        # }
+        widgets = {
+            'date': forms.DateInput(format=('%Y-%m-%d'),
+                                    attrs={'class': 'form-control', 'placeholder': 'Select Date', 'type': 'date'})
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

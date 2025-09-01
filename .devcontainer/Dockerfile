@@ -1,12 +1,59 @@
-FROM mcr.microsoft.com/devcontainers/python:1-3.13-bullseye
+# Use the official Python image from the DockerHub
+# Make sure PYTHON_VERSION matches the Python version in .python-version
+ARG PYTHON_VERSION=3.13.7
+FROM python:$PYTHON_VERSION-slim-bookworm
 
-ENV PYTHONUNBUFFERED 1
+# Create the dev-user with appropriate permissions
+RUN groupadd --gid 1000 dev-user \
+    && useradd --uid 1000 --gid 1000 -m dev-user \
+    && apt-get update \
+    && apt-get install -y sudo \
+    && echo dev-user ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/dev-user \
+    && chmod 0440 /etc/sudoers.d/dev-user
 
-# [Optional] If your requirements rarely change, uncomment this section to add them to the image.
-# COPY requirements.txt /tmp/pip-tmp/
-# RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
-#    && rm -rf /tmp/pip-tmp
+# Install Ruby and required dependencies
+RUN apt-get update && apt-get install -y \
+    ruby \
+    ruby-dev \
+    build-essential \
+    gettext \
+    && rm -rf /var/lib/apt/lists/*
 
-# [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+# Install Kamal gem
+RUN gem install kamal
+
+# Set the working directory in docker
+WORKDIR /app
+
+# Copy the pyproject.toml and README.md files to the working directory
+COPY pyproject.toml README.md ./
+
+# Copy uv from the official uv image
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
+# Install dependencies using uv (creates .venv but that's fine in Docker)
+RUN uv sync --extra dev --no-cache --no-install-project
+
+# Make the virtual environment the default Python environment
+ENV PATH="/app/.venv/bin:$PATH"
+
+# Copy the content of the local src directory to the working directory
+COPY . .
+
+# Compile traslations
+# TODO: remove this from final image, when it will be deployed onto production
+# https://stackoverflow.com/questions/52032712/django-cannot-compilemessages-in-alpine
+# RUN apt-get update && apt-get upgrade -y
+# RUN apt-get install -y --no-install-recommends gettext
+### Generate message files for a desired language
+RUN python ./manage.py makemessages -l cs --ignore=.venv
+RUN python ./manage.py makemessages -l en --ignore=.venv
+ 
+### After adding translations to the .po files, compile the messages
+RUN python manage.py compilemessages --ignore=.venv
+
+# Specify the command to run on container start
+# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+COPY .devcontainer/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
