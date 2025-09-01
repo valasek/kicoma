@@ -1,67 +1,99 @@
-import logging
 import io
-from datetime import datetime
+import logging
 from contextlib import redirect_stdout
-from dateutil import relativedelta
+from datetime import datetime
 from urllib.parse import urlparse, urlunparse
 
-from django.db.models.functions import Lower
-
-from django.core import management
-from django.core.files.storage import FileSystemStorage
-
-from django.urls import reverse_lazy
-from django.utils.safestring import mark_safe
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
-from django.contrib import messages
-from django.shortcuts import render, redirect, get_object_or_404
-from django.core.exceptions import ValidationError
+from dateutil import relativedelta
 from django.conf import settings
-from django.utils import translation
-
-from django.db import transaction, connection
-from django.db.models import F, Count, Sum
-
-from django.views.generic import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic.list import ListView
-from django.views.generic.base import TemplateView, View
-
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import ContentType, Group, Permission
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.models import Group, ContentType, Permission
-
-from django_tables2 import SingleTableMixin
+from django.core import management
+from django.core.exceptions import ValidationError
+from django.core.files.storage import FileSystemStorage
+from django.db import connection, transaction
+from django.db.models import Count, F, Sum
+from django.db.models.functions import ExtractYear, Lower
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
+from django.utils import translation
+from django.utils.safestring import mark_safe
+from django.views.generic import DetailView
+from django.views.generic.base import TemplateView, View
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.list import ListView
 from django_filters.views import FilterView
-from django.db.models.functions import ExtractYear
-
+from django_tables2 import SingleTableMixin
 from tablib import Dataset
 
 from kicoma.users.models import User
 
-from .models import StockIssueArticle, StockReceiptArticle, Recipe, Allergen, MealType, MealGroup, \
-    VAT, Article, RecipeArticle, StockIssue, StockReceipt, DailyMenu, Menu, MenuRecipe, DailyMenuRecipe
-from .models import HistoricalArticle
-
-from .tables import StockReceiptTable, StockReceiptArticleTable, StockReceiptFilter
-from .tables import StockIssueTable, StockIssueArticleTable, StockIssueFilter
-from .tables import ArticleTable, ArticleRestrictedTable, ArticleFilter
-from .tables import DailyMenuTable, MenuTable, DailyMenuFilter
-from .tables import DailyMenuRecipeTable, MenuRecipeTable
-from .tables import RecipeTable, RecipeFilter, RecipeArticleTable
-
-from .forms import RecipeForm, RecipeArticleForm, RecipeSearchForm
-from .forms import StockReceiptForm, StockReceiptSearchForm, StockReceiptArticleForm
-from .forms import StockIssueForm, StockIssueSearchForm, StockIssueArticleForm, StockIssueFromDailyMenuForm
-from .forms import ArticleForm, ArticleRestrictedForm, ArticleSearchForm
-from .forms import DailyMenuSearchForm, DailyMenuPrintForm, MenuForm, MenuRecipeForm, DailyMenuCreateForm, \
-                   DailyMenuEditForm, DailyMenuRecipeForm
-from .forms import DailyMenuCateringUnitForm
-
-from .functions import convert_units
-
 from .admin import ArticleResource
+from .forms import (
+    ArticleForm,
+    ArticleRestrictedForm,
+    ArticleSearchForm,
+    DailyMenuCateringUnitForm,
+    DailyMenuCreateForm,
+    DailyMenuEditForm,
+    DailyMenuPrintForm,
+    DailyMenuRecipeForm,
+    DailyMenuSearchForm,
+    MenuForm,
+    MenuRecipeForm,
+    RecipeArticleForm,
+    RecipeForm,
+    RecipeSearchForm,
+    StockIssueArticleForm,
+    StockIssueForm,
+    StockIssueFromDailyMenuForm,
+    StockIssueSearchForm,
+    StockReceiptArticleForm,
+    StockReceiptForm,
+    StockReceiptSearchForm,
+)
+from .functions import convert_units
+from .models import (
+    VAT,
+    Allergen,
+    Article,
+    DailyMenu,
+    DailyMenuRecipe,
+    HistoricalArticle,
+    MealGroup,
+    MealType,
+    Menu,
+    MenuRecipe,
+    Recipe,
+    RecipeArticle,
+    StockIssue,
+    StockIssueArticle,
+    StockReceipt,
+    StockReceiptArticle,
+)
+from .tables import (
+    ArticleFilter,
+    ArticleRestrictedTable,
+    ArticleTable,
+    DailyMenuFilter,
+    DailyMenuRecipeTable,
+    DailyMenuTable,
+    MenuRecipeTable,
+    MenuTable,
+    RecipeArticleTable,
+    RecipeFilter,
+    RecipeTable,
+    StockIssueArticleTable,
+    StockIssueFilter,
+    StockIssueTable,
+    StockReceiptArticleTable,
+    StockReceiptFilter,
+    StockReceiptTable,
+)
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -177,7 +209,7 @@ class ImportDataView(LoginRequiredMixin, TemplateView):
             messages.error(
                 self.request,
                 "Není vybrán vstupní soubor, použij tlačítko Browse a vyber soubor.")
-            return super(ImportDataView, self).render_to_response(context)
+            return super().render_to_response(context)
         uploaded_file = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(uploaded_file.name, uploaded_file)
@@ -191,7 +223,7 @@ class ImportDataView(LoginRequiredMixin, TemplateView):
                 messages.success(self.request, "Data úspěšně nahrána: "+f.getvalue())
         except Exception as e:
             messages.success(self.request, "Chyba při výmazu dat před importem: "+str(e))
-        return super(ImportDataView, self).render_to_response(context)
+        return super().render_to_response(context)
 
 
 class DataCleanUpView(SuccessMessageMixin, LoginRequiredMixin, TemplateView):

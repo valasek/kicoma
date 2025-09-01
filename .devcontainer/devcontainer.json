@@ -56,7 +56,9 @@
                 "ms-python.vscode-pylance",
                 "charliermarsh.ruff",
                 // django
-                "batisteo.vscode-django"
+                "batisteo.vscode-django",
+                // toml
+                "tamasfe.even-better-toml"
             ]
         }
     },

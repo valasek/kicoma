@@ -1,33 +1,83 @@
-from django.urls import path
 from django.conf.urls import include
+from django.urls import path
 from django.views.generic import RedirectView
 
-from .views import ArticleListView, ArticleRestrictedListView, ArticleHistoryDetailView, ArticleCreateView, \
-    ArticleRestrictedUpdateView, ArticleUpdateView, ArticleDeleteView, \
-    ArticlePDFView, ArticleLackListView, ArticleExportView, ArticleImportView
-from .views import StockTakePDFView
-from .views import StockReceiptListView, StockReceiptCreateView, StockReceiptUpdateView, \
-    StockReceiptDeleteView, StockReceiptPDFView, StockReceiptApproveView
-from .views import StockReceiptArticleListView, StockReceiptArticleCreateView, StockReceiptArticleUpdateView, \
-    StockReceiptArticleDeleteView
-from .views import StockIssueListView, StockIssueCreateView, StockIssueUpdateView, StockIssueRefreshView, \
-    StockIssueDeleteView, StockIssuePDFView, StockIssueApproveView, StockIssueFromDailyMenuCreateView
-from .views import StockIssueArticleListView, StockIssueArticleCreateView, StockIssueArticleUpdateView, \
-    StockIssueArticleDeleteView
-from .views import RecipeListView, RecipeCreateView, RecipeUpdateView, RecipeDeleteView, \
-    RecipePDFView, RecipeListPDFView
-from .views import RecipeArticleListView, RecipeArticleCreateView, RecipeArticleUpdateView, \
-    RecipeArticleDeleteView
-from .views import DailyMenuListView, DailyMenuCreateView, DailyMenuUpdateView, DailyMenuDeleteView, \
-    DailyMenuPDFView, DailyMenuPrintView
-from .views import MenuListView, MenuCreateView, MenuUpdateView, MenuDeleteView
-from .views import MenuRecipeListView, MenuRecipeCreateView, MenuRecipeUpdateView, MenuRecipeDeleteView
-from .views import DailyMenuRecipeListView, DailyMenuRecipeCreateView, DailyMenuRecipeUpdateView, \
-    DailyMenuRecipeDeleteView
-from .views import IncorrectUnitsListView, ArticlesNotInRecipesListView, ShowFoodConsumptionTotalPrice, \
-    CateringUnitFilterView, CateringUnitShowView
-
-from .views import about, changelog, docs, export_data, switch_language, ImportDataView, DataCleanUpView
+from .views import (
+    ArticleCreateView,
+    ArticleDeleteView,
+    ArticleExportView,
+    ArticleHistoryDetailView,
+    ArticleImportView,
+    ArticleLackListView,
+    ArticleListView,
+    ArticlePDFView,
+    ArticleRestrictedListView,
+    ArticleRestrictedUpdateView,
+    ArticlesNotInRecipesListView,
+    ArticleUpdateView,
+    CateringUnitFilterView,
+    CateringUnitShowView,
+    DailyMenuCreateView,
+    DailyMenuDeleteView,
+    DailyMenuListView,
+    DailyMenuPDFView,
+    DailyMenuPrintView,
+    DailyMenuRecipeCreateView,
+    DailyMenuRecipeDeleteView,
+    DailyMenuRecipeListView,
+    DailyMenuRecipeUpdateView,
+    DailyMenuUpdateView,
+    DataCleanUpView,
+    ImportDataView,
+    IncorrectUnitsListView,
+    MenuCreateView,
+    MenuDeleteView,
+    MenuListView,
+    MenuRecipeCreateView,
+    MenuRecipeDeleteView,
+    MenuRecipeListView,
+    MenuRecipeUpdateView,
+    MenuUpdateView,
+    RecipeArticleCreateView,
+    RecipeArticleDeleteView,
+    RecipeArticleListView,
+    RecipeArticleUpdateView,
+    RecipeCreateView,
+    RecipeDeleteView,
+    RecipeListPDFView,
+    RecipeListView,
+    RecipePDFView,
+    RecipeUpdateView,
+    ShowFoodConsumptionTotalPrice,
+    StockIssueApproveView,
+    StockIssueArticleCreateView,
+    StockIssueArticleDeleteView,
+    StockIssueArticleListView,
+    StockIssueArticleUpdateView,
+    StockIssueCreateView,
+    StockIssueDeleteView,
+    StockIssueFromDailyMenuCreateView,
+    StockIssueListView,
+    StockIssuePDFView,
+    StockIssueRefreshView,
+    StockIssueUpdateView,
+    StockReceiptApproveView,
+    StockReceiptArticleCreateView,
+    StockReceiptArticleDeleteView,
+    StockReceiptArticleListView,
+    StockReceiptArticleUpdateView,
+    StockReceiptCreateView,
+    StockReceiptDeleteView,
+    StockReceiptListView,
+    StockReceiptPDFView,
+    StockReceiptUpdateView,
+    StockTakePDFView,
+    about,
+    changelog,
+    docs,
+    export_data,
+    switch_language,
+)
 
 app_name = "kitchen"
 urlpatterns = [

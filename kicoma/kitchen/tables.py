@@ -1,9 +1,20 @@
 import django_tables2 as tables
-from django_filters import FilterSet, CharFilter, DateFilter
 from django.contrib.humanize.templatetags.humanize import intcomma
+from django_filters import CharFilter, DateFilter, FilterSet
 
-from .models import Recipe, RecipeArticle, StockReceipt, StockIssue, Article, DailyMenu, \
-    Menu, MenuRecipe, StockIssueArticle, StockReceiptArticle, DailyMenuRecipe
+from .models import (
+    Article,
+    DailyMenu,
+    DailyMenuRecipe,
+    Menu,
+    MenuRecipe,
+    Recipe,
+    RecipeArticle,
+    StockIssue,
+    StockIssueArticle,
+    StockReceipt,
+    StockReceiptArticle,
+)
 
 
 class ArticleTable(tables.Table):
@@ -13,7 +24,7 @@ class ArticleTable(tables.Table):
         '''<a href="/kitchen/article/update/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/article/history/{{ record.id }}">Historie</a>
         | <a href="/kitchen/article/delete/{{ record.id }}">Vymazat</a>''',
-        verbose_name=u'Akce', )
+        verbose_name='Akce', )
 
     class Meta:
         model = Article
@@ -24,19 +35,19 @@ class ArticleTable(tables.Table):
 
     @staticmethod
     def render_average_price(value, record):
-        return '{} Kč / {}'.format(intcomma(value), record.unit)
+        return f'{intcomma(value)} Kč / {record.unit}'
 
     @staticmethod
     def render_total_price(value):
-        return '{} Kč'.format(intcomma(value))
+        return f'{intcomma(value)} Kč'
 
     @staticmethod
     def render_on_stock(value, record):
-        return '{} {}'.format(value, record.unit)
+        return f'{value} {record.unit}'
 
     @staticmethod
     def render_min_on_stock(value, record):
-        return '{} {}'.format(value, record.unit)
+        return f'{value} {record.unit}'
 
 
 class ArticleRestrictedTable(tables.Table):
@@ -44,7 +55,7 @@ class ArticleRestrictedTable(tables.Table):
     average_price = tables.Column(verbose_name='Průměrná jednotková cena s DPH')
     change = tables.TemplateColumn(
         '''<a href="/kitchen/article/restrictedupdate/{{ record.id }}">Upravit</a>''',
-        verbose_name=u'Akce', )
+        verbose_name='Akce', )
 
     class Meta:
         model = Article
@@ -54,11 +65,11 @@ class ArticleRestrictedTable(tables.Table):
 
     @staticmethod
     def render_min_on_stock(value, record):
-        return '{} {}'.format(value, record.unit)
+        return f'{value} {record.unit}'
 
     @staticmethod
     def render_average_price(value, record):
-        return '{} Kč / {}'.format(intcomma(value), record.unit)
+        return f'{intcomma(value)} Kč / {record.unit}'
 
 
 class ArticleFilter(FilterSet):
@@ -78,7 +89,7 @@ class RecipeTable(tables.Table):
         | <a href="/kitchen/recipe/delete/{{ record.id }}">Vymazat</a>
         | <a href="/kitchen/recipe/print/{{ record.id }}">PDF</a>
         ''',
-        verbose_name=u'Akce', )
+        verbose_name='Akce', )
 
     class Meta:
         model = Recipe
@@ -88,7 +99,7 @@ class RecipeTable(tables.Table):
 
     @staticmethod
     def render_total_recipe_articles_price(value):
-        return '{} Kč'.format(intcomma(value))
+        return f'{intcomma(value)} Kč'
 
     @staticmethod
     def render_allergens(record):
@@ -109,7 +120,7 @@ class RecipeArticleTable(tables.Table):
     change = tables.TemplateColumn(
         '''<a href="/kitchen/recipe/updatearticle/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/recipe/deletearticle/{{ record.id }}">Vymazat</a>''',
-        verbose_name=u'Akce', )
+        verbose_name='Akce', )
 
     class Meta:
         model = RecipeArticle
@@ -119,15 +130,15 @@ class RecipeArticleTable(tables.Table):
 
     @staticmethod
     def render_amount(value, record):
-        return '{} {}'.format(value, record.unit)
+        return f'{value} {record.unit}'
 
     @staticmethod
     def render_average_price(value, record):
-        return '{} Kč / {}'.format(intcomma(value), record.article.unit)
+        return f'{intcomma(value)} Kč / {record.article.unit}'
 
     @staticmethod
     def render_total_average_price(value):
-        return '{} Kč'.format(intcomma(value))
+        return f'{intcomma(value)} Kč'
 
 
 class DailyMenuTable(tables.Table):
@@ -138,7 +149,7 @@ class DailyMenuTable(tables.Table):
         | <a href="/kitchen/report/print/foodconsumption?date={{ record.date }}&meal_group=">PDF - spotřeba potravin</a>
         | <a href="/kitchen/dailymenu/delete/{{ record.id }}">Vymazat</a>
         ''',
-        verbose_name=u'Akce', )
+        verbose_name='Akce', )
 
     class Meta:
         model = DailyMenu
@@ -167,7 +178,7 @@ class DailyMenuRecipeTable(tables.Table):
         '''<a href="/kitchen/dailymenu/updaterecipe/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/dailymenu/deleterecipe/{{ record.id }}" >Vymazat</a>
         ''',
-        verbose_name=u'Akce', )
+        verbose_name='Akce', )
 
     class Meta:
         model = DailyMenuRecipe
@@ -183,7 +194,7 @@ class MenuTable(tables.Table):
         | <a href="/kitchen/menu/recipelist/{{ record.id }}">Zobrazit recepty</a>
         | <a href="/kitchen/menu/delete/{{ record.id }}">Vymazat</a>
         ''',
-        verbose_name=u'Akce', )
+        verbose_name='Akce', )
 
     class Meta:
         model = Menu
@@ -202,7 +213,7 @@ class MenuRecipeTable(tables.Table):
         '''<a href="/kitchen/menu/updaterecipe/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/menu/deleterecipe/{{ record.id }}" >Vymazat</a>
         ''',
-        verbose_name=u'Akce', )
+        verbose_name='Akce', )
 
     class Meta:
         model = MenuRecipe
@@ -223,7 +234,7 @@ class StockIssueTable(tables.Table):
         {% endif %}
         | <a href="/kitchen/stockissue/delete/{{ record.id }}">Vymazat</a>
         | <a href="/kitchen/stockissue/print/{{ record.id }}">PDF</a>''',
-        verbose_name=u'Akce', )
+        verbose_name='Akce', )
 
     class Meta:
         model = StockIssue
@@ -234,7 +245,7 @@ class StockIssueTable(tables.Table):
 
     @staticmethod
     def render_total_price(value):
-        return '{} Kč'.format(intcomma(intcomma(value)))
+        return f'{intcomma(intcomma(value))} Kč'
 
     @staticmethod
     def render_created(value):
@@ -254,7 +265,7 @@ class StockIssueArticleTable(tables.Table):
     change = tables.TemplateColumn(
         '''<a href="/kitchen/stockissue/updatearticle/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/stockissue/deletearticle/{{ record.id }}">Vymazat</a>''',
-        verbose_name=u'Akce', )
+        verbose_name='Akce', )
 
     class Meta:
         model = StockIssueArticle
@@ -264,15 +275,15 @@ class StockIssueArticleTable(tables.Table):
 
     @staticmethod
     def render_amount(value, record):
-        return '{} {}'.format(value, record.unit)
+        return f'{value} {record.unit}'
 
     @staticmethod
     def render_average_unit_price(value, record):
-        return '{} Kč / {}'.format(intcomma(value), record.article.unit)
+        return f'{intcomma(value)} Kč / {record.article.unit}'
 
     @staticmethod
     def render_total_average_price_with_vat(value):
-        return '{} Kč'.format(intcomma(value))
+        return f'{intcomma(value)} Kč'
 
 
 class StockReceiptTable(tables.Table):
@@ -283,7 +294,7 @@ class StockReceiptTable(tables.Table):
         | <a href="/kitchen/stockreceipt/approve/{{ record.id }}">Naskladnit</a>
         | <a href="/kitchen/stockreceipt/delete/{{ record.id }}">Vymazat</a>
         | <a href="/kitchen/stockreceipt/print/{{ record.id }}">PDF</a>''',
-        verbose_name=u'Akce', )
+        verbose_name='Akce', )
 
     class Meta:
         model = StockReceipt
@@ -294,7 +305,7 @@ class StockReceiptTable(tables.Table):
 
     @staticmethod
     def render_total_price(value):
-        return '{} Kč'.format(intcomma(value))
+        return f'{intcomma(value)} Kč'
 
 
 class StockReceiptFilter(FilterSet):
@@ -312,7 +323,7 @@ class StockReceiptArticleTable(tables.Table):
     change = tables.TemplateColumn(
         '''<a href="/kitchen/stockreceipt/updatearticle/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/stockreceipt/deletearticle/{{ record.id }}">Vymazat</a>''',
-        verbose_name=u'Akce', )
+        verbose_name='Akce', )
 
     class Meta:
         model = StockReceiptArticle
@@ -323,16 +334,16 @@ class StockReceiptArticleTable(tables.Table):
 
     @staticmethod
     def render_amount(value, record):
-        return '{} {}'.format(value, record.unit)
+        return f'{value} {record.unit}'
 
     @staticmethod
     def render_price_without_vat(value):
-        return '{} Kč'.format(intcomma(value))
+        return f'{intcomma(value)} Kč'
 
     @staticmethod
     def render_price_with_vat(value):
-        return '{} Kč'.format(intcomma(value))
+        return f'{intcomma(value)} Kč'
 
     @staticmethod
     def render_total_price_with_vat(value):
-        return '{} Kč'.format(intcomma(value))
+        return f'{intcomma(value)} Kč'
