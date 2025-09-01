@@ -1,6 +1,7 @@
 # KiCoMa - Kitchen cooking management
 
 ## Demo
+
 Check the lastest version at [kicoma.stanislavvalasek.com](https://kicoma.stanislavvalasek.com).
 
 ## License
@@ -81,7 +82,7 @@ uv lock --upgrade-package django --upgrade-package gunicorn
 ### When deploying for the first time, make sure these LOCAL ONLY config files exist
 
 config/django_secret.key
-e.g. ghenerate it using https://djecrety.ir
+e.g. ghenerate it using <https://djecrety.ir>
 
 config/django_admin_url.key
 /admin/ or more secure version
@@ -170,10 +171,6 @@ open htmlcov/index.html
 ### Check the production settings
 
 `./manage.py check --deploy --settings=config.settings.production`
-
-## Data Model
-
-![Data model](./kicoma/static/images/datamodel.png)
 
 ## Legacy
 
