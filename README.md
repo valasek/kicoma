@@ -1,16 +1,23 @@
 # KiCoMa - Kitchen cooking management
 
-[![GitHub release](https://img.shields.io/github/release-pre/valasek/kicoma.svg)](https://github.com/valasek/kicoma)
-[![GitHub issues](https://img.shields.io/github/issues/valasek/kicoma.svg)](https://github.com/valasek/kicoma/issues)
-[![Build Status](https://travis-ci.org/valasek/kicoma.svg?branch=master)](https://travis-ci.org/valasek/kima) [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg)](https://github.com/pydanny/cookiecutter-django/) [![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
-
 ## Demo
 
 Check the lastest version at [https://kicoma.stanislavvalasek.com](https://kicoma.stanislavvalasek.com).
 
 ## License
 
-All source code in the [KiCoMa](https://github.com/valasek/kicoma) is available under the GNU GPL v3 License. See [LICENSE.md](LICENSE.md) for details.
+All source code in this repository is released under the **[CC BY‑NC 4.0](https://creativecommons.org/licenses/by‑nc/4.0/)** license.
+
+- ❌ **Commercial use is not permitted**
+- 🔒 No patent rights are granted
+- 📝 Attribution and copyright notice must be included
+- ⚠️ No liability and no warranty
+
+If you'd like to use this software commercially, please [contact me](https://www.stanislavvalasek.com/en/contact/) to discuss a commercial license.
+
+## Data Model
+
+![Data model](./kicoma/static/images/datamodel.png)
 
 ## Getting started
 
