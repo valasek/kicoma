@@ -2,7 +2,7 @@
 
 ## Demo
 
-Check the lastest version at [https://kicoma.stanislavvalasek.com](https://kicoma.stanislavvalasek.com).
+Check the lastest version at [kicoma.stanislavvalasek.com](https://kicoma.stanislavvalasek.com).
 
 ## License
 
