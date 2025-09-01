@@ -1,6 +1,6 @@
 # Stage 1: Base build stage
 ARG PYTHON_VERSION=3.13.7
-FROM python:$PYTHON_VERSION-slim-bookworm AS builder
+FROM python:$PYTHON_VERSION-slim AS builder
 
 WORKDIR /app
 
@@ -28,8 +28,14 @@ ENV PATH="/app/.venv/bin:$PATH"
 FROM python:$PYTHON_VERSION-slim
 
 # Copy the Python dependencies from the builder stage
-COPY --from=builder /usr/local/lib/python3.13/site-packages/ /usr/local/lib/python3.13/site-packages/
+COPY --from=builder /app/.venv /app/.venv
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
+
+# Copy uv binary
+COPY --from=builder /usr/local/bin/uv /usr/local/bin/uv
+
+# Make the virtual environment the default Python environment
+ENV PATH="/app/.venv/bin:$PATH"
 
 # Install locale dependencies
 RUN export DEBIAN_FRONTEND=noninteractive && \
