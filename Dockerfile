@@ -1,6 +1,6 @@
 # Stage 1: Base build stage
 ARG PYTHON_VERSION=3.13.7
-FROM python:$PYTHON_VERSION-slim AS builder
+FROM python:$PYTHON_VERSION-slim-bookworm AS builder
 
 WORKDIR /app
 
@@ -8,11 +8,21 @@ WORKDIR /app
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
 # Copy the dependencies file to the working directory
-COPY ./requirements/base.txt .
-COPY ./requirements/production.txt .
+# COPY ./requirements/base.txt .
+# COPY ./requirements/production.txt .
+
+# Copy the pyproject.toml and README.md files to the working directory
+COPY pyproject.toml README.md ./
 
 # Install any dependencies
-RUN uv pip install --system --no-cache-dir -r production.txt
+# RUN uv pip install --system --no-cache-dir -r production.txt
+
+# Install dependencies using uv (creates .venv but that's fine in Docker)
+RUN uv sync --extra prod --no-cache --no-install-project
+
+# Make the virtual environment the default Python environment
+ENV PATH="/app/.venv/bin:$PATH"
+
 
 # Stage 2: Production stage
 FROM python:$PYTHON_VERSION-slim
@@ -73,9 +83,9 @@ COPY . .
 RUN mkdir -p /storage && chmod 777 /storage
 
 # Generate and compile messages at build time
-RUN python ./manage.py makemessages -l cs --ignore=venv/*
-RUN python ./manage.py makemessages -l en --ignore=venv/*
-RUN python manage.py compilemessages
+RUN python ./manage.py makemessages -l cs --ignore=.venv
+RUN python ./manage.py makemessages -l en --ignore=.venv
+RUN python manage.py compilemessages --ignore=.venv
 
 # Collect static files at build time
 RUN python manage.py collectstatic --noinput

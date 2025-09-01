@@ -9,7 +9,7 @@ set -e
 # python manage.py compilemessages
 
 # Collect static files
-python manage.py collectstatic --noinput
+# python manage.py collectstatic --noinput
 
 # Run migrations
 python manage.py makemigrations
