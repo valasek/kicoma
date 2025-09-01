@@ -1,8 +1,24 @@
-from import_export import resources, widgets, fields
-from import_export.admin import ImportExportActionModelAdmin
 from django.contrib import admin
-from . models import StockReceipt, StockIssue, StockIssueArticle, StockReceiptArticle, Allergen, MealType, Recipe, \
-    RecipeArticle, MealGroup, VAT, Menu, MenuRecipe, DailyMenu, Article, DailyMenuRecipe
+from import_export import fields, resources, widgets
+from import_export.admin import ImportExportActionModelAdmin
+
+from .models import (
+    VAT,
+    Allergen,
+    Article,
+    DailyMenu,
+    DailyMenuRecipe,
+    MealGroup,
+    MealType,
+    Menu,
+    MenuRecipe,
+    Recipe,
+    RecipeArticle,
+    StockIssue,
+    StockIssueArticle,
+    StockReceipt,
+    StockReceiptArticle,
+)
 
 # create import export resources
 

@@ -1,8 +1,20 @@
-from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column
-from .models import StockReceipt, StockIssue, StockIssueArticle, StockReceiptArticle, RecipeArticle, \
-    Article, Recipe, Menu, MenuRecipe, DailyMenu, DailyMenuRecipe
+from crispy_forms.layout import Column, Layout, Row
+from django import forms
+
+from .models import (
+    Article,
+    DailyMenu,
+    DailyMenuRecipe,
+    Menu,
+    MenuRecipe,
+    Recipe,
+    RecipeArticle,
+    StockIssue,
+    StockIssueArticle,
+    StockReceipt,
+    StockReceiptArticle,
+)
 
 
 class ArticleForm(forms.ModelForm):

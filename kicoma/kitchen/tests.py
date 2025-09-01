@@ -1,10 +1,8 @@
-import urllib.parse
-from django.test import TestCase, SimpleTestCase
-from django.urls import reverse, resolve
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from django.test import SimpleTestCase, TestCase
 from django.test.client import Client
+from django.urls import resolve, reverse
 
 from kicoma.kitchen.models import UNIT, Article
 from kicoma.kitchen.views import ArticleCreateView
@@ -32,7 +30,7 @@ class ViewTests(TestCase):
         self.addGroup(self.user, "cook")
         self.addGroup(self.user, "chef")
         self.addGroup(self.user, "stockkeeper")
-        
+
     def tearDown(self):
         self.user.delete()
         self.group.delete()
