@@ -7,10 +7,6 @@ WORKDIR /app
 # Copy uv from the official uv image
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-# Copy the dependencies file to the working directory
-# COPY ./requirements/base.txt .
-# COPY ./requirements/production.txt .
-
 # Copy the pyproject.toml and README.md files to the working directory
 COPY pyproject.toml README.md ./
 
