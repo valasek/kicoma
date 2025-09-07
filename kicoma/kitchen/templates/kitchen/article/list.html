@@ -6,18 +6,12 @@
 <div class="container-fluid">
   <h4>Seznam zboží na skladu</h4>
   <hr/>
-  <div class="row">
-    <div class="col justify-content-start">
+  <div class="row align-items-center">
+    <div class="col-auto">
       <a href="{% url 'kitchen:printArticles' %}" class="btn btn-secondary mb-2">PDF - seznam zboží</a>
-      Celková cena zboží na skladu s DPH: {{ total_stock_price|intcomma }} Kč
+      <span class="mx-4 mb-2">Celková cena zboží na skladu s DPH: {{ total_stock_price|intcomma }} Kč</span>
+      {% include 'kitchen/partials/_filter_section.html' %}
     </div>
-    {% if filter %}
-    <form method="get" action="" class="col justify-content-end form-inline mb-2">
-      {% csrf_token %}
-      {{ filter.form | crispy }}
-      <button type="submit" class="btn btn-success mx-2">Search</button>
-    </form>
-    {% endif %}
   </div>
   {% render_table table %}
 </div>

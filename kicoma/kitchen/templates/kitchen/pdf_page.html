@@ -15,11 +15,11 @@
     {% block css %}
 
     {# Load the tag library #}
-    {% load bootstrap4 %}
+    {% load django_bootstrap5 %}
 
     {# Load CSS and JavaScript #}
     {% bootstrap_css %}
-    {% bootstrap_javascript jquery='full' %}
+    {% bootstrap_javascript %}
 
     <!-- Your stuff: Third-party CSS libraries go here -->
 
@@ -39,7 +39,7 @@
     </style>
   </head>
   <body>
-    <button class="ml-4 mt-4 btn btn-success" onclick="convertHTMLToPDF()">Stáhnout jako PDF</button>
+    <button class="ms-4 mt-4 btn btn-success" onclick="convertHTMLToPDF()">Stáhnout jako PDF</button>
     <div class="container-fluid p-4" id="html-template">
       <h1>
         {{ title|default:"PDF tisková šablona" }}

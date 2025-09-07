@@ -25,6 +25,9 @@ RUN gem install kamal
 # Set the working directory in docker
 WORKDIR /app
 
+# Make the virtual environment the default Python environment
+ENV PATH="/app/.venv/bin:$PATH"
+
 # Copy the pyproject.toml and README.md files to the working directory
 COPY pyproject.toml README.md ./
 
@@ -33,9 +36,6 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
 # Install dependencies using uv (creates .venv but that's fine in Docker)
 RUN uv sync --extra dev --no-cache --no-install-project
-
-# Make the virtual environment the default Python environment
-ENV PATH="/app/.venv/bin:$PATH"
 
 # Copy the content of the local src directory to the working directory
 COPY . .

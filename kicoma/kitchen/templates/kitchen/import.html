@@ -3,13 +3,13 @@
 <div class="container-fluid">
   <h4>Import dat</h4>
   <hr/>
-  <div class="jumbotron">
+  <div class="alert alert-danger" role="alert">
     <h1 class="display-4">Upozornění</h1>
     <p class="lead">
       Import vymaže a nahradí všechna data v aplikaci včetně uživatelských účtů nahranýma.<br/>
       Primárním cílem je přesun dat mezi testovacím a produkčním prostředím.
     </p>
-    <p class="font-weight-bold">
+    <p class="fw-bold">
       Zkontroluj, že máš zálohovaná data! Pomocí <a href="{% url 'kitchen:export' %}">Exportu všech dat</a>.
     </p>
   </div>
@@ -24,15 +24,14 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Import zahájen</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
           </button>
         </div>
         <div class="modal-body">
           <p>Odhadovaná doba trvání je 1 minuta.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Rozumím</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rozumím</button>
         </div>
       </div>
     </div>

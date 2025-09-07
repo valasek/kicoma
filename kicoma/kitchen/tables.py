@@ -1,4 +1,5 @@
 import django_tables2 as tables
+from django import forms
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django_filters import CharFilter, DateFilter, FilterSet
 
@@ -28,7 +29,7 @@ class ArticleTable(tables.Table):
 
     class Meta:
         model = Article
-        template_name = "django_tables2/bootstrap4.html"
+        template_name = "django_tables2/bootstrap5.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("article", "on_stock", "min_on_stock", "average_price",
                   "total_price", "allergens", "comment", "change")
@@ -59,7 +60,7 @@ class ArticleRestrictedTable(tables.Table):
 
     class Meta:
         model = Article
-        template_name = "django_tables2/bootstrap4.html"
+        template_name = "django_tables2/bootstrap5.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("article", "unit", "min_on_stock", "allergen", "average_price", "comment", "change")
 
@@ -93,7 +94,7 @@ class RecipeTable(tables.Table):
 
     class Meta:
         model = Recipe
-        template_name = "django_tables2/bootstrap4.html"
+        template_name = "django_tables2/bootstrap5.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("recipe", "norm_amount", "total_recipe_articles_price", "allergens", "change")
 
@@ -124,7 +125,7 @@ class RecipeArticleTable(tables.Table):
 
     class Meta:
         model = RecipeArticle
-        template_name = "django_tables2/bootstrap4.html"
+        template_name = "django_tables2/bootstrap5.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("article", "amount", "total_average_price", "comment", "change")
 
@@ -153,7 +154,7 @@ class DailyMenuTable(tables.Table):
 
     class Meta:
         model = DailyMenu
-        template_name = "django_tables2/bootstrap4.html"
+        template_name = "django_tables2/bootstrap5.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("date", "meal_group", "meal_type", "max_amount_number", "change")
 
@@ -165,7 +166,17 @@ class DailyMenuTable(tables.Table):
 
 
 class DailyMenuFilter(FilterSet):
-    date = DateFilter(lookup_expr='contains')
+    date = DateFilter(
+        lookup_expr='contains',
+        widget=forms.DateInput(
+            format='%Y-%m-%d',
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Vyber datum',
+                'type': 'date'
+            }
+        )
+    )
 
     class Meta:
         model = DailyMenu
@@ -182,7 +193,7 @@ class DailyMenuRecipeTable(tables.Table):
 
     class Meta:
         model = DailyMenuRecipe
-        template_name = "django_tables2/bootstrap4.html"
+        template_name = "django_tables2/bootstrap5.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("recipe", "amount", "change")
 
@@ -198,7 +209,7 @@ class MenuTable(tables.Table):
 
     class Meta:
         model = Menu
-        template_name = "django_tables2/bootstrap4.html"
+        template_name = "django_tables2/bootstrap5.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("menu", "meal_type", "rc", "comment", "change")
 
@@ -217,7 +228,7 @@ class MenuRecipeTable(tables.Table):
 
     class Meta:
         model = MenuRecipe
-        template_name = "django_tables2/bootstrap4.html"
+        template_name = "django_tables2/bootstrap5.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("recipe", "amount", "change")
 
@@ -238,7 +249,7 @@ class StockIssueTable(tables.Table):
 
     class Meta:
         model = StockIssue
-        template_name = "django_tables2/bootstrap4.html"
+        template_name = "django_tables2/bootstrap5.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("created", "user_created", "approved", "date_approved",
                   "user_approved", "total_price", "comment", "change")
@@ -253,7 +264,17 @@ class StockIssueTable(tables.Table):
 
 
 class StockIssueFilter(FilterSet):
-    created = DateFilter(lookup_expr='contains')
+    created = DateFilter(
+        lookup_expr='contains',
+        widget=forms.DateInput(
+            format='%Y-%m-%d',
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Vyber datum',
+                'type': 'date'
+            }
+        )
+    )
 
     class Meta:
         model = StockIssue
@@ -269,7 +290,7 @@ class StockIssueArticleTable(tables.Table):
 
     class Meta:
         model = StockIssueArticle
-        template_name = "django_tables2/bootstrap4.html"
+        template_name = "django_tables2/bootstrap5.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("article", "amount", "average_unit_price", "total_average_price_with_vat", "change")
 
@@ -298,7 +319,7 @@ class StockReceiptTable(tables.Table):
 
     class Meta:
         model = StockReceipt
-        template_name = "django_tables2/bootstrap4.html"
+        template_name = "django_tables2/bootstrap5.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("date_created", "user_created", "approved", "date_approved",
                   "user_approved", "total_price", "comment", "change")
@@ -309,8 +330,17 @@ class StockReceiptTable(tables.Table):
 
 
 class StockReceiptFilter(FilterSet):
-    date_created = DateFilter(lookup_expr='contains')
-    # user_created = django_filters.CharFilter(lookup_expr='icontains')
+    date_created = DateFilter(
+        lookup_expr='contains',
+        widget=forms.DateInput(
+            format='%Y-%m-%d',
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Vyber datum',
+                'type': 'date'
+            }
+        )
+    )
 
     class Meta:
         model = StockReceipt
@@ -327,7 +357,7 @@ class StockReceiptArticleTable(tables.Table):
 
     class Meta:
         model = StockReceiptArticle
-        template_name = "django_tables2/bootstrap4.html"
+        template_name = "django_tables2/bootstrap5.html"
         attrs = {"class": "table table-striped table-hover table-sm"}
         fields = ("article", "amount", "price_without_vat", "vat",
                   "price_with_vat", "total_price_with_vat", "change")

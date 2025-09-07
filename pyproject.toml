@@ -12,12 +12,12 @@ dependencies = [
     "argon2-cffi",  # https://github.com/hynek/argon2_cffi
     "whitenoise",  # https://github.com/evansd/whitenoise
     "python-dateutil",  # https://github.com/dateutil/dateutil
-    
+
     # Project specific
     "django-filter",
     "django-import-export",
     "django-tables2",
-    "django-bootstrap4",
+    "django-bootstrap5",
     "sentry-sdk",
     "django-simple-history",
     "tablib",
@@ -29,7 +29,7 @@ dependencies = [
     "django-model-utils",  # https://github.com/jazzband/django-model-utils
     "django-allauth",  # https://github.com/pennersr/django-allauth
     "django-crispy-forms",  # https://github.com/django-crispy-forms/django-crispy-forms
-    "crispy-bootstrap4",  # https://github.com/django-crispy-forms/crispy-bootstrap4
+    "crispy-bootstrap5",  # https://github.com/django-crispy-forms/crispy-bootstrap5
 ]
 
 [project.optional-dependencies]
@@ -40,7 +40,6 @@ dev = [
     "Sphinx",  # https://github.com/sphinx-doc/sphinx
     
     # Testing
-    "mypy",  # https://github.com/python/mypy
     "django-stubs",  # https://github.com/typeddjango/django-stubs
     "pytest",  # https://github.com/pytest-dev/
     "pytest-sugar",  # https://github.com/Frozenball/pytest-sugar

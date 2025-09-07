@@ -239,7 +239,7 @@ class DailyMenu(TimeStampedModel):
         verbose_name = _('Denní menu')
         ordering = ['-date', 'meal_group']
 
-    date = models.DateField(verbose_name='Datum', help_text='Datum denního menu ve formátu dd.mm.rrrr')
+    date = models.DateField(verbose_name='Datum', help_text='Datum denního menu')
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Menu',
                              help_text='Přeber recepty z připraveného menu')
     meal_group = models.ForeignKey(MealGroup, on_delete=models.CASCADE, verbose_name='Skupina strávníka',

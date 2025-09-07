@@ -20,7 +20,7 @@ from django.db.models.functions import ExtractYear, Lower
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from django.utils import translation
+from django.utils import formats, translation
 from django.utils.safestring import mark_safe
 from django.views.generic import DetailView
 from django.views.generic.base import TemplateView, View
@@ -42,7 +42,6 @@ from .forms import (
     DailyMenuEditForm,
     DailyMenuPrintForm,
     DailyMenuRecipeForm,
-    DailyMenuSearchForm,
     MenuForm,
     MenuRecipeForm,
     RecipeArticleForm,
@@ -632,7 +631,6 @@ class DailyMenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     table_class = DailyMenuTable
     template_name = 'kitchen/dailymenu/list.html'
     filterset_class = DailyMenuFilter
-    form_class = DailyMenuSearchForm
     paginate_by = settings.PAGINATE_BY
 
 
@@ -640,7 +638,13 @@ class DailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = DailyMenu
     form_class = DailyMenuCreateForm
     template_name = 'kitchen/dailymenu/create.html'
-    success_message = "Denní menu pro den %(date)s bylo vytvořeno, přidej recepty"
+    success_message = "Denní menu pro den %(formatted_date)s bylo vytvořeno, přidej recepty"
+
+    def get_success_message(self, cleaned_data):
+        date_obj = self.object.date
+        formatted_date = formats.date_format(date_obj, "SHORT_DATE_FORMAT")
+
+        return self.success_message % { 'formatted_date': formatted_date }
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showDailyMenus')
@@ -663,8 +667,14 @@ class DailyMenuUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = DailyMenu
     form_class = DailyMenuEditForm
     template_name = 'kitchen/dailymenu/update.html'
-    success_message = "Denní menu pro den %(date)s bylo aktualizováno včetně výdejky ke schválení"
+    success_message = "Denní menu pro den %(formatted_date)s bylo aktualizováno včetně výdejky ke schválení"
     success_url = reverse_lazy('kitchen:showDailyMenus')
+
+    def get_success_message(self, cleaned_data):
+        date_obj = self.object.date
+        formatted_date = formats.date_format(date_obj, "SHORT_DATE_FORMAT")
+
+        return self.success_message % { 'formatted_date': formatted_date }
 
 
 class DailyMenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
@@ -941,14 +951,16 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
 
     # do not save form which contains DailyMenu but save StockIssue on that date
     def form_valid(self, form):
-        date = self.request.POST['date']
-        daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%Y-%m-%d"))
+        date_str = self.request.POST['date']
+        date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
+        formatted_date = formats.date_format(date_obj, "SHORT_DATE_FORMAT")
+        daily_menus = DailyMenu.objects.filter(date=date_obj)
         if len(daily_menus) < 1:
             form.add_error('date', "Pro zadané datum není vytvořeno denní menu")
             return super().form_invalid(form)
-        count = StockIssue.create_from_daily_menu(daily_menus, date, self.request.user)
+        count = StockIssue.create_from_daily_menu(daily_menus, formatted_date, self.request.user)
         messages.success(
-            self.request, f'Výdejka pro den {date} vytvořena a vyskladňuje {count} druhů zboží')
+            self.request, f'Výdejka pro den { formatted_date } vytvořena a vyskladňuje { count } druhů zboží')
         return HttpResponseRedirect(self.success_url)
 
 
@@ -972,9 +984,11 @@ class StockIssueRefreshView(LoginRequiredMixin, View):
         if "Pro " not in comment:
             messages.warning(self.request, "Aktualizace zboží je možná jenom pro výdejku vytvořenou z denního menu")
         else:
+            # FIXME: this does not work in EN locale, it will get string: "Pro 2025-03-05"
             date = comment[4:]
             with transaction.atomic():
                 stock_issue.delete()
+                # FIXME: and here it gives converting error
                 daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%d.%m.%Y"))
                 if len(daily_menus) < 1:
                     messages.error('date', "Pro zadané datum není vytvořeno denní menu")
@@ -1010,6 +1024,7 @@ class StockIssueDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 
 class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, TemplateView):
     template_name = 'kitchen/stockissue/pdf.html'
+    # FIXME: text and date format for EN version
     filename = 'Výdejka-' + datetime.now().strftime("%Y.%m.%d_%H-%M-%S-%f") + '.pdf'
 
     def get_context_data(self, **kwargs):
@@ -1075,9 +1090,6 @@ class StockIssueArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView
         context['stockissue'] = StockIssue.objects.filter(pk=self.kwargs['pk']).get()
         return context
 
-    # def get_queryset(self):
-        # show only StockIssueArticles
-    #    return super().get_queryset().filter(stock_issue=self.kwargs["pk"]).order_by('article__article')
     def get_queryset(self):
         return super().get_queryset().filter(
             stock_issue=self.kwargs["pk"]
@@ -1469,8 +1481,9 @@ class CateringUnitShowView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        date = self.request.GET['date']
-        daily_menu_ids = DailyMenu.objects.filter(date=datetime.strptime(date, "%d.%m.%Y")).values('id')
+        date_str = self.request.GET['date']
+        date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
+        daily_menu_ids = DailyMenu.objects.filter(date=date_obj).values('id')
         daily_menu_recipes = DailyMenuRecipe.objects.filter(daily_menu__in=daily_menu_ids)
         recipes = Recipe.objects.filter(id__in=daily_menu_recipes.values('recipe'))
 
@@ -1490,7 +1503,7 @@ class CateringUnitShowView(LoginRequiredMixin, TemplateView):
             output.append(output_new)
             total_price += unit_price * daily_menu_recipes['amount']
 
-        context['date'] = date
+        context['date'] = date_obj
         context['daily_menu_recipes'] = output
         context['daily_menu_recipes_total'] = len(output)
         context['daily_menu_recipes_total_price'] = total_price

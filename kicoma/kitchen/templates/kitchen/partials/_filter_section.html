@@ -1,0 +1,44 @@
+{% load crispy_forms_tags %}
+{% load filter_extras %}
+
+{% if filter %}
+ <a class="btn btn-outline-dark mb-2"
+    data-bs-toggle="collapse" href="#filter" role="button" aria-expanded="false" aria-controls="filter">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+    </svg>
+    Filtr
+ </a>
+ 
+ {% if request.GET|has_filters %}
+    <span class="alert alert-dark py-2 mb-3">
+        <small>Zobrazují se filtrované výsledky
+            <a href="?" class="text-danger link-underline-danger ms-2">× Vymazat všechny filtry</a>
+        </small>
+    </span>
+ {% endif %}
+ 
+ <div class="collapse mt-2" id="filter">
+    <div class="card card-body">
+        <form method="get" action="" class="col-4 justify-content-end mb-2" id="filterForm">
+            {% csrf_token %}
+            {{ filter.form | crispy }}
+            <div class="d-flex gap-2 align-items-center">
+                <button type="submit" class="btn btn-success">Vyhledat</button>
+                {% if request.GET|has_filters %}
+                    <button type="button" class="btn btn-link text-danger link-underline-danger p-0"
+                            onclick="clearAllFilters()" style="font-size: 0.9rem;">
+                        × Vymazat všechny filtry
+                    </button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+ </div>
+{% endif %}
+
+<script>
+    function clearAllFilters() {
+        window.location.href = window.location.pathname;
+    }
+</script>

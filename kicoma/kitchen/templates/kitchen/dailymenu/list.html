@@ -6,17 +6,11 @@
   <h4>Seznam denních menu</h4>
   <hr/>
   <div class="row">
-    <div class="col-8 justify-content-start d-inline">
+    <div class="justify-content-start d-inline">
       <a href="{% url 'kitchen:createDailyMenu' %}" class="btn btn-primary mb-2">Vytvořit nové menu</a>
       <a href="{% url 'kitchen:filterPrintDailyMenu' %}" class="btn btn-secondary mb-2">PDF - denní menu</a>
+      {% include 'kitchen/partials/_filter_section.html' %}
     </div>
-    {% if filter %}
-      <form method="get" action="" class="col-4 justify-content-end form-inline mb-2">
-        {% csrf_token %}
-        {{ filter.form | crispy }}
-        <button type="submit" class="btn btn-success mx-2">Vyhledat</button>
-      </form>
-    {% endif %}
   </div>
   {% render_table table %}
 </div>

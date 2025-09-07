@@ -27,11 +27,11 @@
     {% block css %}
 
     {# Load the tag library #}
-    {% load bootstrap4 %}
+    {% load django_bootstrap5 %}
 
     {# Load CSS and JavaScript #}
     {% bootstrap_css %}
-    {% bootstrap_javascript jquery='full' %}
+    {% bootstrap_javascript %}
 
     <!-- Your stuff: Third-party CSS libraries go here -->
 
@@ -56,8 +56,8 @@
         <button
           class="navbar-toggler navbar-toggler-right"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
@@ -75,7 +75,7 @@
         </a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav me-auto">
             {% if user.is_anonymous %}
             <!-- 
             <li class="nav-item">
@@ -114,7 +114,7 @@
                 class="nav-link active dropdown-toggle"
                 href="#"
                 id="navbarDropdownMenuLink"
-                data-toggle="dropdown"
+                data-bs-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
               >
@@ -187,20 +187,24 @@
     </div>
 
     <div class="container-fluid p-4">
-      {% if messages %} {% for message in messages %}
-      <div
-        class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}"
-      >
-        {{ message }}<button
-          type="button"
-          class="close"
-          data-dismiss="alert"
-          aria-label="Close"
+      {% if messages %}
+        {% for message in messages %}
+        <div
+          class="alert alert-dismissible fade show {% if message.tags %}alert-{{ message.tags }}{% endif %}"
+          role="alert"
         >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {% endfor %} {% endif %} {% block content %}
+          {{ message }}
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          >
+          </button>
+        </div>
+        {% endfor %}
+      {% endif %}
+      {% block content %}
       {% endblock content %}
     </div>
     <!-- /container -->
@@ -211,32 +215,47 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Report se připravuje</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             </button>
           </div>
           <div class="modal-body">
             <p>Odhadovaná doba trvání je 1 minuta.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Rozumím</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Rozumím</button>
           </div>
         </div>
       </div>
     </div>
-    <script>
-    $(document).ready(function(){
-      $("#reportMenu").click(function(){
-        $("#report").modal();
-      });
-    });
-    </script>
     {% endblock modal %}
 
     <!-- Javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     {% block javascript %}
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const reportMenu = document.getElementById('reportMenu');
+        
+        if (reportMenu) {
+          reportMenu.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent immediate navigation
+            
+            // Create the modal instance here
+            const reportModal = new bootstrap.Modal(document.getElementById('report'));
+            
+            // Show the modal
+            reportModal.show();
+            
+            // Navigate after 2 seconds
+            setTimeout(() => {
+              window.location.href = reportMenu.getAttribute('href');
+            }, 2000);
+          });
+        }
+      });
+    </script>
 
     <!-- Your stuff: Third-party javascript libraries go here -->
 
