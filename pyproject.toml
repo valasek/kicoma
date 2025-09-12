@@ -6,13 +6,12 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     # Core utilities
-    "pytz",  # https://github.com/stub42/pytz
-    "python-slugify",  # https://github.com/un33k/python-slugify
-    "Pillow",  # https://github.com/python-pillow/Pillow
-    "argon2-cffi",  # https://github.com/hynek/argon2_cffi
-    "whitenoise",  # https://github.com/evansd/whitenoise
-    "python-dateutil",  # https://github.com/dateutil/dateutil
-
+    "pytz", # https://github.com/stub42/pytz
+    "python-slugify", # https://github.com/un33k/python-slugify
+    "Pillow", # https://github.com/python-pillow/Pillow
+    "argon2-cffi", # https://github.com/hynek/argon2_cffi
+    "whitenoise", # https://github.com/evansd/whitenoise
+    "python-dateutil", # https://github.com/dateutil/dateutil
     # Project specific
     "django-filter",
     "django-import-export",
@@ -22,14 +21,15 @@ dependencies = [
     "django-simple-history",
     "tablib",
     "openpyxl",
-    
+    "weasyprint",
+
     # Django
-    "django",  # https://www.djangoproject.com/
-    "django-environ",  # https://github.com/joke2k/django-environ
-    "django-model-utils",  # https://github.com/jazzband/django-model-utils
-    "django-allauth",  # https://github.com/pennersr/django-allauth
-    "django-crispy-forms",  # https://github.com/django-crispy-forms/django-crispy-forms
-    "crispy-bootstrap5",  # https://github.com/django-crispy-forms/crispy-bootstrap5
+    "django", # https://www.djangoproject.com/
+    "django-environ", # https://github.com/joke2k/django-environ
+    "django-model-utils", # https://github.com/jazzband/django-model-utils
+    "django-allauth", # https://github.com/pennersr/django-allauth
+    "django-crispy-forms", # https://github.com/django-crispy-forms/django-crispy-forms
+    "crispy-bootstrap5", # https://github.com/django-crispy-forms/crispy-bootstrap5
 ]
 
 [project.optional-dependencies]

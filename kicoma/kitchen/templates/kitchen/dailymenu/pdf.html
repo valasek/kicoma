@@ -1,6 +1,6 @@
 {% extends "../pdf_page.html" %}
 {% block content %}
-<p align="center">{{ meal_group_filter }}</p>
+<p class="text-center">{{ meal_group_filter }}</p>
 <table class="table w-auto">
   <thead>
     <tr>
@@ -10,15 +10,15 @@
       <th scope="col">Počet porcí</th>
       </tr>
   </thead>
-  {% for recipe in daily_menu_recipes %}
   <tbody>
+  {% for recipe in daily_menu_recipes %}
     <tr>
-      <th scope="row">{ recipe.daily_menu.meal_group }}</th>
+      <th scope="row">{{ recipe.daily_menu.meal_group }}</th>
       <td>{{ recipe.daily_menu.meal_type }}</td>
       <td>{{ recipe.recipe }}</td>
       <td>{{ recipe.amount }}</td>
       </tr>
-  </tbody>
   {% endfor %}
+  </tbody>
 </table>
 {% endblock %}

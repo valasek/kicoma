@@ -147,7 +147,6 @@ class DailyMenuTable(tables.Table):
     change = tables.TemplateColumn(
         '''<a href="/kitchen/dailymenu/update/{{ record.id }}">Upravit</a>
         | <a href="/kitchen/dailymenu/recipelist/{{ record.id }}">Zobrazit recepty</a>
-        | <a href="/kitchen/report/print/foodconsumption?date={{ record.date }}&meal_group=">PDF - spotřeba potravin</a>
         | <a href="/kitchen/dailymenu/delete/{{ record.id }}">Vymazat</a>
         ''',
         verbose_name='Akce', )

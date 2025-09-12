@@ -1,6 +1,6 @@
 {% extends "../pdf_page.html" %}
 {% block content %}
-<p>Receptů celkem: {{recipes_total}}</p>
+<p class="text-center">Receptů celkem: {{recipes_total}}</p>
   <table class="table w-auto">
     <thead>
       <tr>
@@ -9,14 +9,14 @@
         <th scope="col">Komentář</th>
       </tr>
     </thead>
-    {% for recipe in recipes %}
     <tbody>
+    {% for recipe in recipes %}
       <tr>
         <th scope="row">{{recipe.recipe}}</th>
         <td>{{recipe.norm_amount}}</td>
         <td>{{recipe.comment}}</td>
       </tr>
-    </tbody>
     {% endfor %}
+    </tbody>
   </table>
 {% endblock %}

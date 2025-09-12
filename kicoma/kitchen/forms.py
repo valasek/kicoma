@@ -187,7 +187,7 @@ class DailyMenuPrintForm(forms.ModelForm):
         fields = ["date", "meal_group"]
         widgets = {
             'date': forms.DateInput(
-                format='%d.%m.%Y',
+                format='%Y-%m-%d',
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Vyberte datum',

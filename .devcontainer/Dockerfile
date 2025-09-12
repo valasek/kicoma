@@ -12,11 +12,21 @@ RUN groupadd --gid 1000 dev-user \
     && chmod 0440 /etc/sudoers.d/dev-user
 
 # Install Ruby and required dependencies
+# Also system deps for WeasyPrint (Cairo, Pango, GDK-Pixbuf, GObject, etc.)
 RUN apt-get update && apt-get install -y \
     ruby \
     ruby-dev \
     build-essential \
     gettext \
+    libcairo2 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libgdk-pixbuf-2.0-0 \
+    libffi-dev \
+    gir1.2-pango-1.0 \
+    gir1.2-gdkpixbuf-2.0 \
+    fonts-liberation \
+    fonts-dejavu \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Kamal gem

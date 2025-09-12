@@ -108,18 +108,18 @@ class Article(TimeStampedModel):
     @property
     def average_price(self):
         if self.on_stock != 0:
-            return round(self.total_price / self.on_stock, 2)
+            return round(self.total_price / self.on_stock, 0)
         else:
             stock_receipt_article = StockReceiptArticle.objects.filter(article__id=self.id)
             if len(stock_receipt_article) == 0:
                 return 0
             else:
-                return round(stock_receipt_article[0].price_with_vat, 2)
+                return round(stock_receipt_article[0].price_with_vat, 0)
 
     @staticmethod
     def sum_total_price():
         sum_price = Article.objects.aggregate(total_price=Sum('total_price'))['total_price']
-        return 0 if sum_price is None else round(sum_price, 2)
+        return 0 if sum_price is None else round(sum_price, 0)
 
     '''Create a string for the Allergens. This is required to display allergen in Admin and user table view.'''
     def display_allergens(self):
@@ -194,7 +194,7 @@ class RecipeArticle(TimeStampedModel):
 
     @property
     def total_average_price(self):
-        return round(convert_units(self.amount, self.unit, self.article.unit) * self.article.average_price, 2)
+        return round(convert_units(self.amount, self.unit, self.article.unit) * self.article.average_price, 0)
 
 
 class Menu(TimeStampedModel):
@@ -294,7 +294,7 @@ class StockIssue(TimeStampedModel):
     @property
     def total_price(self):
         stock_issue_articles = StockIssueArticle.objects.filter(stock_issue=self.id)
-        return round(total_recipe_article_price(stock_issue_articles, 1), 2)
+        return round(total_recipe_article_price(stock_issue_articles, 1), 0)
 
     def consolidate_by_article(self):
         # select all articles where count > 1
@@ -368,7 +368,7 @@ class StockIssue(TimeStampedModel):
                 new_total_price = convert_units(stock_article.total_average_price_with_vat, stock_article.unit,
                                                 article.unit)
                 article.on_stock -= round(converted_amount, 2)
-                article.total_price -= round(new_total_price, 2)
+                article.total_price -= round(new_total_price, 0)
                 article.save()
                 update_change_reason(article, 'Výdej - ' + comment)
         return messages
@@ -398,7 +398,7 @@ class StockReceipt(TimeStampedModel):
         total_price = 0
         for stock_receipt_article in stock_receipt_articles:
             total_price += stock_receipt_article.total_price_with_vat
-        return round(total_price, 2)
+        return round(total_price, 0)
 
     @staticmethod
     def update_article_on_stock(stock_id, comment):
@@ -408,7 +408,7 @@ class StockReceipt(TimeStampedModel):
             converted_amount = convert_units(stock_article.amount, stock_article.unit, article.unit)
             new_total_price = convert_units(stock_article.total_price_with_vat, stock_article.unit, article.unit)
             article.on_stock += round(converted_amount, 2)
-            article.total_price += round(new_total_price, 2)
+            article.total_price += round(new_total_price, 0)
             article.save()
             update_change_reason(article, 'Příjem - ' + comment)
 
@@ -430,7 +430,7 @@ class StockIssueArticle(TimeStampedModel):
     @property
     def total_average_price_with_vat(self):
         if self.amount is not None and self.average_unit_price is not None:
-            return round(self.average_unit_price * convert_units(self.amount, self.unit, self.article.unit), 2)
+            return round(self.average_unit_price * convert_units(self.amount, self.unit, self.article.unit), 0)
         return 0
 
     # def clean(self):
@@ -471,7 +471,7 @@ class StockReceiptArticle(TimeStampedModel):
     @property
     def total_price_with_vat(self):
         if self.price_with_vat is not None and self.amount is not None:
-            return round(self.price_with_vat * convert_units(self.amount, self.unit, self.article.unit), 2)
+            return round(self.price_with_vat * convert_units(self.amount, self.unit, self.article.unit), 0)
         return 0
 
     def __str__(self):

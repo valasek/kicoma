@@ -19,16 +19,19 @@ from django.db.models import Count, F, Sum
 from django.db.models.functions import ExtractYear, Lower
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils import formats, translation
 from django.utils.safestring import mark_safe
+from django.views import View
 from django.views.generic import DetailView
-from django.views.generic.base import TemplateView, View
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from django_filters.views import FilterView
 from django_tables2 import SingleTableMixin
 from tablib import Dataset
+from weasyprint import HTML
 
 from kicoma.users.models import User
 
@@ -96,6 +99,15 @@ from .tables import (
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
+
+
+def create_pdf(self, request, filename, **kwargs):
+    context = self.get_context_data(**kwargs)
+    html_string = render_to_string(self.template_name, context, request=request)
+    pdf_file = HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf()
+    response = HttpResponse(pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = f"attachment; filename={filename}"
+    return response
 
 
 def about(request):
@@ -396,7 +408,6 @@ class ArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 
 class ArticlePDFView(LoginRequiredMixin, TemplateView):
     template_name = 'kitchen/article/pdf.html'
-    file_name = 'Seznam_zbozi.pdf'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -405,8 +416,9 @@ class ArticlePDFView(LoginRequiredMixin, TemplateView):
         context['total_stock_price'] = Article.sum_total_price()
         return context
 
-    # def render_to_response(self, context, **kwargs):
-    #    return html_to_pdf(self.file_name, self.template_name, context)
+    def get(self, request, *args, **kwargs):
+        response = create_pdf(self, request, "Seznam_zbozi.pdf", **kwargs)
+        return response
 
 
 class ArticleExportView(LoginRequiredMixin, View):
@@ -461,13 +473,16 @@ class ArticleHistoryDetailView(LoginRequiredMixin, DetailView):
 
 class StockTakePDFView(LoginRequiredMixin, TemplateView):
     template_name = 'kitchen/stocktake/pdf.html'
-    filename = 'Seznam_zbozi_na_skladu.pdf'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['articles'] = Article.objects.all()
         context['title'] = "Seznam zboží na skladu ke kontrole"
         return context
+
+    def get(self, request, *args, **kwargs):
+        response = create_pdf(self, request, "Seznam_zbozi_na_skladu.pdf", **kwargs)
+        return response
 
 
 class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
@@ -509,7 +524,6 @@ class RecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 
 class RecipeListPDFView(LoginRequiredMixin, TemplateView):
     template_name = 'kitchen/recipe/pdf_list.html'
-    filename = 'Seznam_receptu.pdf'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -518,10 +532,13 @@ class RecipeListPDFView(LoginRequiredMixin, TemplateView):
         context['title'] = "Seznam receptů"
         return context
 
+    def get(self, request, *args, **kwargs):
+        response = create_pdf(self, request, "Seznam_receptu.pdf", **kwargs)
+        return response
+
 
 class RecipePDFView(LoginRequiredMixin, TemplateView):
     template_name = 'kitchen/recipe/pdf.html'
-    filename = 'Recept.pdf'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -530,6 +547,10 @@ class RecipePDFView(LoginRequiredMixin, TemplateView):
         context['recipe_articles'] = RecipeArticle.objects.filter(recipe=recipe)
         context['title'] = recipe.recipe
         return context
+
+    def get(self, request, *args, **kwargs):
+        response = create_pdf(self, request, "Recept.pdf", **kwargs)
+        return response
 
 
 class RecipeArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
@@ -689,31 +710,31 @@ class DailyMenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
 
 class DailyMenuPDFView(LoginRequiredMixin, TemplateView):
     template_name = 'kitchen/dailymenu/pdf.html'
-    filename = 'Denni_menu.pdf'
-
-    def get(self, request, *args, **kwargs):
-        try:
-            date = request.GET['date']
-            datetime.strptime(date, "%d.%m.%Y")
-        except ValueError as e:
-            messages.warning(self.request, f"Chybně zadané datum. Požadovaný formát je dd.mm.rr. Chyba: {e}")
-            return HttpResponseRedirect(reverse_lazy('kitchen:filterPrintDailyMenu'))
-        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         date = self.request.GET['date']
         meal_group = self.request.GET['meal_group']
         if len(meal_group) == 0:
-            daily_menu_recipes = DailyMenuRecipe.objects.filter(daily_menu__date=datetime.strptime(date, "%d.%m.%Y"))
+            daily_menu_recipes = DailyMenuRecipe.objects.filter(daily_menu__date=datetime.strptime(date, "%Y-%m-%d"))
         else:
             daily_menu_recipes = DailyMenuRecipe.objects.filter(
-                daily_menu__date=datetime.strptime(date, "%d.%m.%Y"), daily_menu__meal_group=meal_group)
+                daily_menu__date=datetime.strptime(date, "%Y-%m-%d"), daily_menu__meal_group=meal_group)
             context['meal_group_filter'] = "Filtrováno pro skupinu strávníků: " + \
                 MealGroup.objects.filter(pk=meal_group).get().meal_group
         context['title'] = "Denní menu pro " + date
         context['daily_menu_recipes'] = daily_menu_recipes
         return context
+
+    def get(self, request, *args, **kwargs):
+        try:
+            date = request.GET['date']
+            datetime.strptime(date, "%Y-%m-%d")
+        except ValueError as e:
+            messages.warning(self.request, f"Chybně zadané datum. Požadovaný formát je rrrr-mm-dd. Chyba: {e}")
+            return HttpResponseRedirect(reverse_lazy('kitchen:filterPrintDailyMenu'))
+        response = create_pdf(self, request, "Denni_menu.pdf", **kwargs)
+        return response
 
 
 class DailyMenuPrintView(LoginRequiredMixin, CreateView):
@@ -989,7 +1010,7 @@ class StockIssueRefreshView(LoginRequiredMixin, View):
             with transaction.atomic():
                 stock_issue.delete()
                 # FIXME: and here it gives converting error
-                daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%d.%m.%Y"))
+                daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%Y-%m-%d"))
                 if len(daily_menus) < 1:
                     messages.error('date', "Pro zadané datum není vytvořeno denní menu")
                     return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues'))
@@ -1022,10 +1043,8 @@ class StockIssueDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
         return super().post(request, *args, **kwargs)
 
 
-class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, TemplateView):
+class StockIssuePDFView(LoginRequiredMixin, TemplateView):
     template_name = 'kitchen/stockissue/pdf.html'
-    # FIXME: text and date format for EN version
-    filename = 'Výdejka-' + datetime.now().strftime("%Y.%m.%d_%H-%M-%S-%f") + '.pdf'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -1037,6 +1056,10 @@ class StockIssuePDFView(SuccessMessageMixin, LoginRequiredMixin, TemplateView):
         context['title'] = "Výdejka"
         context['total_price'] = stock_issue.total_price
         return context
+
+    def get(self, request, *args, **kwargs):
+        response = create_pdf(self, request, "Výdejka.pdf", **kwargs)
+        return response
 
 
 class StockIssueApproveView(LoginRequiredMixin, TemplateView):
@@ -1240,7 +1263,6 @@ class StockReceiptDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView
 
 class StockReceiptPDFView(LoginRequiredMixin, TemplateView):
     template_name = 'kitchen/stockreceipt/pdf.html'
-    filename = 'Příjemka.pdf'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -1251,6 +1273,10 @@ class StockReceiptPDFView(LoginRequiredMixin, TemplateView):
         context['title'] = "Příjemka"
         context['total_price'] = stock_receipt.total_price
         return context
+
+    def get(self, request, *args, **kwargs):
+        response = create_pdf(self, request, "Prijemka.pdf", **kwargs)
+        return response
 
 
 class StockReceiptApproveView(LoginRequiredMixin, TemplateView):

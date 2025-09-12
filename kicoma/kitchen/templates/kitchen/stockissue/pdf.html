@@ -25,7 +25,7 @@
     </tr>
   </tbody>
 </table>
-<h3>Vyskladněné zboží</h3>
+<h2 class="text-center mt-4">Vyskladněné zboží</h2>
 <table class="table w-auto">
   <thead>
     <tr>
@@ -36,8 +36,8 @@
       <th scope="col">Poznámka</th>
     </tr>
   </thead>
-  {% for stock_issue_article in stock_issue_articles %}
   <tbody>
+  {% for stock_issue_article in stock_issue_articles %}
     <tr>
       <th scope="row">{{ stock_issue_article.article }}</th>
       <td>{{ stock_issue_article.amount }} {{ stock_issue_article.unit }}</td>
@@ -45,7 +45,7 @@
       <td>{{ stock_issue_article.total_average_price_with_vat|intcomma }} Kč</td>
       <td>{{ stock_issue_article.comment }}</td>
     </tr>
-  </tbody>
   {% endfor %}
+  </tbody>
 </table>
 {% endblock %}

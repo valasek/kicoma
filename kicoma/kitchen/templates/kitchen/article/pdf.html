@@ -1,7 +1,7 @@
 {% extends "../pdf_page.html" %}
 {% load humanize %}
 {% block content %}
-<p>Celková cena zboží na skladu s DPH: {{ total_stock_price|intcomma }} Kč</p>
+<div class="text-center mb-4">Celková cena zboží na skladu s DPH: {{ total_stock_price|intcomma }} Kč</div>
   <table class="table w-auto">
     <thead>
       <tr>
@@ -12,16 +12,16 @@
         <th scope="col">Celková cena s DPH</th>
       </tr>
     </thead>
-    {% for article in articles %}
     <tbody>
+    {% for article in articles %}
       <tr>
-        <th scope="row">{{article.article}}</th>
+        <td scope="row" class="text-start">{{article.article}}</td>
         <td>{{article.on_stock}} {{article.unit}}</td>
         <td>{{article.min_on_stock}} {{article.unit}}</td>
         <td>{{article.average_price|intcomma}} Kč / {{article.unit}}</td>
         <td>{{article.total_price}} Kč</td>
       </tr>
-    </tbody>
     {% endfor %}
+    </tbody>
   </table>
 {% endblock %}

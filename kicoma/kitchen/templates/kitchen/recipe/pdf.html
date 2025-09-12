@@ -29,16 +29,16 @@
       <th scope="col">Komentář</th>
     </tr>
   </thead>
-  {% for recipe_article in recipe_articles %}
   <tbody>
+  {% for recipe_article in recipe_articles %}
     <tr>
       <th scope="row">{{recipe_article.article}}</th>
       <td>{{recipe_article.amount}} {{recipe_article.unit}}</td>
-      <td>{{recipe_article.article.average_price|intcomma}}} Kč</td>
+      <td>{{recipe_article.article.average_price|intcomma}} Kč</td>
       <td>{{recipe_article.total_average_price|intcomma}} Kč</td>
       <td>{{recipe_article.comment}}</td>
     </tr>
-  </tbody>
   {% endfor %}
+  </tbody>
 </table>
 {% endblock %}

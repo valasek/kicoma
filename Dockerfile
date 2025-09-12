@@ -34,11 +34,21 @@ COPY --from=builder /usr/local/bin/uv /usr/local/bin/uv
 ENV PATH="/app/.venv/bin:$PATH"
 
 # Install locale dependencies
+# Also system deps for WeasyPrint (Cairo, Pango, GDK-Pixbuf, GObject, etc.)
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends --no-install-suggests \
         gettext \
+        libcairo2 \
+        libpango-1.0-0 \
+        libpangocairo-1.0-0 \
+        libgdk-pixbuf-2.0-0 \
+        libffi-dev \
+        gir1.2-pango-1.0 \
+        gir1.2-gdkpixbuf-2.0 \
+        fonts-liberation \
+        fonts-dejavu \
         locales && \
     sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
     sed -i '/cs_CZ.UTF-8/s/^# //g' /etc/locale.gen && \
