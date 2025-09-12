@@ -282,6 +282,15 @@ LOGGING = {
         }
     },
     "root": {"level": "INFO", "handlers": ["console"]},
+    # Silence noisy third‑party libraries at INFO/DEBUG
+    "loggers": {
+        # WeasyPrint main logger (hide warnings)
+        "weasyprint": {"level": "ERROR", "handlers": ["console"], "propagate": False},
+        # FontTools is used by WeasyPrint and can be very chatty
+        "fontTools": {"level": "ERROR", "handlers": ["console"], "propagate": False},
+        "fontTools.subset": {"level": "ERROR", "handlers": ["console"], "propagate": False},
+        "fontTools.ttLib": {"level": "ERROR", "handlers": ["console"], "propagate": False},
+    },
 }
 
 

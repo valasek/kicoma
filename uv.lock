@@ -836,7 +836,7 @@ requires-dist = [
     { name = "sentry-sdk" },
     { name = "sphinx", marker = "extra == 'dev'" },
     { name = "tablib" },
-    { name = "weasyprint", specifier = ">=66.0" },
+    { name = "weasyprint" },
     { name = "werkzeug", marker = "extra == 'dev'" },
     { name = "whitenoise" },
 ]

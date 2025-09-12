@@ -169,11 +169,13 @@ open htmlcov/index.html
 
 ### Running tests
 
- ./manage.py test kitchen
+Add dev dependencies into console and run tests
+
+`uv run python manage.py test --settings=config.settings.test`
 
 ### Check the production settings
 
-`./manage.py check --deploy --settings=config.settings.production`
+`uv run python manage.py check --deploy --settings=config.settings.production`
 
 ## Legacy
 

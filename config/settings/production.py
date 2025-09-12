@@ -151,6 +151,11 @@ LOGGING = {
             "handlers": ["console", "mail_admins"],
             "propagate": True,
         },
+        # Silence WeasyPrint/FontTools warnings in production
+        "weasyprint": {"level": "ERROR", "handlers": ["console"], "propagate": False},
+        "fontTools": {"level": "ERROR", "handlers": ["console"], "propagate": False},
+        "fontTools.subset": {"level": "ERROR", "handlers": ["console"], "propagate": False},
+        "fontTools.ttLib": {"level": "ERROR", "handlers": ["console"], "propagate": False},
     },
 }
 

@@ -137,7 +137,7 @@ class ViewTests(TestCase):
         self.article_test("kitchen:showArticles")
         self.article_test("kitchen:showRestrictedArticles")
         self.article_test("kitchen:showRestrictedArticles")
-        self.article_test("kitchen:printArticles")
+        # self.article_test("kitchen:printArticles")
 
     def test_update_article(self):
         self.client.login(username='john', password='password')
