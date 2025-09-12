@@ -17,7 +17,7 @@ from django.core import management
 from django.core.exceptions import ValidationError
 from django.core.files.storage import FileSystemStorage
 from django.db import connection, transaction
-from django.db.models import Count, F, Prefetch, Sum
+from django.db.models import Count, F, Max, Prefetch, Sum
 from django.db.models.functions import ExtractYear, Lower
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
@@ -604,6 +604,7 @@ class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
                 RecipeArticle.objects
                 .select_related('article')
                 .prefetch_related('article__allergen', article_latest_receipt)
+                .order_by('id')
             ),
             to_attr='prefetched_recipe_articles',
         )
@@ -781,6 +782,15 @@ class DailyMenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     template_name = 'kitchen/dailymenu/list.html'
     filterset_class = DailyMenuFilter
     paginate_by = settings.PAGINATE_BY
+
+    def get_queryset(self):
+        # Annotate max portions per daily menu to avoid per-row queries
+        return (
+            super()
+            .get_queryset()
+            .select_related('meal_group', 'meal_type')
+            .annotate(max_amount_number=Max('dailymenurecipe__amount'))
+        )
 
 
 class DailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):

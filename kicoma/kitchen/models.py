@@ -169,28 +169,37 @@ class Recipe(TimeStampedModel):
             total += recipe.total_average_price
         return total
 
-    @classmethod
-    def get_allergens(cls, recipe_id):
-        recipe_articles = (
-            RecipeArticle.objects
-            .filter(recipe=recipe_id)
-            .select_related('article')
-            .prefetch_related('article__allergen')
-        )
-        allergens = ""
-        # get allergens
-        separator = ", "
+    def allergens(self):
+        # Prefer prefetched recipe articles to avoid N+1 queries
+        recipe_articles = getattr(self, 'prefetched_recipe_articles', None)
+        if recipe_articles is None:
+            recipe_articles = (
+                RecipeArticle.objects
+                .filter(recipe=self.id)
+                .select_related('article')
+                .prefetch_related('article__allergen')
+                .order_by('id')
+            )
+
+        codes = []
         for ra in recipe_articles:
-            separator = ", "
-            if len(ra.article.display_allergens()) > 0:
-                allergens += ra.article.display_allergens() + separator
-        # remove last separator
-        if allergens.endswith(separator):
-            allergens = allergens[0:len(allergens) - len(separator)]
-        # deduplicate allergens
-        words = allergens.split(separator)
-        allergens = separator.join(sorted(set(words), key=words.index))
-        return allergens if len(allergens) > 0 else '-'
+            # article__allergen may be prefetched; this avoids extra queries
+            for al in ra.article.allergen.all():
+                code = getattr(al, 'code', None)
+                if code:
+                    codes.append(code)
+
+        # preserve original order while deduplicating
+        seen = set()
+        unique_codes = []
+        for c in codes:
+            if c not in seen:
+                seen.add(c)
+                unique_codes.append(c)
+
+        # sort lexicographically for display
+        unique_codes = sorted(unique_codes, key=lambda s: s.lower())
+        return ', '.join(unique_codes) if unique_codes else '-'
 
 
 class RecipeArticle(TimeStampedModel):
@@ -273,10 +282,7 @@ class DailyMenu(TimeStampedModel):
     def __str__(self):
         return str(self.date) + ' - ' + self.meal_type.meal_type + ' - ' + self.meal_group.meal_group
 
-    @classmethod
-    def max_amount_number(cls, daily_menu_id):
-        dmr = DailyMenuRecipe.objects.filter(daily_menu=daily_menu_id).aggregate(max_amount=Max('amount'))['max_amount']
-        return '-' if dmr is None else dmr
+
 
 
 class DailyMenuRecipe(TimeStampedModel):
@@ -498,4 +504,3 @@ class StockReceiptArticle(TimeStampedModel):
 
     def __str__(self):
         return self.article.article + ' - ' + str(self.amount) + self.unit
-

@@ -104,7 +104,7 @@ class RecipeTable(tables.Table):
 
     @staticmethod
     def render_allergens(record):
-        return record.get_allergens(record.id)
+        return record.allergens()
 
 
 class RecipeFilter(FilterSet):
@@ -159,9 +159,8 @@ class DailyMenuTable(tables.Table):
 
     @staticmethod
     def render_max_amount_number(record):
-        # daily_menus = DailyMenu.objects.filter(daily_menu=record.id).select_related('meal_group', 'meal_type')
-        # return daily_menus.max_amount_number(record.id)
-        return DailyMenu.max_amount_number(record.id)
+        value = getattr(record, 'max_amount_number', None)
+        return value if value is not None else '-'
 
 
 class DailyMenuFilter(FilterSet):
