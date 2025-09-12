@@ -4,7 +4,7 @@ from decimal import Decimal
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models, transaction
-from django.db.models import Count, Max, Min, Sum
+from django.db.models import Count, F, Min, Sum, UniqueConstraint
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
@@ -90,12 +90,14 @@ class Article(TimeStampedModel):
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
     on_stock = models.DecimalField(
         decimal_places=2, max_digits=8,
+        validators=[MinValueValidator(Decimal('0'))],
         default=0, verbose_name='Na skladu', help_text='Celkové množství zboží na skladu')
     min_on_stock = models.DecimalField(
         decimal_places=2, max_digits=8, blank=True, validators=[MinValueValidator(Decimal('0'))],
         default=0, verbose_name='Minimálně na skladu', help_text='Minimální množství zboží na skladu')
     total_price = models.DecimalField(
         max_digits=8, blank=True, null=True, decimal_places=2,
+        validators=[MinValueValidator(Decimal('0'))],
         default=0, verbose_name='Celková cena s DPH', help_text='Celková cena zboží na skladu')
     allergen = models.ManyToManyField(Allergen, blank=True, verbose_name='Alergeny')
     comment = models.CharField(max_length=200, blank=True, default="", verbose_name='Poznámka')
@@ -208,7 +210,8 @@ class RecipeArticle(TimeStampedModel):
         verbose_name = _('Surovina v receptu')
         ordering = ['-recipe']
 
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept')
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept',
+                               related_name='recipearticle_set')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží',
                                 help_text='Použité zboží')
     amount = models.DecimalField(
@@ -253,11 +256,15 @@ class MenuRecipe(TimeStampedModel):
         verbose_name_plural = _('Recepty menu')
         verbose_name = _('Recepty menu')
         ordering = ['menu', 'recipe', 'amount']
+        constraints = [
+            UniqueConstraint(fields=['menu', 'recipe'], name='unique_menu_recipe_pair'),
+        ]
 
-    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, verbose_name='Menu')
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, verbose_name='Menu',
+                             related_name='menurecipe')
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept',
                                help_text='Vybraný recept')
-    amount = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(1000)],
+    amount = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(1000)],
                                               verbose_name='Porcí', help_text='Počet porcí')
 
     def __str__(self):
@@ -269,6 +276,9 @@ class DailyMenu(TimeStampedModel):
         verbose_name_plural = _('Denní menu')
         verbose_name = _('Denní menu')
         ordering = ['-date', 'meal_group']
+        constraints = [
+            UniqueConstraint(fields=['date', 'meal_group', 'meal_type'], name='unique_dailymenu_per_date_group_type'),
+        ]
 
     date = models.DateField(verbose_name='Datum', help_text='Datum denního menu')
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Menu',
@@ -290,11 +300,15 @@ class DailyMenuRecipe(TimeStampedModel):
         verbose_name_plural = _('Recepty denního menu')
         verbose_name = _('Recepty denního menu')
         ordering = ['recipe']
+        constraints = [
+            UniqueConstraint(fields=['daily_menu', 'recipe'], name='unique_dailymenu_recipe_pair'),
+        ]
 
-    daily_menu = models.ForeignKey(DailyMenu, on_delete=models.CASCADE, verbose_name='Denní menu')
+    daily_menu = models.ForeignKey(DailyMenu, on_delete=models.CASCADE, verbose_name='Denní menu',
+                                   related_name='dailymenurecipe')
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept',
                                help_text='Vybraný recept')
-    amount = models.PositiveSmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(1000)],
+    amount = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(1000)],
                                               verbose_name='Porcí', help_text='Počet porcí')
     comment = models.CharField(max_length=200, blank=True, default="", verbose_name='Poznámka')
 
@@ -393,12 +407,19 @@ class StockIssue(TimeStampedModel):
             if article.on_stock < 0 or article.on_stock - converted_amount < 0:
                 messages += f"{stock_article.article} - na výdejce {converted_amount}, na skladu {article.on_stock}<br/>"
             if not fake:
-                new_total_price = convert_units(stock_article.total_average_price_with_vat, stock_article.unit,
-                                                article.unit)
-                article.on_stock -= round(converted_amount, 2)
-                article.total_price -= round(new_total_price, 0)
-                article.save()
-                update_change_reason(article, 'Výdej - ' + comment)
+                new_total_price = convert_units(
+                    stock_article.total_average_price_with_vat,
+                    stock_article.unit,
+                    article.unit,
+                )
+                delta_amount = Decimal(round(converted_amount, 2))
+                delta_price = Decimal(round(new_total_price, 0))
+                Article.objects.filter(pk=article.pk).update(
+                    on_stock=F('on_stock') - delta_amount,
+                    total_price=F('total_price') - delta_price,
+                )
+                updated_article = Article.objects.get(pk=article.pk)
+                update_change_reason(updated_article, 'Výdej - ' + comment)
         return messages
 
 
@@ -435,10 +456,14 @@ class StockReceipt(TimeStampedModel):
             article = stock_article.article
             converted_amount = convert_units(stock_article.amount, stock_article.unit, article.unit)
             new_total_price = convert_units(stock_article.total_price_with_vat, stock_article.unit, article.unit)
-            article.on_stock += round(converted_amount, 2)
-            article.total_price += round(new_total_price, 0)
-            article.save()
-            update_change_reason(article, 'Příjem - ' + comment)
+            delta_amount = Decimal(round(converted_amount, 2))
+            delta_price = Decimal(round(new_total_price, 0))
+            Article.objects.filter(pk=article.pk).update(
+                on_stock=F('on_stock') + delta_amount,
+                total_price=F('total_price') + delta_price,
+            )
+            updated_article = Article.objects.get(pk=article.pk)
+            update_change_reason(updated_article, 'Příjem - ' + comment)
 
 
 class StockIssueArticle(TimeStampedModel):
@@ -449,9 +474,12 @@ class StockIssueArticle(TimeStampedModel):
 
     stock_issue = models.ForeignKey(StockIssue, on_delete=models.CASCADE, verbose_name='Výdejka')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží')
-    amount = models.DecimalField(decimal_places=2, max_digits=8, verbose_name='Množství')
+    amount = models.DecimalField(decimal_places=2, max_digits=8,
+                                 validators=[MinValueValidator(Decimal('0.01'))],
+                                 verbose_name='Množství')
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
     average_unit_price = models.DecimalField(max_digits=10, decimal_places=2,
+                                             validators=[MinValueValidator(Decimal('0'))],
                                              blank=True, null=True, verbose_name='Průměrná jednotková cena s DPH')
     comment = models.CharField(max_length=200, blank=True, default="", verbose_name='Poznámka')
 
@@ -481,7 +509,8 @@ class StockReceiptArticle(TimeStampedModel):
         ordering = ['-id']
 
     stock_receipt = models.ForeignKey(StockReceipt, on_delete=models.CASCADE, verbose_name='Příjemka')
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží',
+                                related_name='stockreceiptarticle_set')
     amount = models.DecimalField(decimal_places=2, max_digits=8, validators=[
         MinValueValidator(Decimal('0.1'))], verbose_name='Množství')
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
