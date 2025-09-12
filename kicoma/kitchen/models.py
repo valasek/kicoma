@@ -107,14 +107,25 @@ class Article(TimeStampedModel):
     # average unit price with VAT or last unit price with vat from stockreceipt
     @property
     def average_price(self):
-        if self.on_stock != 0:
-            return round(self.total_price / self.on_stock, 0)
-        else:
-            stock_receipt_article = StockReceiptArticle.objects.filter(article__id=self.id)
-            if len(stock_receipt_article) == 0:
+        # Prefer current stock-based average if available
+        if self.on_stock:
+            try:
+                return round(self.total_price / self.on_stock, 0)
+            except Exception:
                 return 0
-            else:
-                return round(stock_receipt_article[0].price_with_vat, 0)
+        # If queryset was prefetched to attr `latest_receipt`, use it to avoid an extra query
+        latest = getattr(self, 'latest_receipt', None)
+        if latest:
+            return round(latest[0].price_with_vat, 0)
+        # Fallback: hit DB once for the latest receipt article
+        sra = (
+            StockReceiptArticle.objects
+            .filter(article_id=self.id)
+            .select_related('vat')
+            .order_by('-id')
+            .first()
+        )
+        return 0 if sra is None else round(sra.price_with_vat, 0)
 
     @staticmethod
     def sum_total_price():
@@ -149,7 +160,10 @@ class Recipe(TimeStampedModel):
 
     @property
     def total_recipe_articles_price(self):
-        recipes = RecipeArticle.objects.filter(recipe=self.id)
+        # If recipe articles were prefetched to attr `prefetched_recipe_articles`, use them
+        recipes = getattr(self, 'prefetched_recipe_articles', None)
+        if recipes is None:
+            recipes = RecipeArticle.objects.select_related('article').filter(recipe=self.id)
         total = 0
         for recipe in recipes:
             total += recipe.total_average_price
@@ -157,7 +171,12 @@ class Recipe(TimeStampedModel):
 
     @classmethod
     def get_allergens(cls, recipe_id):
-        recipe_articles = RecipeArticle.objects.filter(recipe=recipe_id).select_related('article')
+        recipe_articles = (
+            RecipeArticle.objects
+            .filter(recipe=recipe_id)
+            .select_related('article')
+            .prefetch_related('article__allergen')
+        )
         allergens = ""
         # get allergens
         separator = ", "
@@ -213,8 +232,11 @@ class Menu(TimeStampedModel):
 
     @property
     def recipe_count(self):
-        count = MenuRecipe.objects.filter(menu=self.id).aggregate(recipe_count=Count('recipe'))['recipe_count']
-        return count
+        # If annotated by a queryset (e.g., in a view), reuse it to avoid extra queries
+        annotated = self.__dict__.get('rc') or self.__dict__.get('recipe_count_annot')
+        if annotated is not None:
+            return annotated
+        return MenuRecipe.objects.filter(menu=self.id).aggregate(recipe_count=Count('recipe'))['recipe_count']
 
 
 class MenuRecipe(TimeStampedModel):
@@ -293,7 +315,7 @@ class StockIssue(TimeStampedModel):
 
     @property
     def total_price(self):
-        stock_issue_articles = StockIssueArticle.objects.filter(stock_issue=self.id)
+        stock_issue_articles = StockIssueArticle.objects.select_related('article').filter(stock_issue=self.id)
         return round(total_recipe_article_price(stock_issue_articles, 1), 0)
 
     def consolidate_by_article(self):
@@ -357,10 +379,10 @@ class StockIssue(TimeStampedModel):
 
     @staticmethod
     def update_article_on_stock(stock_id, comment, fake):
-        stock_articles = StockIssueArticle.objects.filter(stock_issue=stock_id)
+        stock_articles = StockIssueArticle.objects.select_related('article').filter(stock_issue=stock_id)
         messages = ''
         for stock_article in stock_articles:
-            article = Article.objects.filter(pk=stock_article.article.id).get()
+            article = stock_article.article
             converted_amount = convert_units(stock_article.amount, stock_article.unit, article.unit)
             if article.on_stock < 0 or article.on_stock - converted_amount < 0:
                 messages += f"{stock_article.article} - na výdejce {converted_amount}, na skladu {article.on_stock}<br/>"
@@ -402,9 +424,9 @@ class StockReceipt(TimeStampedModel):
 
     @staticmethod
     def update_article_on_stock(stock_id, comment):
-        stock_articles = StockReceiptArticle.objects.filter(stock_receipt=stock_id)
+        stock_articles = StockReceiptArticle.objects.select_related('article').filter(stock_receipt=stock_id)
         for stock_article in stock_articles:
-            article = Article.objects.filter(pk=stock_article.article.id).get()
+            article = stock_article.article
             converted_amount = convert_units(stock_article.amount, stock_article.unit, article.unit)
             new_total_price = convert_units(stock_article.total_price_with_vat, stock_article.unit, article.unit)
             article.on_stock += round(converted_amount, 2)
@@ -477,9 +499,3 @@ class StockReceiptArticle(TimeStampedModel):
     def __str__(self):
         return self.article.article + ' - ' + str(self.amount) + self.unit
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.prefetch_related(
-            'stockreceiptarticle_set__article',
-            'stockreceiptarticle_set__vat'
-        )

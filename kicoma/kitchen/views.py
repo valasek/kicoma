@@ -17,7 +17,7 @@ from django.core import management
 from django.core.exceptions import ValidationError
 from django.core.files.storage import FileSystemStorage
 from django.db import connection, transaction
-from django.db.models import Count, F, Sum
+from django.db.models import Count, F, Prefetch, Sum
 from django.db.models.functions import ExtractYear, Lower
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
@@ -340,6 +340,19 @@ class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     form_class = ArticleSearchForm
     paginate_by = settings.PAGINATE_BY
 
+    def get_queryset(self):
+        # Prefetch allergens and last receipt price for average_price property
+        from .models import StockReceiptArticle
+        latest_receipt = Prefetch(
+            'stockreceiptarticle_set',
+            queryset=StockReceiptArticle.objects.select_related('vat').order_by('-id')[:1],
+            to_attr='latest_receipt',
+        )
+        return (
+            super()
+            .get_queryset()
+            .prefetch_related('allergen', latest_receipt)
+        )
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['total_stock_price'] = Article.sum_total_price()
@@ -354,6 +367,20 @@ class ArticleRestrictedListView(SingleTableMixin, LoginRequiredMixin, FilterView
     form_class = ArticleSearchForm
     paginate_by = settings.PAGINATE_BY
 
+    def get_queryset(self):
+        # Prefetch allergens and last receipt price for average_price property
+        from .models import StockReceiptArticle
+        latest_receipt = Prefetch(
+            'stockreceiptarticle_set',
+            queryset=StockReceiptArticle.objects.select_related('vat').order_by('-id')[:1],
+            to_attr='latest_receipt',
+        )
+        return (
+            super()
+            .get_queryset()
+            .prefetch_related('allergen', latest_receipt)
+        )
+
 
 class ArticleLackListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     model = Article
@@ -365,7 +392,18 @@ class ArticleLackListView(SingleTableMixin, LoginRequiredMixin, FilterView):
 
     def get_queryset(self):
         # show only articles where
-        return super().get_queryset().filter(on_stock__lt=F('min_on_stock'))
+        from .models import StockReceiptArticle
+        latest_receipt = Prefetch(
+            'stockreceiptarticle_set',
+            queryset=StockReceiptArticle.objects.select_related('vat').order_by('-id')[:1],
+            to_attr='latest_receipt',
+        )
+        return (
+            super()
+            .get_queryset()
+            .prefetch_related('allergen', latest_receipt)
+            .filter(on_stock__lt=F('min_on_stock'))
+        )
 
 
 class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -414,7 +452,7 @@ class ArticlePDFView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['articles'] = Article.objects.all()
+        context['articles'] = Article.objects.all().prefetch_related('allergen')
         context['title'] = "Seznam zboží na skladu"
         context['total_stock_price'] = Article.sum_total_price()
         return context
@@ -479,7 +517,7 @@ class StockTakePDFView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['articles'] = Article.objects.all()
+        context['articles'] = Article.objects.all().prefetch_related('allergen')
         context['title'] = "Seznam zboží na skladu ke kontrole"
         return context
 
@@ -552,6 +590,25 @@ class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     form_class = RecipeSearchForm
     paginate_by = settings.PAGINATE_BY
 
+    def get_queryset(self):
+        # Prefetch recipe articles with related article, allergens and article's latest receipt
+        from .models import StockReceiptArticle
+        article_latest_receipt = Prefetch(
+            'article__stockreceiptarticle_set',
+            queryset=StockReceiptArticle.objects.select_related('vat').order_by('-id')[:1],
+            to_attr='latest_receipt',
+        )
+        recipe_articles_prefetch = Prefetch(
+            'recipearticle_set',
+            queryset=(
+                RecipeArticle.objects
+                .select_related('article')
+                .prefetch_related('article__allergen', article_latest_receipt)
+            ),
+            to_attr='prefetched_recipe_articles',
+        )
+        return super().get_queryset().prefetch_related(recipe_articles_prefetch)
+
 
 class RecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Recipe
@@ -603,7 +660,7 @@ class RecipePDFView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         recipe = Recipe.objects.filter(pk=self.kwargs['pk']).get()
         context['recipe'] = recipe
-        context['recipe_articles'] = RecipeArticle.objects.filter(recipe=recipe)
+        context['recipe_articles'] = RecipeArticle.objects.select_related('article').filter(recipe=recipe)
         context['title'] = recipe.recipe
         return context
 
@@ -625,7 +682,19 @@ class RecipeArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
 
     def get_queryset(self):
         # show only recipe ingredients
-        return super().get_queryset().filter(recipe=self.kwargs["pk"])
+        from .models import StockReceiptArticle
+        latest_receipt = Prefetch(
+            'article__stockreceiptarticle_set',
+            queryset=StockReceiptArticle.objects.select_related('vat').order_by('-id')[:1],
+            to_attr='latest_receipt',
+        )
+        return (
+            super()
+            .get_queryset()
+            .filter(recipe=self.kwargs["pk"])
+            .select_related('article')
+            .prefetch_related(latest_receipt)
+        )
 
 
 class RecipeArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -807,6 +876,15 @@ class MenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     table_class = MenuTable
     template_name = 'kitchen/menu/list.html'
     paginate_by = settings.PAGINATE_BY
+
+    def get_queryset(self):
+        # Annotate recipe_count to avoid per-row COUNT queries in property access
+        return (
+            super()
+            .get_queryset()
+            .annotate(rc=Count('menurecipe'))
+            .order_by('menu', 'id')  # ensure deterministic ordering for pagination
+        )
 
 
 class MenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -1006,6 +1084,9 @@ class StockIssueListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     filterset_class = StockIssueFilter
     form_class = StockIssueSearchForm
     paginate_by = settings.PAGINATE_BY
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('user_created', 'user_approved')
 
 
 class StockIssueCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -1273,6 +1354,9 @@ class StockReceiptListView(SingleTableMixin, LoginRequiredMixin, FilterView):
     form_class = StockReceiptSearchForm
     paginate_by = settings.PAGINATE_BY
 
+    def get_queryset(self):
+        return super().get_queryset().select_related('user_created', 'user_approved')
+
 
 class StockReceiptCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = StockReceipt
@@ -1384,7 +1468,12 @@ class StockReceiptArticleListView(SingleTableMixin, LoginRequiredMixin, FilterVi
 
     def get_queryset(self):
         # show only StockReceiptArticles
-        return super().get_queryset().filter(stock_receipt=self.kwargs["pk"])
+        return (
+            super()
+            .get_queryset()
+            .filter(stock_receipt=self.kwargs["pk"])
+            .select_related('article', 'vat')
+        )
 
 
 class StockReceiptArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
