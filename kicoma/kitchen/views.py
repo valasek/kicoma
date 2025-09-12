@@ -1,7 +1,9 @@
 import io
 import logging
+from collections import defaultdict
 from contextlib import redirect_stdout
 from datetime import datetime
+from decimal import Decimal
 from urllib.parse import urlparse, urlunparse
 
 from dateutil import relativedelta
@@ -26,7 +28,7 @@ from django.utils.safestring import mark_safe
 from django.views import View
 from django.views.generic import DetailView
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateView
 from django.views.generic.list import ListView
 from django_filters.views import FilterView
 from django_tables2 import SingleTableMixin
@@ -50,6 +52,7 @@ from .forms import (
     RecipeArticleForm,
     RecipeForm,
     RecipeSearchForm,
+    StockArticlesExportForm,
     StockIssueArticleForm,
     StockIssueForm,
     StockIssueFromDailyMenuForm,
@@ -482,6 +485,62 @@ class StockTakePDFView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         response = create_pdf(self, request, "Seznam_zbozi_na_skladu.pdf", **kwargs)
+        return response
+
+
+class ArticleExportInSelectedDaysFilter(LoginRequiredMixin, FormView):
+    template_name = 'kitchen/StockTake/selecteddayfilter.html'
+    form_class = StockArticlesExportForm
+
+    # context['total_stock_price'] = Article.sum_total_price()
+
+    def form_valid(self, form):
+        selected_date = form.cleaned_data["date"]
+
+        # Build adjustments for stock/issues after the selected date (to roll back to that date)
+        issues_after = StockIssueArticle.objects.select_related('article', 'stock_issue').filter(
+            stock_issue__approved=True,
+            stock_issue__date_approved__gt=selected_date,
+        )
+        receipts_after = StockReceiptArticle.objects.select_related('article', 'stock_receipt').filter(
+            stock_receipt__approved=True,
+            stock_receipt__date_approved__gt=selected_date,
+        )
+
+        issue_amount_by_article = defaultdict(lambda: Decimal('0'))
+        issue_value_by_article = defaultdict(lambda: Decimal('0'))
+        for row in issues_after:
+            try:
+                converted_amount = convert_units(row.amount, row.unit, row.article.unit)
+            except Exception:
+                converted_amount = row.amount  # fallback: no conversion
+            issue_amount_by_article[row.article_id] += Decimal(converted_amount)
+            issue_value_by_article[row.article_id] += Decimal(row.total_average_price_with_vat or 0)
+
+        receipt_amount_by_article = defaultdict(lambda: Decimal('0'))
+        receipt_value_by_article = defaultdict(lambda: Decimal('0'))
+        for row in receipts_after:
+            try:
+                converted_amount = convert_units(row.amount, row.unit, row.article.unit)
+            except Exception:
+                converted_amount = row.amount  # fallback: no conversion
+            receipt_amount_by_article[row.article_id] += Decimal(converted_amount)
+            receipt_value_by_article[row.article_id] += Decimal(row.total_price_with_vat or 0)
+
+        # Prepare in-memory Article objects with historical values as of selected_date
+        articles = list(Article.objects.all())
+        for a in articles:
+            current_stock = a.on_stock or Decimal('0')
+            current_value = a.total_price or Decimal('0')
+            a.on_stock = current_stock + issue_amount_by_article[a.id] - receipt_amount_by_article[a.id]
+            a.total_price = current_value + issue_value_by_article[a.id] - receipt_value_by_article[a.id]
+
+        data = ArticleResource().export(articles)
+        response = HttpResponse(
+            data.xlsx, content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        filename = f"seznam-zbozi-{selected_date}.xlsx"
+        response['Content-Disposition'] = f"attachment; filename={filename}"
+        messages.success(self.request, f"Seznam zboží na skladu ke dni {selected_date} byl exportován")
         return response
 
 

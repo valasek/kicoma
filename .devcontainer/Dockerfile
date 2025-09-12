@@ -27,6 +27,8 @@ RUN apt-get update && apt-get install -y \
     gir1.2-gdkpixbuf-2.0 \
     fonts-liberation \
     fonts-dejavu \
+    graphviz \
+    graphviz-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Kamal gem

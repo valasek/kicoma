@@ -72,19 +72,21 @@ class MealGroupResource(resources.ModelResource):
 
 
 class ArticleResource(resources.ModelResource):
-    on_stock = fields.Field(widget=widgets.DecimalWidget(coerce_to_string=False))
-    min_on_stock = fields.Field(widget=widgets.DecimalWidget(coerce_to_string=False))
-    total_price = fields.Field(widget=widgets.DecimalWidget(coerce_to_string=False))
-    # on_stock = models.DecimalField(
-    #     decimal_places=2, max_digits=8,
-    #     default=0, verbose_name='Na skladu', help_text='Celkové množství zboží na skladu')
-    # min_on_stock = models.DecimalField(
-    #     decimal_places=2, max_digits=8, blank=True, validators=[MinValueValidator(Decimal('0'))],
-    #     default=0, verbose_name='Minimálně na skladu', help_text='Minimální množství zboží na skladu')
-    # total_price = models.DecimalField(
-    #     max_digits=8, blank=True, null=True, decimal_places=2,
-    #     default=0, verbose_name='Celková cena s DPH', help_text='Celková cena zboží na skladu')
-
+    on_stock = fields.Field(
+        attribute="on_stock",
+        column_name="on_stock",
+        widget=widgets.DecimalWidget(coerce_to_string=False)
+    )
+    min_on_stock = fields.Field(
+        attribute="min_on_stock",
+        column_name="min_on_stock",
+        widget=widgets.DecimalWidget(coerce_to_string=False)
+    )
+    total_price = fields.Field(
+        attribute="total_price",
+        column_name="total_price",
+        widget=widgets.DecimalWidget(coerce_to_string=False)
+    )
 
     class Meta:
         model = Article

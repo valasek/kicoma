@@ -1,6 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Layout, Row
 from django import forms
+from django.utils.timezone import now
 
 from .models import (
     Article,
@@ -73,6 +74,26 @@ class ArticleRestrictedForm(forms.ModelForm):
 
 class ArticleSearchForm(forms.Form):
     article = forms.CharField()
+
+
+class StockArticlesExportForm(forms.Form):
+    date = forms.DateField(
+        label="Datum",
+        widget=forms.DateInput(
+            format='%Y-%m-%d',
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Vyber datum',
+                'type': 'date'
+            }
+        )
+    )
+
+    def clean_date(self):
+        value = self.cleaned_data["date"]
+        if value > now().date():
+            raise forms.ValidationError("Datum nemůže být v budoucnosti.")
+        return value
 
 
 class RecipeForm(forms.ModelForm):

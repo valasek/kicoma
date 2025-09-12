@@ -36,7 +36,7 @@ Just rebuild the dev container, app is running on port 8000
 Alternativelly, install docker and docker compose and run `docker-compose up`
 
 If you need to start server manually, the commnad is:
-python manage.py runserver_plus 0.0.0.0:8000
+`python manage.py runserver_plus 0.0.0.0:8000`
 
 ## Deploy to Hetzner
 

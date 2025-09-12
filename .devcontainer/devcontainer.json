@@ -58,7 +58,9 @@
                 // django
                 "batisteo.vscode-django",
                 // toml
-                "tamasfe.even-better-toml"
+                "tamasfe.even-better-toml",
+                // ai
+                "openai.chatgpt"
             ]
         }
     },

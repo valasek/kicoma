@@ -38,6 +38,9 @@ dev = [
     "Werkzeug",  # https://github.com/pallets/werkzeug
     "ipdb",  # https://github.com/gotcha/ipdb
     "Sphinx",  # https://github.com/sphinx-doc/sphinx
+
+    # data model generation
+    "pygraphviz",
     
     # Testing
     "django-stubs",  # https://github.com/typeddjango/django-stubs
