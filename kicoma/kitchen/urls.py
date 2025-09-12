@@ -105,7 +105,7 @@ urlpatterns = [
     path('article/history/<int:pk>', ArticleHistoryDetailView.as_view(), name='showArticleHistory'),
 
     path('article/stockprint', StockTakePDFView.as_view(), name='printStockArticles'),
-    path('article/exportainselecteddaysfilter', ArticleExportInSelectedDaysFilter.as_view(), name='exportStockArticlesSelectedDay'),
+    path('article/exportinselecteddaysfilter', ArticleExportInSelectedDaysFilter.as_view(), name='exportStockArticlesSelectedDay'),
 
     path('stockissue/list', StockIssueListView.as_view(), name='showStockIssues'),
     path('stockissue/articlelist/<int:pk>', StockIssueArticleListView.as_view(), name='showStockIssueArticles'),

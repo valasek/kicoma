@@ -489,7 +489,7 @@ class StockTakePDFView(LoginRequiredMixin, TemplateView):
 
 
 class ArticleExportInSelectedDaysFilter(LoginRequiredMixin, FormView):
-    template_name = 'kitchen/StockTake/selecteddayfilter.html'
+    template_name = 'kitchen/stocktake/selecteddayfilter.html'
     form_class = StockArticlesExportForm
 
     # context['total_stock_price'] = Article.sum_total_price()
