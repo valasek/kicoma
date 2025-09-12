@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-04 18:15+0200\n"
+"POT-Creation-Date: 2025-09-12 23:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,356 +19,783 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
-#: config/settings/base.py:42
 msgid "Czech"
 msgstr "Česky"
 
-#: config/settings/base.py:43 kicoma/templates/menu_switch_lang.html:17
 msgid "English"
 msgstr "English"
 
-#: config/urls.py:10
 msgid "Nastaveni"
 msgstr ""
 
-#: config/urls.py:11
 msgid "KiCoMa"
 msgstr ""
 
-#: config/urls.py:12
 msgid "Kuchyna nastavení"
 msgstr ""
 
-#: kicoma/kitchen/apps.py:7
 msgid "Kitchen"
 msgstr "Kuchyně"
 
-#: kicoma/kitchen/models.py:17
 msgid "kg"
 msgstr ""
 
-#: kicoma/kitchen/models.py:18
 msgid "g"
 msgstr ""
 
-#: kicoma/kitchen/models.py:19
 msgid "l"
 msgstr ""
 
-#: kicoma/kitchen/models.py:20
 msgid "ml"
 msgstr ""
 
-#: kicoma/kitchen/models.py:21
 msgid "ks"
 msgstr ""
 
-#: kicoma/kitchen/models.py:35 kicoma/kitchen/models.py:36
 msgid "číselník - DPH"
 msgstr ""
 
-#: kicoma/kitchen/models.py:49
 msgid "číselník - Alergeny"
 msgstr ""
 
-#: kicoma/kitchen/models.py:50
 msgid "číselník - Alergen"
 msgstr ""
 
-#: kicoma/kitchen/models.py:61
 msgid "číselník - Skupiny strávníků"
 msgstr ""
 
-#: kicoma/kitchen/models.py:62
 msgid "číselník - Skupina strávníků"
 msgstr ""
 
-#: kicoma/kitchen/models.py:73
 msgid "číselník - Druhy jídla"
 msgstr ""
 
-#: kicoma/kitchen/models.py:74
 msgid "číselník - Druh jídla"
 msgstr ""
 
-#: kicoma/kitchen/models.py:85 kicoma/kitchen/models.py:86
 msgid "Zboží"
 msgstr ""
 
-#: kicoma/kitchen/models.py:129
 msgid "Alergeny"
 msgstr ""
 
-#: kicoma/kitchen/models.py:134 kicoma/templates/menu_recipes.html:17
 msgid "Recepty"
 msgstr ""
 
-#: kicoma/kitchen/models.py:135
 msgid "Recept"
 msgstr ""
 
-#: kicoma/kitchen/models.py:180
 msgid "Suroviny v receptu"
 msgstr ""
 
-#: kicoma/kitchen/models.py:181
 msgid "Surovina v receptu"
 msgstr ""
 
-#: kicoma/kitchen/models.py:203 kicoma/kitchen/models.py:204
 msgid "Menu"
 msgstr ""
 
-#: kicoma/kitchen/models.py:223 kicoma/kitchen/models.py:224
 msgid "Recepty menu"
 msgstr ""
 
-#: kicoma/kitchen/models.py:239 kicoma/kitchen/models.py:240
-#: kicoma/templates/menu_dailymenu.html:17
 msgid "Denní menu"
 msgstr ""
 
-#: kicoma/kitchen/models.py:263 kicoma/kitchen/models.py:264
 msgid "Recepty denního menu"
 msgstr ""
 
-#: kicoma/kitchen/models.py:280
 msgid "Výdejky"
 msgstr ""
 
-#: kicoma/kitchen/models.py:281
 msgid "Výdejka"
 msgstr ""
 
-#: kicoma/kitchen/models.py:381
 msgid "Příjemky"
 msgstr ""
 
-#: kicoma/kitchen/models.py:382
 msgid "Příjemka"
 msgstr ""
 
-#: kicoma/kitchen/models.py:420 kicoma/kitchen/models.py:421
 msgid "Zboží na výdejce"
 msgstr ""
 
-#: kicoma/kitchen/models.py:453 kicoma/kitchen/models.py:454
 msgid "Zboží na příjemce"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_author.html:3
 msgid "Autor"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_author.html:7
 msgid "Stanislav Valášek"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_author.html:10
 msgid "Máte nápad na novou funkci nebo jste narazili na chybu? Neváhejte a"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_author.html:11
 msgid "kontaktujte přímo autora"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_author.html:13
 msgid ""
 "Jsme tu pro vás a těšíme se na vaše podněty. Pomozte nám zlepšovat KiCoMa a "
 "udělejte svůj kuchyňský provoz ještě efektivnější!"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_content.html:4
 msgid "Objevte KiCoMa - Váš spolehlivý pomocník pro správu kuchyně!"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_content.html:10
 msgid "Pročtěte si "
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_content.html:10
 msgid "nápovědu"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_content.html:19
 msgid "Připojte se ke KiCoMa ještě dnes!"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_content.html:22
 msgid "Zeptejte se, co vás zajíma"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_content.html:24
 msgid "rezervace online schůzky s autorem."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_short_intro.html:3
 msgid ""
 "KiCoMa je špičkový program určený pro efektivní správu skladu potravin, "
 "receptů a menu. S naším programem bude vaše kuchyně fungovat jako hodinky. "
 "Pojďte se podívat, jak vám KiCoMa může pomoci:"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_short_intro.html:6
 msgid ""
 "<b>Snadné plánování</b>: Výživová poradkyně jednoduše naplánuje recepty a "
 "denní menu."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_short_intro.html:7
 msgid ""
 "<b>Bezproblémové vaření</b>: Kuchyně vaří přesně podle denního menu, bez "
 "stresu a zmatků."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_short_intro.html:8
 msgid ""
 "<b>Perfektní synchronizace</b>: Recepty a menu jsou propojené se skladem "
 "potravin, což znamená, že vždy víte, co máte na skladě."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_short_intro.html:9
 msgid ""
 "<b>Aktuální stav skladu</b>: Stav skladu se automaticky mění pomocí příjemek "
 "a výdejek sestavených podle vydávaných jídel, nebo jednorázovou inventurou."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/about_short_intro.html:10
 msgid ""
 "<b>Jednoduché reporty</b>: Vytvářejte přehledné reporty jedním kliknutím. "
 "Program je intuitivní a snadno ovladatelný, s nápovědou a podrobným popisem "
 "funkcí."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:92
+msgid "Změny v aplikaci"
+msgstr ""
+
+msgid "Změny za 2025"
+msgstr ""
+
+msgid "Úprava formátování všech PDF exportů."
+msgstr ""
+
+msgid "Export stavu zboží na skadu k vybranému dni."
+msgstr ""
+
+msgid ""
+"Výber data pomocí kalendáře. Aktualizace technologie na nejnovější verzi."
+msgstr ""
+
+msgid ""
+"Upraveno řazení zboží v seznamu zboží na výdejce, datum v seznamu výdejek "
+"obsahuje jenom datum a ne čas."
+msgstr ""
+
+msgid ""
+"Zrychlení aplikace změnou hostingu z Heroku na Hetzner a změnou DB z "
+"PostgeSQL na SQLite."
+msgstr ""
+
+#, python-format
+msgid "Příjemky mají jako standardní DPH nastaveno 12%%."
+msgstr ""
+
+msgid ""
+"Možnost zadání datumu pomocí kalendáře při tvorbě - Nová výdejka z denního "
+"menu."
+msgstr ""
+
+msgid ""
+"Rozšíření aplikace o Údržbu dat - výmaz neaktivních záznamů starších 2 let."
+msgstr ""
+
+msgid "Oprava - přidání uživatele přes Administraci již nepíše chybu."
+msgstr ""
+
+msgid "Aktualizace na nejnovější verzi"
+msgstr ""
+
+msgid "a aktualizace souvisejících knihoven."
+msgstr ""
+
+msgid "Oprava nefunkčního Exportu zboží na skladu v rámci Inventury."
+msgstr ""
+
+msgid "Změny za 2024"
+msgstr ""
+
+msgid ""
+"Zrychlení načítání příjemek a seznamu denních menu. Úprava nápovědy a "
+"stránky O aplikaci včetne překladů do angličtiny. Úprava loga."
+msgstr ""
+
+msgid "Změny za předchozí roky"
+msgstr ""
+
+msgid "Změna generování PDF z wkhtml na jsPDF."
+msgstr ""
+
+msgid "Přidání testů pro zvýšení kvality kódu."
+msgstr ""
+
+msgid "V"
+msgstr ""
+
+msgid "Seznamu zboží na skladu - pro kuchaře"
+msgstr ""
+
+msgid "byla přidaná Průměrná jednotková cena s DPH."
+msgstr ""
+
+msgid ""
+"V případě úpravy zboží na výdejce si tabulka zboží uchová pozici a neskáče "
+"na začátek."
+msgstr ""
+
+msgid "Pro nově vytvořené výdejky:"
+msgstr ""
+
+msgid ""
+"Když se vytváří výdejka a na skladu je 0 jednotek zboží, na výdejku se do "
+"'Jednotková cena s DPH' použije poslední naskladněná cena."
+msgstr ""
+
+msgid ""
+"Z tohoto důvodu se na skladě zobrazuje 'Průměrná jednotková cena s DPH' i "
+"když je 'Na skladu' 0 jednotek zboží."
+msgstr ""
+
+msgid "Na"
+msgstr ""
+
+msgid "byl odstraněn problém u řazení tabulky dle sloupce Alergeny."
+msgstr ""
+
+msgid "Zjednodušení tvorby denního menu pomocí"
+msgstr ""
+
+msgid "menu"
+msgstr ""
+
+msgid ", které má přiřazené recepty a počet porcí."
+msgstr ""
+
+msgid "Jak to funguje?"
+msgstr ""
+
+msgid "Vytvoř"
+msgstr ""
+
+msgid "Nově menu"
+msgstr ""
+
+msgid ", přidej požadované recepty a množství porcí."
+msgstr ""
+
+msgid "Následně, když vytváříš"
+msgstr ""
+
+msgid "denní menu"
+msgstr ""
+
+msgid ""
+", vyber připravené menu a recepty se do denního menu přepíšou automaticky."
+msgstr ""
+
+msgid "Tabulky zobrazují místo 15ti standardně 30 řádků."
+msgstr ""
+
+msgid ""
+"Na seznamu receptů se místo sloupce Poznámka zobrazuje sloupec Alergeny, "
+"automaticky převzatý z alergenů všech položek receptu."
+msgstr ""
+
+msgid ""
+"Odstranění reportů Spotřeba potravin dle receptů na den a Měšíční cena jídla "
+"dle skupiny strávníka."
+msgstr ""
+
+msgid "obsahuje místo pole poznámka maximální počet porcí ze všech receptů."
+msgstr ""
+
+#, python-format
+msgid ""
+"PDF pro výdejka má název: Vydejka-%%Y.%%m.%%d_%%H-%%M-%%S-%%f.pdf. Popis "
+"symbolů -"
+msgstr ""
+
+msgid "formátováni datumu"
+msgstr ""
+
+msgid "Přidán seznam"
+msgstr ""
+
+msgid "Zboží na skladu - pohled kuchaře"
+msgstr ""
+
+msgid ""
+"s možností editace alergenů, minimálního množství na skladu a editace názvu "
+"zboží"
+msgstr ""
+
+msgid "Přidán report"
+msgstr ""
+
+msgid "Stravovací jednotka"
+msgstr ""
+
+msgid ""
+"Přidána možnost výmazu skladové karty v případě, že není použita na receptu"
+msgstr ""
+
+msgid "Na report"
+msgstr ""
+
+msgid "Zboží nepoužito ani na jednom receptu"
+msgstr ""
+
+msgid "přidána přímo možnost výmazu zboží"
+msgstr ""
+
+msgid "Aktualizace na Django"
+msgstr ""
+
+msgid ""
+"Nový report 'Celková cena příjemky/výdejky měsíčně' - přidány práva i pro "
+"recepci"
+msgstr ""
+
+msgid "Aktualizace hostingu na"
+msgstr ""
+
+msgid "a odstranění multitenant podpory"
+msgstr ""
+
+msgid "Nový report 'Celková cena příjemky/výdejky měsíčně'"
+msgstr ""
+
+msgid "Export a import je povolen jenom přihlášenému uživateli"
+msgstr ""
+
+msgid "Podpora pro více společností formou samostatných instancí aplikace"
+msgstr ""
+
+msgid "Bezpečnější admin URL"
+msgstr ""
+
+msgid "Přehlednější menu s ikonama"
+msgstr ""
+
+msgid "Možnost přepnutí jazyka aplikace CZ/EN"
+msgstr ""
+
+msgid "Oprava počítání celkové ceny zboží na řádku zboží na příjemce i výdejce"
+msgstr ""
+
+msgid "V rámci historie zboží se zobrazí i poznámka z příjemky a výdejky"
+msgstr ""
+
+msgid "a aktualizace systémových balíků"
+msgstr ""
+
+msgid "Zpřehlednění zobrazení seznamu změn v aplikaci"
+msgstr ""
+
+msgid "Zjednodušení požadavků na heslo na minimum 8 znaků"
+msgstr ""
+
+msgid "Přidán report měsíční ceny jídla dle skupiny strávníka"
+msgstr ""
+
+msgid ""
+"Úprava formátování PDF reportu spotřeby potravin, možnost rychleho zobrazení "
+"z denního menu"
+msgstr ""
+
+msgid "Abecedné řazení receptů na denním menu"
+msgstr ""
+
+msgid ""
+"Při zadávání zboží do receptu je možnost přímého uložení a zadání dalšího "
+"zboí"
+msgstr ""
+
+msgid "Aktualizace SW balíků bez dopadu na funkcionalitu"
+msgstr ""
+
+msgid ""
+"Uživatel Drábková má právo na Seznam zboží na skladu, seznam zboží k "
+"naskladnění a vytvoření skladové karty"
+msgstr ""
+
+msgid ""
+"Do nadpisu v rámci úpravy zboží doplněna celková cena a informace o "
+"vyskladnění/naskladnění pro příjemku a výdejku"
+msgstr ""
+
+msgid "Zvětšení polí při úpravě zboží na příjemce/výdejce"
+msgstr ""
+
+msgid ""
+"Aktualizace hostingu - získání podpory pro uložení do 10 milionů záznamů v "
+"datech"
+msgstr ""
+
+msgid "Recepce má právo na založení skladové karty"
+msgstr ""
+
+msgid "Kuchyně má právo na výmaz výdejky"
+msgstr ""
+
+msgid "PDF - zmenšení písma"
+msgstr ""
+
+msgid ""
+"Recepce - zpráva po přidáni zboží na příjemku obsahuje informaci o počtu, "
+"jednotkové a celkové ceně"
+msgstr ""
+
+msgid "Opraveno vyhledávání dle datumů v denní menu, příjemkách a výdejkách"
+msgstr ""
+
+msgid ""
+"Kontrola formátu zadaního datumu v PDF u denního menu a reportu rozpis pro "
+"kuchyň"
+msgstr ""
+
+msgid "Import všech dat vymaže celou db kromě uživatelů a skupin"
+msgstr ""
+
+msgid "O aplikaci - zobrazení celkového počtu záznamů v databázi"
+msgstr ""
+
+msgid "Příjemka - oprava zaokrouhlování ceny a množství zboží"
+msgstr ""
+
+msgid "Příjemka - zrychlení zadávání: možnost uložení a přechod na další zboží"
+msgstr ""
+
+msgid "PDF - změnšení písma"
+msgstr ""
+
+msgid "Příjemka - oprava počítání celkové ceny"
+msgstr ""
+
+msgid "Příjemky - řazení zboží od nejnověji zadaného"
+msgstr ""
+
+msgid "Export a import všech dat obsahuje vše kromě uživatelů a skupin"
+msgstr ""
+
+msgid ""
+"Oddělení nápovědy, O Aplikaci a Změn v aplikaci. Přidání odkazu na "
+"technickou podporu"
+msgstr ""
+
+msgid "Formátování  všech cen - oddělení tisíců mezerou a , místo ."
+msgstr ""
+
+msgid "Inventura - povolení exportu a importu skladu pro roli skladník"
+msgstr ""
+
+msgid "Denní menu - neobsahuje duplikovaný sloupec datum"
+msgstr ""
+
+msgid "Doplnění uživatele v roli kuchař - pí. Kohnerová"
+msgstr ""
+
+msgid ""
+"Oprava - výdejka - zobrazení všeho zboží, které není naskladněno, při "
+"nenaskladnění nedochází k částečnému odepsání"
+msgstr ""
+
+msgid ""
+"Oprava - export obsahuje všechna data aplikace a import úplně resetuje DB"
+msgstr ""
+
+msgid "Zadání a aktualizace zboží na výdejce umožní zadat zboží s 0 množstvím"
+msgstr ""
+
+msgid "Oprava - Příjemka - možno upravit zboží"
+msgstr ""
+
+msgid "Oprava - Výdejka - možno zadat i větší počet zboží, než je na skladu"
+msgstr ""
+
+msgid "Oprava - Příjemka - řazení zboží dle pořadí zadání"
+msgstr ""
+
+msgid ""
+"Oprava - Výdejka - Průměrná jednotková cena zboží se uloží při vytvoření "
+"výdejky dle aktuální ceny zboží na skladě a po schválení se aktualizuje a "
+"pak nemění."
+msgstr ""
+
+msgid "Přesun menu Přehled a Nápověda do menu O aplikaci"
+msgstr ""
+
+msgid "Možnost exportu a importu všech dat aplikace"
+msgstr ""
+
+msgid ""
+"Oprava - Výdejka - celková cena zboží na výdejce se počíta z průměrné ceny "
+"zboží vyskladnění a ne z ceny zboží na skladu"
+msgstr ""
+
+msgid "Oprava - Výdejka - konsolidované zboží je počítáno ve správném množství"
+msgstr ""
+
+msgid ""
+"Do doby vyskladnění je možnost aktualizovat vyskladňované zboží na výdejce"
+msgstr ""
+
+msgid "Přehlednější zobrazení všech tabulek"
+msgstr ""
+
+msgid "V historii zboží zobrazení příjemka/výdejka"
+msgstr ""
+
+msgid "Oprava - Možnost exportu všech receptů v denním menu"
+msgstr ""
+
+msgid "Oprava - hledání zboží v administraci již funguje"
+msgstr ""
+
+msgid "Výdejka - Zboží řazeno abecedně v PDF i s seznamu"
+msgstr ""
+
+msgid "Oprava počítání celkové ceny receptu"
+msgstr ""
+
+msgid "Přidání zobrazení ingrediencí receptu z denního menu"
+msgstr ""
+
+msgid "Oprava - Správné počítání ceny zboží na výdejce"
+msgstr ""
+
+msgid ""
+"Inventura - možnost importu a exportu zboží pro roli Šéfkuchař - Dáša, Josef"
+msgstr ""
+
+msgid ""
+"Recepce/Kuchyň, oprava - Tvorba výdejky z denního menu nekontroluje skutečné "
+"množství na skladu, to je kontrolováno až při schválení výdejky"
+msgstr ""
+
+msgid "Oprava - Recept z denního menu již jde vymazat"
+msgstr ""
+
+msgid "Oprava - Tlačítko Zpět na ingrediencích receptu již funguje"
+msgstr ""
+
+msgid ""
+"Oprava - Minimální množství na skladu je nepovinné pole a min hodnota je 0"
+msgstr ""
+
+msgid ""
+"Kuchyně/recepce - Zboží se na výdejce z denního menu vyskytuje jenom jednou"
+msgstr ""
+
+msgid "Importována data ze Stravníčka z dne 18.8.2020"
+msgstr ""
+
+msgid ""
+"Jenom role chef má právo na Založení nové skladové karty - nového druhu "
+"zboží na sklad (pí. Trmalová, Josef Slavíček)"
+msgstr ""
+
+msgid "Oprava PDF formátování - text se nepřekrývá od druhé stránky dál"
+msgstr ""
+
+msgid ""
+"Recepce/Kuchyň - Inventura - tisk PDF pro zjištění skutečného stavu zásob na "
+"skladu"
+msgstr ""
+
+msgid "Kuchyň - Nový report - Zboží nepoužito na žádném receptu"
+msgstr ""
+
+msgid ""
+"Recepce/Kuchyň, oprava - Tvorba výdejky z denního menu již není blokována "
+"neexistenci výdejky, ale kontroluje skutečné množství na skladu"
+msgstr ""
+
+msgid "Recepce - Možnost zobrazení historie změn u zboží"
+msgstr ""
+
+msgid ""
+"Recepce - Oprava chyby - Vydejka po schválení teď zmení stav zboží na skladu"
+msgstr ""
+
+msgid ""
+"Recepce - Oprava ceny zboží při schválení příjemky/výdejky je správně "
+"aktualizována"
+msgstr ""
+
+msgid "Kontrola konverze jednotek u zboží na receptech, příjemkách a výdejkách"
+msgstr ""
+
+msgid ""
+"Recepce - Výdejka - v PDF i seznamu není zobrazena správná jednotková a "
+"sumární cena zboží"
+msgstr ""
+
+msgid "Paní Trmalová - Report na kontrolu správnosti zadaných jednotek"
+msgstr ""
+
+msgid "Recepce - možnost zadat datum na příjemce"
+msgstr ""
+
+msgid "Recepce - V menu zobrazit nápovědu"
+msgstr ""
+
+msgid "Recepce - Přeložit Log-in a Register"
+msgstr ""
+
+msgid "Kuchyně - přidány práva na správu výdejek kromě schválení a výmazu"
+msgstr ""
+
+msgid "Kuchyně - v denním menu je řazeno dle datumu a pak typu jidla"
+msgstr ""
+
+msgid ""
+"Recepce - kontrola a nemožnost úpravy/přidání/výmazu zboží PO schválení "
+"příjemky/výdejky"
+msgstr ""
+
+msgid "Přesun standardní funkcionality Strávníčka"
+msgstr ""
+
+msgid "Správa číselníků"
+msgstr ""
+
+msgid "Přesunut a nahrán obsah Strávníčka (Zboží, Recepty, Ingredience)"
+msgstr ""
+
+msgid "PDF s denním menu dle datumu s možností filtrace na skupinu strávníků"
+msgstr ""
+
+msgid "PDF se seznam receptů a jednotlivého receptu"
+msgstr ""
+
+msgid "Je možno vytvořit výdejku na základě receptů z denního menu"
+msgstr ""
+
 msgid "Datový model"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:236
 msgid "Historie programu"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:238
 msgid ""
 "KiCoMa - <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement byla vytvořena "
 "jako\n"
 "      moderní nástupce na základě požadavků společnosti"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:241
 msgid ""
 "Současný program je inspirován původním programem Strávníček, který v letech "
 "1997 - 1998 vyvinuli Josef Dalibába a Dáša Trmalová."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:243
 msgid "Prohlédněte si, "
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:244
 msgid "jakými změnami"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:245
 msgid "program prošel od té doby do současnosti."
 msgstr ""
 
-#: kicoma/templates/account/account_inactive.html:5
-#: kicoma/templates/account/account_inactive.html:8
 msgid "Account Inactive"
 msgstr "Neaktivní účet"
 
-#: kicoma/templates/account/account_inactive.html:10
 msgid "This account is inactive."
 msgstr "Účet není aktivní"
 
-#: kicoma/templates/account/email.html:7
 msgid "Account"
 msgstr "Účet"
 
-#: kicoma/templates/account/email.html:10
 msgid "E-mail Addresses"
 msgstr "Email adresy"
 
-#: kicoma/templates/account/email.html:13
 msgid "The following e-mail addresses are associated with your account:"
 msgstr "S tvým účtem jsou asociovány následující emailové adresy"
 
-#: kicoma/templates/account/email.html:27
 msgid "Verified"
 msgstr "Potvrzen"
 
-#: kicoma/templates/account/email.html:29
 msgid "Unverified"
 msgstr "Nepotvrzen"
 
-#: kicoma/templates/account/email.html:31
 msgid "Primary"
 msgstr "Hlavní"
 
-#: kicoma/templates/account/email.html:37
 msgid "Make Primary"
 msgstr "Označit jako hlavní"
 
-#: kicoma/templates/account/email.html:38
 msgid "Re-send Verification"
 msgstr "Znovu odeslat ověření"
 
-#: kicoma/templates/account/email.html:39
 msgid "Remove"
 msgstr "Odstranit"
 
-#: kicoma/templates/account/email.html:46
 msgid "Warning:"
 msgstr "Varování:"
 
-#: kicoma/templates/account/email.html:46
 msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
 msgstr ""
 
-#: kicoma/templates/account/email.html:51
 msgid "Add E-mail Address"
 msgstr "Přidat emailovú adresu"
 
-#: kicoma/templates/account/email.html:56
 msgid "Add E-mail"
 msgstr "Přidat email"
 
-#: kicoma/templates/account/email.html:66
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr ""
 
-#: kicoma/templates/account/email_confirm.html:6
-#: kicoma/templates/account/email_confirm.html:10
 msgid "Confirm E-mail Address"
 msgstr ""
 
-#: kicoma/templates/account/email_confirm.html:16
 #, python-format
 msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
 "address for user %(user_display)s."
 msgstr ""
 
-#: kicoma/templates/account/email_confirm.html:20
 msgid "Confirm"
 msgstr "Potvrdit"
 
-#: kicoma/templates/account/email_confirm.html:27
 #, python-format
 msgid ""
-"This e-mail confirmation link expired or is invalid. Please <a href="
-"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+"This e-mail confirmation link expired or is invalid. Please <a "
+"href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
 msgstr ""
 
-#: kicoma/templates/account/login.html:7 kicoma/templates/account/login.html:11
-#: kicoma/templates/account/login.html:44
 msgid "Sign In"
 msgstr "Přihlásit se"
 
-#: kicoma/templates/account/login.html:16
 #, python-format
 msgid ""
 "Please sign in with one\n"
@@ -377,73 +804,49 @@ msgid ""
 "for a %(site_name)s account and sign in below:"
 msgstr ""
 
-#: kicoma/templates/account/login.html:26
 msgid "or"
 msgstr "nebo"
 
-#: kicoma/templates/account/login.html:33
 #, python-format
 msgid ""
 "If you have not created an account yet, then please\n"
 "<a href=\"%(signup_url)s\">sign up</a> first."
 msgstr ""
 
-#: kicoma/templates/account/login.html:43
 msgid "Forgot Password?"
 msgstr "Zapomenuté heslo?"
 
-#: kicoma/templates/account/logout.html:5
-#: kicoma/templates/account/logout.html:8
-#: kicoma/templates/account/logout.html:17
 msgid "Sign Out"
 msgstr "Odhlásit se"
 
-#: kicoma/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
 msgstr "Určitě se chceš odhlásit?"
 
-#: kicoma/templates/account/password_change.html:6
-#: kicoma/templates/account/password_change.html:9
-#: kicoma/templates/account/password_change.html:14
-#: kicoma/templates/account/password_reset_from_key.html:5
-#: kicoma/templates/account/password_reset_from_key.html:8
-#: kicoma/templates/account/password_reset_from_key_done.html:4
-#: kicoma/templates/account/password_reset_from_key_done.html:7
 msgid "Change Password"
 msgstr "Změna hesla"
 
-#: kicoma/templates/account/password_reset.html:7
-#: kicoma/templates/account/password_reset.html:11
-#: kicoma/templates/account/password_reset_done.html:6
-#: kicoma/templates/account/password_reset_done.html:9
 msgid "Password Reset"
 msgstr "Reset hesla"
 
-#: kicoma/templates/account/password_reset.html:16
 msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
 msgstr ""
 
-#: kicoma/templates/account/password_reset.html:21
 msgid "Reset My Password"
 msgstr "Resetovať moje heslo"
 
-#: kicoma/templates/account/password_reset.html:24
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
 
-#: kicoma/templates/account/password_reset_done.html:15
 msgid ""
 "We have sent you an e-mail. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
 
-#: kicoma/templates/account/password_reset_from_key.html:8
 msgid "Bad Token"
 msgstr ""
 
-#: kicoma/templates/account/password_reset_from_key.html:12
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
@@ -451,144 +854,106 @@ msgid ""
 "a>."
 msgstr ""
 
-#: kicoma/templates/account/password_reset_from_key.html:18
 msgid "change password"
 msgstr "změna hesla"
 
-#: kicoma/templates/account/password_reset_from_key.html:21
-#: kicoma/templates/account/password_reset_from_key_done.html:8
 msgid "Your password is now changed."
 msgstr "Tvoje heslo je změněno"
 
-#: kicoma/templates/account/password_set.html:6
-#: kicoma/templates/account/password_set.html:9
-#: kicoma/templates/account/password_set.html:14
 msgid "Set Password"
 msgstr "Nastavit heslo"
 
-#: kicoma/templates/account/signup.html:6
 msgid "Signup"
 msgstr "Zaregistrovat"
 
-#: kicoma/templates/account/signup.html:9
-#: kicoma/templates/account/signup.html:19
 msgid "Sign Up"
 msgstr "Zaregistrovat"
 
-#: kicoma/templates/account/signup.html:11
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
 msgstr ""
 
-#: kicoma/templates/account/signup_closed.html:5
-#: kicoma/templates/account/signup_closed.html:8
 msgid "Sign Up Closed"
 msgstr ""
 
-#: kicoma/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
 msgstr ""
 
-#: kicoma/templates/account/verification_sent.html:5
-#: kicoma/templates/account/verification_sent.html:8
-#: kicoma/templates/account/verified_email_required.html:5
-#: kicoma/templates/account/verified_email_required.html:8
 msgid "Verify Your E-mail Address"
 msgstr "Ověř si emailovou adresu"
 
-#: kicoma/templates/account/verification_sent.html:10
 msgid ""
 "We have sent an e-mail to you for verification. Follow the link provided to "
 "finalize the signup process. Please contact us if you do not receive it "
 "within a few minutes."
 msgstr ""
 
-#: kicoma/templates/account/verified_email_required.html:12
 msgid ""
 "This part of the site requires us to verify that\n"
 "you are who you claim to be. For this purpose, we require that you\n"
 "verify ownership of your e-mail address. "
 msgstr ""
 
-#: kicoma/templates/account/verified_email_required.html:16
 msgid ""
 "We have sent an e-mail to you for\n"
 "verification. Please click on the link inside this e-mail. Please\n"
 "contact us if you do not receive it within a few minutes."
 msgstr ""
 
-#: kicoma/templates/account/verified_email_required.html:20
 #, python-format
 msgid ""
 "<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
 "mail address</a>."
 msgstr ""
 
-#: kicoma/templates/base.html:86
 msgid "Register"
 msgstr "Registrace"
 
-#: kicoma/templates/base.html:97
 msgid "Přihlásit"
 msgstr ""
 
-#: kicoma/templates/base.html:138
 msgid "Můj profil"
 msgstr ""
 
-#: kicoma/templates/base.html:146
 msgid "Administrace"
 msgstr ""
 
-#: kicoma/templates/base.html:153
 msgid "Export všech dat"
 msgstr ""
 
-#: kicoma/templates/base.html:160
 msgid "Import všech dat"
 msgstr ""
 
-#: kicoma/templates/base.html:171
+msgid "Údržba dat"
+msgstr ""
+
 msgid "Odhlásit"
 msgstr ""
 
-#: kicoma/templates/menu_about.html:16 kicoma/templates/menu_about.html:27
 msgid "O programu"
 msgstr ""
 
-#: kicoma/templates/menu_about.html:35
-msgid "Změny v aplikaci"
+msgid "Příručka"
 msgstr ""
 
-#: kicoma/templates/menu_about.html:42
-msgid "Nápověda"
-msgstr ""
-
-#: kicoma/templates/menu_inventory.html:16
 msgid "Inventura"
 msgstr ""
 
-#: kicoma/templates/menu_reports.html:16
 msgid "Reporty"
 msgstr ""
 
-#: kicoma/templates/menu_store.html:16
 msgid "Sklad"
 msgstr ""
 
-#: kicoma/users/apps.py:7
 msgid "Users"
 msgstr "Uživatelé"
 
-#: kicoma/users/forms.py:16
 msgid "This username has already been taken."
 msgstr ""
 
-#: kicoma/users/models.py:11
 msgid "Name of User"
 msgstr "Uživatelské jméno"
 
-#: kicoma/users/views.py:34
 msgid "Infos successfully updated"
 msgstr ""
