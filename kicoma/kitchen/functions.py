@@ -11,9 +11,9 @@ def convert_units(number, unit_in, unit_out):
     if unit_in == 'g' and unit_out == 'kg':
         return number/1000
     if unit_in == 'l' and unit_out == 'ml':
-        return number*100
+        return number*1000
     if unit_in == 'ml' and unit_out == 'l':
-        return number/100
+        return number/1000
     raise ValidationError(f"Není možné provést konverzi {number} {unit_in} na {unit_out}")
 
 
