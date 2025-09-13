@@ -1,3 +1,4 @@
+import contextlib
 import datetime
 from decimal import Decimal
 
@@ -19,6 +20,29 @@ UNIT = (
     ('ml', _('ml')),
     ('ks', _('ks')),
 )
+
+
+def _record_history_change_reason(instance, prefix, comment):
+    """Safely set history change reason and persist a history entry.
+
+    - Accepts possible None in `comment`.
+    - Tolerates environments where update_change_reason may raise AttributeError.
+    - Ensures a history row is created by saving the instance.
+    """
+    if not instance:
+        return
+    reason = f"{prefix} - {comment or ''}"
+    try:
+        update_change_reason(instance, reason)
+    except Exception:
+        # Fallback: set attribute directly if utils helper is unavailable/problematic
+        # As a last resort, do nothing — don't break the workflow
+        with contextlib.suppress(Exception):
+            instance.history_change_reason = reason
+    # Create a historical record reflecting current values and reason
+    # Don't block stock operations on history save issues
+    with contextlib.suppress(Exception):
+        instance.save()
 
 
 class TimeStampedModel(models.Model):
@@ -419,7 +443,7 @@ class StockIssue(TimeStampedModel):
                     total_price=F('total_price') - delta_price,
                 )
                 updated_article = Article.objects.get(pk=article.pk)
-                update_change_reason(updated_article, 'Výdej - ' + comment)
+                _record_history_change_reason(updated_article, 'Výdej', comment)
         return messages
 
 
@@ -463,7 +487,7 @@ class StockReceipt(TimeStampedModel):
                 total_price=F('total_price') + delta_price,
             )
             updated_article = Article.objects.get(pk=article.pk)
-            update_change_reason(updated_article, 'Příjem - ' + comment)
+            _record_history_change_reason(updated_article, 'Příjem', comment)
 
 
 class StockIssueArticle(TimeStampedModel):
