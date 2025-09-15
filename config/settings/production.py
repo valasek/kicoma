@@ -164,10 +164,14 @@ LOGGING = {
 
 # Sentry
 sentry_sdk.init(
-    dsn="https://137388df23d648d9bae72c0adcc12e06@o417369.ingest.sentry.io/5316934",
+    dsn="https://137388df23d648d9bae72c0adcc12e06@o417369.ingest.us.sentry.io/5316934",
     integrations=[DjangoIntegration()],
-    # To set a uniform sample rate
-    traces_sample_rate=0.2,
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for tracing.
+    traces_sample_rate=1.0,
+    # Set profile_session_sample_rate to 1.0 to profile 100%
+    # of profile sessions.
+    profile_session_sample_rate=1.0,
 
     # If you wish to associate users to errors (assuming you are using
     # django.contrib.auth) you may enable sending PII data.
