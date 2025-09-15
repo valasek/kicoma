@@ -1497,7 +1497,7 @@ msgstr "Recipe has been removed"
 
 #: kicoma/kitchen/views.py:651 kicoma/templates/menu_recipes.html:28
 msgid "Seznam receptů"
-msgstr "Number of recipes"
+msgstr "Recipes list"
 
 #: kicoma/kitchen/views.py:655
 msgid "Seznam_receptu.pdf"
