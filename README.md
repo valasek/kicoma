@@ -145,7 +145,8 @@ Using [Graph models](https://django-extensions.readthedocs.io/en/latest/graph_mo
 
 #### Generate message files for a desired language
 
-`./manage.py makemessages -l en -l cs`
+`python ./manage.py makemessages -l en --ignore=.venv`
+`python ./manage.py makemessages -l cs --ignore=.venv`
 
 #### After adding translations to the .po files, compile the messages
 

@@ -1,6 +1,8 @@
 import django_tables2 as tables
 from django import forms
 from django.contrib.humanize.templatetags.humanize import intcomma
+from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 from django_filters import CharFilter, DateFilter, FilterSet
 
 from .models import (
@@ -17,15 +19,28 @@ from .models import (
     StockReceiptArticle,
 )
 
+LABEL_EDIT = _("Upravit")
+LABEL_HISTORY = _("Historie")
+LABEL_DELETE = _("Vymazat")
+LABEL_SHOW_INGREDIENTS = _("Zobrazit ingredience")
+LABEL_SHOW_RECIPES = _("Zobrazit recepty")
+LABEL_NOTE = _("Poznámka")
+LABEL_SHOW_ARTICLES = _("Zobrazit zboží")
+LABEL_REFRESH = _("Aktualizovat")
+LABEL_ISSUE = _("Vyskladnit")
+LABEL_RECEIPT = _("Naskladnit")
 
 class ArticleTable(tables.Table):
-    average_price = tables.Column(verbose_name='Průměrná jednotková cena s DPH')
-    allergens = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name='Alergeny')
-    change = tables.TemplateColumn(
-        '''<a href="/kitchen/article/update/{{ record.id }}">Upravit</a>
-        | <a href="/kitchen/article/history/{{ record.id }}">Historie</a>
-        | <a href="/kitchen/article/delete/{{ record.id }}">Vymazat</a>''',
-        verbose_name='Akce', )
+    average_price = tables.Column(verbose_name=_('Průměrná jednotková cena s DPH'))
+    allergens = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name=_('Alergeny'))
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+
+    def render_change(self, record):
+        return mark_safe(
+            f'<a href="/kitchen/article/update/{record.id}">{LABEL_EDIT}</a> | '
+            f'<a href="/kitchen/article/history/{record.id}">{LABEL_HISTORY}</a> | '
+            f'<a href="/kitchen/article/delete/{record.id}">{LABEL_DELETE}</a>'
+        )
 
     class Meta:
         model = Article
@@ -52,11 +67,14 @@ class ArticleTable(tables.Table):
 
 
 class ArticleRestrictedTable(tables.Table):
-    allergen = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name='Alergeny')
-    average_price = tables.Column(verbose_name='Průměrná jednotková cena s DPH')
-    change = tables.TemplateColumn(
-        '''<a href="/kitchen/article/restrictedupdate/{{ record.id }}">Upravit</a>''',
-        verbose_name='Akce', )
+    allergen = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name=_('Alergeny'))
+    average_price = tables.Column(verbose_name=_('Průměrná jednotková cena s DPH'))
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+
+    def render_change(self, record):
+        return mark_safe(
+            f'<a href="/kitchen/article/restrictedupdate/{record.id}">{LABEL_EDIT}</a>'
+        )
 
     class Meta:
         model = Article
@@ -82,15 +100,17 @@ class ArticleFilter(FilterSet):
 
 
 class RecipeTable(tables.Table):
-    total_recipe_articles_price = tables.Column(verbose_name='Cena receptu s DPH')
-    allergens = tables.Column(verbose_name='Alergeny', empty_values=())
-    change = tables.TemplateColumn(
-        '''<a href="/kitchen/recipe/update/{{ record.id }}">Upravit</a>
-        | <a href="/kitchen/recipe/articlelist/{{ record.id }}">Zobrazit ingredience</a>
-        | <a href="/kitchen/recipe/delete/{{ record.id }}">Vymazat</a>
-        | <a href="/kitchen/recipe/print/{{ record.id }}">PDF</a>
-        ''',
-        verbose_name='Akce', )
+    total_recipe_articles_price = tables.Column(verbose_name=_('Cena receptu s DPH'))
+    allergens = tables.Column(verbose_name=_('Alergeny'), empty_values=())
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+
+    def render_change(self, record):
+        return mark_safe(
+            f'<a href="/kitchen/recipe/update/{record.id}">{LABEL_EDIT}</a> | '
+            f'<a href="/kitchen/recipe/articlelist/{record.id}">{LABEL_SHOW_INGREDIENTS}</a> | '
+            f'<a href="/kitchen/recipe/delete/{record.id}">{LABEL_DELETE}</a> | '
+            f'<a href="/kitchen/recipe/print/{record.id}">PDF</a>'
+        )
 
     class Meta:
         model = Recipe
@@ -117,11 +137,14 @@ class RecipeFilter(FilterSet):
 
 class RecipeArticleTable(tables.Table):
     # average_price = tables.Column(accessor="article.average_price", verbose_name="Průměrná jednotková cena s DPH")
-    total_average_price = tables.Column(verbose_name="Celková cena s DPH")
-    change = tables.TemplateColumn(
-        '''<a href="/kitchen/recipe/updatearticle/{{ record.id }}">Upravit</a>
-        | <a href="/kitchen/recipe/deletearticle/{{ record.id }}">Vymazat</a>''',
-        verbose_name='Akce', )
+    total_average_price = tables.Column(verbose_name=_("Celková cena s DPH"))
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+
+    def render_change(self, record):
+        return mark_safe(
+            f'<a href="/kitchen/recipe/updatearticle/{record.id}">{LABEL_EDIT}</a> | '
+            f'<a href="/kitchen/recipe/deletearticle/{record.id}">{LABEL_DELETE}</a>'
+        )
 
     class Meta:
         model = RecipeArticle
@@ -143,13 +166,15 @@ class RecipeArticleTable(tables.Table):
 
 
 class DailyMenuTable(tables.Table):
-    max_amount_number = tables.Column(verbose_name='Počet porcí', empty_values=())
-    change = tables.TemplateColumn(
-        '''<a href="/kitchen/dailymenu/update/{{ record.id }}">Upravit</a>
-        | <a href="/kitchen/dailymenu/recipelist/{{ record.id }}">Zobrazit recepty</a>
-        | <a href="/kitchen/dailymenu/delete/{{ record.id }}">Vymazat</a>
-        ''',
-        verbose_name='Akce', )
+    max_amount_number = tables.Column(verbose_name=_('Počet porcí'), empty_values=())
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+
+    def render_change(self, record):
+        return mark_safe(
+            f'<a href="/kitchen/dailymenu/update/{record.id}">{LABEL_EDIT}</a> | '
+            f'<a href="/kitchen/dailymenu/recipelist/{record.id}">{LABEL_SHOW_RECIPES}</a> | '
+            f'<a href="/kitchen/dailymenu/delete/{record.id}">{LABEL_DELETE}</a>'
+        )
 
     class Meta:
         model = DailyMenu
@@ -170,7 +195,7 @@ class DailyMenuFilter(FilterSet):
             format='%Y-%m-%d',
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Vyber datum',
+                'placeholder': _('Vyber datum'),
                 'type': 'date'
             }
         )
@@ -183,11 +208,13 @@ class DailyMenuFilter(FilterSet):
 
 class DailyMenuRecipeTable(tables.Table):
     recipe = tables.Column(linkify=True)
-    change = tables.TemplateColumn(
-        '''<a href="/kitchen/dailymenu/updaterecipe/{{ record.id }}">Upravit</a>
-        | <a href="/kitchen/dailymenu/deleterecipe/{{ record.id }}" >Vymazat</a>
-        ''',
-        verbose_name='Akce', )
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+
+    def render_change(self, record):
+        return mark_safe(
+            f'<a href="/kitchen/dailymenu/updaterecipe/{record.id}">{LABEL_EDIT}</a> | '
+            f'<a href="/kitchen/dailymenu/deleterecipe/{record.id}">{LABEL_DELETE}</a>'
+        )
 
     class Meta:
         model = DailyMenuRecipe
@@ -197,13 +224,15 @@ class DailyMenuRecipeTable(tables.Table):
 
 
 class MenuTable(tables.Table):
-    rc = tables.Column(verbose_name='Počet receptů', empty_values=())
-    change = tables.TemplateColumn(
-        '''<a href="/kitchen/menu/update/{{ record.id }}">Upravit</a>
-        | <a href="/kitchen/menu/recipelist/{{ record.id }}">Zobrazit recepty</a>
-        | <a href="/kitchen/menu/delete/{{ record.id }}">Vymazat</a>
-        ''',
-        verbose_name='Akce', )
+    rc = tables.Column(verbose_name=_('Počet receptů'), empty_values=())
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+
+    def render_change(self, record):
+        return mark_safe(
+            f'<a href="/kitchen/menu/update/{record.id}">{LABEL_EDIT}</a> | '
+            f'<a href="/kitchen/menu/recipelist/{record.id}">{LABEL_SHOW_RECIPES}</a> | '
+            f'<a href="/kitchen/menu/delete/{record.id}">{LABEL_DELETE}</a>'
+        )
 
     class Meta:
         model = Menu
@@ -218,11 +247,13 @@ class MenuTable(tables.Table):
 
 class MenuRecipeTable(tables.Table):
     recipe = tables.Column(linkify=True)
-    change = tables.TemplateColumn(
-        '''<a href="/kitchen/menu/updaterecipe/{{ record.id }}">Upravit</a>
-        | <a href="/kitchen/menu/deleterecipe/{{ record.id }}" >Vymazat</a>
-        ''',
-        verbose_name='Akce', )
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+
+    def render_change(self, record):
+        return mark_safe(
+            f'<a href="/kitchen/menu/updaterecipe/{record.id}">{LABEL_EDIT}</a> | '
+            f'<a href="/kitchen/menu/deleterecipe/{record.id}">{LABEL_DELETE}</a>'
+        )
 
     class Meta:
         model = MenuRecipe
@@ -232,18 +263,27 @@ class MenuRecipeTable(tables.Table):
 
 
 class StockIssueTable(tables.Table):
-    total_price = tables.Column(verbose_name='Celková cena s DPH')
-    change = tables.TemplateColumn(
-        '''<a href="/kitchen/stockissue/update/{{ record.id }}">Poznámka</a>
-        | <a href="/kitchen/stockissue/articlelist/{{ record.id }}">Zobrazit zboží</a>
-        {% load auth_extras %}
-        {% if request.user|has_group:"stockkeeper" %}
-        | <a href="/kitchen/stockissue/refresh/{{ record.id }}">Aktualizovat</a>
-        | <a href="/kitchen/stockissue/approve/{{ record.id }}">Vyskladnit</a>
-        {% endif %}
-        | <a href="/kitchen/stockissue/delete/{{ record.id }}">Vymazat</a>
-        | <a href="/kitchen/stockissue/print/{{ record.id }}">PDF</a>''',
-        verbose_name='Akce', )
+    total_price = tables.Column(verbose_name=_('Celková cena s DPH'))
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+
+    def render_change(self, record):
+        links = [
+            f'<a href="/kitchen/stockissue/update/{record.id}">{LABEL_NOTE}</a>',
+            f'<a href="/kitchen/stockissue/articlelist/{record.id}">{LABEL_SHOW_ARTICLES}</a>',
+        ]
+
+        # if you still need role-based conditions, handle them here in Python
+        user = getattr(self, "request", None).user if hasattr(self, "request") else None
+        if user and user.groups.filter(name="stockkeeper").exists():
+            links.append(f'<a href="/kitchen/stockissue/refresh/{record.id}">{LABEL_REFRESH}</a>')
+            links.append(f'<a href="/kitchen/stockissue/approve/{record.id}">{LABEL_ISSUE}</a>')
+
+        links.extend([
+            f'<a href="/kitchen/stockissue/delete/{record.id}">{LABEL_DELETE}</a>',
+            f'<a href="/kitchen/stockissue/print/{record.id}">PDF</a>',
+        ])
+
+        return mark_safe(" | ".join(links))
 
     class Meta:
         model = StockIssue
@@ -268,7 +308,7 @@ class StockIssueFilter(FilterSet):
             format='%Y-%m-%d',
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Vyber datum',
+                'placeholder': _('Vyber datum'),
                 'type': 'date'
             }
         )
@@ -280,11 +320,14 @@ class StockIssueFilter(FilterSet):
 
 
 class StockIssueArticleTable(tables.Table):
-    total_average_price_with_vat = tables.Column(verbose_name='Celková cena s DPH')
-    change = tables.TemplateColumn(
-        '''<a href="/kitchen/stockissue/updatearticle/{{ record.id }}">Upravit</a>
-        | <a href="/kitchen/stockissue/deletearticle/{{ record.id }}">Vymazat</a>''',
-        verbose_name='Akce', )
+    total_average_price_with_vat = tables.Column(verbose_name=_('Celková cena s DPH'))
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+
+    def render_change(self, record):
+        return mark_safe(
+            f'<a href="/kitchen/stockissue/updatearticle/{record.id}">{LABEL_EDIT}</a> | '
+            f'<a href="/kitchen/stockissue/deletearticle/{record.id}">{LABEL_DELETE}</a>'
+        )
 
     class Meta:
         model = StockIssueArticle
@@ -306,14 +349,17 @@ class StockIssueArticleTable(tables.Table):
 
 
 class StockReceiptTable(tables.Table):
-    total_price = tables.Column(verbose_name='Celková cena s DPH')
-    change = tables.TemplateColumn(
-        '''<a href="/kitchen/stockreceipt/update/{{ record.id }}">Upravit</a>
-        | <a href="/kitchen/stockreceipt/articlelist/{{ record.id }}">Zobrazit zboží</a>
-        | <a href="/kitchen/stockreceipt/approve/{{ record.id }}">Naskladnit</a>
-        | <a href="/kitchen/stockreceipt/delete/{{ record.id }}">Vymazat</a>
-        | <a href="/kitchen/stockreceipt/print/{{ record.id }}">PDF</a>''',
-        verbose_name='Akce', )
+    total_price = tables.Column(verbose_name=_('Celková cena s DPH'))
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+
+    def render_change(self, record):
+        return mark_safe(
+            f'<a href="/kitchen/stockreceipt/update/{record.id}">{LABEL_EDIT}</a> | '
+            f'<a href="/kitchen/stockreceipt/articlelist/{record.id}">{LABEL_SHOW_ARTICLES}</a> | '
+            f'<a href="/kitchen/stockreceipt/approve/{record.id}">{LABEL_RECEIPT}</a> | '
+            f'<a href="/kitchen/stockreceipt/delete/{record.id}">{LABEL_DELETE}</a> | '
+            f'<a href="/kitchen/stockreceipt/print/{record.id}">PDF</a>'
+        )
 
     class Meta:
         model = StockReceipt
@@ -334,7 +380,7 @@ class StockReceiptFilter(FilterSet):
             format='%Y-%m-%d',
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Vyber datum',
+                'placeholder': _('Vyber datum'),
                 'type': 'date'
             }
         )
@@ -346,12 +392,15 @@ class StockReceiptFilter(FilterSet):
 
 
 class StockReceiptArticleTable(tables.Table):
-    price_with_vat = tables.Column(verbose_name='Jednotková cena s DPH')
-    total_price_with_vat = tables.Column(verbose_name='Celková cena s DPH')
-    change = tables.TemplateColumn(
-        '''<a href="/kitchen/stockreceipt/updatearticle/{{ record.id }}">Upravit</a>
-        | <a href="/kitchen/stockreceipt/deletearticle/{{ record.id }}">Vymazat</a>''',
-        verbose_name='Akce', )
+    price_with_vat = tables.Column(verbose_name=_('Jednotková cena s DPH'))
+    total_price_with_vat = tables.Column(verbose_name=_('Celková cena s DPH'))
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+
+    def render_change(self, record):
+        return mark_safe(
+            f'<a href="/kitchen/stockreceipt/updatearticle/{record.id}">{LABEL_EDIT}</a> | '
+            f'<a href="/kitchen/stockreceipt/deletearticle/{record.id}">{LABEL_DELETE}</a>'
+        )
 
     class Meta:
         model = StockReceiptArticle

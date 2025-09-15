@@ -1,5 +1,6 @@
 """ Functions used for """
 from django.forms import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 
 # convert article amount or price between units, units are defined in .models.UNIT
@@ -14,7 +15,9 @@ def convert_units(number, unit_in, unit_out):
         return number*1000
     if unit_in == 'ml' and unit_out == 'l':
         return number/1000
-    raise ValidationError(f"Není možné provést konverzi {number} {unit_in} na {unit_out}")
+    raise ValidationError(_("Není možné provést konverzi {number} {unit_in} na {unit_out}").format(
+        number = number, unit_in = unit_in, unit_out = unit_out)
+    )
 
 
 # returns total RecipeArticle price, RecipeArticle amount is converted using Article unit

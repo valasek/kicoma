@@ -25,6 +25,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils import formats, translation
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import DetailView
 from django.views.generic.base import TemplateView
@@ -209,8 +210,8 @@ def export_data(request):
         management.call_command('dumpdata', 'kitchen', exclude=['contenttypes', 'auth'], stdout=f)
         f.close()
         response = HttpResponse(open(file_name, "rb"), content_type="application/json")
-        response['Content-Disposition'] = 'attachment; filename='+file_name
-        messages.success(request, "Všechna data byla exportována")
+        response['Content-Disposition'] = f'attachment; filename={file_name}'
+        messages.success(request, _("Všechna data byla exportována"))
         return response
 
 
@@ -222,7 +223,7 @@ class ImportDataView(LoginRequiredMixin, TemplateView):
         if len(request.FILES) == 0:
             messages.error(
                 self.request,
-                "Není vybrán vstupní soubor, použij tlačítko Browse a vyber soubor.")
+                _("Není vybrán vstupní soubor, použij tlačítko Browse a vyber soubor."))
             return super().render_to_response(context)
         uploaded_file = request.FILES['myfile']
         fs = FileSystemStorage()
@@ -234,9 +235,9 @@ class ImportDataView(LoginRequiredMixin, TemplateView):
                 management.call_command('loaddata', "./kicoma/kitchen/fixtures/skupiny.json", verbosity=1)
                 management.call_command('loaddata', "./kicoma/kitchen/fixtures/uzivatele.json", verbosity=1)
                 management.call_command('loaddata', fs.path(filename), verbosity=1)
-                messages.success(self.request, "Data úspěšně nahrána: "+f.getvalue())
+                messages.success(self.request, _("Data úspěšně nahrána: ")+f.getvalue())
         except Exception as e:
-            messages.success(self.request, "Chyba při výmazu dat před importem: "+str(e))
+            messages.success(self.request, _("Chyba při výmazu dat před importem: ")+str(e))
         return super().render_to_response(context)
 
 
@@ -297,19 +298,19 @@ class DataCleanUpView(SuccessMessageMixin, LoginRequiredMixin, TemplateView):
         try:
             deleted_historical_articles_count, _ = HistoricalArticle.objects.filter(modified__year__lt=year_ago).delete()
             if deleted_historical_articles_count > 0:
-                messages.success(self.request, f"Zboží - historie, úspěšne vymazáno: {deleted_historical_articles_count} záznamů")
+                messages.success(self.request, _("Zboží - historie, úspěšne vymazáno: {deleted_historical_articles_count} záznamů").format(deleted_historical_articles_count=deleted_historical_articles_count))
             deleted_stock_issues_count, _ = StockIssue.objects.filter(modified__year__lt=year_ago).delete()
             if deleted_stock_issues_count > 0:
-                messages.success(self.request, f"Výdejky, úspěšne vymazáno: {deleted_stock_issues_count} záznamů")
+                messages.success(self.request,_(f"Výdejky, úspěšne vymazáno: {deleted_stock_issues_count} záznamů").format(deleted_stock_issues_count=deleted_stock_issues_count))
             deleted_stock_receipts_count, _ = StockReceipt.objects.filter(modified__year__lt=year_ago).delete()
             if deleted_stock_receipts_count > 0:
-                messages.success(self.request, f"Příjemky, úspěšne vymazáno: {deleted_stock_receipts_count} záznamů")
+                messages.success(self.request, _("Příjemky, úspěšne vymazáno: {deleted_stock_receipts_count} záznamů").format(deleted_stock_receipts_count=deleted_stock_receipts_count))
             daily_menus_count, _ = DailyMenu.objects.filter(modified__year__lt=year_ago).delete()
             if daily_menus_count > 0:
-                messages.success(self.request, f"Denné menu, úspěšne vymazáno: {daily_menus_count} záznamů")
+                messages.success(self.request, _("Denné menu, úspěšne vymazáno: {daily_menus_count} záznamů").format(daily_menus_count=daily_menus_count))
         except Exception as e:
-            messages.error(self.request, "Chyba při mazání historických záznamů: "+str(e))
-        messages.success(self.request, "Výmaz dokončen")
+            messages.error(self.request, _("Chyba při mazání historických záznamů: ")+str(e))
+        messages.success(self.request, _("Výmaz dokončen"))
         return super().render_to_response(context)
 
 def switch_language(request):
@@ -410,7 +411,7 @@ class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Article
     form_class = ArticleForm
     template_name = 'kitchen/article/create.html'
-    success_message = "Skladová karta %(article)s byla založeno, je možné zadávat příjemky a recepty"
+    success_message = _("Skladová karta %(article)s byla založeno, je možné zadávat příjemky a recepty")
     success_url = reverse_lazy('kitchen:showArticles')
 
 
@@ -418,7 +419,7 @@ class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Article
     form_class = ArticleForm
     template_name = 'kitchen/article/update.html'
-    success_message = "Skladová karta %(article)s byla aktualizována"
+    success_message = _("Skladová karta %(article)s byla aktualizována")
     success_url = reverse_lazy('kitchen:showArticles')
 
 
@@ -426,14 +427,14 @@ class ArticleRestrictedUpdateView(SuccessMessageMixin, LoginRequiredMixin, Updat
     model = Article
     form_class = ArticleRestrictedForm
     template_name = 'kitchen/article/restricted_update.html'
-    success_message = "Skladová karta %(article)s byla aktualizována"
+    success_message = _("Skladová karta %(article)s byla aktualizována")
     success_url = reverse_lazy('kitchen:showRestrictedArticles')
 
 
 class ArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = Article
     template_name = 'kitchen/article/delete.html'
-    success_message = "Skladová karta byla odstraněna"
+    success_message = _("Skladová karta byla odstraněna")
     success_url = reverse_lazy('kitchen:showArticles')
 
     def get_context_data(self, **kwargs):
@@ -453,12 +454,12 @@ class ArticlePDFView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['articles'] = Article.objects.all().prefetch_related('allergen')
-        context['title'] = "Seznam zboží na skladu"
+        context['title'] = _("Seznam zboží na skladu")
         context['total_stock_price'] = Article.sum_total_price()
         return context
 
     def get(self, request, *args, **kwargs):
-        response = create_pdf(self, request, "Seznam_zbozi.pdf", **kwargs)
+        response = create_pdf(self, request, _("Seznam_zbozi.pdf"), **kwargs)
         return response
 
 
@@ -466,10 +467,11 @@ class ArticleExportView(LoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
         data = ArticleResource().export()
+        filename=_("seznam-zbozi.xlsx")
         response = HttpResponse(
             data.xlsx, content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-        response['Content-Disposition'] = 'attachment; filename=seznam-zbozi.xlsx'
-        messages.success(self.request, "Seznam zboží byl exportován")
+        response['Content-Disposition'] = f'attachment; filename={filename}'
+        messages.success(self.request, _("Seznam zboží byl exportován"))
         return response
 
 
@@ -483,18 +485,18 @@ class ArticleImportView(LoginRequiredMixin, TemplateView):
         if len(request.FILES) == 0:
             messages.error(
                 self.request,
-                "Není vybrán vstupní soubor, použij tlačítko Browse a vyber exportovaný a upravený MS Excel soubor.")
+                _("Není vybrán vstupní soubor, použij tlačítko Browse a vyber exportovaný a upravený MS Excel soubor."))
             return super().render_to_response(context)
         new_articles = request.FILES['myfile']
         imported_data = dataset.load(new_articles.read())
         result = article_resource.import_data(imported_data, dry_run=True,
                                               collect_failed_rows=True)  # Test the data import
         if result.has_errors() or result.has_validation_errors():
-            messages.error(self.request, f"Chyba v průběhu importu. Chybná data: {result.failed_dataset}")
+            messages.error(self.request, _("Chyba v průběhu importu. Chybná data: {error}").format(error=result.failed_dataset))
         else:
             article_resource.import_data(imported_data, dry_run=False)  # Actually import now
-            messages.success(self.request, "Seznam zboží byl importován. Importováno {} řádků, z toho {} vloženo, \
-                {} aktualizováno, {} vymazáno, {} přeskočeno, {} s chybou a {} neplatných řádků"
+            messages.success(self.request, _("Seznam zboží byl importován. Importováno {} řádků, z toho {} vloženo, \
+                {} aktualizováno, {} vymazáno, {} přeskočeno, {} s chybou a {} neplatných řádků")
                              .format(result.total_rows, result.totals['new'], result.totals['update'],
                                      result.totals['delete'], result.totals['skip'], result.totals['error'],
                                      result.totals['invalid']))
@@ -518,11 +520,11 @@ class StockTakePDFView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['articles'] = Article.objects.all().prefetch_related('allergen')
-        context['title'] = "Seznam zboží na skladu ke kontrole"
+        context['title'] = _("Seznam zboží na skladu ke kontrole")
         return context
 
     def get(self, request, *args, **kwargs):
-        response = create_pdf(self, request, "Seznam_zbozi_na_skladu.pdf", **kwargs)
+        response = create_pdf(self, request, _("Seznam_zbozi_na_skladu.pdf"), **kwargs)
         return response
 
 
@@ -576,9 +578,9 @@ class ArticleExportInSelectedDaysFilter(LoginRequiredMixin, FormView):
         data = ArticleResource().export(articles)
         response = HttpResponse(
             data.xlsx, content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-        filename = f"seznam-zbozi-{selected_date}.xlsx"
+        filename = _("seznam-zbozi-{selected_date}.xlsx").format(selected_date=selected_date)
         response['Content-Disposition'] = f"attachment; filename={filename}"
-        messages.success(self.request, f"Seznam zboží na skladu ke dni {selected_date} byl exportován")
+        messages.success(self.request, _("Seznam zboží na skladu ke dni {selected_date} byl exportován"))
         return response
 
 
@@ -615,7 +617,7 @@ class RecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Recipe
     form_class = RecipeForm
     template_name = 'kitchen/recipe/create.html'
-    success_message = "Recept %(recipe)s byl vytvořen, přidej ingredience"
+    success_message = _("Recept %(recipe)s byl vytvořen, přidej ingredience")
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showRecipeArticles', kwargs={'pk': self.object.id})
@@ -625,14 +627,14 @@ class RecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Recipe
     form_class = RecipeForm
     template_name = 'kitchen/recipe/update.html'
-    success_message = "Recept %(recipe)s byl aktualizován"
+    success_message = _("Recept %(recipe)s byl aktualizován")
     success_url = reverse_lazy('kitchen:showRecipes')
 
 
 class RecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = Recipe
     template_name = 'kitchen/recipe/delete.html'
-    success_message = "Recept byl odstraněn"
+    success_message = _("Recept byl odstraněn")
     success_url = reverse_lazy('kitchen:showRecipes')
 
     def form_valid(self, form):
@@ -646,11 +648,11 @@ class RecipeListPDFView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['recipes'] = Recipe.objects.all()
         context['recipes_total'] = Recipe.objects.all().count()
-        context['title'] = "Seznam receptů"
+        context['title'] = _("Seznam receptů")
         return context
 
     def get(self, request, *args, **kwargs):
-        response = create_pdf(self, request, "Seznam_receptu.pdf", **kwargs)
+        response = create_pdf(self, request, _("Seznam_receptu.pdf"), **kwargs)
         return response
 
 
@@ -702,7 +704,7 @@ class RecipeArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateVie
     model = RecipeArticle
     form_class = RecipeArticleForm
     template_name = 'kitchen/recipe/createarticle.html'
-    success_message = "Zboží %(article)s bylo přidáno do receptu"
+    success_message = _("Zboží %(article)s bylo přidáno do receptu")
 
     def get_success_url(self):
         # return reverse_lazy('kitchen:showRecipeCreateArticle', kwargs={'pk': self.kwargs['pk']})
@@ -732,7 +734,7 @@ class RecipeArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateVie
     model = RecipeArticle
     form_class = RecipeArticleForm
     template_name = 'kitchen/recipe/updatearticle.html'
-    success_message = "Zboží %(article)s bylo aktualizováno"
+    success_message = _("Zboží %(article)s bylo aktualizováno")
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showRecipeArticles', kwargs={'pk': self.kwargs['pk']})
@@ -759,7 +761,7 @@ class RecipeArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateVie
 class RecipeArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = RecipeArticle
     template_name = 'kitchen/recipe/deletearticle.html'
-    success_message = "Zboží bylo odstraněno"
+    success_message = _("Zboží bylo odstraněno")
     recipe_id = 0
 
     def get_success_url(self):
@@ -797,7 +799,7 @@ class DailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = DailyMenu
     form_class = DailyMenuCreateForm
     template_name = 'kitchen/dailymenu/create.html'
-    success_message = "Denní menu pro den %(formatted_date)s bylo vytvořeno, přidej recepty"
+    success_message = _("Denní menu pro den %(formatted_date)s bylo vytvořeno, přidej recepty")
 
     def get_success_message(self, cleaned_data):
         date_obj = self.object.date
@@ -817,7 +819,7 @@ class DailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
                     daily_menu=daily_menu,
                     recipe=menu_recipe.recipe,
                     amount=menu_recipe.amount,
-                    comment="Recept byl převzatý z menu"
+                    comment=_("Recept byl převzatý z menu")
                 )
         return HttpResponseRedirect(self.get_success_url())
 
@@ -826,7 +828,7 @@ class DailyMenuUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = DailyMenu
     form_class = DailyMenuEditForm
     template_name = 'kitchen/dailymenu/update.html'
-    success_message = "Denní menu pro den %(formatted_date)s bylo aktualizováno včetně výdejky ke schválení"
+    success_message = _("Denní menu pro den %(formatted_date)s bylo aktualizováno včetně výdejky ke schválení")
     success_url = reverse_lazy('kitchen:showDailyMenus')
 
     def get_success_message(self, cleaned_data):
@@ -858,9 +860,9 @@ class DailyMenuPDFView(LoginRequiredMixin, TemplateView):
         else:
             daily_menu_recipes = DailyMenuRecipe.objects.filter(
                 daily_menu__date=datetime.strptime(date, "%Y-%m-%d"), daily_menu__meal_group=meal_group)
-            context['meal_group_filter'] = "Filtrováno pro skupinu strávníků: " + \
+            context['meal_group_filter'] = _("Filtrováno pro skupinu strávníků: ") + \
                 MealGroup.objects.filter(pk=meal_group).get().meal_group
-        context['title'] = "Denní menu pro " + date
+        context['title'] = _("Denní menu pro ") + date
         context['daily_menu_recipes'] = daily_menu_recipes
         return context
 
@@ -869,9 +871,9 @@ class DailyMenuPDFView(LoginRequiredMixin, TemplateView):
             date = request.GET['date']
             datetime.strptime(date, "%Y-%m-%d")
         except ValueError as e:
-            messages.warning(self.request, f"Chybně zadané datum. Požadovaný formát je rrrr-mm-dd. Chyba: {e}")
+            messages.warning(self.request, _("Chybně zadané datum. Požadovaný formát je rrrr-mm-dd. Chyba: {error}").format(error=e))
             return HttpResponseRedirect(reverse_lazy('kitchen:filterPrintDailyMenu'))
-        response = create_pdf(self, request, "Denni_menu.pdf", **kwargs)
+        response = create_pdf(self, request, _("Denni_menu.pdf"), **kwargs)
         return response
 
 
@@ -901,7 +903,7 @@ class MenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Menu
     form_class = MenuForm
     template_name = 'kitchen/menu/create.html'
-    success_message = "Menu bylo vytvořeno, přidej recepty"
+    success_message = _("Menu bylo vytvořeno, přidej recepty")
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showMenuRecipes', kwargs={'pk': self.object.id})
@@ -911,14 +913,14 @@ class MenuUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Menu
     form_class = MenuForm
     template_name = 'kitchen/menu/update.html'
-    success_message = "Menu bylo aktualizováno"
+    success_message = _("Menu bylo aktualizováno")
     success_url = reverse_lazy('kitchen:showMenus')
 
 
 class MenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = Menu
     template_name = 'kitchen/menu/delete.html'
-    success_message = "Menu bylo odstraněno"
+    success_message = _("Menu bylo odstraněno")
     success_url = reverse_lazy('kitchen:showMenus')
 
     def form_valid(self, form):
@@ -945,7 +947,7 @@ class MenuRecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = MenuRecipe
     form_class = MenuRecipeForm
     template_name = 'kitchen/menu/createrecipe.html'
-    success_message = "Recept %(recipe)s byl přidán"
+    success_message = _("Recept %(recipe)s byl přidán")
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showMenuRecipes', kwargs={'pk': self.object.menu.id})
@@ -968,7 +970,7 @@ class MenuRecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = MenuRecipe
     form_class = MenuRecipeForm
     template_name = 'kitchen/menu/updaterecipe.html'
-    success_message = "Recept %(recipe)s byl aktualizován"
+    success_message = _("Recept %(recipe)s byl aktualizován")
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showMenuRecipes', kwargs={'pk': self.kwargs['pk']})
@@ -989,7 +991,7 @@ class MenuRecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 class MenuRecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = MenuRecipe
     template_name = 'kitchen/menu/deleterecipe.html'
-    success_message = "Recept byl z menu odstraněn"
+    success_message = _("Recept byl z menu odstraněn")
     daily_menu_id = 0
 
     def get_success_url(self):
@@ -1026,7 +1028,7 @@ class DailyMenuRecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateV
     model = DailyMenuRecipe
     form_class = DailyMenuRecipeForm
     template_name = 'kitchen/dailymenu/createrecipe.html'
-    success_message = 'Recept %(recipe)s byl vytvořen'
+    success_message = _('Recept %(recipe)s byl vytvořen')
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showDailyMenuRecipes', kwargs={'pk': self.kwargs['pk']})
@@ -1049,7 +1051,7 @@ class DailyMenuRecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateV
     model = DailyMenuRecipe
     form_class = DailyMenuRecipeForm
     template_name = 'kitchen/dailymenu/updaterecipe.html'
-    success_message = "Recept %(recipe)s byl aktualizován"
+    success_message = _("Recept %(recipe)s byl aktualizován")
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showDailyMenuRecipes', kwargs={'pk': self.kwargs['pk']})
@@ -1070,7 +1072,7 @@ class DailyMenuRecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateV
 class DailyMenuRecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = DailyMenuRecipe
     template_name = 'kitchen/dailymenu/deleterecipe.html'
-    success_message = "Recept byl odstraněn"
+    success_message = _("Recept byl odstraněn")
     daily_menu_id = 0
 
     def get_success_url(self):
@@ -1103,7 +1105,7 @@ class StockIssueCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = StockIssue
     form_class = StockIssueForm
     template_name = 'kitchen/stockissue/create.html'
-    success_message = "Výdejka byla vytvořena a je možné přidávat zboží"
+    success_message = _("Výdejka byla vytvořena a je možné přidávat zboží")
 
     def form_valid(self, form):
         form.instance.user_created = self.request.user
@@ -1127,11 +1129,11 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
         formatted_date = formats.date_format(date_obj, "SHORT_DATE_FORMAT")
         daily_menus = DailyMenu.objects.filter(date=date_obj)
         if len(daily_menus) < 1:
-            form.add_error('date', "Pro zadané datum není vytvořeno denní menu")
+            form.add_error('date', _("Pro zadané datum není vytvořeno denní menu"))
             return super().form_invalid(form)
         count = StockIssue.create_from_daily_menu(daily_menus, formatted_date, self.request.user)
         messages.success(
-            self.request, f'Výdejka pro den { formatted_date } vytvořena a vyskladňuje { count } druhů zboží')
+            self.request, _("Výdejka pro den { formatted_date } vytvořena a vyskladňuje { count } druhů zboží").format(formatted_date=formatted_date, count=count))
         return HttpResponseRedirect(self.success_url)
 
 
@@ -1139,7 +1141,7 @@ class StockIssueUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = StockIssue
     form_class = StockIssueForm
     template_name = 'kitchen/stockissue/update.html'
-    success_message = "Poznámka výdejky byla aktualizována"
+    success_message = _("Poznámka výdejky byla aktualizována")
     success_url = reverse_lazy('kitchen:showStockIssues')
 
 
@@ -1149,11 +1151,11 @@ class StockIssueRefreshView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         stock_issue = StockIssue.objects.filter(pk=kwargs['pk']).get()
         if stock_issue.approved:
-            messages.warning(self.request, "Aktualizace neprovedena - výdejka je již vyskladněna")
+            messages.warning(self.request, _("Aktualizace neprovedena - výdejka je již vyskladněna"))
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
         comment = stock_issue.comment
         if "Pro " not in comment:
-            messages.warning(self.request, "Aktualizace zboží je možná jenom pro výdejku vytvořenou z denního menu")
+            messages.warning(self.request, _("Aktualizace zboží je možná jenom pro výdejku vytvořenou z denního menu"))
         else:
             # FIXME: this does not work in EN locale, it will get string: "Pro 2025-03-05"
             date = comment[4:]
@@ -1162,18 +1164,18 @@ class StockIssueRefreshView(LoginRequiredMixin, View):
                 # FIXME: and here it gives converting error
                 daily_menus = DailyMenu.objects.filter(date=datetime.strptime(date, "%Y-%m-%d"))
                 if len(daily_menus) < 1:
-                    messages.error('date', "Pro zadané datum není vytvořeno denní menu")
+                    messages.error('date', _("Pro zadané datum není vytvořeno denní menu"))
                     return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues'))
                 count = StockIssue.create_from_daily_menu(daily_menus, date, self.request.user)
                 messages.success(
-                    self.request, f"Seznam zboží na výdejce byl aktualizován dle aktuálních receptů na denním menu a vyskladňuje {count} druhů zboží")
+                    self.request, _("Seznam zboží na výdejce byl aktualizován dle aktuálních receptů na denním menu a vyskladňuje {count} druhů zboží").format(count=count))
         return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues'))
 
 
 class StockIssueDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = StockIssue
     template_name = 'kitchen/stockissue/delete.html'
-    success_message = "Výdejka byla odstraněna"
+    success_message = _("Výdejka byla odstraněna")
     success_url = reverse_lazy('kitchen:showStockIssues')
 
     def get_context_data(self, **kwargs):
@@ -1188,7 +1190,7 @@ class StockIssueDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     def post(self, request, *args, **kwargs):
         stock_issue = StockIssue.objects.filter(pk=self.kwargs['pk']).get()
         if stock_issue.approved:
-            messages.warning(self.request, "Výmaz neproveden - výdejka je již vyskladněna")
+            messages.warning(self.request, _("Výmaz neproveden - výdejka je již vyskladněna"))
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
         return super().post(request, *args, **kwargs)
 
@@ -1208,7 +1210,7 @@ class StockIssuePDFView(LoginRequiredMixin, TemplateView):
         return context
 
     def get(self, request, *args, **kwargs):
-        response = create_pdf(self, request, "Výdejka.pdf", **kwargs)
+        response = create_pdf(self, request, _("Výdejka.pdf"), **kwargs)
         return response
 
 
@@ -1229,11 +1231,11 @@ class StockIssueApproveView(LoginRequiredMixin, TemplateView):
     def post(self, *args, **kwargs):
         stock_issue = StockIssue.objects.filter(pk=self.kwargs['pk']).get()
         if stock_issue.approved:
-            messages.warning(self.request, 'Vyskladnění neprovedeno - již bylo vyskladněno')
+            messages.warning(self.request, _("Vyskladnění neprovedeno - již bylo vyskladněno"))
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
         if stock_issue.total_price <= 0:
             messages.warning(
-                self.request, 'Vyskladnění neprovedeno - nulová cena zboží, je zboží naskladněno?')
+                self.request, _("Vyskladnění neprovedeno - nulová cena zboží, je zboží naskladněno?"))
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
         with transaction.atomic():
             stock_issue.approved = True
@@ -1242,12 +1244,12 @@ class StockIssueApproveView(LoginRequiredMixin, TemplateView):
             StockIssue.update_stock_issue_article_average_unit_price(stock_issue.id)
             errors = StockIssue.update_article_on_stock(stock_issue.id, stock_issue.comment, True)
             if errors:
-                errors = "Níže uvedené zboží není možné vyskladnit:<br/>" + errors
+                errors = _("Níže uvedené zboží není možné vyskladnit:<br/>") + errors
                 messages.error(self.request, mark_safe(errors))
                 return HttpResponseRedirect(reverse_lazy('kitchen:approveStockIssue', kwargs={'pk': self.kwargs['pk']}))
             _ = StockIssue.update_article_on_stock(stock_issue.id, stock_issue.comment, False)
             stock_issue.save(update_fields=('approved', 'date_approved', 'user_approved',))
-            messages.success(self.request, "Výdejka byla vyskladněna")
+            messages.success(self.request, _("Výdejka byla vyskladněna"))
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))
 
 
@@ -1273,7 +1275,7 @@ class StockIssueArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Creat
     model = StockIssueArticle
     form_class = StockIssueArticleForm
     template_name = 'kitchen/stockissue/createarticle.html'
-    success_message = 'Zboží %(article)s bylo přidáno'
+    success_message = _("Zboží %(article)s bylo přidáno")
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showStockIssueArticles', kwargs={'pk': self.kwargs['pk']})
@@ -1295,7 +1297,7 @@ class StockIssueArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Creat
             return super().form_invalid(form)
         stock_issue_article.stock_issue = StockIssue.objects.filter(pk=stock_issue.id).get()
         if stock_issue_article.stock_issue.approved:
-            messages.warning(self.request, 'Přidání zboží neprovedeno, výdejka je již vyskladněna')
+            messages.warning(self.request, _("Přidání zboží neprovedeno, výdejka je již vyskladněna"))
             return HttpResponseRedirect(
                 reverse_lazy('kitchen:showStockIssueArticles', kwargs={'pk': stock_issue.id}))
         stock_issue_article.average_unit_price = stock_issue_article.article.average_price
@@ -1307,7 +1309,7 @@ class StockIssueArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Updat
     model = StockIssueArticle
     form_class = StockIssueArticleForm
     template_name = 'kitchen/stockissue/updatearticle.html'
-    success_message = "Zboží %(article)s bylo aktualizováno"
+    success_message = _("Zboží %(article)s bylo aktualizováno")
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showStockIssueArticles', kwargs={'pk': self.kwargs['pk']})
@@ -1327,7 +1329,7 @@ class StockIssueArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Updat
             return super().form_invalid(form)
         stock_issue_article.stock_issue = StockIssueArticle.objects.filter(pk=stock_issue_article.id).get().stock_issue
         if stock_issue_article.stock_issue.approved:
-            messages.warning(self.request, 'Aktualizace zboží neprovedena, výdejka je již vyskladněna')
+            messages.warning(self.request, _("Aktualizace zboží neprovedena, výdejka je již vyskladněna"))
             return HttpResponseRedirect(
                 reverse_lazy('kitchen:showStockIssueArticles', kwargs={'pk': stock_issue_article.stock_issue.id}))
         stock_issue_article.average_unit_price = stock_issue_article.article.average_price
@@ -1339,7 +1341,7 @@ class StockIssueArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Updat
 class StockIssueArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = StockIssueArticle
     template_name = 'kitchen/stockissue/deletearticle.html'
-    success_message = "Zboží bylo odstraněno"
+    success_message = _("Zboží bylo odstraněno")
     success_url = reverse_lazy('kitchen:showStockIssues')
     stock_issue_id = 0
 
@@ -1349,7 +1351,7 @@ class StockIssueArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, Delet
     def form_valid(self, form):
         stock_issue_article = get_object_or_404(StockIssueArticle, pk=self.kwargs['pk'])
         if stock_issue_article.stock_issue.approved:
-            messages.warning(self.request, 'Odstranění zboží neprovedeno, výdejka je již vyskladněna')
+            messages.warning(self.request, _("Odstranění zboží neprovedeno, výdejka je již vyskladněna"))
             return HttpResponseRedirect(
                 reverse_lazy('kitchen:showStockIssueArticles', kwargs={'pk': stock_issue_article.stock_issue.id}))
         self.stock_issue_id = stock_issue_article.stock_issue.id
@@ -1372,7 +1374,7 @@ class StockReceiptCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView
     model = StockReceipt
     form_class = StockReceiptForm
     template_name = 'kitchen/stockreceipt/create.html'
-    success_message = "Příjemka byla vytvořena a je možné přidávat zboží"
+    success_message = _("Příjemka byla vytvořena a je možné přidávat zboží")
 
     def form_valid(self, form):
         form.instance.user_created = self.request.user
@@ -1387,14 +1389,14 @@ class StockReceiptUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView
     model = StockReceipt
     form_class = StockReceiptForm
     template_name = 'kitchen/stockreceipt/update.html'
-    success_message = "Poznámka příjemky byla aktualizována"
+    success_message =_("Poznámka příjemky byla aktualizována")
     success_url = reverse_lazy('kitchen:showStockReceipts')
 
 
 class StockReceiptDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = StockReceipt
     template_name = 'kitchen/stockreceipt/delete.html'
-    success_message = "Příjemka byla odstraněna"
+    success_message = _("Příjemka byla odstraněna")
     success_url = reverse_lazy('kitchen:showStockReceipts')
 
     def get_context_data(self, **kwargs):
@@ -1409,7 +1411,7 @@ class StockReceiptDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView
     def post(self, request, *args, **kwargs):
         stock_receipt = StockReceipt.objects.filter(pk=self.kwargs['pk']).get()
         if stock_receipt.approved:
-            messages.warning(self.request, "Výmaz neproveden - příjemka je již naskladněna")
+            messages.warning(self.request, _("Výmaz neproveden - příjemka je již naskladněna"))
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
         return super().post(request, *args, **kwargs)
 
@@ -1428,7 +1430,7 @@ class StockReceiptPDFView(LoginRequiredMixin, TemplateView):
         return context
 
     def get(self, request, *args, **kwargs):
-        response = create_pdf(self, request, "Prijemka.pdf", **kwargs)
+        response = create_pdf(self, request, _("Prijemka.pdf"), **kwargs)
         return response
 
 
@@ -1449,11 +1451,11 @@ class StockReceiptApproveView(LoginRequiredMixin, TemplateView):
     def post(self, *args, **kwargs):
         stock_receipt = StockReceipt.objects.filter(pk=self.kwargs['pk']).get()
         if stock_receipt.approved:
-            messages.warning(self.request, 'Naskladnění neprovedeno - již bylo naskladněno')
+            messages.warning(self.request, _("Naskladnění neprovedeno - již bylo naskladněno"))
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
         if stock_receipt.total_price <= 0:
             messages.warning(
-                self.request, 'Naskladnění neprovedeno - nulová cena zboží, přidejte alespoň jedno zboží na příjemku')
+                self.request, _("Naskladnění neprovedeno - nulová cena zboží, přidejte alespoň jedno zboží na příjemku"))
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
         with transaction.atomic():
             stock_receipt.approved = True
@@ -1461,7 +1463,7 @@ class StockReceiptApproveView(LoginRequiredMixin, TemplateView):
             stock_receipt.user_approved = self.request.user
             StockReceipt.update_article_on_stock(stock_receipt.id, stock_receipt.comment)
             stock_receipt.save(update_fields=('approved', 'date_approved', 'user_approved',))
-            messages.success(self.request, "Příjemka byla naskladněna")
+            messages.success(self.request, _("Příjemka byla naskladněna"))
         return HttpResponseRedirect(reverse_lazy('kitchen:showStockReceipts',))
 
 
@@ -1490,7 +1492,7 @@ class StockReceiptArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Cre
     model = StockReceiptArticle
     form_class = StockReceiptArticleForm
     template_name = 'kitchen/stockreceipt/createarticle.html'
-    success_message = 'Zboží %(article)s bylo přidáno: %(amount)s %(unit)s * %(unit_price)s Kč = %(total_price)s Kč'
+    success_message = _("Zboží %(article)s bylo přidáno: %(amount)s %(unit)s * %(unit_price)s Kč = %(total_price)s Kč")
 
     def get_success_url(self):
         return reverse_lazy('kitchen:createStockReceiptArticle', kwargs={'pk': self.kwargs['pk']})
@@ -1519,7 +1521,7 @@ class StockReceiptArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Cre
             return super().form_invalid(form)
         stock_receipt_article.stock_receipt = StockReceipt.objects.filter(pk=stock_receipt.id).get()
         if stock_receipt_article.stock_receipt.approved:
-            messages.warning(self.request, 'Přidání zboží neprovedeno, příjemka je již naskladněna')
+            messages.warning(self.request, _("Přidání zboží neprovedeno, příjemka je již naskladněna"))
             return HttpResponseRedirect(
                 reverse_lazy('kitchen:showStockReceiptArticles', kwargs={'pk': stock_receipt.id}))
         stock_receipt_article.save()
@@ -1530,7 +1532,7 @@ class StockReceiptArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Upd
     model = StockReceiptArticle
     form_class = StockReceiptArticleForm
     template_name = 'kitchen/stockreceipt/updatearticle.html'
-    success_message = "Zboží %(article)s bylo aktualizováno"
+    success_message = _("Zboží %(article)s bylo aktualizováno")
 
     def get_success_url(self):
         return reverse_lazy('kitchen:showStockReceiptArticles', kwargs={'pk': self.kwargs['pk']})
@@ -1551,7 +1553,7 @@ class StockReceiptArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Upd
         stock_receipt_article.stock_receipt = StockReceiptArticle.objects.filter(
             pk=stock_receipt_article.id).get().stock_receipt
         if stock_receipt_article.stock_receipt.approved:
-            messages.warning(self.request, 'Aktualizace zboží neprovedena, příjemka je již naskladněna')
+            messages.warning(self.request, _("Aktualizace zboží neprovedena, příjemka je již naskladněna"))
             return HttpResponseRedirect(
                 reverse_lazy('kitchen:showStockReceiptArticles', kwargs={'pk': stock_receipt_article.stock_receipt.id}))
         stock_receipt_article.save()
@@ -1562,7 +1564,7 @@ class StockReceiptArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Upd
 class StockReceiptArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
     model = StockReceiptArticle
     template_name = 'kitchen/stockreceipt/deletearticle.html'
-    success_message = "Zboží bylo odstraněno"
+    success_message = _("Zboží bylo odstraněno")
     success_url = reverse_lazy('kitchen:showStockReceipts')
     stock_receipt_id = 0
 
@@ -1572,7 +1574,7 @@ class StockReceiptArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, Del
     def form_valid(self, form):
         stock_receipt_article = get_object_or_404(StockReceiptArticle, pk=self.kwargs['pk'])
         if stock_receipt_article.stock_receipt.approved:
-            messages.warning(self.request, 'Odstranění zboží neprovedeno, příjemka je již naskladněna')
+            messages.warning(self.request, _("Odstranění zboží neprovedeno, příjemka je již naskladněna"))
             return HttpResponseRedirect(
                 reverse_lazy('kitchen:showStockReceiptArticles', kwargs={'pk': self.kwargs['pk']}))
         self.stock_receipt_id = stock_receipt_article.stock_receipt.id

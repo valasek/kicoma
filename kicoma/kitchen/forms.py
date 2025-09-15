@@ -2,6 +2,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Layout, Row
 from django import forms
 from django.utils.timezone import now
+from django.utils.translation import gettext_lazy as _
 
 from .models import (
     Article,
@@ -83,7 +84,7 @@ class StockArticlesExportForm(forms.Form):
             format='%Y-%m-%d',
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Vyber datum',
+                'placeholder': _('Vyber datum'),
                 'type': 'date'
             }
         )
@@ -92,7 +93,7 @@ class StockArticlesExportForm(forms.Form):
     def clean_date(self):
         value = self.cleaned_data["date"]
         if value > now().date():
-            raise forms.ValidationError("Datum nemůže být v budoucnosti.")
+            raise forms.ValidationError(_("Datum nemůže být v budoucnosti."))
         return value
 
 
@@ -151,7 +152,7 @@ class DailyMenuCreateForm(forms.ModelForm):
             'date': forms.DateInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Vyber datum',
+                    'placeholder': _('Vyber datum'),
                     'type': 'date'
                 }
             )
@@ -211,7 +212,7 @@ class DailyMenuPrintForm(forms.ModelForm):
                 format='%Y-%m-%d',
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Vyberte datum',
+                    'placeholder': _('Vyber datum'),
                     'type': 'date'
                 }
             )
@@ -239,7 +240,7 @@ class DailyMenuCateringUnitForm(forms.ModelForm):
             'date': forms.DateInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Vyber datum',
+                    'placeholder': _('Vyber datum'),
                     'type': "date"
                 }
             )
@@ -349,7 +350,7 @@ class StockIssueFromDailyMenuForm(forms.ModelForm):
             'date': forms.DateInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Vyber datum',
+                    'placeholder': _('Vyber datum'),
                     'type': 'date'})
         }
 

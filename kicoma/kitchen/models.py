@@ -46,8 +46,8 @@ def _record_history_change_reason(instance, prefix, comment):
 
 
 class TimeStampedModel(models.Model):
-    created = models.DateTimeField(auto_now_add=True, verbose_name='Datum vytvoření')
-    modified = models.DateTimeField(auto_now=True, verbose_name='Datum aktualizace')
+    created = models.DateTimeField(auto_now_add=True, verbose_name=_('Datum vytvoření'))
+    modified = models.DateTimeField(auto_now=True, verbose_name=_('Datum aktualizace'))
 
     class Meta:
         abstract = True
@@ -60,8 +60,8 @@ class VAT(models.Model):
 
     percentage = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(100)],
-        unique=True, verbose_name='Výše', help_text='DPH procenta')
-    rate = models.CharField(max_length=100, unique=True, verbose_name='Sazba', help_text='DPH sazba')
+        unique=True, verbose_name=_('Výše'), help_text=_('DPH procenta'))
+    rate = models.CharField(max_length=100, unique=True, verbose_name=_('Sazba'), help_text=_('DPH sazba'))
 
     def __str__(self):
         return str(self.percentage) + '%'
@@ -72,8 +72,8 @@ class Allergen(models.Model):
         verbose_name_plural = _('číselník - Alergeny')
         verbose_name = _('číselník - Alergen')
 
-    code = models.CharField(max_length=10, unique=True, verbose_name='Kód', help_text='Kód alergenu')
-    description = models.CharField(max_length=150, unique=True, verbose_name='Název', help_text='Název alergenu')
+    code = models.CharField(max_length=10, unique=True, verbose_name=_('Kód'), help_text=_('Kód alergenu'))
+    description = models.CharField(max_length=150, unique=True, verbose_name=_('Název'), help_text=_('Název alergenu'))
 
     def __str__(self):
         return self.code + ' - ' + self.description
@@ -84,8 +84,8 @@ class MealGroup(models.Model):
         verbose_name_plural = _('číselník - Skupiny strávníků')
         verbose_name = _('číselník - Skupina strávníků')
 
-    meal_group = models.CharField(max_length=100, unique=True, verbose_name='Skupina strávníka',
-                                  help_text='Skupina pro kterou se připravuje jídlo')
+    meal_group = models.CharField(max_length=100, unique=True, verbose_name=_('Skupina strávníka'),
+                                  help_text=_('Skupina pro kterou se připravuje jídlo'))
 
     def __str__(self):
         return str(self.meal_group)
@@ -96,8 +96,8 @@ class MealType(models.Model):
         verbose_name_plural = _('číselník - Druhy jídla')
         verbose_name = _('číselník - Druh jídla')
 
-    meal_type = models.CharField(max_length=30, unique=True, verbose_name='Druh jídla',
-                                 help_text='Druh jídla v rámci dne')
+    meal_type = models.CharField(max_length=30, unique=True, verbose_name=_('Druh jídla'),
+                                 help_text=_('Druh jídla v rámci dne'))
 
     def __str__(self):
         return self.meal_type
@@ -109,22 +109,22 @@ class Article(TimeStampedModel):
         verbose_name = _('Zboží')
         ordering = ['article']
 
-    article = models.CharField(max_length=30, unique=True, verbose_name='Zboží',
-                               help_text='Název zboží na skladu')
-    unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
+    article = models.CharField(max_length=30, unique=True, verbose_name=_('Zboží'),
+                               help_text=_('Název zboží na skladu'))
+    unit = models.CharField(max_length=2, choices=UNIT, verbose_name=_('Jednotka'))
     on_stock = models.DecimalField(
         decimal_places=2, max_digits=8,
         validators=[MinValueValidator(Decimal('0'))],
-        default=0, verbose_name='Na skladu', help_text='Celkové množství zboží na skladu')
+        default=0, verbose_name=_('Na skladu'), help_text=_('Celkové množství zboží na skladu'))
     min_on_stock = models.DecimalField(
         decimal_places=2, max_digits=8, blank=True, validators=[MinValueValidator(Decimal('0'))],
-        default=0, verbose_name='Minimálně na skladu', help_text='Minimální množství zboží na skladu')
+        default=0, verbose_name=_('Minimálně na skladu'), help_text=_('Minimální množství zboží na skladu'))
     total_price = models.DecimalField(
         max_digits=8, blank=True, null=True, decimal_places=2,
         validators=[MinValueValidator(Decimal('0'))],
-        default=0, verbose_name='Celková cena s DPH', help_text='Celková cena zboží na skladu')
-    allergen = models.ManyToManyField(Allergen, blank=True, verbose_name='Alergeny')
-    comment = models.CharField(max_length=200, blank=True, default="", verbose_name='Poznámka')
+        default=0, verbose_name=_('Celková cena s DPH'), help_text=_('Celková cena zboží na skladu'))
+    allergen = models.ManyToManyField(Allergen, blank=True, verbose_name=_('Alergeny'))
+    comment = models.CharField(max_length=200, blank=True, default="", verbose_name=_('Poznámka'))
     history = HistoricalRecords(cascade_delete_history=True)
 
     def __str__(self):
@@ -171,11 +171,11 @@ class Recipe(TimeStampedModel):
         verbose_name = _('Recept')
         ordering = ['recipe']
 
-    recipe = models.CharField(max_length=100, unique=True, verbose_name='recept', help_text='Název receptu')
+    recipe = models.CharField(max_length=100, unique=True, verbose_name=_('Recept'), help_text=_('Název receptu'))
     norm_amount = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(1000)], verbose_name='Porcí')
-    procedure = models.TextField(max_length=1000, blank=True, default="", verbose_name='Postup receptu')
-    comment = models.CharField(max_length=200, blank=True, default="", verbose_name='Poznámka')
+        validators=[MinValueValidator(0), MaxValueValidator(1000)], verbose_name=_('Porcí'))
+    procedure = models.TextField(max_length=1000, blank=True, default="", verbose_name=_('Postup receptu'))
+    comment = models.CharField(max_length=200, blank=True, default="", verbose_name=_('Poznámka'))
 
     def __str__(self):
         return self.recipe
@@ -234,15 +234,15 @@ class RecipeArticle(TimeStampedModel):
         verbose_name = _('Surovina v receptu')
         ordering = ['-recipe']
 
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept',
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name=_('Recept'),
                                related_name='recipearticle_set')
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží',
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name=_('Zboží'),
                                 help_text='Použité zboží')
     amount = models.DecimalField(
         decimal_places=2, max_digits=10, validators=[MinValueValidator(Decimal('0.1'))],
-        verbose_name='Množství', help_text='Množství suroviny')
-    unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
-    comment = models.CharField(max_length=200, blank=True, default="", verbose_name='Poznámka')
+        verbose_name=_('Množství'), help_text=_('Množství suroviny'))
+    unit = models.CharField(max_length=2, choices=UNIT, verbose_name=_('Jednotka'))
+    comment = models.CharField(max_length=200, blank=True, default="", verbose_name=_('Poznámka'))
 
     def __str__(self):
         return self.recipe.recipe + '-  ' + self.article.article + '-  ' + str(self.amount)
@@ -258,10 +258,10 @@ class Menu(TimeStampedModel):
         verbose_name = _('Menu')
         ordering = ['menu']
 
-    menu = models.CharField(max_length=100, unique=True, verbose_name='menu', help_text='Název menu')
-    meal_type = models.ForeignKey(MealType, on_delete=models.CASCADE, verbose_name='Druh jídla',
-                                  help_text='Druh jídla v rámci dne')
-    comment = models.CharField(max_length=200, blank=True, default="", verbose_name='Poznámka')
+    menu = models.CharField(max_length=100, unique=True, verbose_name=_('Menu'), help_text=_('Název menu'))
+    meal_type = models.ForeignKey(MealType, on_delete=models.CASCADE, verbose_name=_('Druh jídla'),
+                                  help_text=_('Druh jídla v rámci dne'))
+    comment = models.CharField(max_length=200, blank=True, default="", verbose_name=_('Poznámka'))
 
     def __str__(self):
         return self.menu
@@ -284,12 +284,12 @@ class MenuRecipe(TimeStampedModel):
             UniqueConstraint(fields=['menu', 'recipe'], name='unique_menu_recipe_pair'),
         ]
 
-    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, verbose_name='Menu',
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, verbose_name=_('Menu'),
                              related_name='menurecipe')
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept',
-                               help_text='Vybraný recept')
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name=_('Recept'),
+                               help_text=_('Vybraný recept'))
     amount = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(1000)],
-                                              verbose_name='Porcí', help_text='Počet porcí')
+                                              verbose_name=_('Porcí'), help_text=_('Počet porcí'))
 
     def __str__(self):
         return self.recipe.recipe + ' - ' + str(self.amount)
@@ -304,14 +304,14 @@ class DailyMenu(TimeStampedModel):
             UniqueConstraint(fields=['date', 'meal_group', 'meal_type'], name='unique_dailymenu_per_date_group_type'),
         ]
 
-    date = models.DateField(verbose_name='Datum', help_text='Datum denního menu')
-    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Menu',
-                             help_text='Přeber recepty z připraveného menu')
-    meal_group = models.ForeignKey(MealGroup, on_delete=models.CASCADE, verbose_name='Skupina strávníka',
-                                   help_text='Skupina pro kterou se připravuje jídlo')
-    meal_type = models.ForeignKey(MealType, on_delete=models.CASCADE, verbose_name='Druh jídla',
-                                  help_text='Druh jídla v rámci dne')
-    comment = models.CharField(max_length=200, blank=True, default="", verbose_name='Poznámka')
+    date = models.DateField(verbose_name=_('Datum'), help_text=_('Datum denního menu'))
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True, blank=True, verbose_name=_('Menu'),
+                             help_text=_('Přeber recepty z připraveného menu'))
+    meal_group = models.ForeignKey(MealGroup, on_delete=models.CASCADE, verbose_name=_('Skupina strávníka'),
+                                   help_text=_('Skupina pro kterou se připravuje jídlo'))
+    meal_type = models.ForeignKey(MealType, on_delete=models.CASCADE, verbose_name=_('Druh jídla'),
+                                  help_text=_('Druh jídla v rámci dne'))
+    comment = models.CharField(max_length=200, blank=True, default="", verbose_name=_('Poznámka'))
 
     def __str__(self):
         return str(self.date) + ' - ' + self.meal_type.meal_type + ' - ' + self.meal_group.meal_group
@@ -328,13 +328,13 @@ class DailyMenuRecipe(TimeStampedModel):
             UniqueConstraint(fields=['daily_menu', 'recipe'], name='unique_dailymenu_recipe_pair'),
         ]
 
-    daily_menu = models.ForeignKey(DailyMenu, on_delete=models.CASCADE, verbose_name='Denní menu',
+    daily_menu = models.ForeignKey(DailyMenu, on_delete=models.CASCADE, verbose_name=_('Denní menu'),
                                    related_name='dailymenurecipe')
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name='Recept',
-                               help_text='Vybraný recept')
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name=_('Recept'),
+                               help_text=_('Vybraný recept'))
     amount = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(1000)],
-                                              verbose_name='Porcí', help_text='Počet porcí')
-    comment = models.CharField(max_length=200, blank=True, default="", verbose_name='Poznámka')
+                                              verbose_name=_('Porcí'), help_text=_('Počet porcí'))
+    comment = models.CharField(max_length=200, blank=True, default="", verbose_name=_('Poznámka'))
 
     def __str__(self):
         return self.recipe.recipe + ' - ' + str(self.amount)
@@ -347,12 +347,12 @@ class StockIssue(TimeStampedModel):
         ordering = ['-created']
 
     user_created = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-                                     related_name='user_is_created', verbose_name='Vytvořil')
-    approved = models.BooleanField(default=False, blank=True, null=True, verbose_name='Vyskladněno')
-    date_approved = models.DateField(blank=True, null=True, verbose_name='Datum vyskladnění')
+                                     related_name='user_is_created', verbose_name=_('Vytvořil'))
+    approved = models.BooleanField(default=False, blank=True, null=True, verbose_name=_('Vyskladněno'))
+    date_approved = models.DateField(blank=True, null=True, verbose_name=_('Datum vyskladnění'))
     user_approved = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True,
-                                      related_name='user_is_approved', verbose_name='Vyskladnil')
-    comment = models.CharField(max_length=200, blank=True, default="", verbose_name='Poznámka')
+                                      related_name='user_is_approved', verbose_name=_('Vyskladnil'))
+    comment = models.CharField(max_length=200, blank=True, default="", verbose_name=_('Poznámka'))
 
     def __str__(self):
         return str(self.created)
@@ -391,7 +391,7 @@ class StockIssue(TimeStampedModel):
     def create_from_daily_menu(daily_menus, date, user):
         with transaction.atomic():
             # save the StockIssue
-            stock_issue = StockIssue(comment="Pro " + date, user_created=user)
+            stock_issue = StockIssue(comment=_("Pro ") + date, user_created=user)
             stock_issue.save()
             # save all StockIssue Articles
             daily_menu_recipes = DailyMenuRecipe.objects.select_related('recipe').filter(daily_menu__in=daily_menus)
@@ -429,7 +429,11 @@ class StockIssue(TimeStampedModel):
             article = stock_article.article
             converted_amount = convert_units(stock_article.amount, stock_article.unit, article.unit)
             if article.on_stock < 0 or article.on_stock - converted_amount < 0:
-                messages += f"{stock_article.article} - na výdejce {converted_amount}, na skladu {article.on_stock}<br/>"
+                messages += _("{article} - na výdejce {converted_amount}, na skladu {on_stock}<br/>").format(
+                    article = stock_article.article,
+                    converted_amount = converted_amount,
+                    on_stock = article.on_stock
+                )
             if not fake:
                 new_total_price = convert_units(
                     stock_article.total_average_price_with_vat,
@@ -443,7 +447,7 @@ class StockIssue(TimeStampedModel):
                     total_price=F('total_price') - delta_price,
                 )
                 updated_article = Article.objects.get(pk=article.pk)
-                _record_history_change_reason(updated_article, 'Výdej', comment)
+                _record_history_change_reason(updated_article, _('Výdej'), comment)
         return messages
 
 
@@ -453,14 +457,14 @@ class StockReceipt(TimeStampedModel):
         verbose_name = _('Příjemka')
         ordering = ['-created']
 
-    date_created = models.DateField(default=datetime.date.today, verbose_name='Datum založení')
+    date_created = models.DateField(default=datetime.date.today, verbose_name=_('Datum založení'))
     user_created = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-                                     related_name='user_created', verbose_name='Vytvořil')
-    approved = models.BooleanField(default=False, blank=True, null=True, verbose_name='Naskladněno')
-    date_approved = models.DateField(blank=True, null=True, verbose_name='Datum naskladnění')
+                                     related_name='user_created', verbose_name=_('Vytvořil'))
+    approved = models.BooleanField(default=False, blank=True, null=True, verbose_name=_('Naskladněno'))
+    date_approved = models.DateField(blank=True, null=True, verbose_name=_('Datum naskladnění'))
     user_approved = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True,
-                                      related_name='user_approved', verbose_name='Naskladnil')
-    comment = models.CharField(max_length=200, blank=True, default="", verbose_name='Poznámka')
+                                      related_name='user_approved', verbose_name=_('Naskladnil'))
+    comment = models.CharField(max_length=200, blank=True, default="", verbose_name=_('Poznámka'))
 
     def __str__(self):
         return str(self.created)
@@ -496,16 +500,16 @@ class StockIssueArticle(TimeStampedModel):
         verbose_name = _('Zboží na výdejce')
         ordering = ['article__article']
 
-    stock_issue = models.ForeignKey(StockIssue, on_delete=models.CASCADE, verbose_name='Výdejka')
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží')
+    stock_issue = models.ForeignKey(StockIssue, on_delete=models.CASCADE, verbose_name=_('Výdejka'))
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name=_('Zboží'))
     amount = models.DecimalField(decimal_places=2, max_digits=8,
                                  validators=[MinValueValidator(Decimal('0.01'))],
-                                 verbose_name='Množství')
-    unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
+                                 verbose_name=_('Množství'))
+    unit = models.CharField(max_length=2, choices=UNIT, verbose_name=_('Jednotka'))
     average_unit_price = models.DecimalField(max_digits=10, decimal_places=2,
                                              validators=[MinValueValidator(Decimal('0'))],
-                                             blank=True, null=True, verbose_name='Průměrná jednotková cena s DPH')
-    comment = models.CharField(max_length=200, blank=True, default="", verbose_name='Poznámka')
+                                             blank=True, null=True, verbose_name=_('Průměrná jednotková cena s DPH'))
+    comment = models.CharField(max_length=200, blank=True, default="", verbose_name=_('Poznámka'))
 
     @property
     def total_average_price_with_vat(self):
@@ -532,16 +536,16 @@ class StockReceiptArticle(TimeStampedModel):
         verbose_name = _('Zboží na příjemce')
         ordering = ['-id']
 
-    stock_receipt = models.ForeignKey(StockReceipt, on_delete=models.CASCADE, verbose_name='Příjemka')
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='Zboží',
+    stock_receipt = models.ForeignKey(StockReceipt, on_delete=models.CASCADE, verbose_name=_('Příjemka'))
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name=_('Zboží'),
                                 related_name='stockreceiptarticle_set')
     amount = models.DecimalField(decimal_places=2, max_digits=8, validators=[
-        MinValueValidator(Decimal('0.1'))], verbose_name='Množství')
-    unit = models.CharField(max_length=2, choices=UNIT, verbose_name='Jednotka')
+        MinValueValidator(Decimal('0.1'))], verbose_name=_('Množství'))
+    unit = models.CharField(max_length=2, choices=UNIT, verbose_name=_('Jednotka'))
     price_without_vat = models.DecimalField(max_digits=10, decimal_places=2, validators=[
-        MinValueValidator(Decimal('0.1'))], verbose_name='Jednotková cena bez DPH')
-    vat = models.ForeignKey(VAT, default=4, on_delete=models.CASCADE, verbose_name='DPH')
-    comment = models.CharField(max_length=200, blank=True, default="", verbose_name='Poznámka')
+        MinValueValidator(Decimal('0.1'))], verbose_name=_('Jednotková cena bez DPH'))
+    vat = models.ForeignKey(VAT, default=4, on_delete=models.CASCADE, verbose_name=_('DPH'))
+    comment = models.CharField(max_length=200, blank=True, default="", verbose_name=_('Poznámka'))
 
     @property
     def price_with_vat(self):
