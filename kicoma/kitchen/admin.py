@@ -5,6 +5,7 @@ from import_export.admin import ImportExportActionModelAdmin
 from .models import (
     VAT,
     Allergen,
+    AppSettings,
     Article,
     DailyMenu,
     DailyMenuRecipe,
@@ -21,6 +22,13 @@ from .models import (
 )
 
 # create import export resources
+
+class AppSettingsResource(resources.ModelResource):
+
+    class Meta:
+        model = AppSettings
+        skip_unchanged = True
+        report_skipped = True
 
 
 class VATResource(resources.ModelResource):
@@ -160,6 +168,11 @@ class StockReceiptArticleResource(resources.ModelResource):
 # integrate import/export into admin
 
 
+class AppSettingsAdmin(ImportExportActionModelAdmin):
+    list_display = ('currency', )
+    resource_class = AppSettingsResource
+
+
 class VATAdmin(ImportExportActionModelAdmin):
     list_display = ('percentage', 'rate',)
     ordering = ('-percentage',)
@@ -261,6 +274,7 @@ class StockReceiptArticleAdmin(ImportExportActionModelAdmin):
     resource_class = StockReceiptArticleResource
 
 
+admin.site.register(AppSettings, AppSettingsAdmin)
 admin.site.register(Allergen, AllergenAdmin)
 admin.site.register(VAT, VATAdmin)
 admin.site.register(MealGroup, MealGroupAdmin)

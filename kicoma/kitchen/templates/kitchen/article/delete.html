@@ -32,7 +32,7 @@
         {% blocktrans with stock=object.on_stock|intcomma unit=object.unit %}Na skladu: {{ stock }} {{ unit }}{% endblocktrans %}
       </li>
       <li>
-        {% blocktrans with total_price=object.total_price|intcomma %}Celková cena: {{ total_price }} Kč{% endblocktrans %}
+        {% blocktrans with total_price=object.total_price|intcomma %}Celková cena: {{ total_price }} {{ CURRENCY }}{% endblocktrans %}
       </li>
     </ul>
     <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>

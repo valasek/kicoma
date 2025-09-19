@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container-fluid">
   <h4>
-    {% trans "Seznam zboží na výdejce z" %} {{ stockissue.created }}, {% trans "vytvořil:" %} {{ stockissue.user_created.name }}, {% trans "celková cena:" %} {{ stockissue.total_price|intcomma }} Kč, {% trans "vyskladněno:" %}
+    {% trans "Seznam zboží na výdejce z" %} {{ stockissue.created }}, {% trans "vytvořil:" %} {{ stockissue.user_created.name }}, {% trans "celková cena:" %} {{ stockissue.total_price|intcomma }} {{ CURRENCY }}, {% trans "vyskladněno:" %}
     {% if stockissue.approved %}
     {% trans "ANO" %}
     {% else %}

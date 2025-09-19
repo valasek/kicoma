@@ -7,8 +7,8 @@
   <hr/>
   {% for data in all_data %}
   {{ data.month }}.{{ data.year }}<br />
-  <strong>{% trans "Příjemky" %}</strong> ({{ data.stock_receipts_count }}{% trans "ks" %}): {{ data.stock_receipts_price|intcomma }} Kč<br/>
-  <strong>{% trans "Výdejky" %}</strong> ({{ data.stock_issues_count }}{% trans "ks" %}): {{ data.stock_issues_price|intcomma }} Kč
+  <strong>{% trans "Příjemky" %}</strong> ({{ data.stock_receipts_count }}{% trans "ks" %}): {{ data.stock_receipts_price|intcomma }} {{ CURRENCY }}<br/>
+  <strong>{% trans "Výdejky" %}</strong> ({{ data.stock_issues_count }}{% trans "ks" %}): {{ data.stock_issues_price|intcomma }} {{ CURRENCY }}
   <br/>
   <br/>
   {% endfor %}

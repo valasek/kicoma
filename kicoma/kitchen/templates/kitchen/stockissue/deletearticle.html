@@ -21,7 +21,7 @@
         {% blocktrans with article=object.article %}Zboží: {{ article }}{% endblocktrans %}
       </li>
       <li>
-        {% blocktrans with price=object.price_without_vat|intcomma %}Cena bez DPH: {{ price }} Kč{% endblocktrans %}
+        {% blocktrans with price=object.price_without_vat|intcomma %}Cena bez DPH: {{ price }} {{ CURRENCY }}{% endblocktrans %}
       </li>
       <li>
         {% blocktrans with comment=object.comment %}Poznámka: {{ comment }}{% endblocktrans %}

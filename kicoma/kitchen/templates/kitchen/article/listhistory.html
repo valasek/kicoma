@@ -33,7 +33,7 @@
         <td>{{ article.unit }}</td>
         <td>{{ article.on_stock }} {{ article.unit }}</td>
         <td>{{ article.min_on_stock }} {{ article.unit }}</td>
-        <td>{{ article.total_price|intcomma }} Kč</td>
+        <td>{{ article.total_price|intcomma }} {{ CURRENCY }}</td>
         <td>{{ article.comment }}</td>
       </tr>
     {% endfor %}

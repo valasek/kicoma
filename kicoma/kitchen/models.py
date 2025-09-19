@@ -53,6 +53,17 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
+class AppSettings(models.Model):
+    class Meta:
+        verbose_name_plural = _('Nastavení')
+        verbose_name = _('Nastavení')
+
+    currency = models.CharField(max_length=5, default="Kč", help_text=_("Mena"))
+
+    def __str__(self):
+        return f"App Settings ({self.currency})"
+
+
 class VAT(models.Model):
     class Meta:
         verbose_name_plural = _('číselník - DPH')

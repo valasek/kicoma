@@ -6,7 +6,7 @@
 <div class="container-fluid">
   <h4>
     {% blocktrans with recipe_name=recipe.recipe norm_amount=recipe.norm_amount total_price=recipe.total_recipe_articles_price|intcomma %}
-    Ingredience pro {{ recipe_name }}, {{ norm_amount }} porcí, celková cena: {{ total_price }} Kč
+    Ingredience pro {{ recipe_name }}, {{ norm_amount }} porcí, celková cena: {{ total_price }} {{ CURRENCY }}
     {% endblocktrans %}
   </h4>
   <hr />

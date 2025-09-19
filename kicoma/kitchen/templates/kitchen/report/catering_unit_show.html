@@ -16,9 +16,9 @@
     <tbody>
       <tr>
         <td>{{ daily_menu_recipe.recipe }}</td>
-        <td>{{ daily_menu_recipe.unit_price|intcomma }} Kč</td>
+        <td>{{ daily_menu_recipe.unit_price|intcomma }} {{ CURRENCY }}</td>
         <td>{{ daily_menu_recipe.amount }}</td>
-        <td>{{ daily_menu_recipe.total_price|intcomma }} Kč</td>
+        <td>{{ daily_menu_recipe.total_price|intcomma }} {{ CURRENCY }}</td>
       </tr>
     </tbody>
     {% endfor %}
@@ -27,7 +27,7 @@
     {% blocktrans with total=daily_menu_recipes_total|intcomma %}Celkem receptů: {{ total }}{% endblocktrans %}
   </p>
   <p>
-    {% blocktrans with total_price=daily_menu_recipes_total_price|intcomma %}Celková cena receptů za den: {{ total_price }} Kč{% endblocktrans %}
+    {% blocktrans with total_price=daily_menu_recipes_total_price|intcomma %}Celková cena receptů za den: {{ total_price }} {{ CURRENCY }}{% endblocktrans %}
   </p>
 </div>
 {% endblock %}

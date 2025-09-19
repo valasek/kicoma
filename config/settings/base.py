@@ -1,8 +1,9 @@
 """
 Base settings to build other settings files upon.
 """
-from pathlib import Path
 import os
+from pathlib import Path
+
 import environ
 from django.utils.translation import gettext_lazy as _
 
@@ -109,7 +110,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "kicoma.users.apps.UsersConfig",
     # Your stuff: custom apps go here
-    "kitchen.apps.KitchenConfig",
+    "kicoma.kitchen.apps.KitchenConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -215,6 +216,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "kicoma.utils.context_processors.settings_context",
+                "kicoma.utils.context_processors.currency",
             ],
         },
     }

@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container-fluid">
   <h4>
-    {% trans "Seznam zboží na příjemce z" %} {{ stockreceipt.created }}, {% trans "vytvořil:" %} {{ stockreceipt.user_created.name }}, {% trans "celková cena:" %} {{ stockreceipt.total_price|intcomma }} Kč, {% trans "naskladněno:" %}
+    {% trans "Seznam zboží na příjemce z" %} {{ stockreceipt.created }}, {% trans "vytvořil:" %} {{ stockreceipt.user_created.name }}, {% trans "celková cena:" %} {{ stockreceipt.total_price|intcomma }} {{ CURRENCY }}, {% trans "naskladněno:" %}
     {% if stockreceipt.approved %}
     {% trans "ANO" %}
     {% else %}

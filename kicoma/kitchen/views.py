@@ -100,6 +100,7 @@ from .tables import (
     StockReceiptFilter,
     StockReceiptTable,
 )
+from .utils import get_currency
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -1492,7 +1493,8 @@ class StockReceiptArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Cre
     model = StockReceiptArticle
     form_class = StockReceiptArticleForm
     template_name = 'kitchen/stockreceipt/createarticle.html'
-    success_message = _("Zboží %(article)s bylo přidáno: %(amount)s %(unit)s * %(unit_price)s Kč = %(total_price)s Kč")
+    success_message = _("Zboží %(article)s bylo přidáno: %(amount)s %(unit)s * %(unit_price)s %(currency)s = %(total_price)s %(currency)s")
+
 
     def get_success_url(self):
         return reverse_lazy('kitchen:createStockReceiptArticle', kwargs={'pk': self.kwargs['pk']})
@@ -1501,7 +1503,8 @@ class StockReceiptArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Cre
         return self.success_message % dict(
             cleaned_data,
             unit_price=self.object.price_with_vat,
-            total_price=self.object.total_price_with_vat
+            total_price=self.object.total_price_with_vat,
+            currency=get_currency()
         )
 
     def get_context_data(self, **kwargs):

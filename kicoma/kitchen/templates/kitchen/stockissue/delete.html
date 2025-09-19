@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <td>{{ total_price|intcomma }} Kč</td>
+        <td>{{ total_price|intcomma }} {{ CURRENCY }}</td>
         <td>{{ stock_issue_articles.count }}</td>
         <td>{{ stock_issue.created }}</td>
         <td>{{ stock_issue.user_created.name }}</td>
@@ -46,8 +46,8 @@
       <tr>
         <td>{{ stock_issue_article.article }}</td>
         <td>{{ stock_issue_article.amount }} {{ stock_issue_article.unit }}</td>
-        <td>{{ stock_issue_article.article.average_price|intcomma }} Kč</td>
-        <td>{{ stock_issue_article.total_average_price_with_vat|intcomma }} Kč</td>
+        <td>{{ stock_issue_article.article.average_price|intcomma }} {{ CURRENCY }}</td>
+        <td>{{ stock_issue_article.total_average_price_with_vat|intcomma }} {{ CURRENCY }}</td>
         <td>{{ stock_issue_article.comment }}</td>
       </tr>
       {% endfor %}

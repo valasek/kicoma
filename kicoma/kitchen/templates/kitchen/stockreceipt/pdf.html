@@ -16,7 +16,7 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">{{ total_price|intcomma }} {% trans "Kč" %}</th>
+      <th scope="row">{{ total_price|intcomma }} {{ CURRENCY }}</th>
       <td>{{ stock_receipt_articles.count }}</td>
       <td>{{ stock_receipt.created }}</td>
       <td>{{ stock_receipt.user_created.name }}</td>
@@ -46,10 +46,10 @@
       <td>
         {{ stock_receipt_article.amount }} {{ stock_receipt_article.unit }}
       </td>
-      <td>{{ stock_receipt_article.price_without_vat|intcomma }} {% trans "Kč" %}</td>
+      <td>{{ stock_receipt_article.price_without_vat|intcomma }} {{ CURRENCY }}</td>
       <td>{{ stock_receipt_article.vat }}</td>
-      <td>{{ stock_receipt_article.price_with_vat|intcomma }} {% trans "Kč" %}</td>
-      <td>{{ stock_receipt_article.total_price_with_vat|intcomma }} {% trans "Kč" %}</td>
+      <td>{{ stock_receipt_article.price_with_vat|intcomma }} {{ CURRENCY }}</td>
+      <td>{{ stock_receipt_article.total_price_with_vat|intcomma }} {{ CURRENCY }}</td>
       <td>{{ stock_receipt_article.comment }}</td>
     </tr>
 {% endfor %}

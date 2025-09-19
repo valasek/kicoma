@@ -19,6 +19,7 @@ from .models import (
     StockReceipt,
     StockReceiptArticle,
 )
+from .utils import get_currency
 
 LABEL_EDIT = _("Upravit")
 LABEL_HISTORY = _("Historie")
@@ -55,11 +56,11 @@ class ArticleTable(tables.Table):
 
     @staticmethod
     def render_average_price(value, record):
-        return f'{intcomma(value)} Kč / {record.unit}'
+        return f'{intcomma(value)} {get_currency()} / {record.unit}'
 
     @staticmethod
     def render_total_price(value):
-        return f'{intcomma(value)} Kč'
+        return f'{intcomma(value)} {get_currency()}'
 
     @staticmethod
     def render_on_stock(value, record):
@@ -91,7 +92,7 @@ class ArticleRestrictedTable(tables.Table):
 
     @staticmethod
     def render_average_price(value, record):
-        return f'{intcomma(value)} Kč / {record.unit}'
+        return f'{intcomma(value)} {get_currency()} / {record.unit}'
 
 
 class ArticleFilter(FilterSet):
@@ -127,7 +128,7 @@ class RecipeTable(tables.Table):
 
     @staticmethod
     def render_total_recipe_articles_price(value):
-        return f'{intcomma(value)} Kč'
+        return f'{intcomma(value)} {get_currency()}'
 
     @staticmethod
     def render_allergens(record):
@@ -167,11 +168,11 @@ class RecipeArticleTable(tables.Table):
 
     @staticmethod
     def render_average_price(value, record):
-        return f'{intcomma(value)} Kč / {record.article.unit}'
+        return f'{intcomma(value)} {get_currency()} / {record.article.unit}'
 
     @staticmethod
     def render_total_average_price(value):
-        return f'{intcomma(value)} Kč'
+        return f'{intcomma(value)} {get_currency()}'
 
 
 class DailyMenuTable(tables.Table):
@@ -311,7 +312,7 @@ class StockIssueTable(tables.Table):
 
     @staticmethod
     def render_total_price(value):
-        return f'{intcomma(intcomma(value))} Kč'
+        return f'{intcomma(intcomma(value))} {get_currency()}'
 
     @staticmethod
     def render_created(value):
@@ -360,11 +361,11 @@ class StockIssueArticleTable(tables.Table):
 
     @staticmethod
     def render_average_unit_price(value, record):
-        return f'{intcomma(value)} Kč / {record.article.unit}'
+        return f'{intcomma(value)} {get_currency()} / {record.article.unit}'
 
     @staticmethod
     def render_total_average_price_with_vat(value):
-        return f'{intcomma(value)} Kč'
+        return f'{intcomma(value)} {get_currency()}'
 
 
 class StockReceiptTable(tables.Table):
@@ -394,7 +395,7 @@ class StockReceiptTable(tables.Table):
 
     @staticmethod
     def render_total_price(value):
-        return f'{intcomma(value)} Kč'
+        return f'{intcomma(value)} {get_currency()}'
 
 
 class StockReceiptFilter(FilterSet):
@@ -441,12 +442,12 @@ class StockReceiptArticleTable(tables.Table):
 
     @staticmethod
     def render_price_without_vat(value):
-        return f'{intcomma(value)} Kč'
+        return f'{intcomma(value)} {get_currency()}'
 
     @staticmethod
     def render_price_with_vat(value):
-        return f'{intcomma(value)} Kč'
+        return f'{intcomma(value)} {get_currency()}'
 
     @staticmethod
     def render_total_price_with_vat(value):
-        return f'{intcomma(value)} Kč'
+        return f'{intcomma(value)} {get_currency()}'

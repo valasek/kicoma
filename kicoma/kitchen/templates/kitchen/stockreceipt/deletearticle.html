@@ -22,7 +22,7 @@
     <p>{% trans "Chcete odstranit zboží z příjemky:" %}</p>
     <ul>
       <li>{% trans "Zboží:" %} {{ object.article }}</li>
-      <li>{% trans "Cena bez DPH:" %} {{ object.price_without_vat|intcomma }} Kč</li>
+      <li>{% trans "Cena bez DPH:" %} {{ object.price_without_vat|intcomma }} {{ CURRENCY }}</li>
       <li>{% trans "Poznámka:" %} {{ object.comment }}</li>
     </ul>
     <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>
