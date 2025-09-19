@@ -1,6 +1,7 @@
 import django_tables2 as tables
 from django import forms
 from django.contrib.humanize.templatetags.humanize import intcomma
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django_filters import CharFilter, DateFilter, FilterSet
@@ -36,10 +37,13 @@ class ArticleTable(tables.Table):
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
+        edit_url = reverse("kitchen:updateArticle", args=[record.id])
+        history_url = reverse("kitchen:showArticleHistory", args=[record.id])
+        delete_url = reverse("kitchen:deleteArticle", args=[record.id])
         return mark_safe(
-            f'<a href="/kitchen/article/update/{record.id}">{LABEL_EDIT}</a> | '
-            f'<a href="/kitchen/article/history/{record.id}">{LABEL_HISTORY}</a> | '
-            f'<a href="/kitchen/article/delete/{record.id}">{LABEL_DELETE}</a>'
+            f'<a href="{edit_url}">{LABEL_EDIT}</a> | '
+            f'<a href="{history_url}">{LABEL_HISTORY}</a> | '
+            f'<a href="{delete_url}">{LABEL_DELETE}</a>'
         )
 
     class Meta:
@@ -72,9 +76,8 @@ class ArticleRestrictedTable(tables.Table):
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
-        return mark_safe(
-            f'<a href="/kitchen/article/restrictedupdate/{record.id}">{LABEL_EDIT}</a>'
-        )
+        edit_url = reverse("kitchen:restrictedupdateArticle", args=[record.id])
+        return mark_safe(f'<a href="{edit_url}">{LABEL_EDIT}</a>')
 
     class Meta:
         model = Article
@@ -105,11 +108,15 @@ class RecipeTable(tables.Table):
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
+        edit_url = reverse("kitchen:updateRecipe", args=[record.id])
+        articlelist_url = reverse("kitchen:showRecipeArticles", args=[record.id])
+        delete_url = reverse("kitchen:deleteRecipe", args=[record.id])
+        pdf_url = reverse("kitchen:printRecipe", args=[record.id])
         return mark_safe(
-            f'<a href="/kitchen/recipe/update/{record.id}">{LABEL_EDIT}</a> | '
-            f'<a href="/kitchen/recipe/articlelist/{record.id}">{LABEL_SHOW_INGREDIENTS}</a> | '
-            f'<a href="/kitchen/recipe/delete/{record.id}">{LABEL_DELETE}</a> | '
-            f'<a href="/kitchen/recipe/print/{record.id}">PDF</a>'
+            f'<a href="{edit_url}">{LABEL_EDIT}</a> | '
+            f'<a href="{articlelist_url}">{LABEL_SHOW_INGREDIENTS}</a> | '
+            f'<a href="{delete_url}">{LABEL_DELETE}</a> | '
+            f'<a href="{pdf_url}">PDF</a>'
         )
 
     class Meta:
@@ -141,9 +148,11 @@ class RecipeArticleTable(tables.Table):
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
+        edit_url = reverse("kitchen:updateRecipeArticle", args=[record.id])
+        delete_url = reverse("kitchen:deleteRecipeArticle", args=[record.id])
         return mark_safe(
-            f'<a href="/kitchen/recipe/updatearticle/{record.id}">{LABEL_EDIT}</a> | '
-            f'<a href="/kitchen/recipe/deletearticle/{record.id}">{LABEL_DELETE}</a>'
+            f'<a href="{edit_url}">{LABEL_EDIT}</a> | '
+            f'<a href="{delete_url}">{LABEL_DELETE}</a>'
         )
 
     class Meta:
@@ -170,10 +179,13 @@ class DailyMenuTable(tables.Table):
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
+        edit_url = reverse("kitchen:updateDailyMenu", args=[record.id])
+        recipelist_url = reverse("kitchen:showDailyMenuRecipes", args=[record.id])
+        delete_url = reverse("kitchen:deleteDailyMenu", args=[record.id])
         return mark_safe(
-            f'<a href="/kitchen/dailymenu/update/{record.id}">{LABEL_EDIT}</a> | '
-            f'<a href="/kitchen/dailymenu/recipelist/{record.id}">{LABEL_SHOW_RECIPES}</a> | '
-            f'<a href="/kitchen/dailymenu/delete/{record.id}">{LABEL_DELETE}</a>'
+            f'<a href="{edit_url}">{LABEL_EDIT}</a> | '
+            f'<a href="{recipelist_url}">{LABEL_SHOW_RECIPES}</a> | '
+            f'<a href="{delete_url}">{LABEL_DELETE}</a>'
         )
 
     class Meta:
@@ -211,9 +223,11 @@ class DailyMenuRecipeTable(tables.Table):
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
+        edit_url = reverse("kitchen:updateDailyMenuRecipe", args=[record.id])
+        delete_url = reverse("kitchen:deleteDailyMenuRecipe", args=[record.id])
         return mark_safe(
-            f'<a href="/kitchen/dailymenu/updaterecipe/{record.id}">{LABEL_EDIT}</a> | '
-            f'<a href="/kitchen/dailymenu/deleterecipe/{record.id}">{LABEL_DELETE}</a>'
+            f'<a href="{edit_url}">{LABEL_EDIT}</a> | '
+            f'<a href="{delete_url}">{LABEL_DELETE}</a>'
         )
 
     class Meta:
@@ -228,10 +242,13 @@ class MenuTable(tables.Table):
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
+        edit_url = reverse("kitchen:updateMenu", args=[record.id])
+        recipelist_url = reverse("kitchen:showMenuRecipes", args=[record.id])
+        delete_url = reverse("kitchen:deleteMenu", args=[record.id])
         return mark_safe(
-            f'<a href="/kitchen/menu/update/{record.id}">{LABEL_EDIT}</a> | '
-            f'<a href="/kitchen/menu/recipelist/{record.id}">{LABEL_SHOW_RECIPES}</a> | '
-            f'<a href="/kitchen/menu/delete/{record.id}">{LABEL_DELETE}</a>'
+            f'<a href="{edit_url}">{LABEL_EDIT}</a> | '
+            f'<a href="{recipelist_url}">{LABEL_SHOW_RECIPES}</a> | '
+            f'<a href="{delete_url}">{LABEL_DELETE}</a>'
         )
 
     class Meta:
@@ -250,9 +267,11 @@ class MenuRecipeTable(tables.Table):
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
+        edit_url = reverse("kitchen:updateMenuRecipe", args=[record.id])
+        delete_url = reverse("kitchen:deleteMenuRecipe", args=[record.id])
         return mark_safe(
-            f'<a href="/kitchen/menu/updaterecipe/{record.id}">{LABEL_EDIT}</a> | '
-            f'<a href="/kitchen/menu/deleterecipe/{record.id}">{LABEL_DELETE}</a>'
+            f'<a href="{edit_url}">{LABEL_EDIT}</a> | '
+            f'<a href="{delete_url}">{LABEL_DELETE}</a>'
         )
 
     class Meta:
@@ -268,21 +287,19 @@ class StockIssueTable(tables.Table):
 
     def render_change(self, record):
         links = [
-            f'<a href="/kitchen/stockissue/update/{record.id}">{LABEL_NOTE}</a>',
-            f'<a href="/kitchen/stockissue/articlelist/{record.id}">{LABEL_SHOW_ARTICLES}</a>',
+            f'<a href="{reverse("kitchen:updateStockIssue", args=[record.id])}">{LABEL_NOTE}</a>',
+            f'<a href="{reverse("kitchen:showStockIssueArticles", args=[record.id])}">{LABEL_SHOW_ARTICLES}</a>',
         ]
 
-        # if you still need role-based conditions, handle them here in Python
         user = getattr(self, "request", None).user if hasattr(self, "request") else None
         if user and user.groups.filter(name="stockkeeper").exists():
-            links.append(f'<a href="/kitchen/stockissue/refresh/{record.id}">{LABEL_REFRESH}</a>')
-            links.append(f'<a href="/kitchen/stockissue/approve/{record.id}">{LABEL_ISSUE}</a>')
+            links.append(f'<a href="{reverse("kitchen:refreshStockIssue", args=[record.id])}">{LABEL_REFRESH}</a>')
+            links.append(f'<a href="{reverse("kitchen:approveStockIssue", args=[record.id])}">{LABEL_ISSUE}</a>')
 
         links.extend([
-            f'<a href="/kitchen/stockissue/delete/{record.id}">{LABEL_DELETE}</a>',
-            f'<a href="/kitchen/stockissue/print/{record.id}">PDF</a>',
+            f'<a href="{reverse("kitchen:deleteStockIssue", args=[record.id])}">{LABEL_DELETE}</a>',
+            f'<a href="{reverse("kitchen:printStockIssue", args=[record.id])}">PDF</a>',
         ])
-
         return mark_safe(" | ".join(links))
 
     class Meta:
@@ -324,9 +341,11 @@ class StockIssueArticleTable(tables.Table):
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
+        edit_url = reverse("kitchen:updateStockIssueArticle", args=[record.id])
+        delete_url = reverse("kitchen:deleteStockIssueArticle", args=[record.id])
         return mark_safe(
-            f'<a href="/kitchen/stockissue/updatearticle/{record.id}">{LABEL_EDIT}</a> | '
-            f'<a href="/kitchen/stockissue/deletearticle/{record.id}">{LABEL_DELETE}</a>'
+            f'<a href="{edit_url}">{LABEL_EDIT}</a> | '
+            f'<a href="{delete_url}">{LABEL_DELETE}</a>'
         )
 
     class Meta:
@@ -353,12 +372,17 @@ class StockReceiptTable(tables.Table):
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
+        edit_url = reverse("kitchen:updateStockReceipt", args=[record.id])
+        articlelist_url = reverse("kitchen:showStockReceiptArticles", args=[record.id])
+        approve_url = reverse("kitchen:approveStockReceipt", args=[record.id])
+        delete_url = reverse("kitchen:deleteStockReceipt", args=[record.id])
+        pdf_url = reverse("kitchen:printStockReceipt", args=[record.id])
         return mark_safe(
-            f'<a href="/kitchen/stockreceipt/update/{record.id}">{LABEL_EDIT}</a> | '
-            f'<a href="/kitchen/stockreceipt/articlelist/{record.id}">{LABEL_SHOW_ARTICLES}</a> | '
-            f'<a href="/kitchen/stockreceipt/approve/{record.id}">{LABEL_RECEIPT}</a> | '
-            f'<a href="/kitchen/stockreceipt/delete/{record.id}">{LABEL_DELETE}</a> | '
-            f'<a href="/kitchen/stockreceipt/print/{record.id}">PDF</a>'
+            f'<a href="{edit_url}">{LABEL_EDIT}</a> | '
+            f'<a href="{articlelist_url}">{LABEL_SHOW_ARTICLES}</a> | '
+            f'<a href="{approve_url}">{LABEL_RECEIPT}</a> | '
+            f'<a href="{delete_url}">{LABEL_DELETE}</a> | '
+            f'<a href="{pdf_url}">PDF</a>'
         )
 
     class Meta:
@@ -397,9 +421,11 @@ class StockReceiptArticleTable(tables.Table):
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
+        edit_url = reverse("kitchen:updateStockReceiptArticle", args=[record.id])
+        delete_url = reverse("kitchen:deleteStockReceiptArticle", args=[record.id])
         return mark_safe(
-            f'<a href="/kitchen/stockreceipt/updatearticle/{record.id}">{LABEL_EDIT}</a> | '
-            f'<a href="/kitchen/stockreceipt/deletearticle/{record.id}">{LABEL_DELETE}</a>'
+            f'<a href="{edit_url}">{LABEL_EDIT}</a> | '
+            f'<a href="{delete_url}">{LABEL_DELETE}</a>'
         )
 
     class Meta:

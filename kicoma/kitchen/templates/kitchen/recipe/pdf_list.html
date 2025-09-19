@@ -1,7 +1,9 @@
 {% extends "../pdf_page.html" %}
 {% load static i18n %}
 {% block content %}
-<p class="text-center">{% blocktrans %}Receptů celkem: {{recipes_total}}{% endblocktrans %}</p>
+<p class="text-center">
+  {% blocktrans with total=recipes_total %}Receptů celkem: {{ total }}{% endblocktrans %}
+</p>
   <table class="table w-auto">
     <thead>
       <tr>
@@ -13,9 +15,9 @@
     <tbody>
     {% for recipe in recipes %}
       <tr>
-        <th scope="row">{{recipe.recipe}}</th>
-        <td>{{recipe.norm_amount}}</td>
-        <td>{{recipe.comment}}</td>
+        <th scope="row">{{ recipe.recipe }}</th>
+        <td>{{ recipe.norm_amount }}</td>
+        <td>{{ recipe.comment }}</td>
       </tr>
     {% endfor %}
     </tbody>

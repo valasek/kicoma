@@ -17,9 +17,15 @@
     {{ form|crispy }}
     <p>{% trans "Chcete odstranit zboží z výdejky:" %}</p>
     <ul>
-      <li>{% blocktrans %}Zboží: {{ object.article }}{% endblocktrans %}</li>
-      <li>{% blocktrans %}Cena bez DPH: {{ object.price_without_vat|intcomma }} Kč{% endblocktrans %}</li>
-      <li>{% blocktrans %}Poznámka: {{ object.comment }}{% endblocktrans %}</li>
+      <li>
+        {% blocktrans with article=object.article %}Zboží: {{ article }}{% endblocktrans %}
+      </li>
+      <li>
+        {% blocktrans with price=object.price_without_vat|intcomma %}Cena bez DPH: {{ price }} Kč{% endblocktrans %}
+      </li>
+      <li>
+        {% blocktrans with comment=object.comment %}Poznámka: {{ comment }}{% endblocktrans %}
+      </li>
     </ul>
     <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>
   </form>

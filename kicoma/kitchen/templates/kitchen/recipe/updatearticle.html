@@ -2,7 +2,11 @@
 {% load crispy_forms_tags static i18n %} 
 {% block content %}
 <div class="container-fluid">
-  <h4>{% blocktrans %}Aktualizace zboží v receptu {{recipe_article_before.recipe.recipe}}, {{recipe_article_before.recipe.norm_amount}} porcí{% endblocktrans %}</h4>
+  <h4>
+    {% blocktrans with recipe_name=recipe_article_before.recipe.recipe portions=recipe_article_before.recipe.norm_amount %}
+      Aktualizace zboží v receptu {{ recipe_name }}, {{ portions }} porcí
+    {% endblocktrans %}
+  </h4>
   <hr />
   <div class="row">
     <div class="col-8 justify-content-start d-inline">

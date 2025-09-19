@@ -2,18 +2,27 @@
 {% load crispy_forms_tags static i18n %} 
 {% block content %}
 <div class="container-fluid">
-  <h4>{% blocktrans %}Chcete odstranit zboží v receptu {{recipe_article_before.recipe.recipe}}, {{recipe_article_before.recipe.norm_amount}} porcí?{% endblocktrans %}</h4>
+  <h4>
+    {% blocktrans with recipe_name=recipe_article_before.recipe.recipe portions=recipe_article_before.recipe.norm_amount %}
+      Chcete odstranit zboží v receptu {{ recipe_name }}, {{ portions }} porcí?
+    {% endblocktrans %}
+  </h4>
   <hr />
   <p>
-    <a href="{% url 'kitchen:showRecipeArticles' object.recipe.id%}">
+    <a href="{% url 'kitchen:showRecipeArticles' object.recipe.id %}">
       <button class="btn btn-secondary">{% trans "Zpět recept" %}</button>
     </a>
   </p>
   <form method="post" action="{% url 'kitchen:deleteRecipeArticle' pk=object.id %}">
-    {% csrf_token %} {{ form|crispy }}
+    {% csrf_token %} 
+    {{ form|crispy }}
     <ul>
-      <li>{% blocktrans %}Zboží: {{ object.article }}{% endblocktrans %}</li>
-      <li>{% blocktrans %}Množství: {{ object.amount }} {{ object.unit }}{% endblocktrans %}</li>
+      <li>
+        {% blocktrans with article=object.article %}Zboží: {{ article }}{% endblocktrans %}
+      </li>
+      <li>
+        {% blocktrans with amount=object.amount unit=object.unit %}Množství: {{ amount }} {{ unit }}{% endblocktrans %}
+      </li>
     </ul>
     <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>
   </form>

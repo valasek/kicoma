@@ -7,10 +7,13 @@
   {% if articles %}
     {% trans "Níže uvedené zboží na skladu není použito v žádném receptu a jestli dále není potřeba, může být vymazáno." %}
     <hr/>
-    {% blocktrans %}Celkem jde o {{ articles|length }} druhů zboží:{% endblocktrans %}<br/>
+    {% blocktrans with total=articles|length %}Celkem jde o {{ total }} druhů zboží:{% endblocktrans %}<br/>
     <ul>
     {% for article in articles %}
-      <li><a href="{% url 'kitchen:updateArticle' pk=article.id %}">{{ article }}</a> - <a href="{% url 'kitchen:deleteArticle' pk=article.id %}">{% trans "Vymazat!" %}</a></li>
+      <li>
+        <a href="{% url 'kitchen:updateArticle' pk=article.id %}">{{ article }}</a> - 
+        <a href="{% url 'kitchen:deleteArticle' pk=article.id %}">{% trans "Vymazat!" %}</a>
+      </li>
     {% endfor %}
     </ul>
   {% else %}

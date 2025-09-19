@@ -2,11 +2,15 @@
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% blocktrans %}Aktualizace receptu v menu: {{menurecipe_before.menu}}{% endblocktrans %}</h4>
+  <h4>
+    {% blocktrans with menu=menurecipe_before.menu %}Aktualizace receptu v menu: {{ menu }}{% endblocktrans %}
+  </h4>
   <hr/>
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
-      <a href="{% url 'kitchen:showMenuRecipes' menurecipe_before.menu.id%}"><button class="btn btn-secondary">{% trans "Zpět na seznam receptů" %}</button></a>
+      <a href="{% url 'kitchen:showMenuRecipes' menurecipe_before.menu.id %}">
+        <button class="btn btn-secondary">{% trans "Zpět na seznam receptů" %}</button>
+      </a>
     </div>
   </div>
   <br/>

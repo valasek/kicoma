@@ -3,13 +3,15 @@
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% blocktrans %}Seznam receptů pro menu: {{menu}}{% endblocktrans %}</h4>
+  <h4>
+    {% blocktrans with menu_name=menu %}Seznam receptů pro menu: {{ menu_name }}{% endblocktrans %}
+  </h4>
   <hr/>
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
       <a href="{% url 'kitchen:showMenus' %}" class="btn btn-secondary mb-2">{% trans "Zpět na seznam menu" %}</a>
       <a href="{% url 'kitchen:createMenuRecipe' menu.id %}" class="btn btn-primary mb-2">{% trans "Přidat recept" %}</a>
-      {% trans "Poznámka:" %} {{menu.comment}}
+      {% trans "Poznámka:" %} {{ menu.comment }}
     </div>
   </div>
   {% render_table table %}

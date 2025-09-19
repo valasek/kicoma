@@ -2,10 +2,12 @@
 {% load crispy_forms_tags static i18n %} 
 {% block content %}
 <div class="container-fluid">
-  <h4>{% blocktrans %}Přidání ingredience do receptu {{recipe}}{% endblocktrans %}</h4>
+  <h4>
+    {% blocktrans with recipe_name=recipe %}Přidání ingredience do receptu {{ recipe_name }}{% endblocktrans %}
+  </h4>
   <hr />
   <p>
-    <a href="{% url 'kitchen:showRecipeArticles' recipe.id%}">
+    <a href="{% url 'kitchen:showRecipeArticles' recipe.id %}">
       <button class="btn btn-secondary">{% trans "Zpět na recept" %}</button>
     </a>
   </p>

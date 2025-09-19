@@ -4,7 +4,11 @@
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% blocktrans %}Ingredience pro {{ recipe.recipe }}, {{ recipe.norm_amount }} porcí, celková cena: {{ recipe.total_recipe_articles_price|intcomma }} Kč{% endblocktrans %}</h4>
+  <h4>
+    {% blocktrans with recipe_name=recipe.recipe norm_amount=recipe.norm_amount total_price=recipe.total_recipe_articles_price|intcomma %}
+    Ingredience pro {{ recipe_name }}, {{ norm_amount }} porcí, celková cena: {{ total_price }} Kč
+    {% endblocktrans %}
+  </h4>
   <hr />
   <div class="row">
     <div class="col-8 justify-content-start d-inline">

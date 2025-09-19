@@ -2,14 +2,18 @@
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% blocktrans %}Odstranění menu: {{object.menu}}{% endblocktrans %}</h4>
+  <h4>
+    {% blocktrans with menu=object.menu %}Odstranění menu: {{ menu }}{% endblocktrans %}
+  </h4>
   <hr/>
-  <p><a href="{% url 'kitchen:showMenus'%}" class="btn btn-secondary mb-2">{% trans "Zpět na seznam menu" %}</a></p>
+  <p><a href="{% url 'kitchen:showMenus' %}" class="btn btn-secondary mb-2">{% trans "Zpět na seznam menu" %}</a></p>
   <form method="post" action="{% url 'kitchen:deleteMenu' pk=object.id %}">
     {% csrf_token %}
     {{ form|crispy }}
-    <p>{% blocktrans %}Skutečně odstranit menu: {{object.menu}}?{% endblocktrans %}</p>
-    <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button></p>
+    <p>
+      {% blocktrans with menu=object.menu %}Skutečně odstranit menu: {{ menu }}?{% endblocktrans %}
+    </p>
+    <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>
   </form>
 </div>
 {% endblock content %}

@@ -12,10 +12,14 @@
       Zboží, které před importem bylo použito v receptu, na příjemce nebo výdejce a nebude v importu uvede data do nekonzistence.{% endblocktrans %}
     </p>
   </div>
-  <p>{% blocktrans %}Vyber MS Excel soubor, který jsi exportovala{% endblocktrans %} (<a href="{% url 'kitchen:exportArticles' %}">{% trans "Inventura - export zboží" %}</a>) {% trans "a upravila:" %}</p>
+  <p>
+    {% trans "Vyber MS Excel soubor, který jsi exportovala" %}
+    (<a href="{% url 'kitchen:exportArticles' %}">{% trans "Inventura - export zboží" %}</a>)
+    {% trans "a upravila:" %}
+  </p>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <input type="file" name="myfile"><br/> <br/>
+    <input type="file" name="myfile"><br/><br/>
     <button type="submit" class="btn btn-success" id="myBtn">{% trans "Import zboží na sklad" %}</button>
   </form>
   <div class="modal" id="myModal" tabindex="-1">

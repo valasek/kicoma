@@ -10,10 +10,18 @@
     {{ form|crispy }}
     <p>{% trans "Chcete odstranit recept:" %}</p>
     <ul>
-      <li>{% blocktrans %}Název: {{ object.recipe }}{% endblocktrans %}</li>
-      <li>{% blocktrans %}Vytvořen dne: {{ object.created }}{% endblocktrans %}</li>
-      <li>{% blocktrans %}Počet porcí: {{ object.norm_amount }}{% endblocktrans %}</li>
-      <li>{% blocktrans %}Postup: {{ object.procedure }}{% endblocktrans %}</li>
+      <li>
+        {% blocktrans with recipe=object.recipe %}Název: {{ recipe }}{% endblocktrans %}
+      </li>
+      <li>
+        {% blocktrans with created=object.created %}Vytvořen dne: {{ created }}{% endblocktrans %}
+      </li>
+      <li>
+        {% blocktrans with portions=object.norm_amount %}Počet porcí: {{ portions }}{% endblocktrans %}
+      </li>
+      <li>
+        {% blocktrans with procedure=object.procedure %}Postup: {{ procedure }}{% endblocktrans %}
+      </li>
     </ul>
     <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>
   </form>

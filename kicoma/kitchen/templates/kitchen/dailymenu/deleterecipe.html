@@ -8,12 +8,14 @@
     <form method="post" action="{% url 'kitchen:deleteDailyMenuRecipe' pk=object.id %}">
       {% csrf_token %}
       {{ form|crispy }}
-      <p>{% blocktrans %}Chcete odstranit recept <b>{{object.recipe}}</b> z denního menu?{% endblocktrans %}</p>
+      <p>
+        {% blocktrans with recipe=object.recipe %}Chcete odstranit recept <b>{{ recipe }}</b> z denního menu?{% endblocktrans %}
+      </p>
       {% trans "Menu:" %}
       <ul>
         <li><b>{% trans "Den:" %}</b> {{ object.daily_menu.date }}</li>
-        <li><b>{% trans "Skupina strávníků:" %}</b> {{object.daily_menu.meal_group}}</li>
-        <li><b>{% trans "Typ jídla:" %}</b> {{object.daily_menu.meal_type}}</li>
+        <li><b>{% trans "Skupina strávníků:" %}</b> {{ object.daily_menu.meal_group }}</li>
+        <li><b>{% trans "Typ jídla:" %}</b> {{ object.daily_menu.meal_type }}</li>
         <li><b>{% trans "Poznámka:" %}</b> {{ object.daily_menu.comment }}</li>
       </ul>
       <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>

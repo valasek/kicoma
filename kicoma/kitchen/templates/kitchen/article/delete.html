@@ -2,13 +2,19 @@
 {% load humanize static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% blocktrans %}Odstranění skladové karty: {{ object.article }}{% endblocktrans %}</h4>
+  <h4>
+    {% blocktrans with article=object.article %}Odstranění skladové karty: {{ article }}{% endblocktrans %}
+  </h4>
   <hr/>
   <p><a href="{% url 'kitchen:showArticles' %}"><button class="btn btn-secondary">{% trans "Zpět na seznam skladových karet" %}</button></a></p>
 
   {% if recipe_articles %}
-  <p>{% blocktrans %}Zboží je použité na {{ recipe_articles | length }} receptech.<br/>
-  Vymazat půjde až když nebude na žádném receptu. Odstraňte jej z výše uvedených receptů, nebo jestli je to ok, odstraňte přímo recepty.{% endblocktrans %}</p>
+  <p>
+    {% blocktrans with count=recipe_articles|length %}
+      Zboží je použité na {{ count }} receptech.<br/>
+      Vymazat půjde až když nebude na žádném receptu. Odstraňte jej z výše uvedených receptů, nebo jestli je to ok, odstraňte přímo recepty.
+    {% endblocktrans %}
+  </p>
   <ol>
   {% for recipe_article in recipe_articles %}
     <li><a href="{% url 'kitchen:showRecipeArticles' pk=recipe_article.recipe.id %}">{{ recipe_article.recipe }}</a><br/></li>
@@ -19,9 +25,15 @@
     {% csrf_token %}
     <p>{% trans "Chcete odstranit skladovou kartu:" %}</p>
     <ul>
-      <li>{% blocktrans %}Název: {{ object.article }}{% endblocktrans %}</li>
-      <li>{% blocktrans %}Na skladu: {{ object.on_stock | intcomma }} {{ object.unit }}{% endblocktrans %}</li>
-      <li>{% blocktrans %}Celková cena: {{ object.total_price | intcomma }} Kč{% endblocktrans %}</li>
+      <li>
+        {% blocktrans with article=object.article %}Název: {{ article }}{% endblocktrans %}
+      </li>
+      <li>
+        {% blocktrans with stock=object.on_stock|intcomma unit=object.unit %}Na skladu: {{ stock }} {{ unit }}{% endblocktrans %}
+      </li>
+      <li>
+        {% blocktrans with total_price=object.total_price|intcomma %}Celková cena: {{ total_price }} Kč{% endblocktrans %}
+      </li>
     </ul>
     <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>
   </form>

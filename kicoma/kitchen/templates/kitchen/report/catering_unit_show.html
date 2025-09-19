@@ -2,7 +2,9 @@
 {% load humanize static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% blocktrans %}Stravovací jednotka pro {{ date|date }}{% endblocktrans %}</h4>
+  <h4>
+    {% blocktrans with day=date|date %}Stravovací jednotka pro {{ day }}{% endblocktrans %}
+  </h4>
   <table class="table">
     <thead>
       <th>{% trans "Recept" %}</th>
@@ -13,15 +15,19 @@
     {% for daily_menu_recipe in daily_menu_recipes %}
     <tbody>
       <tr>
-        <td>{{daily_menu_recipe.recipe}}</td>
-        <td>{{daily_menu_recipe.unit_price|intcomma}} Kč</td>
-        <td>{{daily_menu_recipe.amount}}</td>
-        <td>{{daily_menu_recipe.total_price|intcomma}} Kč</td>
+        <td>{{ daily_menu_recipe.recipe }}</td>
+        <td>{{ daily_menu_recipe.unit_price|intcomma }} Kč</td>
+        <td>{{ daily_menu_recipe.amount }}</td>
+        <td>{{ daily_menu_recipe.total_price|intcomma }} Kč</td>
       </tr>
     </tbody>
     {% endfor %}
   </table>
-  <p>{% blocktrans %}Celkem receptů: {{daily_menu_recipes_total|intcomma}}{% endblocktrans %}</p>
-  <p>{% blocktrans %}Celková cena receptů za den: {{daily_menu_recipes_total_price|intcomma}} Kč{% endblocktrans %}</p>
+  <p>
+    {% blocktrans with total=daily_menu_recipes_total|intcomma %}Celkem receptů: {{ total }}{% endblocktrans %}
+  </p>
+  <p>
+    {% blocktrans with total_price=daily_menu_recipes_total_price|intcomma %}Celková cena receptů za den: {{ total_price }} Kč{% endblocktrans %}
+  </p>
 </div>
 {% endblock %}

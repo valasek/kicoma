@@ -5,13 +5,15 @@
   <h4>{% trans "Seznam receptů k opravě" %}</h4>
   <hr />
   {% if object_list %}
-    {% blocktrans %}Prosím oprav jednotky v receptu nebo jednotky v kterých je evidováno zboží na
-    skladu. Důvodem je, že není možno převést jednotku z receptu na skladovou
-    jednotku.{% endblocktrans %}<br/>
+    {% blocktrans %}
+      Prosím oprav jednotky v receptu nebo jednotky v kterých je evidováno zboží na
+      skladu. Důvodem je, že není možno převést jednotku z receptu na skladovou
+      jednotku.
+    {% endblocktrans %}<br/>
     <br/>
     {% blocktrans %}Klikni na recept a oprav zboží, kde je místo čísla v "Celková cena s DPH" zobrazena hodnota "—".{% endblocktrans %}
     <hr/>
-    {% blocktrans %}Celkem jde o {{ object_list|length }} receptů:{% endblocktrans %}<br/>
+    {% blocktrans with total=object_list|length %}Celkem jde o {{ total }} receptů:{% endblocktrans %}<br/>
     <ul>
     {% for object in object_list %}
       <li><a href="{% url 'kitchen:showRecipeArticles' object.pk %}">{{ object }}</a></li>
