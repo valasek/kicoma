@@ -1,14 +1,14 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Automatické generování výdejky na základě denních menu</h4>
-  <p>Zadej datum a výdejka se automaticky vytvoří na základě všech denních menu pro vybraný den.</p>
+  <h4>{% trans "Automatické generování výdejky na základě denních menu" %}</h4>
+  <p>{% trans "Zadej datum a výdejka se automaticky vytvoří na základě všech denních menu pro vybraný den." %}</p>
   <hr/>
   <form method="post" action="{% url 'kitchen:createStockIssueFromDailyMenu' %}">
     {% csrf_token %}
     {% crispy form form.helper %}
-    <button type="submit" class="btn btn-success">Vytvorit výdejku</button>
+    <button type="submit" class="btn btn-success">{% trans "Vytvorit výdejku" %}</button>
   </form>
 </div>
 {% endblock content %}

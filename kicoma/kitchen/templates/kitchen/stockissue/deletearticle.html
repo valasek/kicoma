@@ -1,29 +1,27 @@
 {% extends "base.html" %}
 {% load humanize %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Odstranění zboží z výdejky</h4>
+  <h4>{% trans "Odstranění zboží z výdejky" %}</h4>
   <hr />
   <p>
-    <a href="{% url 'kitchen:showStockIssueArticles' object.stock_issue.id %}"
-      ><button class="btn btn-secondary">
-        Zpět na seznam zboží výdejky
-      </button></a
-    >
+    <a href="{% url 'kitchen:showStockIssueArticles' object.stock_issue.id %}">
+      <button class="btn btn-secondary">
+        {% trans "Zpět na seznam zboží výdejky" %}
+      </button>
+    </a>
   </p>
-  <form
-    method="post"
-    action="{% url 'kitchen:deleteStockIssueArticle' pk=object.id %}"
-  >
-    {% csrf_token %} {{ form|crispy }}
-    <p>Chcete odstranit zboží z výdejky:</p>
+  <form method="post" action="{% url 'kitchen:deleteStockIssueArticle' pk=object.id %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <p>{% trans "Chcete odstranit zboží z výdejky:" %}</p>
     <ul>
-      <li>Zboží: {{ object.article }}</li>
-      <li>Cena bez DPH: {{ object.price_without_vat|intcomma }} Kč</li>
-      <li>Poznámka: {{ object.comment }}</li>
+      <li>{% blocktrans %}Zboží: {{ object.article }}{% endblocktrans %}</li>
+      <li>{% blocktrans %}Cena bez DPH: {{ object.price_without_vat|intcomma }} Kč{% endblocktrans %}</li>
+      <li>{% blocktrans %}Poznámka: {{ object.comment }}{% endblocktrans %}</li>
     </ul>
-    <button type="submit" class="btn btn-success">Odstranit</button>
+    <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>
   </form>
 </div>
 {% endblock content %}

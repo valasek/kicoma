@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>{{ title|default:"PDF tisková šablona" }}</title>
+    <title>{{ title|default:_("PDF tisková šablona") }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Kitchen management software" />
     <meta name="author" content="Stanislav Valášek" />
@@ -21,7 +21,7 @@
 
           /* Header */
           @top-center {
-            content: "KiCoMa: {{ title|default:"PDF tisková šablona" }}";
+            content: "KiCoMa: {{ title|default:_("PDF tisková šablona") }}";
             font-size: 12px;
             font-weight: bold;
             color: #333;
@@ -29,13 +29,13 @@
 
           /* Footer: page number centered, date on right */
           @bottom-center {
-            content: "Strana " counter(page) " z " counter(pages);
+            content: "{% trans "Strana" %} " counter(page) " {% trans "z" %} " counter(pages);
             font-size: 10px;
             color: #555;
           }
 
           @bottom-right {
-            content: "Generováno dne: {% now "j.n.Y" %}";
+            content: "{% trans "Generováno dne:" %} {% now "j.n.Y" %}";
             font-size: 10px;
             color: #555;
           }
@@ -50,7 +50,7 @@
   </head>
   <body>
     <div class="container-fluid p-4" id="html-template">
-      <h1 class="text-center">{{ title|default:"PDF tisková šablona" }}</h1>
+      <h1 class="text-center">{{ title|default:_("PDF tisková šablona") }}</h1>
       {% block content %}
       {% endblock content %}
     </div>

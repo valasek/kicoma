@@ -1,16 +1,16 @@
 {% extends "../pdf_page.html" %}
-{% load humanize %}
+{% load humanize static i18n %}
 {% block content %}
 <table class="table w-auto">
   <thead>
     <tr>
-      <th scope="col">Celková cena s DPH</th>
-      <th scope="col">Počet vyskladňovaného zboží</th>
-      <th scope="col">Vytvořena dne</th>
-      <th scope="col">Vytvořila</th>
-      <th scope="col">Schválena dne</th>
-      <th scope="col">Schválila</th>
-      <th scope="col">Poznámka</th>
+      <th scope="col">{% trans "Celková cena s DPH" %}</th>
+      <th scope="col">{% trans "Počet vyskladňovaného zboží" %}</th>
+      <th scope="col">{% trans "Vytvořena dne" %}</th>
+      <th scope="col">{% trans "Vytvořila" %}</th>
+      <th scope="col">{% trans "Schválena dne" %}</th>
+      <th scope="col">{% trans "Schválila" %}</th>
+      <th scope="col">{% trans "Poznámka" %}</th>
     </tr>
   </thead>
   <tbody>
@@ -25,15 +25,15 @@
     </tr>
   </tbody>
 </table>
-<h2 class="text-center mt-4">Vyskladněné zboží</h2>
+<h2 class="text-center mt-4">{% trans "Vyskladněné zboží" %}</h2>
 <table class="table w-auto">
   <thead>
     <tr>
-      <th scope="col">Zboží</th>
-      <th scope="col">Množství</th>
-      <th scope="col">Jednotková cena s DPH</th>
-      <th scope="col">Cena celkem s DPH</th>
-      <th scope="col">Poznámka</th>
+      <th scope="col">{% trans "Zboží" %}</th>
+      <th scope="col">{% trans "Množství" %}</th>
+      <th scope="col">{% trans "Jednotková cena s DPH" %}</th>
+      <th scope="col">{% trans "Cena celkem s DPH" %}</th>
+      <th scope="col">{% trans "Poznámka" %}</th>
     </tr>
   </thead>
   <tbody>

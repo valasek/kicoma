@@ -1,14 +1,14 @@
 {% extends "base.html" %}
-{% load humanize %}
+{% load humanize static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Stravovací jednotka pro {{ date|date }}</h4>
+  <h4>{% blocktrans %}Stravovací jednotka pro {{ date|date }}{% endblocktrans %}</h4>
   <table class="table">
     <thead>
-      <th>Recept</th>
-      <th>Cena receptu na porci</th>
-      <th>Počet porcí</th>
-      <th>Celková cena</th>
+      <th>{% trans "Recept" %}</th>
+      <th>{% trans "Cena receptu na porci" %}</th>
+      <th>{% trans "Počet porcí" %}</th>
+      <th>{% trans "Celková cena" %}</th>
     </thead>
     {% for daily_menu_recipe in daily_menu_recipes %}
     <tbody>
@@ -21,7 +21,7 @@
     </tbody>
     {% endfor %}
   </table>
-  <p>Celkem receptů: {{daily_menu_recipes_total|intcomma}}</p>
-  <p>Celková cena receptů za den: {{daily_menu_recipes_total_price|intcomma}} Kč</p>
+  <p>{% blocktrans %}Celkem receptů: {{daily_menu_recipes_total|intcomma}}{% endblocktrans %}</p>
+  <p>{% blocktrans %}Celková cena receptů za den: {{daily_menu_recipes_total_price|intcomma}} Kč{% endblocktrans %}</p>
 </div>
 {% endblock %}

@@ -150,7 +150,7 @@ Using [Graph models](https://django-extensions.readthedocs.io/en/latest/graph_mo
 
 #### After adding translations to the .po files, compile the messages
 
-`./manage.py compilemessages`
+`./manage.py compilemessages --ignore=.venv`
 
 ### Type checks
 
@@ -178,33 +178,7 @@ Add dev dependencies into console and run tests
 
 `uv run python manage.py check --deploy --settings=config.settings.production`
 
-## Legacy
-
-### Data migration
-
-#### Export data from Heroku DB
-
-```heroku run "python manage.py dumpdata --exclude auth.permission --exclude contenttypes" --app kicoma-tri > full_dump.json```
-
-Log out all users by deleting all sessions
-
-heroku run python manage.py shell -c --app kicoma-tri "from django.contrib.sessions.models import Session; Session.objects.all().delete()"
-
-#### Import exported data on local machine
-
-```bash
-docker-compose exec kicoma_devcontainer-app python manage.py flush --noinput
-docker-compose exec web python manage.py migrate
-docker-compose exec web python manage.py loaddata full_dump.json
-
-or 
-
-docker exec b44a5dc4cfce87e70ab01036acf924d6496bcf974a974998488fdf3bc77ce13b python manage.py flush --noinput
-docker exec b44a5dc4cfce87e70ab01036acf924d6496bcf974a974998488fdf3bc77ce13b python manage.py migrate
-docker exec b44a5dc4cfce87e70ab01036acf924d6496bcf974a974998488fdf3bc77ce13b python manage.py loaddata full_dump.json
-```
-
-#### Import data from local machine into it into docker on Hetzner
+## Import data from local machine into it into docker on Hetzner
 
 **Get container ID**:
 
@@ -215,45 +189,6 @@ CONTAINER_ID=$(docker ps --format '{{.ID}}' --filter 'name=kicoma-web-' --filter
 docker cp /root/full_dump.json $CONTAINER_ID:/app/full_dump.json
 docker exec -it $CONTAINER_ID python3 manage.py flush --noinput
 docker exec -it $CONTAINER_ID python3 manage.py loaddata full_dump.json
-```
-
-### Deploy to Heroku
-
-```bash
-heroku login
-git push kicoma-tri master
-```
-
-[deployment-on-heroku](https://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html)
-
-[Managing Multiple Environments for an App](https://devcenter.heroku.com/articles/multiple-environments)
-
-Do not forget to add the following argument at the end of every command:
-
-`--app <app-name>`
-
-`--app kicoma-tri`
-
-#### Set email domain
-
-`heroku config:set MAILGUN_DOMAIN=hospic-cercany.cz`
-
-#### Initialize DB
-
-### Reset Heroku DB
-
-`heroku login`
-
-`./reset-db-heroku.sh`
-
-#### Usefull Heroku commands
-
-```bash
-heroku git:remote -a kicoma-tri
-heroku apps:info -a kicoma-tri
-heroku apps:stacks -a kicoma-tri
-heroku buildpacks -a kicoma-tri
-heroku config -a kicoma-tri
 ```
 
 ## Additional info for local development and Cookiecutter info

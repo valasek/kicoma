@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load render_table from django_tables2 %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Seznam zboží vyžadující naskladnění</h4>
+  <h4>{% trans "Seznam zboží vyžadující naskladnění" %}</h4>
   <hr/>
-  <p><a href="{% url 'kitchen:showArticles' %}"><button class="btn btn-secondary">Zpět na seznam zboží</button></a>
-  Stav na skladu je nižší, než minimální požadovaná výše.
+  <p><a href="{% url 'kitchen:showArticles' %}"><button class="btn btn-secondary">{% trans "Zpět na seznam zboží" %}</button></a>
+  {% trans "Stav na skladu je nižší, než minimální požadovaná výše." %}
   </p>
   {% render_table table %}
 {% endblock content %}

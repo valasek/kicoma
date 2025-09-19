@@ -1,21 +1,22 @@
 {% extends "../pdf_page.html" %}
 {% load humanize %}
+{% load static i18n %}
 {% block content %}
 <table class="table w-auto">
   <thead>
     <tr>
-      <th scope="col">Celková cena s DPH</th>
-      <th scope="col">Počet zboží</th>
-      <th scope="col">Vytvořena dne</th>
-      <th scope="col">Vytvořila</th>
-      <th scope="col">Schválena dne</th>
-      <th scope="col">Schválila</th>
-      <th scope="col">Poznámka</th>
+      <th scope="col">{% trans "Celková cena s DPH" %}</th>
+      <th scope="col">{% trans "Počet zboží" %}</th>
+      <th scope="col">{% trans "Vytvořena dne" %}</th>
+      <th scope="col">{% trans "Vytvořila" %}</th>
+      <th scope="col">{% trans "Schválena dne" %}</th>
+      <th scope="col">{% trans "Schválila" %}</th>
+      <th scope="col">{% trans "Poznámka" %}</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th scope="row">{{ total_price|intcomma }} Kč</th>
+      <th scope="row">{{ total_price|intcomma }} {% trans "Kč" %}</th>
       <td>{{ stock_receipt_articles.count }}</td>
       <td>{{ stock_receipt.created }}</td>
       <td>{{ stock_receipt.user_created.name }}</td>
@@ -25,17 +26,17 @@
     </tr>
   </tbody>
 </table>
-<h2 class="text-center mt-4">Naskladněné zboží</h2>
+<h2 class="text-center mt-4">{% trans "Naskladněné zboží" %}</h2>
 <table class="table w-auto">
   <thead>
     <tr>
-      <th scope="col">Zboží</th>
-      <th scope="col">Množství</th>
-      <th scope="col">Jednotková cena bez DPH</th>
-      <th scope="col">DPH</th>
-      <th scope="col">Jednotková cena s DPH</th>
-      <th scope="col">Celková cena s DPH</th>
-      <th scope="col">Poznámka</th>
+      <th scope="col">{% trans "Zboží" %}</th>
+      <th scope="col">{% trans "Množství" %}</th>
+      <th scope="col">{% trans "Jednotková cena bez DPH" %}</th>
+      <th scope="col">{% trans "DPH" %}</th>
+      <th scope="col">{% trans "Jednotková cena s DPH" %}</th>
+      <th scope="col">{% trans "Celková cena s DPH" %}</th>
+      <th scope="col">{% trans "Poznámka" %}</th>
     </tr>
   </thead>
   <tbody>
@@ -45,10 +46,10 @@
       <td>
         {{ stock_receipt_article.amount }} {{ stock_receipt_article.unit }}
       </td>
-      <td>{{ stock_receipt_article.price_without_vat|intcomma }} Kč</td>
+      <td>{{ stock_receipt_article.price_without_vat|intcomma }} {% trans "Kč" %}</td>
       <td>{{ stock_receipt_article.vat }}</td>
-      <td>{{ stock_receipt_article.price_with_vat|intcomma }} Kč</td>
-      <td>{{ stock_receipt_article.total_price_with_vat|intcomma }} Kč</td>
+      <td>{{ stock_receipt_article.price_with_vat|intcomma }} {% trans "Kč" %}</td>
+      <td>{{ stock_receipt_article.total_price_with_vat|intcomma }} {% trans "Kč" %}</td>
       <td>{{ stock_receipt_article.comment }}</td>
     </tr>
 {% endfor %}

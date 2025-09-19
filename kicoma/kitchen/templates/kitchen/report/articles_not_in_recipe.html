@@ -1,18 +1,20 @@
-{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
+{% extends "base.html" %} 
+{% load crispy_forms_tags static i18n %} 
+{% block content %}
 <div class="container-fluid">
-  <h4>Seznam zboží, které není v žádném receptu</h4>
+  <h4>{% trans "Seznam zboží, které není v žádném receptu" %}</h4>
   <hr />
   {% if articles %}
-    Níže uvedené zboží na skladu není použito v žádném receptu a jestli dále není potřeba, může být vymazáno.
+    {% trans "Níže uvedené zboží na skladu není použito v žádném receptu a jestli dále není potřeba, může být vymazáno." %}
     <hr/>
-    Celkem jde o {{ articles|length }} druhů zboží:<br/>
+    {% blocktrans %}Celkem jde o {{ articles|length }} druhů zboží:{% endblocktrans %}<br/>
     <ul>
     {% for article in articles %}
-      <li><a href="{% url 'kitchen:updateArticle' pk=article.id %}">{{ article }}</a> - <a href="{% url 'kitchen:deleteArticle' pk=article.id %}">Vymazat!</a></li>
+      <li><a href="{% url 'kitchen:updateArticle' pk=article.id %}">{{ article }}</a> - <a href="{% url 'kitchen:deleteArticle' pk=article.id %}">{% trans "Vymazat!" %}</a></li>
     {% endfor %}
     </ul>
   {% else %}
-    Každé zboží je použito alespoň v jednom receptu.
+    {% trans "Každé zboží je použito alespoň v jednom receptu." %}
   {% endif %}
 </div>
 {% endblock content %}

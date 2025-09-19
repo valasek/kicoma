@@ -1,11 +1,13 @@
-{% extends "../pdf_page.html" %} {% block content %}
+{% extends "../pdf_page.html" %}
+{% load static i18n %}
+{% block content %}
 <table class="table w-auto">
   <thead>
     <tr>
-      <th scope="col">Zboží</th>
-      <th scope="col">Jednotka</th>
-      <th scope="col">Skutečný stav na skladu</th>
-      <th scope="col">Poznámka</th>
+      <th scope="col">{% trans "Zboží" %}</th>
+      <th scope="col">{% trans "Jednotka" %}</th>
+      <th scope="col">{% trans "Skutečný stav na skladu" %}</th>
+      <th scope="col">{% trans "Poznámka" %}</th>
     </tr>
   </thead>
   <tbody>

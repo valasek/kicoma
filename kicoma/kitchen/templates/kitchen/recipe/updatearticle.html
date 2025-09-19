@@ -1,21 +1,21 @@
-{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
+{% extends "base.html" %} 
+{% load crispy_forms_tags static i18n %} 
+{% block content %}
 <div class="container-fluid">
-  <h4>Aktualizace zboží v receptu {{recipe_article_before.recipe.recipe}}, {{recipe_article_before.recipe.norm_amount}} porcí</h4>
+  <h4>{% blocktrans %}Aktualizace zboží v receptu {{recipe_article_before.recipe.recipe}}, {{recipe_article_before.recipe.norm_amount}} porcí{% endblocktrans %}</h4>
   <hr />
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
-      <a href="{% url 'kitchen:showRecipeArticles' recipe_article_before.recipe.id %}"
-        ><button class="btn btn-secondary">Zpět na recept</button></a
-      >
+      <a href="{% url 'kitchen:showRecipeArticles' recipe_article_before.recipe.id %}">
+        <button class="btn btn-secondary">{% trans "Zpět na recept" %}</button>
+      </a>
     </div>
   </div>
   <br />
-  <form
-    method="post"
-    action="{% url 'kitchen:updateRecipeArticle' recipe_article_before.id %}"
-  >
-    {% csrf_token %} {% crispy form form.helper %}
-    <button type="submit" class="btn btn-success">Uložit</button>
+  <form method="post" action="{% url 'kitchen:updateRecipeArticle' recipe_article_before.id %}">
+    {% csrf_token %}
+    {% crispy form form.helper %}
+    <button type="submit" class="btn btn-success">{% trans "Uložit" %}</button>
   </form>
 </div>
 {% endblock content %}

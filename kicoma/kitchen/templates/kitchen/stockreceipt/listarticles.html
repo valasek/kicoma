@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% load render_table from django_tables2 %}
 {% load humanize %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
   <h4>
-    Seznam zboží na příjemce z {{ stockreceipt.created }}, vytvořil: {{ stockreceipt.user_created.name }}, celková cena: {{ stockreceipt.total_price|intcomma }} Kč, naskladněno:
+    {% trans "Seznam zboží na příjemce z" %} {{ stockreceipt.created }}, {% trans "vytvořil:" %} {{ stockreceipt.user_created.name }}, {% trans "celková cena:" %} {{ stockreceipt.total_price|intcomma }} Kč, {% trans "naskladněno:" %}
     {% if stockreceipt.approved %}
-    ANO
+    {% trans "ANO" %}
     {% else %}
-    NE
+    {% trans "NE" %}
     {% endif %}
   </h4>
   <hr />
@@ -17,18 +17,18 @@
     <div class="col-8 justify-content-start d-inline">
       <a href="{% url 'kitchen:showStockReceipts' %}"
         ><button class="btn btn-secondary mb-2">
-          Zpět na seznam příjemkem
+          {% trans "Zpět na seznam příjemek" %}
         </button></a
       >
       <a href="{% url 'kitchen:approveStockReceipt' stockreceipt.id %}"
-        ><button class="btn btn-success mb-2">Naskladnit</button></a
+        ><button class="btn btn-success mb-2">{% trans "Naskladnit" %}</button></a
       >
       <a
         href="{% url 'kitchen:createStockReceiptArticle' stockreceipt.id %}"
         class="btn btn-primary mb-2"
-        >Přidat zboží</a
+        >{% trans "Přidat zboží" %}</a
       >
-      Poznámka: {{stockreceipt.comment}}
+      {% trans "Poznámka:" %} {{stockreceipt.comment}}
     </div>
   </div>
   {% render_table table %}

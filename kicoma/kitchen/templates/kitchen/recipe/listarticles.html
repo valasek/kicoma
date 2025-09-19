@@ -1,23 +1,21 @@
 {% extends "base.html" %}
 {% load render_table from django_tables2 %}
 {% load humanize %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Ingredience pro {{ recipe.recipe }}, {{ recipe.norm_amount }} porcí, celková cena: {{ recipe.total_recipe_articles_price|intcomma }} Kč</h4>
+  <h4>{% blocktrans %}Ingredience pro {{ recipe.recipe }}, {{ recipe.norm_amount }} porcí, celková cena: {{ recipe.total_recipe_articles_price|intcomma }} Kč{% endblocktrans %}</h4>
   <hr />
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
-      <a href="{% url 'kitchen:showRecipes' %}"
-        ><button class="btn btn-secondary mb-2">
-          Zpět na seznam receptů
-        </button></a
-      >
-      <a
-        href="{% url 'kitchen:createRecipeArticle' recipe.id %}"
-        class="btn btn-primary mb-2"
-        >Přidat ingredienci</a
-      >
+      <a href="{% url 'kitchen:showRecipes' %}">
+        <button class="btn btn-secondary mb-2">
+          {% trans "Zpět na seznam receptů" %}
+        </button>
+      </a>
+      <a href="{% url 'kitchen:createRecipeArticle' recipe.id %}" class="btn btn-primary mb-2">
+        {% trans "Přidat ingredienci" %}
+      </a>
     </div>
   </div>
   {% render_table table %}

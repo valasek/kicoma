@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Stravovací jednotka</h4>
+  <h4>{% trans "Stravovací jednotka" %}</h4>
   <hr/>
   <form method="get" action="{% url 'kitchen:showCateringUnit' %}">
     {% csrf_token %}
     {% crispy form %}
-    <button type="submit" class="btn btn-primary">Zobrazit</button>
+    <button type="submit" class="btn btn-primary">{% trans "Zobrazit" %}</button>
   </form>
 </div>
 {% endblock content %}

@@ -1,12 +1,12 @@
 {% extends "../pdf_page.html" %}
-{% load humanize %}
+{% load humanize static i18n %}
 {% block content %}
 <table class="table w-auto">
   <thead>
     <tr>
-      <th scope="col">Porcí</th>
-      <th scope="col">Cena receptu</th>
-      <th scope="col">Komentář</th>
+      <th scope="col">{% trans "Porcí" %}</th>
+      <th scope="col">{% trans "Cena receptu" %}</th>
+      <th scope="col">{% trans "Komentář" %}</th>
     </tr>
   </thead>
   <tbody>
@@ -14,19 +14,19 @@
       <th scope="row">{{recipe.norm_amount}}</th>
       <td>{{recipe.total_recipe_articles_price|intcomma}} Kč</td>
       <td>{{recipe.comment}}</td>
-    </td>
+    </tr>
   </tbody>
 </table>
 
-<h2>Seznam ingrediencí</h2>
+<h2>{% trans "Seznam ingrediencí" %}</h2>
 <table class="table w-auto">
   <thead>
     <tr>
-      <th scope="col">Zboží</th>
-      <th scope="col">Množství</th>
-      <th scope="col">Průměrná jednotková cena s DPH</th>
-      <th scope="col">Celková cena s DPH</th>
-      <th scope="col">Komentář</th>
+      <th scope="col">{% trans "Zboží" %}</th>
+      <th scope="col">{% trans "Množství" %}</th>
+      <th scope="col">{% trans "Průměrná jednotková cena s DPH" %}</th>
+      <th scope="col">{% trans "Celková cena s DPH" %}</th>
+      <th scope="col">{% trans "Komentář" %}</th>
     </tr>
   </thead>
   <tbody>

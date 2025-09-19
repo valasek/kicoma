@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% load humanize %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Odstranění zboží z příjemky</h4>
+  <h4>{% trans "Odstranění zboží z příjemky" %}</h4>
   <hr />
   <p>
     <a
       href="{% url 'kitchen:showStockReceiptArticles' object.stock_receipt.id %}"
       ><button class="btn btn-secondary">
-        Zpět na seznam zboží příjemky
+        {% trans "Zpět na seznam zboží příjemky" %}
       </button></a
     >
   </p>
@@ -17,14 +17,15 @@
     method="post"
     action="{% url 'kitchen:deleteStockReceiptArticle' pk=object.id %}"
   >
-    {% csrf_token %} {{ form|crispy }}
-    <p>Chcete odstranit zboží z příjemky:</p>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <p>{% trans "Chcete odstranit zboží z příjemky:" %}</p>
     <ul>
-      <li>Zboží: {{ object.article }}</li>
-      <li>Cena bez DPH: {{ object.price_without_vat|intcomma }} Kč</li>
-      <li>Poznámka: {{ object.comment }}</li>
+      <li>{% trans "Zboží:" %} {{ object.article }}</li>
+      <li>{% trans "Cena bez DPH:" %} {{ object.price_without_vat|intcomma }} Kč</li>
+      <li>{% trans "Poznámka:" %} {{ object.comment }}</li>
     </ul>
-    <button type="submit" class="btn btn-success">Odstranit</button>
+    <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>
   </form>
 </div>
 {% endblock content %}

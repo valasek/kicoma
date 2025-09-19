@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 {% load render_table from django_tables2 %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Seznam výdejek</h4>
+  <h4>{% trans "Seznam výdejek" %}</h4>
   <hr/>
   <div class="row">
     <div class="justify-content-start d-inline">
-      <a href="{% url 'kitchen:createStockIssueFromDailyMenu' %}" class="btn btn-primary mb-2">Vytvořit z denních menu</a>
-      <a href="{% url 'kitchen:createStockIssue' %}" class="btn btn-secondary mb-2">Nová výdejka</a>
+      <a href="{% url 'kitchen:createStockIssueFromDailyMenu' %}" class="btn btn-primary mb-2">
+        {% trans "Vytvořit z denních menu" %}
+      </a>
+      <a href="{% url 'kitchen:createStockIssue' %}" class="btn btn-secondary mb-2">
+        {% trans "Nová výdejka" %}
+      </a>
       {% include 'kitchen/partials/_filter_section.html' %}
     </div>
   </div>

@@ -1,25 +1,28 @@
-{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static i18n %}
+{% block content %}
 <div class="container-fluid">
-  <h4>Aktualizace zboží na příjemce</h4>
+  <h4>{% trans "Aktualizace zboží na příjemce" %}</h4>
   <hr />
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
       <a
         href="{% url 'kitchen:showStockReceiptArticles' stock_receipt_article_before.stock_receipt.id %}"
         ><button class="btn btn-secondary">
-          Zpět na seznam zboží příjemky
+          {% trans "Zpět na seznam zboží příjemky" %}
         </button></a
       >
       <a
         href="{% url 'kitchen:printStockReceipt' stock_receipt_article_before.stock_receipt.id %}"
         class="btn btn-primary"
-        >PDF - příjemka</a
+        >{% trans "PDF - příjemka" %}</a
       >
-      <b>Příjemka vytvořena dne:</b>
+      <b>{% trans "Příjemka vytvořena dne:" %}</b>
       {{stock_receipt_article_before.stock_receipt.created}},
-      <b>Vytvořila:</b>
+      <b>{% trans "Vytvořila:" %}</b>
       {{stock_receipt_article_before.stock_receipt.user_created.name}},
-      <b>Poznámka:</b> {{stock_receipt_article_before.stock_receipt.comment}}
+      <b>{% trans "Poznámka:" %}</b> {{stock_receipt_article_before.stock_receipt.comment}}
     </div>
   </div>
   <br />
@@ -27,8 +30,9 @@
     method="post"
     action="{% url 'kitchen:updateStockReceiptArticle' stock_receipt_article_before.id %}"
   >
-    {% csrf_token %} {% crispy form form.helper %}
-    <button type="submit" class="btn btn-success">Uložit</button>
+    {% csrf_token %}
+    {% crispy form form.helper %}
+    <button type="submit" class="btn btn-success">{% trans "Uložit" %}</button>
   </form>
 </div>
 {% endblock content %}

@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 {% load humanize %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>Chcete odstranit výdejku?</h4>
+  <h4>{% trans "Chcete odstranit výdejku?" %}</h4>
   <hr/>
-  <p><a href="{% url 'kitchen:showStockIssues' %}"><button class="btn btn-secondary">Zpět na seznam výdejek</button></a>
+  <p><a href="{% url 'kitchen:showStockIssues' %}"><button class="btn btn-secondary">{% trans "Zpět na seznam výdejek" %}</button></a>
   <form method="post" action="{% url 'kitchen:deleteStockIssue' pk=object.id %}">
     {% csrf_token %}
     {{ form|crispy }}
     <table class="table">
       <thead>
         <tr>
-          <th>Celková cena s DPH</th>
-          <th>Počet vyskladňovaného zboží</th>
-          <th>Vytvořena dne</th>
-          <th>Vytvořila</th>
-          <th>Poznámka</th>
+          <th>{% trans "Celková cena s DPH" %}</th>
+          <th>{% trans "Počet vyskladňovaného zboží" %}</th>
+          <th>{% trans "Vytvořena dne" %}</th>
+          <th>{% trans "Vytvořila" %}</th>
+          <th>{% trans "Poznámka" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -27,18 +27,18 @@
         <td>{{ stock_issue.comment }}</td>
       </tbody>
     </table>
-    <button type="submit" class="btn btn-success">Odstranit</button></p>
+    <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button></p>
   </form>
-  <h4 style="text-align:center">Zboží k vyskladnění</h4>
+  <h4 style="text-align:center">{% trans "Zboží k vyskladnění" %}</h4>
   <br/>
   <table class="table">
     <thead>
       <tr>
-        <th>Zboží</th>
-        <th>Množství</th>
-        <th>Průměrná cena s DPH</th>
-        <th>Celková cena s DPH</th>
-        <th>Poznámka</th>
+        <th>{% trans "Zboží" %}</th>
+        <th>{% trans "Množství" %}</th>
+        <th>{% trans "Průměrná cena s DPH" %}</th>
+        <th>{% trans "Celková cena s DPH" %}</th>
+        <th>{% trans "Poznámka" %}</th>
       </tr>
       </thead>
       <tbody>
@@ -48,7 +48,7 @@
         <td>{{ stock_issue_article.amount }} {{ stock_issue_article.unit }}</td>
         <td>{{ stock_issue_article.article.average_price|intcomma }} Kč</td>
         <td>{{ stock_issue_article.total_average_price_with_vat|intcomma }} Kč</td>
-        <td>{{stock_issue_article.comment }}</td>
+        <td>{{ stock_issue_article.comment }}</td>
       </tr>
       {% endfor %}
       </tbody>

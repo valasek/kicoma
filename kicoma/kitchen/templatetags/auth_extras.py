@@ -1,6 +1,5 @@
-from django.contrib.auth.models import Group
 from django import template
-from django.conf import settings
+from django.contrib.auth.models import Group
 
 register = template.Library()
 
