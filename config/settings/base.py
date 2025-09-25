@@ -108,9 +108,10 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "kicoma.users.apps.UsersConfig",
+    "kicoma.users",
     # Your stuff: custom apps go here
-    "kicoma.kitchen.apps.KitchenConfig",
+    "kicoma.kitchen",
+    "kicoma.common"
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

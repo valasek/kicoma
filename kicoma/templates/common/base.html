@@ -1,0 +1,80 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>{% block title %}KiCoMa {{ content.title }}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Kitchen management software" />
+    <meta name="author" content="Stanislav Valášek" />
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MRZXQQV');</script>
+    <!-- End Google Tag Manager -->
+
+    <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}" />
+
+    {% block css %}
+
+    {# Load the tag library #}
+    {% load django_bootstrap5 %}
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <!-- Your stuff: Third-party CSS libraries go here -->
+
+    <!-- This file stores project-specific CSS -->
+
+    <link href="{% static 'css/project.css' %}" rel="stylesheet" />
+
+    {% endblock %}
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRZXQQV"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <nav class="navbar bg-body-secondary navbar-expand-lg ">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'common:home' %}">
+                <img
+                    src="{% static 'images/logo.png'%}"
+                    alt="logo"
+                    class="mx-2 mb-2"
+                    style="width: 25px;"
+                />
+                Kicoma
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{% url 'kitchen:about' %}">{% trans "Přejít do KiCoMa" %}</a>
+                <a class="nav-link" href="#features">{% trans "Funkce" %}</a>
+                <a class="nav-link" href="#contact">{% trans "Kontakt" %}</a>
+                {% include "menu_switch_lang.html" %}
+            </div>
+        </div>
+    </nav>
+    
+    {% block content %}{% endblock %}
+    
+    <footer class="bg-body-secondary py-4">
+        <div class="container text-center">
+            <p>
+            &copy; {% now "Y" %}
+            {% blocktrans %}
+            <a href="https://www.stanislavvalasek.com/contact" target="_blank">Stanislav Valášek</a>.
+            Všechna práva vyhrazena.
+            {% endblocktrans %}
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

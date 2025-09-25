@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="cs">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>{% block title %}KiCoMa {% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,11 +17,6 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-MRZXQQV');</script>
     <!-- End Google Tag Manager -->
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <![endif]-->
 
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}" />
 
@@ -65,15 +60,17 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-              <a class="navbar-brand" href="{% url 'home' %}">
-              <img
-                src="{% static 'images/logo.png'%}"
-                alt="logo"
-                class="mx-2 mt-n2"
-                style="width: 25px;"
-              />
-              KiCoMa
-        </a>
+        <span >
+          <a class="navbar-brand" href="{% url 'kicoma:home' %}">
+            <img
+              src="{% static 'images/logo.png'%}"
+              alt="logo"
+              class="ms-2 mb-2"
+              style="width: 25px;"
+            />
+          </a>
+          <a class="navbar-brand" href="{% url 'kitchen:about' %}">KiCoMa</a>
+        </span>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto">
@@ -88,7 +85,6 @@
               >
             </li>
             -->
-            {% include "menu_about.html" %}
             <li class="nav-item">
               {# URL provided by django-allauth/account/urls.py #}
               <a
@@ -106,9 +102,10 @@
             {% include "menu_recipes.html" %}
             {% include "menu_dailymenu.html" %}
             {% include "menu_reports.html" %}
-            {% include "menu_about.html" %}
           </ul>
-          {% include "menu_switch_lang.html" %}
+          <ul class="navbar-nav">
+            {% include "menu_switch_lang.html" %}
+          </ul>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
               <a

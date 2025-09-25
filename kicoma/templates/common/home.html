@@ -1,0 +1,91 @@
+{% extends 'common/base.html' %}
+{% load static i18n %}
+
+{% block content %}
+<section class="bg-gradient-purple text-white py-5">
+    <div class="container text-center">
+        <h1 class="display-4">{% trans "Kicoma – Řízení kuchyně" %}</h1>
+        <p class="lead">{% trans "Profesionální řešení pro řízení kuchyně" %}</p>
+        <p>{% trans "Zefektivněte provoz své kuchyně pomocí našeho komplexního systému řízení." %}</p>
+        <a href="{% url 'kitchen:about' %}" class="btn btn-light btn-lg">{% trans "Začít" %}</a>
+        <a href="#" class="btn btn-outline-light btn-lg ms-3">{% trans "Zkusit demo" %}</a>
+    </div>
+</section>
+
+<section id="features" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">{% trans "Funkce" %}</h2>
+    <p class="text-center mb-4">
+      {% trans "KiCoMa je špičkový program určený pro efektivní správu skladu potravin, receptů a menu.<br/><br/>Pojďte se podívat, jak vám KiCoMa může pomoci:" %}
+    </p>
+    <div class="row justify-content-center">
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center bg-gradient-purple text-white rounded-3">
+            <h5>{% trans "Snadné plánování" %}</h5>
+            <p>{% trans "Výživová poradkyně jednoduše naplánuje recepty a denní menu." %}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center bg-gradient-purple text-white rounded-3">
+            <h5>{% trans "Bezproblémové vaření" %}</h5>
+            <p>{% trans "Kuchyně vaří přesně podle denního menu, bez stresu a zmatků." %}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center bg-gradient-purple text-white rounded-3">
+            <h5>{% trans "Perfektní synchronizace" %}</h5>
+            <p>{% trans "Recepty a menu jsou propojené se skladem potravin, což znamená, že vždy víte, co máte na skladě." %}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center bg-gradient-purple text-white rounded-3">
+            <h5>{% trans "Aktuální stav skladu" %}</h5>
+            <p>{% trans "Stav skladu se automaticky mění pomocí příjemek a výdejek sestavených podle vydávaných jídel, nebo jednorázovou inventurou." %}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center bg-gradient-purple text-white rounded-3">
+            <h5>{% trans "Jednoduché reporty" %}</h5>
+            <p>{% trans "Vytvářejte přehledné reporty jedním kliknutím. Program je intuitivní a snadno ovladatelný, s nápovědou a podrobným popisem funkcí." %}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="text-center mt-4">
+      {% trans "Pročtěte si " %}<a href="kitchen/docs" class="fw-bold text-decoration-underline">{% trans "příručku k aplikaci" %}</a>.
+    </p>
+  </div>
+</section>
+
+<section id="contact" class="pb-5">
+    <div class="container">
+        <h2 class="text-center mb-5">{% trans "Kontakt a podpora" %}</h2>
+        <div class="container text-center">
+            <p>
+            {% trans "Chcete mě pozdravit, potřebujete pomoc nebo navrhnout užitečnou funkci?" %}
+            <br/><br/>
+            {% trans "Záleží mi na vašem názoru." %}
+            <br/><br/>
+            {% blocktrans %}
+              Kontaktujte mě – <a href="https://www.stanislavvalasek.com/contact">Stanislav Valasek</a>
+            {% endblocktrans %}
+          </p>
+
+          <img src="{% static 'images/profil.jpg' %}" 
+              width="100%" 
+              alt="Stanislav Valasek" 
+              class="d-block mx-auto rounded-3 img-fluid shadow mt-4 w-25"/>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -10,7 +10,7 @@
       <hr/>
       19. 9. 2025
       <ul>
-        <li>{% trans "Kompletní překlad aplikace i reportů do angličtiny. První verze, neváhejte  <a href='https://www.stanislavvalasek.com/en/contact/'>nahlásit možné chyby</a>." %}</li>
+        <li>{% trans "Kompletní překlad aplikace i reportů do angličtiny. První verze, neváhejte  <a href='https://www.stanislavvalasek.com/contact/'>hlásit možné chyby</a>." %}</li>
       </ul>
       12. 9. 2025
       <ul>
@@ -19,7 +19,8 @@
       </ul>
       8. 9. 2025
       <ul>
-        <li>{% trans "Výběr data pomocí kalendáře. Aktualizace technologie na nejnovější verzi." %}</li>
+        <li>{% trans "Výběr data pomocí kalendáře." %}</li>
+        <li>{% trans "Aktualizace na nejnovější verzi <a href='https://docs.djangoproject.com/en/5.2/releases/5.2.6/'>Django 5.2.6</a> a souvisejících knihoven." %}</li>
       </ul>
       2. 6. 2025
       <ul>
@@ -44,22 +45,36 @@
         <li>{% trans "Aktualizace na nejnovější verzi" %} <a href="https://www.djangoproject.com/weblog/2025/apr/02/django-52-released/" target="_blank">Django 5.2</a> {% trans "a aktualizace souvisejících knihoven." %}</li>
         <li>{% trans "Oprava nefunkčního Exportu zboží na skladu v rámci Inventury." %}</li>
       </ul>
-      <h5>{% trans "Změny za 2024" %}</h5>
-      <hr/>
-      4. 6. 2024
-      <ul>
-        <li>{% trans "Zrychlení načítání příjemek a seznamu denních menu. Úprava nápovědy a stránky O aplikaci včetne překladů do angličtiny. Úprava loga." %}</li>
-      </ul>
-      31. 5. 2024
-      <ul>
-        <li>{% trans "Aktualizace na nejnovější verzi" %} <a href="https://www.djangoproject.com/weblog/2023/dec/04/django-50-released/" target="_blank">Django 5.0.6</a> {% trans "a aktualizace souvisejících knihoven." %}</li>
-      </ul>
     </div>
     <div class="col">
       <h5>{% trans "Změny za předchozí roky" %}</h5>
       <hr/>
-      <div data-bs-toggle="collapse" data-bs-target="#d2022" class="btn btn-light">2022</div>
+      <div data-bs-toggle="collapse" data-bs-target="#d2024" class="btn btn-secondary collapsed">
+        <span class="me-2">2024</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down rotate-icon" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+        </svg>
+      </div>
+      <div id="d2024" class="collapse">
+        <hr/>
+        4. 6. 2024
+        <ul>
+          <li>{% trans "Zrychlení načítání příjemek a seznamu denních menu. Úprava nápovědy a stránky O aplikaci včetne překladů do angličtiny. Úprava loga." %}</li>
+        </ul>
+        31. 5. 2024
+        <ul>
+          <li>{% trans "Aktualizace na nejnovější verzi" %} <a href="https://www.djangoproject.com/weblog/2023/dec/04/django-50-released/" target="_blank">Django 5.0.6</a> {% trans "a aktualizace souvisejících knihoven." %}</li>
+        </ul>
+      </div>
+      <hr/>
+      <div data-bs-toggle="collapse" data-bs-target="#d2022" class="btn btn-secondary collapsed">
+        <span class="me-2">2022</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down rotate-icon" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+        </svg>
+      </div>
       <div id="d2022" class="collapse">
+        <hr/>
         14. 4. 2022
         <ul>
           <li>{% trans "Aktualizace na nejnovější verzi" %} <a href="https://www.djangoproject.com/weblog/2022/apr/11/security-releases/">Django 4.0.4</a> {% trans "a aktualizace souvisejících knihoven." %}</li>
@@ -107,8 +122,14 @@
         </ul>
       </div>
       <hr/>
-      <div data-bs-toggle="collapse" data-bs-target="#d2021" class="btn btn-light">2021</div>
+      <div data-bs-toggle="collapse" data-bs-target="#d2021" class="btn btn-secondary collapsed">
+        <span class="me-2">2021</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down rotate-icon" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+        </svg>
+      </div>
       <div id="d2021" class="collapse">
+      <hr/>
         31. 12. 2021
         <ul>
           <li>{% trans "Přidána možnost výmazu skladové karty v případě, že není použita na receptu" %}</li>
@@ -128,8 +149,14 @@
       </div>
       <br/>
       <hr/>
-      <div data-bs-toggle="collapse" data-bs-target="#d2020" class="btn btn-light">2020</div>
+      <div data-bs-toggle="collapse" data-bs-target="#d2020" class="btn btn-secondary collapsed">
+        <span class="me-2">2020</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down rotate-icon" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+        </svg>
+      </div>
       <div id="d2020" class="collapse">
+        <hr/>
         26. 12. 2020
         <ul>
           <li>{% trans "Aktualizace na Django" %} <a href="https://docs.djangoproject.com/en/3.1/releases/3.1.4/">3.1.4</a></li>
@@ -294,11 +321,18 @@
       </div>
       <br/>
       <hr/>
-      <div data-bs-toggle="collapse" data-bs-target="#d0" class="btn btn-light">{% trans "Přesun standardní funkcionality Strávníčka" %}</div>
+      <div data-bs-toggle="collapse" data-bs-target="#d0" class="btn btn-secondary collapsed">
+        <span class="me-2">{% trans "2020 - první verze" %}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down rotate-icon" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+        </svg>
+      </div>
       <div id="d0" class="collapse">
+        <hr/>
+        {% trans "Přesun funkcionality původního programu Stravníček:" %}
         <ul>
           <li>{% trans "Správa číselníků" %}</li>
-          <li>{% trans "Přesun všech číselníku a nahrání obsahu Strávníčka (Zboží, Recepty, Ingredience)" %}</li>
+          <li>{% trans "Přesun všech číselníku a nahrání původního obsahu (Zboží, Recepty, Ingredience)" %}</li>
           <li>{% trans "PDF s denním menu dle datumu s možností filtrace na skupinu strávníků" %}</li>
           <li>{% trans "PDF se seznam receptů a jednotlivého receptu" %}</li>
           <li>{% trans "Je možno vytvořit výdejku na základě receptů z denního menu" %}</li>

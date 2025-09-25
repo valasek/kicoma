@@ -5,14 +5,13 @@ from django.contrib import admin
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 from django.views import defaults as default_views
-from django.views.generic import TemplateView
 
 admin.site.index_title = _('Nastaveni')
 admin.site.site_header = _('KiCoMa')
 admin.site.site_title = _('Kuchyna nastavení')
 
 urlpatterns = i18n_patterns(
-    path('', TemplateView.as_view(template_name="kitchen/about.html"), name="home"),
+    path('', include("kicoma.common.urls", namespace="kicoma")),
     path('kitchen/', include("kicoma.kitchen.urls", namespace="kitchen")),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
