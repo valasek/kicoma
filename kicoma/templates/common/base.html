@@ -67,11 +67,18 @@
     <footer class="bg-body-secondary py-4">
         <div class="container text-center">
             <p>
-            &copy; {% now "Y" %}
+            <img
+                src="{% static 'images/logo.png'%}"
+                alt="logo"
+                class="mx-2 mb-2"
+                style="width: 25px;"
+            />
             {% blocktrans %}
-            <a href="https://www.stanislavvalasek.com/contact" target="_blank">Stanislav Valášek</a>.
-            Všechna práva vyhrazena.
+            KiCoMa je navržena, vyvinuta a podporována
+            <a href="https://www.stanislavvalasek.com/contact" target="_blank">Stanislavem Valáškem</a>, vytvořena s ❤️ na Slovensku.
             {% endblocktrans %}
+            <br/><br/>
+            &copy; {% now "Y" %} {% trans "Stanislav Valášek" %}            
             </p>
         </div>
     </footer>
