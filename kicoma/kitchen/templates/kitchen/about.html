@@ -25,7 +25,10 @@
         <li>{% trans "Výběr data pomocí kalendáře." %}</li>
         <li>{% trans "Aktualizace na nejnovější verzi <a href='https://docs.djangoproject.com/en/5.2/releases/5.2.6/'>Django 5.2.6</a> a souvisejících knihoven." %}</li>
       </ul>
-      Zobrazit <a href="{% url 'kitchen:changelog' %}">úplný seznam změn.</a>
+      {% url 'kitchen:changelog' as changelog_url %}
+      {% blocktrans with changelog_url=changelog_url %}
+      Zobrazit <a href="{{ changelog_url }}">úplný seznam změn.</a>
+      {% endblocktrans %}
       <hr/>
       <h5 class=mb-4>
         {% url 'kitchen:docs' as docs_url %}

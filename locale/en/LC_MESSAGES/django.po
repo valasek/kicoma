@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KiCoMa 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-26 00:48+0200\n"
+"POT-Creation-Date: 2025-09-26 02:01+0200\n"
 "PO-Revision-Date: 2025-09-19 12:00+0200\n"
 "Last-Translator: Stanislav Valasek <valasek@gmail.com>\n"
 "Language-Team: Slovak <LL@li.org>\n"
@@ -588,16 +588,27 @@ msgstr ""
 "Update to the latest version of <a href='https://docs.djangoproject.com/"
 "en/5.2/releases/5.2.6/'>Django 5.2.6</a> and related libraries."
 
-#: kicoma/kitchen/templates/kitchen/about.html:32
+#: kicoma/kitchen/templates/kitchen/about.html:29
+#, python-format
+msgid ""
+"\n"
+"      Zobrazit <a href=\"%(changelog_url)s\">úplný seznam změn.</a>\n"
+"      "
+msgstr ""
+"\n"
+"      View the <a href=\"%(changelog_url)s\">full list of changes</a>\n"
+"      "
+
+#: kicoma/kitchen/templates/kitchen/about.html:35
 #, python-format
 msgid "Pročtěte si <a href=\"%(docs_url)s\">příručku k aplikaci</a>."
 msgstr "Read the <a href=\"%(docs_url)s\">application guide</a>."
 
-#: kicoma/kitchen/templates/kitchen/about.html:38
+#: kicoma/kitchen/templates/kitchen/about.html:41
 msgid "Máte nápad na novou funkci nebo jste narazili na chybu?"
 msgstr "Do you have an idea for a new feature or have you encountered a bug?"
 
-#: kicoma/kitchen/templates/kitchen/about.html:40
+#: kicoma/kitchen/templates/kitchen/about.html:43
 msgid ""
 "\n"
 "        Neváhejte a\n"
@@ -611,7 +622,7 @@ msgstr ""
 "target=\"_blank\">contact the author directly</a>!\n"
 "      "
 
-#: kicoma/kitchen/templates/kitchen/about.html:45
+#: kicoma/kitchen/templates/kitchen/about.html:48
 msgid ""
 "Jsem tu pro vás a těším se na vaše podněty. Pomozte mi zlepšovat KiCoMa a "
 "udělejte svůj kuchyňský provoz ještě efektivnější!"
@@ -1539,7 +1550,7 @@ msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/changelog.html:325
 msgid "2020 - první verze"
-msgstr ""
+msgstr "2020 - initial version"
 
 #: kicoma/kitchen/templates/kitchen/changelog.html:332
 msgid "Přesun funkcionality původního programu Stravníček:"
@@ -1568,6 +1579,45 @@ msgstr "PDF with list of recipes and of an individual recipe"
 msgid "Je možno vytvořit výdejku na základě receptů z denního menu"
 msgstr ""
 "It is possible to create an issue note based on recipes from the daily menu"
+
+#: kicoma/kitchen/templates/kitchen/changelog.html:346
+msgid "Historie programu"
+msgstr "Program history"
+
+#: kicoma/kitchen/templates/kitchen/changelog.html:348
+msgid ""
+"KiCoMa - <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement byla vytvořena "
+"jako\n"
+"        moderní nástupce na základě požadavků společnosti"
+msgstr ""
+"KiCoMa  - <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement was created as a "
+"modern successor, based on the requirements of the company"
+
+#: kicoma/kitchen/templates/kitchen/changelog.html:351
+msgid ""
+"Současný program je inspirován původním programem Strávníček, který v letech "
+"1997 - 1998 vyvinuli Josef Dalibába a Dáša Trmalová."
+msgstr ""
+"Current program is inspired by the original Strávníček, which was developed "
+"by Josef Dalibába and Dáša Trmalová in 1997-1998."
+
+#: kicoma/kitchen/templates/kitchen/changelog.html:353
+msgid "Prohlédněte si, "
+msgstr "Discover"
+
+#: kicoma/kitchen/templates/kitchen/changelog.html:354
+msgid "jakými změnami"
+msgstr "all changes"
+
+#: kicoma/kitchen/templates/kitchen/changelog.html:355
+msgid "program prošel od té doby do současnosti."
+msgstr "of the program from that time up to now."
+
+#: kicoma/kitchen/templates/kitchen/changelog.html:358
+msgid "A malé nostalgické okénko - takhle vypadal původní program:"
+msgstr ""
+"And a little nostalgic window – this is what the original program looked "
+"like:"
 
 #: kicoma/kitchen/templates/kitchen/dailymenu/create.html:5
 #: kicoma/templates/menu_dailymenu.html:50
@@ -2139,45 +2189,6 @@ msgstr "Sites"
 msgid "User group relationships"
 msgstr "User group relationships"
 
-#: kicoma/kitchen/templates/kitchen/docs.html:224
-msgid "Historie programu"
-msgstr "Program history"
-
-#: kicoma/kitchen/templates/kitchen/docs.html:226
-msgid ""
-"KiCoMa - <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement byla vytvořena "
-"jako\n"
-"      moderní nástupce na základě požadavků společnosti"
-msgstr ""
-"KiCoMa  - <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement was created as a "
-"modern successor, based on the requirements of the company"
-
-#: kicoma/kitchen/templates/kitchen/docs.html:229
-msgid ""
-"Současný program je inspirován původním programem Strávníček, který v letech "
-"1997 - 1998 vyvinuli Josef Dalibába a Dáša Trmalová."
-msgstr ""
-"Current program is inspired by the original Strávníček, which was developed "
-"by Josef Dalibába and Dáša Trmalová in 1997-1998."
-
-#: kicoma/kitchen/templates/kitchen/docs.html:231
-msgid "Prohlédněte si, "
-msgstr "Discover"
-
-#: kicoma/kitchen/templates/kitchen/docs.html:232
-msgid "jakými změnami"
-msgstr "all changes"
-
-#: kicoma/kitchen/templates/kitchen/docs.html:233
-msgid "program prošel od té doby do současnosti."
-msgstr "of the program from that time up to now."
-
-#: kicoma/kitchen/templates/kitchen/docs.html:236
-msgid "A malé nostalgické okénko - takhle vypadal původní program:"
-msgstr ""
-"And a little nostalgic window – this is what the original program looked "
-"like:"
-
 #: kicoma/kitchen/templates/kitchen/import.html:5
 msgid "Import dat"
 msgstr "Data import"
@@ -2305,7 +2316,7 @@ msgstr "from"
 
 #: kicoma/kitchen/templates/kitchen/pdf_page.html:38
 msgid "Generováno dne:"
-msgstr ""
+msgstr "Generation date:"
 
 #: kicoma/kitchen/templates/kitchen/recipe/create.html:5
 #: kicoma/templates/menu_recipes.html:37
@@ -3504,8 +3515,8 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"            KiCoMa is designed, built, and backed by"
-"            <a href=\"https://www.stanislavvalasek.com/en/contact\" "
+"            KiCoMa is designed, built, and backed by            <a "
+"href=\"https://www.stanislavvalasek.com/en/contact\" "
 "target=\"_blank\">Stanislav Valasek</a>, created with ❤️ in Slovakia.\n"
 "            "
 
@@ -3514,12 +3525,12 @@ msgid "Stanislav Valášek"
 msgstr "Stanislav Valasek"
 
 #: kicoma/templates/common/home.html:7
-msgid "Kicoma – Řízení kuchyně"
-msgstr "Kicoma – Kitchen Management"
+msgid "Kuchyně pod kontrolou"
+msgstr "Kitchen under control"
 
 #: kicoma/templates/common/home.html:8
-msgid "Profesionální řešení pro řízení kuchyně"
-msgstr "Professional kitchen management solution"
+msgid "Profesionální řešení pro řízení skladu, receptů i kuchyně"
+msgstr "Professional solution for managing inventory, recipes, and the kitchen"
 
 #: kicoma/templates/common/home.html:9
 msgid ""
@@ -3532,7 +3543,7 @@ msgid "Začít"
 msgstr "Get Started"
 
 #: kicoma/templates/common/home.html:11
-msgid "Zkusit demo"
+msgid "Vyzkoušet demo"
 msgstr "Try Demo"
 
 #: kicoma/templates/common/home.html:19
@@ -3599,26 +3610,101 @@ msgstr ""
 "to use, with help and detailed function descriptions."
 
 #: kicoma/templates/common/home.html:64
+msgid "Co KiCoMa umí"
+msgstr "What KiCoMa can do"
+
+#: kicoma/templates/common/home.html:70
+msgid ""
+"<b>Sklad zboží</b>: jednotky, DPH, alergeny, minimální zásoby a aktuální "
+"průměrná cena."
+msgstr ""
+"<b>Inventory</b>: units, VAT, allergens, minimum stock levels, and current "
+"average price."
+
+#: kicoma/templates/common/home.html:76
+msgid ""
+"<b>Recepty</b>: suroviny s převody jednotek, postup, automatické alergeny a "
+"náklad na porci."
+msgstr ""
+"<b>Recipes</b>: ingredients with unit conversions, procedure, automatic "
+"allergens, and cost per serving."
+
+#: kicoma/templates/common/home.html:82
+msgid ""
+"<b>Menu a denní menu</b>: plánování podle skupin strávníků a typu jídla."
+msgstr "<b>Menu and daily menus</b>: planning by diner groups and meal type."
+
+#: kicoma/templates/common/home.html:88
+msgid ""
+"<b>Výdejky a příjemky</b>: vyskladnění/naskladnění se propojí se skladem, "
+"podklady do PDF."
+msgstr ""
+"<b>Issue slips and receipts</b>: stock-out/stock-in linked with the "
+"inventory, PDF outputs."
+
+#: kicoma/templates/common/home.html:94
+msgid "<b>Reporty</b>: souhrnná spotřeba, chybné jednotky, zboží mimo recepty."
+msgstr ""
+"<b>Reports</b>: total consumption, incorrect units, items outside recipes."
+
+#: kicoma/templates/common/home.html:100
+msgid ""
+"<b>Import/Export</b>: plný export dat a snadný import, včetně úklidu dat."
+msgstr ""
+"<b>Import/Export</b>: full data export and easy import, including data "
+"cleanup."
+
+#: kicoma/templates/common/home.html:105
 msgid "Pročtěte si "
 msgstr "Read "
 
-#: kicoma/templates/common/home.html:64
+#: kicoma/templates/common/home.html:105
 msgid "příručku k aplikaci"
 msgstr "manual"
 
-#: kicoma/templates/common/home.html:71
+#: kicoma/templates/common/home.html:112
+msgid "Co říkají uživatelé"
+msgstr "What users say"
+
+#: kicoma/templates/common/home.html:116
+msgid ""
+"Moc Ti děkujeme za úžasnou spolupráci, všichni, co na programu pracují, si "
+"ho moc pochvalují."
+msgstr "Thank you very much for the wonderful cooperation, everyone working with the program appreciates it a lot."
+
+#: kicoma/templates/common/home.html:117
+msgid "Jan Kostka"
+msgstr ""
+
+#: kicoma/templates/common/home.html:117
+msgid "Vedoucí provozu, TŘI, z.ú., Hospic Čerčany"
+msgstr "Operations Manager, TŘI, z.ú., Hospice Čerčany"
+
+#: kicoma/templates/common/home.html:122
+msgid "Honza má pravdu, zpětná vazba byla skvělá."
+msgstr "Honza is right, the feedback was excellent."
+
+#: kicoma/templates/common/home.html:123
+msgid "PharmDr. Monika Horníková, MHA"
+msgstr ""
+
+#: kicoma/templates/common/home.html:123
+msgid "ředitelka, TŘI, z.ú., Hospic Čerčany"
+msgstr "Director, TŘI, z.ú., Hospice Čerčany"
+
+#: kicoma/templates/common/home.html:132
 msgid "Kontakt a podpora"
 msgstr "Contact and Support"
 
-#: kicoma/templates/common/home.html:74
+#: kicoma/templates/common/home.html:135
 msgid "Chcete mě pozdravit, potřebujete pomoc nebo navrhnout užitečnou funkci?"
 msgstr "Do you want to say hello, need help, or suggest a useful feature?"
 
-#: kicoma/templates/common/home.html:76
+#: kicoma/templates/common/home.html:137
 msgid "Záleží mi na vašem názoru."
 msgstr "I value your opinion."
 
-#: kicoma/templates/common/home.html:78
+#: kicoma/templates/common/home.html:139
 msgid ""
 "\n"
 "              Kontaktujte mě – <a href=\"https://www.stanislavvalasek.com/"
@@ -3629,6 +3715,18 @@ msgstr ""
 "              Contact me – <a href=\"https://www.stanislavvalasek.com/en/"
 "contact\">Stanislav Valasek</a>\n"
 "            "
+
+#: kicoma/templates/common/home.html:153
+msgid "O projektu"
+msgstr "About Project"
+
+#: kicoma/templates/common/home.html:155
+msgid ""
+"KiCoMa – <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement vznikla pro reálné "
+"provozy s důrazem na jednoduchost a spolehlivost."
+msgstr ""
+"KiCoMa – <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement was created for "
+"real operations with an emphasis on simplicity and reliability."
 
 #: kicoma/templates/menu_dailymenu.html:59
 msgid "PDF - denní menu"

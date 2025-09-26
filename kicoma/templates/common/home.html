@@ -3,13 +3,13 @@
 
 {% block content %}
 <section class="bg-gradient-purple text-white py-5">
-    <div class="container text-center">
-        <h1 class="display-4">{% trans "Kicoma – Řízení kuchyně" %}</h1>
-        <p class="lead">{% trans "Profesionální řešení pro řízení kuchyně" %}</p>
-        <p>{% trans "Zefektivněte provoz své kuchyně pomocí našeho komplexního systému řízení." %}</p>
-        <a href="{% url 'kitchen:about' %}" class="btn btn-light btn-lg">{% trans "Začít" %}</a>
-        <a href="#" class="btn btn-outline-light btn-lg ms-3">{% trans "Zkusit demo" %}</a>
-    </div>
+  <div class="container text-center">
+      <h1 class="display-4">{% trans "Kuchyně pod kontrolou" %}</h1>
+      <p class="lead">{% trans "Profesionální řešení pro řízení skladu, receptů i kuchyně" %}</p>
+      <p>{% trans "Zefektivněte provoz své kuchyně pomocí našeho komplexního systému řízení." %}</p>
+      <a href="{% url 'kitchen:about' %}" class="btn btn-light btn-lg">{% trans "Začít" %}</a>
+      <a href="#" class="btn btn-outline-light btn-lg ms-3">{% trans "Vyzkoušet demo" %}</a>
+  </div>
 </section>
 
 <section id="features" class="py-5">
@@ -60,17 +60,78 @@
         </div>
       </div>
     </div>
+    <div class="text-center my-5">
+      <h2 class="h4 mb-4">{% trans "Co KiCoMa umí" %}</h2>
+      <ul class="list-unstyled d-inline-block text-start">
+        <li class="mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </svg>
+          {% blocktrans %}<b>Sklad zboží</b>: jednotky, DPH, alergeny, minimální zásoby a aktuální průměrná cena.{% endblocktrans %}
+        </li>
+        <li class="mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </svg>
+          {% blocktrans %}<b>Recepty</b>: suroviny s převody jednotek, postup, automatické alergeny a náklad na porci.{% endblocktrans %}
+        </li>
+        <li class="mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </svg>
+          {% blocktrans %}<b>Menu a denní menu</b>: plánování podle skupin strávníků a typu jídla.{% endblocktrans %}
+        </li>
+        <li class="mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </svg>
+          {% blocktrans %}<b>Výdejky a příjemky</b>: vyskladnění/naskladnění se propojí se skladem, podklady do PDF.{% endblocktrans %}
+        </li>
+        <li class="mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </svg>
+          {% blocktrans %}<b>Reporty</b>: souhrnná spotřeba, chybné jednotky, zboží mimo recepty.{% endblocktrans %}
+        </li>
+        <li class="mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </svg>
+          {% blocktrans %}<b>Import/Export</b>: plný export dat a snadný import, včetně úklidu dat.{% endblocktrans %}
+        </li>
+      </ul>
+    </<div>
     <p class="text-center mt-4">
       {% trans "Pročtěte si " %}<a href="kitchen/docs" class="fw-bold text-decoration-underline">{% trans "příručku k aplikaci" %}</a>.
     </p>
   </div>
 </section>
 
-<section id="contact" class="pb-5">
+<section class="bg-gradient-purple text-white py-5">
+  <div class="container text-center">
+    <h2 class="mb-4">{% trans "Co říkají uživatelé" %}</h2>
+    <div class="row g-4">
+      <div class="col-12 col-lg-6">
+        <div class="p-4 border rounded-3 h-100">
+          <p class="mb-3 fst-italic">„{% blocktrans %}Moc Ti děkujeme za úžasnou spolupráci, všichni, co na programu pracují, si ho moc pochvalují.{% endblocktrans %}“</p>
+          <p class="mb-0"><b>{% trans "Jan Kostka" %}</b>, {% blocktrans %}Vedoucí provozu, TŘI, z.ú., Hospic Čerčany{% endblocktrans %}</p>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="p-4 border rounded-3 h-100">
+          <p class="mb-3 fst-italic">„{% blocktrans %}Honza má pravdu, zpětná vazba byla skvělá.{% endblocktrans %}“</p>
+          <p class="mb-0"><b>{% trans "PharmDr. Monika Horníková, MHA" %}</b>, {% blocktrans %}ředitelka, TŘI, z.ú., Hospic Čerčany{% endblocktrans %}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="pt-5">
     <div class="container">
         <h2 class="text-center mb-5">{% trans "Kontakt a podpora" %}</h2>
         <div class="container text-center">
-            <p>
+          <p>
             {% trans "Chcete mě pozdravit, potřebujete pomoc nebo navrhnout užitečnou funkci?" %}
             <br/><br/>
             {% trans "Záleží mi na vašem názoru." %}
@@ -79,13 +140,21 @@
               Kontaktujte mě – <a href="https://www.stanislavvalasek.com/contact">Stanislav Valasek</a>
             {% endblocktrans %}
           </p>
-
           <img src="{% static 'images/profil.jpg' %}" 
               width="100%" 
               alt="Stanislav Valasek" 
               class="d-block mx-auto rounded-3 img-fluid shadow mt-4 w-25"/>
         </div>
     </div>
+</section>
+
+<section class="bg-gradient-purple text-white py-5 my-5">
+  <div class="container text-center">
+    <h2>{% trans "O projektu" %}</h2>
+    <p class="mb-2">
+      {% blocktrans %}KiCoMa – <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement vznikla pro reálné provozy s důrazem na jednoduchost a spolehlivost.{% endblocktrans %}
+    </p>
+  </div>
 </section>
 
 {% endblock %}
