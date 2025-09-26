@@ -95,9 +95,9 @@ COPY . .
 RUN mkdir -p /storage && chmod 777 /storage
 
 # Generate and compile messages at build time
-RUN python ./manage.py makemessages -l cs --ignore=.venv
-RUN python ./manage.py makemessages -l en --ignore=.venv
-RUN python manage.py compilemessages --ignore=.venv
+# RUN python ./manage.py makemessages -l cs --ignore=.venv
+# RUN python ./manage.py makemessages -l en --ignore=.venv
+# RUN python manage.py compilemessages --ignore=.venv
 
 # Collect static files at build time
 RUN python manage.py collectstatic --noinput
