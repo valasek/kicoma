@@ -5,20 +5,20 @@
 {% block content %}
 <div class="container-fluid">
   <h4>
-    {% blocktrans with recipe_name=recipe.recipe norm_amount=recipe.norm_amount total_price=recipe.total_recipe_articles_price|intcomma %}
+    {% blocktranslate trimmed with recipe_name=recipe.recipe norm_amount=recipe.norm_amount total_price=recipe.total_recipe_articles_price|intcomma %}
     Ingredience pro {{ recipe_name }}, {{ norm_amount }} porcí, celková cena: {{ total_price }} {{ CURRENCY }}
-    {% endblocktrans %}
+    {% endblocktranslate %}
   </h4>
   <hr />
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
       <a href="{% url 'kitchen:showRecipes' %}">
         <button class="btn btn-secondary mb-2">
-          {% trans "Zpět na seznam receptů" %}
+          {% translate "Zpět na seznam receptů" %}
         </button>
       </a>
       <a href="{% url 'kitchen:createRecipeArticle' recipe.id %}" class="btn btn-primary mb-2">
-        {% trans "Přidat ingredienci" %}
+        {% translate "Přidat ingredienci" %}
       </a>
     </div>
   </div>

@@ -3,18 +3,18 @@
 {% block content %}
   <div class="container-fluid">
     <h4>
-      {% blocktrans with menu=object.menu.menu %}Odstranění receptu z menu: {{ menu }}{% endblocktrans %}
+      {% blocktranslate trimmed with menu=object.menu.menu %}Odstranění receptu z menu: {{ menu }}{% endblocktranslate %}
     </h4>
     <hr/>
     <p><a href="{% url 'kitchen:showMenuRecipes' menurecipe_before.menu.id %}">
-      <button class="btn btn-secondary">{% trans "Zpět na seznam receptů" %}</button></a>
+      <button class="btn btn-secondary">{% translate "Zpět na seznam receptů" %}</button></a>
     <form method="post" action="{% url 'kitchen:deleteMenuRecipe' pk=object.id %}">
       {% csrf_token %}
       {{ form|crispy }}
       <p>
-        {% blocktrans with recipe=object.recipe %}Chcete odstranit recept <b>{{ recipe }}</b>?{% endblocktrans %}
+        {% blocktranslate trimmed with recipe=object.recipe %}Chcete odstranit recept <b>{{ recipe }}</b>?{% endblocktranslate %}
       </p>
-      <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>
+      <button type="submit" class="btn btn-success">{% translate "Odstranit" %}</button>
     </form>
   </div>
 {% endblock content %}

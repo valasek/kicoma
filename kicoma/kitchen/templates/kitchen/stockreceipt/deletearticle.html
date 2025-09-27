@@ -3,13 +3,13 @@
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% trans "Odstranění zboží z příjemky" %}</h4>
+  <h4>{% translate "Odstranění zboží z příjemky" %}</h4>
   <hr />
   <p>
     <a
       href="{% url 'kitchen:showStockReceiptArticles' object.stock_receipt.id %}"
       ><button class="btn btn-secondary">
-        {% trans "Zpět na seznam zboží příjemky" %}
+        {% translate "Zpět na seznam zboží příjemky" %}
       </button></a
     >
   </p>
@@ -19,13 +19,13 @@
   >
     {% csrf_token %}
     {{ form|crispy }}
-    <p>{% trans "Chcete odstranit zboží z příjemky:" %}</p>
+    <p>{% translate "Chcete odstranit zboží z příjemky:" %}</p>
     <ul>
-      <li>{% trans "Zboží:" %} {{ object.article }}</li>
-      <li>{% trans "Cena bez DPH:" %} {{ object.price_without_vat|intcomma }} {{ CURRENCY }}</li>
-      <li>{% trans "Poznámka:" %} {{ object.comment }}</li>
+      <li>{% translate "Zboží:" %} {{ object.article }}</li>
+      <li>{% translate "Cena bez DPH:" %} {{ object.price_without_vat|intcomma }} {{ CURRENCY }}</li>
+      <li>{% translate "Poznámka:" %} {{ object.comment }}</li>
     </ul>
-    <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>
+    <button type="submit" class="btn btn-success">{% translate "Odstranit" %}</button>
   </form>
 </div>
 {% endblock content %}

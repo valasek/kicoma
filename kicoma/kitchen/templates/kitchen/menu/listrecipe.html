@@ -4,14 +4,14 @@
 {% block content %}
 <div class="container-fluid">
   <h4>
-    {% blocktrans with menu_name=menu %}Seznam receptů pro menu: {{ menu_name }}{% endblocktrans %}
+    {% blocktranslate trimmed with menu_name=menu %}Seznam receptů pro menu: {{ menu_name }}{% endblocktranslate %}
   </h4>
   <hr/>
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
-      <a href="{% url 'kitchen:showMenus' %}" class="btn btn-secondary mb-2">{% trans "Zpět na seznam menu" %}</a>
-      <a href="{% url 'kitchen:createMenuRecipe' menu.id %}" class="btn btn-primary mb-2">{% trans "Přidat recept" %}</a>
-      {% trans "Poznámka:" %} {{ menu.comment }}
+      <a href="{% url 'kitchen:showMenus' %}" class="btn btn-secondary mb-2">{% translate "Zpět na seznam menu" %}</a>
+      <a href="{% url 'kitchen:createMenuRecipe' menu.id %}" class="btn btn-primary mb-2">{% translate "Přidat recept" %}</a>
+      {% translate "Poznámka:" %} {{ menu.comment }}
     </div>
   </div>
   {% render_table table %}

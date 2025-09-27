@@ -2,25 +2,25 @@
 {% load crispy_forms_tags static i18n %} 
 {% block content %}
 <div class="container-fluid">
-  <h4>{% trans "Seznam receptů k opravě" %}</h4>
+  <h4>{% translate "Seznam receptů k opravě" %}</h4>
   <hr />
   {% if object_list %}
-    {% blocktrans %}
+    {% blocktranslate trimmed %}
       Prosím oprav jednotky v receptu nebo jednotky v kterých je evidováno zboží na
       skladu. Důvodem je, že není možno převést jednotku z receptu na skladovou
       jednotku.
-    {% endblocktrans %}<br/>
+    {% endblocktranslate %}<br/>
     <br/>
-    {% blocktrans %}Klikni na recept a oprav zboží, kde je místo čísla v "Celková cena s DPH" zobrazena hodnota "—".{% endblocktrans %}
+    {% blocktranslate trimmed %}Klikni na recept a oprav zboží, kde je místo čísla v "Celková cena s DPH" zobrazena hodnota "—".{% endblocktranslate %}
     <hr/>
-    {% blocktrans with total=object_list|length %}Celkem jde o {{ total }} receptů:{% endblocktrans %}<br/>
+    {% blocktranslate trimmed with total=object_list|length %}Celkem jde o {{ total }} receptů:{% endblocktranslate %}<br/>
     <ul>
     {% for object in object_list %}
       <li><a href="{% url 'kitchen:showRecipeArticles' object.pk %}">{{ object }}</a></li>
     {% endfor %}
     </ul>
   {% else %}
-      {% trans "Všechny recepty jsou zadány správně. Není nutná žádná další akce." %}
+      {% translate "Všechny recepty jsou zadány správně. Není nutná žádná další akce." %}
   {% endif %}
 </div>
 {% endblock content %}

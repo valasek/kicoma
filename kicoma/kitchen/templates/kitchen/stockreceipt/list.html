@@ -3,11 +3,11 @@
 {% load crispy_forms_tags static i18n %}
 {% block content %}
   <div class="container-fluid">
-    <h4>{% trans "Seznam příjemek" %}</h4>
+    <h4>{% translate "Seznam příjemek" %}</h4>
     <hr/>
     <div class="row">
       <div class="col justify-content-start">
-        <a href="{% url 'kitchen:createStockReceipt' %}" class="btn btn-primary mb-2">{% trans "Nová příjemka" %}</a>
+        <a href="{% url 'kitchen:createStockReceipt' %}" class="btn btn-primary mb-2">{% translate "Nová příjemka" %}</a>
         {% include 'kitchen/partials/_filter_section.html' %}
       </div>
     </div>

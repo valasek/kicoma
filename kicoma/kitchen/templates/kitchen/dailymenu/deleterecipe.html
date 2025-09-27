@@ -2,23 +2,23 @@
 {% load crispy_forms_tags static i18n %}
 {% block content %}
   <div class="container-fluid">
-    <h4>{% trans "Odstranění receptu z denního menu" %}</h4>
+    <h4>{% translate "Odstranění receptu z denního menu" %}</h4>
     <hr/>
-    <p><a href="{% url 'kitchen:showDailyMenuRecipes' dailymenurecipe_before.daily_menu.id%}"><button class="btn btn-secondary">{% trans "Zpět na seznam receptů" %}</button></a>
+    <p><a href="{% url 'kitchen:showDailyMenuRecipes' dailymenurecipe_before.daily_menu.id%}"><button class="btn btn-secondary">{% translate "Zpět na seznam receptů" %}</button></a>
     <form method="post" action="{% url 'kitchen:deleteDailyMenuRecipe' pk=object.id %}">
       {% csrf_token %}
       {{ form|crispy }}
       <p>
-        {% blocktrans with recipe=object.recipe %}Chcete odstranit recept <b>{{ recipe }}</b> z denního menu?{% endblocktrans %}
+        {% blocktranslate trimmed with recipe=object.recipe %}Chcete odstranit recept <b>{{ recipe }}</b> z denního menu?{% endblocktranslate %}
       </p>
-      {% trans "Menu:" %}
+      {% translate "Menu:" %}
       <ul>
-        <li><b>{% trans "Den:" %}</b> {{ object.daily_menu.date }}</li>
-        <li><b>{% trans "Skupina strávníků:" %}</b> {{ object.daily_menu.meal_group }}</li>
-        <li><b>{% trans "Typ jídla:" %}</b> {{ object.daily_menu.meal_type }}</li>
-        <li><b>{% trans "Poznámka:" %}</b> {{ object.daily_menu.comment }}</li>
+        <li><b>{% translate "Den:" %}</b> {{ object.daily_menu.date }}</li>
+        <li><b>{% translate "Skupina strávníků:" %}</b> {{ object.daily_menu.meal_group }}</li>
+        <li><b>{% translate "Typ jídla:" %}</b> {{ object.daily_menu.meal_type }}</li>
+        <li><b>{% translate "Poznámka:" %}</b> {{ object.daily_menu.comment }}</li>
       </ul>
-      <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>
+      <button type="submit" class="btn btn-success">{% translate "Odstranit" %}</button>
     </form>
   </div>
 {% endblock content %}

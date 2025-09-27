@@ -3,15 +3,15 @@
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% trans "Seznam výdejek" %}</h4>
+  <h4>{% translate "Seznam výdejek" %}</h4>
   <hr/>
   <div class="row">
     <div class="justify-content-start d-inline">
       <a href="{% url 'kitchen:createStockIssueFromDailyMenu' %}" class="btn btn-primary mb-2">
-        {% trans "Vytvořit z denních menu" %}
+        {% translate "Vytvořit z denních menu" %}
       </a>
       <a href="{% url 'kitchen:createStockIssue' %}" class="btn btn-secondary mb-2">
-        {% trans "Nová výdejka" %}
+        {% translate "Nová výdejka" %}
       </a>
       {% include 'kitchen/partials/_filter_section.html' %}
     </div>

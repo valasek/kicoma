@@ -2,15 +2,19 @@
 {% load static i18n %}
 {% block content %}
 <h4>
-  {% blocktrans with username=request.user.name %}
-    {{ username }}, vítej zpět v KiCoMa
-  {% endblocktrans %}
+  {% if request.user.is_authenticated %}
+    {% blocktranslate trimmed with username=request.user.name %}
+      {{ username }}, vítej zpět v KiCoMa
+    {% endblocktranslate %}
+  {% else %}
+    {% translate "Guest, welcome in kiCoMa" %}
+  {% endif %}
 </h4>
 <hr />
 <div class="container-fluid">
   <div class="row">
     <div class="col">
-      <h5>{% trans "Novinky" %}</h5>
+      <h5>{% translate "Novinky" %}</h5>
       {% for entry in latest_entries %}
         {{ entry.date }}
         <ul>
@@ -20,26 +24,26 @@
         </ul>
       {% endfor %}
       {% url 'kitchen:changelog' as changelog_url %}
-      {% blocktrans with changelog_url=changelog_url %}
+      {% blocktranslate trimmed with changelog_url=changelog_url %}
       Zobrazit <a href="{{ changelog_url }}">úplný seznam změn.</a>
-      {% endblocktrans %}
+      {% endblocktranslate %}
       <hr/>
       <h5 class=mb-4>
         {% url 'kitchen:docs' as docs_url %}
-        {% blocktrans trimmed with docs_url=docs_url %}
+        {% blocktranslate trimmed with docs_url=docs_url %}
           Pročti si <a href="{{ docs_url }}">příručku k aplikaci</a>.
-      {% endblocktrans %}
+      {% endblocktranslate %}
       </h5>
       <hr/>
       <h5 class=mb-4>
-        {% trans "Máš nápad na novou funkci nebo jsi narazila na chybu?" %}
+        {% translate "Máš nápad na novou funkci nebo jsi narazila na chybu?" %}
       </h5>
-      {% blocktrans %}
+      {% blocktranslate trimmed %}
         Neváhej a
         <a href="https://www.stanislavvalasek.com/contact" target="_blank">kontaktuj přímo autora</a>!
-      {% endblocktrans %}
+      {% endblocktranslate %}
     <br/><br/>
-      {% trans "Jsem tu pro vás a těším se na vaše podněty. Pomoz mi zlepšovat KiCoMa a udělej svůj kuchyňský provoz ještě efektivnější!" %}
+      {% translate "Jsem tu pro vás a těším se na vaše podněty. Pomoz mi zlepšovat KiCoMa a udělej svůj kuchyňský provoz ještě efektivnější!" %}
     </div>
   </div>
 </div>

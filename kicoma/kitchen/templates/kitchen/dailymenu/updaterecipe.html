@@ -2,22 +2,22 @@
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% trans "Aktualizace receptu v denním menu" %}</h4>
+  <h4>{% translate "Aktualizace receptu v denním menu" %}</h4>
   <hr/>
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
-      <a href="{% url 'kitchen:showDailyMenuRecipes' dailymenurecipe_before.daily_menu.id%}"><button class="btn btn-secondary">{% trans "Zpět na seznam receptů" %}</button></a>
-      <b>{% trans "Den:" %}</b> {{dailymenurecipe_before.daily_menu.date}} 
-      <b>{% trans "Skupina strávníků:" %}</b> {{dailymenurecipe_before.daily_menu.meal_group}} 
-      <b>{% trans "Typ jídla:" %}</b> {{dailymenurecipe_before.daily_menu.meal_type}} 
-      <b>{% trans "Poznámka:" %}</b> {{dailymenurecipe_before.daily_menu.comment}}
+      <a href="{% url 'kitchen:showDailyMenuRecipes' dailymenurecipe_before.daily_menu.id%}"><button class="btn btn-secondary">{% translate "Zpět na seznam receptů" %}</button></a>
+      <b>{% translate "Den:" %}</b> {{dailymenurecipe_before.daily_menu.date}} 
+      <b>{% translate "Skupina strávníků:" %}</b> {{dailymenurecipe_before.daily_menu.meal_group}} 
+      <b>{% translate "Typ jídla:" %}</b> {{dailymenurecipe_before.daily_menu.meal_type}} 
+      <b>{% translate "Poznámka:" %}</b> {{dailymenurecipe_before.daily_menu.comment}}
     </div>
   </div>
   <br/>
   <form method="post" action="{% url 'kitchen:updateDailyMenuRecipe' dailymenurecipe_before.id %}">
     {% csrf_token %}
     {% crispy form form.helper %}
-    <button type="submit" class="btn btn-success">{% trans "Uložit" %}</button>
+    <button type="submit" class="btn btn-success">{% translate "Uložit" %}</button>
   </form>
 </div>
 {% endblock content %}

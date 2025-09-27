@@ -3,31 +3,31 @@
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% trans "Odstranění zboží z výdejky" %}</h4>
+  <h4>{% translate "Odstranění zboží z výdejky" %}</h4>
   <hr />
   <p>
     <a href="{% url 'kitchen:showStockIssueArticles' object.stock_issue.id %}">
       <button class="btn btn-secondary">
-        {% trans "Zpět na seznam zboží výdejky" %}
+        {% translate "Zpět na seznam zboží výdejky" %}
       </button>
     </a>
   </p>
   <form method="post" action="{% url 'kitchen:deleteStockIssueArticle' pk=object.id %}">
     {% csrf_token %}
     {{ form|crispy }}
-    <p>{% trans "Chcete odstranit zboží z výdejky:" %}</p>
+    <p>{% translate "Chcete odstranit zboží z výdejky:" %}</p>
     <ul>
       <li>
-        {% blocktrans with article=object.article %}Zboží: {{ article }}{% endblocktrans %}
+        {% blocktranslate trimmed with article=object.article %}Zboží: {{ article }}{% endblocktranslate %}
       </li>
       <li>
-        {% blocktrans with price=object.price_without_vat|intcomma %}Cena bez DPH: {{ price }} {{ CURRENCY }}{% endblocktrans %}
+        {% blocktranslate trimmed with price=object.price_without_vat|intcomma %}Cena bez DPH: {{ price }} {{ CURRENCY }}{% endblocktranslate %}
       </li>
       <li>
-        {% blocktrans with comment=object.comment %}Poznámka: {{ comment }}{% endblocktrans %}
+        {% blocktranslate trimmed with comment=object.comment %}Poznámka: {{ comment }}{% endblocktranslate %}
       </li>
     </ul>
-    <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>
+    <button type="submit" class="btn btn-success">{% translate "Odstranit" %}</button>
   </form>
 </div>
 {% endblock content %}

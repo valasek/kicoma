@@ -3,20 +3,20 @@
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% trans "Chcete odstranit příjemku?" %}</h4>
+  <h4>{% translate "Chcete odstranit příjemku?" %}</h4>
   <hr/>
-  <p><a href="{% url 'kitchen:showStockReceipts' %}"><button class="btn btn-secondary">{% trans "Zpět na seznam příjemek" %}</button></a>
+  <p><a href="{% url 'kitchen:showStockReceipts' %}"><button class="btn btn-secondary">{% translate "Zpět na seznam příjemek" %}</button></a>
   <form method="post" action="{% url 'kitchen:deleteStockReceipt' pk=object.id %}">
     {% csrf_token %}
     {{ form|crispy }}
     <table class="table">
       <thead>
         <tr>
-          <th>{% trans "Celková cena s DPH" %}</th>
-          <th>{% trans "Počet naskladňovaného zboží" %}</th>
-          <th>{% trans "Vytvořena dne" %}</th>
-          <th>{% trans "Vytvořila" %}</th>
-          <th>{% trans "Poznámka" %}</th>
+          <th>{% translate "Celková cena s DPH" %}</th>
+          <th>{% translate "Počet naskladňovaného zboží" %}</th>
+          <th>{% translate "Vytvořena dne" %}</th>
+          <th>{% translate "Vytvořila" %}</th>
+          <th>{% translate "Poznámka" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -27,20 +27,20 @@
         <td>{{ stock_receipt.comment }}</td>
       </tbody>
     </table>
-    <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button></p>
+    <button type="submit" class="btn btn-success">{% translate "Odstranit" %}</button></p>
   </form>
-  <h4 style="text-align:center">{% trans "Zboží k naskladnění" %}</h4>
+  <h4 style="text-align:center">{% translate "Zboží k naskladnění" %}</h4>
   <br/>
   <table class="table">
     <thead>
       <tr>
-        <th>{% trans "Zboží" %}</th>
-        <th>{% trans "Množství" %}</th>
-        <th>{% trans "Jednotková cena bez DPH" %}</th>
-        <th>{% trans "DPH" %}</th>
-        <th>{% trans "Jednotková cena s DPH" %}</th>
-        <th>{% trans "Celková cena s DPH" %}</th>
-        <th>{% trans "Poznámka" %}</th>
+        <th>{% translate "Zboží" %}</th>
+        <th>{% translate "Množství" %}</th>
+        <th>{% translate "Jednotková cena bez DPH" %}</th>
+        <th>{% translate "DPH" %}</th>
+        <th>{% translate "Jednotková cena s DPH" %}</th>
+        <th>{% translate "Celková cena s DPH" %}</th>
+        <th>{% translate "Poznámka" %}</th>
       </tr>
       </thead>
       <tbody>

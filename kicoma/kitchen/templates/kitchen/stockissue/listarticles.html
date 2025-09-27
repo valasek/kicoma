@@ -5,11 +5,11 @@
 {% block content %}
 <div class="container-fluid">
   <h4>
-    {% trans "Seznam zboží na výdejce z" %} {{ stockissue.created }}, {% trans "vytvořil:" %} {{ stockissue.user_created.name }}, {% trans "celková cena:" %} {{ stockissue.total_price|intcomma }} {{ CURRENCY }}, {% trans "vyskladněno:" %}
+    {% translate "Seznam zboží na výdejce z" %} {{ stockissue.created }}, {% translate "vytvořil:" %} {{ stockissue.user_created.name }}, {% translate "celková cena:" %} {{ stockissue.total_price|intcomma }} {{ CURRENCY }}, {% translate "vyskladněno:" %}
     {% if stockissue.approved %}
-    {% trans "ANO" %}
+    {% translate "ANO" %}
     {% else %}
-    {% trans "NE" %}
+    {% translate "NE" %}
     {% endif %}
   </h4>
   <hr />
@@ -17,15 +17,15 @@
     <div class="col-8 justify-content-start d-inline">
       <a href="{% url 'kitchen:showStockIssues' %}"
         ><button class="btn btn-secondary mb-2">
-          {% trans "Zpět na seznam výdejek" %}
+          {% translate "Zpět na seznam výdejek" %}
         </button></a
       >
       <a
         href="{% url 'kitchen:createStockIssueArticle' stockissue.id %}"
         class="btn btn-primary mb-2"
-        >{% trans "Nové zboží" %}</a
+        >{% translate "Nové zboží" %}</a
       >
-      {% trans "Poznámka:" %} {{stockissue.comment}}
+      {% translate "Poznámka:" %} {{stockissue.comment}}
     </div>
   </div>
   {% render_table table %}

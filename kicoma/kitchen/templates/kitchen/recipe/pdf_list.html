@@ -2,14 +2,14 @@
 {% load static i18n %}
 {% block content %}
 <p class="text-center">
-  {% blocktrans with total=recipes_total %}Receptů celkem: {{ total }}{% endblocktrans %}
+  {% blocktranslate trimmed with total=recipes_total %}Receptů celkem: {{ total }}{% endblocktranslate %}
 </p>
   <table class="table w-auto">
     <thead>
       <tr>
-        <th scope="col">{% trans "Recept" %}</th>
-        <th scope="col">{% trans "Počet porcí" %}</th>
-        <th scope="col">{% trans "Komentář" %}</th>
+        <th scope="col">{% translate "Recept" %}</th>
+        <th scope="col">{% translate "Počet porcí" %}</th>
+        <th scope="col">{% translate "Komentář" %}</th>
       </tr>
     </thead>
     <tbody>

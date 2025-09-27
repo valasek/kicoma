@@ -2,28 +2,28 @@
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% trans "Odstranění receptu" %}</h4>
+  <h4>{% translate "Odstranění receptu" %}</h4>
   <hr/>
-  <p><a href="{% url 'kitchen:showRecipes' %}"><button class="btn btn-secondary">{% trans "Zpět na seznam receptů" %}</button></a></p>
+  <p><a href="{% url 'kitchen:showRecipes' %}"><button class="btn btn-secondary">{% translate "Zpět na seznam receptů" %}</button></a></p>
   <form method="post" action="{% url 'kitchen:deleteRecipe' pk=object.id %}">
     {% csrf_token %}
     {{ form|crispy }}
-    <p>{% trans "Chcete odstranit recept:" %}</p>
+    <p>{% translate "Chcete odstranit recept:" %}</p>
     <ul>
       <li>
-        {% blocktrans with recipe=object.recipe %}Název: {{ recipe }}{% endblocktrans %}
+        {% blocktranslate trimmed with recipe=object.recipe %}Název: {{ recipe }}{% endblocktranslate %}
       </li>
       <li>
-        {% blocktrans with created=object.created %}Vytvořen dne: {{ created }}{% endblocktrans %}
+        {% blocktranslate trimmed with created=object.created %}Vytvořen dne: {{ created }}{% endblocktranslate %}
       </li>
       <li>
-        {% blocktrans with portions=object.norm_amount %}Počet porcí: {{ portions }}{% endblocktrans %}
+        {% blocktranslate trimmed with portions=object.norm_amount %}Počet porcí: {{ portions }}{% endblocktranslate %}
       </li>
       <li>
-        {% blocktrans with procedure=object.procedure %}Postup: {{ procedure }}{% endblocktrans %}
+        {% blocktranslate trimmed with procedure=object.procedure %}Postup: {{ procedure }}{% endblocktranslate %}
       </li>
     </ul>
-    <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>
+    <button type="submit" class="btn btn-success">{% translate "Odstranit" %}</button>
   </form>
 </div>
 {% endblock content %}

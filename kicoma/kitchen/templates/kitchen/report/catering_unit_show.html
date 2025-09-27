@@ -3,14 +3,14 @@
 {% block content %}
 <div class="container-fluid">
   <h4>
-    {% blocktrans with day=date|date %}Stravovací jednotka pro {{ day }}{% endblocktrans %}
+    {% blocktranslate trimmed with day=date|date %}Stravovací jednotka pro {{ day }}{% endblocktranslate %}
   </h4>
   <table class="table">
     <thead>
-      <th>{% trans "Recept" %}</th>
-      <th>{% trans "Cena receptu na porci" %}</th>
-      <th>{% trans "Počet porcí" %}</th>
-      <th>{% trans "Celková cena" %}</th>
+      <th>{% translate "Recept" %}</th>
+      <th>{% translate "Cena receptu na porci" %}</th>
+      <th>{% translate "Počet porcí" %}</th>
+      <th>{% translate "Celková cena" %}</th>
     </thead>
     {% for daily_menu_recipe in daily_menu_recipes %}
     <tbody>
@@ -24,10 +24,10 @@
     {% endfor %}
   </table>
   <p>
-    {% blocktrans with total=daily_menu_recipes_total|intcomma %}Celkem receptů: {{ total }}{% endblocktrans %}
+    {% blocktranslate trimmed with total=daily_menu_recipes_total|intcomma %}Celkem receptů: {{ total }}{% endblocktranslate %}
   </p>
   <p>
-    {% blocktrans with total_price=daily_menu_recipes_total_price|intcomma %}Celková cena receptů za den: {{ total_price }} {{ CURRENCY }}{% endblocktrans %}
+    {% blocktranslate trimmed with total_price=daily_menu_recipes_total_price|intcomma %}Celková cena receptů za den: {{ total_price }} {{ CURRENCY }}{% endblocktranslate %}
   </p>
 </div>
 {% endblock %}

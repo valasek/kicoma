@@ -3,26 +3,26 @@
 {% load static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% trans "Aktualizace zboží na příjemce" %}</h4>
+  <h4>{% translate "Aktualizace zboží na příjemce" %}</h4>
   <hr />
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
       <a
         href="{% url 'kitchen:showStockReceiptArticles' stock_receipt_article_before.stock_receipt.id %}"
         ><button class="btn btn-secondary">
-          {% trans "Zpět na seznam zboží příjemky" %}
+          {% translate "Zpět na seznam zboží příjemky" %}
         </button></a
       >
       <a
         href="{% url 'kitchen:printStockReceipt' stock_receipt_article_before.stock_receipt.id %}"
         class="btn btn-primary"
-        >{% trans "PDF - příjemka" %}</a
+        >{% translate "PDF - příjemka" %}</a
       >
-      <b>{% trans "Příjemka vytvořena dne:" %}</b>
+      <b>{% translate "Příjemka vytvořena dne:" %}</b>
       {{stock_receipt_article_before.stock_receipt.created}},
-      <b>{% trans "Vytvořila:" %}</b>
+      <b>{% translate "Vytvořila:" %}</b>
       {{stock_receipt_article_before.stock_receipt.user_created.name}},
-      <b>{% trans "Poznámka:" %}</b> {{stock_receipt_article_before.stock_receipt.comment}}
+      <b>{% translate "Poznámka:" %}</b> {{stock_receipt_article_before.stock_receipt.comment}}
     </div>
   </div>
   <br />
@@ -32,7 +32,7 @@
   >
     {% csrf_token %}
     {% crispy form form.helper %}
-    <button type="submit" class="btn btn-success">{% trans "Uložit" %}</button>
+    <button type="submit" class="btn btn-success">{% translate "Uložit" %}</button>
   </form>
 </div>
 {% endblock content %}

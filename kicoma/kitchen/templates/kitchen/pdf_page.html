@@ -29,13 +29,13 @@
 
           /* Footer: page number centered, date on right */
           @bottom-center {
-            content: "{% trans "Strana" %} " counter(page) " {% trans "z" %} " counter(pages);
+            content: "{% translate "Strana" %} " counter(page) " {% translate "z" %} " counter(pages);
             font-size: 10px;
             color: #555;
           }
 
           @bottom-right {
-            content: "{% trans "Generováno dne:" %} {% now "j.n.Y" %}";
+            content: "{% translate "Generováno dne:" %} {% now "j.n.Y" %}";
             font-size: 10px;
             color: #555;
           }

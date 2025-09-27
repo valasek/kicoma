@@ -3,81 +3,81 @@
 {% load auth_extras %}
 {% load humanize %}
 {% block content %}
-<h4>{% trans "Příručka" %}</h4>
+<h4>{% translate "Příručka" %}</h4>
 <hr />
 <div class="container-fluid">
   <div class="row">
   <div class="col-sm-7">
-    <h5>{% trans "Správa zboží" %}</h5>
-    <p>{% trans "Zboží je možné vytvořit nebo upravit v menu" %} <a href="{% url 'kitchen:showArticles' %}">{% trans "Zboží na skladu" %}</a>. {% trans "Vymazat se dá v" %} <a href="{% url 'admin:index' %}kitchen/article">{% trans "administraci" %}</a>.
-    {% trans "Výše zásob na skladu nebo cena zboží se mění pomocí příjemky/výdejky." %}
+    <h5>{% translate "Správa zboží" %}</h5>
+    <p>{% translate "Zboží je možné vytvořit nebo upravit v menu" %} <a href="{% url 'kitchen:showArticles' %}">{% translate "Zboží na skladu" %}</a>. {% translate "Vymazat se dá v" %} <a href="{% url 'admin:index' %}kitchen/article">{% translate "administraci" %}</a>.
+    {% translate "Výše zásob na skladu nebo cena zboží se mění pomocí příjemky/výdejky." %}
     </p>
-    <h5>{% trans "Příjem zboží na sklad" %}</h5>
-    <p>{% trans "Příjem zboží na sklad probíhá pomocí" %} <a href="{% url 'kitchen:showStockReceipts' %}">{% trans "příjemek" %}</a> {% trans "uživatelem ve skupine 'Skladník'." %}
-    {% trans "Před příjmem musí být zboží na skladu založeno. Výše zásob a cena zboží je aktualizována jenom když je příjemka schválená." %}
-    {% trans "Úprava zboží a vyskladnění již naskladněné přijemky není možná." %}</p>
-    <h5>{% trans "Inventura" %}</h5>
-    <p>{% trans "Program umožňuje PDF export úplného seznamu zboží pro kontrolu skladových zásob a pak možnost exportu skladu ve formátu MS Excel s následným importem." %}</p>
-    <h5>{% trans "Výdej zboží ze skladu" %}</h5>
-    <p>{% trans "Výdejku je možno vytvořit manuálně nebo ji" %} <a href="{% url 'kitchen:createStockIssueFromDailyMenu' %}">{% trans "založit dle všech denních menu pro zadaný den" %}</a>.<br />
-    {% trans "Když se denní menu změní, je možno Výdejku 'Aktualizovat' a tím se vymaže všechno zboží a znovu se vytvoří ve výdejce dle zadaného dne." %}
-    {% trans "Příjem zboží na sklad probíhá pomocí" %} <a href="{% url 'kitchen:showStockIssues' %}">{% trans "výdejek" %}</a> {% trans "uživatelem ve skupine 'Skladník'." %}
-    {% trans "Před výdejem musí být zboží v minimálně vyskladňované výši naskladněno. Výše zásob a cena zboží je aktualizována jenom když je výdejka schválená." %}</p>
-    <h5>{% trans "Správa receptů" %}</h5>
-    <p>{% trans "Recepty a ingredience v receptech je možné vytvořit, upravit nebo vymazat v menu" %} <a href="{% url 'kitchen:showRecipes' %}">{% trans "Seznam receptů" %}</a>.</p>
-    <h5>{% trans "Správa denního menu" %}</h5>
-    <p>{% trans "Denní menu a související recepty je možné vytvořit, upravit nebo vymazat v menu" %} <a href="{% url 'kitchen:showDailyMenus' %}">{% trans "Sestavit denní menu" %}</a>.</p>
-    <h5>{% trans "Reporty a tisky" %}</h5>
-    <p>{% trans "Všechny tisky probíhají pomocí generování PDF, které je možno zobrazit, uložit nebo vytisknout." %}</p>
-    <h5>{% trans "Správa číselníků" %}</h5>
-    <p>{% trans "Číselníky spravuje uživatel ve skupině 'Šéfkuchař' v" %} <a href="{% url 'admin:index' %}kitchen">{% trans "Administraci" %}</a>.
+    <h5>{% translate "Příjem zboží na sklad" %}</h5>
+    <p>{% translate "Příjem zboží na sklad probíhá pomocí" %} <a href="{% url 'kitchen:showStockReceipts' %}">{% translate "příjemek" %}</a> {% translate "uživatelem ve skupine 'Skladník'." %}
+    {% translate "Před příjmem musí být zboží na skladu založeno. Výše zásob a cena zboží je aktualizována jenom když je příjemka schválená." %}
+    {% translate "Úprava zboží a vyskladnění již naskladněné přijemky není možná." %}</p>
+    <h5>{% translate "Inventura" %}</h5>
+    <p>{% translate "Program umožňuje PDF export úplného seznamu zboží pro kontrolu skladových zásob a pak možnost exportu skladu ve formátu MS Excel s následným importem." %}</p>
+    <h5>{% translate "Výdej zboží ze skladu" %}</h5>
+    <p>{% translate "Výdejku je možno vytvořit manuálně nebo ji" %} <a href="{% url 'kitchen:createStockIssueFromDailyMenu' %}">{% translate "založit dle všech denních menu pro zadaný den" %}</a>.<br />
+    {% translate "Když se denní menu změní, je možno Výdejku 'Aktualizovat' a tím se vymaže všechno zboží a znovu se vytvoří ve výdejce dle zadaného dne." %}
+    {% translate "Příjem zboží na sklad probíhá pomocí" %} <a href="{% url 'kitchen:showStockIssues' %}">{% translate "výdejek" %}</a> {% translate "uživatelem ve skupine 'Skladník'." %}
+    {% translate "Před výdejem musí být zboží v minimálně vyskladňované výši naskladněno. Výše zásob a cena zboží je aktualizována jenom když je výdejka schválená." %}</p>
+    <h5>{% translate "Správa receptů" %}</h5>
+    <p>{% translate "Recepty a ingredience v receptech je možné vytvořit, upravit nebo vymazat v menu" %} <a href="{% url 'kitchen:showRecipes' %}">{% translate "Seznam receptů" %}</a>.</p>
+    <h5>{% translate "Správa denního menu" %}</h5>
+    <p>{% translate "Denní menu a související recepty je možné vytvořit, upravit nebo vymazat v menu" %} <a href="{% url 'kitchen:showDailyMenus' %}">{% translate "Sestavit denní menu" %}</a>.</p>
+    <h5>{% translate "Reporty a tisky" %}</h5>
+    <p>{% translate "Všechny tisky probíhají pomocí generování PDF, které je možno zobrazit, uložit nebo vytisknout." %}</p>
+    <h5>{% translate "Správa číselníků" %}</h5>
+    <p>{% translate "Číselníky spravuje uživatel ve skupině 'Šéfkuchař' v" %} <a href="{% url 'admin:index' %}kitchen">{% translate "Administraci" %}</a>.
     <br />
-    {% trans "Odkaz na úpravu konkrétního číselníku:" %} <a href="{% url 'admin:index' %}kitchen/allergen">{% trans "alergeny" %}</a>,
-    <a href="{% url 'admin:index' %}kitchen/vat">{% trans "DPH" %}</a>,
-    <a href="{% url 'admin:index' %}kitchen/mealtype">{% trans "druhy jídla" %}</a>,
-    <a href="{% url 'admin:index' %}kitchen/mealgroup">{% trans "skupinu strávníků" %}</a>.</p>
+    {% translate "Odkaz na úpravu konkrétního číselníku:" %} <a href="{% url 'admin:index' %}kitchen/allergen">{% translate "alergeny" %}</a>,
+    <a href="{% url 'admin:index' %}kitchen/vat">{% translate "DPH" %}</a>,
+    <a href="{% url 'admin:index' %}kitchen/mealtype">{% translate "druhy jídla" %}</a>,
+    <a href="{% url 'admin:index' %}kitchen/mealgroup">{% translate "skupinu strávníků" %}</a>.</p>
   </div>
   <div class="col-sm">
-    <h5>{% trans "Uživatelské skupiny" %}</h5>
-      <p>{% trans "Založení, úprava nebo výmaz uživatele je možný v" %} <a href="{% url 'admin:index' %}users/user/">{% trans "administraci" %}</a>.</p>
+    <h5>{% translate "Uživatelské skupiny" %}</h5>
+      <p>{% translate "Založení, úprava nebo výmaz uživatele je možný v" %} <a href="{% url 'admin:index' %}users/user/">{% translate "administraci" %}</a>.</p>
       <table class="table table-responsive table-sm">
         <thead class="thead-light">
           <tr>
-            <th>{% trans "Skupina" %}</th>
-            <th>{% trans "Oprávnění" %}</th>
+            <th>{% translate "Skupina" %}</th>
+            <th>{% translate "Oprávnění" %}</th>
           </tr>
         </thead>
         <tr>
-          <th>{% trans "Šéfkuchař (Chef)" %}</th>
+          <th>{% translate "Šéfkuchař (Chef)" %}</th>
           <td>
-            {% trans "Administrátor" %}<br />
-            {% trans "Správa skupin i uživatelů, všech číselníků." %}<br/>
-            {% trans "Export a import jakýchkoli dat." %}
+            {% translate "Administrátor" %}<br />
+            {% translate "Správa skupin i uživatelů, všech číselníků." %}<br/>
+            {% translate "Export a import jakýchkoli dat." %}
           </td>
         </tr>
         <tr>
-          <th>{% trans "Kuchař (Cook)" %}</th>
-          <td>{% trans "Tvorba denního menu, tvorba a správa výdejek kromě schvalování a PDF reporty" %}</td>
+          <th>{% translate "Kuchař (Cook)" %}</th>
+          <td>{% translate "Tvorba denního menu, tvorba a správa výdejek kromě schvalování a PDF reporty" %}</td>
         </tr>
         <tr>
-          <th>{% trans "Skladník (Stockkeeper)" %}</th>
+          <th>{% translate "Skladník (Stockkeeper)" %}</th>
           <td>
-            {% trans "Správa skladu - založení nové skladové karty, úprava zboží, zadávání a schvalování příjemek, schvalování a tvorba výdejek" %}<br/>
-            {% trans "Inventura" %}
+            {% translate "Správa skladu - založení nové skladové karty, úprava zboží, zadávání a schvalování příjemek, schvalování a tvorba výdejek" %}<br/>
+            {% translate "Inventura" %}
           </td>
         </tr>
       </table>
-      <h5>{% trans "Administrace aplikace" %}</h5>
-      <p>{% trans "Uživatel ve skupině 'Šéfkuchař' má právo na Administrační sekci a export nebo import dat. Každou datovou tabulku včetně uživatelů je možno plně zpravovat v" %} <a href="{% url 'admin:index' %}kitchen">{% trans "administraci" %}</a> {% trans "a nejsou aplikovány žádné dodatečné kontroly." %}
-      {% trans "Není doporučeno měnit sekce" %} <a href="{% url 'admin:index' %}auth">{% trans "Autentizace a autorizace" %}</a>, <a href="{% url 'admin:index' %}sites">{% trans "Weby" %}</a>,
-      <a href="{% url 'admin:index' %}account">{% trans "Účty" %}</a> {% trans "a" %} <a href="{% url 'admin:index' %}socialaccount">{% trans "Účty sociálních sítí" %}</a>.</p>
-      <p>{% trans "Export nebo import dat obsahuje všechna data KiCoMa kromě seznamu uživatelů a skupin. Ty je nutno v nové aplikaci nastavit programově." %}</p>
+      <h5>{% translate "Administrace aplikace" %}</h5>
+      <p>{% translate "Uživatel ve skupině 'Šéfkuchař' má právo na Administrační sekci a export nebo import dat. Každou datovou tabulku včetně uživatelů je možno plně zpravovat v" %} <a href="{% url 'admin:index' %}kitchen">{% translate "administraci" %}</a> {% translate "a nejsou aplikovány žádné dodatečné kontroly." %}
+      {% translate "Není doporučeno měnit sekce" %} <a href="{% url 'admin:index' %}auth">{% translate "Autentizace a autorizace" %}</a>, <a href="{% url 'admin:index' %}sites">{% translate "Weby" %}</a>,
+      <a href="{% url 'admin:index' %}account">{% translate "Účty" %}</a> {% translate "a" %} <a href="{% url 'admin:index' %}socialaccount">{% translate "Účty sociálních sítí" %}</a>.</p>
+      <p>{% translate "Export nebo import dat obsahuje všechna data KiCoMa kromě seznamu uživatelů a skupin. Ty je nutno v nové aplikaci nastavit programově." %}</p>
   </div>
 </div>
 <hr/>
 <div class="row">
   <div class="col">
-    <h5>{% trans "Datový model" %}</h5>
+    <h5>{% translate "Datový model" %}</h5>
     <img src="{% static 'images/datamodel.png'%}" width="100%" alt="data model" />
   </div>
 </div>
@@ -85,131 +85,131 @@
 {% if request.user.is_authenticated %}
 <div class="row">
   <div class="col">
-    <h5>{% trans "Stav a objem dat" %}</h5>
-    <p scope="row">{% trans "Databáze obsahuje celkem" %} {{ total_records | intcomma }} {% trans "záznamů." %}</p>
+    <h5>{% translate "Stav a objem dat" %}</h5>
+    <p scope="row">{% translate "Databáze obsahuje celkem" %} {{ total_records | intcomma }} {% translate "záznamů." %}</p>
     <div class="row">  
       <div class="col-sm">
-        <h5>{% trans "Uživatelská data" %}</h5>
+        <h5>{% translate "Uživatelská data" %}</h5>
         <table class="table table-striped table-sm table-responsive">
           <tr>
-            <th scope="col">{% trans "Tabulka" %}</th>
-            <th scope="col">{% trans "Záznamů" %}</th>
+            <th scope="col">{% translate "Tabulka" %}</th>
+            <th scope="col">{% translate "Záznamů" %}</th>
           </tr>
           <tr>
-            <td scope="row">{% trans "Zboží" %}</td>
+            <td scope="row">{% translate "Zboží" %}</td>
             <td >{{ article_count | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Vazby mezi zboží a alergeny" %}</td>
+            <td scope="row">{% translate "Vazby mezi zboží a alergeny" %}</td>
             <td >{{ article_allergen_count| intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Zboží - historie" %}</td>
+            <td scope="row">{% translate "Zboží - historie" %}</td>
             <td >{{ historical_article_count | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Recepty" %}</td>
+            <td scope="row">{% translate "Recepty" %}</td>
             <td >{{ recipeCount | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Surovin v receptech" %}</td>
+            <td scope="row">{% translate "Surovin v receptech" %}</td>
             <td >{{ recipe_article_count | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Příjemky" %}</td>
+            <td scope="row">{% translate "Příjemky" %}</td>
             <td >{{ stockReceiptCount | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Zboží na příjemkách" %}</td>
+            <td scope="row">{% translate "Zboží na příjemkách" %}</td>
             <td >{{ stock_receipt_article_count | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Výdejky" %}</td>
+            <td scope="row">{% translate "Výdejky" %}</td>
             <td >{{ stockIssueCount | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Zboží na výdejkách" %}</td>
+            <td scope="row">{% translate "Zboží na výdejkách" %}</td>
             <td >{{ stock_issue_article_count | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Denní menu" %}</td>
+            <td scope="row">{% translate "Denní menu" %}</td>
             <td >{{ dailyMenuCount | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Recepty v denních menu" %}</td>
+            <td scope="row">{% translate "Recepty v denních menu" %}</td>
             <td >{{ dailyMenuRecipeCount | intcomma }}</td>
           </tr>
         </table>
       </div>
       <div class="col-sm">
-        <h5>{% trans "Číselníky" %}</h5>
+        <h5>{% translate "Číselníky" %}</h5>
         <table class="table table-striped table-sm table-responsive">
           <tr>
-            <th scope="col">{% trans "Tabulka" %}</th>
-            <th scope="col">{% trans "Záznamů" %}</th>
+            <th scope="col">{% translate "Tabulka" %}</th>
+            <th scope="col">{% translate "Záznamů" %}</th>
           </tr>
           <tr>
-            <td scope="row">{% trans "Druhy jídla" %}</td>
+            <td scope="row">{% translate "Druhy jídla" %}</td>
             <td >{{ meal_typeCount | intcomma }}</td>
           </tr>
             <tr>
-            <td scope="row">{% trans "Skupiny strávníků" %}</td>
+            <td scope="row">{% translate "Skupiny strávníků" %}</td>
             <td >{{ mealGroupCount | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Alergeny" %}</td>
+            <td scope="row">{% translate "Alergeny" %}</td>
             <td >{{ allergenCount | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "DPH" %}</td>
+            <td scope="row">{% translate "DPH" %}</td>
             <td >{{ vatCount | intcomma }}</td>
           </tr>
         </table>
-        <h5>{% trans "Práva" %}</h5>
+        <h5>{% translate "Práva" %}</h5>
         <table class="table table-striped table-sm table-responsive">
           <tr>
-            <th scope="col">{% trans "Tabulka" %}</th>
-            <th scope="col">{% trans "Záznamů" %}</th>
+            <th scope="col">{% translate "Tabulka" %}</th>
+            <th scope="col">{% translate "Záznamů" %}</th>
           </tr>
           <tr>
-            <td scope="row">{% trans "Uživatelé" %}</td>
+            <td scope="row">{% translate "Uživatelé" %}</td>
             <td >{{ userCount | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Skupiny" %}</td>
+            <td scope="row">{% translate "Skupiny" %}</td>
             <td >{{ groupCount | intcomma }}</td>
           </tr>
         </table>
       </div>
       <div class="col-sm">
-        <h5>{% trans "Servisní tabulky" %}</h5>
+        <h5>{% translate "Servisní tabulky" %}</h5>
         <table class="table table-striped table-sm table-responsive">
           <tr>
-            <th scope="col">{% trans "Tabulka" %}</th>
-            <th scope="col">{% trans "Záznamů" %}</th>
+            <th scope="col">{% translate "Tabulka" %}</th>
+            <th scope="col">{% translate "Záznamů" %}</th>
           </tr>
           <tr>
-            <td scope="row">{% trans "Content types" %}</td>
+            <td scope="row">{% translate "Content types" %}</td>
             <td >{{ content_type_count | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Group permissions" %}</td>
+            <td scope="row">{% translate "Group permissions" %}</td>
             <td >{{ permission_count | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "DB migrations" %}</td>
+            <td scope="row">{% translate "DB migrations" %}</td>
             <td >{{ migration_count | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Sessions" %}</td>
+            <td scope="row">{% translate "Sessions" %}</td>
             <td >{{ session_count | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "Sites" %}</td>
+            <td scope="row">{% translate "Sites" %}</td>
             <td >{{ site_count | intcomma }}</td>
           </tr>
           <tr>
-            <td scope="row">{% trans "User group relationships" %}</td>
+            <td scope="row">{% translate "User group relationships" %}</td>
             <td >{{ user_group_rel_count | intcomma }}</td>
           </tr>
         </table>

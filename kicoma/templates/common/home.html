@@ -4,123 +4,123 @@
 {% block content %}
 <section class="bg-gradient-purple text-white py-5">
   <div class="container text-center">
-      <h1 class="display-4">{% trans "Kuchyně pod kontrolou" %}</h1>
-      <p class="lead">{% trans "Profesionální řešení pro řízení skladu, receptů i kuchyně" %}</p>
-      <p>{% trans "Zefektivněte provoz své kuchyně pomocí našeho komplexního systému řízení." %}</p>
-      <a href="{% url 'kitchen:about' %}" class="btn btn-light btn-lg">{% trans "Začít" %}</a>
-      <a href="#" class="btn btn-outline-light btn-lg ms-3">{% trans "Vyzkoušet demo" %}</a>
+      <h1 class="display-4">{% translate "Kuchyně pod kontrolou" %}</h1>
+      <p class="lead">{% translate "Profesionální řešení pro řízení skladu, receptů i kuchyně" %}</p>
+      <p>{% translate "Zefektivněte provoz své kuchyně pomocí našeho komplexního systému řízení." %}</p>
+      <a href="{% url 'kitchen:about' %}" class="btn btn-light btn-lg">{% translate "Začít" %}</a>
+      <a href="#" class="btn btn-outline-light btn-lg ms-3">{% translate "Vyzkoušet demo" %}</a>
   </div>
 </section>
 
 <section id="features" class="py-5">
   <div class="container">
-    <h2 class="text-center mb-5">{% trans "Funkce" %}</h2>
+    <h2 class="text-center mb-5">{% translate "Funkce" %}</h2>
     <p class="text-center mb-4">
-      {% trans "KiCoMa je špičkový program určený pro efektivní správu skladu potravin, receptů a menu.<br/><br/>Pojďte se podívat, jak vám KiCoMa může pomoci:" %}
+      {% translate "KiCoMa je špičkový program určený pro efektivní správu skladu potravin, receptů a menu.<br/><br/>Pojďte se podívat, jak vám KiCoMa může pomoci:" %}
     </p>
     <div class="row justify-content-center">
       <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm">
           <div class="card-body text-center bg-gradient-purple text-white rounded-3">
-            <h5>{% trans "Snadné plánování" %}</h5>
-            <p>{% trans "Výživová poradkyně jednoduše naplánuje recepty a denní menu." %}</p>
+            <h5>{% translate "Snadné plánování" %}</h5>
+            <p>{% translate "Výživová poradkyně jednoduše naplánuje recepty a denní menu." %}</p>
           </div>
         </div>
       </div>
       <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm">
           <div class="card-body text-center bg-gradient-purple text-white rounded-3">
-            <h5>{% trans "Bezproblémové vaření" %}</h5>
-            <p>{% trans "Kuchyně vaří přesně podle denního menu, bez stresu a zmatků." %}</p>
+            <h5>{% translate "Bezproblémové vaření" %}</h5>
+            <p>{% translate "Kuchyně vaří přesně podle denního menu, bez stresu a zmatků." %}</p>
           </div>
         </div>
       </div>
       <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm">
           <div class="card-body text-center bg-gradient-purple text-white rounded-3">
-            <h5>{% trans "Perfektní synchronizace" %}</h5>
-            <p>{% trans "Recepty a menu jsou propojené se skladem potravin, což znamená, že vždy víte, co máte na skladě." %}</p>
+            <h5>{% translate "Perfektní synchronizace" %}</h5>
+            <p>{% translate "Recepty a menu jsou propojené se skladem potravin, což znamená, že vždy víte, co máte na skladě." %}</p>
           </div>
         </div>
       </div>
       <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm">
           <div class="card-body text-center bg-gradient-purple text-white rounded-3">
-            <h5>{% trans "Aktuální stav skladu" %}</h5>
-            <p>{% trans "Stav skladu se automaticky mění pomocí příjemek a výdejek sestavených podle vydávaných jídel, nebo jednorázovou inventurou." %}</p>
+            <h5>{% translate "Aktuální stav skladu" %}</h5>
+            <p>{% translate "Stav skladu se automaticky mění pomocí příjemek a výdejek sestavených podle vydávaných jídel, nebo jednorázovou inventurou." %}</p>
           </div>
         </div>
       </div>
       <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm">
           <div class="card-body text-center bg-gradient-purple text-white rounded-3">
-            <h5>{% trans "Jednoduché reporty" %}</h5>
-            <p>{% trans "Vytvářejte přehledné reporty jedním kliknutím. Program je intuitivní a snadno ovladatelný, s nápovědou a podrobným popisem funkcí." %}</p>
+            <h5>{% translate "Jednoduché reporty" %}</h5>
+            <p>{% translate "Vytvářejte přehledné reporty jedním kliknutím. Program je intuitivní a snadno ovladatelný, s nápovědou a podrobným popisem funkcí." %}</p>
           </div>
         </div>
       </div>
     </div>
     <div class="text-center my-5">
-      <h2 class="h4 mb-4">{% trans "Co KiCoMa umí" %}</h2>
+      <h2 class="h4 mb-4">{% translate "Co KiCoMa umí" %}</h2>
       <ul class="list-unstyled d-inline-block text-start">
         <li class="mb-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
           </svg>
-          {% blocktrans %}<b>Sklad zboží</b>: jednotky, DPH, alergeny, minimální zásoby a aktuální průměrná cena.{% endblocktrans %}
+          {% blocktranslate trimmed %}<b>Sklad zboží</b>: jednotky, DPH, alergeny, minimální zásoby a aktuální průměrná cena.{% endblocktranslate %}
         </li>
         <li class="mb-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
           </svg>
-          {% blocktrans %}<b>Recepty</b>: suroviny s převody jednotek, postup, automatické alergeny a náklad na porci.{% endblocktrans %}
+          {% blocktranslate trimmed %}<b>Recepty</b>: suroviny s převody jednotek, postup, automatické alergeny a náklad na porci.{% endblocktranslate %}
         </li>
         <li class="mb-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
           </svg>
-          {% blocktrans %}<b>Menu a denní menu</b>: plánování podle skupin strávníků a typu jídla.{% endblocktrans %}
+          {% blocktranslate trimmed %}<b>Menu a denní menu</b>: plánování podle skupin strávníků a typu jídla.{% endblocktranslate %}
         </li>
         <li class="mb-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
           </svg>
-          {% blocktrans %}<b>Výdejky a příjemky</b>: vyskladnění/naskladnění se propojí se skladem, podklady do PDF.{% endblocktrans %}
+          {% blocktranslate trimmed %}<b>Výdejky a příjemky</b>: vyskladnění/naskladnění se propojí se skladem, podklady do PDF.{% endblocktranslate %}
         </li>
         <li class="mb-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
           </svg>
-          {% blocktrans %}<b>Reporty</b>: souhrnná spotřeba, chybné jednotky, zboží mimo recepty.{% endblocktrans %}
+          {% blocktranslate trimmed %}<b>Reporty</b>: souhrnná spotřeba, chybné jednotky, zboží mimo recepty.{% endblocktranslate %}
         </li>
         <li class="mb-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
           </svg>
-          {% blocktrans %}<b>Import/Export</b>: plný export dat a snadný import, včetně úklidu dat.{% endblocktrans %}
+          {% blocktranslate trimmed %}<b>Import/Export</b>: plný export dat a snadný import, včetně úklidu dat.{% endblocktranslate %}
         </li>
       </ul>
     </<div>
     <p class="text-center mt-4">
-      {% trans "Pročtěte si " %}<a href="kitchen/docs" class="fw-bold text-decoration-underline">{% trans "příručku k aplikaci" %}</a>.
+      {% translate "Pročtěte si " %}<a href="kitchen/docs" class="fw-bold text-decoration-underline">{% translate "příručku k aplikaci" %}</a>.
     </p>
   </div>
 </section>
 
 <section class="bg-gradient-purple text-white py-5">
   <div class="container text-center">
-    <h2 class="mb-4">{% trans "Co říkají uživatelé" %}</h2>
+    <h2 class="mb-4">{% translate "Co říkají uživatelé" %}</h2>
     <div class="row g-4">
       <div class="col-12 col-lg-6">
         <div class="p-4 border rounded-3 h-100">
-          <p class="mb-3 fst-italic">„{% blocktrans %}Moc Ti děkujeme za úžasnou spolupráci, všichni, co na programu pracují, si ho moc pochvalují.{% endblocktrans %}“</p>
-          <p class="mb-0"><b>{% trans "Jan Kostka" %}</b>, {% blocktrans %}Vedoucí provozu, TŘI, z.ú., Hospic Čerčany{% endblocktrans %}</p>
+          <p class="mb-3 fst-italic">„{% blocktranslate trimmed %}Moc Ti děkujeme za úžasnou spolupráci, všichni, co na programu pracují, si ho moc pochvalují.{% endblocktranslate %}“</p>
+          <p class="mb-0"><b>{% translate "Jan Kostka" %}</b>, {% blocktranslate trimmed %}Vedoucí provozu, TŘI, z.ú., Hospic Čerčany{% endblocktranslate %}</p>
         </div>
       </div>
       <div class="col-12 col-lg-6">
         <div class="p-4 border rounded-3 h-100">
-          <p class="mb-3 fst-italic">„{% blocktrans %}Honza má pravdu, zpětná vazba byla skvělá.{% endblocktrans %}“</p>
-          <p class="mb-0"><b>{% trans "PharmDr. Monika Horníková, MHA" %}</b>, {% blocktrans %}ředitelka, TŘI, z.ú., Hospic Čerčany{% endblocktrans %}</p>
+          <p class="mb-3 fst-italic">„{% blocktranslate trimmed %}Honza má pravdu, zpětná vazba byla skvělá.{% endblocktranslate %}“</p>
+          <p class="mb-0"><b>{% translate "PharmDr. Monika Horníková, MHA" %}</b>, {% blocktranslate trimmed %}ředitelka, TŘI, z.ú., Hospic Čerčany{% endblocktranslate %}</p>
         </div>
       </div>
     </div>
@@ -129,16 +129,16 @@
 
 <section id="contact" class="pt-5">
     <div class="container">
-        <h2 class="text-center mb-5">{% trans "Kontakt a podpora" %}</h2>
+        <h2 class="text-center mb-5">{% translate "Kontakt a podpora" %}</h2>
         <div class="container text-center">
           <p>
-            {% trans "Chcete mě pozdravit, potřebujete pomoc nebo navrhnout užitečnou funkci?" %}
+            {% translate "Chcete mě pozdravit, potřebujete pomoc nebo navrhnout užitečnou funkci?" %}
             <br/><br/>
-            {% trans "Záleží mi na vašem názoru." %}
+            {% translate "Záleží mi na vašem názoru." %}
             <br/><br/>
-            {% blocktrans %}
+            {% blocktranslate trimmed %}
               Kontaktujte mě – <a href="https://www.stanislavvalasek.com/contact">Stanislav Valasek</a>
-            {% endblocktrans %}
+            {% endblocktranslate %}
           </p>
           <img src="{% static 'images/profil.jpg' %}" 
               width="100%" 
@@ -150,9 +150,9 @@
 
 <section class="bg-gradient-purple text-white py-5 my-5">
   <div class="container text-center">
-    <h2>{% trans "O projektu" %}</h2>
+    <h2>{% translate "O projektu" %}</h2>
     <p class="mb-2">
-      {% blocktrans %}KiCoMa – <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement vznikla pro reálné provozy s důrazem na jednoduchost a spolehlivost.{% endblocktrans %}
+      {% blocktranslate trimmed %}KiCoMa – <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement vznikla pro reálné provozy s důrazem na jednoduchost a spolehlivost.{% endblocktranslate %}
     </p>
   </div>
 </section>

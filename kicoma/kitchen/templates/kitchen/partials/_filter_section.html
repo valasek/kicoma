@@ -8,13 +8,13 @@
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
         <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
     </svg>
-    {% trans "Filtr" %}
+    {% translate "Filtr" %}
  </a>
  
  {% if request.GET|has_filters %}
     <span class="alert alert-dark py-2 mb-3">
-        <small>{% trans "Zobrazují se filtrované výsledky" %}
-            <a href="?" class="text-danger link-underline-danger ms-2">× {% trans "Vymazat všechny filtry" %}</a>
+        <small>{% translate "Zobrazují se filtrované výsledky" %}
+            <a href="?" class="text-danger link-underline-danger ms-2">× {% translate "Vymazat všechny filtry" %}</a>
         </small>
     </span>
  {% endif %}
@@ -25,11 +25,11 @@
             {% csrf_token %}
             {{ filter.form | crispy }}
             <div class="d-flex gap-2 align-items-center">
-                <button type="submit" class="btn btn-success">{% trans "Vyhledat" %}</button>
+                <button type="submit" class="btn btn-success">{% translate "Vyhledat" %}</button>
                 {% if request.GET|has_filters %}
                     <button type="button" class="btn btn-link text-danger link-underline-danger p-0"
                             onclick="clearAllFilters()" style="font-size: 0.9rem;">
-                        × {% trans "Vymazat všechny filtry" %}
+                        × {% translate "Vymazat všechny filtry" %}
                     </button>
                 {% endif %}
             </div>

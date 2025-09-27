@@ -3,13 +3,13 @@
 {% block content %}
 <div class="container-fluid">
   <h4>
-    {% blocktrans with menu=menurecipe_before.menu %}Aktualizace receptu v menu: {{ menu }}{% endblocktrans %}
+    {% blocktranslate trimmed with menu=menurecipe_before.menu %}Aktualizace receptu v menu: {{ menu }}{% endblocktranslate %}
   </h4>
   <hr/>
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
       <a href="{% url 'kitchen:showMenuRecipes' menurecipe_before.menu.id %}">
-        <button class="btn btn-secondary">{% trans "Zpět na seznam receptů" %}</button>
+        <button class="btn btn-secondary">{% translate "Zpět na seznam receptů" %}</button>
       </a>
     </div>
   </div>
@@ -17,7 +17,7 @@
   <form method="post" action="{% url 'kitchen:updateMenuRecipe' menurecipe_before.id %}">
     {% csrf_token %}
     {% crispy form form.helper %}
-    <button type="submit" class="btn btn-success">{% trans "Uložit" %}</button>
+    <button type="submit" class="btn btn-success">{% translate "Uložit" %}</button>
   </form>
 </div>
 {% endblock content %}

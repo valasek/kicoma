@@ -54,9 +54,9 @@
                 Kicoma
             </a>
             <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="{% url 'kitchen:about' %}">{% trans "Přejít do KiCoMa" %}</a>
-                <a class="nav-link" href="#features">{% trans "Funkce" %}</a>
-                <a class="nav-link" href="#contact">{% trans "Kontakt" %}</a>
+                <a class="nav-link" href="{% url 'kitchen:about' %}">{% translate "Přejít do KiCoMa" %}</a>
+                <a class="nav-link" href="#features">{% translate "Funkce" %}</a>
+                <a class="nav-link" href="#contact">{% translate "Kontakt" %}</a>
                 {% include "menu_switch_lang.html" %}
             </div>
         </div>
@@ -73,12 +73,12 @@
                 class="mx-2 mb-2"
                 style="width: 25px;"
             />
-            {% blocktrans %}
+            {% blocktranslate trimmed %}
             KiCoMa je navržena, vyvinuta a podporována
             <a href="https://www.stanislavvalasek.com/contact" target="_blank">Stanislavem Valáškem</a>, vytvořena s ❤️ na Slovensku.
-            {% endblocktrans %}
+            {% endblocktranslate %}
             <br/><br/>
-            &copy; {% now "Y" %} {% trans "Stanislav Valášek" %}            
+            &copy; {% now "Y" %} {% translate "Stanislav Valášek" %}            
             </p>
         </div>
     </footer>

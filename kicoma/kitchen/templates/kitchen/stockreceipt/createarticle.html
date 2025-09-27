@@ -2,27 +2,27 @@
 {% load crispy_forms_tags static i18n %} 
 {% block content %}
 <div class="container-fluid">
-  <h4>{% trans "Přidat zboží na příjemku" %}</h4>
+  <h4>{% translate "Přidat zboží na příjemku" %}</h4>
   <hr />
   <p>
     <a href="{% url 'kitchen:showStockReceiptArticles' stockreceipt.id %}"
       ><button class="btn btn-secondary">
-        {% trans "Zpět na seznam zboží příjemky" %}
+        {% translate "Zpět na seznam zboží příjemky" %}
       </button></a
     >
-    {% trans "Po uložení budou dopočteny: Jednotková cena s DPH, Cena celkem s DPH" %}
+    {% translate "Po uložení budou dopočteny: Jednotková cena s DPH, Cena celkem s DPH" %}
   </p>
   <form
     method="post"
     action="{% url 'kitchen:createStockReceiptArticle' stockreceipt.id %}"
   >
     {% csrf_token %} {% crispy form form.helper %}
-    <button type="submit" class="btn btn-success">{% trans "Uložit a zadat další zboží" %}</button>
+    <button type="submit" class="btn btn-success">{% translate "Uložit a zadat další zboží" %}</button>
   </form>
   <hr/>
   <a href="{% url 'kitchen:showStockReceiptArticles' stockreceipt.id %}"
       ><button class="btn btn-secondary">
-        {% trans "Ukončit zadávání" %}
+        {% translate "Ukončit zadávání" %}
       </button></a
     >
 </div>

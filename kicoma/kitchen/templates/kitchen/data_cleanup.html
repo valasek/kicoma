@@ -3,21 +3,21 @@
 {% load static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% trans "Údržba dat" %}</h4>
-  <p>{% trans "Bezpečné vymazání záznamů z roku" %} {{ two_years_ago }} {% trans "(včetně) a starších povede ke zrychlení aplikace." %}</p>
+  <h4>{% translate "Údržba dat" %}</h4>
+  <p>{% translate "Bezpečné vymazání záznamů z roku" %} {{ two_years_ago }} {% translate "(včetně) a starších povede ke zrychlení aplikace." %}</p>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <button type="submit" class="btn btn-danger" id="myBtn">{% trans "Vymazat záznamy z roku" %} {{ two_years_ago }} {% trans "(včetně) a starších" %}</button>
+    <button type="submit" class="btn btn-danger" id="myBtn">{% translate "Vymazat záznamy z roku" %} {{ two_years_ago }} {% translate "(včetně) a starších" %}</button>
   </form>
   <br/>
-  <p>{% trans "Aktuální počty záznamů v dotčených tabulkách:" %}</p>
+  <p>{% translate "Aktuální počty záznamů v dotčených tabulkách:" %}</p>
   <div class="row">  
     <div class="col-sm">
-      <h5>{% trans "Příjemky" %}</h5>
+      <h5>{% translate "Příjemky" %}</h5>
         <table class="table table-striped table-sm table-responsive">
             <tr>
-                <th scope="col">{% trans "Rok" %}</th>
-                <th scope="col">{% trans "Počet záznamů" %}</th>
+                <th scope="col">{% translate "Rok" %}</th>
+                <th scope="col">{% translate "Počet záznamů" %}</th>
             </tr>
             {% for item in stockreceipts_year_counts %}
             <tr>
@@ -28,11 +28,11 @@
         </table>
     </div>
     <div class="col-sm">
-        <h5>{% trans "Zboží na příjemkách" %}</h5>
+        <h5>{% translate "Zboží na příjemkách" %}</h5>
         <table class="table table-striped table-sm table-responsive">
             <tr>
-                <th scope="col">{% trans "Rok" %}</th>
-                <th scope="col">{% trans "Počet záznamů" %}</th>
+                <th scope="col">{% translate "Rok" %}</th>
+                <th scope="col">{% translate "Počet záznamů" %}</th>
             </tr>
             {% for item in stockreceiptarticles_year_counts %}
             <tr>
@@ -43,11 +43,11 @@
         </table>
     </div>
     <div class="col-sm">
-        <h5>{% trans "Výdejky" %}</h5>
+        <h5>{% translate "Výdejky" %}</h5>
         <table class="table table-striped table-sm table-responsive">
             <tr>
-                <th scope="col">{% trans "Rok" %}</th>
-                <th scope="col">{% trans "Počet záznamů" %}</th>
+                <th scope="col">{% translate "Rok" %}</th>
+                <th scope="col">{% translate "Počet záznamů" %}</th>
             </tr>
             {% for item in stockissues_year_counts %}
             <tr>
@@ -58,11 +58,11 @@
         </table>
     </div>
     <div class="col-sm">
-        <h5>{% trans "Zboží na výdejkách" %}</h5>
+        <h5>{% translate "Zboží na výdejkách" %}</h5>
         <table class="table table-striped table-sm table-responsive">
             <tr>
-                <th scope="col">{% trans "Rok" %}</th>
-                <th scope="col">{% trans "Počet záznamů" %}</th>
+                <th scope="col">{% translate "Rok" %}</th>
+                <th scope="col">{% translate "Počet záznamů" %}</th>
             </tr>
             {% for item in stockissuearticles_year_counts %}
             <tr>
@@ -73,11 +73,11 @@
         </table>
     </div>
     <div class="col-sm">
-        <h5>{% trans "Denní menu" %}</h5>
+        <h5>{% translate "Denní menu" %}</h5>
         <table class="table table-striped table-sm table-responsive">
             <tr>
-                <th scope="col">{% trans "Rok" %}</th>
-                <th scope="col">{% trans "Počet záznamů" %}</th>
+                <th scope="col">{% translate "Rok" %}</th>
+                <th scope="col">{% translate "Počet záznamů" %}</th>
             </tr>
             {% for item in dailymenu_year_counts %}
             <tr>
@@ -88,11 +88,11 @@
         </table>
     </div>
     <div class="col-sm">
-        <h5>{% trans "Recepty na denních menu" %}</h5>
+        <h5>{% translate "Recepty na denních menu" %}</h5>
         <table class="table table-striped table-sm table-responsive">
             <tr>
-                <th scope="col">{% trans "Rok" %}</th>
-                <th scope="col">{% trans "Počet záznamů" %}</th>
+                <th scope="col">{% translate "Rok" %}</th>
+                <th scope="col">{% translate "Počet záznamů" %}</th>
             </tr>
             {% for item in dailymenuarticles_year_counts %}
             <tr>
@@ -103,11 +103,11 @@
         </table>
     </div>
     <div class="col-sm">
-        <h5>{% trans "Zboží - historie" %}</h5>
+        <h5>{% translate "Zboží - historie" %}</h5>
         <table class="table table-striped table-sm table-responsive">
             <tr>
-                <th scope="col">{% trans "Rok" %}</th>
-                <th scope="col">{% trans "Počet záznamů" %}</th>
+                <th scope="col">{% translate "Rok" %}</th>
+                <th scope="col">{% translate "Počet záznamů" %}</th>
             </tr>
             {% for item in historicalarticles_year_counts %}
             <tr>

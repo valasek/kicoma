@@ -3,11 +3,11 @@
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% trans "Seznam menu" %}</h4>
+  <h4>{% translate "Seznam menu" %}</h4>
   <hr/>
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
-      <a href="{% url 'kitchen:createMenu' %}" class="btn btn-primary mb-2">{% trans "Vytvořit nové menu" %}</a>
+      <a href="{% url 'kitchen:createMenu' %}" class="btn btn-primary mb-2">{% translate "Vytvořit nové menu" %}</a>
     </div>
   </div>
   {% render_table table %}

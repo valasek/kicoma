@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static i18n %}
-<h4>{% trans "Změny v aplikaci" %}</h4>
+<h4>{% translate "Změny v aplikaci" %}</h4>
 <hr/>
 <div class="container-fluid">
   <div class="row">
     <div class="col">
       {% for year, entries in changelog.items %}
-        <h5>{% blocktrans %}Změny za {{ year }}{% endblocktrans %}</h5>
+        <h5>{% blocktranslate trimmed %}Změny za {{ year }}{% endblocktranslate %}</h5>
         <hr/>
         {% for entry in entries %}
           {{ entry.date }}
@@ -23,14 +23,14 @@
   <hr/>
   <div class="row">
     <div class="col">
-      <h5>{% trans "Historie programu" %}</h5>
+      <h5>{% translate "Historie programu" %}</h5>
       <p>
-        {% blocktrans %}KiCoMa - <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement byl vytvořen jako
-        moderní nástupce na základě požadavků společnosti{% endblocktrans %}
+        {% blocktranslate trimmed %}KiCoMa - <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement byl vytvořen jako
+        moderní nástupce na základě požadavků společnosti{% endblocktranslate %}
         <a href="https://www.hospic-cercany.cz/" target="_blank">TŘI, z.ú.</a>
-        {% trans "Současný program je inspirován původním programem Strávníček, který v letech 1997 - 1998 vyvinuli Josef Dalibába a Dáša Trmalová." %}
+        {% translate "Současný program je inspirován původním programem Strávníček, který v letech 1997 - 1998 vyvinuli Josef Dalibába a Dáša Trmalová." %}
       </p>
-      <p>{% trans "A malé nostalgické okénko - takhle vypadal původní program:" %}</p>
+      <p>{% translate "A malé nostalgické okénko - takhle vypadal původní program:" %}</p>
       <img src="{% static 'images/stravnicek.png'%}" alt="Stravnicek" />
     </div>
   </div>

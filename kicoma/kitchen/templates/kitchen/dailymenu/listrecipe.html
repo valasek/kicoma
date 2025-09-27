@@ -4,14 +4,14 @@
 {% block content %}
 <div class="container-fluid">
   <h4>
-    {% blocktrans with date=dailymenu.date meal_type=dailymenu.meal_type meal_group=dailymenu.meal_group %}Seznam receptů na {{ date }}, {{ meal_type }} pro {{ meal_group }}{% endblocktrans %}
+    {% blocktranslate trimmed with date=dailymenu.date meal_type=dailymenu.meal_type meal_group=dailymenu.meal_group %}Seznam receptů na {{ date }}, {{ meal_type }} pro {{ meal_group }}{% endblocktranslate %}
   </h4>
   <hr/>
   <div class="row">
     <div class="col-8 justify-content-start d-inline">
-      <a href="{% url 'kitchen:showDailyMenus' %}" class="btn btn-secondary mb-2">{% trans "Zpět na seznam denních menu" %}</a>
-      <a href="{% url 'kitchen:createDailyMenuRecipe' dailymenu.id %}" class="btn btn-primary mb-2">{% trans "Přidat recept" %}</a>
-      {% trans "Poznámka:" %} {{ dailymenu.comment }}
+      <a href="{% url 'kitchen:showDailyMenus' %}" class="btn btn-secondary mb-2">{% translate "Zpět na seznam denních menu" %}</a>
+      <a href="{% url 'kitchen:createDailyMenuRecipe' dailymenu.id %}" class="btn btn-primary mb-2">{% translate "Přidat recept" %}</a>
+      {% translate "Poznámka:" %} {{ dailymenu.comment }}
     </div>
   </div>
   {% render_table table %}

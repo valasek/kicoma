@@ -2,39 +2,39 @@
 {% load static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% trans "Inventura - import zboží" %}</h4>
+  <h4>{% translate "Inventura - import zboží" %}</h4>
   <hr/>
   <div class="alert alert-danger" role="alert">
-    <h1 class="display-4">{% trans "Upozornění" %}</h1>
+    <h1 class="display-4">{% translate "Upozornění" %}</h1>
     <p class="lead">
-      {% blocktrans %}Import úplně nahradí všechno zboží na skladu, výši zásob, ceny i jednotky zboží.<br/>
+      {% blocktranslate trimmed %}Import úplně nahradí všechno zboží na skladu, výši zásob, ceny i jednotky zboží.<br/>
       Nedošlo náhodou ve vstupním souboru k vymazání zboží / řádků?<br/>
-      Zboží, které před importem bylo použito v receptu, na příjemce nebo výdejce a nebude v importu uvede data do nekonzistence.{% endblocktrans %}
+      Zboží, které před importem bylo použito v receptu, na příjemce nebo výdejce a nebude v importu uvede data do nekonzistence.{% endblocktranslate %}
     </p>
   </div>
   <p>
-    {% trans "Vyber MS Excel soubor, který jsi exportovala" %}
-    (<a href="{% url 'kitchen:exportArticles' %}">{% trans "Inventura - export zboží" %}</a>)
-    {% trans "a upravila:" %}
+    {% translate "Vyber MS Excel soubor, který jsi exportovala" %}
+    (<a href="{% url 'kitchen:exportArticles' %}">{% translate "Inventura - export zboží" %}</a>)
+    {% translate "a upravila:" %}
   </p>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <input type="file" name="myfile"><br/><br/>
-    <button type="submit" class="btn btn-success" id="myBtn">{% trans "Import zboží na sklad" %}</button>
+    <button type="submit" class="btn btn-success" id="myBtn">{% translate "Import zboží na sklad" %}</button>
   </form>
   <div class="modal" id="myModal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{% trans "Import zahájen" %}</h5>
+          <h5 class="modal-title">{% translate "Import zahájen" %}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
           </button>
         </div>
         <div class="modal-body">
-          <p>{% trans "Odhadovaná doba trvání je 1 minuta." %}</p>
+          <p>{% translate "Odhadovaná doba trvání je 1 minuta." %}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Rozumím" %}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% translate "Rozumím" %}</button>
         </div>
       </div>
     </div>

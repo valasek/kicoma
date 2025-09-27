@@ -1,15 +1,15 @@
 {% extends "../pdf_page.html" %}
 {% load humanize static i18n %}
 {% block content %}
-<div class="text-center mb-4">{% trans "Celková cena zboží na skladu s DPH:" %} {{ total_stock_price|intcomma }} {{ CURRENCY }}</div>
+<div class="text-center mb-4">{% translate "Celková cena zboží na skladu s DPH:" %} {{ total_stock_price|intcomma }} {{ CURRENCY }}</div>
   <table class="table w-auto">
     <thead>
       <tr>
-        <th scope="col">{% trans "Zboží" %}</th>
-        <th scope="col">{% trans "Na skladu" %}</th>
-        <th scope="col">{% trans "Minimálně na skladu" %}</th>
-        <th scope="col">{% trans "Průměrná jednotková cena s DPH" %}</th>
-        <th scope="col">{% trans "Celková cena s DPH" %}</th>
+        <th scope="col">{% translate "Zboží" %}</th>
+        <th scope="col">{% translate "Na skladu" %}</th>
+        <th scope="col">{% translate "Minimálně na skladu" %}</th>
+        <th scope="col">{% translate "Průměrná jednotková cena s DPH" %}</th>
+        <th scope="col">{% translate "Celková cena s DPH" %}</th>
       </tr>
     </thead>
     <tbody>

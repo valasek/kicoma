@@ -3,12 +3,12 @@
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
-  <h4>{% trans "Celková částka za přijaté příjemky a vydané výdejky za poslední 3 měsíce" %}</h4>
+  <h4>{% translate "Celková částka za přijaté příjemky a vydané výdejky za poslední 3 měsíce" %}</h4>
   <hr/>
   {% for data in all_data %}
   {{ data.month }}.{{ data.year }}<br />
-  <strong>{% trans "Příjemky" %}</strong> ({{ data.stock_receipts_count }}{% trans "ks" %}): {{ data.stock_receipts_price|intcomma }} {{ CURRENCY }}<br/>
-  <strong>{% trans "Výdejky" %}</strong> ({{ data.stock_issues_count }}{% trans "ks" %}): {{ data.stock_issues_price|intcomma }} {{ CURRENCY }}
+  <strong>{% translate "Příjemky" %}</strong> ({{ data.stock_receipts_count }}{% translate "ks" %}): {{ data.stock_receipts_price|intcomma }} {{ CURRENCY }}<br/>
+  <strong>{% translate "Výdejky" %}</strong> ({{ data.stock_issues_count }}{% translate "ks" %}): {{ data.stock_issues_price|intcomma }} {{ CURRENCY }}
   <br/>
   <br/>
   {% endfor %}

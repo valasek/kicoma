@@ -3,17 +3,17 @@
 {% block content %}
 <div class="container-fluid">
   <h4>
-    {% blocktrans with article=object.article %}Odstranění skladové karty: {{ article }}{% endblocktrans %}
+    {% blocktranslate trimmed with article=object.article %}Odstranění skladové karty: {{ article }}{% endblocktranslate %}
   </h4>
   <hr/>
-  <p><a href="{% url 'kitchen:showArticles' %}"><button class="btn btn-secondary">{% trans "Zpět na seznam skladových karet" %}</button></a></p>
+  <p><a href="{% url 'kitchen:showArticles' %}"><button class="btn btn-secondary">{% translate "Zpět na seznam skladových karet" %}</button></a></p>
 
   {% if recipe_articles %}
   <p>
-    {% blocktrans with count=recipe_articles|length %}
+    {% blocktranslate trimmed with count=recipe_articles|length %}
       Zboží je použité na {{ count }} receptech.<br/>
       Vymazat půjde až když nebude na žádném receptu. Odstraňte jej z výše uvedených receptů, nebo jestli je to ok, odstraňte přímo recepty.
-    {% endblocktrans %}
+    {% endblocktranslate %}
   </p>
   <ol>
   {% for recipe_article in recipe_articles %}
@@ -23,19 +23,19 @@
   {% else %}
   <form method="post" action="{% url 'kitchen:deleteArticle' pk=object.id %}">
     {% csrf_token %}
-    <p>{% trans "Chcete odstranit skladovou kartu:" %}</p>
+    <p>{% translate "Chcete odstranit skladovou kartu:" %}</p>
     <ul>
       <li>
-        {% blocktrans with article=object.article %}Název: {{ article }}{% endblocktrans %}
+        {% blocktranslate trimmed with article=object.article %}Název: {{ article }}{% endblocktranslate %}
       </li>
       <li>
-        {% blocktrans with stock=object.on_stock|intcomma unit=object.unit %}Na skladu: {{ stock }} {{ unit }}{% endblocktrans %}
+        {% blocktranslate trimmed with stock=object.on_stock|intcomma unit=object.unit %}Na skladu: {{ stock }} {{ unit }}{% endblocktranslate %}
       </li>
       <li>
-        {% blocktrans with total_price=object.total_price|intcomma %}Celková cena: {{ total_price }} {{ CURRENCY }}{% endblocktrans %}
+        {% blocktranslate trimmed with total_price=object.total_price|intcomma %}Celková cena: {{ total_price }} {{ CURRENCY }}{% endblocktranslate %}
       </li>
     </ul>
-    <button type="submit" class="btn btn-success">{% trans "Odstranit" %}</button>
+    <button type="submit" class="btn btn-success">{% translate "Odstranit" %}</button>
   </form>
   {% endif %}
 
