@@ -1,0 +1,203 @@
+2025:
+  - date: 2025-09-27
+    items:
+      - "List of daily menus sorted by date."
+      - "Option to add a recipe to daily menus and enter 0 portions."
+  - date: 2025-09-19
+    items:
+      - "Complete translation of the application and reports into English. First version, feel free to <a href='https://www.stanislavvalasek.com/contact/'>report possible errors</a>."
+  - date: 2025-09-12
+    items:
+      - "Formatting adjustment of all PDF exports."
+      - "Export of stock status for a selected date."
+  - date: 2025-09-08
+    items:
+      - "Date selection using a calendar."
+      - "Update to the latest version of <a href='https://docs.djangoproject.com/en/5.2/releases/5.2.6/'>Django 5.2.6</a> and related libraries."
+  - date: 2025-06-02
+    items:
+      - "Adjusted sorting of goods in the goods list on the issue slip, the date in the list of issue slips contains only the date and not the time."
+  - date: 2025-05-21
+    items:
+      - "Application speed-up by changing hosting from Heroku to Hetzner and changing DB from PostgreSQL to SQLite."
+  - date: 2025-04-28
+    items:
+      - "Goods receipts have 12% VAT set as default."
+      - "Option to enter the date using a calendar when creating - New issue slip from the daily menu."
+  - date: 2025-04-12
+    items:
+      - "Application extension with Data Maintenance - deletion of inactive records older than 2 years."
+      - "Fix - adding a user via Administration no longer produces an error."
+  - date: 2025-04-06
+    items:
+      - "Update to the latest version of <a href='https://www.djangoproject.com/weblog/2025/apr/02/django-52-released/' target='_blank'>Django 5.2</a> and update of related libraries."
+      - "Fix for non-functional stock export in Inventory."
+
+2024:
+  - date: 2024-06-04
+    items:
+      - "Faster loading of goods receipts and daily menus. Update of help and About page including translations into English. Logo adjustment."
+  - date: 2024-05-31
+    items:
+      - "Update to the latest version of <a href='https://www.djangoproject.com/weblog/2023/dec/04/django-50-released/' target='_blank'>Django 5.0.6</a> and update of related libraries."
+
+2022:
+  - date: 2022-04-14
+    items:
+      - "Update to the latest version of <a href='https://www.djangoproject.com/weblog/2022/apr/11/security-releases/'>Django 4.0.4</a> and update of related libraries."
+      - "Change of PDF generation from wkhtml to jsPDF."
+      - "Added tests to improve code quality."
+  - date: 2022-03-07
+    items:
+      - "In the <a href='{% url 'kitchen:showRestrictedArticles' %}'>Stock list - for cooks</a> the Average unit price with VAT was added."
+  - date: 2022-03-05
+    items:
+      - "When editing goods on the issue slip, the goods table retains its position and doesn’t jump to the beginning."
+  - date: 2022-02-27
+    items:
+      - "For newly created issue slips: If an issue slip is created and there are 0 units of goods in stock, the 'Unit price with VAT' uses the last stocked price. For this reason, the 'Average unit price with VAT' is shown even when 'In stock' is 0 units."
+      - "In the <a href='{% url 'kitchen:showRestrictedArticles' %}'>Stock list - for cooks</a> the problem with sorting the table by Allergens column was removed."
+  - date: 2022-02-24
+    items:
+      - "Simplified creation of daily menu using a <a href='{% url 'kitchen:showMenus' %}'>menu</a> that has assigned recipes and portions. How does it work? Create a <a href='{% url 'kitchen:createMenu' %}'>New menu</a>, add recipes and portions. Then, when creating a <a href='{% url 'kitchen:createDailyMenu' %}'>daily menu</a>, select the prepared menu and the recipes will be copied automatically."
+      - "Tables display 30 rows by default instead of 15."
+  - date: 2022-02-15
+    items:
+      - "In the recipe list, the Note column was replaced by Allergens, automatically taken from allergens of all recipe items."
+  - date: 2022-02-14
+    items:
+      - "Removed reports Food consumption by recipes per day and Monthly meal cost by diner group."
+      - "<a href='{% url 'kitchen:showDailyMenus' %}'>Daily menu</a> contains instead of the note field the maximum number of portions from all recipes."
+      - "Issue slip PDF file name format: IssueSlip-%Y.%m.%d_%H-%M-%S-%f.pdf. Symbol description - <a href='https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior'>date formatting</a>."
+      - "Added list <a href='{% url 'kitchen:showRestrictedArticles' %}'>Stock list - cook’s view</a> with the option to edit allergens, minimum stock quantity, and goods name."
+      - "Added report <a href='{% url 'kitchen:filterCateringUnit' %}'>Catering unit</a>."
+
+2021:
+  - date: 2021-12-31
+    items:
+      - "Added option to delete a stock card if it is not used in a recipe."
+      - "In the report <a href='{% url 'kitchen:showArticlesNotInRecipes' %}'>Goods not used in any recipe</a> direct option to delete goods was added."
+      - "Update to Django <a href='https://docs.djangoproject.com/en/3.2/releases/3.2.10/'>3.2.10</a>."
+  - date: 2021-11-19
+    items:
+      - "New report 'Total cost of receipts/issue slips per month' - permissions also added for reception."
+      - "Update to Django <a href='https://docs.djangoproject.com/en/3.2/releases/3.2.9/'>3.2.9</a>."
+      - "Hosting update to <a href='https://devcenter.heroku.com/articles/heroku-20-stack'>Heroku 20</a> and removal of multitenant support."
+  - date: 2021-11-18
+    items:
+      - "New report 'Total cost of receipts/issue slips per month'."
+
+2020:
+  - date: 2020-12-26
+    items:
+      - "Update to Django <a href='https://docs.djangoproject.com/en/3.1/releases/3.1.4/'>3.1.4</a>."
+      - "Export and import allowed only for logged-in users."
+      - "Support for multiple companies in the form of separate application instances."
+      - "Safer admin URL."
+      - "Clearer menu with icons."
+      - "Option to switch application language CZ/EN."
+  - date: 2020-11-17
+    items:
+      - "Fix of total price calculation of goods on a line in receipts and issue slips."
+      - "In goods history, note from receipt and issue slip is also displayed."
+  - date: 2020-11-17
+    items:
+      - "Update to Django <a href='https://docs.djangoproject.com/en/3.1/releases/3.1.3/'>3.1.3</a> and system packages update."
+      - "Clearer display of application change log."
+  - date: 2020-11-16
+    items:
+      - "Simplified password requirements to minimum 8 characters."
+  - date: 2020-11-07
+    items:
+      - "Added report on monthly meal cost by diner group."
+  - date: 2020-11-01
+    items:
+      - "Adjustment of PDF formatting for food consumption report, option for quick view from daily menu."
+      - "Alphabetical sorting of recipes in daily menu."
+  - date: 2020-10-31
+    items:
+      - "When entering goods into a recipe, option to save directly and add another item."
+  - date: 2020-10-04
+    items:
+      - "Software packages updated without affecting functionality."
+      - "User Drábková has rights for Stock list, goods to be stocked, and stock card creation."
+      - "In goods edit header, added total price and stocking/issuing info for receipt and issue slip."
+      - "Enlarged fields when editing goods on receipts/issue slips."
+  - date: 2020-09-21
+    items:
+      - "Hosting update - support for storing up to 10 million records in data."
+  - date: 2020-09-16
+    items:
+      - "Reception has right to create stock cards."
+      - "Kitchen has right to delete issue slips."
+      - "PDF - reduced font size."
+      - "Reception - message after adding goods to receipt includes quantity, unit, and total price."
+      - "Fixed date search in daily menus, receipts, and issue slips."
+  - date: 2020-09-15
+    items:
+      - "Date format validation in PDFs for daily menus and kitchen breakdown reports."
+      - "Import of all data wipes entire DB except users and groups."
+  - date: 2020-09-14
+    items:
+      - "About page - display of total number of records in DB."
+  - date: 2020-09-06
+    items:
+      - "Receipt - fixed rounding of price and goods quantity."
+      - "Receipt - faster input: option to save and move to next item."
+  - date: 2020-09-05
+    items:
+      - "PDF - reduced font size."
+      - "Receipt - fixed total price calculation."
+  - date: 2020-09-01
+    items:
+      - "Receipts - goods sorted by newest entry first."
+  - date: 2020-08-31
+    items:
+      - "Export/import of all data includes everything except users and groups."
+      - "Separated Help, About and Change Log sections. Added link to technical support."
+      - "Price formatting - thousands separated by space and comma instead of dot."
+      - "Inventory - allowed export/import of stock for role warehouseman."
+      - "Daily menu - no duplicate date column."
+      - "Added user in cook role - Mrs. Kohnerová."
+  - date: 2020-08-30
+    items:
+      - "Fix - Issue slip - display all goods not stocked, no partial write-off when not stocked."
+      - "Fix - export includes all application data and import fully resets DB."
+  - date: 2020-08-28
+    items:
+      - "Entering/editing goods on issue slip allows entering 0 quantity."
+      - "Fix - Receipt - goods can be edited."
+      - "Fix - Issue slip - more goods than in stock can be entered."
+      - "Fix - Receipt - goods sorted by entry order."
+      - "Fix - Issue slip - Average unit price of goods stored at issue slip creation according to current stock price, updated after approval, and does not change afterward."
+  - date: 2020-08-27
+    items:
+      - "Moved Overview and Help menus into About menu."
+      - "Option to export and import all application data."
+      - "Fix - Issue slip - total price calculated from average issued price, not stock price."
+      - "Fix - Issue slip - consolidated goods calculated in correct quantity."
+      - "Goods on issue slip can be updated until it is approved."
+      - "Clearer table display."
+      - "In goods history, display receipt/issue slip."
+  - date: 2020-08-26
+    items:
+      - "Fix - Option to export all recipes in daily menu."
+      - "Fix - searching goods in admin works again."
+  - date: 2020-08-25
+    items:
+      - "Issue slip - goods sorted alphabetically in PDF and in list."
+      - "Fixed recipe total price calculation."
+      - "Added display of recipe ingredients from daily menu."
+      - "Fix - Correct price calculation of goods on issue slip."
+  - date: 2020-08-24
+    items:
+      - "Inventory - option to export/import stock for Head Chef role - Dáša, Josef."
+      - "Reception/Kitchen fix - Issue slip creation from daily menu doesn’t check stock, it’s checked only on approval."
+      - "Fix - Recipe from daily menu can now be deleted."
+      - "Fix - Back button on recipe ingredients works."
+      - "Fix - Minimum stock quantity is optional, minimum value 0."
+      - "Kitchen/reception - Goods on issue slip from daily menu appear only once."
+  - date: 2020-08-23
+    items:
+      - "Imported data from Stravníček dated 18.8.2020."
+      - "Only chef role has right to create a new stock card (Mrs. Trmalová, Josef Slavíček)."

@@ -100,7 +100,7 @@ from .tables import (
     StockReceiptFilter,
     StockReceiptTable,
 )
-from .utils import get_currency
+from .utils import get_currency, load_changelog
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -116,11 +116,13 @@ def create_pdf(self, request, filename, **kwargs):
 
 
 def about(request):
-    return render(request, 'kitchen/about.html')
+    latest_entries = load_changelog(latest=True)
+    return render(request, 'kitchen/about.html', {"latest_entries": latest_entries})
 
 
 def changelog(request):
-    return render(request, 'kitchen/changelog.html')
+    changelog = load_changelog()
+    return render(request, 'kitchen/changelog.html', {"changelog": changelog} )
 
 
 def docs(request):

@@ -11,25 +11,14 @@
   <div class="row">
     <div class="col">
       <h5>{% trans "Novinky" %}</h5>
-      27. 9. 2025
-      <ul>
-        <li>{% trans "Seznam denních menu řazen dle data." %}</li>
-        <li>{% trans "Možnost přidat recept do denních menu a zadat 0 porcií." %}</li>
-      </ul>
-      19. 9. 2025
-      <ul>
-        <li>{% trans "Kompletní překlad aplikace i reportů do angličtiny. První verze, neváhejte  <a href='https://www.stanislavvalasek.com/contact/'>hlásit možné chyby</a>." %}</li>
-      </ul>
-      12. 9. 2025
-      <ul>
-        <li>{% trans "Úprava formátování všech PDF exportů." %}</li>
-        <li>{% trans "Export stavu zboží na skladu k vybranému dni." %}</li>
-      </ul>
-      8. 9. 2025
-      <ul>
-        <li>{% trans "Výběr data pomocí kalendáře." %}</li>
-        <li>{% trans "Aktualizace na nejnovější verzi <a href='https://docs.djangoproject.com/en/5.2/releases/5.2.6/'>Django 5.2.6</a> a souvisejících knihoven." %}</li>
-      </ul>
+      {% for entry in latest_entries %}
+        {{ entry.date }}
+        <ul>
+          {% for item in entry.items %}
+            <li>{{ item|safe }}</li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
       {% url 'kitchen:changelog' as changelog_url %}
       {% blocktrans with changelog_url=changelog_url %}
       Zobrazit <a href="{{ changelog_url }}">úplný seznam změn.</a>

@@ -1,0 +1,203 @@
+2025:
+  - date: 2025-09-27
+    items:
+      - "Seznam denních menu řazen dle data."
+      - "Možnost přidat recept do denních menu a zadat 0 porcií."
+  - date: 2025-09-19
+    items:
+      - "Kompletní překlad aplikace i reportů do angličtiny. První verze, neváhejte <a href='https://www.stanislavvalasek.com/contact/'>hlásit možné chyby</a>."
+  - date: 2025-09-12
+    items:
+      - "Úprava formátování všech PDF exportů."
+      - "Export stavu zboží na skladu k vybranému dni."
+  - date: 2025-09-08
+    items:
+      - "Výběr data pomocí kalendáře."
+      - "Aktualizace na nejnovější verzi <a href='https://docs.djangoproject.com/en/5.2/releases/5.2.6/'>Django 5.2.6</a> a souvisejících knihoven."
+  - date: 2025-06-02
+    items:
+      - "Upraveno řazení zboží v seznamu zboží na výdejce, datum v seznamu výdejek obsahuje jenom datum a ne čas."
+  - date: 2025-05-21
+    items:
+      - "Zrychlení aplikace změnou hostingu z Heroku na Hetzner a změnou DB z PostgeSQL na SQLite."
+  - date: 2025-04-28
+    items:
+      - "Příjemky mají jako standardní DPH nastaveno 12%."
+      - "Možnost zadání datumu pomocí kalendáře při tvorbě - Nová výdejka z denního menu."
+  - date: 2025-04-12
+    items:
+      - "Rozšíření aplikace o Údržbu dat - výmaz neaktivních záznamů starších 2 let."
+      - "Oprava - přidání uživatele přes Administraci již nepíše chybu."
+  - date: 2025-04-06
+    items:
+      - "Aktualizace na nejnovější verzi <a href='https://www.djangoproject.com/weblog/2025/apr/02/django-52-released/' target='_blank'>Django 5.2</a> a aktualizace souvisejících knihoven."
+      - "Oprava nefunkčního Exportu zboží na skladu v rámci Inventury."
+
+2024:
+  - date: 2024-06-04
+    items:
+      - "Zrychlení načítání příjemek a seznamu denních menu. Úprava nápovědy a stránky O aplikaci včetne překladů do angličtiny. Úprava loga."
+  - date: 2024-05-31
+    items:
+      - "Aktualizace na nejnovější verzi <a href='https://www.djangoproject.com/weblog/2023/dec/04/django-50-released/' target='_blank'>Django 5.0.6</a> a aktualizace souvisejících knihoven."
+
+2022:
+  - date: 2022-04-14
+    items:
+      - "Aktualizace na nejnovější verzi <a href='https://www.djangoproject.com/weblog/2022/apr/11/security-releases/'>Django 4.0.4</a> a aktualizace souvisejících knihoven."
+      - "Změna generování PDF z wkhtml na jsPDF."
+      - "Přidání testů pro zvýšení kvality kódu."
+  - date: 2022-03-07
+    items:
+      - "V <a href='{% url 'kitchen:showRestrictedArticles' %}'>Seznamu zboží na skladu - pro kuchaře</a> byla přidaná Průměrná jednotková cena s DPH."
+  - date: 2022-03-05
+    items:
+      - "V případě úpravy zboží na výdejce si tabulka zboží uchová pozici a neskáče na začátek."
+  - date: 2022-02-27
+    items:
+      - "Pro nově vytvořené výdejky: Když se vytváří výdejka a na skladu je 0 jednotek zboží, na výdejku se do 'Jednotková cena s DPH' použije poslední naskladněná cena. Z tohoto důvodu se na skladě zobrazuje 'Průměrná jednotková cena s DPH' i když je 'Na skladu' 0 jednotek zboží."
+      - "Na <a href='{% url 'kitchen:showRestrictedArticles' %}'>Seznamu zboží na skladu - pro kuchaře</a> byl odstraněn problém u řazení tabulky dle sloupce Alergeny."
+  - date: 2022-02-24
+    items:
+      - "Zjednodušení tvorby denního menu pomocí <a href='{% url 'kitchen:showMenus' %}'>menu</a>, které má přiřazené recepty a počet porcí. Jak to funguje? Vytvoř <a href='{% url 'kitchen:createMenu' %}'>Nově menu</a>, přidej požadované recepty a množství porcí. Následně, když vytváříš <a href='{% url 'kitchen:createDailyMenu' %}'>denní menu</a>, vyber připravené menu a recepty se do denního menu přepíšou automaticky."
+      - "Tabulky zobrazují místo 15ti standardně 30 řádků."
+  - date: 2022-02-15
+    items:
+      - "Na seznamu receptů se místo sloupce Poznámka zobrazuje sloupec Alergeny, automaticky převzatý z alergenů všech položek receptu."
+  - date: 2022-02-14
+    items:
+      - "Odstranění reportů Spotřeba potravin dle receptů na den a Měsíční cena jídla dle skupiny strávníka."
+      - "<a href='{% url 'kitchen:showDailyMenus' %}'>Denní menu</a> obsahuje místo pole poznámka maximální počet porcí ze všech receptů."
+      - "PDF pro výdejka má název: Vydejka-%Y.%m.%d_%H-%M-%S-%f.pdf. Popis symbolů - <a href='https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior'>formátováni datumu</a>."
+      - "Přidán seznam <a href='{% url 'kitchen:showRestrictedArticles' %}'>Zboží na skladu - pohled kuchaře</a> s možností editace alergenů, minimálního množství na skladu a editace názvu zboží."
+      - "Přidán report <a href='{% url 'kitchen:filterCateringUnit' %}'>Stravovací jednotka</a>."
+
+2021:
+  - date: 2021-12-31
+    items:
+      - "Přidána možnost výmazu skladové karty v případě, že není použita na receptu."
+      - "Na report <a href='{% url 'kitchen:showArticlesNotInRecipes' %}'>Zboží nepoužito ani na jednom receptu</a> přidána přímo možnost výmazu zboží."
+      - "Aktualizace na Django <a href='https://docs.djangoproject.com/en/3.2/releases/3.2.10/'>3.2.10</a>."
+  - date: 2021-11-19
+    items:
+      - "Nový report 'Celková cena příjemky/výdejky měsíčně' - přidány práva i pro recepci."
+      - "Aktualizace na Django <a href='https://docs.djangoproject.com/en/3.2/releases/3.2.9/'>3.2.9</a>."
+      - "Aktualizace hostingu na <a href='https://devcenter.heroku.com/articles/heroku-20-stack'>Heroku 20</a> a odstranění multitenant podpory."
+  - date: 2021-11-18
+    items:
+      - "Nový report 'Celková cena příjemky/výdejky měsíčně'."
+
+2020:
+  - date: 2020-12-26
+    items:
+      - "Aktualizace na Django <a href='https://docs.djangoproject.com/en/3.1/releases/3.1.4/'>3.1.4</a>."
+      - "Export a import je povolen jenom přihlášenému uživateli."
+      - "Podpora pro více společností formou samostatných instancí aplikace."
+      - "Bezpečnější admin URL."
+      - "Přehlednější menu s ikonama."
+      - "Možnost přepnutí jazyka aplikace CZ/EN."
+  - date: 2020-11-17
+    items:
+      - "Oprava počítání celkové ceny zboží na řádku zboží na příjemce i výdejce."
+      - "V rámci historie zboží se zobrazí i poznámka z příjemky a výdejky."
+  - date: 2020-11-17
+    items:
+      - "Aktualizace na Django <a href='https://docs.djangoproject.com/en/3.1/releases/3.1.3/'>3.1.3</a> a aktualizace systémových balíků."
+      - "Zpřehlednění zobrazení seznamu změn v aplikaci."
+  - date: 2020-11-16
+    items:
+      - "Zjednodušení požadavků na heslo na minimum 8 znaků."
+  - date: 2020-11-07
+    items:
+      - "Přidán report měsíční ceny jídla dle skupiny strávníka."
+  - date: 2020-11-01
+    items:
+      - "Úprava formátování PDF reportu spotřeby potravin, možnost rychleho zobrazení z denního menu."
+      - "Abecedné řazení receptů na denním menu."
+  - date: 2020-10-31
+    items:
+      - "Při zadávání zboží do receptu je možnost přímého uložení a zadání dalšího zboí."
+  - date: 2020-10-04
+    items:
+      - "Aktualizace SW balíků bez dopadu na funkcionalitu."
+      - "Uživatel Drábková má právo na Seznam zboží na skladu, seznam zboží k naskladnění a vytvoření skladové karty."
+      - "Do nadpisu v rámci úpravy zboží doplněna celková cena a informace o vyskladnění/naskladnění pro příjemku a výdejku."
+      - "Zvětšení polí při úpravě zboží na příjemce/výdejce."
+  - date: 2020-09-21"
+    items:
+      - "Aktualizace hostingu - získání podpory pro uložení do 10 milionů záznamů v datech."
+  - date: 2020-09-16
+    items:
+      - "Recepce má právo na založení skladové karty."
+      - "Kuchyně má právo na výmaz výdejky."
+      - "PDF - zmenšení písma."
+      - "Recepce - zpráva po přidáni zboží na příjemku obsahuje informaci o počtu, jednotkové a celkové ceně."
+      - "Opraveno vyhledávání dle datumů v denní menu, příjemkách a výdejkách."
+  - date: 2020-09-15
+    items:
+      - "Kontrola formátu zadaního datumu v PDF u denního menu a reportu rozpis pro kuchyň."
+      - "Import všech dat vymaže celou db kromě uživatelů a skupin."
+  - date: 2020-09-14
+    items:
+      - "O aplikaci - zobrazení celkového počtu záznamů v databázi."
+  - date: 2020-09-06
+    items:
+      - "Příjemka - oprava zaokrouhlování ceny a množství zboží."
+      - "Příjemka - zrychlení zadávání: možnost uložení a přechod na další zboží."
+  - date: 2020-09-05
+    items:
+      - "PDF - změnšení písma."
+      - "Příjemka - oprava počítání celkové ceny."
+  - date: 2020-09-01
+    items:
+      - "Příjemky - řazení zboží od nejnověji zadaného."
+  - date: 2020-08-31
+    items:
+      - "Export a import všech dat obsahuje vše kromě uživatelů a skupin."
+      - "Oddělení nápovědy, O Aplikaci a Změn v aplikaci. Přidání odkazu na technickou podporu."
+      - "Formátování všech cen - oddělení tisíců mezerou a , místo ."
+      - "Inventura - povolení exportu a importu skladu pro roli skladník."
+      - "Denní menu - neobsahuje duplikovaný sloupec datum."
+      - "Doplnění uživatele v roli kuchař - pí. Kohnerová."
+  - date: 2020-08-30
+    items:
+      - "Oprava - výdejka - zobrazení všeho zboží, které není naskladněno, při nenaskladnění nedochází k částečnému odepsání."
+      - "Oprava - export obsahuje všechna data aplikace a import úplně resetuje DB."
+  - date: 2020-08-28
+    items:
+      - "Zadání a aktualizace zboží na výdejce umožní zadat zboží s 0 množstvím."
+      - "Oprava - Příjemka - možno upravit zboží."
+      - "Oprava - Výdejka - možno zadat i větší počet zboží, než je na skladu."
+      - "Oprava - Příjemka - řazení zboží dle pořadí zadání."
+      - "Oprava - Výdejka - Průměrná jednotková cena zboží se uloží při vytvoření výdejky dle aktuální ceny zboží na skladě a po schválení se aktualizuje a pak nemění."
+  - date: 2020-08-27
+    items:
+      - "Přesun menu Přehled a Nápověda do menu O aplikaci."
+      - "Možnost exportu a importu všech dat aplikace."
+      - "Oprava - Výdejka - celková cena zboží na výdejce se počíta z průměrné ceny zboží vyskladnění a ne z ceny zboží na skladu."
+      - "Oprava - Výdejka - konsolidované zboží je počítáno ve správném množství."
+      - "Do doby vyskladnění je možnost aktualizovat vyskladňované zboží na výdejce."
+      - "Přehlednější zobrazení všech tabulek."
+      - "V historii zboží zobrazení příjemka/výdejka."
+  - date: 2020-08-26
+    items:
+      - "Oprava - Možnost exportu všech receptů v denním menu."
+      - "Oprava - hledání zboží v administraci již funguje."
+  - date: 2020-08-25
+    items:
+      - "Výdejka - Zboží řazeno abecedně v PDF i s seznamu."
+      - "Oprava počítání celkové ceny receptu."
+      - "Přidání zobrazení ingrediencí receptu z denního menu."
+      - "Oprava - Správné počítání ceny zboží na výdejce."
+  - date: 2020-08-24
+    items:
+      - "Inventura - možnost importu a exportu zboží pro roli Šéfkuchař - Dáša, Josef."
+      - "Recepce/Kuchyň, oprava - Tvorba výdejky z denního menu nekontroluje skutečné množství na skladu, to je kontrolováno až při schválení výdejky."
+      - "Oprava - Recept z denního menu již jde vymazat."
+      - "Oprava - Tlačítko Zpět na ingrediencích receptu již funguje."
+      - "Oprava - Minimální množství na skladu je nepovinné pole a min hodnota je 0."
+      - "Kuchyně/recepce - Zboží se na výdejce z denního menu vyskytuje jenom jednou."
+  - date: 2020-08-23
+    items:
+      - "Importována data ze Stravníčka z dne 18.8.2020."
+      - "Jenom role chef má právo na Založení nové skladové karty - nového druhu zboží na sklad (pí. Trmalová, Josef Slavíček)."
