@@ -19,6 +19,17 @@ from .models import (
 )
 
 
+class FlatpickrDateInput(forms.DateInput):
+    """Reusable Flatpickr-enabled DateInput widget."""
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("attrs", {})
+        kwargs["attrs"].update({
+            "class": "form-control flatpickr-input",
+            "placeholder": "YYYY-MM-DD",
+        })
+        kwargs.setdefault("format", "%Y-%m-%d")
+        super().__init__(*args, **kwargs)
+
 class ArticleForm(forms.ModelForm):
 
     class Meta:
@@ -29,10 +40,8 @@ class ArticleForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['on_stock'].widget.attrs['readonly'] = True
         self.fields['total_price'].widget.attrs['readonly'] = True
-        # self.fields['averagePrice'].widget.attrs['readonly'] = True
         self.helper = FormHelper()
         self.helper.form_tag = False
-        # self.helper.field_template = 'bootstrap3/layout/inline_field.html'
         self.helper.layout = Layout(
             Row(
                 Column('article', css_class='col-md-2'),
@@ -40,7 +49,6 @@ class ArticleForm(forms.ModelForm):
                 Column('on_stock', css_class='col-md-2'),
                 Column('min_on_stock', css_class='col-md-2'),
                 Column('total_price', css_class='col-md-2'),
-                # Column('averagePrice', css_class='col-md-2'),
             ),
             Row(
                 Column('allergen', css_class='col-md-6'),
@@ -80,14 +88,7 @@ class ArticleSearchForm(forms.Form):
 class StockArticlesExportForm(forms.Form):
     date = forms.DateField(
         label="Datum",
-        widget=forms.DateInput(
-            format='%Y-%m-%d',
-            attrs={
-                'class': 'form-control',
-                'placeholder': _('Vyber datum'),
-                'type': 'date'
-            }
-        )
+        widget=FlatpickrDateInput()
     )
 
     def clean_date(self):
@@ -149,13 +150,7 @@ class DailyMenuCreateForm(forms.ModelForm):
         model = DailyMenu
         fields = ["date", "menu", "meal_group", "meal_type", "comment"]
         widgets = {
-            'date': forms.DateInput(
-                attrs={
-                    'class': 'form-control',
-                    'placeholder': _('Vyber datum'),
-                    'type': 'date'
-                }
-            )
+            'date': FlatpickrDateInput()
         }
 
     def __init__(self, *args, **kwargs):
@@ -179,13 +174,7 @@ class DailyMenuEditForm(forms.ModelForm):
         model = DailyMenu
         fields = [ "date", "meal_group", "meal_type", "comment" ]
         widgets = {
-            'date': forms.DateInput(
-                format='%Y-%m-%d',
-                attrs={
-                    'class': 'form-control',
-                    'type': 'date'
-                }
-            )
+            'date': FlatpickrDateInput()
         }
 
     def __init__(self, *args, **kwargs):
@@ -208,14 +197,7 @@ class DailyMenuPrintForm(forms.ModelForm):
         model = DailyMenu
         fields = ["date", "meal_group"]
         widgets = {
-            'date': forms.DateInput(
-                format='%Y-%m-%d',
-                attrs={
-                    'class': 'form-control',
-                    'placeholder': _('Vyber datum'),
-                    'type': 'date'
-                }
-            )
+            'date': FlatpickrDateInput()
         }
 
     def __init__(self, *args, **kwargs):
@@ -237,13 +219,7 @@ class DailyMenuCateringUnitForm(forms.ModelForm):
         model = DailyMenu
         fields = ["date"]
         widgets = {
-            'date': forms.DateInput(
-                attrs={
-                    'class': 'form-control',
-                    'placeholder': _('Vyber datum'),
-                    'type': "date"
-                }
-            )
+            'date': FlatpickrDateInput()
         }
 
     def __init__(self, *args, **kwargs):
@@ -314,8 +290,6 @@ class MenuRecipeForm(forms.ModelForm):
 
 
 class StockIssueForm(forms.ModelForm):
-    # dateCreated = forms.DateField(widget=forms.DateInput(
-    #     attrs={'type': 'date'}), initial=datetime.date.today, label='Datum vytvoření')
 
     class Meta:
         model = StockIssue
@@ -325,9 +299,6 @@ class StockIssueForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
-        # self.helper.disable_csrf = False
-        # self.helper.field_template = 'bootstrap3/layout/inline_field.html'
-        # self.helper.template = 'bootstrap/table_inline_formset.html'
         self.helper.layout = Layout(
             Row(
                 Column('comment', css_class='col-md-12')
@@ -347,11 +318,7 @@ class StockIssueFromDailyMenuForm(forms.ModelForm):
         model = DailyMenu
         fields = ["date"]
         widgets = {
-            'date': forms.DateInput(
-                attrs={
-                    'class': 'form-control',
-                    'placeholder': _('Vyber datum'),
-                    'type': 'date'})
+            'date': FlatpickrDateInput()
         }
 
     def __init__(self, *args, **kwargs):
@@ -375,7 +342,6 @@ class StockIssueArticleForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
-        # self.helper.field_template = 'bootstrap3/layout/inline_field.html'
         self.helper.layout = Layout(
             Row(
                 Column('article', css_class='col-md-2'),
@@ -387,8 +353,6 @@ class StockIssueArticleForm(forms.ModelForm):
 
 
 class StockReceiptForm(forms.ModelForm):
-    # dateCreated = forms.DateField(widget=forms.DateInput(
-    #     attrs={'type': 'date'}), initial=datetime.date.today, label='Datum vytvoření')
 
     class Meta:
         model = StockReceipt
@@ -396,12 +360,8 @@ class StockReceiptForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['userCreated'].widget.attrs['readonly'] = True
         self.helper = FormHelper()
         self.helper.form_tag = False
-        # self.helper.disable_csrf = False
-        # self.helper.field_template = 'bootstrap3/layout/inline_field.html'
-        # self.helper.template = 'bootstrap/table_inline_formset.html'
         self.helper.layout = Layout(
             Row(
                 Column('date_created', css_class='col-md-2'),
@@ -425,7 +385,6 @@ class StockReceiptArticleForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
-        # self.helper.field_template = 'bootstrap3/layout/inline_field.html'
         self.helper.layout = Layout(
             Row(
                 Column('article', css_class='col-md-2'),

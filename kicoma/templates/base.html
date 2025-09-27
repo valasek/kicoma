@@ -32,8 +32,16 @@
     <!-- Your stuff: Third-party CSS libraries go here -->
 
     <!-- This file stores project-specific CSS -->
-
     <link href="{% static 'css/project.css' %}" rel="stylesheet" />
+
+    <!-- Load flatpickr to enter dates -->
+
+    <!-- Flatpickr core -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Bootstrap 5 theme for Flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css">
+    <!-- Flatpickr script -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     {% endblock %}
   </head>
@@ -253,6 +261,15 @@
           });
         }
       });
+
+      document.addEventListener("DOMContentLoaded", function() {
+        flatpickr(".flatpickr-input", {
+          dateFormat: "Y-m-d",   // matches Django's format
+          allowInput: true,      // lets users type manually
+          altInput: true,        // Bootstrap-like input
+        });
+      });
+
     </script>
 
     <!-- Your stuff: Third-party javascript libraries go here -->

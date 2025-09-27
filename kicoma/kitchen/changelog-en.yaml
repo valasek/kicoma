@@ -3,6 +3,8 @@
     items:
       - "List of daily menus sorted by date."
       - "Option to add a recipe to daily menus and enter 0 portions."
+      - "Option to enter the date using either the calendar or the keyboard."
+      - “After creating the daily menu, it is possible to start adding recipes immediately.”
   - date: 2025-09-19
     items:
       - "Complete translation of the application and reports into English. First version, feel free to <a href='https://www.stanislavvalasek.com/contact/'>report possible errors</a>."

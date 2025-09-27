@@ -812,20 +812,20 @@ class DailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         return self.success_message % { 'formatted_date': formatted_date }
 
     def get_success_url(self):
-        return reverse_lazy('kitchen:showDailyMenus')
+        return reverse_lazy('kitchen:createDailyMenuRecipe', args=[self.object.pk])
 
     def form_valid(self, form):
-        daily_menu = form.save()
+        response = super().form_valid(form)
         if form.data['menu']:
-            menu_recipes = MenuRecipe.objects.filter(menu=daily_menu.menu)
+            menu_recipes = MenuRecipe.objects.filter(menu=self.object.menu)
             for menu_recipe in menu_recipes:
                 DailyMenuRecipe.objects.create(
-                    daily_menu=daily_menu,
+                    daily_menu=self.object,
                     recipe=menu_recipe.recipe,
                     amount=menu_recipe.amount,
                     comment=_("Recept byl převzatý z menu")
                 )
-        return HttpResponseRedirect(self.get_success_url())
+        return response
 
 
 class DailyMenuUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
@@ -1137,7 +1137,7 @@ class StockIssueFromDailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin,
             return super().form_invalid(form)
         count = StockIssue.create_from_daily_menu(daily_menus, formatted_date, self.request.user)
         messages.success(
-            self.request, _("Výdejka pro den { formatted_date } vytvořena a vyskladňuje { count } druhů zboží").format(formatted_date=formatted_date, count=count))
+            self.request, _("Výdejka pro den {formatted_date} vytvořena a vyskladňuje {count} druhů zboží").format(formatted_date=formatted_date, count=count))
         return HttpResponseRedirect(self.success_url)
 
 
