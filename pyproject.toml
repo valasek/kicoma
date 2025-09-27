@@ -13,16 +13,11 @@ dependencies = [
     "whitenoise", # https://github.com/evansd/whitenoise
     "python-dateutil", # https://github.com/dateutil/dateutil
     # Project specific
-    "django-filter",
-    "django-import-export",
-    "django-tables2",
-    "django-bootstrap5",
     "sentry-sdk",
-    "django-simple-history",
     "tablib",
     "openpyxl",
     "weasyprint",
-
+    "pyyaml",
     # Django
     "django", # https://www.djangoproject.com/
     "django-environ", # https://github.com/joke2k/django-environ
@@ -30,6 +25,11 @@ dependencies = [
     "django-allauth", # https://github.com/pennersr/django-allauth
     "django-crispy-forms", # https://github.com/django-crispy-forms/django-crispy-forms
     "crispy-bootstrap5", # https://github.com/django-crispy-forms/crispy-bootstrap5
+    "django-filter",
+    "django-import-export",
+    "django-tables2",
+    "django-bootstrap5",
+    "django-simple-history",
 ]
 
 [project.optional-dependencies]
