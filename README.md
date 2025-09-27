@@ -36,7 +36,7 @@ Just rebuild the dev container, app is running on port 8000
 Alternativelly, install docker and docker compose and run `docker-compose up`
 
 If you need to start server manually, the commnad is:
-`python manage.py runserver_plus 0.0.0.0:8000`
+`./manage.py runserver_plus 0.0.0.0:8000`
 
 ## Deploy to Hetzner
 
@@ -137,16 +137,20 @@ make_password('password')
 
 Using [Graph models](https://django-extensions.readthedocs.io/en/latest/graph_models.html)
 
-`python3 manage.py graph_models -a -g -o datamodel.png` or
+`./manage.py graph_models -a -g -o datamodel.png` or
 
-`python3 manage.py graph_models kitchen -g -o datamodel.png` and copy the file to statics/images
+`./manage.py graph_models kitchen -g -o datamodel.png` and copy the file to statics/images
+
+### Update static content
+
+`./manage.py collectstatic --noinput`
 
 ### Update Translations
 
 #### Generate message files for a desired language
 
-`python ./manage.py makemessages -l en --ignore=.venv`
-`python ./manage.py makemessages -l cs --ignore=.venv`
+`./manage.py makemessages -l en --ignore=.venv`
+`./manage.py makemessages -l cs --ignore=.venv`
 
 #### After adding translations to the .po files, compile the messages
 

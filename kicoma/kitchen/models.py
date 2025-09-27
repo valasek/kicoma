@@ -70,7 +70,7 @@ class VAT(models.Model):
         verbose_name = _('číselník - DPH')
 
     percentage = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        validators=[MaxValueValidator(100)],
         unique=True, verbose_name=_('Výše'), help_text=_('DPH procenta'))
     rate = models.CharField(max_length=100, unique=True, verbose_name=_('Sazba'), help_text=_('DPH sazba'))
 
@@ -184,7 +184,7 @@ class Recipe(TimeStampedModel):
 
     recipe = models.CharField(max_length=100, unique=True, verbose_name=_('Recept'), help_text=_('Název receptu'))
     norm_amount = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(1000)], verbose_name=_('Porcí'))
+        validators=[MaxValueValidator(1000)], verbose_name=_('Porcí'))
     procedure = models.TextField(max_length=1000, blank=True, default="", verbose_name=_('Postup receptu'))
     comment = models.CharField(max_length=200, blank=True, default="", verbose_name=_('Poznámka'))
 
@@ -299,7 +299,7 @@ class MenuRecipe(TimeStampedModel):
                              related_name='menurecipe')
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name=_('Recept'),
                                help_text=_('Vybraný recept'))
-    amount = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(1000)],
+    amount = models.PositiveSmallIntegerField(validators=[MaxValueValidator(1000)],
                                               verbose_name=_('Porcí'), help_text=_('Počet porcí'))
 
     def __str__(self):
@@ -343,7 +343,7 @@ class DailyMenuRecipe(TimeStampedModel):
                                    related_name='dailymenurecipe')
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name=_('Recept'),
                                help_text=_('Vybraný recept'))
-    amount = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(1000)],
+    amount = models.PositiveSmallIntegerField(validators=[MaxValueValidator(1000)],
                                               verbose_name=_('Porcí'), help_text=_('Počet porcí'))
     comment = models.CharField(max_length=200, blank=True, default="", verbose_name=_('Poznámka'))
 

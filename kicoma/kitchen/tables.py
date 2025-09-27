@@ -21,6 +21,11 @@ from .models import (
 )
 from .utils import get_currency
 
+table_attributes = {
+    "class": "table table-striped table-borderless table-hover table-sm",
+    "thead": {"class": "table-secondary"}
+}
+
 LABEL_EDIT = _("Upravit")
 LABEL_HISTORY = _("Historie")
 LABEL_DELETE = _("Vymazat")
@@ -49,8 +54,9 @@ class ArticleTable(tables.Table):
 
     class Meta:
         model = Article
+        order_by = ('article_sort',)
         template_name = "django_tables2/bootstrap5.html"
-        attrs = {"class": "table table-striped table-hover table-sm"}
+        attrs = table_attributes
         fields = ("article", "on_stock", "min_on_stock", "average_price",
                   "total_price", "allergens", "comment", "change")
 
@@ -83,7 +89,7 @@ class ArticleRestrictedTable(tables.Table):
     class Meta:
         model = Article
         template_name = "django_tables2/bootstrap5.html"
-        attrs = {"class": "table table-striped table-hover table-sm"}
+        attrs = table_attributes
         fields = ("article", "unit", "min_on_stock", "allergen", "average_price", "comment", "change")
 
     @staticmethod
@@ -123,7 +129,7 @@ class RecipeTable(tables.Table):
     class Meta:
         model = Recipe
         template_name = "django_tables2/bootstrap5.html"
-        attrs = {"class": "table table-striped table-hover table-sm"}
+        attrs = table_attributes
         fields = ("recipe", "norm_amount", "total_recipe_articles_price", "allergens", "change")
 
     @staticmethod
@@ -159,7 +165,7 @@ class RecipeArticleTable(tables.Table):
     class Meta:
         model = RecipeArticle
         template_name = "django_tables2/bootstrap5.html"
-        attrs = {"class": "table table-striped table-hover table-sm"}
+        attrs = table_attributes
         fields = ("article", "amount", "total_average_price", "comment", "change")
 
     @staticmethod
@@ -176,7 +182,7 @@ class RecipeArticleTable(tables.Table):
 
 
 class DailyMenuTable(tables.Table):
-    max_amount_number = tables.Column(verbose_name=_('Počet porcí'), empty_values=())
+    recipe_count = tables.Column(verbose_name=_('Počet porcí'), empty_values=())
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
@@ -191,13 +197,14 @@ class DailyMenuTable(tables.Table):
 
     class Meta:
         model = DailyMenu
+        order_by = ('-date', 'meal_group')
         template_name = "django_tables2/bootstrap5.html"
-        attrs = {"class": "table table-striped table-hover table-sm"}
-        fields = ("date", "meal_group", "meal_type", "max_amount_number", "change")
+        attrs = table_attributes
+        fields = ("date", "meal_group", "meal_type", "recipe_count", "change")
 
     @staticmethod
-    def render_max_amount_number(record):
-        value = getattr(record, 'max_amount_number', None)
+    def render_recipe_count(record):
+        value = getattr(record, 'recipe_count', None)
         return value if value is not None else '-'
 
 
@@ -234,7 +241,7 @@ class DailyMenuRecipeTable(tables.Table):
     class Meta:
         model = DailyMenuRecipe
         template_name = "django_tables2/bootstrap5.html"
-        attrs = {"class": "table table-striped table-hover table-sm"}
+        attrs = table_attributes
         fields = ("recipe", "amount", "change")
 
 
@@ -255,7 +262,7 @@ class MenuTable(tables.Table):
     class Meta:
         model = Menu
         template_name = "django_tables2/bootstrap5.html"
-        attrs = {"class": "table table-striped table-hover table-sm"}
+        attrs = table_attributes
         fields = ("menu", "meal_type", "rc", "comment", "change")
 
     @staticmethod
@@ -278,7 +285,7 @@ class MenuRecipeTable(tables.Table):
     class Meta:
         model = MenuRecipe
         template_name = "django_tables2/bootstrap5.html"
-        attrs = {"class": "table table-striped table-hover table-sm"}
+        attrs = table_attributes
         fields = ("recipe", "amount", "change")
 
 
@@ -306,7 +313,7 @@ class StockIssueTable(tables.Table):
     class Meta:
         model = StockIssue
         template_name = "django_tables2/bootstrap5.html"
-        attrs = {"class": "table table-striped table-hover table-sm"}
+        attrs = table_attributes
         fields = ("created", "user_created", "approved", "date_approved",
                   "user_approved", "total_price", "comment", "change")
 
@@ -352,7 +359,7 @@ class StockIssueArticleTable(tables.Table):
     class Meta:
         model = StockIssueArticle
         template_name = "django_tables2/bootstrap5.html"
-        attrs = {"class": "table table-striped table-hover table-sm"}
+        attrs = table_attributes
         fields = ("article", "amount", "average_unit_price", "total_average_price_with_vat", "change")
 
     @staticmethod
@@ -389,7 +396,7 @@ class StockReceiptTable(tables.Table):
     class Meta:
         model = StockReceipt
         template_name = "django_tables2/bootstrap5.html"
-        attrs = {"class": "table table-striped table-hover table-sm"}
+        attrs = table_attributes
         fields = ("date_created", "user_created", "approved", "date_approved",
                   "user_approved", "total_price", "comment", "change")
 
@@ -432,7 +439,7 @@ class StockReceiptArticleTable(tables.Table):
     class Meta:
         model = StockReceiptArticle
         template_name = "django_tables2/bootstrap5.html"
-        attrs = {"class": "table table-striped table-hover table-sm"}
+        attrs = table_attributes
         fields = ("article", "amount", "price_without_vat", "vat",
                   "price_with_vat", "total_price_with_vat", "change")
 

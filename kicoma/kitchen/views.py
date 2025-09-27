@@ -355,6 +355,7 @@ class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
             .get_queryset()
             .prefetch_related('allergen', latest_receipt)
         )
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['total_stock_price'] = Article.sum_total_price()
@@ -792,7 +793,7 @@ class DailyMenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
             super()
             .get_queryset()
             .select_related('meal_group', 'meal_type')
-            .annotate(max_amount_number=Max('dailymenurecipe__amount'))
+            .annotate(recipe_count=Max('dailymenurecipe__amount'))
         )
 
 
@@ -1267,7 +1268,7 @@ class StockIssueArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView
         return context
 
     def get_queryset(self):
-        return super().get_queryset().filter(
+       return super().get_queryset().filter(
             stock_issue=self.kwargs["pk"]
         ).select_related('article').order_by(Lower('article__article'))
 
