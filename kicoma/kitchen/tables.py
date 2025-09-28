@@ -54,7 +54,6 @@ class ArticleTable(tables.Table):
 
     class Meta:
         model = Article
-        order_by = ('article_sort',)
         template_name = "django_tables2/bootstrap5.html"
         attrs = table_attributes
         fields = ("article", "on_stock", "min_on_stock", "average_price",

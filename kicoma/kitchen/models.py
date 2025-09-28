@@ -12,6 +12,7 @@ from simple_history.models import HistoricalRecords
 from simple_history.utils import update_change_reason
 
 from .functions import convert_units, total_recipe_article_price
+from .managers import CollatableManager
 
 UNIT = (
     ('kg', _('kg')),
@@ -115,6 +116,8 @@ class MealType(models.Model):
 
 
 class Article(TimeStampedModel):
+    objects = CollatableManager()
+
     class Meta:
         verbose_name_plural = _('Zboží')
         verbose_name = _('Zboží')
@@ -177,6 +180,8 @@ class Article(TimeStampedModel):
 
 
 class Recipe(TimeStampedModel):
+    objects = CollatableManager()
+
     class Meta:
         verbose_name_plural = _('Recepty')
         verbose_name = _('Recept')
@@ -240,10 +245,12 @@ class Recipe(TimeStampedModel):
 
 
 class RecipeArticle(TimeStampedModel):
+    objects = CollatableManager()
+
     class Meta:
         verbose_name_plural = _('Suroviny v receptu')
         verbose_name = _('Surovina v receptu')
-        ordering = ['-recipe']
+        ordering = ['article']
 
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, verbose_name=_('Recept'),
                                related_name='recipearticle_set')
@@ -287,10 +294,12 @@ class Menu(TimeStampedModel):
 
 
 class MenuRecipe(TimeStampedModel):
+    objects = CollatableManager()
+
     class Meta:
         verbose_name_plural = _('Recepty menu')
         verbose_name = _('Recepty menu')
-        ordering = ['menu', 'recipe', 'amount']
+        ordering = ['recipe']
         constraints = [
             UniqueConstraint(fields=['menu', 'recipe'], name='unique_menu_recipe_pair'),
         ]
@@ -307,6 +316,8 @@ class MenuRecipe(TimeStampedModel):
 
 
 class DailyMenu(TimeStampedModel):
+    objects = CollatableManager()
+
     class Meta:
         verbose_name_plural = _('Denní menu')
         verbose_name = _('Denní menu')
@@ -331,6 +342,8 @@ class DailyMenu(TimeStampedModel):
 
 
 class DailyMenuRecipe(TimeStampedModel):
+    objects = CollatableManager()
+
     class Meta:
         verbose_name_plural = _('Recepty denního menu')
         verbose_name = _('Recepty denního menu')
@@ -506,10 +519,12 @@ class StockReceipt(TimeStampedModel):
 
 
 class StockIssueArticle(TimeStampedModel):
+    objects = CollatableManager()
+
     class Meta:
         verbose_name_plural = _('Zboží na výdejce')
         verbose_name = _('Zboží na výdejce')
-        ordering = ['article__article']
+        ordering = ['article']
 
     stock_issue = models.ForeignKey(StockIssue, on_delete=models.CASCADE, verbose_name=_('Výdejka'))
     article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name=_('Zboží'))
@@ -528,24 +543,17 @@ class StockIssueArticle(TimeStampedModel):
             return round(self.average_unit_price * convert_units(self.amount, self.unit, self.article.unit), 0)
         return 0
 
-    # def clean(self):
-    #     article = Article.objects.filter(pk=self.article.id).values_list('on_stock', 'unit')
-    #     on_stock = article[0][0]
-    #     stock_unit = article[0][1]
-    #     issued_amount = convertUnits(self.amount, self.unit, stock_unit)
-    #     if on_stock - issued_amount < 0:
-    #         raise ValidationError(
-    #             {'amount': _("Na skladu je {0} {1} a vydáváte {2} {1}.".format(on_stock, stock_unit, issued_amount))})
-
     def __str__(self):
         return self.article.article + ' - ' + str(self.amount) + self.unit
 
 
 class StockReceiptArticle(TimeStampedModel):
+    objects = CollatableManager()
+
     class Meta:
         verbose_name_plural = _('Zboží na příjemce')
         verbose_name = _('Zboží na příjemce')
-        ordering = ['-id']
+        ordering = ['article']
 
     stock_receipt = models.ForeignKey(StockReceipt, on_delete=models.CASCADE, verbose_name=_('Příjemka'))
     article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name=_('Zboží'),

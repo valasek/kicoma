@@ -5,6 +5,7 @@
       - "Možnost přidat recept do denních menu a zadat 0 porcií."
       - "Možnost zadat datum pomocí kalendáře i klávesnice."
       - "Po vytvoření denního menu je možné ihned zadávat recepty."
+      - "Abecedné řazení zboží."
   - date: 2025-09-19
     items:
       - "Kompletní překlad aplikace i reportů do angličtiny. První verze, neváhejte <a href='https://www.stanislavvalasek.com/contact/'>hlásit možné chyby</a>."

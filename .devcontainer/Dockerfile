@@ -29,7 +29,18 @@ RUN apt-get update && apt-get install -y \
     fonts-dejavu \
     graphviz \
     graphviz-dev \
-    && rm -rf /var/lib/apt/lists/*
+    locales && \
+    sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
+    sed -i '/cs_CZ.UTF-8/s/^# //g' /etc/locale.gen && \
+    locale-gen && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Set locale environment variables
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+ENV LANGUAGE=en_US.UTF-8
 
 # Install Kamal gem
 RUN gem install kamal
