@@ -59,7 +59,9 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 
 # Set locale environment variables
 ENV LANG=en_US.UTF-8
+ENV LANG=cs_CZ.UTF-8
 ENV LC_ALL=en_US.UTF-8
+ENV LC_ALL=cs_CZ.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 
 # Set environment variables
