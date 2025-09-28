@@ -2,8 +2,6 @@ import locale
 import logging
 
 from django.apps import AppConfig
-from django.db import connection
-from django.db.backends.signals import connection_created
 from django.utils.translation import gettext_lazy as _
 
 
@@ -33,15 +31,22 @@ class KitchenConfig(AppConfig):
     verbose_name = _("Kitchen")
 
     def ready(self):
-        # Ensure collations are registered immediately for the first connection
-        try:
-            register_collations(connection.connection)
-        except Exception as e:
-            logging.warning("Immediate collation registration failed: %s", e)
+        from django.db import connections
+        from django.db.backends.signals import connection_created
 
+        # register for all *future* connections
         connection_created.connect(
-            lambda sender, connection, **kwargs: register_collations(connection.connection)
+            lambda sender, connection, **kwargs: register_collations(connection.connection),
+            weak=False,
         )
+
+        # also loop over all *existing* connections and register immediately
+        for conn in connections.all():
+            try:
+                register_collations(conn.connection)
+            except Exception as e:
+                import logging
+                logging.warning("Could not register collations immediately: %s", e)
 
         try:
             import kicoma.kitchen.signals

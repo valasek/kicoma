@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import F
+from django.db.models.functions import Lower
 from django.db.models.functions.comparison import Collate
 from django.utils import translation
 
@@ -55,7 +56,10 @@ class CollatableQuerySet(models.QuerySet):
             desc = field.startswith("-")
             field_name = field[1:] if desc else field
             resolved_field = self._resolve_ordering_field(field_name)
-            expr = Collate(F(resolved_field), collation)
+            try:
+                expr = Collate(F(resolved_field), collation)
+            except Exception:
+                expr = Lower(F(resolved_field))
             exprs.append(expr.desc() if desc else expr.asc())
         return self.order_by(*exprs)
 
