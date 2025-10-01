@@ -72,8 +72,8 @@ prod = [
 # ]
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["uv-build"]
+build-backend = "uv_build"
 
 [tool.ruff]
 line-length = 88

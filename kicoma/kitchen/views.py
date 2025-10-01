@@ -1252,7 +1252,7 @@ class StockIssueApproveView(LoginRequiredMixin, TemplateView):
                 errors = _("Níže uvedené zboží není možné vyskladnit:<br/>") + errors
                 messages.error(self.request, mark_safe(errors))
                 return HttpResponseRedirect(reverse_lazy('kitchen:approveStockIssue', kwargs={'pk': self.kwargs['pk']}))
-            _ = StockIssue.update_article_on_stock(stock_issue.id, stock_issue.comment, False)
+            result = StockIssue.update_article_on_stock(stock_issue.id, stock_issue.comment, False)
             stock_issue.save(update_fields=('approved', 'date_approved', 'user_approved',))
             messages.success(self.request, _("Výdejka byla vyskladněna"))
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))

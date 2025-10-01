@@ -23,7 +23,7 @@ def register_collations(conn):
         logging.info("SQLite collations registered successfully")
 
     except Exception as e:
-        logging.warning("Could not register SQLite collations: %s", e)
+        # logging.warning("Could not register SQLite collations: %s", e)
 
 
 class KitchenConfig(AppConfig):
