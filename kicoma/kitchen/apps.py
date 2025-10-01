@@ -23,6 +23,7 @@ def register_collations(conn):
         logging.info("SQLite collations registered successfully")
 
     except Exception as e:
+        pass
         # logging.warning("Could not register SQLite collations: %s", e)
 
 
