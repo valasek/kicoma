@@ -37,7 +37,8 @@ ENV PATH="/app/.venv/bin:$PATH"
 # Also system deps for WeasyPrint (Cairo, Pango, GDK-Pixbuf, GObject, etc.)
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
-    apt-get upgrade -y && \
+    apt-get clean && \
+    # apt-get upgrade -y && \
     apt-get install -y --no-install-recommends --no-install-suggests \
         gettext \
         libcairo2 \

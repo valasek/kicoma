@@ -49,6 +49,10 @@ kamal deploy
 
 Connect to server: `ssh root@162.55.185.37`
 
+Free disk space if needed
+docker system prune -af --volumes
+
+
 ## Upgrade packages
 
 Run uv lock whenever you change pyproject.toml
