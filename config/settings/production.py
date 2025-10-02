@@ -1,7 +1,7 @@
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-from .base import DATABASES, INSTALLED_APPS, ROOT_DIR, env
+from .base import DATABASES, INSTALLED_APPS, ROOT_DIR, env, TEMPLATES
 
 # GENERAL
 # ------------------------------------------------------------------------------
