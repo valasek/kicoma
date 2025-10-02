@@ -66,23 +66,25 @@
     {% block content %}{% endblock %}
     
     <footer class="bg-body-secondary py-4">
-        <div class="container text-center">
-            <p>
-            <img
-                src="{% static 'images/logo.png'%}"
-                alt="logo"
-                class="mx-2 mb-2"
-                style="width: 25px;"
-            />
-            {% blocktranslate trimmed %}
-            KiCoMa je navržena, vyvinuta a podporována
-            <a href="https://www.stanislavvalasek.com/contact" target="_blank">Stanislavem Valáškem</a>, vytvořena s ❤️ na Slovensku.
-            {% endblocktranslate %}
-            <br/><br/>
-            &copy; {% now "Y" %} {% translate "Stanislav Valášek" %}            
-            </p>
-        </div>
-    </footer>
+  <div class="container d-flex flex-wrap justify-content-between">
+    <span class="me-3">
+      <img
+        src="{% static 'images/logo.png'%}"
+        alt="logo"
+        class="mx-2 mb-2"
+        style="width: 25px;"
+      />
+      {% blocktranslate trimmed %}
+      KiCoMa je navržena, vyvinuta a podporována
+      <a href="https://www.stanislavvalasek.com/contact" target="_blank">Stanislavem Valáškem</a>, vytvořena s ❤️ na Slovensku
+      {% endblocktranslate %}
+    </span>
+    <span class="mt-2 mt-md-0">
+      <a href="https://stats.uptimerobot.com/tjN875xKdi">Status</a>
+      &copy; {% now "Y" %} {% translate "Stanislav Valášek" %}
+    </span>
+  </div>
+</footer>
 
 </body>
 </html>
