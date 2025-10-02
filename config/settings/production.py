@@ -1,7 +1,9 @@
+from pathlib import Path
+
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-from .base import *  # pylint: disable=wildcard-import,unused-wildcard-import
+from .base import *  # noqa: F403
 from .base import env
 
 # GENERAL
@@ -162,6 +164,9 @@ LOGGING = {
 # Your stuff...
 # ------------------------------------------------------------------------------
 
+version_file = Path(__file__).resolve().parent.parent
+RELEASE_VERSION = version_file.read_text().strip() if version_file.is_file() else "0.0.0"
+
 # Sentry
 sentry_sdk.init(
     dsn="https://137388df23d648d9bae72c0adcc12e06@o417369.ingest.us.sentry.io/5316934",
@@ -178,5 +183,7 @@ sentry_sdk.init(
     send_default_pii=True,
 
     # Enable logs to be sent to Sentry
-    enable_logs=True
+    enable_logs=True,
+
+    release=RELEASE_VERSION
 )
