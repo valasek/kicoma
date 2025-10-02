@@ -1,10 +1,7 @@
-from pathlib import Path
-
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-from .base import *  # noqa: F403
-from .base import env
+from .base import DATABASES, INSTALLED_APPS, ROOT_DIR, env
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -164,7 +161,7 @@ LOGGING = {
 # Your stuff...
 # ------------------------------------------------------------------------------
 
-version_file = Path(__file__).resolve().parent.parent / "VERSION"
+version_file = ROOT_DIR / "VERSION"
 RELEASE_VERSION = version_file.read_text().strip() if version_file.is_file() else "0.0.0"
 
 # Sentry

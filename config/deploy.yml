@@ -52,7 +52,8 @@ env:
     - MAILGUN_PUBLIC_KEY
     - MAILGUN_SMTP_LOGIN
     - MAILGUN_SMTP_PASSWORD
-  # clear:
+  clear:
+    KAMAL_LOG_LEVEL: info # debug, info, warn
 
 
 # Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
