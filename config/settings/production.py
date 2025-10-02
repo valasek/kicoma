@@ -1,7 +1,8 @@
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-from .base import DATABASES, INSTALLED_APPS, ROOT_DIR, env, TEMPLATES
+from .base import *  # noqa: F403
+from .base import ROOT_DIR, env
 
 # GENERAL
 # ------------------------------------------------------------------------------
