@@ -14,6 +14,7 @@ RUN groupadd --gid 1000 dev-user \
 # Install Ruby and required dependencies
 # Also system deps for WeasyPrint (Cairo, Pango, GDK-Pixbuf, GObject, etc.)
 RUN apt-get update && apt-get install -y \
+    openssh-client \
     ruby \
     ruby-dev \
     build-essential \
