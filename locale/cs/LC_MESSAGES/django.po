@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KiCoMa 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-02 21:46+0200\n"
+"POT-Creation-Date: 2025-10-03 00:29+0200\n"
 "PO-Revision-Date: 2025-09-19 12:00+0200\n"
 "Last-Translator: Stanislav Valasek <valasek@gmail.com>\n"
 "Language-Team: Slovak <LL@li.org>\n"
@@ -986,7 +986,7 @@ msgid "Zboží - historie"
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/docs.html:6
-#: kicoma/templates/common/home.html:152
+#: kicoma/templates/common/home.html:153
 msgid "Příručka"
 msgstr ""
 
@@ -2607,10 +2607,10 @@ msgstr ""
 msgid ""
 "KiCoMa je navržena, vyvinuta a podporována <a href=\"https://www."
 "stanislavvalasek.com/contact\" target=\"_blank\">Stanislavem Valáškem</a>, "
-"vytvořena s ❤️ na Slovensku."
+"vytvořena s ❤️ na Slovensku"
 msgstr ""
 
-#: kicoma/templates/common/base.html:82
+#: kicoma/templates/common/base.html:84
 msgid "Stanislav Valášek"
 msgstr ""
 
@@ -2779,19 +2779,19 @@ msgid ""
 "provozy s důrazem na jednoduchost a spolehlivost."
 msgstr ""
 
-#: kicoma/templates/common/home.html:160
+#: kicoma/templates/common/home.html:161
 msgid "Kontakt a podpora"
 msgstr ""
 
-#: kicoma/templates/common/home.html:163
+#: kicoma/templates/common/home.html:164
 msgid "Chcete mě pozdravit, potřebujete pomoc nebo navrhnout užitečnou funkci?"
 msgstr ""
 
-#: kicoma/templates/common/home.html:165
+#: kicoma/templates/common/home.html:166
 msgid "Záleží mi na vašem názoru."
 msgstr ""
 
-#: kicoma/templates/common/home.html:167
+#: kicoma/templates/common/home.html:168
 msgid ""
 "Kontaktujte mě – <a href=\"https://www.stanislavvalasek.com/"
 "contact\">Stanislav Valasek</a>"
