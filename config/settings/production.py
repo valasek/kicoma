@@ -164,7 +164,7 @@ LOGGING = {
 # Your stuff...
 # ------------------------------------------------------------------------------
 
-version_file = Path(__file__).resolve().parent.parent
+version_file = Path(__file__).resolve().parent.parent / "VERSION"
 RELEASE_VERSION = version_file.read_text().strip() if version_file.is_file() else "0.0.0"
 
 # Sentry
