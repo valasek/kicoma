@@ -7,8 +7,8 @@
       <h1 class="display-4">{% translate "Kuchyně pod kontrolou" %}</h1>
       <p class="lead">{% translate "Profesionální řešení pro řízení skladu, receptů i kuchyně" %}</p>
       <p>{% translate "Zefektivněte provoz své kuchyně pomocí našeho komplexního systému řízení." %}</p>
-      <a href="{% url 'kitchen:about' %}" class="btn btn-light btn-lg">{% translate "Začít" %}</a>
-      <a href="#" class="btn btn-outline-light btn-lg ms-3">{% translate "Vyzkoušet demo" %}</a>
+      <a href="#" class="btn btn-primary btn-lg disabled">{% translate "Vyzkoušet demo" %}</a>
+      <a href="#" class="btn btn-outline-light ms-3 disabled">{% translate "Spustit vlastní KiCoMa" %}</a>
   </div>
 </section>
 
@@ -60,7 +60,7 @@
         </div>
       </div>
     </div>
-    <div class="text-center my-5">
+    <div class="text-center mt-5">
       <h2 class="h4 mb-4">{% translate "Co KiCoMa umí" %}</h2>
       <ul class="list-unstyled d-inline-block text-start">
         <li class="mb-2">
@@ -127,7 +127,36 @@
   </div>
 </section>
 
-<section id="contact" class="pt-5">
+<section id="pricing" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">{% trans "Jednoduché a férové ceny" %}</h2>
+    <div class="container text-center">
+      <ul class="list-unstyled mb-4">
+        <li>{% blocktrans %}<b>Cenník v přípravě</b>{% endblocktrans %}</li>
+      </ul>
+      <div class="">
+        <a href="#" class="btn btn-primary btn-lg disabled">{% translate "Vyzkoušet demo" %}</a>
+        <a href="#" class="btn btn-outline-secondary ms-3 disabled">{% translate "Spustit vlastní KiCoMa" %}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-gradient-purple text-white py-5">
+  <div class="container text-center">
+    <h2>{% translate "O projektu" %}</h2>
+    <p class="mb-2">
+      {% blocktranslate trimmed %}KiCoMa – <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement vznikla pro reálné provozy s důrazem na jednoduchost a spolehlivost.{% endblocktranslate %}
+      <div class="my-3">
+        <a href="{% url 'kitchen:changelog'%}" class="link-info fs-4 link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">{% trans "Novinky" %}</a>
+        <span class="mx-2">/</span>
+        <a href="{% url 'kitchen:docs'%}" class="link-info link-offset-2 fs-4  link-underline-opacity-25 link-underline-opacity-100-hover">{% trans "Příručka" %}</a>
+      </div>
+    </p>
+  </div>
+</section>
+
+<section id="contact" class="py-5">
     <div class="container">
         <h2 class="text-center mb-5">{% translate "Kontakt a podpora" %}</h2>
         <div class="container text-center">
@@ -146,15 +175,6 @@
               class="d-block mx-auto rounded-3 img-fluid shadow mt-4 w-25"/>
         </div>
     </div>
-</section>
-
-<section class="bg-gradient-purple text-white py-5 my-5">
-  <div class="container text-center">
-    <h2>{% translate "O projektu" %}</h2>
-    <p class="mb-2">
-      {% blocktranslate trimmed %}KiCoMa – <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement vznikla pro reálné provozy s důrazem na jednoduchost a spolehlivost.{% endblocktranslate %}
-    </p>
-  </div>
 </section>
 
 {% endblock %}

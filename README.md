@@ -19,6 +19,23 @@ If you'd like to use this software commercially, please [contact me](https://www
 
 ![Data model](./kicoma/static/images/datamodel.png)
 
+## Regularly used commands
+
+### Update static content
+
+`./manage.py collectstatic --noinput`
+
+### Update Translations
+
+#### Generate message files for a desired language
+
+`./manage.py makemessages -l en --ignore=.venv`
+`./manage.py makemessages -l cs --ignore=.venv`
+
+#### After adding translations to the .po files, compile the messages
+
+`./manage.py compilemessages --ignore=.venv`
+
 ## Getting started
 
 To get started with the app, clone the repo and then install Python 3:
@@ -52,31 +69,22 @@ Connect to server: `ssh root@162.55.185.37`
 Free disk space if needed
 docker system prune -af --volumes
 
-
 ## Upgrade packages
 
 Run uv lock whenever you change pyproject.toml
-
 uv sync --extra dev        # Install from lockfile
 
 ## Update all dependencies to latest compatible versions
 
 Show outdated packages
 uv tree --outdated --depth=1
-
 uv lock --upgrade
 
 ## Generate lockfile without installing
 
 uv lock
-
 uv add new-package        # Adds to pyproject.toml and updates lockfile
-
 uv remove old-package     # Removes from pyproject.toml and updates lockfile
-
-## Generate lockfile for specific Python version
-
-uv lock --python 3.11
 
 ## Update specific package
 
@@ -89,7 +97,7 @@ uv lock --upgrade-package django --upgrade-package gunicorn
 ### When deploying for the first time, make sure these LOCAL ONLY config files exist
 
 config/django_secret.key
-e.g. ghenerate it using <https://djecrety.ir>
+e.g. generate it using <https://djecrety.ir>
 
 config/django_admin_url.key
 /admin/ or more secure version
@@ -102,7 +110,7 @@ config/mailgun_smtp_login.key
 
 config/mailgun_smtp_password.key
 
-### Update Kamal or kamal proxy on localhost
+### Update Kamal and kamal proxy on localhost
 
 ```bash
 gem update kamal
@@ -144,21 +152,6 @@ Using [Graph models](https://django-extensions.readthedocs.io/en/latest/graph_mo
 `./manage.py graph_models -a -g -o datamodel.png` or
 
 `./manage.py graph_models kitchen -g -o datamodel.png` and copy the file to statics/images
-
-### Update static content
-
-`./manage.py collectstatic --noinput`
-
-### Update Translations
-
-#### Generate message files for a desired language
-
-`./manage.py makemessages -l en --ignore=.venv`
-`./manage.py makemessages -l cs --ignore=.venv`
-
-#### After adding translations to the .po files, compile the messages
-
-`./manage.py compilemessages --ignore=.venv`
 
 ### Type checks
 
