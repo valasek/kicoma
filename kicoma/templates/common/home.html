@@ -7,8 +7,9 @@
       <h1 class="display-4">{% translate "Kuchyně pod kontrolou" %}</h1>
       <p class="lead">{% translate "Profesionální řešení pro řízení skladu, receptů i kuchyně" %}</p>
       <p>{% translate "Zefektivněte provoz své kuchyně pomocí našeho komplexního systému řízení." %}</p>
-      <a href="#" class="btn btn-primary btn-lg disabled">{% translate "Vyzkoušet demo" %}</a>
-      <a href="#" class="btn btn-outline-light ms-3 disabled">{% translate "Spustit vlastní KiCoMa" %}</a>
+      {% blocktranslate trimmed %}
+      <a href="https://forms.gle/PSRxw72x33Bcn6hN9" class="btn btn-outline-dark ms-3">Požádat o vlastní KiCoMa instanci</a>
+      {% endblocktranslate %}
   </div>
 </section>
 
@@ -132,11 +133,12 @@
     <h2 class="text-center mb-5">{% trans "Jednoduché a férové ceny" %}</h2>
     <div class="container text-center">
       <ul class="list-unstyled mb-4">
-        <li>{% blocktrans %}<b>Cenník v přípravě</b>{% endblocktrans %}</li>
+        <li class="fs-3">{% blocktrans %}<b>29 € / měsíc</b>{% endblocktrans %}</li>
       </ul>
       <div class="">
-        <a href="#" class="btn btn-primary btn-lg disabled">{% translate "Vyzkoušet demo" %}</a>
-        <a href="#" class="btn btn-outline-secondary ms-3 disabled">{% translate "Spustit vlastní KiCoMa" %}</a>
+        {% blocktranslate trimmed %}
+        <a href="https://forms.gle/PSRxw72x33Bcn6hN9" class="btn btn-outline-dark ms-3">Požádat o vlastní KiCoMa instanci</a>
+        {% endblocktranslate %}
       </div>
     </div>
   </div>
@@ -175,6 +177,41 @@
               class="d-block mx-auto rounded-3 img-fluid shadow mt-4 w-25"/>
         </div>
     </div>
+</section>
+
+<section id="faq" class="bg-gradient-purple text-white py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">{% translate "Často kladené otázky" %}</h2>
+
+    <h3>{% translate "Můžu si program vyzkoušet?" %}</h3>
+    {% blocktranslate trimmed %}
+    Ano, rád vám zpřístupním demo nebo zkušební instanci.<br/>
+    Stačí <a href="https://forms.gle/PSRxw72x33Bcn6hN9" class="link-light text-decoration-underline">vyplnit tento formulář</a> a do jednoho pracovného dne se vám ozvu s podrobnostma.
+    {% endblocktranslate %}
+    
+    <h3 class="pt-5">{% translate "V našem provozu nemáme vyhrazen další HW a nerozumíme tolik počítačům. Není to problém?" %}</h3>
+    {% blocktranslate trimmed %}
+    Nevadí, přesně v takovém prostředí program KiCoMa vznikl.<br/>
+    Rád s vámi vše projdu a zaučím vás. A KiCoMa běží na běžném počítači, tabletu i mobilu.
+    {% endblocktranslate %}
+
+    <h3 class="pt-5">{% translate "Na jaký provoz je program vhodný a jaký ne?" %}</h3>
+    {% blocktranslate trimmed %}
+    KiCoMa byla vyvinuta pro hospic, ale i další zařízení, kde je potřeba oddělená evidence skladu potravin a plánování jídelníčku – například domovy pro seniory, školní jídelny nebo nemocnice.<br/>
+    Nehodí se pro restaurace nebo stánky s prodejem jídla.<br/>
+    Neřeší prodej, fakturaci (kromě příjemek nebo výdejek) ani účetnictví (ale eviduje pro něj podklady).
+    {% endblocktranslate %}
+    
+    <h3 class="pt-5">{% translate "V programu nám chybí některé funkce, co teď?" %}</h3>
+    {% blocktranslate trimmed %}
+    <a href="https://www.stanislavvalasek.com/contact/" class="link-light text-decoration-underline">Kontaktujte mě</a><br/>
+    <br/>
+    Zjistím o co jde a kolik času na financií by znamenalo program upravit.<br/>
+    Program průběžně dle požadavků upravuji a doplňuji. Viz
+    <a href="https://kicoma.stanislavvalasek.com/kitchen/changelog" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">novinky</a>.<br/>
+    Malá změna trvá většinou na malé jednotky hodin, větší je na dny. A cenu vám sdělím předem.
+    {% endblocktranslate %}
+  </div>
 </section>
 
 {% endblock %}

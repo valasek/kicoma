@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KiCoMa 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-03 00:29+0200\n"
+"POT-Creation-Date: 2025-10-05 00:13+0200\n"
 "PO-Revision-Date: 2025-09-19 12:00+0200\n"
 "Last-Translator: Stanislav Valasek <valasek@gmail.com>\n"
 "Language-Team: Slovak <LL@li.org>\n"
@@ -546,7 +546,7 @@ msgid "Guest, welcome in kiCoMa"
 msgstr "Zájemce, vítej v KiCoMa"
 
 #: kicoma/kitchen/templates/kitchen/about.html:17
-#: kicoma/templates/common/home.html:151
+#: kicoma/templates/common/home.html:153
 msgid "Novinky"
 msgstr "News"
 
@@ -1005,7 +1005,7 @@ msgid "Zboží - historie"
 msgstr "Goods - history"
 
 #: kicoma/kitchen/templates/kitchen/docs.html:6
-#: kicoma/templates/common/home.html:153
+#: kicoma/templates/common/home.html:155
 msgid "Příručka"
 msgstr "Manual"
 
@@ -2680,23 +2680,27 @@ msgstr "Administration"
 msgid "Odhlásit"
 msgstr "Log out"
 
-#: kicoma/templates/common/base.html:57
+#: kicoma/templates/common/base.html:61
 msgid "Přejít do KiCoMa"
 msgstr "Go to KiCoMa"
 
-#: kicoma/templates/common/base.html:58 kicoma/templates/common/home.html:17
+#: kicoma/templates/common/base.html:62 kicoma/templates/common/home.html:18
 msgid "Funkce"
 msgstr "Features"
 
-#: kicoma/templates/common/base.html:59
+#: kicoma/templates/common/base.html:63
 msgid "Cenník"
 msgstr "Pricing"
 
-#: kicoma/templates/common/base.html:60
+#: kicoma/templates/common/base.html:64
+msgid "Často kladené dotazy"
+msgstr "Frequently Asked Questions"
+
+#: kicoma/templates/common/base.html:65
 msgid "Kontakt"
 msgstr "Contact"
 
-#: kicoma/templates/common/base.html:77
+#: kicoma/templates/common/base.html:83
 msgid ""
 "KiCoMa je navržena, vyvinuta a podporována <a href=\"https://www."
 "stanislavvalasek.com/contact\" target=\"_blank\">Stanislavem Valáškem</a>, "
@@ -2706,7 +2710,7 @@ msgstr ""
 "stanislavvalasek.com/en/contact\" target=\"_blank\">Stanislav Valasek</a>, "
 "created with ❤️ in Slovakia."
 
-#: kicoma/templates/common/base.html:84
+#: kicoma/templates/common/base.html:90
 msgid "Stanislav Valášek"
 msgstr "Stanislav Valasek"
 
@@ -2724,15 +2728,15 @@ msgid ""
 msgstr ""
 "Streamline your kitchen operations with our comprehensive management system."
 
-#: kicoma/templates/common/home.html:10 kicoma/templates/common/home.html:138
-msgid "Vyzkoušet demo"
-msgstr "Try Demo"
+#: kicoma/templates/common/home.html:10 kicoma/templates/common/home.html:139
+msgid ""
+"<a href=\"https://forms.gle/PSRxw72x33Bcn6hN9\" class=\"btn btn-outline-dark "
+"ms-3\">Požádat o vlastní KiCoMa instanci</a>"
+msgstr ""
+"<a href=\"https://forms.gle/RzzWwJq6Cbt3JYY6A\" class=\"btn btn-outline-dark "
+"ms-3\">Request your own KiCoMa instance</a>"
 
-#: kicoma/templates/common/home.html:11 kicoma/templates/common/home.html:139
-msgid "Spustit vlastní KiCoMa"
-msgstr "Launch Your KiCoMa"
-
-#: kicoma/templates/common/home.html:19
+#: kicoma/templates/common/home.html:20
 msgid ""
 "KiCoMa je špičkový program určený pro efektivní správu skladu potravin, "
 "receptů a menu.<br/><br/>Pojďte se podívat, jak vám KiCoMa může pomoci:"
@@ -2741,29 +2745,29 @@ msgstr ""
 "inventory, recipes, and menus.<br/><br/>Take a look at how KiCoMa can help "
 "you:"
 
-#: kicoma/templates/common/home.html:25
+#: kicoma/templates/common/home.html:26
 msgid "Snadné plánování"
 msgstr "Easy planning"
 
-#: kicoma/templates/common/home.html:26
+#: kicoma/templates/common/home.html:27
 msgid "Výživová poradkyně jednoduše naplánuje recepty a denní menu."
 msgstr "A nutrition consultant can easily plan recipes and daily menus."
 
-#: kicoma/templates/common/home.html:33
+#: kicoma/templates/common/home.html:34
 msgid "Bezproblémové vaření"
 msgstr "Seamless cooking"
 
-#: kicoma/templates/common/home.html:34
+#: kicoma/templates/common/home.html:35
 msgid "Kuchyně vaří přesně podle denního menu, bez stresu a zmatků."
 msgstr ""
 "The kitchen cooks exactly according to the daily menu, without stress or "
 "confusion."
 
-#: kicoma/templates/common/home.html:41
+#: kicoma/templates/common/home.html:42
 msgid "Perfektní synchronizace"
 msgstr "Perfect synchronization"
 
-#: kicoma/templates/common/home.html:42
+#: kicoma/templates/common/home.html:43
 msgid ""
 "Recepty a menu jsou propojené se skladem potravin, což znamená, že vždy "
 "víte, co máte na skladě."
@@ -2771,11 +2775,11 @@ msgstr ""
 "Recipes and menus are linked with the food inventory, which means you always "
 "know what you have in stock."
 
-#: kicoma/templates/common/home.html:49
+#: kicoma/templates/common/home.html:50
 msgid "Aktuální stav skladu"
 msgstr "Actual stock level"
 
-#: kicoma/templates/common/home.html:50
+#: kicoma/templates/common/home.html:51
 msgid ""
 "Stav skladu se automaticky mění pomocí příjemek a výdejek sestavených podle "
 "vydávaných jídel, nebo jednorázovou inventurou."
@@ -2783,11 +2787,11 @@ msgstr ""
 "The stock status is automatically updated using receipts and issues based on "
 "served meals, or through a one-time inventory."
 
-#: kicoma/templates/common/home.html:57
+#: kicoma/templates/common/home.html:58
 msgid "Jednoduché reporty"
 msgstr "Simple reports"
 
-#: kicoma/templates/common/home.html:58
+#: kicoma/templates/common/home.html:59
 msgid ""
 "Vytvářejte přehledné reporty jedním kliknutím. Program je intuitivní a "
 "snadno ovladatelný, s nápovědou a podrobným popisem funkcí."
@@ -2795,11 +2799,11 @@ msgstr ""
 "Create clear reports with a single click. The program is intuitive and easy "
 "to use, with help and detailed function descriptions."
 
-#: kicoma/templates/common/home.html:64
+#: kicoma/templates/common/home.html:65
 msgid "Co KiCoMa umí"
 msgstr "What KiCoMa can do"
 
-#: kicoma/templates/common/home.html:70
+#: kicoma/templates/common/home.html:71
 msgid ""
 "<b>Sklad zboží</b>: jednotky, DPH, alergeny, minimální zásoby a aktuální "
 "průměrná cena."
@@ -2807,7 +2811,7 @@ msgstr ""
 "<b>Inventory</b>: units, VAT, allergens, minimum stock levels, and current "
 "average price."
 
-#: kicoma/templates/common/home.html:76
+#: kicoma/templates/common/home.html:77
 msgid ""
 "<b>Recepty</b>: suroviny s převody jednotek, postup, automatické alergeny a "
 "náklad na porci."
@@ -2815,12 +2819,12 @@ msgstr ""
 "<b>Recipes</b>: ingredients with unit conversions, procedure, automatic "
 "allergens, and cost per serving."
 
-#: kicoma/templates/common/home.html:82
+#: kicoma/templates/common/home.html:83
 msgid ""
 "<b>Menu a denní menu</b>: plánování podle skupin strávníků a typu jídla."
 msgstr "<b>Menu and daily menus</b>: planning by diner groups and meal type."
 
-#: kicoma/templates/common/home.html:88
+#: kicoma/templates/common/home.html:89
 msgid ""
 "<b>Výdejky a příjemky</b>: vyskladnění/naskladnění se propojí se skladem, "
 "podklady do PDF."
@@ -2828,31 +2832,31 @@ msgstr ""
 "<b>Issue slips and receipts</b>: stock-out/stock-in linked with the "
 "inventory, PDF outputs."
 
-#: kicoma/templates/common/home.html:94
+#: kicoma/templates/common/home.html:95
 msgid "<b>Reporty</b>: souhrnná spotřeba, chybné jednotky, zboží mimo recepty."
 msgstr ""
 "<b>Reports</b>: total consumption, incorrect units, items outside recipes."
 
-#: kicoma/templates/common/home.html:100
+#: kicoma/templates/common/home.html:101
 msgid ""
 "<b>Import/Export</b>: plný export dat a snadný import, včetně úklidu dat."
 msgstr ""
 "<b>Import/Export</b>: full data export and easy import, including data "
 "cleanup."
 
-#: kicoma/templates/common/home.html:105
+#: kicoma/templates/common/home.html:106
 msgid "Pročtěte si "
 msgstr "Read "
 
-#: kicoma/templates/common/home.html:105
+#: kicoma/templates/common/home.html:106
 msgid "příručku k aplikaci"
 msgstr "manual"
 
-#: kicoma/templates/common/home.html:112
+#: kicoma/templates/common/home.html:113
 msgid "Co říkají uživatelé"
 msgstr "What users say"
 
-#: kicoma/templates/common/home.html:116
+#: kicoma/templates/common/home.html:117
 msgid ""
 "Moc Ti děkujeme za úžasnou spolupráci, všichni, co na programu pracují, si "
 "ho moc pochvalují."
@@ -2860,39 +2864,39 @@ msgstr ""
 "Thank you very much for the wonderful cooperation, everyone working with the "
 "program appreciates it a lot."
 
-#: kicoma/templates/common/home.html:117
+#: kicoma/templates/common/home.html:118
 msgid "Jan Kostka"
 msgstr ""
 
-#: kicoma/templates/common/home.html:117
+#: kicoma/templates/common/home.html:118
 msgid "Vedoucí provozu, TŘI, z.ú., Hospic Čerčany"
 msgstr "Operations Manager, TŘI, z.ú., Hospice Čerčany"
 
-#: kicoma/templates/common/home.html:122
+#: kicoma/templates/common/home.html:123
 msgid "Honza má pravdu, zpětná vazba byla skvělá."
 msgstr "Honza is right, the feedback was excellent."
 
-#: kicoma/templates/common/home.html:123
+#: kicoma/templates/common/home.html:124
 msgid "PharmDr. Monika Horníková, MHA"
 msgstr ""
 
-#: kicoma/templates/common/home.html:123
+#: kicoma/templates/common/home.html:124
 msgid "ředitelka, TŘI, z.ú., Hospic Čerčany"
 msgstr "Director, TŘI, z.ú., Hospice Čerčany"
 
-#: kicoma/templates/common/home.html:132
+#: kicoma/templates/common/home.html:133
 msgid "Jednoduché a férové ceny"
 msgstr "Simple and fair pricing"
 
-#: kicoma/templates/common/home.html:135
-msgid "<b>Cenník v přípravě</b>"
-msgstr "<b>Pricing is comming soon ...</b>"
+#: kicoma/templates/common/home.html:136
+msgid "<b>29 € / měsíc</b>"
+msgstr "<b>29 € / month</b>"
 
-#: kicoma/templates/common/home.html:147
+#: kicoma/templates/common/home.html:149
 msgid "O projektu"
 msgstr "About Project"
 
-#: kicoma/templates/common/home.html:149
+#: kicoma/templates/common/home.html:151
 msgid ""
 "KiCoMa – <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement vznikla pro reálné "
 "provozy s důrazem na jednoduchost a spolehlivost."
@@ -2900,25 +2904,105 @@ msgstr ""
 "KiCoMa – <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement was created for "
 "real operations with an emphasis on simplicity and reliability."
 
-#: kicoma/templates/common/home.html:161
+#: kicoma/templates/common/home.html:163
 msgid "Kontakt a podpora"
 msgstr "Contact and Support"
 
-#: kicoma/templates/common/home.html:164
+#: kicoma/templates/common/home.html:166
 msgid "Chcete mě pozdravit, potřebujete pomoc nebo navrhnout užitečnou funkci?"
 msgstr "Do you want to say hello, need help, or suggest a useful feature?"
 
-#: kicoma/templates/common/home.html:166
+#: kicoma/templates/common/home.html:168
 msgid "Záleží mi na vašem názoru."
 msgstr "I value your opinion."
 
-#: kicoma/templates/common/home.html:168
+#: kicoma/templates/common/home.html:170
 msgid ""
 "Kontaktujte mě – <a href=\"https://www.stanislavvalasek.com/"
 "contact\">Stanislav Valasek</a>"
 msgstr ""
 "Contact me – <a href=\"https://www.stanislavvalasek.com/en/"
 "contact\">Stanislav Valasek</a>"
+
+#: kicoma/templates/common/home.html:184
+msgid "Často kladené otázky"
+msgstr "Frequently Asked Questions"
+
+#: kicoma/templates/common/home.html:186
+msgid "Můžu si program vyzkoušet?"
+msgstr "Can I try the program?"
+
+#: kicoma/templates/common/home.html:187
+msgid ""
+"Ano, rád vám zpřístupním demo nebo zkušební instanci.<br/> Stačí <a "
+"href=\"https://forms.gle/PSRxw72x33Bcn6hN9\" class=\"link-light text-"
+"decoration-underline\">vyplnit tento formulář</a> a do jednoho pracovného "
+"dne se vám ozvu s podrobnostma."
+msgstr ""
+"Yes, I’ll be happy to provide you with a demo or trial instance.<br/> Just "
+"<a href=\"https://forms.gle/3QTqcmcUvs4Zs2ym9\" class=\"link-light text-"
+"decoration-underline\">fill out this form</a> and I’ll get back to you "
+"within one business day with the details."
+
+#: kicoma/templates/common/home.html:192
+msgid ""
+"V našem provozu nemáme vyhrazen další HW a nerozumíme tolik počítačům. Není "
+"to problém?"
+msgstr ""
+"We don’t have extra hardware in our facility and we’re not very experienced "
+"with computers. Is that a problem?"
+
+#: kicoma/templates/common/home.html:193
+msgid ""
+"Nevadí, přesně v takovém prostředí program KiCoMa vznikl.<br/> Rád s vámi "
+"vše projdu a zaučím vás. A KiCoMa běží na běžném počítači, tabletu i mobilu."
+msgstr ""
+"Not at all – KiCoMa was created exactly for such environments.<br/> I’ll be "
+"happy to walk you through everything and train you. KiCoMa runs on any "
+"regular computer, tablet, or smartphone."
+
+#: kicoma/templates/common/home.html:198
+msgid "Na jaký provoz je program vhodný a jaký ne?"
+msgstr ""
+"What kind of facilities is the program suitable for, and which are not?"
+
+#: kicoma/templates/common/home.html:199
+msgid ""
+"KiCoMa byla vyvinuta pro hospic, ale i další zařízení, kde je potřeba "
+"oddělená evidence skladu potravin a plánování jídelníčku – například domovy "
+"pro seniory, školní jídelny nebo nemocnice.<br/> Nehodí se pro restaurace "
+"nebo stánky s prodejem jídla.<br/> Neřeší prodej, fakturaci (kromě příjemek "
+"nebo výdejek) ani účetnictví (ale eviduje pro něj podklady)."
+msgstr ""
+"KiCoMa was developed for hospices and other facilities that need separate "
+"records of food inventory and meal planning – such as nursing homes, school "
+"canteens, or hospitals.<br/> It’s not suitable for restaurants or food "
+"stalls.<br/> It doesn’t handle sales, invoicing (except for goods receipts "
+"or issues), or accounting (but it does record supporting data for it)."
+
+#: kicoma/templates/common/home.html:205
+msgid "V programu nám chybí některé funkce, co teď?"
+msgstr "We’re missing some features in the program – what now?"
+
+#: kicoma/templates/common/home.html:206
+msgid ""
+"<a href=\"https://www.stanislavvalasek.com/contact/\" class=\"link-light "
+"text-decoration-underline\">Kontaktujte mě</a><br/> <br/> Zjistím o co jde a "
+"kolik času na financií by znamenalo program upravit.<br/> Program průběžně "
+"dle požadavků upravuji a doplňuji. Viz <a href=\"https://kicoma."
+"stanislavvalasek.com/kitchen/changelog\" class=\"link-info link-offset-2 "
+"link-underline-opacity-25 link-underline-opacity-100-hover\">novinky</a>.<br/"
+"> Malá změna trvá většinou na malé jednotky hodin, větší je na dny. A cenu "
+"vám sdělím předem."
+msgstr ""
+"<a href=\"https://www.stanislavvalasek.com/en/contact/\" class=\"link-light "
+"text-decoration-underline\">Contact me</a><br/><br/> I’ll find out what it’s "
+"about and estimate the time and cost needed to adjust the program.<br/> I "
+"continuously update and improve the software based on user feedback. See <a "
+"href=\"https://kicoma.stanislavvalasek.com/en/kitchen/changelog\" class=\"link-info link-"
+"offset-2 link-underline-opacity-25 link-underline-opacity-100-hover\">what’s "
+"new</a>.<br/> Small changes usually take just a few hours, larger ones a few "
+"days – and I’ll always let you know the price in advance."
 
 #: kicoma/templates/menu_dailymenu.html:59
 msgid "PDF - denní menu"

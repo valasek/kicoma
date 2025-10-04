@@ -42,7 +42,7 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <nav class="navbar bg-body-secondary navbar-expand-lg ">
+    <nav class="navbar bg-body-secondary navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="{% url 'common:home' %}">
                 <img
@@ -53,12 +53,18 @@
                 />
                 Kicoma
             </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="{% url 'kitchen:about' %}">{% translate "Přejít do KiCoMa" %}</a>
-                <a class="nav-link" href="#features">{% translate "Funkce" %}</a>
-                <a class="nav-link" href="#pricing">{% translate "Cenník" %}</a>
-                <a class="nav-link" href="#contact">{% translate "Kontakt" %}</a>
-                {% include "menu_switch_lang.html" %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                  <a class="nav-link" href="{% url 'kitchen:about' %}">{% translate "Přejít do KiCoMa" %}</a>
+                  <a class="nav-link" href="#features">{% translate "Funkce" %}</a>
+                  <a class="nav-link" href="#pricing">{% translate "Cenník" %}</a>
+                  <a class="nav-link" href="#faq">{% translate "Často kladené dotazy" %}</a>
+                  <a class="nav-link" href="#contact">{% translate "Kontakt" %}</a>
+                  {% include "menu_switch_lang.html" %}
+                </ul>
             </div>
         </div>
     </nav>
