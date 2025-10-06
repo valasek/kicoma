@@ -99,15 +99,10 @@ uv lock --upgrade-package django --upgrade-package gunicorn
 config/django_secret.key
 e.g. generate it using <https://djecrety.ir>
 
-config/django_admin_url.key
-/admin/ or more secure version
-
+config/django_admin_url.key to admin/ or more secure version
 config/mailgun_api.key
-
 config/mailgun_public.key
-
 config/mailgun_smtp_login.key
-
 config/mailgun_smtp_password.key
 
 ### Update Kamal and kamal proxy on localhost

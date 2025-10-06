@@ -1,4 +1,7 @@
 2025:
+  - date: 2025-10-06
+    items:
+      - "Tables in PDFs use the page space more efectively, so PDFs have less pages."
   - date: 2025-09-27
     items:
       - "List of daily menus sorted by date."

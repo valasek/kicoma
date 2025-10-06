@@ -2,7 +2,7 @@
 {% load humanize static i18n %}
 {% block content %}
 <div class="text-center mb-4">{% translate "Celková cena zboží na skladu s DPH:" %} {{ total_stock_price|intcomma }} {{ CURRENCY }}</div>
-  <table class="table w-auto">
+  <table class="table table-sm w-auto">
     <thead>
       <tr>
         <th scope="col">{% translate "Zboží" %}</th>

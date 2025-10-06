@@ -1,4 +1,7 @@
 2025:
+  - date: 2025-10-06
+    items:
+      - "Tabulky v PDF mají hustější řádkování takže PDFka mají méně stránek."
   - date: 2025-09-27
     items:
       - "Seznam denních menu řazen dle data."

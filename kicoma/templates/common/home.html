@@ -108,6 +108,86 @@
   </div>
 </section>
 
+<section id="screenshots" class="py-5 bg-light">
+  <div class="container text-center">
+    <h2 class="mb-4">{% translate "Ukázka z aplikace" %}</h2>
+    <p class="mb-5">{% translate "Podívejte se, jak KiCoMa vypadá v praxi." %}</p>
+
+      <div class="row g-4">
+      <div class="col-md-4">
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modalRecipes">
+          <img src="{% static 'images/app-items-on-stock.png' %}" 
+               alt="{% translate 'Přehled zboží na skladu' %}" 
+               class="img-fluid rounded-3 shadow-sm"/>
+        </a>
+        <h5 class="mt-3">{% translate "Přehled zboží na skladu" %}</h5>
+      </div>
+
+      <div class="col-md-4">
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modalInventory">
+          <img src="{% static 'images/app-put-item-on-stock.png' %}" 
+               alt="{% translate 'Naskladnění' %}" 
+               class="img-fluid rounded-3 shadow-sm"/>
+        </a>
+        <h5 class="mt-3">{% translate "Naskladnění" %}</h5>
+      </div>
+
+      <div class="col-md-4">
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modalDashboard">
+          <img src="{% static 'images/app-admin.png' %}" 
+               alt="{% translate 'Přehled aplikace' %}" 
+               class="img-fluid rounded-3 shadow-sm"/>
+        </a>
+        <h5 class="mt-3">{% translate "Administrace" %}</h5>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modals -->
+
+<div class="modal fade" id="modalRecipes" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header border-0">
+        <h5 class="modal-title">{% translate "Přehled zboží na skladu" %}</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="{% static 'images/app-items-on-stock.png' %}" class="img-fluid rounded-3" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalInventory" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header border-0">
+        <h5 class="modal-title">{% translate "Naskladnění" %}</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="{% static 'images/app-put-item-on-stock.png' %}" class="img-fluid rounded-3" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalDashboard" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header border-0">
+        <h5 class="modal-title">{% translate "Administrace" %}</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="{% static 'images/app-admin.png' %}" class="img-fluid rounded-3" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+
 <section class="bg-gradient-purple text-white py-5">
   <div class="container text-center">
     <h2 class="mb-4">{% translate "Co říkají uživatelé" %}</h2>
