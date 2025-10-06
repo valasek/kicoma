@@ -2,6 +2,7 @@
   - date: 2025-10-06
     items:
       - "Tabulky v PDF mají hustější řádkování takže PDFka mají méně stránek."
+      - "Oprava reportu \"Recepty, kde jednotky nesedí ze skladem\". Možno zobrazit recept a zobrazení problematického zboží."
   - date: 2025-09-27
     items:
       - "Seznam denních menu řazen dle data."

@@ -557,8 +557,9 @@ class ArticleExportInSelectedDaysFilter(LoginRequiredMixin, FormView):
         for row in issues_after:
             try:
                 converted_amount = convert_units(row.amount, row.unit, row.article.unit)
-            except Exception:
-                converted_amount = row.amount  # fallback: no conversion
+            except ValidationError as err:
+                messages.warning(self.request, err.message)
+                return super().form_invalid(form)
             issue_amount_by_article[row.article_id] += Decimal(converted_amount)
             issue_value_by_article[row.article_id] += Decimal(row.total_average_price_with_vat or 0)
 
@@ -567,8 +568,9 @@ class ArticleExportInSelectedDaysFilter(LoginRequiredMixin, FormView):
         for row in receipts_after:
             try:
                 converted_amount = convert_units(row.amount, row.unit, row.article.unit)
-            except Exception:
-                converted_amount = row.amount  # fallback: no conversion
+            except ValidationError as err:
+                messages.warning(self.request, err.message)
+                return super().form_invalid(form)
             receipt_amount_by_article[row.article_id] += Decimal(converted_amount)
             receipt_value_by_article[row.article_id] += Decimal(row.total_price_with_vat or 0)
 
@@ -1646,16 +1648,21 @@ class IncorrectUnitsListView(SingleTableMixin, LoginRequiredMixin, ListView):
     def get_queryset(self):
         # show only recipes where article unit cannot be converted to stock article unit
         recipes = super().get_queryset()
-        incorrect_recipes = set()
+        items_to_fix = []
         for recipe in recipes:
-            recipe_articles = RecipeArticle.objects.filter(recipe=recipe)
-            for recipe_article in recipe_articles:
+            articles_to_fix = []
+            for recipe_article in RecipeArticle.objects.filter(recipe=recipe):
                 try:
                     convert_units(recipe_article.amount,
                                   recipe_article.unit, recipe_article.article.unit)
                 except ValidationError:
-                    incorrect_recipes.add(recipe.pk)
-        return Recipe.objects.filter(pk__in=incorrect_recipes)
+                    articles_to_fix.append(recipe_article.article)
+            if articles_to_fix:
+                items_to_fix.append({
+                    "recipe": recipe,
+                    "articles": articles_to_fix,
+                })
+        return items_to_fix
 
 
 class ArticlesNotInRecipesListView(SingleTableMixin, LoginRequiredMixin, ListView):

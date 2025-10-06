@@ -267,7 +267,11 @@ class RecipeArticle(TimeStampedModel):
 
     @property
     def total_average_price(self):
-        return round(convert_units(self.amount, self.unit, self.article.unit) * self.article.average_price, 0)
+        try:
+            converted = convert_units(self.amount, self.unit, self.article.unit)
+        except Exception:
+            converted = 0
+        return round(converted * self.article.average_price, 0)
 
 
 class Menu(TimeStampedModel):

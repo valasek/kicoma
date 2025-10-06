@@ -2,21 +2,25 @@
 {% load crispy_forms_tags static i18n %} 
 {% block content %}
 <div class="container-fluid">
-  <h4>{% translate "Seznam receptů k opravě" %}</h4>
+  <h4>{% blocktranslate trimmed with total=object_list|length %}{{ total }} receptů k opravě{% endblocktranslate %}</h4>
   <hr />
   {% if object_list %}
     {% blocktranslate trimmed %}
-      Prosím oprav jednotky v receptu nebo jednotky v kterých je evidováno zboží na
-      skladu. Důvodem je, že není možno převést jednotku z receptu na skladovou
-      jednotku.
+      <b>Důvod:</b><br/>
+      Na níže uvedených receptech je zboží zadáno s jinou jednotkou než je uloženo na skladu, například skořice je na skladu evidována v ks a na receptu v kg.<br/>
+      Proto není možno spočítat celkovou cenu receptu (není možno převést jednotku z receptu na skladovou jednotku).<br/>
+      <br/>
+      <b>Řešení:</b><br/>
+      Na níže uvedených receptech oprav jednotku i množství v závorce uvedeného zboží, nebo změn jednotku zboží na skladu.<br/>
     {% endblocktranslate %}<br/>
-    <br/>
-    {% blocktranslate trimmed %}Klikni na recept a oprav zboží, kde je místo čísla v "Celková cena s DPH" zobrazena hodnota "—".{% endblocktranslate %}
     <hr/>
     {% blocktranslate trimmed with total=object_list|length %}Celkem jde o {{ total }} receptů:{% endblocktranslate %}<br/>
     <ul>
     {% for object in object_list %}
-      <li><a href="{% url 'kitchen:showRecipeArticles' object.pk %}">{{ object }}</a></li>
+      <li>
+        <a href="{% url 'kitchen:showRecipeArticles' object.recipe.pk %}">{{ object.recipe }}</a>
+        ({{ object.articles|join:", " }})
+      </li>
     {% endfor %}
     </ul>
   {% else %}
