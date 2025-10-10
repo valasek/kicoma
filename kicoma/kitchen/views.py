@@ -356,7 +356,6 @@ class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         return (
             super()
             .get_queryset()
-            .with_language_ordering()
             .prefetch_related('allergen', latest_receipt)
         )
 
@@ -617,7 +616,7 @@ class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
             ),
             to_attr='prefetched_recipe_articles',
         )
-        return super().get_queryset().with_language_ordering().prefetch_related(recipe_articles_prefetch)
+        return super().get_queryset().prefetch_related(recipe_articles_prefetch)
 
 
 class RecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -703,7 +702,6 @@ class RecipeArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
             .get_queryset()
             .filter(recipe=self.kwargs["pk"])
             .select_related('article')
-            .with_language_ordering()
             .prefetch_related(latest_receipt)
         )
 
@@ -948,7 +946,7 @@ class MenuRecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
 
     def get_queryset(self):
         # show only DailyMeny recipes
-        return super().get_queryset().filter(menu=self.kwargs["pk"]).with_language_ordering()
+        return super().get_queryset().filter(menu=self.kwargs["pk"])
 
 
 class MenuRecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -1029,7 +1027,7 @@ class DailyMenuRecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
 
     def get_queryset(self):
         # show only DailyMeny recipes
-        return super().get_queryset().filter(daily_menu=self.kwargs["pk"]).with_language_ordering()
+        return super().get_queryset().filter(daily_menu=self.kwargs["pk"])
 
 
 class DailyMenuRecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -1276,7 +1274,7 @@ class StockIssueArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView
     def get_queryset(self):
        return super().get_queryset().filter(
             stock_issue=self.kwargs["pk"]
-        ).select_related('article').with_language_ordering()
+        ).select_related('article')
 
 
 class StockIssueArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -1493,7 +1491,6 @@ class StockReceiptArticleListView(SingleTableMixin, LoginRequiredMixin, FilterVi
             .get_queryset()
             .filter(stock_receipt=self.kwargs["pk"])
             .select_related('article', 'vat')
-            .with_language_ordering()
         )
 
 

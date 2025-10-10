@@ -1,7 +1,8 @@
 2025:
   - date: 2025-10-10
     items:
-      - "Message prompting to fix items where the units in the recipe don’t match the units in stock."
+      - "Message prompting to fix items where the units in the recipe don’t match the units in stock. Important to fix before creating an issue slip."
+      - "The data are sorted according to the English alphabet."
   - date: 2025-10-06
     items:
       - "Tables in PDFs use the page space more efectively, so PDFs have less pages."

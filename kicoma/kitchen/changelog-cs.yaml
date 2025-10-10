@@ -1,7 +1,8 @@
 2025:
   - date: 2025-10-10
     items:
-      - "Hláška vyzývající k opravě to zboží, kde nesedí jednotky v receptu s jednotky na skladě."
+      - "Hláška vyzývající k opravě to zboží, kde nesedí jednotky v receptu s jednotky na skladě. Důležité opravit před vytvořením výdejky."
+      - "Data jsou řazeny dle české abecedy."
   - date: 2025-10-06
     items:
       - "Tabulky v PDF mají hustější řádkování takže PDFka mají méně stránek."

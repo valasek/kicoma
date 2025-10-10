@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KiCoMa 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-06 20:38+0200\n"
+"POT-Creation-Date: 2025-10-10 21:59+0200\n"
 "PO-Revision-Date: 2025-09-19 12:00+0200\n"
 "Last-Translator: Stanislav Valasek <valasek@gmail.com>\n"
 "Language-Team: Slovak <LL@li.org>\n"
@@ -1980,49 +1980,49 @@ msgstr ""
 msgid "Stav zboží na skladu k vybranému dni (XLSX)"
 msgstr ""
 
-#: kicoma/kitchen/views.py:217
+#: kicoma/kitchen/views.py:218
 msgid "Všechna data byla exportována"
 msgstr ""
 
-#: kicoma/kitchen/views.py:229
+#: kicoma/kitchen/views.py:230
 msgid "Není vybrán vstupní soubor, použij tlačítko Browse a vyber soubor."
 msgstr ""
 
-#: kicoma/kitchen/views.py:241
+#: kicoma/kitchen/views.py:242
 msgid "Data úspěšně nahrána: "
 msgstr ""
 
-#: kicoma/kitchen/views.py:243
+#: kicoma/kitchen/views.py:244
 msgid "Chyba při výmazu dat před importem: "
 msgstr ""
 
-#: kicoma/kitchen/views.py:304
+#: kicoma/kitchen/views.py:305
 #, python-brace-format
 msgid ""
 "Zboží - historie, úspěšne vymazáno: {deleted_historical_articles_count} "
 "záznamů"
 msgstr ""
 
-#: kicoma/kitchen/views.py:307
+#: kicoma/kitchen/views.py:308
 #, python-brace-format
 msgid "Výdejky, úspěšne vymazáno: {deleted_stock_issues_count} záznamů"
 msgstr ""
 
-#: kicoma/kitchen/views.py:310
+#: kicoma/kitchen/views.py:311
 #, python-brace-format
 msgid "Příjemky, úspěšne vymazáno: {deleted_stock_receipts_count} záznamů"
 msgstr ""
 
-#: kicoma/kitchen/views.py:313
+#: kicoma/kitchen/views.py:314
 #, python-brace-format
 msgid "Denné menu, úspěšne vymazáno: {daily_menus_count} záznamů"
 msgstr ""
 
-#: kicoma/kitchen/views.py:315
+#: kicoma/kitchen/views.py:316
 msgid "Chyba při mazání historických záznamů: "
 msgstr ""
 
-#: kicoma/kitchen/views.py:316
+#: kicoma/kitchen/views.py:317
 msgid "Výmaz dokončen"
 msgstr ""
 
@@ -2094,13 +2094,13 @@ msgstr ""
 msgid "Recept %(recipe)s byl vytvořen, přidej ingredience"
 msgstr ""
 
-#: kicoma/kitchen/views.py:636 kicoma/kitchen/views.py:980
-#: kicoma/kitchen/views.py:1061
+#: kicoma/kitchen/views.py:636 kicoma/kitchen/views.py:979
+#: kicoma/kitchen/views.py:1060
 #, python-format
 msgid "Recept %(recipe)s byl aktualizován"
 msgstr ""
 
-#: kicoma/kitchen/views.py:643 kicoma/kitchen/views.py:1082
+#: kicoma/kitchen/views.py:643 kicoma/kitchen/views.py:1081
 msgid "Recept byl odstraněn"
 msgstr ""
 
@@ -2108,209 +2108,209 @@ msgstr ""
 msgid "Seznam_receptu.pdf"
 msgstr ""
 
-#: kicoma/kitchen/views.py:714
+#: kicoma/kitchen/views.py:713
 #, python-format
 msgid "Zboží %(article)s bylo přidáno do receptu"
 msgstr ""
 
-#: kicoma/kitchen/views.py:744 kicoma/kitchen/views.py:1319
-#: kicoma/kitchen/views.py:1545
+#: kicoma/kitchen/views.py:743 kicoma/kitchen/views.py:1318
+#: kicoma/kitchen/views.py:1543
 #, python-format
 msgid "Zboží %(article)s bylo aktualizováno"
 msgstr ""
 
-#: kicoma/kitchen/views.py:771 kicoma/kitchen/views.py:1351
-#: kicoma/kitchen/views.py:1577
+#: kicoma/kitchen/views.py:770 kicoma/kitchen/views.py:1350
+#: kicoma/kitchen/views.py:1575
 msgid "Zboží bylo odstraněno"
 msgstr ""
 
-#: kicoma/kitchen/views.py:809
+#: kicoma/kitchen/views.py:808
 #, python-format
 msgid "Denní menu pro den %(formatted_date)s bylo vytvořeno, přidej recepty"
 msgstr ""
 
-#: kicoma/kitchen/views.py:829
+#: kicoma/kitchen/views.py:828
 msgid "Recept byl převzatý z menu"
 msgstr ""
 
-#: kicoma/kitchen/views.py:838
+#: kicoma/kitchen/views.py:837
 #, python-format
 msgid ""
 "Denní menu pro den %(formatted_date)s bylo aktualizováno včetně výdejky ke "
 "schválení"
 msgstr ""
 
-#: kicoma/kitchen/views.py:870
+#: kicoma/kitchen/views.py:869
 msgid "Filtrováno pro skupinu strávníků: "
 msgstr ""
 
-#: kicoma/kitchen/views.py:872
+#: kicoma/kitchen/views.py:871
 msgid "Denní menu pro "
 msgstr ""
 
-#: kicoma/kitchen/views.py:881
+#: kicoma/kitchen/views.py:880
 #, python-brace-format
 msgid "Chybně zadané datum. Požadovaný formát je rrrr-mm-dd. Chyba: {error}"
 msgstr ""
 
-#: kicoma/kitchen/views.py:883
+#: kicoma/kitchen/views.py:882
 msgid "Denni_menu.pdf"
 msgstr ""
 
-#: kicoma/kitchen/views.py:913
+#: kicoma/kitchen/views.py:912
 msgid "Menu bylo vytvořeno, přidej recepty"
 msgstr ""
 
-#: kicoma/kitchen/views.py:923
+#: kicoma/kitchen/views.py:922
 msgid "Menu bylo aktualizováno"
 msgstr ""
 
-#: kicoma/kitchen/views.py:930
+#: kicoma/kitchen/views.py:929
 msgid "Menu bylo odstraněno"
 msgstr ""
 
-#: kicoma/kitchen/views.py:957
+#: kicoma/kitchen/views.py:956
 #, python-format
 msgid "Recept %(recipe)s byl přidán"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1001
+#: kicoma/kitchen/views.py:1000
 msgid "Recept byl z menu odstraněn"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1038
+#: kicoma/kitchen/views.py:1037
 #, python-format
 msgid "Recept %(recipe)s byl vytvořen"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1115
+#: kicoma/kitchen/views.py:1114
 msgid "Výdejka byla vytvořena a je možné přidávat zboží"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1139 kicoma/kitchen/views.py:1174
+#: kicoma/kitchen/views.py:1138 kicoma/kitchen/views.py:1173
 msgid "Pro zadané datum není vytvořeno denní menu"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1143
+#: kicoma/kitchen/views.py:1142
 #, python-brace-format
 msgid ""
 "Výdejka pro den {formatted_date} vytvořena a vyskladňuje {count} druhů zboží"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1151
+#: kicoma/kitchen/views.py:1150
 msgid "Poznámka výdejky byla aktualizována"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1161
+#: kicoma/kitchen/views.py:1160
 msgid "Aktualizace neprovedena - výdejka je již vyskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1165
+#: kicoma/kitchen/views.py:1164
 msgid "Aktualizace zboží je možná jenom pro výdejku vytvořenou z denního menu"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1178
+#: kicoma/kitchen/views.py:1177
 #, python-brace-format
 msgid ""
 "Seznam zboží na výdejce byl aktualizován dle aktuálních receptů na denním "
 "menu a vyskladňuje {count} druhů zboží"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1185
+#: kicoma/kitchen/views.py:1184
 msgid "Výdejka byla odstraněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1200
+#: kicoma/kitchen/views.py:1199
 msgid "Výmaz neproveden - výdejka je již vyskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1220
+#: kicoma/kitchen/views.py:1219
 msgid "Výdejka.pdf"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1241
+#: kicoma/kitchen/views.py:1240
 msgid "Vyskladnění neprovedeno - již bylo vyskladněno"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1245
+#: kicoma/kitchen/views.py:1244
 msgid "Vyskladnění neprovedeno - nulová cena zboží, je zboží naskladněno?"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1254
+#: kicoma/kitchen/views.py:1253
 msgid "Níže uvedené zboží není možné vyskladnit:<br/>"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1259
+#: kicoma/kitchen/views.py:1258
 msgid "Výdejka byla vyskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1285
+#: kicoma/kitchen/views.py:1284
 #, python-format
 msgid "Zboží %(article)s bylo přidáno"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1307
+#: kicoma/kitchen/views.py:1306
 msgid "Přidání zboží neprovedeno, výdejka je již vyskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1339
+#: kicoma/kitchen/views.py:1338
 msgid "Aktualizace zboží neprovedena, výdejka je již vyskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1361
+#: kicoma/kitchen/views.py:1360
 msgid "Odstranění zboží neprovedeno, výdejka je již vyskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1384
+#: kicoma/kitchen/views.py:1383
 msgid "Příjemka byla vytvořena a je možné přidávat zboží"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1399
+#: kicoma/kitchen/views.py:1398
 msgid "Poznámka příjemky byla aktualizována"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1406
+#: kicoma/kitchen/views.py:1405
 msgid "Příjemka byla odstraněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1421
+#: kicoma/kitchen/views.py:1420
 msgid "Výmaz neproveden - příjemka je již naskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1440
+#: kicoma/kitchen/views.py:1439
 msgid "Prijemka.pdf"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1461
+#: kicoma/kitchen/views.py:1460
 msgid "Naskladnění neprovedeno - již bylo naskladněno"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1465
+#: kicoma/kitchen/views.py:1464
 msgid ""
 "Naskladnění neprovedeno - nulová cena zboží, přidejte alespoň jedno zboží na "
 "příjemku"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1473
+#: kicoma/kitchen/views.py:1472
 msgid "Příjemka byla naskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1503
+#: kicoma/kitchen/views.py:1501
 #, python-format
 msgid ""
 "Zboží %(article)s bylo přidáno: %(amount)s %(unit)s * %(unit_price)s "
 "%(currency)s = %(total_price)s %(currency)s"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1534
+#: kicoma/kitchen/views.py:1532
 msgid "Přidání zboží neprovedeno, příjemka je již naskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1566
+#: kicoma/kitchen/views.py:1564
 msgid "Aktualizace zboží neprovedena, příjemka je již naskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1587
+#: kicoma/kitchen/views.py:1585
 msgid "Odstranění zboží neprovedeno, příjemka je již naskladněna"
 msgstr ""
 

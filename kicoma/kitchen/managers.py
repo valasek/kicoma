@@ -66,7 +66,10 @@ class CollatableQuerySet(models.QuerySet):
 
 class CollatableManager(models.Manager):
     def get_queryset(self):
-        return CollatableQuerySet(self.model, using=self._db)
+        return (
+            CollatableQuerySet(self.model, using=self._db)
+            .with_language_ordering()
+        )
 
     def with_language_ordering(self):
         return self.get_queryset().with_language_ordering()
