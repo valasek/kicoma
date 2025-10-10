@@ -36,6 +36,7 @@ from django_tables2 import SingleTableMixin
 from tablib import Dataset
 from weasyprint import HTML
 
+from kicoma.kitchen import daily_job
 from kicoma.users.models import User
 
 from .admin import ArticleResource
@@ -1662,6 +1663,8 @@ class IncorrectUnitsListView(SingleTableMixin, LoginRequiredMixin, ListView):
                     "recipe": recipe,
                     "articles": articles_to_fix,
                 })
+        # update message
+        daily_job.run_daily_job()
         return items_to_fix
 
 

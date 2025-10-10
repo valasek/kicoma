@@ -1,4 +1,7 @@
 2025:
+  - date: 2025-10-10
+    items:
+      - "Hláška vyzývající k opravě to zboží, kde nesedí jednotky v receptu s jednotky na skladě."
   - date: 2025-10-06
     items:
       - "Tabulky v PDF mají hustější řádkování takže PDFka mají méně stránek."
