@@ -23,19 +23,21 @@ def run_daily_job():
             except ValidationError:
                 errors += 1
 
-    report_url = reverse("kitchen:showIncorrectUnits")
+    if errors > 0:
+        report_url = reverse("kitchen:showIncorrectUnits")
+        message_text = {
+            "level": messages.ERROR,
+            "text": (
+                f"{errors} receptů obsahuje zboží, které má nastavené jednotky jinak než na skladu. "
+                f"Otevřete <a href='{report_url}'>report</a> a opravte jednotky zboží."
+            ),
+            "tag": "error",
+        }
 
-    message_text = {
-        "level": messages.ERROR,
-        "text": (
-            f"{errors} receptů obsahuje zboží, které má nastavené jednotky jinak než na skladu. "
-            f"Otevřete <a href='{report_url}'>report</a> a opravte jednotky zboží."
-        ),
-        "tag": "error",
-    }
-
-    cache.set(CACHE_KEY_MESSAGE_DATE, str(datetime.date.today()), None)
-    cache.set(CACHE_KEY_MESSAGE, message_text, None)
+        cache.set(CACHE_KEY_MESSAGE_DATE, str(datetime.date.today()), None)
+        cache.set(CACHE_KEY_MESSAGE, message_text, None)
+    else:
+        clear_messages()
 
 
 def should_run_today():
