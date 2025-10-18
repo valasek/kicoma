@@ -125,6 +125,9 @@ def changelog(request):
     changelog = load_changelog()
     return render(request, 'kitchen/changelog.html', {"changelog": changelog} )
 
+def policy(request):
+    return render(request, 'kitchen/policy.html')
+
 
 def docs(request):
     allergen_count = Allergen.objects.all().count()

@@ -1,0 +1,146 @@
+Naposledy aktualizováno: 18. října 2025
+
+Tyto Zásady ochrany osobních údajů vysvětlují, jak Stanislav Valasek („my“, „nás“, „náš“) shromažďuje, používá, sdílí a chrání vaše osobní údaje při používání webové aplikace KiCoMa a webových stránek dostupných na adrese https://kicoma.stanislavvalasek.com (dále jen „Služba“).
+
+Používáním Služby souhlasíte s těmito Zásadami ochrany osobních údajů. Pokud s nimi nesouhlasíte, prosíme, přestaňte Službu používat.
+
+⸻
+
+1. Informace, které shromažďujeme
+
+a. Informace, které nám poskytnete
+	•	Údaje o účtu: vaše jméno, e-mailová adresa a heslo (uloženo v zašifrované podobě).
+	•	Obsah aplikace: údaje, které do Služby zadáte.
+	•	Komunikace: informace, které nám poskytnete při kontaktu ohledně podpory nebo zpětné vazby.
+
+b. Automaticky shromažďované informace
+	•	Údaje o zařízení a používání: IP adresa, typ prohlížeče, operační systém, identifikátory zařízení, navštívené stránky a časová razítka.
+	•	Cookies a lokální úložiště: používají se pro ověřování, zabezpečení a uložení preferencí.
+	•	Analytická data: shromažďována prostřednictvím Google Analytics 4 (GA4) za účelem porozumění používání a výkonu.
+
+c. Informace od třetích stran
+Pokud do Služby integrujete kontakty nebo data ze služeb Google nebo Apple, přistupujeme pouze k údajům, které nám výslovně povolíte.
+
+⸻
+
+2. Jak vaše údaje používáme
+
+Zpracováváme informace pro následující účely:
+	•	Poskytování, provoz a údržba Služby.
+	•	Správa uživatelských účtů a ověřování relací.
+	•	Zlepšování funkčnosti, zabezpečení a výkonu.
+	•	Komunikace s vámi (podpora, aktualizace, oznámení).
+	•	Dodržování platných právních předpisů nebo prosazování našich podmínek.
+	•	Analýza agregovaných dat o používání pro zlepšení uživatelské zkušenosti.
+
+⸻
+
+3. Právní základy zpracování
+
+V závislosti na vašem umístění se opíráme o jeden nebo více z těchto právních základů:
+	•	Plnění smlouvy – abychom mohli poskytovat Službu, kterou jste si vyžádali.
+	•	Oprávněný zájem – pro zlepšování služby, analýzy a zabezpečení.
+	•	Souhlas – tam, kde je vyžadován (např. pro analytické cookies).
+	•	Právní povinnost – abychom vyhověli platným předpisům.
+
+⸻
+
+4. Sdílení informací
+
+Vaše osobní údaje můžeme sdílet s důvěryhodnými poskytovateli služeb („subzpracovateli“), kteří nám pomáhají provozovat Službu.
+Všichni subzpracovatelé jsou vázáni smlouvami o zpracování dat a povinností mlčenlivosti.
+
+Naši subzpracovatelé
+	•	Hetzner Online GmbH – hosting, úložiště dat, infrastruktura. Zpracovává všechna data uložená na serverech. Umístění: Německo (EU). Zásady ochrany osobních údajů: https://www.hetzner.com/legal/privacy-policy/
+	•	Google LLC (Google Analytics 4) – analýza webu a statistiky používání. Zpracovává anonymizovaná data o používání a maskované IP adresy. Umístění: celosvětově. Zásady: https://policies.google.com/privacy
+	•	Sentry (Functional Software, Inc.) – monitorování aplikace a hlášení chyb. Zpracovává logy, IP adresy (pouze na serveru) a podrobnosti o chybách. Umístění: USA. Zásady: https://sentry.io/privacy/
+
+Vaše osobní údaje neprodáváme, nepronajímáme ani jinak neobchodujeme s třetími stranami.
+
+⸻
+
+5. Cookies a sledovací technologie
+
+Používáme soubory cookies a podobné technologie k zajištění správné a bezpečné funkce Služby.
+
+Přehled cookies
+	•	session – Nezbytné. Udržuje vaše přihlášení. Platnost: do ukončení relace (smazáno při zavření prohlížeče). Nastavuje: KiCoMa.
+	•	csrf_token – Nezbytné. Chrání proti útokům typu Cross-Site Request Forgery. Platnost: relace. Nastavuje: KiCoMa.
+	•	remember_token – Funkční. Udržuje vás přihlášené mezi relacemi (pokud zvoleno). Platnost: relace. Nastavuje: KiCoMa.
+	•	language_preference – Funkční. Ukládá preferovaný jazyk. Platnost: relace. Nastavuje: KiCoMa.
+	•	_ga, _ga_* – Analytické. Statistiky používání přes Google Analytics 4. Platnost: až 2 roky. Nastavuje: Google LLC.
+
+Používáme Google Analytics 4 (GA4) s aktivovanou anonymizací IP adres.
+Analytické cookies můžete zakázat v nastavení prohlížeče nebo pomocí doplňku Google Analytics Opt-out: https://tools.google.com/dlpage/gaoptout
+
+Nepoužíváme reklamní ani marketingové cookies.
+
+⸻
+
+6. Uchovávání dat
+
+Vaše osobní údaje uchováváme pouze po dobu nezbytnou k:
+	•	poskytování Služby,
+	•	splnění právních povinností,
+	•	řešení sporů a
+	•	vymáhání smluv.
+
+Po odstranění vašeho účtu jsou data bezpečně smazána z aktivních systémů.
+Záložní kopie mohou po omezenou dobu (až 30 dní) přetrvávat, než budou automaticky odstraněny.
+
+⸻
+
+7. Zabezpečení
+
+Používáme standardní průmyslová opatření na ochranu vašich dat, včetně:
+	•	šifrování HTTPS/TLS při přenosu,
+	•	šifrovaných a hashovaných hesel,
+	•	firewallů a řízení přístupu,
+	•	pravidelných aktualizací a záloh.
+
+Přestože usilujeme o maximální bezpečnost, žádný systém není stoprocentně bezpečný.
+Službu používáte na vlastní riziko.
+
+⸻
+
+8. Vaše práva
+
+EU / UK (GDPR): Máte právo na přístup, opravu, výmaz, omezení zpracování, vznést námitku, požádat o přenositelnost dat a odvolat souhlas.
+Kalifornie (CCPA / CPRA): Můžete požádat o přístup, opravu nebo výmaz osobních údajů a odmítnout prodej nebo sdílení údajů (údaje neprodáváme).
+Ostatní regiony: Respektujeme příslušná práva podle místních právních předpisů.
+
+Pro uplatnění svých práv nás kontaktujte na e-mailové adrese uvedené níže.
+Před vyřízením žádosti můžeme ověřit vaši totožnost.
+
+⸻
+
+9. Mezinárodní přenosy dat
+
+Vaše údaje mohou být přeneseny a zpracovávány v jiných zemích.
+Používáme odpovídající právní záruky (např. standardní smluvní doložky EU), abychom zajistili ochranu vašich údajů.
+
+⸻
+
+10. Ochrana osobních údajů dětí
+
+Služba není určena dětem mladším 16 let.
+Neúmyslně neshromažďujeme osobní údaje nezletilých.
+Pokud se domníváte, že nám dítě poskytlo své údaje, kontaktujte nás a my je neprodleně odstraníme.
+
+⸻
+
+11. Změny těchto zásad
+
+Tyto Zásady ochrany osobních údajů můžeme čas od času aktualizovat.
+Aktualizace budou zveřejněny na stránce https://kicoma.stanislavvalasek.com/privacy a změní se datum „Naposledy aktualizováno“.
+Podstatné změny vám oznámíme e-mailem nebo prostřednictvím aplikace.
+
+⸻
+
+12. Kontaktní údaje
+
+Máte-li jakékoli dotazy nebo požadavky týkající se těchto Zásad ochrany osobních údajů nebo vašich dat, kontaktujte nás:
+
+Stanislav Valasek
+E-mail: valasek@gmail.com
+Web: https://kicoma.stanislavvalasek.com

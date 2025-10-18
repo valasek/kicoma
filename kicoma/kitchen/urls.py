@@ -77,6 +77,7 @@ from .views import (
     changelog,
     docs,
     export_data,
+    policy,
     switch_language,
 )
 
@@ -84,6 +85,7 @@ app_name = "kitchen"
 urlpatterns = [
     path('about', about, name='about'),
     path('changelog', changelog, name='changelog'),
+    path('policy', policy, name='policy'),
     path('docs', docs, name='docs'),
     path('export', export_data, name='export'),
     path('import', ImportDataView.as_view(), name='import'),

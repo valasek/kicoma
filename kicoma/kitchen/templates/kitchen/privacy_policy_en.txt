@@ -1,0 +1,146 @@
+Last updated: October 18, 2025
+
+This Privacy Policy explains how Stanislav Valasek (“we”, “us”, “our”) collects, uses, shares, and protects your personal information when you use the KiCoMa web application and website available at https://kicoma.stanislavvalasek.com (the “Service”).
+
+By using the Service, you agree to this Privacy Policy. If you do not agree, please discontinue use of the Service.
+
+⸻
+
+1. Information We Collect
+
+a. Information You Provide
+	•	Account information: your name, email address, and password (stored in encrypted form).
+	•	App content: data you input into the Service.
+	•	Communications: information you provide when contacting us for support or feedback.
+
+b. Information Collected Automatically
+	•	Device and usage data: IP address, browser type, operating system, device identifiers, pages visited, and timestamps.
+	•	Cookies and local storage: used for authentication, security, and preferences.
+	•	Analytics data: collected through Google Analytics 4 (GA4) to understand usage patterns and performance.
+
+c. Information from Third Parties
+If you integrate your contacts or data from Google or Apple services, we access only the information you authorize.
+
+⸻
+
+2. How We Use Your Information
+
+We process information for the following purposes:
+	•	To provide, operate, and maintain the Service.
+	•	To manage user accounts and authenticate sessions.
+	•	To improve functionality, security, and performance.
+	•	To communicate with you (support, updates, notifications).
+	•	To comply with applicable laws or enforce our terms.
+	•	To analyze aggregated usage data to improve user experience.
+
+⸻
+
+3. Legal Bases for Processing
+
+Depending on your location, we rely on one or more of the following lawful bases:
+	•	Contract performance – to deliver the Service you requested.
+	•	Legitimate interests – for service improvement, analytics, and security.
+	•	Consent – where required (e.g., analytics cookies).
+	•	Legal obligations – to comply with applicable regulations.
+
+⸻
+
+4. How We Share Information
+
+We may share limited personal data with trusted service providers (“subprocessors”) who assist in operating the Service.
+All subprocessors are bound by data processing agreements and confidentiality obligations.
+
+Our Subprocessors
+	•	Hetzner Online GmbH – Hosting, data storage, infrastructure. Processes all data stored on servers. Location: Germany (EU). Privacy Policy: https://www.hetzner.com/legal/privacy-policy/
+	•	Google LLC (Google Analytics 4) – Website analytics and usage statistics. Processes anonymized usage data and masked IP addresses. Location: Global. Privacy Policy: https://policies.google.com/privacy
+	•	Sentry (Functional Software, Inc.) – Application monitoring and error reporting. Processes logs, IP addresses (server-side only), and error details. Location: USA. Privacy Policy: https://sentry.io/privacy/
+
+We do not sell, rent, or trade your personal information to third parties.
+
+⸻
+
+5. Cookies and Tracking Technologies
+
+We use cookies and similar technologies to ensure the Service functions correctly and securely.
+
+Cookie Table
+	•	session – Essential. Maintains your logged-in session. Duration: session (deleted when browser closes). Set by: KiCoMa.
+	•	csrf_token – Essential. Protects against cross-site request forgery. Duration: session. Set by: KiCoMa.
+	•	remember_token – Functional. Keeps you logged in between sessions (if selected). Duration: session. Set by: KiCoMa.
+	•	language_preference – Functional. Stores your language selection. Duration: session. Set by: KiCoMa.
+	•	_ga, _ga_* – Analytics. Google Analytics 4 usage statistics. Duration: up to 2 years. Set by: Google LLC.
+
+We use Google Analytics 4 (GA4) with IP anonymization enabled.
+You can disable analytics cookies through your browser settings or by using Google’s Analytics Opt-out Browser Add-on: https://tools.google.com/dlpage/gaoptout
+
+We do not use advertising or marketing cookies.
+
+⸻
+
+6. Data Retention
+
+We retain your personal data only as long as necessary to:
+	•	Provide the Service;
+	•	Fulfill legal obligations;
+	•	Resolve disputes; and
+	•	Enforce agreements.
+
+When you delete your account, your data is securely removed from active systems.
+Backup copies may persist for a limited period (up to 30 days) before being automatically deleted.
+
+⸻
+
+7. Security
+
+We apply industry-standard measures to protect your data, including:
+	•	HTTPS/TLS encryption in transit
+	•	Encrypted and hashed passwords
+	•	Firewalls and access control
+	•	Regular security updates and backups
+
+While we strive to protect your data, no system is completely secure.
+You use the Service at your own risk.
+
+⸻
+
+8. Your Rights
+
+EU / UK (GDPR): You have the right to access, rectify, erase, restrict, or object to processing, request data portability, and withdraw consent.
+California (CCPA / CPRA): You may request access to, correction, or deletion of personal information, and opt out of the sale or sharing of data (we do not sell data).
+Other regions: We honor applicable rights under your local laws.
+
+To exercise your rights, email us at the address below.
+We may verify your identity before fulfilling your request.
+
+⸻
+
+9. International Data Transfers
+
+Your information may be transferred to and processed in other countries.
+We rely on appropriate legal safeguards (such as EU Standard Contractual Clauses) to ensure your data remains protected.
+
+⸻
+
+10. Children’s Privacy
+
+The Service is not intended for children under 16.
+We do not knowingly collect personal data from minors.
+If you believe a child has provided us with data, contact us immediately for deletion.
+
+⸻
+
+11. Changes to This Policy
+
+We may update this Privacy Policy periodically.
+Updates will be posted at https://kicoma.stanislavvalasek.com/privacy and the “Last updated” date will change.
+Significant changes will be communicated via email or in-app notifications.
+
+⸻
+
+12. Contact Information
+
+If you have any questions or requests regarding this Privacy Policy or your personal data, please contact:
+
+Stanislav Valasek
+Email: valasek@gmail.com
+Website: https://kicoma.stanislavvalasek.com

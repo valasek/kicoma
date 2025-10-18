@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% block content %}
+<div class="container">
+  <div class="card border-light mb-0">
+    <div class="card-body">
+      <h4 class="card-title">
+        {% translate "Zásady ochrany osobních údajů pro KiCoMa" %}
+      </h4>
+      <hr>
+        {% filter linebreaks %}
+          {% if LANGUAGE_CODE == "cs" %}
+            {% include "kitchen/privacy_policy_cs.txt" %}
+          {% else %}
+            {% include "kitchen/privacy_policy_en.txt" %}
+          {% endif %}
+        {% endfilter %}
+    </div>
+  </div>
+</div>
+{% endblock content %}
