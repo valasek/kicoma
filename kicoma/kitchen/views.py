@@ -326,7 +326,7 @@ def switch_language(request):
         translation.activate(user_language)
         request.session[settings.LANGUAGE_COOKIE_NAME] = user_language
         request.session.save()
-        referer = request.META.get('HTTP_REFERER', '/')
+        referer = request.headers.get('referer', '/')
         parsed_url = urlparse(referer)
         relative_url = urlunparse(('', '', parsed_url.path, parsed_url.params, parsed_url.query, ''))
         # Ensure the URL has the correct language prefix

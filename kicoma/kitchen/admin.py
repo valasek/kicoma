@@ -168,35 +168,41 @@ class StockReceiptArticleResource(resources.ModelResource):
 # integrate import/export into admin
 
 
+@admin.register(AppSettings)
 class AppSettingsAdmin(ImportExportActionModelAdmin):
     list_display = ('currency', )
     resource_class = AppSettingsResource
 
 
+@admin.register(VAT)
 class VATAdmin(ImportExportActionModelAdmin):
     list_display = ('percentage', 'rate',)
     ordering = ('-percentage',)
     resource_class = VATResource
 
 
+@admin.register(Allergen)
 class AllergenAdmin(ImportExportActionModelAdmin):
     list_display = ('code', 'description',)
     ordering = ('code',)
     resource_class = AllergenResource
 
 
+@admin.register(MealGroup)
 class MealGroupAdmin(ImportExportActionModelAdmin):
     list_display = ('meal_group',)
     ordering = ('meal_group',)
     resource_class = MealGroupResource
 
 
+@admin.register(MealType)
 class MealTypeAdmin(ImportExportActionModelAdmin):
     list_display = ('meal_type',)
     ordering = ('meal_type',)
     resource_class = MealTypeResource
 
 
+@admin.register(Article)
 class ArticleAdmin(ImportExportActionModelAdmin):
     list_display = ('article', 'unit', 'on_stock', 'min_on_stock',
                     'total_price', 'display_allergens', 'comment', )
@@ -208,38 +214,45 @@ class ArticleAdmin(ImportExportActionModelAdmin):
     resource_class = ArticleResource
 
 
+@admin.register(Recipe)
 class RecipeAdmin(ImportExportActionModelAdmin):
     list_display = ('recipe', 'norm_amount', 'procedure', 'comment')
     fields = ([('recipe', 'norm_amount'), ('comment', 'procedure')])
     resource_class = RecipeResource
 
 
+@admin.register(RecipeArticle)
 class RecipeArticleAdmin(ImportExportActionModelAdmin):
     list_display = ('recipe', 'article', 'amount', 'unit', 'comment',)
     fields = [('recipe', 'article', 'amount', 'unit', 'comment')]
     resource_class = RecipeArticleResource
 
 
+@admin.register(Menu)
 class MenuAdmin(ImportExportActionModelAdmin):
     list_display = ('menu', 'meal_type', 'comment')
     resource_class = MenuResource
 
 
+@admin.register(MenuRecipe)
 class MenuRecipeAdmin(ImportExportActionModelAdmin):
     list_display = ('menu', 'recipe', 'amount')
     resource_class = MenuRecipeResource
 
 
+@admin.register(DailyMenu)
 class DailyMenuAdmin(ImportExportActionModelAdmin):
     list_display = ('date', 'menu', 'meal_group', 'meal_type', 'comment')
     resource_class = DailyMenuResource
 
 
+@admin.register(DailyMenuRecipe)
 class DailyMenuRecipeAdmin(ImportExportActionModelAdmin):
     list_display = ('daily_menu', 'amount', 'recipe', 'comment')
     resource_class = DailyMenuRecipeResource
 
 
+@admin.register(StockIssue)
 class StockIssueAdmin(ImportExportActionModelAdmin):
     list_display = ('user_created', 'approved', 'date_approved', 'user_approved',
                     'comment', )
@@ -248,6 +261,7 @@ class StockIssueAdmin(ImportExportActionModelAdmin):
     resource_class = StockIssueResource
 
 
+@admin.register(StockReceipt)
 class StockReceiptAdmin(ImportExportActionModelAdmin):
     list_display = ('user_created', 'approved', 'date_approved', 'user_approved',
                     'comment', )
@@ -256,6 +270,7 @@ class StockReceiptAdmin(ImportExportActionModelAdmin):
     resource_class = StockReceiptResource
 
 
+@admin.register(StockIssueArticle)
 class StockIssueArticleAdmin(ImportExportActionModelAdmin):
     list_display = ('stock_issue', 'article', 'amount',
                     'unit', 'average_unit_price', 'comment', )
@@ -265,6 +280,7 @@ class StockIssueArticleAdmin(ImportExportActionModelAdmin):
     resource_class = StockIssueArticleResource
 
 
+@admin.register(StockReceiptArticle)
 class StockReceiptArticleAdmin(ImportExportActionModelAdmin):
     list_display = ('stock_receipt', 'article', 'amount',
                     'unit', 'price_without_vat', 'vat', 'comment', )
@@ -274,19 +290,3 @@ class StockReceiptArticleAdmin(ImportExportActionModelAdmin):
     resource_class = StockReceiptArticleResource
 
 
-admin.site.register(AppSettings, AppSettingsAdmin)
-admin.site.register(Allergen, AllergenAdmin)
-admin.site.register(VAT, VATAdmin)
-admin.site.register(MealGroup, MealGroupAdmin)
-admin.site.register(MealType, MealTypeAdmin)
-admin.site.register(RecipeArticle, RecipeArticleAdmin)
-admin.site.register(Recipe, RecipeAdmin)
-admin.site.register(Menu, MenuAdmin)
-admin.site.register(MenuRecipe, MenuRecipeAdmin)
-admin.site.register(DailyMenu, DailyMenuAdmin)
-admin.site.register(DailyMenuRecipe, DailyMenuRecipeAdmin)
-admin.site.register(Article, ArticleAdmin)
-admin.site.register(StockReceipt, StockReceiptAdmin)
-admin.site.register(StockIssue, StockIssueAdmin)
-admin.site.register(StockIssueArticle, StockIssueArticleAdmin)
-admin.site.register(StockReceiptArticle, StockReceiptArticleAdmin)
