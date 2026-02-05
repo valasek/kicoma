@@ -270,6 +270,23 @@
         });
       });
 
+      // Scroll position restoration script - start
+      document.addEventListener("DOMContentLoaded", function () {
+          const key = window.location.pathname; // auto-unique per page
+          const pos = localStorage.getItem(key);
+          if (pos !== null) {
+              window.scrollTo(0, parseInt(pos));
+              localStorage.removeItem(key);
+          }
+      });
+
+      window.addEventListener("beforeunload", function () {
+          const key = window.location.pathname;
+          localStorage.setItem(key, window.scrollY);
+      });
+      // Scroll position restoration script - end
+
+
     </script>
 
     <!-- Your stuff: Third-party javascript libraries go here -->

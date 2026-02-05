@@ -569,7 +569,7 @@ msgid ""
 "Neváhej a <a href=\"https://www.stanislavvalasek.com/contact\" "
 "target=\"_blank\">kontaktuj přímo autora</a>!"
 msgstr ""
-"Do not hesitate to<a href=\"https://www.stanislavvalasek.com/en/contact\" "
+"Do not hesitate to <a href=\"https://www.stanislavvalasek.com/en/contact\" "
 "target=\"_blank\">contact the author directly</a>!"
 
 #: kicoma/kitchen/templates/kitchen/about.html:46

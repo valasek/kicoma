@@ -1,4 +1,8 @@
 2026:
+  - date: 2026-02-05
+    items:
+      - "Při návratu na předchozí stránku se zobrazí původně zobrazená část stránky, i když je stránka delší."
+      - "BEZPEČNOST: Aktualizace na nejaktuálnější verzi <a href='https://docs.djangoproject.com/en/6.0/releases/6.0.2/'>Django 6.0.2</a> a souvisejících knihoven."
   - date: 2026-01-12
     items:
       - "BEZPEČNOST: Aktualizace na nejaktuálnější verzi <a href='https://docs.djangoproject.com/en/6.0/releases/6.0.1/'>Django 6.0.1</a> a souvisejících knihoven."

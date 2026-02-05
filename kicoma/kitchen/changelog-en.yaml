@@ -1,4 +1,8 @@
 2026:
+  - date: 2026-02-05
+    items:
+      - "When returning to the previous page, the originally displayed section of the page is shown, even if the page is longer."
+      - "SECURITY: Update to the latest version of <a href='https://docs.djangoproject.com/en/6.0/releases/6.0.2/'>Django 6.0.2</a> and related libraries."
   - date: 2026-01-12
     items:
       - "SECURITY: Update to the latest version of <a href='https://docs.djangoproject.com/en/6.0/releases/6.0.1/'>Django 6.0.1</a> and related libraries."
