@@ -1,7 +1,0 @@
-# PostgreSQL
-# ------------------------------------------------------------------------------
-POSTGRES_HOST=postgres
-POSTGRES_PORT=5432
-POSTGRES_DB=kicoma
-POSTGRES_USER=pSAFhKbirjibVWPOypCMNVfpxyycsMbQ
-POSTGRES_PASSWORD=jWFPwg9c1TlpJEXuWVoyTW1pykYc0VjBBYP8nHXwdu9VZ0B3KtPF0EkKKlEEEZwY
