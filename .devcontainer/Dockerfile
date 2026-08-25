@@ -1,6 +1,6 @@
 # Use the official Python image from the DockerHub
 # Make sure PYTHON_VERSION matches the Python version in .python-version
-ARG PYTHON_VERSION=3.14.3
+ARG PYTHON_VERSION=3.14.7
 FROM python:$PYTHON_VERSION-slim-bookworm
 
 # Create the dev-user with appropriate permissions
