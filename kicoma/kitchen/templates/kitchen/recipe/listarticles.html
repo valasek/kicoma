@@ -5,8 +5,8 @@
 {% block content %}
 <div class="container-fluid">
   <h4>
-    {% blocktranslate trimmed with recipe_name=recipe.recipe norm_amount=recipe.norm_amount total_price=recipe.total_recipe_articles_price|intcomma %}
-    Ingredience pro {{ recipe_name }}, {{ norm_amount }} porcí, celková cena: {{ total_price }} {{ CURRENCY }}
+    {% blocktranslate trimmed with recipe_name=recipe.recipe norm_amount=recipe.norm_amount %}
+    Ingredience pro {{ recipe_name }}, {{ norm_amount }} porcí
     {% endblocktranslate %}
   </h4>
   <hr />
@@ -22,6 +22,8 @@
       </a>
     </div>
   </div>
-  {% render_table table %}
+  <div class="table-responsive">
+    {% render_table table %}
+  </div>
 </div>
 {% endblock content %}

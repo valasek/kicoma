@@ -422,6 +422,11 @@ class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     success_message = _("Skladová karta %(article)s byla založeno, je možné zadávat příjemky a recepty")
     success_url = reverse_lazy('kitchen:showArticles')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
 
 class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Article
@@ -429,6 +434,11 @@ class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     template_name = 'kitchen/article/update.html'
     success_message = _("Skladová karta %(article)s byla aktualizována")
     success_url = reverse_lazy('kitchen:showArticles')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
 
 
 class ArticleRestrictedUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
@@ -691,6 +701,23 @@ class RecipeArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         context = super().get_context_data(**kwargs)
         context['recipe'] = Recipe.objects.filter(pk=self.kwargs['pk'])[0]
         return context
+
+    def get_table_kwargs(self):
+        nutrition_fields = (
+            'energy', 'protein', 'fat', 'carbohydrates', 'sugars', 'fiber',
+        )
+        totals = {
+            f'total_{field_name}': sum(
+                getattr(recipe_article, f'total_{field_name}')
+                for recipe_article in self.object_list
+            )
+            for field_name in nutrition_fields
+        }
+        totals['total_average_price'] = sum(
+            recipe_article.total_average_price
+            for recipe_article in self.object_list
+        )
+        return {'nutrition_totals': totals}
 
     def get_queryset(self):
         # show only recipe ingredients
@@ -1256,7 +1283,7 @@ class StockIssueApproveView(LoginRequiredMixin, TemplateView):
                 errors = _("Níže uvedené zboží není možné vyskladnit:<br/>") + errors
                 messages.error(self.request, mark_safe(errors))
                 return HttpResponseRedirect(reverse_lazy('kitchen:approveStockIssue', kwargs={'pk': self.kwargs['pk']}))
-            result = StockIssue.update_article_on_stock(stock_issue.id, stock_issue.comment, False)
+            StockIssue.update_article_on_stock(stock_issue.id, stock_issue.comment, False)
             stock_issue.save(update_fields=('approved', 'date_approved', 'user_approved',))
             messages.success(self.request, _("Výdejka byla vyskladněna"))
             return HttpResponseRedirect(reverse_lazy('kitchen:showStockIssues',))

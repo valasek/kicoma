@@ -1,4 +1,7 @@
 2026:
+  - date: 2026-08-26
+    items:
+      - "Přidání výživových údajů k zboží a jejich zobrazení v receptu. Upravovat je může uživatel s rolí Šéfkuchař."
   - date: 2026-08-25
     items:
       - "BEZPEČNOST: Aktualizace na nejaktuálnější verzi <a href='https://docs.djangoproject.com/en/6.1/releases/6.1/'>Django 6.1</a> a souvisejících knihoven."

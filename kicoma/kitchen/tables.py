@@ -23,7 +23,7 @@ from .utils import get_currency
 
 table_attributes = {
     "class": "table table-striped table-borderless table-hover table-sm",
-    "thead": {"class": "table-secondary"}
+    "thead": {"class": "table-secondary"},
 }
 
 LABEL_EDIT = _("Upravit")
@@ -37,9 +37,12 @@ LABEL_REFRESH = _("Aktualizovat")
 LABEL_ISSUE = _("Vyskladnit")
 LABEL_RECEIPT = _("Naskladnit")
 
+
 class ArticleTable(tables.Table):
-    average_price = tables.Column(verbose_name=_('Průměrná jednotková cena s DPH'))
-    allergens = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name=_('Alergeny'))
+    average_price = tables.Column(verbose_name=_("Průměrná jednotková cena s DPH"))
+    allergens = tables.TemplateColumn(
+        """{{record.display_allergens}}""", verbose_name=_("Alergeny")
+    )
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
@@ -56,29 +59,39 @@ class ArticleTable(tables.Table):
         model = Article
         template_name = "django_tables2/bootstrap5.html"
         attrs = table_attributes
-        fields = ("article", "on_stock", "min_on_stock", "average_price",
-                  "total_price", "allergens", "comment", "change")
+        fields = (
+            "article",
+            "on_stock",
+            "min_on_stock",
+            "average_price",
+            "total_price",
+            "allergens",
+            "comment",
+            "change",
+        )
 
     @staticmethod
     def render_average_price(value, record):
-        return f'{intcomma(value)} {get_currency()} / {record.unit}'
+        return f"{intcomma(value)} {get_currency()} / {record.unit}"
 
     @staticmethod
     def render_total_price(value):
-        return f'{intcomma(value)} {get_currency()}'
+        return f"{intcomma(value)} {get_currency()}"
 
     @staticmethod
     def render_on_stock(value, record):
-        return f'{value} {record.unit}'
+        return f"{value} {record.unit}"
 
     @staticmethod
     def render_min_on_stock(value, record):
-        return f'{value} {record.unit}'
+        return f"{value} {record.unit}"
 
 
 class ArticleRestrictedTable(tables.Table):
-    allergen = tables.TemplateColumn('''{{record.display_allergens}}''', verbose_name=_('Alergeny'))
-    average_price = tables.Column(verbose_name=_('Průměrná jednotková cena s DPH'))
+    allergen = tables.TemplateColumn(
+        """{{record.display_allergens}}""", verbose_name=_("Alergeny")
+    )
+    average_price = tables.Column(verbose_name=_("Průměrná jednotková cena s DPH"))
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
@@ -89,19 +102,27 @@ class ArticleRestrictedTable(tables.Table):
         model = Article
         template_name = "django_tables2/bootstrap5.html"
         attrs = table_attributes
-        fields = ("article", "unit", "min_on_stock", "allergen", "average_price", "comment", "change")
+        fields = (
+            "article",
+            "unit",
+            "min_on_stock",
+            "allergen",
+            "average_price",
+            "comment",
+            "change",
+        )
 
     @staticmethod
     def render_min_on_stock(value, record):
-        return f'{value} {record.unit}'
+        return f"{value} {record.unit}"
 
     @staticmethod
     def render_average_price(value, record):
-        return f'{intcomma(value)} {get_currency()} / {record.unit}'
+        return f"{intcomma(value)} {get_currency()} / {record.unit}"
 
 
 class ArticleFilter(FilterSet):
-    article = CharFilter(lookup_expr='icontains')
+    article = CharFilter(lookup_expr="icontains")
 
     class Meta:
         model = Article
@@ -109,8 +130,8 @@ class ArticleFilter(FilterSet):
 
 
 class RecipeTable(tables.Table):
-    total_recipe_articles_price = tables.Column(verbose_name=_('Cena receptu s DPH'))
-    allergens = tables.Column(verbose_name=_('Alergeny'), empty_values=())
+    total_recipe_articles_price = tables.Column(verbose_name=_("Cena receptu s DPH"))
+    allergens = tables.Column(verbose_name=_("Alergeny"), empty_values=())
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
@@ -129,11 +150,17 @@ class RecipeTable(tables.Table):
         model = Recipe
         template_name = "django_tables2/bootstrap5.html"
         attrs = table_attributes
-        fields = ("recipe", "norm_amount", "total_recipe_articles_price", "allergens", "change")
+        fields = (
+            "recipe",
+            "norm_amount",
+            "total_recipe_articles_price",
+            "allergens",
+            "change",
+        )
 
     @staticmethod
     def render_total_recipe_articles_price(value):
-        return f'{intcomma(value)} {get_currency()}'
+        return f"{intcomma(value)} {get_currency()}"
 
     @staticmethod
     def render_allergens(record):
@@ -141,7 +168,7 @@ class RecipeTable(tables.Table):
 
 
 class RecipeFilter(FilterSet):
-    recipe = CharFilter(lookup_expr='icontains')
+    recipe = CharFilter(lookup_expr="icontains")
 
     class Meta:
         model = Recipe
@@ -151,9 +178,28 @@ class RecipeFilter(FilterSet):
 class RecipeArticleTable(tables.Table):
     # average_price = tables.Column(accessor="article.average_price", verbose_name="Průměrná jednotková cena s DPH")
     total_average_price = tables.Column(verbose_name=_("Celková cena s DPH"))
+    total_energy = tables.Column(verbose_name=_("Energie (kJ)"), orderable=False)
+    total_protein = tables.Column(verbose_name=_("Bílkoviny (g)"), orderable=False)
+    total_fat = tables.Column(verbose_name=_("Tuky (g)"), orderable=False)
+    total_carbohydrates = tables.Column(
+        verbose_name=_("Sacharidy (g)"), orderable=False
+    )
+    total_sugars = tables.Column(verbose_name=_("Cukry (g)"), orderable=False)
+    total_fiber = tables.Column(verbose_name=_("Vláknina (g)"), orderable=False)
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
+    def __init__(self, *args, nutrition_totals=None, **kwargs):
+        self.nutrition_totals = nutrition_totals
+        super().__init__(*args, **kwargs)
+
+    def get_bottom_pinned_data(self):
+        if self.nutrition_totals is None:
+            return None
+        return [{"article": _("Celkem"), **self.nutrition_totals}]
+
     def render_change(self, record):
+        if not isinstance(record, RecipeArticle):
+            return ""
         edit_url = reverse("kitchen:updateRecipeArticle", args=[record.id])
         delete_url = reverse("kitchen:deleteRecipeArticle", args=[record.id])
         return mark_safe(
@@ -165,23 +211,65 @@ class RecipeArticleTable(tables.Table):
         model = RecipeArticle
         template_name = "django_tables2/bootstrap5.html"
         attrs = table_attributes
-        fields = ("article", "amount", "total_average_price", "comment", "change")
+        pinned_row_attrs = {"class": "table-secondary fw-bold"}
+        fields = (
+            "article",
+            "amount",
+            "total_average_price",
+            "total_energy",
+            "total_protein",
+            "total_fat",
+            "total_carbohydrates",
+            "total_sugars",
+            "total_fiber",
+            "change",
+        )
 
     @staticmethod
     def render_amount(value, record):
-        return f'{value} {record.unit}'
+        return f"{value} {record.unit}"
 
     @staticmethod
     def render_average_price(value, record):
-        return f'{intcomma(value)} {get_currency()} / {record.article.unit}'
+        return f"{intcomma(value)} {get_currency()} / {record.article.unit}"
 
     @staticmethod
     def render_total_average_price(value):
-        return f'{intcomma(value)} {get_currency()}'
+        return f"{intcomma(value)} {get_currency()}"
+
+    @staticmethod
+    def render_total_energy(value, record):
+        unit = "" if isinstance(record, RecipeArticle) else " kJ"
+        return f"{value:.1f}{unit}"
+
+    @staticmethod
+    def render_total_protein(value, record):
+        unit = "" if isinstance(record, RecipeArticle) else " g"
+        return f"{value:.1f}{unit}"
+
+    @staticmethod
+    def render_total_fat(value, record):
+        unit = "" if isinstance(record, RecipeArticle) else " g"
+        return f"{value:.1f}{unit}"
+
+    @staticmethod
+    def render_total_carbohydrates(value, record):
+        unit = "" if isinstance(record, RecipeArticle) else " g"
+        return f"{value:.1f}{unit}"
+
+    @staticmethod
+    def render_total_sugars(value, record):
+        unit = "" if isinstance(record, RecipeArticle) else " g"
+        return f"{value:.1f}{unit}"
+
+    @staticmethod
+    def render_total_fiber(value, record):
+        unit = "" if isinstance(record, RecipeArticle) else " g"
+        return f"{value:.1f}{unit}"
 
 
 class DailyMenuTable(tables.Table):
-    recipe_count = tables.Column(verbose_name=_('Počet porcí'), empty_values=())
+    recipe_count = tables.Column(verbose_name=_("Počet porcí"), empty_values=())
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
@@ -196,33 +284,33 @@ class DailyMenuTable(tables.Table):
 
     class Meta:
         model = DailyMenu
-        order_by = ('-date', 'meal_group')
+        order_by = ("-date", "meal_group")
         template_name = "django_tables2/bootstrap5.html"
         attrs = table_attributes
         fields = ("date", "meal_group", "meal_type", "recipe_count", "change")
 
     @staticmethod
     def render_recipe_count(record):
-        value = getattr(record, 'recipe_count', None)
-        return value if value is not None else '-'
+        value = getattr(record, "recipe_count", None)
+        return value if value is not None else "-"
 
 
 class DailyMenuFilter(FilterSet):
     date = DateFilter(
-        lookup_expr='contains',
+        lookup_expr="contains",
         widget=forms.DateInput(
-            format='%Y-%m-%d',
+            format="%Y-%m-%d",
             attrs={
-                'class': 'form-control',
-                'placeholder': _('Vyber datum'),
-                'type': 'date'
-            }
-        )
+                "class": "form-control",
+                "placeholder": _("Vyber datum"),
+                "type": "date",
+            },
+        ),
     )
 
     class Meta:
         model = DailyMenu
-        fields = ("date", )
+        fields = ("date",)
 
 
 class DailyMenuRecipeTable(tables.Table):
@@ -245,7 +333,7 @@ class DailyMenuRecipeTable(tables.Table):
 
 
 class MenuTable(tables.Table):
-    rc = tables.Column(verbose_name=_('Počet receptů'), empty_values=())
+    rc = tables.Column(verbose_name=_("Počet receptů"), empty_values=())
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
@@ -289,7 +377,7 @@ class MenuRecipeTable(tables.Table):
 
 
 class StockIssueTable(tables.Table):
-    total_price = tables.Column(verbose_name=_('Celková cena s DPH'))
+    total_price = tables.Column(verbose_name=_("Celková cena s DPH"))
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
@@ -300,42 +388,56 @@ class StockIssueTable(tables.Table):
 
         user = getattr(self, "request", None).user if hasattr(self, "request") else None
         if user and user.groups.filter(name="stockkeeper").exists():
-            links.append(f'<a href="{reverse("kitchen:refreshStockIssue", args=[record.id])}">{LABEL_REFRESH}</a>')
-            links.append(f'<a href="{reverse("kitchen:approveStockIssue", args=[record.id])}">{LABEL_ISSUE}</a>')
+            links.append(
+                f'<a href="{reverse("kitchen:refreshStockIssue", args=[record.id])}">{LABEL_REFRESH}</a>'
+            )
+            links.append(
+                f'<a href="{reverse("kitchen:approveStockIssue", args=[record.id])}">{LABEL_ISSUE}</a>'
+            )
 
-        links.extend([
-            f'<a href="{reverse("kitchen:deleteStockIssue", args=[record.id])}">{LABEL_DELETE}</a>',
-            f'<a href="{reverse("kitchen:printStockIssue", args=[record.id])}">PDF</a>',
-        ])
+        links.extend(
+            [
+                f'<a href="{reverse("kitchen:deleteStockIssue", args=[record.id])}">{LABEL_DELETE}</a>',
+                f'<a href="{reverse("kitchen:printStockIssue", args=[record.id])}">PDF</a>',
+            ]
+        )
         return mark_safe(" | ".join(links))
 
     class Meta:
         model = StockIssue
         template_name = "django_tables2/bootstrap5.html"
         attrs = table_attributes
-        fields = ("created", "user_created", "approved", "date_approved",
-                  "user_approved", "total_price", "comment", "change")
+        fields = (
+            "created",
+            "user_created",
+            "approved",
+            "date_approved",
+            "user_approved",
+            "total_price",
+            "comment",
+            "change",
+        )
 
     @staticmethod
     def render_total_price(value):
-        return f'{intcomma(intcomma(value))} {get_currency()}'
+        return f"{intcomma(intcomma(value))} {get_currency()}"
 
     @staticmethod
     def render_created(value):
-        return value.strftime('%d.%m.%Y')
+        return value.strftime("%d.%m.%Y")
 
 
 class StockIssueFilter(FilterSet):
     created = DateFilter(
-        lookup_expr='contains',
+        lookup_expr="contains",
         widget=forms.DateInput(
-            format='%Y-%m-%d',
+            format="%Y-%m-%d",
             attrs={
-                'class': 'form-control',
-                'placeholder': _('Vyber datum'),
-                'type': 'date'
-            }
-        )
+                "class": "form-control",
+                "placeholder": _("Vyber datum"),
+                "type": "date",
+            },
+        ),
     )
 
     class Meta:
@@ -344,7 +446,7 @@ class StockIssueFilter(FilterSet):
 
 
 class StockIssueArticleTable(tables.Table):
-    total_average_price_with_vat = tables.Column(verbose_name=_('Celková cena s DPH'))
+    total_average_price_with_vat = tables.Column(verbose_name=_("Celková cena s DPH"))
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
@@ -359,23 +461,29 @@ class StockIssueArticleTable(tables.Table):
         model = StockIssueArticle
         template_name = "django_tables2/bootstrap5.html"
         attrs = table_attributes
-        fields = ("article", "amount", "average_unit_price", "total_average_price_with_vat", "change")
+        fields = (
+            "article",
+            "amount",
+            "average_unit_price",
+            "total_average_price_with_vat",
+            "change",
+        )
 
     @staticmethod
     def render_amount(value, record):
-        return f'{value} {record.unit}'
+        return f"{value} {record.unit}"
 
     @staticmethod
     def render_average_unit_price(value, record):
-        return f'{intcomma(value)} {get_currency()} / {record.article.unit}'
+        return f"{intcomma(value)} {get_currency()} / {record.article.unit}"
 
     @staticmethod
     def render_total_average_price_with_vat(value):
-        return f'{intcomma(value)} {get_currency()}'
+        return f"{intcomma(value)} {get_currency()}"
 
 
 class StockReceiptTable(tables.Table):
-    total_price = tables.Column(verbose_name=_('Celková cena s DPH'))
+    total_price = tables.Column(verbose_name=_("Celková cena s DPH"))
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
@@ -396,35 +504,46 @@ class StockReceiptTable(tables.Table):
         model = StockReceipt
         template_name = "django_tables2/bootstrap5.html"
         attrs = table_attributes
-        fields = ("date_created", "user_created", "approved", "date_approved",
-                  "user_approved", "total_price", "comment", "change")
+        fields = (
+            "date_created",
+            "user_created",
+            "approved",
+            "date_approved",
+            "user_approved",
+            "total_price",
+            "comment",
+            "change",
+        )
 
     @staticmethod
     def render_total_price(value):
-        return f'{intcomma(value)} {get_currency()}'
+        return f"{intcomma(value)} {get_currency()}"
 
 
 class StockReceiptFilter(FilterSet):
     date_created = DateFilter(
-        lookup_expr='contains',
+        lookup_expr="contains",
         widget=forms.DateInput(
-            format='%Y-%m-%d',
+            format="%Y-%m-%d",
             attrs={
-                'class': 'form-control',
-                'placeholder': _('Vyber datum'),
-                'type': 'date'
-            }
-        )
+                "class": "form-control",
+                "placeholder": _("Vyber datum"),
+                "type": "date",
+            },
+        ),
     )
 
     class Meta:
         model = StockReceipt
-        fields = ("date_created", "user_created", )
+        fields = (
+            "date_created",
+            "user_created",
+        )
 
 
 class StockReceiptArticleTable(tables.Table):
-    price_with_vat = tables.Column(verbose_name=_('Jednotková cena s DPH'))
-    total_price_with_vat = tables.Column(verbose_name=_('Celková cena s DPH'))
+    price_with_vat = tables.Column(verbose_name=_("Jednotková cena s DPH"))
+    total_price_with_vat = tables.Column(verbose_name=_("Celková cena s DPH"))
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
     def render_change(self, record):
@@ -439,21 +558,28 @@ class StockReceiptArticleTable(tables.Table):
         model = StockReceiptArticle
         template_name = "django_tables2/bootstrap5.html"
         attrs = table_attributes
-        fields = ("article", "amount", "price_without_vat", "vat",
-                  "price_with_vat", "total_price_with_vat", "change")
+        fields = (
+            "article",
+            "amount",
+            "price_without_vat",
+            "vat",
+            "price_with_vat",
+            "total_price_with_vat",
+            "change",
+        )
 
     @staticmethod
     def render_amount(value, record):
-        return f'{value} {record.unit}'
+        return f"{value} {record.unit}"
 
     @staticmethod
     def render_price_without_vat(value):
-        return f'{intcomma(value)} {get_currency()}'
+        return f"{intcomma(value)} {get_currency()}"
 
     @staticmethod
     def render_price_with_vat(value):
-        return f'{intcomma(value)} {get_currency()}'
+        return f"{intcomma(value)} {get_currency()}"
 
     @staticmethod
     def render_total_price_with_vat(value):
-        return f'{intcomma(value)} {get_currency()}'
+        return f"{intcomma(value)} {get_currency()}"

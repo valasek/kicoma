@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/bin/python3.10",
+    "python.defaultInterpreterPath": "/app/.venv/bin/python",
     "yaml.customTags": [
         "!And",
         "!And sequence",

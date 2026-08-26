@@ -1,5 +1,5 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Column, Layout, Row
+from crispy_forms.layout import Column, Fieldset, Layout, Row
 from django import forms
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
@@ -21,47 +21,97 @@ from .models import (
 
 class FlatpickrDateInput(forms.DateInput):
     """Reusable Flatpickr-enabled DateInput widget."""
+
     def __init__(self, *args, **kwargs):
         kwargs.setdefault("attrs", {})
-        kwargs["attrs"].update({
-            "class": "form-control flatpickr-input",
-            "placeholder": "YYYY-MM-DD",
-        })
+        kwargs["attrs"].update(
+            {
+                "class": "form-control flatpickr-input",
+                "placeholder": "YYYY-MM-DD",
+            }
+        )
         kwargs.setdefault("format", "%Y-%m-%d")
         super().__init__(*args, **kwargs)
 
+
 class ArticleForm(forms.ModelForm):
+    nutrition_fields = (
+        "energy",
+        "protein",
+        "fat",
+        "carbohydrates",
+        "sugars",
+        "fiber",
+    )
 
     class Meta:
         model = Article
-        fields = ["article", "unit", "on_stock", "min_on_stock", "total_price", "comment", "allergen", ]
+        fields = [
+            "article",
+            "unit",
+            "on_stock",
+            "min_on_stock",
+            "total_price",
+            "energy",
+            "protein",
+            "fat",
+            "carbohydrates",
+            "sugars",
+            "fiber",
+            "comment",
+            "allergen",
+        ]
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
-        self.fields['on_stock'].widget.attrs['readonly'] = True
-        self.fields['total_price'].widget.attrs['readonly'] = True
+        self.fields["on_stock"].widget.attrs["readonly"] = True
+        self.fields["total_price"].widget.attrs["readonly"] = True
         self.helper = FormHelper()
         self.helper.form_tag = False
-        self.helper.layout = Layout(
+        layout = [
             Row(
-                Column('article', css_class='col-md-2'),
-                Column('unit', css_class='col-md-2'),
-                Column('on_stock', css_class='col-md-2'),
-                Column('min_on_stock', css_class='col-md-2'),
-                Column('total_price', css_class='col-md-2'),
+                Column("article", css_class="col-md-2"),
+                Column("unit", css_class="col-md-2"),
+                Column("on_stock", css_class="col-md-2"),
+                Column("min_on_stock", css_class="col-md-2"),
+                Column("total_price", css_class="col-md-2"),
             ),
             Row(
-                Column('allergen', css_class='col-md-6'),
-                Column('comment', css_class='col-md-6'),
+                Column("allergen", css_class="col-md-6"),
+                Column("comment", css_class="col-md-6"),
+            ),
+        ]
+        if user is not None and user.groups.filter(name="chef").exists():
+            layout.append(
+                Fieldset(
+                    _("Výživové údaje"),
+                    Row(
+                        Column("energy", css_class="col-md-2"),
+                        Column("protein", css_class="col-md-2"),
+                        Column("fat", css_class="col-md-2"),
+                        Column("carbohydrates", css_class="col-md-2"),
+                        Column("sugars", css_class="col-md-2"),
+                        Column("fiber", css_class="col-md-2"),
+                    ),
+                )
             )
-        )
+        else:
+            for field_name in self.nutrition_fields:
+                self.fields.pop(field_name)
+        self.helper.layout = Layout(*layout)
 
 
 class ArticleRestrictedForm(forms.ModelForm):
-
     class Meta:
         model = Article
-        fields = ["article", "unit", "min_on_stock", "comment", "allergen", ]
+        fields = [
+            "article",
+            "unit",
+            "min_on_stock",
+            "comment",
+            "allergen",
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -70,14 +120,14 @@ class ArticleRestrictedForm(forms.ModelForm):
         # self.helper.field_template = 'bootstrap3/layout/inline_field.html'
         self.helper.layout = Layout(
             Row(
-                Column('article', css_class='col-md-2'),
-                Column('unit', css_class='col-md-2'),
-                Column('min_on_stock', css_class='col-md-2'),
+                Column("article", css_class="col-md-2"),
+                Column("unit", css_class="col-md-2"),
+                Column("min_on_stock", css_class="col-md-2"),
             ),
             Row(
-                Column('allergen', css_class='col-md-6'),
-                Column('comment', css_class='col-md-6'),
-            )
+                Column("allergen", css_class="col-md-6"),
+                Column("comment", css_class="col-md-6"),
+            ),
         )
 
 
@@ -86,10 +136,7 @@ class ArticleSearchForm(forms.Form):
 
 
 class StockArticlesExportForm(forms.Form):
-    date = forms.DateField(
-        label="Datum",
-        widget=FlatpickrDateInput()
-    )
+    date = forms.DateField(label="Datum", widget=FlatpickrDateInput())
 
     def clean_date(self):
         value = self.cleaned_data["date"]
@@ -99,7 +146,6 @@ class StockArticlesExportForm(forms.Form):
 
 
 class RecipeForm(forms.ModelForm):
-
     class Meta:
         model = Recipe
         fields = ["recipe", "norm_amount", "comment", "procedure"]
@@ -110,13 +156,13 @@ class RecipeForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column('recipe', css_class='col-md-4'),
-                Column('norm_amount', css_class='col-md-4'),
-                Column('comment', css_class='col-md-4'),
+                Column("recipe", css_class="col-md-4"),
+                Column("norm_amount", css_class="col-md-4"),
+                Column("comment", css_class="col-md-4"),
             ),
             Row(
-                Column('procedure', css_class='col-md-12'),
-            )
+                Column("procedure", css_class="col-md-12"),
+            ),
         )
 
 
@@ -125,7 +171,6 @@ class RecipeSearchForm(forms.Form):
 
 
 class RecipeArticleForm(forms.ModelForm):
-
     class Meta:
         model = RecipeArticle
         fields = ["article", "amount", "unit", "comment"]
@@ -136,22 +181,19 @@ class RecipeArticleForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column('article', css_class='col-md-3'),
-                Column('amount', css_class='col-md-3'),
-                Column('unit', css_class='col-md-3'),
-                Column('comment', css_class='col-md-3'),
+                Column("article", css_class="col-md-3"),
+                Column("amount", css_class="col-md-3"),
+                Column("unit", css_class="col-md-3"),
+                Column("comment", css_class="col-md-3"),
             ),
         )
 
 
 class DailyMenuCreateForm(forms.ModelForm):
-
     class Meta:
         model = DailyMenu
         fields = ["date", "menu", "meal_group", "meal_type", "comment"]
-        widgets = {
-            'date': FlatpickrDateInput()
-        }
+        widgets = {"date": FlatpickrDateInput()}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -159,23 +201,20 @@ class DailyMenuCreateForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column('date', css_class='col-md-2'),
-                Column('menu', css_class='col-md-2'),
-                Column('meal_group', css_class='col-md-2'),
-                Column('meal_type', css_class='col-md-2'),
-                Column('comment', css_class='col-md-4'),
+                Column("date", css_class="col-md-2"),
+                Column("menu", css_class="col-md-2"),
+                Column("meal_group", css_class="col-md-2"),
+                Column("meal_type", css_class="col-md-2"),
+                Column("comment", css_class="col-md-4"),
             )
         )
 
 
 class DailyMenuEditForm(forms.ModelForm):
-
     class Meta:
         model = DailyMenu
-        fields = [ "date", "meal_group", "meal_type", "comment" ]
-        widgets = {
-            'date': FlatpickrDateInput()
-        }
+        fields = ["date", "meal_group", "meal_type", "comment"]
+        widgets = {"date": FlatpickrDateInput()}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -183,44 +222,38 @@ class DailyMenuEditForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column('date', css_class='col-md-2'),
-                Column('meal_group', css_class='col-md-2'),
-                Column('meal_type', css_class='col-md-2'),
-                Column('comment', css_class='col-md-4'),
+                Column("date", css_class="col-md-2"),
+                Column("meal_group", css_class="col-md-2"),
+                Column("meal_type", css_class="col-md-2"),
+                Column("comment", css_class="col-md-4"),
             )
         )
 
 
 class DailyMenuPrintForm(forms.ModelForm):
-
     class Meta:
         model = DailyMenu
         fields = ["date", "meal_group"]
-        widgets = {
-            'date': FlatpickrDateInput()
-        }
+        widgets = {"date": FlatpickrDateInput()}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.fields['meal_group'].required = False
+        self.fields["meal_group"].required = False
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column('date', css_class='col-md-2'),
-                Column('meal_group', css_class='col-md-2'),
+                Column("date", css_class="col-md-2"),
+                Column("meal_group", css_class="col-md-2"),
             )
         )
 
 
 class DailyMenuCateringUnitForm(forms.ModelForm):
-
     class Meta:
         model = DailyMenu
         fields = ["date"]
-        widgets = {
-            'date': FlatpickrDateInput()
-        }
+        widgets = {"date": FlatpickrDateInput()}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -228,13 +261,12 @@ class DailyMenuCateringUnitForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column('date', css_class='col-md-3'),
+                Column("date", css_class="col-md-3"),
             )
         )
 
 
 class DailyMenuRecipeForm(forms.ModelForm):
-
     class Meta:
         model = DailyMenuRecipe
         fields = ["recipe", "amount", "comment"]
@@ -245,15 +277,14 @@ class DailyMenuRecipeForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column('recipe', css_class='col-md-2'),
-                Column('amount', css_class='col-md-2'),
-                Column('comment', css_class='col-md-6'),
+                Column("recipe", css_class="col-md-2"),
+                Column("amount", css_class="col-md-2"),
+                Column("comment", css_class="col-md-6"),
             )
         )
 
 
 class MenuForm(forms.ModelForm):
-
     class Meta:
         model = Menu
         fields = ["menu", "meal_type", "comment"]
@@ -264,15 +295,14 @@ class MenuForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column('menu', css_class='col-md-2'),
-                Column('meal_type', css_class='col-md-2'),
-                Column('comment', css_class='col-md-6'),
+                Column("menu", css_class="col-md-2"),
+                Column("meal_type", css_class="col-md-2"),
+                Column("comment", css_class="col-md-6"),
             )
         )
 
 
 class MenuRecipeForm(forms.ModelForm):
-
     class Meta:
         model = MenuRecipe
         fields = ["recipe", "amount"]
@@ -283,14 +313,13 @@ class MenuRecipeForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column('recipe', css_class='col-md-2'),
-                Column('amount', css_class='col-md-2'),
+                Column("recipe", css_class="col-md-2"),
+                Column("amount", css_class="col-md-2"),
             )
         )
 
 
 class StockIssueForm(forms.ModelForm):
-
     class Meta:
         model = StockIssue
         fields = ["comment"]
@@ -299,11 +328,7 @@ class StockIssueForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
-        self.helper.layout = Layout(
-            Row(
-                Column('comment', css_class='col-md-12')
-            )
-        )
+        self.helper.layout = Layout(Row(Column("comment", css_class="col-md-12")))
 
 
 class StockIssueSearchForm(forms.Form):
@@ -313,13 +338,10 @@ class StockIssueSearchForm(forms.Form):
 
 
 class StockIssueFromDailyMenuForm(forms.ModelForm):
-
     class Meta:
         model = DailyMenu
         fields = ["date"]
-        widgets = {
-            'date': FlatpickrDateInput()
-        }
+        widgets = {"date": FlatpickrDateInput()}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -327,13 +349,12 @@ class StockIssueFromDailyMenuForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column('date', css_class='col-md-2'),
+                Column("date", css_class="col-md-2"),
             )
         )
 
 
 class StockIssueArticleForm(forms.ModelForm):
-
     class Meta:
         model = StockIssueArticle
         fields = ["article", "amount", "unit", "comment"]
@@ -344,16 +365,15 @@ class StockIssueArticleForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column('article', css_class='col-md-2'),
-                Column('amount', css_class='col-md-2'),
-                Column('unit', css_class='col-md-2'),
-                Column('comment', css_class='col-md-4'),
+                Column("article", css_class="col-md-2"),
+                Column("amount", css_class="col-md-2"),
+                Column("unit", css_class="col-md-2"),
+                Column("comment", css_class="col-md-4"),
             )
         )
 
 
 class StockReceiptForm(forms.ModelForm):
-
     class Meta:
         model = StockReceipt
         fields = ["date_created", "comment"]
@@ -364,8 +384,8 @@ class StockReceiptForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column('date_created', css_class='col-md-2'),
-                Column('comment', css_class='col-md-10')
+                Column("date_created", css_class="col-md-2"),
+                Column("comment", css_class="col-md-10"),
             )
         )
 
@@ -376,7 +396,6 @@ class StockReceiptSearchForm(forms.Form):
 
 
 class StockReceiptArticleForm(forms.ModelForm):
-
     class Meta:
         model = StockReceiptArticle
         fields = ["article", "amount", "unit", "price_without_vat", "vat", "comment"]
@@ -387,11 +406,11 @@ class StockReceiptArticleForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Column('article', css_class='col-md-2'),
-                Column('amount', css_class='col-md-2'),
-                Column('unit', css_class='col-md-2'),
-                Column('price_without_vat', css_class='col-md-2'),
-                Column('vat', css_class='col-md-2'),
-                Column('comment', css_class='col-md-2'),
+                Column("article", css_class="col-md-2"),
+                Column("amount", css_class="col-md-2"),
+                Column("unit", css_class="col-md-2"),
+                Column("price_without_vat", css_class="col-md-2"),
+                Column("vat", css_class="col-md-2"),
+                Column("comment", css_class="col-md-2"),
             )
         )
