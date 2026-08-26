@@ -11,9 +11,9 @@ set -e
 # Collect static files
 # python manage.py collectstatic --noinput
 
-# Run migrations
-python manage.py makemigrations
-python manage.py migrate
+# Apply committed migrations before starting the web server.
+python manage.py migrate --noinput
 
 # Start Gunicorn
-exec gunicorn --bind 0.0.0.0:8000 --workers 3 config.wsgi:application
+exec gunicorn --bind 0.0.0.0:8000 --workers 3 --preload \
+	--access-logfile - --error-logfile - config.wsgi:application

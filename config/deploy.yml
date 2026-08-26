@@ -1,6 +1,9 @@
 # Name of your application. Used to uniquely configure containers.
 service: kicoma
 
+# Allow migrations and application initialization to finish before health checks fail.
+deploy_timeout: 60
+
 # Name of the container image.
 image: svalasek/kicoma
 
