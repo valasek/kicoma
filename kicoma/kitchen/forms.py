@@ -35,6 +35,17 @@ class FlatpickrDateInput(forms.DateInput):
 
 
 class ArticleForm(forms.ModelForm):
+    common_fields = (
+        "article",
+        "unit",
+        "comment",
+        "allergen",
+    )
+    stock_fields = (
+        "on_stock",
+        "min_on_stock",
+        "total_price",
+    )
     nutrition_fields = (
         "energy",
         "protein",
@@ -65,24 +76,38 @@ class ArticleForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
-        self.fields["on_stock"].widget.attrs["readonly"] = True
-        self.fields["total_price"].widget.attrs["readonly"] = True
+        group_names = set()
+        if user is not None:
+            group_names = set(user.groups.values_list("name", flat=True))
+
+        editable_fields = set(self.common_fields)
+        if "stockkeeper" in group_names:
+            editable_fields.update(self.stock_fields)
+        if "nutrition_advisor" in group_names:
+            editable_fields.update(self.nutrition_fields)
+        for field_name in tuple(self.fields):
+            if field_name not in editable_fields:
+                self.fields.pop(field_name)
+
         self.helper = FormHelper()
         self.helper.form_tag = False
+        main_columns = [
+            Column("article", css_class="col-md-2"),
+            Column("unit", css_class="col-md-2"),
+        ]
+        if "stockkeeper" in group_names:
+            main_columns.extend(
+                Column(field_name, css_class="col-md-2")
+                for field_name in self.stock_fields
+            )
         layout = [
-            Row(
-                Column("article", css_class="col-md-2"),
-                Column("unit", css_class="col-md-2"),
-                Column("on_stock", css_class="col-md-2"),
-                Column("min_on_stock", css_class="col-md-2"),
-                Column("total_price", css_class="col-md-2"),
-            ),
+            Row(*main_columns),
             Row(
                 Column("allergen", css_class="col-md-6"),
                 Column("comment", css_class="col-md-6"),
             ),
         ]
-        if user is not None and user.groups.filter(name="chef").exists():
+        if "nutrition_advisor" in group_names:
             layout.append(
                 Fieldset(
                     _("Výživové údaje"),
@@ -96,39 +121,7 @@ class ArticleForm(forms.ModelForm):
                     ),
                 )
             )
-        else:
-            for field_name in self.nutrition_fields:
-                self.fields.pop(field_name)
         self.helper.layout = Layout(*layout)
-
-
-class ArticleRestrictedForm(forms.ModelForm):
-    class Meta:
-        model = Article
-        fields = [
-            "article",
-            "unit",
-            "min_on_stock",
-            "comment",
-            "allergen",
-        ]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_tag = False
-        # self.helper.field_template = 'bootstrap3/layout/inline_field.html'
-        self.helper.layout = Layout(
-            Row(
-                Column("article", css_class="col-md-2"),
-                Column("unit", css_class="col-md-2"),
-                Column("min_on_stock", css_class="col-md-2"),
-            ),
-            Row(
-                Column("allergen", css_class="col-md-6"),
-                Column("comment", css_class="col-md-6"),
-            ),
-        )
 
 
 class ArticleSearchForm(forms.Form):

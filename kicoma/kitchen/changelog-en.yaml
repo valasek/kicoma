@@ -1,7 +1,8 @@
 2026:
-  - date: 2026-08-26
+  - date: 2026-08-27
     items:
-      - "Adds nutritional information to articles and displays it in the recipe. Can be edited by users with the Chef role."
+      - "Adds nutritional information to articles and displays it in the recipe. Can be edited by users with the \"Nutrition advisor\" role."
+      - "The user has the option to view the guide and news in the application from the profile."
   - date: 2026-08-25
     items:
       - "SECURITY: Update to the latest version of <a href='https://docs.djangoproject.com/en/6.1/releases/6.1/'>Django 6.1</a> and related libraries."
@@ -74,16 +75,12 @@
       - "Update to the latest version of <a href='https://www.djangoproject.com/weblog/2022/apr/11/security-releases/'>Django 4.0.4</a> and update of related libraries."
       - "Change of PDF generation from wkhtml to jsPDF."
       - "Added tests to improve code quality."
-  - date: 2022-03-07
-    items:
-      - "In the <a href='{% url 'kitchen:showRestrictedArticles' %}'>Stock list - for cooks</a> the Average unit price with VAT was added."
   - date: 2022-03-05
     items:
       - "When editing goods on the issue slip, the goods table retains its position and doesn’t jump to the beginning."
   - date: 2022-02-27
     items:
       - "For newly created issue slips: If an issue slip is created and there are 0 units of goods in stock, the 'Unit price with VAT' uses the last stocked price. For this reason, the 'Average unit price with VAT' is shown even when 'In stock' is 0 units."
-      - "In the <a href='{% url 'kitchen:showRestrictedArticles' %}'>Stock list - for cooks</a> the problem with sorting the table by Allergens column was removed."
   - date: 2022-02-24
     items:
       - "Simplified creation of daily menu using a <a href='{% url 'kitchen:showMenus' %}'>menu</a> that has assigned recipes and portions. How does it work? Create a <a href='{% url 'kitchen:createMenu' %}'>New menu</a>, add recipes and portions. Then, when creating a <a href='{% url 'kitchen:createDailyMenu' %}'>daily menu</a>, select the prepared menu and the recipes will be copied automatically."
@@ -96,7 +93,6 @@
       - "Removed reports Food consumption by recipes per day and Monthly meal cost by diner group."
       - "<a href='{% url 'kitchen:showDailyMenus' %}'>Daily menu</a> contains instead of the note field the maximum number of portions from all recipes."
       - "Issue slip PDF file name format: IssueSlip-%Y.%m.%d_%H-%M-%S-%f.pdf. Symbol description - <a href='https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior'>date formatting</a>."
-      - "Added list <a href='{% url 'kitchen:showRestrictedArticles' %}'>Stock list - cook’s view</a> with the option to edit allergens, minimum stock quantity, and goods name."
       - "Added report <a href='{% url 'kitchen:filterCateringUnit' %}'>Catering unit</a>."
 
 2021:
@@ -227,4 +223,4 @@
   - date: 2020-08-23
     items:
       - "Imported data from Stravníček dated 18.8.2020."
-      - "Only chef role has right to create a new stock card (Mrs. Trmalová, Josef Slavíček)."
+      - "Only \"Nutrition advisor\" role has right to create a new stock card."

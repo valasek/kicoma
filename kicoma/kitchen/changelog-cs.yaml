@@ -1,7 +1,8 @@
 2026:
-  - date: 2026-08-26
+  - date: 2026-08-27
     items:
-      - "Přidání výživových údajů k zboží a jejich zobrazení v receptu. Upravovat je může uživatel s rolí Šéfkuchař."
+      - "Přidání výživových údajů k zboží a jejich zobrazení v receptu. Upravovat je může uživatel s rolí \"Nutriční poradce\"."
+      - "Uživatel má z profilu možnost zobrazení příručky a novinek v aplikaci"
   - date: 2026-08-25
     items:
       - "BEZPEČNOST: Aktualizace na nejaktuálnější verzi <a href='https://docs.djangoproject.com/en/6.1/releases/6.1/'>Django 6.1</a> a souvisejících knihoven."
@@ -75,16 +76,12 @@
       - "Aktualizace na nejnovější verzi <a href='https://www.djangoproject.com/weblog/2022/apr/11/security-releases/'>Django 4.0.4</a> a aktualizace souvisejících knihoven."
       - "Změna generování PDF z wkhtml na jsPDF."
       - "Přidání testů pro zvýšení kvality kódu."
-  - date: 2022-03-07
-    items:
-      - "V <a href='{% url 'kitchen:showRestrictedArticles' %}'>Seznamu zboží na skladu - pro kuchaře</a> byla přidaná Průměrná jednotková cena s DPH."
   - date: 2022-03-05
     items:
       - "V případě úpravy zboží na výdejce si tabulka zboží uchová pozici a neskáče na začátek."
   - date: 2022-02-27
     items:
       - "Pro nově vytvořené výdejky: Když se vytváří výdejka a na skladu je 0 jednotek zboží, na výdejku se do 'Jednotková cena s DPH' použije poslední naskladněná cena. Z tohoto důvodu se na skladě zobrazuje 'Průměrná jednotková cena s DPH' i když je 'Na skladu' 0 jednotek zboží."
-      - "Na <a href='{% url 'kitchen:showRestrictedArticles' %}'>Seznamu zboží na skladu - pro kuchaře</a> byl odstraněn problém u řazení tabulky dle sloupce Alergeny."
   - date: 2022-02-24
     items:
       - "Zjednodušení tvorby denního menu pomocí <a href='{% url 'kitchen:showMenus' %}'>menu</a>, které má přiřazené recepty a počet porcí. Jak to funguje? Vytvoř <a href='{% url 'kitchen:createMenu' %}'>Nově menu</a>, přidej požadované recepty a množství porcí. Následně, když vytváříš <a href='{% url 'kitchen:createDailyMenu' %}'>denní menu</a>, vyber připravené menu a recepty se do denního menu přepíšou automaticky."
@@ -97,7 +94,6 @@
       - "Odstranění reportů Spotřeba potravin dle receptů na den a Měsíční cena jídla dle skupiny strávníka."
       - "<a href='{% url 'kitchen:showDailyMenus' %}'>Denní menu</a> obsahuje místo pole poznámka maximální počet porcí ze všech receptů."
       - "PDF pro výdejka má název: Vydejka-%Y.%m.%d_%H-%M-%S-%f.pdf. Popis symbolů - <a href='https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior'>formátováni datumu</a>."
-      - "Přidán seznam <a href='{% url 'kitchen:showRestrictedArticles' %}'>Zboží na skladu - pohled kuchaře</a> s možností editace alergenů, minimálního množství na skladu a editace názvu zboží."
       - "Přidán report <a href='{% url 'kitchen:filterCateringUnit' %}'>Stravovací jednotka</a>."
 
 2021:
@@ -228,4 +224,4 @@
   - date: 2020-08-23
     items:
       - "Importována data ze Stravníčka z dne 18.8.2020."
-      - "Jenom role chef má právo na Založení nové skladové karty - nového druhu zboží na sklad (pí. Trmalová, Josef Slavíček)."
+      - "Jenom role \"Nutriční poradce\" má právo na Založení nové skladové karty - nového druhu zboží na sklad (pí. Trmalová, Josef Slavíček)."

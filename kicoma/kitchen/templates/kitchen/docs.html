@@ -27,10 +27,12 @@
     <p>{% translate "Recepty a ingredience v receptech je možné vytvořit, upravit nebo vymazat v menu" %} <a href="{% url 'kitchen:showRecipes' %}">{% translate "Seznam receptů" %}</a>.</p>
     <h5>{% translate "Správa denního menu" %}</h5>
     <p>{% translate "Denní menu a související recepty je možné vytvořit, upravit nebo vymazat v menu" %} <a href="{% url 'kitchen:showDailyMenus' %}">{% translate "Sestavit denní menu" %}</a>.</p>
+    <h5>{% translate "Vyživové údaje" %}</h5>
+    <p>{% translate "Vyživové údaje jsou spravované na skladové kartě. Zobrazené jsou v rámci receptu pro každou ingredienci a sumárně pro celý recept." %}</p>
     <h5>{% translate "Reporty a tisky" %}</h5>
     <p>{% translate "Všechny tisky probíhají pomocí generování PDF, které je možno zobrazit, uložit nebo vytisknout." %}</p>
     <h5>{% translate "Správa číselníků" %}</h5>
-    <p>{% translate "Číselníky spravuje uživatel ve skupině 'Šéfkuchař' v" %} <a href="{% url 'admin:index' %}kitchen">{% translate "Administraci" %}</a>.
+    <p>{% translate "Číselníky spravuje administrátor v" %} <a href="{% url 'admin:index' %}kitchen">{% translate "Administraci" %}</a>.
     <br />
     {% translate "Odkaz na úpravu konkrétního číselníku:" %} <a href="{% url 'admin:index' %}kitchen/allergen">{% translate "alergeny" %}</a>,
     <a href="{% url 'admin:index' %}kitchen/vat">{% translate "DPH" %}</a>,
@@ -44,24 +46,42 @@
         <thead class="thead-light">
           <tr>
             <th>{% translate "Skupina" %}</th>
+            <th>{% translate "Uživatelé" %}</th>
             <th>{% translate "Oprávnění" %}</th>
           </tr>
         </thead>
         <tr>
-          <th>{% translate "Šéfkuchař (Chef)" %}</th>
+          <th>{% translate "-" %}</th>
+          <td>
+            {% for user in admin_users %}{{ user.username }}<br />{% endfor %}
+          </td>
           <td>
             {% translate "Administrátor" %}<br />
             {% translate "Správa skupin i uživatelů, všech číselníků." %}<br/>
             {% translate "Export a import jakýchkoli dat." %}<br/>
+          </td>
+        </tr>
+        <tr>
+          <th>{% translate "Nutriční poradce" %}</th>
+          <td>
+            {% for user in nutrition_advisor_users %}{{ user.username }}<br />{% endfor %}
+          </td>
+          <td>
             {% translate "Úprava výživových údajú." %}
           </td>
         </tr>
         <tr>
-          <th>{% translate "Kuchař (Cook)" %}</th>
+          <th>{% translate "Kuchař" %}</th>
+          <td>
+            {% for user in cook_users %}{{ user.username }}<br />{% endfor %}
+          </td>
           <td>{% translate "Tvorba denního menu, tvorba a správa výdejek kromě schvalování a PDF reporty" %}</td>
         </tr>
         <tr>
-          <th>{% translate "Skladník (Stockkeeper)" %}</th>
+          <th>{% translate "Skladník" %}</th>
+          <td>
+            {% for user in stockkeeper_users %}{{ user.username }}<br />{% endfor %}
+          </td>
           <td>
             {% translate "Správa skladu - založení nové skladové karty, úprava zboží, zadávání a schvalování příjemek, schvalování a tvorba výdejek" %}<br/>
             {% translate "Inventura" %}
@@ -69,7 +89,7 @@
         </tr>
       </table>
       <h5>{% translate "Administrace aplikace" %}</h5>
-      <p>{% translate "Uživatel ve skupině 'Šéfkuchař' má právo na Administrační sekci a export nebo import dat. Každou datovou tabulku včetně uživatelů je možno plně zpravovat v" %} <a href="{% url 'admin:index' %}kitchen">{% translate "administraci" %}</a> {% translate "a nejsou aplikovány žádné dodatečné kontroly." %}
+      <p>{% translate "Administrátor má právo na Administrační sekci a export nebo import dat. Každou datovou tabulku včetně uživatelů je možno plně zpravovat v" %} <a href="{% url 'admin:index' %}kitchen">{% translate "administraci" %}</a> {% translate "a nejsou aplikovány žádné dodatečné kontroly." %}
       {% translate "Není doporučeno měnit sekce" %} <a href="{% url 'admin:index' %}auth">{% translate "Autentizace a autorizace" %}</a>, <a href="{% url 'admin:index' %}sites">{% translate "Weby" %}</a>,
       <a href="{% url 'admin:index' %}account">{% translate "Účty" %}</a> {% translate "a" %} <a href="{% url 'admin:index' %}socialaccount">{% translate "Účty sociálních sítí" %}</a>.</p>
       <p>{% translate "Export nebo import dat obsahuje všechna data KiCoMa kromě seznamu uživatelů a skupin. Ty je nutno v nové aplikaci nastavit programově." %}</p>

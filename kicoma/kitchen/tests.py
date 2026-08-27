@@ -7,6 +7,7 @@ from django.test import SimpleTestCase, TestCase
 from django.test.client import Client
 from django.urls import resolve, reverse
 
+from kicoma.kitchen.forms import ArticleForm
 from kicoma.kitchen.models import (
     UNIT,
     VAT,
@@ -21,6 +22,72 @@ from kicoma.kitchen.models import (
 from kicoma.kitchen.views import ArticleCreateView
 
 
+class ArticleFormRoleTests(TestCase):
+    common_fields = {"article", "unit", "comment", "allergen"}
+    stock_fields = {"on_stock", "min_on_stock", "total_price"}
+    nutrition_fields = {
+        "energy",
+        "protein",
+        "fat",
+        "carbohydrates",
+        "sugars",
+        "fiber",
+    }
+
+    def create_user(self, group_name):
+        user = get_user_model().objects.create_user(
+            username=group_name,
+            password="password",
+        )
+        user.groups.add(Group.objects.create(name=group_name))
+        return user
+
+    def test_stockkeeper_can_edit_only_stock_and_common_fields(self):
+        form = ArticleForm(user=self.create_user("stockkeeper"))
+
+        self.assertEqual(set(form.fields), self.common_fields | self.stock_fields)
+        for field_name in self.stock_fields:
+            self.assertNotIn("readonly", form.fields[field_name].widget.attrs)
+
+    def test_nutrition_advisor_can_edit_only_nutrition_and_common_fields(self):
+        article = Article.objects.create(
+            article="Nutrition article",
+            unit=UNIT[0][0],
+            on_stock=10,
+            min_on_stock=2,
+            total_price=100,
+        )
+        form = ArticleForm(
+            data={
+                "article": article.article,
+                "unit": article.unit,
+                "on_stock": 999,
+                "min_on_stock": 999,
+                "total_price": 999,
+                "energy": 1234,
+                "protein": "12.3",
+                "fat": "4.5",
+                "carbohydrates": "67.8",
+                "sugars": "9.1",
+                "fiber": "2.3",
+                "comment": "Nutrition updated",
+            },
+            instance=article,
+            user=self.create_user("nutrition_advisor"),
+        )
+
+        self.assertEqual(
+            set(form.fields), self.common_fields | self.nutrition_fields
+        )
+        self.assertTrue(form.is_valid(), form.errors)
+        form.save()
+        article.refresh_from_db()
+        self.assertEqual(article.on_stock, Decimal("10"))
+        self.assertEqual(article.min_on_stock, Decimal("2"))
+        self.assertEqual(article.total_price, Decimal("100"))
+        self.assertEqual(article.energy, 1234)
+
+
 class TestUrl(SimpleTestCase):
     def test_article_create_view_is_resolved(self):
         url = reverse("kitchen:createArticle")
@@ -29,10 +96,8 @@ class TestUrl(SimpleTestCase):
 
 class ViewTests(TestCase):
     def addGroup(self, user_name, group_name):
-        self.group = Group(name=group_name)
-        self.group.save()
-        user_name.groups.add(self.group)
-        user_name.save()
+        group, _ = Group.objects.get_or_create(name=group_name)
+        user_name.groups.add(group)
 
     def setUp(self):
         user = get_user_model()
@@ -41,16 +106,11 @@ class ViewTests(TestCase):
             "john", "lennon@thebeatles.com", "password"
         )
         self.addGroup(self.user, "cook")
-        self.addGroup(self.user, "chef")
+        self.addGroup(self.user, "nutrition_advisor")
         self.addGroup(self.user, "stockkeeper")
-
-    def tearDown(self):
-        self.user.delete()
-        self.group.delete()
 
     private_urls = [
         "/kitchen/article/list",
-        "/kitchen/article/restrictedlist",
         "/kitchen/article/listlack",
         "/kitchen/article/create",
         # "/kitchen/article/update/<int:pk>",
@@ -124,6 +184,35 @@ class ViewTests(TestCase):
             response = self.client.get(url)
             self.assertEqual(response.status_code, 200)
 
+    def test_docs_lists_users_in_each_role(self):
+        self.user.is_superuser = True
+        self.user.save()
+
+        response = self.client.get(reverse("kitchen:docs"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content.decode().count("john<br />"), 4)
+
+    def test_superuser_sees_admin_menu_items(self):
+        self.user.is_superuser = True
+        self.user.is_staff = True
+        self.user.save()
+        self.client.login(username="john", password="password")
+
+        response = self.client.get(reverse("kitchen:about"))
+
+        self.assertContains(response, reverse("admin:index"))
+        self.assertContains(response, reverse("kitchen:export"))
+        self.assertContains(response, reverse("kitchen:import"))
+        self.assertContains(response, reverse("kitchen:data_cleanup"))
+
+    def test_non_superuser_cannot_access_admin_data_views(self):
+        self.client.login(username="john", password="password")
+
+        for url_name in ("export", "import", "data_cleanup"):
+            response = self.client.get(reverse(f"kitchen:{url_name}"))
+            self.assertEqual(response.status_code, 403)
+
     def article_test(self, test_url):
         self.client.login(username="john", password="password")
         article = Article.objects.create(
@@ -141,8 +230,6 @@ class ViewTests(TestCase):
 
     def test_article_read_views(self):
         self.article_test("kitchen:showArticles")
-        self.article_test("kitchen:showRestrictedArticles")
-        self.article_test("kitchen:showRestrictedArticles")
         # self.article_test("kitchen:printArticles")
 
     def test_update_article(self):
@@ -195,8 +282,8 @@ class ViewTests(TestCase):
         self.assertEqual(article.sugars, Decimal("9.1"))
         self.assertEqual(article.fiber, Decimal("2.3"))
 
-    def test_non_chef_cannot_view_or_update_article_nutrition(self):
-        self.user.groups.remove(Group.objects.get(name="chef"))
+    def test_non_nutrition_advisor_cannot_view_or_update_article_nutrition(self):
+        self.user.groups.remove(Group.objects.get(name="nutrition_advisor"))
         self.client.login(username="john", password="password")
         article = Article.objects.create(
             article="Restricted nutrition",

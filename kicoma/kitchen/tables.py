@@ -45,15 +45,30 @@ class ArticleTable(tables.Table):
     )
     change = tables.Column(empty_values=(), verbose_name=_("Akce"))
 
+    @staticmethod
+    def is_stockkeeper(user):
+        return user.groups.filter(name="stockkeeper").exists()
+
+    def before_render(self, request):
+        if not self.is_stockkeeper(request.user):
+            self.columns.hide("total_price")
+
     def render_change(self, record):
         edit_url = reverse("kitchen:updateArticle", args=[record.id])
-        history_url = reverse("kitchen:showArticleHistory", args=[record.id])
-        delete_url = reverse("kitchen:deleteArticle", args=[record.id])
-        return mark_safe(
-            f'<a href="{edit_url}">{LABEL_EDIT}</a> | '
-            f'<a href="{history_url}">{LABEL_HISTORY}</a> | '
-            f'<a href="{delete_url}">{LABEL_DELETE}</a>'
-        )
+        links = [f'<a href="{edit_url}">{LABEL_EDIT}</a>']
+
+        user = getattr(self, "request", None).user if hasattr(self, "request") else None
+        if user and self.is_stockkeeper(user):
+            history_url = reverse("kitchen:showArticleHistory", args=[record.id])
+            delete_url = reverse("kitchen:deleteArticle", args=[record.id])
+            links.extend(
+                [
+                    f'<a href="{history_url}">{LABEL_HISTORY}</a>',
+                    f'<a href="{delete_url}">{LABEL_DELETE}</a>',
+                ]
+            )
+
+        return mark_safe(" | ".join(links))
 
     class Meta:
         model = Article
@@ -85,40 +100,6 @@ class ArticleTable(tables.Table):
     @staticmethod
     def render_min_on_stock(value, record):
         return f"{value} {record.unit}"
-
-
-class ArticleRestrictedTable(tables.Table):
-    allergen = tables.TemplateColumn(
-        """{{record.display_allergens}}""", verbose_name=_("Alergeny")
-    )
-    average_price = tables.Column(verbose_name=_("Průměrná jednotková cena s DPH"))
-    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
-
-    def render_change(self, record):
-        edit_url = reverse("kitchen:restrictedupdateArticle", args=[record.id])
-        return mark_safe(f'<a href="{edit_url}">{LABEL_EDIT}</a>')
-
-    class Meta:
-        model = Article
-        template_name = "django_tables2/bootstrap5.html"
-        attrs = table_attributes
-        fields = (
-            "article",
-            "unit",
-            "min_on_stock",
-            "allergen",
-            "average_price",
-            "comment",
-            "change",
-        )
-
-    @staticmethod
-    def render_min_on_stock(value, record):
-        return f"{value} {record.unit}"
-
-    @staticmethod
-    def render_average_price(value, record):
-        return f"{intcomma(value)} {get_currency()} / {record.unit}"
 
 
 class ArticleFilter(FilterSet):

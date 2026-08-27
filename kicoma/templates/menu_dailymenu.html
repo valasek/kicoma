@@ -1,6 +1,6 @@
 {% load static i18n %} {% load auth_extras %}
 
-{% if request.user|has_group:"cook" %}
+{% if request.user|has_group:"cook" or request.user|has_group:"nutrition_advisor" %}
 <li class="nav-item dropdown">
   <a
     class="nav-link active dropdown-toggle"
