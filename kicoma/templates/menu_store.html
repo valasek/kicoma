@@ -54,7 +54,7 @@
     </a>
     <hr />
     {% endif %}
-    {% if request.user|has_group:"cook" %}
+    {% if request.user|has_group:"cook" or request.user|has_group:"stockkeeper"%}
     <a
       class="dropdown-item"
       href="{% url 'kitchen:showStockIssues' %}"
