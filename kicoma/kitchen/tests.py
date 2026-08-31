@@ -193,6 +193,47 @@ class ViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content.decode().count("john<br />"), 4)
 
+    def test_docs_links_follow_menu_role_visibility(self):
+        role_links = {
+            "stockkeeper": {
+                "showArticles",
+                "showStockReceipts",
+                "createStockIssueFromDailyMenu",
+                "showStockIssues",
+            },
+            "cook": {
+                "createStockIssueFromDailyMenu",
+                "showStockIssues",
+                "showRecipes",
+                "showDailyMenus",
+            },
+            "nutrition_advisor": {
+                "showArticles",
+                "showRecipes",
+                "showDailyMenus",
+            },
+        }
+        all_links = set().union(*role_links.values())
+        self.client.force_login(self.user)
+
+        for role, allowed_links in role_links.items():
+            with self.subTest(role=role):
+                self.user.groups.clear()
+                self.addGroup(self.user, role)
+                response = self.client.get(reverse("kitchen:docs"))
+                content = response.content.decode()
+
+                for url_name in all_links:
+                    link = f'href="{reverse(f"kitchen:{url_name}")}"'
+                    expected_count = 2 if url_name in allowed_links else 0
+                    self.assertEqual(content.count(link), expected_count)
+
+                self.assertNotContains(
+                    response,
+                    f'href="{reverse("admin:index")}kitchen/article"',
+                    html=True,
+                )
+
     def test_superuser_sees_admin_menu_items(self):
         self.user.is_superuser = True
         self.user.is_staff = True

@@ -1,6 +1,6 @@
 {% load static i18n %} {% load auth_extras %}
 
-            {% if request.user|has_group:"stockkeeper" or request.user|has_group:"cook" %}
+            {% if request.user|has_any_group:"stockkeeper,cook" %}
             <li class="nav-item dropdown">
               <a
                 class="nav-link active dropdown-toggle"
@@ -38,7 +38,7 @@
                   </svg>&nbsp;&nbsp;
                   {% translate "Stav zboží na skladu k vybranému dni" %}
                 </a>
-                {% if request.user|has_group:"stockkeeper" %}
+                {% if request.user|has_any_group:"stockkeeper" %}
                 <a
                   class="dropdown-item"
                   href="{% url 'kitchen:exportArticles' %}"

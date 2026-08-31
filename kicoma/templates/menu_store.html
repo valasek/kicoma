@@ -1,6 +1,6 @@
 {% load static i18n %} {% load auth_extras %}
 
-{% if request.user|has_group:"stockkeeper" or request.user|has_group:"cook" or request.user|has_group:"nutrition_advisor" %}
+{% if request.user|has_any_group:"stockkeeper,cook,nutrition_advisor" %}
 <li class="nav-item dropdown">
   <a
     class="nav-link active dropdown-toggle"
@@ -19,7 +19,7 @@
     class="dropdown-menu"
     aria-labelledby="navbarDropdownMenuLink"
   >
-    {% if request.user|has_group:"stockkeeper" or request.user|has_group:"nutrition_advisor" %}
+    {% if request.user|has_any_group:"stockkeeper,nutrition_advisor" %}
     <a
       class="dropdown-item"
       href="{% url 'kitchen:showArticles' %}"
@@ -31,7 +31,7 @@
       {% translate "Seznam zboží na skladu" %}
     </a>
     {% endif %}
-    {% if request.user|has_group:"stockkeeper" %}
+    {% if request.user|has_any_group:"stockkeeper" %}
     <a
       class="dropdown-item"
       href="{% url 'kitchen:showLackArticles' %}"
@@ -54,7 +54,7 @@
     </a>
     <hr />
     {% endif %}
-    {% if request.user|has_group:"cook" or request.user|has_group:"stockkeeper"%}
+    {% if request.user|has_any_group:"cook,stockkeeper" %}
     <a
       class="dropdown-item"
       href="{% url 'kitchen:showStockIssues' %}"
@@ -88,7 +88,7 @@
         {% translate "Nová výdejka z denního menu" %}
       </a>
     {% endif %}
-    {% if request.user|has_group:"stockkeeper" %}
+    {% if request.user|has_any_group:"stockkeeper" %}
     <hr />
     <a
       class="dropdown-item"
