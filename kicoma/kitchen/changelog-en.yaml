@@ -1,4 +1,7 @@
 2026:
+  - date: 2026-09-01
+    items:
+      - "SECURITY: All application functions are now accessible according to user groups."
   - date: 2026-08-27
     items:
       - "Adds nutritional information to articles and displays it in the recipe. Can be edited by users with the \"Nutrition advisor\" role."

@@ -16,5 +16,6 @@ repos:
         entry: flake8
         language: python
         types: [python]
+        additional_dependencies: ['flake8']
         args: ['--config=setup.cfg']
 

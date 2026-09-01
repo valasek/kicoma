@@ -3,11 +3,14 @@ from decimal import Decimal
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
+from django.db import connection
 from django.test import SimpleTestCase, TestCase
 from django.test.client import Client
+from django.test.utils import CaptureQueriesContext
 from django.urls import resolve, reverse
 
 from kicoma.kitchen.forms import ArticleForm
+from kicoma.kitchen.permissions import user_has_any_role
 from kicoma.kitchen.models import (
     UNIT,
     VAT,
@@ -92,6 +95,68 @@ class TestUrl(SimpleTestCase):
     def test_article_create_view_is_resolved(self):
         url = reverse("kitchen:createArticle")
         self.assertEqual(resolve(url).func.view_class, ArticleCreateView)
+
+
+class RolePermissionTests(TestCase):
+    role_urls = {
+        "/kitchen/stockreceipt/list": ("stockkeeper",),
+        "/kitchen/stockissue/list": ("cook", "stockkeeper"),
+        "/kitchen/article/list": ("stockkeeper", "nutrition_advisor"),
+        "/kitchen/recipe/list": ("cook", "nutrition_advisor"),
+        "/kitchen/dailymenu/list": ("cook", "nutrition_advisor"),
+    }
+
+    def make_user(self, username, roles=()):
+        user = get_user_model().objects.create_user(
+            username, f"{username}@example.com", "password"
+        )
+        for role in roles:
+            group, _ = Group.objects.get_or_create(name=role)
+            user.groups.add(group)
+        return user
+
+    def test_signed_in_user_without_any_role_is_denied(self):
+        self.client.force_login(self.make_user("norole"))
+
+        for url in self.role_urls:
+            with self.subTest(url=url):
+                self.assertEqual(self.client.get(url).status_code, 403)
+
+    def test_each_role_reaches_only_its_own_urls(self):
+        for role in ("cook", "stockkeeper", "nutrition_advisor"):
+            self.client.force_login(self.make_user(f"user_{role}", (role,)))
+            for url, allowed_roles in self.role_urls.items():
+                with self.subTest(role=role, url=url):
+                    expected = 200 if role in allowed_roles else 403
+                    self.assertEqual(self.client.get(url).status_code, expected)
+
+    def test_anonymous_user_is_redirected_to_login(self):
+        response = self.client.get("/kitchen/article/list")
+
+        self.assertEqual(response.status_code, 302)
+
+    def test_superuser_without_roles_has_access(self):
+        user = self.make_user("root")
+        user.is_superuser = True
+        user.save()
+        self.client.force_login(user)
+
+        for url in self.role_urls:
+            with self.subTest(url=url):
+                self.assertEqual(self.client.get(url).status_code, 200)
+
+    def test_unknown_role_name_raises_instead_of_hiding_silently(self):
+        with self.assertRaises(ValueError):
+            user_has_any_role(self.make_user("typo"), "stockkeper")
+
+    def test_role_lookup_is_cached_per_user_instance(self):
+        user = self.make_user("cached", ("cook",))
+
+        with CaptureQueriesContext(connection) as ctx:
+            for _unused in range(5):
+                user_has_any_role(user, "cook,stockkeeper")
+
+        self.assertEqual(len(ctx.captured_queries), 1)
 
 
 class ViewTests(TestCase):
@@ -223,10 +288,13 @@ class ViewTests(TestCase):
                 response = self.client.get(reverse("kitchen:docs"))
                 content = response.content.decode()
 
+                handbook = content.split('<div class="container-fluid">', 1)[1]
                 for url_name in all_links:
                     link = f'href="{reverse(f"kitchen:{url_name}")}"'
-                    expected_count = 2 if url_name in allowed_links else 0
-                    self.assertEqual(content.count(link), expected_count)
+                    if url_name in allowed_links:
+                        self.assertIn(link, handbook)
+                    else:
+                        self.assertNotIn(link, handbook)
 
                 self.assertNotContains(
                     response,

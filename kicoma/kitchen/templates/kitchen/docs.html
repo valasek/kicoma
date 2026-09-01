@@ -8,25 +8,39 @@
 <div class="container-fluid">
   <div class="row">
   <div class="col-sm-7">
+    {% url 'admin:index' as admin_index %}
     <h5>{% translate "Správa zboží" %}</h5>
-    <p>{% translate "Zboží je možné vytvořit nebo upravit v menu" %} {% if request.user|has_any_group:"stockkeeper,nutrition_advisor" %}<a href="{% url 'kitchen:showArticles' %}">{% translate "Zboží na skladu" %}</a>{% else %}{% translate "Zboží na skladu" %}{% endif %}. {% translate "Vymazat se dá v" %} {% if request.user.is_superuser %}<a href="{% url 'admin:index' %}kitchen/article">{% translate "administraci" %}</a>{% else %}{% translate "administraci" %}{% endif %}.
+    {% translate "Zboží na skladu" as label_articles %}
+    {% translate "administraci" as label_admin %}
+    {% url 'kitchen:showArticles' as url_articles %}
+    <p>{% translate "Zboží je možné vytvořit nebo upravit v menu" %} {% role_link url_articles label_articles "stockkeeper,nutrition_advisor" %}. {% translate "Vymazat se dá v" %} {% superuser_link admin_index|add:"kitchen/article" label_admin %}.
     {% translate "Výše zásob na skladu nebo cena zboží se mění pomocí příjemky/výdejky." %}
     </p>
     <h5>{% translate "Příjem zboží na sklad" %}</h5>
-    <p>{% translate "Příjem zboží na sklad probíhá pomocí" %} {% if request.user|has_any_group:"stockkeeper" %}<a href="{% url 'kitchen:showStockReceipts' %}">{% translate "příjemek" %}</a>{% else %}{% translate "příjemek" %}{% endif %} {% translate "uživatelem ve skupine 'Skladník'." %}
+    {% translate "příjemek" as label_receipts %}
+    {% url 'kitchen:showStockReceipts' as url_receipts %}
+    <p>{% translate "Příjem zboží na sklad probíhá pomocí" %} {% role_link url_receipts label_receipts "stockkeeper" %} {% translate "uživatelem ve skupine 'Skladník'." %}
     {% translate "Před příjmem musí být zboží na skladu založeno. Výše zásob a cena zboží je aktualizována jenom když je příjemka schválená." %}
     {% translate "Úprava zboží a vyskladnění již naskladněné přijemky není možná." %}</p>
     <h5>{% translate "Inventura" %}</h5>
     <p>{% translate "Program umožňuje PDF export úplného seznamu zboží pro kontrolu skladových zásob a pak možnost exportu skladu ve formátu MS Excel s následným importem." %}</p>
     <h5>{% translate "Výdej zboží ze skladu" %}</h5>
-    <p>{% translate "Výdejku je možno vytvořit manuálně nebo ji" %} {% if request.user|has_any_group:"cook,stockkeeper" %}<a href="{% url 'kitchen:createStockIssueFromDailyMenu' %}">{% translate "založit dle všech denních menu pro zadaný den" %}</a>{% else %}{% translate "založit dle všech denních menu pro zadaný den" %}{% endif %}.<br />
+    {% translate "založit dle všech denních menu pro zadaný den" as label_issue_from_menu %}
+    {% translate "výdejek" as label_issues %}
+    {% url 'kitchen:createStockIssueFromDailyMenu' as url_issue_from_menu %}
+    {% url 'kitchen:showStockIssues' as url_issues %}
+    <p>{% translate "Výdejku je možno vytvořit manuálně nebo ji" %} {% role_link url_issue_from_menu label_issue_from_menu "cook,stockkeeper" %}.<br />
     {% translate "Když se denní menu změní, je možno Výdejku 'Aktualizovat' a tím se vymaže všechno zboží a znovu se vytvoří ve výdejce dle zadaného dne." %}
-    {% translate "Příjem zboží na sklad probíhá pomocí" %} {% if request.user|has_any_group:"cook,stockkeeper" %}<a href="{% url 'kitchen:showStockIssues' %}">{% translate "výdejek" %}</a>{% else %}{% translate "výdejek" %}{% endif %} {% translate "uživatelem ve skupine 'Skladník'." %}
+    {% translate "Příjem zboží na sklad probíhá pomocí" %} {% role_link url_issues label_issues "cook,stockkeeper" %} {% translate "uživatelem ve skupine 'Skladník'." %}
     {% translate "Před výdejem musí být zboží v minimálně vyskladňované výši naskladněno. Výše zásob a cena zboží je aktualizována jenom když je výdejka schválená." %}</p>
     <h5>{% translate "Správa receptů" %}</h5>
-    <p>{% translate "Recepty a ingredience v receptech je možné vytvořit, upravit nebo vymazat v menu" %} {% if request.user|has_any_group:"cook,nutrition_advisor" %}<a href="{% url 'kitchen:showRecipes' %}">{% translate "Seznam receptů" %}</a>{% else %}{% translate "Seznam receptů" %}{% endif %}.</p>
+    {% translate "Seznam receptů" as label_recipes %}
+    {% url 'kitchen:showRecipes' as url_recipes %}
+    <p>{% translate "Recepty a ingredience v receptech je možné vytvořit, upravit nebo vymazat v menu" %} {% role_link url_recipes label_recipes "cook,nutrition_advisor" %}.</p>
     <h5>{% translate "Správa denního menu" %}</h5>
-    <p>{% translate "Denní menu a související recepty je možné vytvořit, upravit nebo vymazat v menu" %} {% if request.user|has_any_group:"cook,nutrition_advisor" %}<a href="{% url 'kitchen:showDailyMenus' %}">{% translate "Sestavit denní menu" %}</a>{% else %}{% translate "Sestavit denní menu" %}{% endif %}.</p>
+    {% translate "Sestavit denní menu" as label_daily_menus %}
+    {% url 'kitchen:showDailyMenus' as url_daily_menus %}
+    <p>{% translate "Denní menu a související recepty je možné vytvořit, upravit nebo vymazat v menu" %} {% role_link url_daily_menus label_daily_menus "cook,nutrition_advisor" %}.</p>
     <h5>{% translate "Vyživové údaje" %}</h5>
     <p>{% translate "Vyživové údaje jsou spravované na skladové kartě. Zobrazené jsou v rámci receptu pro každou ingredienci a sumárně pro celý recept." %}</p>
     <h5>{% translate "Reporty a tisky" %}</h5>

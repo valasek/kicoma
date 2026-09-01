@@ -10,7 +10,7 @@ from dateutil import relativedelta
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import ContentType, Group, Permission
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core import management
@@ -80,6 +80,13 @@ from .models import (
     StockIssueArticle,
     StockReceipt,
     StockReceiptArticle,
+)
+from .permissions import (
+    AnyRoleRequiredMixin,
+    CookOrNutritionAdvisorRequiredMixin,
+    CookOrStockkeeperRequiredMixin,
+    StockkeeperOrNutritionAdvisorRequiredMixin,
+    StockkeeperRequiredMixin,
 )
 from .tables import (
     ArticleFilter,
@@ -431,7 +438,9 @@ def switch_language(request):
         return HttpResponseBadRequest("Invalid request method.")
 
 
-class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+class ArticleListView(
+    SingleTableMixin, StockkeeperOrNutritionAdvisorRequiredMixin, FilterView
+):
     model = Article
     table_class = ArticleTable
     template_name = "kitchen/article/list.html"
@@ -458,7 +467,7 @@ class ArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         return context
 
 
-class ArticleLackListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+class ArticleLackListView(SingleTableMixin, StockkeeperRequiredMixin, FilterView):
     model = Article
     table_class = ArticleTable
     template_name = "kitchen/article/listlack.html"
@@ -485,7 +494,7 @@ class ArticleLackListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         )
 
 
-class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class ArticleCreateView(SuccessMessageMixin, StockkeeperRequiredMixin, CreateView):
     model = Article
     form_class = ArticleForm
     template_name = "kitchen/article/create.html"
@@ -500,7 +509,9 @@ class ArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         return kwargs
 
 
-class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class ArticleUpdateView(
+    SuccessMessageMixin, StockkeeperOrNutritionAdvisorRequiredMixin, UpdateView
+):
     model = Article
     form_class = ArticleForm
     template_name = "kitchen/article/update.html"
@@ -513,7 +524,7 @@ class ArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         return kwargs
 
 
-class ArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class ArticleDeleteView(SuccessMessageMixin, StockkeeperRequiredMixin, DeleteView):
     model = Article
     template_name = "kitchen/article/delete.html"
     success_message = _("Skladová karta byla odstraněna")
@@ -530,7 +541,7 @@ class ArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
         return super().form_valid(form)
 
 
-class ArticlePDFView(LoginRequiredMixin, TemplateView):
+class ArticlePDFView(StockkeeperOrNutritionAdvisorRequiredMixin, TemplateView):
     template_name = "kitchen/article/pdf.html"
 
     def get_context_data(self, **kwargs):
@@ -545,7 +556,7 @@ class ArticlePDFView(LoginRequiredMixin, TemplateView):
         return response
 
 
-class ArticleExportView(LoginRequiredMixin, View):
+class ArticleExportView(StockkeeperRequiredMixin, View):
     def get(self, *args, **kwargs):
         data = ArticleResource().export()
         filename = _("seznam-zbozi.xlsx")
@@ -558,7 +569,7 @@ class ArticleExportView(LoginRequiredMixin, View):
         return response
 
 
-class ArticleImportView(LoginRequiredMixin, TemplateView):
+class ArticleImportView(StockkeeperRequiredMixin, TemplateView):
     template_name = "kitchen/article/import.html"
 
     def post(self, request, **kwargs):
@@ -607,7 +618,7 @@ class ArticleImportView(LoginRequiredMixin, TemplateView):
         return super().render_to_response(context)
 
 
-class ArticleHistoryDetailView(LoginRequiredMixin, DetailView):
+class ArticleHistoryDetailView(StockkeeperOrNutritionAdvisorRequiredMixin, DetailView):
     model = Article
     template_name = "kitchen/article/listhistory.html"
 
@@ -618,7 +629,7 @@ class ArticleHistoryDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-class StockTakePDFView(LoginRequiredMixin, TemplateView):
+class StockTakePDFView(CookOrStockkeeperRequiredMixin, TemplateView):
     template_name = "kitchen/stocktake/pdf.html"
 
     def get_context_data(self, **kwargs):
@@ -632,7 +643,7 @@ class StockTakePDFView(LoginRequiredMixin, TemplateView):
         return response
 
 
-class ArticleExportInSelectedDaysFilter(LoginRequiredMixin, FormView):
+class ArticleExportInSelectedDaysFilter(CookOrStockkeeperRequiredMixin, FormView):
     template_name = "kitchen/stocktake/selecteddayfilter.html"
     form_class = StockArticlesExportForm
 
@@ -713,7 +724,7 @@ class ArticleExportInSelectedDaysFilter(LoginRequiredMixin, FormView):
         return response
 
 
-class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+class RecipeListView(SingleTableMixin, CookOrNutritionAdvisorRequiredMixin, FilterView):
     model = Recipe
     table_class = RecipeTable
     template_name = "kitchen/recipe/list.html"
@@ -742,7 +753,9 @@ class RecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         return super().get_queryset().prefetch_related(recipe_articles_prefetch)
 
 
-class RecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class RecipeCreateView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, CreateView
+):
     model = Recipe
     form_class = RecipeForm
     template_name = "kitchen/recipe/create.html"
@@ -752,7 +765,9 @@ class RecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         return reverse_lazy("kitchen:showRecipeArticles", kwargs={"pk": self.object.id})
 
 
-class RecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class RecipeUpdateView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, UpdateView
+):
     model = Recipe
     form_class = RecipeForm
     template_name = "kitchen/recipe/update.html"
@@ -760,7 +775,9 @@ class RecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("kitchen:showRecipes")
 
 
-class RecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class RecipeDeleteView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, DeleteView
+):
     model = Recipe
     template_name = "kitchen/recipe/delete.html"
     success_message = _("Recept byl odstraněn")
@@ -770,7 +787,7 @@ class RecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
         return super().form_valid(form)
 
 
-class RecipeListPDFView(LoginRequiredMixin, TemplateView):
+class RecipeListPDFView(CookOrNutritionAdvisorRequiredMixin, TemplateView):
     template_name = "kitchen/recipe/pdf_list.html"
 
     def get_context_data(self, **kwargs):
@@ -785,7 +802,7 @@ class RecipeListPDFView(LoginRequiredMixin, TemplateView):
         return response
 
 
-class RecipePDFView(LoginRequiredMixin, TemplateView):
+class RecipePDFView(CookOrNutritionAdvisorRequiredMixin, TemplateView):
     template_name = "kitchen/recipe/pdf.html"
 
     def get_context_data(self, **kwargs):
@@ -803,7 +820,9 @@ class RecipePDFView(LoginRequiredMixin, TemplateView):
         return response
 
 
-class RecipeArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+class RecipeArticleListView(
+    SingleTableMixin, CookOrNutritionAdvisorRequiredMixin, FilterView
+):
     model = RecipeArticle
     table_class = RecipeArticleTable
     template_name = "kitchen/recipe/listarticles.html"
@@ -855,7 +874,9 @@ class RecipeArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         )
 
 
-class RecipeArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class RecipeArticleCreateView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, CreateView
+):
     model = RecipeArticle
     form_class = RecipeArticleForm
     template_name = "kitchen/recipe/createarticle.html"
@@ -888,7 +909,9 @@ class RecipeArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateVie
         return super().form_valid(form)
 
 
-class RecipeArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class RecipeArticleUpdateView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, UpdateView
+):
     model = RecipeArticle
     form_class = RecipeArticleForm
     template_name = "kitchen/recipe/updatearticle.html"
@@ -923,7 +946,9 @@ class RecipeArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateVie
         return super().form_valid(form)
 
 
-class RecipeArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class RecipeArticleDeleteView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, DeleteView
+):
     model = RecipeArticle
     template_name = "kitchen/recipe/deletearticle.html"
     success_message = _("Zboží bylo odstraněno")
@@ -945,7 +970,9 @@ class RecipeArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteVie
         return super().form_valid(form)
 
 
-class DailyMenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+class DailyMenuListView(
+    SingleTableMixin, CookOrNutritionAdvisorRequiredMixin, FilterView
+):
     model = DailyMenu
     table_class = DailyMenuTable
     template_name = "kitchen/dailymenu/list.html"
@@ -962,7 +989,9 @@ class DailyMenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         )
 
 
-class DailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class DailyMenuCreateView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, CreateView
+):
     model = DailyMenu
     form_class = DailyMenuCreateForm
     template_name = "kitchen/dailymenu/create.html"
@@ -993,7 +1022,9 @@ class DailyMenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         return response
 
 
-class DailyMenuUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class DailyMenuUpdateView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, UpdateView
+):
     model = DailyMenu
     form_class = DailyMenuEditForm
     template_name = "kitchen/dailymenu/update.html"
@@ -1009,7 +1040,9 @@ class DailyMenuUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         return self.success_message % {"formatted_date": formatted_date}
 
 
-class DailyMenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class DailyMenuDeleteView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, DeleteView
+):
     model = DailyMenu
     template_name = "kitchen/dailymenu/delete.html"
     success_message = "Denní menu bylo odstraněno"
@@ -1019,7 +1052,7 @@ class DailyMenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
         return super().form_valid(form)
 
 
-class DailyMenuPDFView(LoginRequiredMixin, TemplateView):
+class DailyMenuPDFView(CookOrNutritionAdvisorRequiredMixin, TemplateView):
     template_name = "kitchen/dailymenu/pdf.html"
 
     def get_context_data(self, **kwargs):
@@ -1059,13 +1092,13 @@ class DailyMenuPDFView(LoginRequiredMixin, TemplateView):
         return response
 
 
-class DailyMenuPrintView(LoginRequiredMixin, CreateView):
+class DailyMenuPrintView(CookOrNutritionAdvisorRequiredMixin, CreateView):
     model = DailyMenu
     form_class = DailyMenuPrintForm
     template_name = "kitchen/dailymenu/print.html"
 
 
-class MenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+class MenuListView(SingleTableMixin, CookOrNutritionAdvisorRequiredMixin, FilterView):
     model = Menu
     table_class = MenuTable
     template_name = "kitchen/menu/list.html"
@@ -1081,7 +1114,9 @@ class MenuListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         )
 
 
-class MenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class MenuCreateView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, CreateView
+):
     model = Menu
     form_class = MenuForm
     template_name = "kitchen/menu/create.html"
@@ -1091,7 +1126,9 @@ class MenuCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         return reverse_lazy("kitchen:showMenuRecipes", kwargs={"pk": self.object.id})
 
 
-class MenuUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class MenuUpdateView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, UpdateView
+):
     model = Menu
     form_class = MenuForm
     template_name = "kitchen/menu/update.html"
@@ -1099,7 +1136,9 @@ class MenuUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("kitchen:showMenus")
 
 
-class MenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class MenuDeleteView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, DeleteView
+):
     model = Menu
     template_name = "kitchen/menu/delete.html"
     success_message = _("Menu bylo odstraněno")
@@ -1109,7 +1148,9 @@ class MenuDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
         return super().form_valid(form)
 
 
-class MenuRecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+class MenuRecipeListView(
+    SingleTableMixin, CookOrNutritionAdvisorRequiredMixin, FilterView
+):
     model = MenuRecipe
     table_class = MenuRecipeTable
     template_name = "kitchen/menu/listrecipe.html"
@@ -1125,7 +1166,9 @@ class MenuRecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         return super().get_queryset().filter(menu=self.kwargs["pk"])
 
 
-class MenuRecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class MenuRecipeCreateView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, CreateView
+):
     model = MenuRecipe
     form_class = MenuRecipeForm
     template_name = "kitchen/menu/createrecipe.html"
@@ -1150,7 +1193,9 @@ class MenuRecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class MenuRecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class MenuRecipeUpdateView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, UpdateView
+):
     model = MenuRecipe
     form_class = MenuRecipeForm
     template_name = "kitchen/menu/updaterecipe.html"
@@ -1174,7 +1219,9 @@ class MenuRecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class MenuRecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class MenuRecipeDeleteView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, DeleteView
+):
     model = MenuRecipe
     template_name = "kitchen/menu/deleterecipe.html"
     success_message = _("Recept byl z menu odstraněn")
@@ -1196,7 +1243,9 @@ class MenuRecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
         return super().form_valid(form)
 
 
-class DailyMenuRecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+class DailyMenuRecipeListView(
+    SingleTableMixin, CookOrNutritionAdvisorRequiredMixin, FilterView
+):
     model = DailyMenuRecipe
     table_class = DailyMenuRecipeTable
     template_name = "kitchen/dailymenu/listrecipe.html"
@@ -1212,7 +1261,9 @@ class DailyMenuRecipeListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         return super().get_queryset().filter(daily_menu=self.kwargs["pk"])
 
 
-class DailyMenuRecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class DailyMenuRecipeCreateView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, CreateView
+):
     model = DailyMenuRecipe
     form_class = DailyMenuRecipeForm
     template_name = "kitchen/dailymenu/createrecipe.html"
@@ -1237,7 +1288,9 @@ class DailyMenuRecipeCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateV
         return super().form_valid(form)
 
 
-class DailyMenuRecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class DailyMenuRecipeUpdateView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, UpdateView
+):
     model = DailyMenuRecipe
     form_class = DailyMenuRecipeForm
     template_name = "kitchen/dailymenu/updaterecipe.html"
@@ -1265,7 +1318,9 @@ class DailyMenuRecipeUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateV
         return super().form_valid(form)
 
 
-class DailyMenuRecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class DailyMenuRecipeDeleteView(
+    SuccessMessageMixin, CookOrNutritionAdvisorRequiredMixin, DeleteView
+):
     model = DailyMenuRecipe
     template_name = "kitchen/dailymenu/deleterecipe.html"
     success_message = _("Recept byl odstraněn")
@@ -1289,7 +1344,9 @@ class DailyMenuRecipeDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteV
         return super().form_valid(form)
 
 
-class StockIssueListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+class StockIssueListView(
+    SingleTableMixin, CookOrStockkeeperRequiredMixin, FilterView
+):
     model = StockIssue
     table_class = StockIssueTable
     template_name = "kitchen/stockissue/list.html"
@@ -1301,7 +1358,9 @@ class StockIssueListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         return super().get_queryset().select_related("user_created", "user_approved")
 
 
-class StockIssueCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class StockIssueCreateView(
+    SuccessMessageMixin, CookOrStockkeeperRequiredMixin, CreateView
+):
     model = StockIssue
     form_class = StockIssueForm
     template_name = "kitchen/stockissue/create.html"
@@ -1319,7 +1378,7 @@ class StockIssueCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
 
 
 class StockIssueFromDailyMenuCreateView(
-    SuccessMessageMixin, LoginRequiredMixin, CreateView
+    SuccessMessageMixin, CookOrStockkeeperRequiredMixin, CreateView
 ):
     model = StockIssue
     form_class = StockIssueFromDailyMenuForm
@@ -1347,7 +1406,9 @@ class StockIssueFromDailyMenuCreateView(
         return HttpResponseRedirect(self.success_url)
 
 
-class StockIssueUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class StockIssueUpdateView(
+    SuccessMessageMixin, CookOrStockkeeperRequiredMixin, UpdateView
+):
     model = StockIssue
     form_class = StockIssueForm
     template_name = "kitchen/stockissue/update.html"
@@ -1355,7 +1416,7 @@ class StockIssueUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("kitchen:showStockIssues")
 
 
-class StockIssueRefreshView(LoginRequiredMixin, View):
+class StockIssueRefreshView(CookOrStockkeeperRequiredMixin, View):
     model = StockIssue
 
     def get(self, *args, **kwargs):
@@ -1397,13 +1458,15 @@ class StockIssueRefreshView(LoginRequiredMixin, View):
                 messages.success(
                     self.request,
                     _(
-                        "Seznam zboží na výdejce byl aktualizován dle aktuálních receptů na denním menu a vyskladňuje {count} druhů zboží"
+                        "Seznam zboží na výdejce byl aktualizován dle aktuálních receptů na denním menu a vyskladňuje {count} druhů zboží"  # noqa: E501
                     ).format(count=count),
                 )
         return HttpResponseRedirect(reverse_lazy("kitchen:showStockIssues"))
 
 
-class StockIssueDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class StockIssueDeleteView(
+    SuccessMessageMixin, CookOrStockkeeperRequiredMixin, DeleteView
+):
     model = StockIssue
     template_name = "kitchen/stockissue/delete.html"
     success_message = _("Výdejka byla odstraněna")
@@ -1434,7 +1497,7 @@ class StockIssueDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
         return super().post(request, *args, **kwargs)
 
 
-class StockIssuePDFView(LoginRequiredMixin, TemplateView):
+class StockIssuePDFView(CookOrStockkeeperRequiredMixin, TemplateView):
     template_name = "kitchen/stockissue/pdf.html"
 
     def get_context_data(self, **kwargs):
@@ -1456,7 +1519,7 @@ class StockIssuePDFView(LoginRequiredMixin, TemplateView):
         return response
 
 
-class StockIssueApproveView(LoginRequiredMixin, TemplateView):
+class StockIssueApproveView(StockkeeperRequiredMixin, TemplateView):
     model = StockIssue
     template_name = "kitchen/stockissue/approve.html"
     fields = "__all__"
@@ -1527,7 +1590,9 @@ class StockIssueApproveView(LoginRequiredMixin, TemplateView):
             )
 
 
-class StockIssueArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+class StockIssueArticleListView(
+    SingleTableMixin, CookOrStockkeeperRequiredMixin, FilterView
+):
     model = StockIssueArticle
     table_class = StockIssueArticleTable
     template_name = "kitchen/stockissue/listarticles.html"
@@ -1548,7 +1613,9 @@ class StockIssueArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView
         )
 
 
-class StockIssueArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class StockIssueArticleCreateView(
+    SuccessMessageMixin, CookOrStockkeeperRequiredMixin, CreateView
+):
     model = StockIssueArticle
     form_class = StockIssueArticleForm
     template_name = "kitchen/stockissue/createarticle.html"
@@ -1596,7 +1663,9 @@ class StockIssueArticleCreateView(SuccessMessageMixin, LoginRequiredMixin, Creat
         return super().form_valid(form)
 
 
-class StockIssueArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class StockIssueArticleUpdateView(
+    SuccessMessageMixin, CookOrStockkeeperRequiredMixin, UpdateView
+):
     model = StockIssueArticle
     form_class = StockIssueArticleForm
     template_name = "kitchen/stockissue/updatearticle.html"
@@ -1649,7 +1718,9 @@ class StockIssueArticleUpdateView(SuccessMessageMixin, LoginRequiredMixin, Updat
         return super().form_valid(form)
 
 
-class StockIssueArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class StockIssueArticleDeleteView(
+    SuccessMessageMixin, CookOrStockkeeperRequiredMixin, DeleteView
+):
     model = StockIssueArticle
     template_name = "kitchen/stockissue/deletearticle.html"
     success_message = _("Zboží bylo odstraněno")
@@ -1678,7 +1749,7 @@ class StockIssueArticleDeleteView(SuccessMessageMixin, LoginRequiredMixin, Delet
         return super().form_valid(form)
 
 
-class StockReceiptListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+class StockReceiptListView(SingleTableMixin, StockkeeperRequiredMixin, FilterView):
     model = StockReceipt
     table_class = StockReceiptTable
     template_name = "kitchen/stockreceipt/list.html"
@@ -1690,7 +1761,7 @@ class StockReceiptListView(SingleTableMixin, LoginRequiredMixin, FilterView):
         return super().get_queryset().select_related("user_created", "user_approved")
 
 
-class StockReceiptCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class StockReceiptCreateView(SuccessMessageMixin, StockkeeperRequiredMixin, CreateView):
     model = StockReceipt
     form_class = StockReceiptForm
     template_name = "kitchen/stockreceipt/create.html"
@@ -1707,7 +1778,7 @@ class StockReceiptCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView
         )
 
 
-class StockReceiptUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class StockReceiptUpdateView(SuccessMessageMixin, StockkeeperRequiredMixin, UpdateView):
     model = StockReceipt
     form_class = StockReceiptForm
     template_name = "kitchen/stockreceipt/update.html"
@@ -1715,7 +1786,7 @@ class StockReceiptUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView
     success_url = reverse_lazy("kitchen:showStockReceipts")
 
 
-class StockReceiptDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class StockReceiptDeleteView(SuccessMessageMixin, StockkeeperRequiredMixin, DeleteView):
     model = StockReceipt
     template_name = "kitchen/stockreceipt/delete.html"
     success_message = _("Příjemka byla odstraněna")
@@ -1746,7 +1817,7 @@ class StockReceiptDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView
         return super().post(request, *args, **kwargs)
 
 
-class StockReceiptPDFView(LoginRequiredMixin, TemplateView):
+class StockReceiptPDFView(StockkeeperRequiredMixin, TemplateView):
     template_name = "kitchen/stockreceipt/pdf.html"
 
     def get_context_data(self, **kwargs):
@@ -1766,7 +1837,7 @@ class StockReceiptPDFView(LoginRequiredMixin, TemplateView):
         return response
 
 
-class StockReceiptApproveView(LoginRequiredMixin, TemplateView):
+class StockReceiptApproveView(StockkeeperRequiredMixin, TemplateView):
     model = StockReceipt
     template_name = "kitchen/stockreceipt/approve.html"
     fields = "__all__"
@@ -1827,7 +1898,9 @@ class StockReceiptApproveView(LoginRequiredMixin, TemplateView):
         )
 
 
-class StockReceiptArticleListView(SingleTableMixin, LoginRequiredMixin, FilterView):
+class StockReceiptArticleListView(
+    SingleTableMixin, StockkeeperRequiredMixin, FilterView
+):
     model = StockReceiptArticle
     table_class = StockReceiptArticleTable
     template_name = "kitchen/stockreceipt/listarticles.html"
@@ -1851,13 +1924,13 @@ class StockReceiptArticleListView(SingleTableMixin, LoginRequiredMixin, FilterVi
 
 
 class StockReceiptArticleCreateView(
-    SuccessMessageMixin, LoginRequiredMixin, CreateView
+    SuccessMessageMixin, StockkeeperRequiredMixin, CreateView
 ):
     model = StockReceiptArticle
     form_class = StockReceiptArticleForm
     template_name = "kitchen/stockreceipt/createarticle.html"
     success_message = _(
-        "Zboží %(article)s bylo přidáno: %(amount)s %(unit)s * %(unit_price)s %(currency)s = %(total_price)s %(currency)s"
+        "Zboží %(article)s bylo přidáno: %(amount)s %(unit)s * %(unit_price)s %(currency)s = %(total_price)s %(currency)s"  # noqa: E501
     )
 
     def get_success_url(self):
@@ -1909,7 +1982,7 @@ class StockReceiptArticleCreateView(
 
 
 class StockReceiptArticleUpdateView(
-    SuccessMessageMixin, LoginRequiredMixin, UpdateView
+    SuccessMessageMixin, StockkeeperRequiredMixin, UpdateView
 ):
     model = StockReceiptArticle
     form_class = StockReceiptArticleForm
@@ -1961,7 +2034,7 @@ class StockReceiptArticleUpdateView(
 
 
 class StockReceiptArticleDeleteView(
-    SuccessMessageMixin, LoginRequiredMixin, DeleteView
+    SuccessMessageMixin, StockkeeperRequiredMixin, DeleteView
 ):
     model = StockReceiptArticle
     template_name = "kitchen/stockreceipt/deletearticle.html"
@@ -2018,7 +2091,7 @@ def stock_issues_receipts_data(month):
     }
 
 
-class ShowFoodConsumptionTotalPrice(LoginRequiredMixin, TemplateView):
+class ShowFoodConsumptionTotalPrice(AnyRoleRequiredMixin, TemplateView):
     template_name = "kitchen/report/show_stock_issues_receipts_total_price.html"
 
     def get_context_data(self, **kwargs):
@@ -2044,7 +2117,7 @@ class ShowFoodConsumptionTotalPrice(LoginRequiredMixin, TemplateView):
         return context
 
 
-class IncorrectUnitsListView(SingleTableMixin, LoginRequiredMixin, ListView):
+class IncorrectUnitsListView(SingleTableMixin, AnyRoleRequiredMixin, ListView):
     model = Recipe
     template_name = "kitchen/report/incorrect-units.html"
 
@@ -2075,7 +2148,7 @@ class IncorrectUnitsListView(SingleTableMixin, LoginRequiredMixin, ListView):
         return items_to_fix
 
 
-class ArticlesNotInRecipesListView(SingleTableMixin, LoginRequiredMixin, ListView):
+class ArticlesNotInRecipesListView(SingleTableMixin, AnyRoleRequiredMixin, ListView):
     model = Article
     template_name = "kitchen/report/articles_not_in_recipe.html"
 
@@ -2087,7 +2160,7 @@ class ArticlesNotInRecipesListView(SingleTableMixin, LoginRequiredMixin, ListVie
         return context
 
 
-class CateringUnitShowView(LoginRequiredMixin, TemplateView):
+class CateringUnitShowView(AnyRoleRequiredMixin, TemplateView):
     template_name = "kitchen/report/catering_unit_show.html"
 
     def get_context_data(self, **kwargs):
@@ -2126,7 +2199,7 @@ class CateringUnitShowView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class CateringUnitFilterView(LoginRequiredMixin, CreateView):
+class CateringUnitFilterView(AnyRoleRequiredMixin, CreateView):
     model = DailyMenu
     form_class = DailyMenuCateringUnitForm
     template_name = "kitchen/report/catering_unit_filter.html"
