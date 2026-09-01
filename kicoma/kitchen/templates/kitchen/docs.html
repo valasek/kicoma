@@ -41,8 +41,8 @@
     {% translate "Sestavit denní menu" as label_daily_menus %}
     {% url 'kitchen:showDailyMenus' as url_daily_menus %}
     <p>{% translate "Denní menu a související recepty je možné vytvořit, upravit nebo vymazat v menu" %} {% role_link url_daily_menus label_daily_menus "cook,nutrition_advisor" %}.</p>
-    <h5>{% translate "Vyživové údaje" %}</h5>
-    <p>{% translate "Vyživové údaje jsou spravované na skladové kartě. Zobrazené jsou v rámci receptu pro každou ingredienci a sumárně pro celý recept." %}</p>
+    <h5>{% translate "Výživové údaje" %}</h5>
+    <p>{% translate "Výživové údaje jsou spravované na skladové kartě. Zobrazené jsou v rámci receptu pro každou ingredienci a sumárně pro celý recept." %}</p>
     <h5>{% translate "Reporty a tisky" %}</h5>
     <p>{% translate "Všechny tisky probíhají pomocí generování PDF, které je možno zobrazit, uložit nebo vytisknout." %}</p>
     {% if request.user.is_superuser %}<h5>{% translate "Správa číselníků" %}</h5>

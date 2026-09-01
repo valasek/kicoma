@@ -1,6 +1,7 @@
 2026:
   - date: 2026-09-01
     items:
+      - "Fix of the text for the Czech and English language versions."
       - "SECURITY: All application functions are now accessible according to user groups."
   - date: 2026-08-27
     items:

@@ -10,7 +10,6 @@ from django.test.utils import CaptureQueriesContext
 from django.urls import resolve, reverse
 
 from kicoma.kitchen.forms import ArticleForm
-from kicoma.kitchen.permissions import user_has_any_role
 from kicoma.kitchen.models import (
     UNIT,
     VAT,
@@ -22,6 +21,7 @@ from kicoma.kitchen.models import (
     StockReceipt,
     StockReceiptArticle,
 )
+from kicoma.kitchen.permissions import user_has_any_role
 from kicoma.kitchen.views import ArticleCreateView
 
 
@@ -79,9 +79,7 @@ class ArticleFormRoleTests(TestCase):
             user=self.create_user("nutrition_advisor"),
         )
 
-        self.assertEqual(
-            set(form.fields), self.common_fields | self.nutrition_fields
-        )
+        self.assertEqual(set(form.fields), self.common_fields | self.nutrition_fields)
         self.assertTrue(form.is_valid(), form.errors)
         form.save()
         article.refresh_from_db()

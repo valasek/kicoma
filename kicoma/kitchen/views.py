@@ -1344,9 +1344,7 @@ class DailyMenuRecipeDeleteView(
         return super().form_valid(form)
 
 
-class StockIssueListView(
-    SingleTableMixin, CookOrStockkeeperRequiredMixin, FilterView
-):
+class StockIssueListView(SingleTableMixin, CookOrStockkeeperRequiredMixin, FilterView):
     model = StockIssue
     table_class = StockIssueTable
     template_name = "kitchen/stockissue/list.html"

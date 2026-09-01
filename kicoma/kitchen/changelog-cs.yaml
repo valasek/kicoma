@@ -1,6 +1,7 @@
 2026:
   - date: 2026-09-01
     items:
+      - "Oprava textace pro českou a anglickou jazykovou verzi."
       - "BEZPEČNOST: Všechny funkce aplikace jsou nyní přístupné dle skupin uživatelů."
   - date: 2026-08-27
     items:
