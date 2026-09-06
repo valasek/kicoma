@@ -2,6 +2,7 @@
   - date: 2026-09-06
     items:
       - "FIX: Table columns that cannot be sorted are now correctly set as non-sortable."
+      - "FIX: Saving sometimes failed with an error and the data was not stored when several people used the application at the same time."
   - date: 2026-09-01
     items:
       - "Fix of the text for the Czech and English language versions."

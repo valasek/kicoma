@@ -16,6 +16,23 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 DATABASES["default"] = env.db("DATABASE_URL")  # noqa F405
 DATABASES["default"]["ATOMIC_REQUESTS"] = True  # noqa F405
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)  # noqa F405
+# env.db() returns a fresh dict, so the SQLite OPTIONS from base.py have to be re-applied here.
+DATABASES["default"].setdefault("OPTIONS", {}).update(  # noqa F405
+    {
+        # Wait instead of failing with "database is locked" while another worker holds the write lock.
+        "timeout": env.int("DB_TIMEOUT", default=20),
+        # ATOMIC_REQUESTS wraps every request in a transaction - take the write lock upfront
+        # to avoid unretryable SQLITE_BUSY_SNAPSHOT errors when a read-then-write upgrades.
+        "transaction_mode": "IMMEDIATE",
+        "init_command": (
+            "PRAGMA journal_mode=WAL;"
+            "PRAGMA synchronous=NORMAL;"
+            "PRAGMA mmap_size=134217728;"
+            "PRAGMA journal_size_limit=67108864;"
+            "PRAGMA cache_size=2000;"
+        ),
+    }
+)
 
 # CACHES
 # ------------------------------------------------------------------------------
