@@ -1,4 +1,7 @@
 2026:
+  - date: 2026-09-06
+    items:
+      - "Oprava: sloupce tabulek, kde není možné řadit, jsou nyní správně nastaveny jako neřaditelné."
   - date: 2026-09-01
     items:
       - "Oprava textace pro českou a anglickou jazykovou verzi."

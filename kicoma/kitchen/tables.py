@@ -39,11 +39,13 @@ LABEL_RECEIPT = _("Naskladnit")
 
 
 class ArticleTable(tables.Table):
-    average_price = tables.Column(verbose_name=_("Průměrná jednotková cena s DPH"))
-    allergens = tables.TemplateColumn(
-        """{{record.display_allergens}}""", verbose_name=_("Alergeny")
+    average_price = tables.Column(
+        verbose_name=_("Průměrná jednotková cena s DPH"), orderable=False
     )
-    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+    allergens = tables.TemplateColumn(
+        """{{record.display_allergens}}""", verbose_name=_("Alergeny"), orderable=False
+    )
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
     @staticmethod
     def is_stockkeeper(user):
@@ -111,9 +113,13 @@ class ArticleFilter(FilterSet):
 
 
 class RecipeTable(tables.Table):
-    total_recipe_articles_price = tables.Column(verbose_name=_("Cena receptu s DPH"))
-    allergens = tables.Column(verbose_name=_("Alergeny"), empty_values=())
-    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+    total_recipe_articles_price = tables.Column(
+        verbose_name=_("Cena receptu s DPH"), orderable=False
+    )
+    allergens = tables.Column(
+        verbose_name=_("Alergeny"), empty_values=(), orderable=False
+    )
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
     def render_change(self, record):
         edit_url = reverse("kitchen:updateRecipe", args=[record.id])
@@ -158,7 +164,9 @@ class RecipeFilter(FilterSet):
 
 class RecipeArticleTable(tables.Table):
     # average_price = tables.Column(accessor="article.average_price", verbose_name="Průměrná jednotková cena s DPH")
-    total_average_price = tables.Column(verbose_name=_("Celková cena s DPH"))
+    total_average_price = tables.Column(
+        verbose_name=_("Celková cena s DPH"), orderable=False
+    )
     total_energy = tables.Column(verbose_name=_("Energie (kJ)"), orderable=False)
     total_protein = tables.Column(verbose_name=_("Bílkoviny (g)"), orderable=False)
     total_fat = tables.Column(verbose_name=_("Tuky (g)"), orderable=False)
@@ -167,7 +175,7 @@ class RecipeArticleTable(tables.Table):
     )
     total_sugars = tables.Column(verbose_name=_("Cukry (g)"), orderable=False)
     total_fiber = tables.Column(verbose_name=_("Vláknina (g)"), orderable=False)
-    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
     def __init__(self, *args, nutrition_totals=None, **kwargs):
         self.nutrition_totals = nutrition_totals
@@ -251,7 +259,7 @@ class RecipeArticleTable(tables.Table):
 
 class DailyMenuTable(tables.Table):
     recipe_count = tables.Column(verbose_name=_("Počet porcí"), empty_values=())
-    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
     def render_change(self, record):
         edit_url = reverse("kitchen:updateDailyMenu", args=[record.id])
@@ -296,7 +304,7 @@ class DailyMenuFilter(FilterSet):
 
 class DailyMenuRecipeTable(tables.Table):
     recipe = tables.Column(linkify=True)
-    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
     def render_change(self, record):
         edit_url = reverse("kitchen:updateDailyMenuRecipe", args=[record.id])
@@ -315,7 +323,7 @@ class DailyMenuRecipeTable(tables.Table):
 
 class MenuTable(tables.Table):
     rc = tables.Column(verbose_name=_("Počet receptů"), empty_values=())
-    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
     def render_change(self, record):
         edit_url = reverse("kitchen:updateMenu", args=[record.id])
@@ -340,7 +348,7 @@ class MenuTable(tables.Table):
 
 class MenuRecipeTable(tables.Table):
     recipe = tables.Column(linkify=True)
-    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
     def render_change(self, record):
         edit_url = reverse("kitchen:updateMenuRecipe", args=[record.id])
@@ -358,8 +366,8 @@ class MenuRecipeTable(tables.Table):
 
 
 class StockIssueTable(tables.Table):
-    total_price = tables.Column(verbose_name=_("Celková cena s DPH"))
-    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+    total_price = tables.Column(verbose_name=_("Celková cena s DPH"), orderable=False)
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
     def render_change(self, record):
         links = [
@@ -427,8 +435,10 @@ class StockIssueFilter(FilterSet):
 
 
 class StockIssueArticleTable(tables.Table):
-    total_average_price_with_vat = tables.Column(verbose_name=_("Celková cena s DPH"))
-    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+    total_average_price_with_vat = tables.Column(
+        verbose_name=_("Celková cena s DPH"), orderable=False
+    )
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
     def render_change(self, record):
         edit_url = reverse("kitchen:updateStockIssueArticle", args=[record.id])
@@ -464,8 +474,8 @@ class StockIssueArticleTable(tables.Table):
 
 
 class StockReceiptTable(tables.Table):
-    total_price = tables.Column(verbose_name=_("Celková cena s DPH"))
-    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+    total_price = tables.Column(verbose_name=_("Celková cena s DPH"), orderable=False)
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
     def render_change(self, record):
         edit_url = reverse("kitchen:updateStockReceipt", args=[record.id])
@@ -523,9 +533,13 @@ class StockReceiptFilter(FilterSet):
 
 
 class StockReceiptArticleTable(tables.Table):
-    price_with_vat = tables.Column(verbose_name=_("Jednotková cena s DPH"))
-    total_price_with_vat = tables.Column(verbose_name=_("Celková cena s DPH"))
-    change = tables.Column(empty_values=(), verbose_name=_("Akce"))
+    price_with_vat = tables.Column(
+        verbose_name=_("Jednotková cena s DPH"), orderable=False
+    )
+    total_price_with_vat = tables.Column(
+        verbose_name=_("Celková cena s DPH"), orderable=False
+    )
+    change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
     def render_change(self, record):
         edit_url = reverse("kitchen:updateStockReceiptArticle", args=[record.id])

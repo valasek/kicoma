@@ -1,4 +1,7 @@
 2026:
+  - date: 2026-09-06
+    items:
+      - "FIX: Table columns that cannot be sorted are now correctly set as non-sortable."
   - date: 2026-09-01
     items:
       - "Fix of the text for the Czech and English language versions."
