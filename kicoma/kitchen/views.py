@@ -1184,13 +1184,10 @@ class MenuRecipeCreateView(
         context["menu"] = Menu.objects.filter(pk=self.kwargs["pk"]).get()
         return context
 
-    def form_valid(self, form):
-        context = self.get_context_data()
-        menu = context["menu"]
-        menu_recipe = form.save(commit=False)
-        menu_recipe.menu = Menu.objects.filter(pk=menu.id)[0]
-        menu_recipe.save()
-        return super().form_valid(form)
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["instance"] = MenuRecipe(menu_id=self.kwargs["pk"])
+        return kwargs
 
 
 class MenuRecipeUpdateView(
@@ -1279,13 +1276,10 @@ class DailyMenuRecipeCreateView(
         context["daily_menu"] = DailyMenu.objects.filter(pk=self.kwargs["pk"]).get()
         return context
 
-    def form_valid(self, form):
-        context = self.get_context_data()
-        daily_menu = context["daily_menu"]
-        daily_menu_recipe = form.save(commit=False)
-        daily_menu_recipe.daily_menu = DailyMenu.objects.filter(pk=daily_menu.id)[0]
-        daily_menu_recipe.save()
-        return super().form_valid(form)
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["instance"] = DailyMenuRecipe(daily_menu_id=self.kwargs["pk"])
+        return kwargs
 
 
 class DailyMenuRecipeUpdateView(

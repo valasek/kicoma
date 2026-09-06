@@ -4,6 +4,7 @@
       - "FIX: Table columns that cannot be sorted are now correctly set as non-sortable."
       - "FIX: Saving sometimes failed with an error and the data was not stored when several people used the application at the same time."
       - "FIX: A nutrition value on an article can now be left empty and saving no longer ends with an error."
+      - "FIX: When you add a recipe that is already in a menu or a daily menu, a clear warning is shown instead of an error page. Just change the number of portions on the recipe that is already there."
   - date: 2026-09-01
     items:
       - "Fix of the text for the Czech and English language versions."

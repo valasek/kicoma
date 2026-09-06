@@ -286,6 +286,22 @@ class DailyMenuRecipeForm(forms.ModelForm):
             )
         )
 
+    def clean_recipe(self):
+        # daily_menu is not a form field, so the unique_dailymenu_recipe_pair
+        # constraint is skipped by ModelForm validation and has to be checked here
+        recipe = self.cleaned_data["recipe"]
+        daily_menu_id = self.instance.daily_menu_id
+        if daily_menu_id is None:
+            return recipe
+        duplicates = DailyMenuRecipe.objects.filter(
+            daily_menu_id=daily_menu_id, recipe=recipe
+        ).exclude(pk=self.instance.pk)
+        if duplicates.exists():
+            raise forms.ValidationError(
+                _("Tento recept již v denním menu je, uprav počet porcí.")
+            )
+        return recipe
+
 
 class MenuForm(forms.ModelForm):
     class Meta:
@@ -320,6 +336,22 @@ class MenuRecipeForm(forms.ModelForm):
                 Column("amount", css_class="col-md-2"),
             )
         )
+
+    def clean_recipe(self):
+        # menu is not a form field, so the unique_menu_recipe_pair constraint
+        # is skipped by ModelForm validation and has to be checked here
+        recipe = self.cleaned_data["recipe"]
+        menu_id = self.instance.menu_id
+        if menu_id is None:
+            return recipe
+        duplicates = MenuRecipe.objects.filter(menu_id=menu_id, recipe=recipe).exclude(
+            pk=self.instance.pk
+        )
+        if duplicates.exists():
+            raise forms.ValidationError(
+                _("Tento recept již v menu je, uprav počet porcí.")
+            )
+        return recipe
 
 
 class StockIssueForm(forms.ModelForm):

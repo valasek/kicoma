@@ -4,31 +4,32 @@
       - "Oprava: sloupce tabulek, kde není možné řadit, jsou nyní správně nastaveny jako neřaditelné."
       - "Oprava: při ukládání se občas zobrazila chyba a data se neuložila, pokud v aplikaci pracovalo více lidí najednou."
       - "Oprava: u zboží je nyní možné nechat výživový údaj prázdný, uložení už neskončí chybou."
+      - "Oprava: když přidáváš recept, který už v menu nebo v denním menu je, zobrazí se srozumitelné upozornění místo chybové stránky. Stačí upravit počet porcí u receptu, který tam už je."
   - date: 2026-09-01
     items:
-      - "Oprava textace pro českou a anglickou jazykovou verzi."
-      - "BEZPEČNOST: Všechny funkce aplikace jsou nyní přístupné dle skupin uživatelů."
+      - "Oprava: doplnění textace pro českou a anglickou jazykovou verzi."
+      - "Bezpečnost: Všechny funkce aplikace jsou nyní přístupné dle skupin uživatelů."
   - date: 2026-08-27
     items:
       - "Přidání výživových údajů k zboží a jejich zobrazení v receptu. Upravovat je může uživatel s rolí \"Nutriční poradce\"."
       - "Uživatel má z profilu možnost zobrazení příručky a novinek v aplikaci"
   - date: 2026-08-25
     items:
-      - "BEZPEČNOST: Aktualizace na nejaktuálnější verzi <a href='https://docs.djangoproject.com/en/6.1/releases/6.1/'>Django 6.1</a> a souvisejících knihoven."
+      - "Bezpečnost: Aktualizace na nejaktuálnější verzi <a href='https://docs.djangoproject.com/en/6.1/releases/6.1/'>Django 6.1</a> a souvisejících knihoven."
   - date: 2026-02-05
     items:
       - "Při návratu na předchozí stránku se zobrazí původně zobrazená část stránky, i když je stránka delší."
-      - "BEZPEČNOST: Aktualizace na nejaktuálnější verzi <a href='https://docs.djangoproject.com/en/6.0/releases/6.0.2/'>Django 6.0.2</a> a souvisejících knihoven."
+      - "Bezpečnost: Aktualizace na nejaktuálnější verzi <a href='https://docs.djangoproject.com/en/6.0/releases/6.0.2/'>Django 6.0.2</a> a souvisejících knihoven."
   - date: 2026-01-12
     items:
-      - "BEZPEČNOST: Aktualizace na nejaktuálnější verzi <a href='https://docs.djangoproject.com/en/6.0/releases/6.0.1/'>Django 6.0.1</a> a souvisejících knihoven."
+      - "Bezpečnost: Aktualizace na nejaktuálnější verzi <a href='https://docs.djangoproject.com/en/6.0/releases/6.0.1/'>Django 6.0.1</a> a souvisejících knihoven."
 2025:
   - date: 2025-10-16
     items:
-      - "OPRAVA: Hláška vyzývající k opravě to zboží, kde nesedí jednotky v receptu s jednotky na skladě se zobrazuje jenom když je nutné."
+      - "Oprava: Hláška vyzývající k opravě to zboží, kde nesedí jednotky v receptu s jednotky na skladě se zobrazuje jenom když je nutné."
   - date: 2025-10-10
     items:
-      - "Hláška vyzývající k opravě to zboží, kde nesedí jednotky v receptu s jednotky na skladě. Důležité opravit před vytvořením výdejky."
+      - "Oprava: Hláška vyzývající k opravě to zboží, kde nesedí jednotky v receptu s jednotky na skladě. Důležité opravit před vytvořením výdejky."
       - "Data jsou řazeny dle české abecedy."
   - date: 2025-10-06
     items:
