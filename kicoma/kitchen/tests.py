@@ -389,6 +389,35 @@ class ViewTests(TestCase):
         self.assertEqual(article.sugars, Decimal("9.1"))
         self.assertEqual(article.fiber, Decimal("2.3"))
 
+    def test_update_article_with_blank_nutrition(self):
+        self.client.login(username="john", password="password")
+        article = Article.objects.create(
+            article="Blank nutrition article",
+            unit=UNIT[0][0],
+            carbohydrates=Decimal("5.0"),
+        )
+        response = self.client.post(
+            reverse("kitchen:updateArticle", args=(article.id,)),
+            {
+                "article": article.article,
+                "unit": article.unit,
+                "on_stock": article.on_stock,
+                "min_on_stock": "",
+                "total_price": article.total_price,
+                "energy": "737",
+                "protein": "20.7",
+                "fat": "9.8",
+                "carbohydrates": "",
+                "sugars": "0.0",
+                "fiber": "0.0",
+                "comment": "",
+            },
+        )
+        self.assertRedirects(response, reverse("kitchen:showArticles"))
+        article.refresh_from_db()
+        self.assertIsNone(article.carbohydrates)
+        self.assertEqual(article.min_on_stock, Decimal("0"))
+
     def test_non_nutrition_advisor_cannot_view_or_update_article_nutrition(self):
         self.user.groups.remove(Group.objects.get(name="nutrition_advisor"))
         self.client.login(username="john", password="password")

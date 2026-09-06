@@ -108,9 +108,7 @@ DEFAULT_FROM_EMAIL = env(
 # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
-EMAIL_SUBJECT_PREFIX = env(
-    "DJANGO_EMAIL_SUBJECT_PREFIX", default="[KiCoMa]"
-)
+EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default="[KiCoMa]")
 
 # ADMIN
 # ------------------------------------------------------------------------------
@@ -147,7 +145,7 @@ LOGGING = {
     "formatters": {
         "verbose": {
             "format": "%(levelname)s %(asctime)s %(module)s "
-                      "%(process)d %(thread)d %(message)s"
+            "%(process)d %(thread)d %(message)s"
         }
     },
     "handlers": {
@@ -177,8 +175,16 @@ LOGGING = {
         # Silence WeasyPrint/FontTools warnings in production
         "weasyprint": {"level": "ERROR", "handlers": ["console"], "propagate": False},
         "fontTools": {"level": "ERROR", "handlers": ["console"], "propagate": False},
-        "fontTools.subset": {"level": "ERROR", "handlers": ["console"], "propagate": False},
-        "fontTools.ttLib": {"level": "ERROR", "handlers": ["console"], "propagate": False},
+        "fontTools.subset": {
+            "level": "ERROR",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        "fontTools.ttLib": {
+            "level": "ERROR",
+            "handlers": ["console"],
+            "propagate": False,
+        },
     },
 }
 
@@ -186,7 +192,9 @@ LOGGING = {
 # ------------------------------------------------------------------------------
 
 version_file = ROOT_DIR / "VERSION"
-RELEASE_VERSION = version_file.read_text().strip() if version_file.is_file() else "0.0.0"
+RELEASE_VERSION = (
+    version_file.read_text().strip() if version_file.is_file() else "0.0.0"
+)
 
 # Sentry
 sentry_sdk.init(
@@ -198,13 +206,10 @@ sentry_sdk.init(
     # Set profile_session_sample_rate to 1.0 to profile 100%
     # of profile sessions.
     profile_session_sample_rate=1.0,
-
     # If you wish to associate users to errors (assuming you are using
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True,
-
     # Enable logs to be sent to Sentry
     enable_logs=True,
-
-    release=RELEASE_VERSION
+    release=RELEASE_VERSION,
 )

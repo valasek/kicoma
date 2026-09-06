@@ -123,6 +123,16 @@ class ArticleForm(forms.ModelForm):
             )
         self.helper.layout = Layout(*layout)
 
+    def clean(self):
+        cleaned_data = super().clean()
+        # stock fields are blank=True but NOT NULL, an empty input must fall back to the model default
+        for field_name in self.stock_fields:
+            if field_name in cleaned_data and cleaned_data[field_name] is None:
+                cleaned_data[field_name] = Article._meta.get_field(
+                    field_name
+                ).get_default()
+        return cleaned_data
+
 
 class ArticleSearchForm(forms.Form):
     article = forms.CharField()

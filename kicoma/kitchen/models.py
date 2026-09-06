@@ -179,6 +179,7 @@ class Article(TimeStampedModel):
     )
     energy = models.PositiveSmallIntegerField(
         blank=True,
+        null=True,
         default=0,
         validators=[MinValueValidator(0), MaxValueValidator(3800)],
         verbose_name=_("Energie"),
@@ -188,6 +189,7 @@ class Article(TimeStampedModel):
         max_digits=5,
         decimal_places=1,
         blank=True,
+        null=True,
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("Bílkoviny"),
@@ -197,6 +199,7 @@ class Article(TimeStampedModel):
         max_digits=5,
         decimal_places=1,
         blank=True,
+        null=True,
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("Tuky"),
@@ -206,6 +209,7 @@ class Article(TimeStampedModel):
         max_digits=5,
         decimal_places=1,
         blank=True,
+        null=True,
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("Sacharidy"),
@@ -215,6 +219,7 @@ class Article(TimeStampedModel):
         max_digits=5,
         decimal_places=1,
         blank=True,
+        null=True,
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("Cukry"),
@@ -224,6 +229,7 @@ class Article(TimeStampedModel):
         max_digits=5,
         decimal_places=1,
         blank=True,
+        null=True,
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("Vláknina"),
@@ -397,7 +403,9 @@ class RecipeArticle(TimeStampedModel):
         return self.amount
 
     def nutrition_total(self, field_name):
-        return getattr(self.article, field_name) * self.nutrition_factor
+        # nutrition values are nullable - a missing value counts as zero
+        value = getattr(self.article, field_name) or 0
+        return value * self.nutrition_factor
 
     @property
     def total_energy(self):

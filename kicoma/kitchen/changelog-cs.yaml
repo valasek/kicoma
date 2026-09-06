@@ -3,6 +3,7 @@
     items:
       - "Oprava: sloupce tabulek, kde není možné řadit, jsou nyní správně nastaveny jako neřaditelné."
       - "Oprava: při ukládání se občas zobrazila chyba a data se neuložila, pokud v aplikaci pracovalo více lidí najednou."
+      - "Oprava: u zboží je nyní možné nechat výživový údaj prázdný, uložení už neskončí chybou."
   - date: 2026-09-01
     items:
       - "Oprava textace pro českou a anglickou jazykovou verzi."
