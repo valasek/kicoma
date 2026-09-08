@@ -1,5 +1,6 @@
 import json
 from decimal import Decimal
+from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
@@ -10,6 +11,7 @@ from django.test import SimpleTestCase, TestCase, TransactionTestCase
 from django.test.client import Client
 from django.test.utils import CaptureQueriesContext
 from django.urls import resolve, reverse
+from django.utils import translation
 
 from kicoma.kitchen.forms import ArticleForm
 from kicoma.kitchen.models import (
@@ -248,6 +250,56 @@ class ViewTests(TestCase):
         for url in self.private_urls:
             response = self.client.get(url)
             self.assertEqual(response.status_code, 200)
+
+    def test_create_stock_issue_from_menu_displays_unit_conversion_error(self):
+        self.client.login(username="john", password="password")
+        conversion_error = ValidationError(
+            "Není možné provést konverzi 125.00 g na ks"
+        )
+
+        with (
+            patch("kicoma.kitchen.views.DailyMenu.objects.filter", return_value=[object()]),
+            patch(
+                "kicoma.kitchen.views.StockIssue.create_from_daily_menu",
+                side_effect=conversion_error,
+            ),
+        ):
+            response = self.client.post(
+                reverse("kitchen:createStockIssueFromDailyMenu"),
+                {"date": "2026-09-08"},
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Není možné provést konverzi 125.00 g na ks")
+        self.assertContains(
+            response,
+            'href="/kitchen/report/incorrectunits"',
+        )
+        self.assertContains(
+            response,
+            "kontaktujte uživatele ve skupině Skladník nebo Výživový poradce",
+        )
+
+        with (
+            patch("kicoma.kitchen.views.DailyMenu.objects.filter", return_value=[object()]),
+            patch(
+                "kicoma.kitchen.views.StockIssue.create_from_daily_menu",
+                side_effect=conversion_error,
+            ),
+            translation.override("en"),
+        ):
+            response = self.client.post(
+                reverse("kitchen:createStockIssueFromDailyMenu"),
+                {"date": "2026-09-08"},
+            )
+
+        self.assertContains(response, "Stock issue cannot be created")
+        self.assertContains(response, "incorrect units report")
+        self.assertContains(response, 'href="/en/kitchen/report/incorrectunits"')
+        self.assertContains(
+            response,
+            "contact a user in the Stockkeeper or Nutrition advisor group",
+        )
 
     def test_docs_lists_users_in_each_role(self):
         self.user.is_superuser = True

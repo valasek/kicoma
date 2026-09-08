@@ -2,6 +2,7 @@
   - date: 2026-09-08
     items:
       - "Oprava: Export všech dat nyní obsahuje také uživatele a skupiny, takže lze data správně importovat."
+      - "Oprava: Při vytváření výdejky z denního menu se při nekompatibilních jednotkách zobrazí srozumitelná chyba s odkazem na report nesprávných jednotek místo chybové stránky."
   - date: 2026-09-06
     items:
       - "Oprava: sloupce tabulek, kde není možné řadit, jsou nyní správně nastaveny jako neřaditelné."

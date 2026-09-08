@@ -22,8 +22,9 @@ from django.db.models.functions import ExtractYear, Lower
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.utils import formats, translation
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.views import View
@@ -1381,9 +1382,25 @@ class StockIssueFromDailyMenuCreateView(
         if len(daily_menus) < 1:
             form.add_error("date", _("Pro zadané datum není vytvořeno denní menu"))
             return super().form_invalid(form)
-        count = StockIssue.create_from_daily_menu(
-            daily_menus, formatted_date, self.request.user
-        )
+        try:
+            count = StockIssue.create_from_daily_menu(
+                daily_menus, formatted_date, self.request.user
+            )
+        except ValidationError as error:
+            messages.error(
+                self.request,
+                format_html(
+                    _(
+                        "Výdejku nelze vytvořit: {error}. Zkontrolujte "
+                        '<a href="{report_url}">report nesprávných jednotek</a> a '
+                        "kontaktujte uživatele ve skupině Skladník nebo Výživový "
+                        "poradce, aby opravil jednotky na skladu nebo v receptu."
+                    ),
+                    error="; ".join(error.messages),
+                    report_url=reverse("kitchen:showIncorrectUnits"),
+                ),
+            )
+            return super().form_invalid(form)
         messages.success(
             self.request,
             _(

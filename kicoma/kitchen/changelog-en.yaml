@@ -2,6 +2,7 @@
   - date: 2026-09-08
     items:
       - "FIX: Exporting all data now also includes users and groups, so the data can be imported correctly."
+      - "FIX: When creating a stock issue from a daily menu, incompatible units now show a clear error with a link to the incorrect units report instead of an error page."
   - date: 2026-09-06
     items:
       - "FIX: Table columns that cannot be sorted are now correctly set as non-sortable."

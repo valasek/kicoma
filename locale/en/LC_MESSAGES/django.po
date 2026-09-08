@@ -2358,6 +2358,18 @@ msgstr "Stock issue created. Add items."
 msgid "Pro zadané datum není vytvořeno denní menu"
 msgstr "No daily menu for the selected date."
 
+#: kicoma/kitchen/views.py:1393
+#, python-brace-format
+msgid ""
+"Výdejku nelze vytvořit: {error}. Zkontrolujte <a href=\"{report_url}\">report "
+"nesprávných jednotek</a> a kontaktujte uživatele ve skupině Skladník nebo "
+"Výživový poradce, aby opravil jednotky na skladu nebo v receptu."
+msgstr ""
+"Stock issue cannot be created: {error}. Check the <a "
+"href=\"{report_url}\">incorrect units report</a> and contact a user in the "
+"Stockkeeper or Nutrition advisor group to fix the units in stock or in the "
+"recipe."
+
 #: kicoma/kitchen/views.py:1395
 #, python-brace-format
 msgid ""
