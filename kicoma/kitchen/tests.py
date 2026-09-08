@@ -253,12 +253,12 @@ class ViewTests(TestCase):
 
     def test_create_stock_issue_from_menu_displays_unit_conversion_error(self):
         self.client.login(username="john", password="password")
-        conversion_error = ValidationError(
-            "Není možné provést konverzi 125.00 g na ks"
-        )
+        conversion_error = ValidationError("Není možné provést konverzi 125.00 g na ks")
 
         with (
-            patch("kicoma.kitchen.views.DailyMenu.objects.filter", return_value=[object()]),
+            patch(
+                "kicoma.kitchen.views.DailyMenu.objects.filter", return_value=[object()]
+            ),
             patch(
                 "kicoma.kitchen.views.StockIssue.create_from_daily_menu",
                 side_effect=conversion_error,
@@ -281,7 +281,9 @@ class ViewTests(TestCase):
         )
 
         with (
-            patch("kicoma.kitchen.views.DailyMenu.objects.filter", return_value=[object()]),
+            patch(
+                "kicoma.kitchen.views.DailyMenu.objects.filter", return_value=[object()]
+            ),
             patch(
                 "kicoma.kitchen.views.StockIssue.create_from_daily_menu",
                 side_effect=conversion_error,

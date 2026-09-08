@@ -49,8 +49,6 @@
                 "ms-azuretools.vscode-docker",
                 "davidanson.vscode-markdownlint",
                 "mrmlnc.vscode-duplicate",
-                "visualstudioexptteam.vscodeintellicode",
-                "visualstudioexptteam.intellicode-api-usage-examples",
                 // python
                 "ms-python.python",
                 "ms-python.vscode-pylance",
