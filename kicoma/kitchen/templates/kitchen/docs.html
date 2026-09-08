@@ -106,7 +106,7 @@
       <p>{% translate "Administrátor má právo na Administrační sekci a export nebo import dat. Každou datovou tabulku včetně uživatelů je možno plně zpravovat v" %} <a href="{% url 'admin:index' %}kitchen">{% translate "administraci" %}</a> {% translate "a nejsou aplikovány žádné dodatečné kontroly." %}
       {% translate "Není doporučeno měnit sekce" %} <a href="{% url 'admin:index' %}auth">{% translate "Autentizace a autorizace" %}</a>, <a href="{% url 'admin:index' %}sites">{% translate "Weby" %}</a>,
       <a href="{% url 'admin:index' %}account">{% translate "Účty" %}</a> {% translate "a" %} <a href="{% url 'admin:index' %}socialaccount">{% translate "Účty sociálních sítí" %}</a>.</p>
-      <p>{% translate "Export nebo import dat obsahuje všechna data KiCoMa kromě seznamu uživatelů a skupin. Ty je nutno v nové aplikaci nastavit programově." %}</p>{% endif %}
+      <p>{% translate "Export nebo import dat obsahuje provozní data KiCoMa, uživatele a skupiny." %}</p>{% endif %}
   </div>
 </div>
 <hr/>

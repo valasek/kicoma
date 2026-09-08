@@ -1,4 +1,7 @@
 2026:
+  - date: 2026-09-08
+    items:
+      - "FIX: Exporting all data now also includes users and groups, so the data can be imported correctly."
   - date: 2026-09-06
     items:
       - "FIX: Table columns that cannot be sorted are now correctly set as non-sortable."

@@ -252,16 +252,15 @@ def docs(request):
 def export_data(request):
     if not request.user.is_superuser:
         raise PermissionDenied
+    output = io.StringIO()
+    management.call_command(
+        "dumpdata", "auth.group", "users.user", "kitchen", stdout=output
+    )
     file_name = "data.json"
-    with open(file_name, "w") as f:
-        management.call_command(
-            "dumpdata", "kitchen", exclude=["contenttypes", "auth"], stdout=f
-        )
-        f.close()
-        response = HttpResponse(open(file_name, "rb"), content_type="application/json")
-        response["Content-Disposition"] = f"attachment; filename={file_name}"
-        messages.success(request, _("Všechna data byla exportována"))
-        return response
+    response = HttpResponse(output.getvalue(), content_type="application/json")
+    response["Content-Disposition"] = f"attachment; filename={file_name}"
+    messages.success(request, _("Všechna data byla exportována"))
+    return response
 
 
 class SuperuserRequiredMixin(UserPassesTestMixin):
@@ -285,22 +284,18 @@ class ImportDataView(SuperuserRequiredMixin, TemplateView):
         filename = fs.save(uploaded_file.name, uploaded_file)
         f = io.StringIO()
         try:
-            with redirect_stdout(f):
+            with transaction.atomic(), redirect_stdout(f):
                 management.call_command("flush", interactive=False, verbosity=1)
-                management.call_command(
-                    "loaddata", "./kicoma/kitchen/fixtures/skupiny.json", verbosity=1
-                )
-                management.call_command(
-                    "loaddata", "./kicoma/kitchen/fixtures/uzivatele.json", verbosity=1
-                )
                 management.call_command("loaddata", fs.path(filename), verbosity=1)
                 messages.success(
                     self.request, _("Data úspěšně nahrána: ") + f.getvalue()
                 )
         except Exception as e:
-            messages.success(
+            messages.error(
                 self.request, _("Chyba při výmazu dat před importem: ") + str(e)
             )
+        finally:
+            fs.delete(filename)
         return super().render_to_response(context)
 
 

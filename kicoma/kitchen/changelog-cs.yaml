@@ -1,4 +1,7 @@
 2026:
+  - date: 2026-09-08
+    items:
+      - "Oprava: Export všech dat nyní obsahuje také uživatele a skupiny, takže lze data správně importovat."
   - date: 2026-09-06
     items:
       - "Oprava: sloupce tabulek, kde není možné řadit, jsou nyní správně nastaveny jako neřaditelné."

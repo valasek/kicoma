@@ -1381,12 +1381,8 @@ msgid "Účty sociálních sítí"
 msgstr "Social network accounts"
 
 #: kicoma/kitchen/templates/kitchen/docs.html:109
-msgid ""
-"Export nebo import dat obsahuje všechna data KiCoMa kromě seznamu uživatelů "
-"a skupin. Ty je nutno v nové aplikaci nastavit programově."
-msgstr ""
-"Data export or import contains all KiCoMa data except the list of users and "
-"groups. These must be set programmatically in the new application."
+msgid "Export nebo import dat obsahuje provozní data KiCoMa, uživatele a skupiny."
+msgstr "Data export or import includes KiCoMa operational data, users, and groups."
 
 #: kicoma/kitchen/templates/kitchen/docs.html:115
 msgid "Datový model"

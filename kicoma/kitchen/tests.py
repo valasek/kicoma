@@ -1,10 +1,12 @@
+import json
 from decimal import Decimal
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import connection
-from django.test import SimpleTestCase, TestCase
+from django.test import SimpleTestCase, TestCase, TransactionTestCase
 from django.test.client import Client
 from django.test.utils import CaptureQueriesContext
 from django.urls import resolve, reverse
@@ -665,6 +667,66 @@ class ModelBehaviorTests(TestCase):
 
         m_annot = Menu.objects.annotate(rc=Count("menurecipe")).get(pk=m.pk)
         self.assertEqual(m_annot.recipe_count, 2)
+
+
+class DataImportExportTests(TransactionTestCase):
+    reset_sequences = True
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_superuser(
+            id=12,
+            username="backup-admin",
+            email="admin@example.com",
+            password="password",
+        )
+        self.user.groups.add(Group.objects.create(name="backup-admins"))
+        self.client.force_login(self.user)
+        article = Article(
+            article="Imported article",
+            unit=UNIT[0][0],
+            on_stock=0,
+            min_on_stock=0,
+            total_price=0,
+        )
+        article._history_user = self.user
+        article.save()
+
+    def test_full_export_import_preserves_users_and_history(self):
+        export_response = self.client.get(reverse("kitchen:export"))
+        exported_objects = json.loads(export_response.content)
+        exported_models = {item["model"] for item in exported_objects}
+
+        self.assertIn("auth.group", exported_models)
+        self.assertIn("users.user", exported_models)
+        self.assertIn("kitchen.historicalarticle", exported_models)
+
+        upload = SimpleUploadedFile(
+            "data.json", export_response.content, content_type="application/json"
+        )
+        response = self.client.post(reverse("kitchen:import"), {"myfile": upload})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(get_user_model().objects.get(pk=12).username, "backup-admin")
+        self.assertEqual(Article.objects.get().history.get().history_user_id, 12)
+
+    def test_failed_import_does_not_erase_existing_data(self):
+        export_response = self.client.get(reverse("kitchen:export"))
+        fixture_objects = json.loads(export_response.content)
+        article_object = next(
+            item for item in fixture_objects if item["model"] == "kitchen.article"
+        )
+        article_object["fields"]["allergen"] = [999]
+        upload = SimpleUploadedFile(
+            "invalid.json",
+            json.dumps(fixture_objects).encode(),
+            content_type="application/json",
+        )
+
+        response = self.client.post(reverse("kitchen:import"), {"myfile": upload})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(get_user_model().objects.get(pk=12).username, "backup-admin")
+        self.assertTrue(Article.objects.filter(article="Imported article").exists())
 
 
 # Helper factory for MealType to satisfy FK without importing fixtures
