@@ -1,4 +1,8 @@
 2026:
+  - date: 2026-09-17
+    items:
+      - "Article nutrition data now includes saturated, monounsaturated and polyunsaturated fat, polyols, starch and salt."
+      - "Nutrition data in article editing and recipe ingredients has a clearer presentation that reflects the fat and carbohydrate hierarchy."
   - date: 2026-09-08
     items:
       - "FIX: Exporting all data now also includes users and groups, so the data can be imported correctly."

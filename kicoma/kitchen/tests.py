@@ -15,6 +15,7 @@ from django.utils import translation
 
 from kicoma.kitchen.forms import ArticleForm
 from kicoma.kitchen.models import (
+    NUTRITION_FIELDS,
     UNIT,
     VAT,
     Article,
@@ -32,14 +33,7 @@ from kicoma.kitchen.views import ArticleCreateView
 class ArticleFormRoleTests(TestCase):
     common_fields = {"article", "unit", "comment", "allergen"}
     stock_fields = {"on_stock", "min_on_stock", "total_price"}
-    nutrition_fields = {
-        "energy",
-        "protein",
-        "fat",
-        "carbohydrates",
-        "sugars",
-        "fiber",
-    }
+    nutrition_fields = set(NUTRITION_FIELDS)
 
     def create_user(self, group_name):
         user = get_user_model().objects.create_user(
@@ -72,11 +66,17 @@ class ArticleFormRoleTests(TestCase):
                 "min_on_stock": 999,
                 "total_price": 999,
                 "energy": 1234,
-                "protein": "12.3",
                 "fat": "4.5",
+                "saturated_fat": "1.1",
+                "monounsaturated_fat": "1.2",
+                "polyunsaturated_fat": "1.3",
                 "carbohydrates": "67.8",
                 "sugars": "9.1",
+                "polyols": "2.1",
+                "starch": "3.1",
                 "fiber": "2.3",
+                "protein": "12.3",
+                "salt": "0.8",
                 "comment": "Nutrition updated",
             },
             instance=article,
@@ -84,6 +84,14 @@ class ArticleFormRoleTests(TestCase):
         )
 
         self.assertEqual(set(form.fields), self.common_fields | self.nutrition_fields)
+        self.assertEqual(
+            tuple(
+                field_name
+                for field_name in form.fields
+                if field_name in NUTRITION_FIELDS
+            ),
+            NUTRITION_FIELDS,
+        )
         self.assertTrue(form.is_valid(), form.errors)
         form.save()
         article.refresh_from_db()
@@ -409,14 +417,7 @@ class ViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, article.article)
         self.assertContains(response, "Výživové údaje")
-        for field_name in (
-            "energy",
-            "protein",
-            "fat",
-            "carbohydrates",
-            "sugars",
-            "fiber",
-        ):
+        for field_name in NUTRITION_FIELDS:
             self.assertContains(response, f'name="{field_name}"')
 
         response = self.client.post(
@@ -428,22 +429,34 @@ class ViewTests(TestCase):
                 "min_on_stock": article.min_on_stock,
                 "total_price": article.total_price,
                 "energy": 1234,
-                "protein": "12.3",
                 "fat": "4.5",
+                "saturated_fat": "1.1",
+                "monounsaturated_fat": "1.2",
+                "polyunsaturated_fat": "1.3",
                 "carbohydrates": "67.8",
                 "sugars": "9.1",
+                "polyols": "2.1",
+                "starch": "3.1",
                 "fiber": "2.3",
+                "protein": "12.3",
+                "salt": "0.8",
                 "comment": article.comment,
             },
         )
         self.assertRedirects(response, reverse("kitchen:showArticles"))
         article.refresh_from_db()
         self.assertEqual(article.energy, 1234)
-        self.assertEqual(article.protein, Decimal("12.3"))
         self.assertEqual(article.fat, Decimal("4.5"))
+        self.assertEqual(article.saturated_fat, Decimal("1.1"))
+        self.assertEqual(article.monounsaturated_fat, Decimal("1.2"))
+        self.assertEqual(article.polyunsaturated_fat, Decimal("1.3"))
         self.assertEqual(article.carbohydrates, Decimal("67.8"))
         self.assertEqual(article.sugars, Decimal("9.1"))
+        self.assertEqual(article.polyols, Decimal("2.1"))
+        self.assertEqual(article.starch, Decimal("3.1"))
         self.assertEqual(article.fiber, Decimal("2.3"))
+        self.assertEqual(article.protein, Decimal("12.3"))
+        self.assertEqual(article.salt, Decimal("0.8"))
 
     def test_update_article_with_blank_nutrition(self):
         self.client.login(username="john", password="password")
@@ -492,14 +505,7 @@ class ViewTests(TestCase):
         response = self.client.get(update_url)
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Výživové údaje")
-        for field_name in (
-            "energy",
-            "protein",
-            "fat",
-            "carbohydrates",
-            "sugars",
-            "fiber",
-        ):
+        for field_name in NUTRITION_FIELDS:
             self.assertNotContains(response, f'name="{field_name}"')
 
         response = self.client.post(
@@ -534,11 +540,17 @@ class ViewTests(TestCase):
         recipe = Recipe.objects.create(recipe="Nutrition recipe", norm_amount=4)
         nutrition = {
             "energy": 100,
-            "protein": Decimal("2.0"),
-            "fat": Decimal("3.0"),
-            "carbohydrates": Decimal("4.0"),
-            "sugars": Decimal("5.0"),
-            "fiber": Decimal("6.0"),
+            "fat": Decimal("2.0"),
+            "saturated_fat": Decimal("3.0"),
+            "monounsaturated_fat": Decimal("4.0"),
+            "polyunsaturated_fat": Decimal("5.0"),
+            "carbohydrates": Decimal("6.0"),
+            "sugars": Decimal("7.0"),
+            "polyols": Decimal("8.0"),
+            "starch": Decimal("9.0"),
+            "fiber": Decimal("10.0"),
+            "protein": Decimal("11.0"),
+            "salt": Decimal("12.0"),
         }
         grams = Article.objects.create(
             article="Grams nutrition",
@@ -570,43 +582,34 @@ class ViewTests(TestCase):
         self.assertNotIn("comment", table.columns)
         totals = table.pinned_data["bottom"][0]
         self.assertEqual(totals["total_average_price"], 310)
-        self.assertEqual(totals["total_energy"], Decimal("350.0"))
-        self.assertEqual(totals["total_protein"], Decimal("7.00"))
-        self.assertEqual(totals["total_fat"], Decimal("10.50"))
-        self.assertEqual(totals["total_carbohydrates"], Decimal("14.00"))
-        self.assertEqual(totals["total_sugars"], Decimal("17.50"))
-        self.assertEqual(totals["total_fiber"], Decimal("21.00"))
-        self.assertContains(response, "Energie (kJ)")
+        for field_name, value in nutrition.items():
+            self.assertEqual(
+                totals[f"total_{field_name}"], Decimal(value) * Decimal("3.5")
+            )
+        self.assertContains(response, "Výživové údaje celkem")
+        self.assertContains(response, "z toho nasycené mastné kyseliny")
         self.assertContains(response, "Celkem")
-        self.assertContains(response, "350.0 kJ")
-        self.assertContains(response, "7.0 g")
+        self.assertContains(response, "nutrition-facts--total")
+        self.assertContains(response, "350.0")
+        self.assertContains(response, "42.0")
+        self.assertContains(response, "Podrobné složení")
+        self.assertContains(response, "<span>kJ</span>", html=True)
         self.assertContains(response, "310 Kč")
         self.assertNotContains(response, "celková cena:")
         self.assertNotContains(response, "Hidden")
 
     def test_article_nutrition_defaults_and_validators(self):
         article = Article(article="Nutrition", unit=UNIT[0][0])
-        nutrition_fields = (
-            "energy",
-            "protein",
-            "fat",
-            "carbohydrates",
-            "sugars",
-            "fiber",
-        )
-        for field_name in nutrition_fields:
+        for field_name in NUTRITION_FIELDS:
             self.assertEqual(getattr(article, field_name), 0)
 
-        article.energy = -1
-        article.protein = Decimal("-0.1")
-        article.fat = Decimal("-0.1")
-        article.carbohydrates = Decimal("-0.1")
-        article.sugars = Decimal("-0.1")
-        article.fiber = Decimal("-0.1")
+        for field_name in NUTRITION_FIELDS:
+            value = -1 if field_name == "energy" else Decimal("-0.1")
+            setattr(article, field_name, value)
         with self.assertRaises(ValidationError) as validation_error:
             article.full_clean()
         self.assertEqual(
-            set(validation_error.exception.message_dict), set(nutrition_fields)
+            set(validation_error.exception.message_dict), set(NUTRITION_FIELDS)
         )
 
 
@@ -692,7 +695,7 @@ class ModelBehaviorTests(TestCase):
                 article=f"Nutrition {unit}",
                 unit=unit,
                 energy=100,
-                protein=Decimal("2.0"),
+                salt=Decimal("2.0"),
             )
             recipe_article = RecipeArticle(
                 recipe=recipe, article=article, amount=1, unit=unit
@@ -702,7 +705,7 @@ class ModelBehaviorTests(TestCase):
                 recipe_article.total_energy, Decimal("100") * expected_factor
             )
             self.assertEqual(
-                recipe_article.total_protein, Decimal("2.0") * expected_factor
+                recipe_article.total_salt, Decimal("2.0") * expected_factor
             )
 
     def test_menu_recipe_count_property_with_and_without_annotation(self):

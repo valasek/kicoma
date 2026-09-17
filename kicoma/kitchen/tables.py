@@ -1,12 +1,14 @@
 import django_tables2 as tables
 from django import forms
 from django.contrib.humanize.templatetags.humanize import intcomma
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django_filters import CharFilter, DateFilter, FilterSet
 
 from .models import (
+    NUTRITION_STRUCTURE,
     Article,
     DailyMenu,
     DailyMenuRecipe,
@@ -167,14 +169,9 @@ class RecipeArticleTable(tables.Table):
     total_average_price = tables.Column(
         verbose_name=_("Celková cena s DPH"), orderable=False
     )
-    total_energy = tables.Column(verbose_name=_("Energie (kJ)"), orderable=False)
-    total_protein = tables.Column(verbose_name=_("Bílkoviny (g)"), orderable=False)
-    total_fat = tables.Column(verbose_name=_("Tuky (g)"), orderable=False)
-    total_carbohydrates = tables.Column(
-        verbose_name=_("Sacharidy (g)"), orderable=False
+    nutrition = tables.Column(
+        empty_values=(), verbose_name=_("Výživové údaje celkem"), orderable=False
     )
-    total_sugars = tables.Column(verbose_name=_("Cukry (g)"), orderable=False)
-    total_fiber = tables.Column(verbose_name=_("Vláknina (g)"), orderable=False)
     change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
     def __init__(self, *args, nutrition_totals=None, **kwargs):
@@ -205,12 +202,7 @@ class RecipeArticleTable(tables.Table):
             "article",
             "amount",
             "total_average_price",
-            "total_energy",
-            "total_protein",
-            "total_fat",
-            "total_carbohydrates",
-            "total_sugars",
-            "total_fiber",
+            "nutrition",
             "change",
         )
 
@@ -227,34 +219,42 @@ class RecipeArticleTable(tables.Table):
         return f"{intcomma(value)} {get_currency()}"
 
     @staticmethod
-    def render_total_energy(value, record):
-        unit = "" if isinstance(record, RecipeArticle) else " kJ"
-        return f"{value:.1f}{unit}"
+    def render_nutrition(record):
+        def nutrition_item(field_name):
+            if isinstance(record, RecipeArticle):
+                value = getattr(record, f"total_{field_name}")
+            else:
+                value = record[f"total_{field_name}"]
+            field = Article._meta.get_field(field_name)
+            return {
+                "label": field.verbose_name,
+                "value": f"{value:.1f}",
+                "unit": "kJ" if field_name == "energy" else "g",
+            }
 
-    @staticmethod
-    def render_total_protein(value, record):
-        unit = "" if isinstance(record, RecipeArticle) else " g"
-        return f"{value:.1f}{unit}"
+        summary = []
+        detail_groups = []
+        for parent_name, child_names in NUTRITION_STRUCTURE:
+            parent = nutrition_item(parent_name)
+            summary.append(parent)
+            if child_names:
+                detail_groups.append(
+                    {
+                        "label": parent["label"],
+                        "items": [nutrition_item(name) for name in child_names],
+                    }
+                )
 
-    @staticmethod
-    def render_total_fat(value, record):
-        unit = "" if isinstance(record, RecipeArticle) else " g"
-        return f"{value:.1f}{unit}"
-
-    @staticmethod
-    def render_total_carbohydrates(value, record):
-        unit = "" if isinstance(record, RecipeArticle) else " g"
-        return f"{value:.1f}{unit}"
-
-    @staticmethod
-    def render_total_sugars(value, record):
-        unit = "" if isinstance(record, RecipeArticle) else " g"
-        return f"{value:.1f}{unit}"
-
-    @staticmethod
-    def render_total_fiber(value, record):
-        unit = "" if isinstance(record, RecipeArticle) else " g"
-        return f"{value:.1f}{unit}"
+        return mark_safe(
+            render_to_string(
+                "kitchen/recipe/_nutrition_facts.html",
+                {
+                    "summary": summary,
+                    "detail_groups": detail_groups,
+                    "expanded": not isinstance(record, RecipeArticle),
+                },
+            )
+        )
 
 
 class DailyMenuTable(tables.Table):

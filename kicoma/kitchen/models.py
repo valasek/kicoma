@@ -135,6 +135,36 @@ class MealType(models.Model):
         return self.meal_type
 
 
+NUTRITION_STRUCTURE = (
+    ("energy", ()),  # Energie
+    (
+        "fat",  # Tuky
+        (
+            "saturated_fat",  # z toho nasycené mastné kyseliny
+            "monounsaturated_fat",  # z toho mononenasycené mastné kyseliny
+            "polyunsaturated_fat",  # z toho polynenasycené mastné kyseliny
+        ),
+    ),
+    (
+        "carbohydrates",  # Sacharidy
+        (
+            "sugars",  # z toho cukry
+            "polyols",  # z toho polyoly
+            "starch",  # z toho škrob
+        ),
+    ),
+    ("fiber", ()),  # Vláknina
+    ("protein", ()),  # Bílkoviny
+    ("salt", ()),  # Sůl
+)
+
+NUTRITION_FIELDS = tuple(
+    field_name
+    for parent_name, child_names in NUTRITION_STRUCTURE
+    for field_name in (parent_name, *child_names)
+)
+
+
 class Article(TimeStampedModel):
     objects = CollatableManager()
 
@@ -185,16 +215,6 @@ class Article(TimeStampedModel):
         verbose_name=_("Energie"),
         help_text=_("kJ / 100 g"),
     )
-    protein = models.DecimalField(
-        max_digits=5,
-        decimal_places=1,
-        blank=True,
-        null=True,
-        default=0,
-        validators=[MinValueValidator(Decimal("0"))],
-        verbose_name=_("Bílkoviny"),
-        help_text=_("g / 100 g"),
-    )
     fat = models.DecimalField(
         max_digits=5,
         decimal_places=1,
@@ -203,6 +223,36 @@ class Article(TimeStampedModel):
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("Tuky"),
+        help_text=_("g / 100 g"),
+    )
+    saturated_fat = models.DecimalField(
+        max_digits=5,
+        decimal_places=1,
+        blank=True,
+        null=True,
+        default=0,
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("z toho nasycené mastné kyseliny"),
+        help_text=_("g / 100 g"),
+    )
+    monounsaturated_fat = models.DecimalField(
+        max_digits=5,
+        decimal_places=1,
+        blank=True,
+        null=True,
+        default=0,
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("z toho mononenasycené mastné kyseliny"),
+        help_text=_("g / 100 g"),
+    )
+    polyunsaturated_fat = models.DecimalField(
+        max_digits=5,
+        decimal_places=1,
+        blank=True,
+        null=True,
+        default=0,
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("z toho polynenasycené mastné kyseliny"),
         help_text=_("g / 100 g"),
     )
     carbohydrates = models.DecimalField(
@@ -222,7 +272,27 @@ class Article(TimeStampedModel):
         null=True,
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
-        verbose_name=_("Cukry"),
+        verbose_name=_("z toho cukry"),
+        help_text=_("g / 100 g"),
+    )
+    polyols = models.DecimalField(
+        max_digits=5,
+        decimal_places=1,
+        blank=True,
+        null=True,
+        default=0,
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("z toho polyoly"),
+        help_text=_("g / 100 g"),
+    )
+    starch = models.DecimalField(
+        max_digits=5,
+        decimal_places=1,
+        blank=True,
+        null=True,
+        default=0,
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("z toho škrob"),
         help_text=_("g / 100 g"),
     )
     fiber = models.DecimalField(
@@ -233,6 +303,26 @@ class Article(TimeStampedModel):
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("Vláknina"),
+        help_text=_("g / 100 g"),
+    )
+    protein = models.DecimalField(
+        max_digits=5,
+        decimal_places=1,
+        blank=True,
+        null=True,
+        default=0,
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("Bílkoviny"),
+        help_text=_("g / 100 g"),
+    )
+    salt = models.DecimalField(
+        max_digits=5,
+        decimal_places=1,
+        blank=True,
+        null=True,
+        default=0,
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("Sůl"),
         help_text=_("g / 100 g"),
     )
     allergen = models.ManyToManyField(Allergen, blank=True, verbose_name=_("Alergeny"))
@@ -412,12 +502,20 @@ class RecipeArticle(TimeStampedModel):
         return self.nutrition_total("energy")
 
     @property
-    def total_protein(self):
-        return self.nutrition_total("protein")
-
-    @property
     def total_fat(self):
         return self.nutrition_total("fat")
+
+    @property
+    def total_saturated_fat(self):
+        return self.nutrition_total("saturated_fat")
+
+    @property
+    def total_monounsaturated_fat(self):
+        return self.nutrition_total("monounsaturated_fat")
+
+    @property
+    def total_polyunsaturated_fat(self):
+        return self.nutrition_total("polyunsaturated_fat")
 
     @property
     def total_carbohydrates(self):
@@ -428,8 +526,24 @@ class RecipeArticle(TimeStampedModel):
         return self.nutrition_total("sugars")
 
     @property
+    def total_polyols(self):
+        return self.nutrition_total("polyols")
+
+    @property
+    def total_starch(self):
+        return self.nutrition_total("starch")
+
+    @property
     def total_fiber(self):
         return self.nutrition_total("fiber")
+
+    @property
+    def total_protein(self):
+        return self.nutrition_total("protein")
+
+    @property
+    def total_salt(self):
+        return self.nutrition_total("salt")
 
     @property
     def total_average_price(self):

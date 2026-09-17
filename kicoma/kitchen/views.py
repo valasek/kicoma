@@ -65,6 +65,7 @@ from .forms import (
 )
 from .functions import convert_units
 from .models import (
+    NUTRITION_FIELDS,
     VAT,
     Allergen,
     Article,
@@ -830,20 +831,12 @@ class RecipeArticleListView(
         return context
 
     def get_table_kwargs(self):
-        nutrition_fields = (
-            "energy",
-            "protein",
-            "fat",
-            "carbohydrates",
-            "sugars",
-            "fiber",
-        )
         totals = {
             f"total_{field_name}": sum(
                 getattr(recipe_article, f"total_{field_name}")
                 for recipe_article in self.object_list
             )
-            for field_name in nutrition_fields
+            for field_name in NUTRITION_FIELDS
         }
         totals["total_average_price"] = sum(
             recipe_article.total_average_price for recipe_article in self.object_list

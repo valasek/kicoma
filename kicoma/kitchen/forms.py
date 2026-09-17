@@ -1,10 +1,12 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Column, Fieldset, Layout, Row
+from crispy_forms.layout import Column, Div, Fieldset, Layout, Row
 from django import forms
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
 from .models import (
+    NUTRITION_FIELDS,
+    NUTRITION_STRUCTURE,
     Article,
     DailyMenu,
     DailyMenuRecipe,
@@ -46,14 +48,7 @@ class ArticleForm(forms.ModelForm):
         "min_on_stock",
         "total_price",
     )
-    nutrition_fields = (
-        "energy",
-        "protein",
-        "fat",
-        "carbohydrates",
-        "sugars",
-        "fiber",
-    )
+    nutrition_fields = NUTRITION_FIELDS
 
     class Meta:
         model = Article
@@ -63,12 +58,7 @@ class ArticleForm(forms.ModelForm):
             "on_stock",
             "min_on_stock",
             "total_price",
-            "energy",
-            "protein",
-            "fat",
-            "carbohydrates",
-            "sugars",
-            "fiber",
+            *NUTRITION_FIELDS,
             "comment",
             "allergen",
         ]
@@ -108,17 +98,38 @@ class ArticleForm(forms.ModelForm):
             ),
         ]
         if "nutrition_advisor" in group_names:
+            nutrition_children = dict(NUTRITION_STRUCTURE)
+            nutrition_groups = Row(
+                *(
+                    Column(
+                        Div(
+                            parent_name,
+                            css_class="nutrition-form__parent",
+                        ),
+                        Div(
+                            *nutrition_children[parent_name],
+                            css_class="nutrition-form__children",
+                        ),
+                        css_class="col-xl-6 nutrition-form__group",
+                    )
+                    for parent_name in ("fat", "carbohydrates")
+                ),
+                css_class="g-4",
+            )
+            nutrition_summary = Row(
+                *(
+                    Column(field_name, css_class="col-md-4")
+                    for field_name in ("fiber", "protein", "salt")
+                ),
+                css_class="nutrition-form__summary",
+            )
             layout.append(
                 Fieldset(
                     _("Výživové údaje"),
-                    Row(
-                        Column("energy", css_class="col-md-2"),
-                        Column("protein", css_class="col-md-2"),
-                        Column("fat", css_class="col-md-2"),
-                        Column("carbohydrates", css_class="col-md-2"),
-                        Column("sugars", css_class="col-md-2"),
-                        Column("fiber", css_class="col-md-2"),
-                    ),
+                    Row(Column("energy", css_class="col-md-4")),
+                    nutrition_groups,
+                    nutrition_summary,
+                    css_class="nutrition-form",
                 )
             )
         self.helper.layout = Layout(*layout)

@@ -1,0 +1,29 @@
+{% load i18n %}
+<div class="nutrition-facts{% if expanded %} nutrition-facts--total{% endif %}">
+  <dl class="nutrition-facts__summary">
+    {% for item in summary %}
+      <div class="nutrition-facts__metric">
+        <dt>{{ item.label }}</dt>
+        <dd>{{ item.value }} <span>{{ item.unit }}</span></dd>
+      </div>
+    {% endfor %}
+  </dl>
+  <details class="nutrition-facts__details"{% if expanded %} open{% endif %}>
+    <summary>{% translate "Podrobné složení" %}</summary>
+    <div class="nutrition-facts__groups">
+      {% for group in detail_groups %}
+        <section class="nutrition-facts__group">
+          <h6>{{ group.label }}</h6>
+          <dl>
+            {% for item in group.items %}
+              <div>
+                <dt>{{ item.label }}</dt>
+                <dd>{{ item.value }} <span>{{ item.unit }}</span></dd>
+              </div>
+            {% endfor %}
+          </dl>
+        </section>
+      {% endfor %}
+    </div>
+  </details>
+</div>
