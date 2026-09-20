@@ -1,297 +1,206 @@
 {% extends 'common/base.html' %}
 {% load static i18n %}
+{% translate "https://forms.gle/PSRxw72x33Bcn6hN9" as trial_form_url %}
+
+{% block title %}{% translate "KiCoMa | Řízení kuchyně pro pečovatelská zařízení" %}{% endblock %}
 
 {% block content %}
-<section class="bg-gradient-purple text-white py-5">
-  <div class="container text-center">
-      <h1 class="display-4">{% translate "Kuchyně pod kontrolou" %}</h1>
-      <p class="lead">{% translate "Profesionální řešení pro řízení skladu, receptů i kuchyně" %}</p>
-      <p>{% translate "Zefektivněte provoz své kuchyně pomocí našeho komplexního systému řízení." %}</p>
-      {% blocktranslate trimmed %}
-      <a href="https://forms.gle/PSRxw72x33Bcn6hN9" class="btn btn-outline-dark ms-3">Požádat o vlastní KiCoMa instanci</a>
-      {% endblocktranslate %}
-  </div>
-</section>
-
-<section id="features" class="py-5">
-  <div class="container">
-    <h2 class="text-center mb-5">{% translate "Funkce" %}</h2>
-    <p class="text-center mb-4">
-      {% translate "KiCoMa je špičkový program určený pro efektivní správu skladu potravin, receptů a menu.<br/><br/>Pojďte se podívat, jak vám KiCoMa může pomoci:" %}
-    </p>
-    <div class="row justify-content-center">
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body text-center bg-gradient-purple text-white rounded-3">
-            <h5>{% translate "Snadné plánování" %}</h5>
-            <p>{% translate "Výživová poradkyně jednoduše naplánuje recepty a denní menu." %}</p>
-          </div>
-        </div>
+<main class="landing-page">
+  <section class="landing-hero">
+    <div class="container landing-hero__content text-center">
+      <p class="landing-eyebrow">{% translate "Pro hospice, domovy pro seniory a další pečovatelská zařízení" %}</p>
+      <h1>{% translate "KiCoMa udrží sklad, recepty i výživové hodnoty pod kontrolou" %}</h1>
+      <p class="landing-hero__lead">
+        {% translate "Naplánujte jídelníček, spočítejte spotřebu a výživové hodnoty a promítněte uvařená jídla do skladu v jednom systému." %}
+      </p>
+      <div class="landing-actions">
+        <a href="{{ trial_form_url }}" class="btn btn-primary btn-lg">{% translate "Požádat o zkušební přístup" %}</a>
+        <a href="#workflow" class="btn btn-outline-dark btn-lg">{% translate "Jak KiCoMa funguje" %}</a>
       </div>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body text-center bg-gradient-purple text-white rounded-3">
-            <h5>{% translate "Bezproblémové vaření" %}</h5>
-            <p>{% translate "Kuchyně vaří přesně podle denního menu, bez stresu a zmatků." %}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body text-center bg-gradient-purple text-white rounded-3">
-            <h5>{% translate "Perfektní synchronizace" %}</h5>
-            <p>{% translate "Recepty a menu jsou propojené se skladem potravin, což znamená, že vždy víte, co máte na skladě." %}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body text-center bg-gradient-purple text-white rounded-3">
-            <h5>{% translate "Aktuální stav skladu" %}</h5>
-            <p>{% translate "Stav skladu se automaticky mění pomocí příjemek a výdejek sestavených podle vydávaných jídel, nebo jednorázovou inventurou." %}</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body text-center bg-gradient-purple text-white rounded-3">
-            <h5>{% translate "Jednoduché reporty" %}</h5>
-            <p>{% translate "Vytvářejte přehledné reporty jedním kliknutím. Program je intuitivní a snadno ovladatelný, s nápovědou a podrobným popisem funkcí." %}</p>
-          </div>
-        </div>
-      </div>
+      <p class="landing-hero__note">{% translate "Osobní úvod do aplikace a pomoc s prvními kroky." %}</p>
+      <img
+        src="{% static 'images/app-items-on-stock.png' %}"
+        alt="{% translate 'Přehled zboží a aktuálního stavu skladu v aplikaci KiCoMa' %}"
+        class="landing-hero__image img-fluid"
+      />
     </div>
-    <div class="text-center mt-5">
-      <h2 class="h4 mb-4">{% translate "Co KiCoMa umí" %}</h2>
-      <ul class="list-unstyled d-inline-block text-start">
-        <li class="mb-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-          </svg>
-          {% blocktranslate trimmed %}<b>Sklad zboží</b>: jednotky, DPH, alergeny, minimální zásoby a aktuální průměrná cena.{% endblocktranslate %}
-        </li>
-        <li class="mb-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-          </svg>
-          {% blocktranslate trimmed %}<b>Recepty</b>: suroviny s převody jednotek, postup, automatické alergeny a náklad na porci.{% endblocktranslate %}
-        </li>
-        <li class="mb-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-          </svg>
-          {% blocktranslate trimmed %}<b>Menu a denní menu</b>: plánování podle skupin strávníků a typu jídla.{% endblocktranslate %}
-        </li>
-        <li class="mb-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-          </svg>
-          {% blocktranslate trimmed %}<b>Výdejky a příjemky</b>: vyskladnění/naskladnění se propojí se skladem, podklady do PDF.{% endblocktranslate %}
-        </li>
-        <li class="mb-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-          </svg>
-          {% blocktranslate trimmed %}<b>Reporty</b>: souhrnná spotřeba, chybné jednotky, zboží mimo recepty.{% endblocktranslate %}
-        </li>
-        <li class="mb-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-          </svg>
-          {% blocktranslate trimmed %}<b>Import/Export</b>: plný export dat a snadný import, včetně úklidu dat.{% endblocktranslate %}
-        </li>
+  </section>
+
+  <section class="landing-context" aria-label="{% translate 'Pro koho je KiCoMa' %}">
+    <div class="container landing-context__inner">
+      <p>{% translate "Vyvinuto v každodenním provozu hospice, kde na přesnosti skladu, jídelníčku a výživy opravdu záleží." %}</p>
+      <ul class="landing-context__list list-unstyled">
+        <li>{% translate "Sklad" %}</li>
+        <li>{% translate "Recepty" %}</li>
+        <li>{% translate "Denní menu" %}</li>
+        <li>{% translate "Výživa" %}</li>
       </ul>
-    </<div>
-    <p class="text-center mt-4">
-      {% translate "Pročtěte si " %}<a href="kitchen/docs" class="fw-bold text-decoration-underline">{% translate "příručku k aplikaci" %}</a>.
-    </p>
-  </div>
-</section>
-
-<section id="screenshots" class="py-5 bg-light">
-  <div class="container text-center">
-    <h2 class="mb-4">{% translate "Ukázka z aplikace" %}</h2>
-    <p class="mb-5">{% translate "Podívejte se, jak KiCoMa vypadá v praxi." %}</p>
-
-      <div class="row g-4">
-      <div class="col-md-4">
-        <a href="#" data-bs-toggle="modal" data-bs-target="#modalRecipes">
-          <img src="{% static 'images/app-items-on-stock.png' %}" 
-               alt="{% translate 'Přehled zboží na skladu' %}" 
-               class="img-fluid rounded-3 shadow-sm"/>
-        </a>
-        <h5 class="mt-3">{% translate "Přehled zboží na skladu" %}</h5>
-      </div>
-
-      <div class="col-md-4">
-        <a href="#" data-bs-toggle="modal" data-bs-target="#modalInventory">
-          <img src="{% static 'images/app-put-item-on-stock.png' %}" 
-               alt="{% translate 'Naskladnění' %}" 
-               class="img-fluid rounded-3 shadow-sm"/>
-        </a>
-        <h5 class="mt-3">{% translate "Naskladnění" %}</h5>
-      </div>
-
-      <div class="col-md-4">
-        <a href="#" data-bs-toggle="modal" data-bs-target="#modalDashboard">
-          <img src="{% static 'images/app-admin.png' %}" 
-               alt="{% translate 'Administrace' %}" 
-               class="img-fluid rounded-3 shadow-sm"/>
-        </a>
-        <h5 class="mt-3">{% translate "Administrace" %}</h5>
-      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Modals -->
-
-<div class="modal fade" id="modalRecipes" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl">
-    <div class="modal-content bg-dark text-white">
-      <div class="modal-header border-0">
-        <h5 class="modal-title">{% translate "Přehled zboží na skladu" %}</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body text-center">
-        <img src="{% static 'images/app-items-on-stock.png' %}" class="img-fluid rounded-3" alt="">
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="modalInventory" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl">
-    <div class="modal-content bg-dark text-white">
-      <div class="modal-header border-0">
-        <h5 class="modal-title">{% translate "Naskladnění" %}</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body text-center">
-        <img src="{% static 'images/app-put-item-on-stock.png' %}" class="img-fluid rounded-3" alt="">
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="modalDashboard" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl">
-    <div class="modal-content bg-dark text-white">
-      <div class="modal-header border-0">
-        <h5 class="modal-title">{% translate "Administrace" %}</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body text-center">
-        <img src="{% static 'images/app-admin.png' %}" class="img-fluid rounded-3" alt="">
-      </div>
-    </div>
-  </div>
-</div>
-
-<section class="bg-gradient-purple text-white py-5">
-  <div class="container text-center">
-    <h2 class="mb-4">{% translate "Co říkají uživatelé" %}</h2>
-    <div class="row g-4">
-      <div class="col-12 col-lg-6">
-        <div class="p-4 border rounded-3 h-100">
-          <p class="mb-3 fst-italic">„{% blocktranslate trimmed %}Moc Ti děkujeme za úžasnou spolupráci, všichni, co na programu pracují, si ho moc pochvalují.{% endblocktranslate %}“</p>
-          <p class="mb-0"><b>{% translate "Jan Kostka" %}</b>, {% blocktranslate trimmed %}Vedoucí provozu, TŘI, z.ú., Hospic Čerčany{% endblocktranslate %}</p>
-        </div>
-      </div>
-      <div class="col-12 col-lg-6">
-        <div class="p-4 border rounded-3 h-100">
-          <p class="mb-3 fst-italic">„{% blocktranslate trimmed %}Honza má pravdu, zpětná vazba byla skvělá.{% endblocktranslate %}“</p>
-          <p class="mb-0"><b>{% translate "PharmDr. Monika Horníková, MHA" %}</b>, {% blocktranslate trimmed %}ředitelka, TŘI, z.ú., Hospic Čerčany{% endblocktranslate %}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="pricing" class="py-5">
-  <div class="container">
-    <h2 class="text-center mb-5">{% trans "Jednoduché a férové ceny" %}</h2>
-    <div class="container text-center">
-      <ul class="list-unstyled mb-4">
-        <li class="fs-3">{% blocktrans %}<b>29 € / měsíc</b>{% endblocktrans %}</li>
-      </ul>
-      <div class="">
-        {% blocktranslate trimmed %}
-        <a href="https://forms.gle/PSRxw72x33Bcn6hN9" class="btn btn-outline-dark ms-3">Požádat o vlastní KiCoMa instanci</a>
-        {% endblocktranslate %}
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="bg-gradient-purple text-white py-5">
-  <div class="container text-center">
-    <h2>{% translate "O projektu" %}</h2>
-    <p class="mb-2">
-      {% blocktranslate trimmed %}KiCoMa – <b>Ki</b>tchen <b>Co</b>oking <b>Ma</b>nagement vznikla pro reálné provozy s důrazem na jednoduchost a spolehlivost.{% endblocktranslate %}
-      <div class="my-3">
-        <a href="{% url 'kitchen:changelog'%}" class="link-info fs-4 link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">{% trans "Novinky" %}</a>
-        <span class="mx-2">/</span>
-        <a href="{% url 'kitchen:docs'%}" class="link-info link-offset-2 fs-4  link-underline-opacity-25 link-underline-opacity-100-hover">{% trans "Příručka" %}</a>
-      </div>
-    </p>
-  </div>
-</section>
-
-<section id="contact" class="py-5">
+  <section id="workflow" class="landing-section">
     <div class="container">
-        <h2 class="text-center mb-5">{% translate "Kontakt a podpora" %}</h2>
-        <div class="container text-center">
-          <p>
-            {% translate "Chcete mě pozdravit, potřebujete pomoc nebo navrhnout užitečnou funkci?" %}
-            <br/><br/>
-            {% translate "Záleží mi na vašem názoru." %}
-            <br/><br/>
-            {% blocktranslate trimmed %}
-              Kontaktujte mě – <a href="https://www.stanislavvalasek.com/contact">Stanislav Valasek</a>
-            {% endblocktranslate %}
-          </p>
-          <img src="{% static 'images/profil.jpg' %}" 
-              width="100%" 
-              alt="Stanislav Valasek" 
-              class="d-block mx-auto rounded-3 img-fluid shadow mt-4 w-25"/>
+      <div class="landing-heading">
+        <p class="landing-eyebrow">{% translate "Jeden navazující proces" %}</p>
+        <h2>{% translate "Od příjmu zboží až po vydané jídlo" %}</h2>
+        <p>{% translate "KiCoMa propojuje práci skladníka, kuchyně a nutričního poradce. Každý pracuje se stejnými aktuálními daty." %}</p>
+      </div>
+      <div class="row g-4 landing-steps">
+        <div class="col-md-6 col-xl-3">
+          <article class="landing-feature h-100">
+            <span class="landing-feature__number" aria-hidden="true">01</span>
+            <h3>{% translate "Evidujte sklad" %}</h3>
+            <p>{% translate "Sledujte množství, minimální zásoby, DPH, alergeny a průměrné ceny zboží." %}</p>
+          </article>
         </div>
+        <div class="col-md-6 col-xl-3">
+          <article class="landing-feature h-100">
+            <span class="landing-feature__number" aria-hidden="true">02</span>
+            <h3>{% translate "Sestavte recepty" %}</h3>
+            <p>{% translate "Přidejte suroviny v různých jednotkách. KiCoMa dopočítá cenu, alergeny i výživové hodnoty." %}</p>
+          </article>
+        </div>
+        <div class="col-md-6 col-xl-3">
+          <article class="landing-feature h-100">
+            <span class="landing-feature__number" aria-hidden="true">03</span>
+            <h3>{% translate "Naplánujte menu" %}</h3>
+            <p>{% translate "Připravte denní menu podle skupiny strávníků, druhu jídla a počtu porcí." %}</p>
+          </article>
+        </div>
+        <div class="col-md-6 col-xl-3">
+          <article class="landing-feature h-100">
+            <span class="landing-feature__number" aria-hidden="true">04</span>
+            <h3>{% translate "Aktualizujte zásoby" %}</h3>
+            <p>{% translate "Z denního menu vytvořte výdejku. Spotřebované suroviny se promítnou do skladu." %}</p>
+          </article>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section id="faq" class="bg-gradient-purple text-white py-5">
-  <div class="container">
-    <h2 class="text-center mb-5">{% translate "Často kladené otázky" %}</h2>
+  <section id="nutrition" class="landing-section landing-nutrition">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <p class="landing-eyebrow">{% translate "Výživové hodnoty" %}</p>
+          <h2>{% translate "Od údajů na surovině k součtu za celý recept" %}</h2>
+          <p class="landing-section__lead">
+            {% translate "Nutriční poradce zadá hodnoty ke zboží jednou. KiCoMa je podle množství a jednotek automaticky přepočítá u každé ingredience a sečte za celý recept." %}
+          </p>
+          <ul class="landing-checklist list-unstyled">
+            <li>{% translate "Energie, tuky, sacharidy, vláknina, bílkoviny a sůl" %}</li>
+            <li>{% translate "Detail nasycených, mononenasycených a polynenasycených tuků" %}</li>
+            <li>{% translate "Cukry, polyoly a škrob v přehledném členění" %}</li>
+            <li>{% translate "Samostatná role nutričního poradce pro správu údajů" %}</li>
+          </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="landing-nutrition__preview" aria-label="{% translate 'Ukázka souhrnu výživových hodnot receptu' %}">
+            <div class="landing-nutrition__header">
+              <span>{% translate "Výživové údaje celkem" %}</span>
+              <strong>{% translate "Ukázkový recept" %}</strong>
+            </div>
+            <dl class="landing-nutrition__metrics">
+              <div><dt>{% translate "Energie" %}</dt><dd>2 340 <span>kJ</span></dd></div>
+              <div><dt>{% translate "Tuky" %}</dt><dd>18,4 <span>g</span></dd></div>
+              <div><dt>{% translate "Sacharidy" %}</dt><dd>72,1 <span>g</span></dd></div>
+              <div><dt>{% translate "Vláknina" %}</dt><dd>9,2 <span>g</span></dd></div>
+              <div><dt>{% translate "Bílkoviny" %}</dt><dd>24,8 <span>g</span></dd></div>
+              <div><dt>{% translate "Sůl" %}</dt><dd>2,1 <span>g</span></dd></div>
+            </dl>
+            <div class="landing-nutrition__detail">
+              <span>{% translate "Podrobné složení tuků a sacharidů" %}</span>
+              <span aria-hidden="true">+</span>
+            </div>
+          </div>
+          <p class="landing-nutrition__caption">{% translate "Ilustrační hodnoty ukazují způsob zobrazení v aplikaci." %}</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <h3>{% translate "Můžu si program vyzkoušet?" %}</h3>
-    {% blocktranslate trimmed %}
-    Ano, rád vám zpřístupním demo nebo zkušební instanci.<br/>
-    Stačí <a href="https://forms.gle/PSRxw72x33Bcn6hN9" class="link-light text-decoration-underline">vyplnit tento formulář</a> a do jednoho pracovného dne se vám ozvu s podrobnostma.
-    {% endblocktranslate %}
-    
-    <h3 class="pt-5">{% translate "V našem provozu nemáme vyhrazen další HW a nerozumíme tolik počítačům. Není to problém?" %}</h3>
-    {% blocktranslate trimmed %}
-    Nevadí, přesně v takovém prostředí program KiCoMa vznikl.<br/>
-    Rád s vámi vše projdu a zaučím vás. A KiCoMa běží na běžném počítači, tabletu i mobilu.
-    {% endblocktranslate %}
+  <section id="features" class="landing-section landing-capabilities">
+    <div class="container">
+      <div class="landing-heading">
+        <p class="landing-eyebrow">{% translate "Každodenní jistota" %}</p>
+        <h2>{% translate "Méně ručního přepisování, lepší přehled" %}</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4"><article class="landing-capability h-100"><h3>{% translate "Příjemky a výdejky" %}</h3><p>{% translate "Naskladnění a vyskladnění je propojené se zásobami a připravené pro tisk do PDF." %}</p></article></div>
+        <div class="col-md-6 col-lg-4"><article class="landing-capability h-100"><h3>{% translate "Inventura a historie" %}</h3><p>{% translate "Zkontrolujte aktuální stav i stav skladu k vybranému dni a udržujte minimální zásoby." %}</p></article></div>
+        <div class="col-md-6 col-lg-4"><article class="landing-capability h-100"><h3>{% translate "Kontrolní reporty" %}</h3><p>{% translate "Najděte nesprávné jednotky, zboží mimo recepty a zobrazte souhrnnou spotřebu i cenu." %}</p></article></div>
+        <div class="col-md-6 col-lg-4"><article class="landing-capability h-100"><h3>{% translate "Automatické alergeny" %}</h3><p>{% translate "Alergeny z jednotlivých surovin se automaticky zobrazí u receptu." %}</p></article></div>
+        <div class="col-md-6 col-lg-4"><article class="landing-capability h-100"><h3>{% translate "Role podle odpovědnosti" %}</h3><p>{% translate "Skladník, kuchař a nutriční poradce mají přístup k funkcím, které potřebují." %}</p></article></div>
+        <div class="col-md-6 col-lg-4"><article class="landing-capability h-100"><h3>{% translate "Import a export dat" %}</h3><p>{% translate "Přeneste data, exportujte zboží do tabulky a využijte připravené PDF podklady." %}</p></article></div>
+      </div>
+      <p class="text-center mt-5 mb-0"><a href="{% url 'kitchen:docs' %}" class="landing-text-link">{% translate "Prohlédnout příručku k aplikaci" %}</a></p>
+    </div>
+  </section>
 
-    <h3 class="pt-5">{% translate "Na jaký provoz je program vhodný a jaký ne?" %}</h3>
-    {% blocktranslate trimmed %}
-    KiCoMa byla vyvinuta pro hospic, ale i další zařízení, kde je potřeba oddělená evidence skladu potravin a plánování jídelníčku – například domovy pro seniory, školní jídelny nebo nemocnice.<br/>
-    Nehodí se pro restaurace nebo stánky s prodejem jídla.<br/>
-    Neřeší prodej, fakturaci (kromě příjemek nebo výdejek) ani účetnictví (ale eviduje pro něj podklady).
-    {% endblocktranslate %}
-    
-    <h3 class="pt-5">{% translate "V programu nám chybí některé funkce, co teď?" %}</h3>
-    {% blocktranslate trimmed %}
-    <a href="https://www.stanislavvalasek.com/contact/" class="link-light text-decoration-underline">Kontaktujte mě</a><br/>
-    <br/>
-    Zjistím o co jde a kolik času na financií by znamenalo program upravit.<br/>
-    Program průběžně dle požadavků upravuji a doplňuji. Viz
-    <a href="https://kicoma.stanislavvalasek.com/kitchen/changelog" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">novinky</a>.<br/>
-    Malá změna trvá většinou na malé jednotky hodin, větší je na dny. A cenu vám sdělím předem.
-    {% endblocktranslate %}
-  </div>
-</section>
+  <section id="screenshots" class="landing-section landing-screens">
+    <div class="container">
+      <div class="landing-heading">
+        <p class="landing-eyebrow">{% translate "Přímo z aplikace" %}</p>
+        <h2>{% translate "Přehledné obrazovky pro každodenní práci" %}</h2>
+        <p>{% translate "Otevřete ukázku a podívejte se na skutečné prostředí KiCoMa." %}</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4"><button type="button" class="landing-screenshot" data-bs-toggle="modal" data-bs-target="#modalStock"><img src="{% static 'images/app-items-on-stock.png' %}" alt="{% translate 'Přehled zboží na skladu' %}" class="img-fluid" /><span>{% translate "Přehled zboží na skladu" %}</span></button></div>
+        <div class="col-md-4"><button type="button" class="landing-screenshot" data-bs-toggle="modal" data-bs-target="#modalReceipt"><img src="{% static 'images/app-put-item-on-stock.png' %}" alt="{% translate 'Naskladnění' %}" class="img-fluid" /><span>{% translate "Naskladnění" %}</span></button></div>
+        <div class="col-md-4"><button type="button" class="landing-screenshot" data-bs-toggle="modal" data-bs-target="#modalAdmin"><img src="{% static 'images/app-admin.png' %}" alt="{% translate 'Administrace' %}" class="img-fluid" /><span>{% translate "Administrace" %}</span></button></div>
+      </div>
+    </div>
+  </section>
 
+  <div class="modal fade" id="modalStock" tabindex="-1" aria-labelledby="modalStockLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-xl"><div class="modal-content"><div class="modal-header"><h2 class="modal-title fs-5" id="modalStockLabel">{% translate "Přehled zboží na skladu" %}</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Zavřít' %}"></button></div><div class="modal-body text-center"><img src="{% static 'images/app-items-on-stock.png' %}" class="img-fluid" alt="{% translate 'Přehled zboží na skladu' %}" /></div></div></div></div>
+  <div class="modal fade" id="modalReceipt" tabindex="-1" aria-labelledby="modalReceiptLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-xl"><div class="modal-content"><div class="modal-header"><h2 class="modal-title fs-5" id="modalReceiptLabel">{% translate "Naskladnění" %}</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Zavřít' %}"></button></div><div class="modal-body text-center"><img src="{% static 'images/app-put-item-on-stock.png' %}" class="img-fluid" alt="{% translate 'Naskladnění' %}" /></div></div></div></div>
+  <div class="modal fade" id="modalAdmin" tabindex="-1" aria-labelledby="modalAdminLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-xl"><div class="modal-content"><div class="modal-header"><h2 class="modal-title fs-5" id="modalAdminLabel">{% translate "Administrace" %}</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Zavřít' %}"></button></div><div class="modal-body text-center"><img src="{% static 'images/app-admin.png' %}" class="img-fluid" alt="{% translate 'Administrace' %}" /></div></div></div></div>
+
+  <section class="landing-section landing-testimonials">
+    <div class="container">
+      <div class="landing-heading"><p class="landing-eyebrow">{% translate "Zkušenost z provozu" %}</p><h2>{% translate "Co říkají uživatelé" %}</h2></div>
+      <div class="row g-4">
+        <div class="col-lg-6"><figure class="landing-quote h-100"><blockquote>„{% blocktranslate trimmed %}Moc Ti děkujeme za úžasnou spolupráci, všichni, co na programu pracují, si ho moc pochvalují.{% endblocktranslate %}“</blockquote><figcaption><strong>{% translate "Jan Kostka" %}</strong><br />{% blocktranslate trimmed %}Vedoucí provozu, TŘI, z.ú., Hospic Čerčany{% endblocktranslate %}</figcaption></figure></div>
+        <div class="col-lg-6"><figure class="landing-quote h-100"><blockquote>„{% blocktranslate trimmed %}Honza má pravdu, zpětná vazba byla skvělá.{% endblocktranslate %}“</blockquote><figcaption><strong>{% translate "PharmDr. Monika Horníková, MHA" %}</strong><br />{% blocktranslate trimmed %}ředitelka, TŘI, z.ú., Hospic Čerčany{% endblocktranslate %}</figcaption></figure></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="landing-section landing-pricing">
+    <div class="container landing-pricing__inner">
+      <div><p class="landing-eyebrow">{% translate "Jednoduchá cena" %}</p><h2>{% translate "Celá KiCoMa za jednu měsíční cenu" %}</h2><p>{% translate "Vyzkoušejte si, zda KiCoMa odpovídá potřebám vašeho provozu." %}</p></div>
+      <div class="landing-price">
+        <p><strong>29 €</strong> <span>{% translate "/ měsíc včetně DPH" %}</span></p>
+        <ul class="landing-price__includes list-unstyled">
+          <li>{% translate "Bezpečnostní aktualizace" %}</li>
+          <li>{% translate "Neomezený počet uživatelů" %}</li>
+          <li>{% translate "Více provozů v ceně" %}</li>
+        </ul>
+        <a href="{{ trial_form_url }}" class="btn btn-primary btn-lg">{% translate "Požádat o zkušební přístup" %}</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="landing-section landing-faq">
+    <div class="container landing-faq__inner">
+      <div class="landing-heading"><p class="landing-eyebrow">{% translate "Časté otázky" %}</p><h2>{% translate "Co potřebujete vědět před vyzkoušením" %}</h2></div>
+      <div class="landing-faq__items">
+        <details open><summary>{% translate "Můžeme si program nejdřív vyzkoušet?" %}</summary><p>{% blocktranslate trimmed %}Ano. Vyplňte krátký formulář a do jednoho pracovního dne se ozvu s podrobnostmi k demo nebo zkušební instanci.{% endblocktranslate %}</p></details>
+        <details><summary>{% translate "Potřebujeme speciální hardware nebo IT správce?" %}</summary><p>{% translate "Ne. KiCoMa funguje v běžném webovém prohlížeči na počítači, tabletu i mobilu. S nastavením a zaškolením vám pomohu." %}</p></details>
+        <details><summary>{% translate "Pro jaké provozy je KiCoMa vhodná?" %}</summary><p>{% translate "Pro zařízení s oddělenou evidencí skladu potravin a plánováním jídelníčku, například hospice, domovy pro seniory, školní jídelny nebo nemocnice. KiCoMa neřeší prodej ani účetnictví." %}</p></details>
+        <details><summary>{% translate "Co když potřebujeme další funkci?" %}</summary><p>{% translate "Požadavek společně projdeme a předem upřesním rozsah, termín a cenu úpravy. Aplikaci průběžně rozvíjím podle potřeb reálných provozů." %}</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="landing-section landing-final-cta">
+    <div class="container text-center">
+      <p class="landing-eyebrow">{% translate "Projděme váš provoz společně" %}</p>
+      <h2>{% translate "Zjistěte, jestli KiCoMa zapadne do vaší kuchyně" %}</h2>
+      <p>{% translate "Popište mi svůj provoz. Ozvu se vám osobně a domluvíme další postup." %}</p>
+      <div class="landing-actions"><a href="{{ trial_form_url }}" class="btn btn-light btn-lg">{% translate "Požádat o zkušební přístup" %}</a><a href="https://www.stanislavvalasek.com/contact/" class="btn btn-outline-light btn-lg">{% translate "Kontaktovat autora" %}</a></div>
+      <div class="landing-project-links"><a href="{% url 'kitchen:changelog' %}">{% translate "Novinky" %}</a><a href="{% url 'kitchen:docs' %}">{% translate "Příručka" %}</a></div>
+    </div>
+  </section>
+</main>
 {% endblock %}

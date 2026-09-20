@@ -1,12 +1,14 @@
 {% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% translate "https://forms.gle/PSRxw72x33Bcn6hN9" as trial_form_url %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>{% block title %}KiCoMa {{ content.title }}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Kitchen management software" />
+    <meta name="description" content="{% translate 'KiCoMa propojuje sklad potravin, recepty, jídelníčky a výživové hodnoty pro pečovatelská zařízení.' %}" />
     <meta name="author" content="Stanislav Valášek" />
 
     <!-- Google Tag Manager -->
@@ -42,28 +44,30 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <nav class="navbar bg-body-secondary navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg landing-navbar sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'common:home' %}">
+        <a class="navbar-brand" href="{% url 'common:home' %}" aria-label="KiCoMa">
                 <img
                     src="{% static 'images/logo.png'%}"
-                    alt="logo"
-                    class="mx-2 mb-2"
-                    style="width: 25px;"
+            alt=""
+            width="32"
+            height="32"
                 />
-                Kicoma
+          <strong>KiCoMa</strong>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarToggler">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                  <a class="nav-link" href="{% url 'kitchen:about' %}">{% translate "Přejít do KiCoMa" %}</a>
-                  <a class="nav-link" href="#features">{% translate "Funkce" %}</a>
-                  <a class="nav-link" href="#pricing">{% translate "Cenník" %}</a>
-                  <a class="nav-link" href="#faq">{% translate "Často kladené dotazy" %}</a>
-                  <a class="nav-link" href="#contact">{% translate "Kontakt" %}</a>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+                  <li class="nav-item"><a class="nav-link" href="#workflow">{% translate "Jak funguje" %}</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#nutrition">{% translate "Výživa" %}</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#features">{% translate "Funkce" %}</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#pricing">{% translate "Cena" %}</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#faq">{% translate "Časté otázky" %}</a></li>
                   {% include "menu_switch_lang.html" %}
+                  <li class="nav-item ms-lg-2"><a class="btn btn-primary" href="{{ trial_form_url }}">{% translate "Vyzkoušet KiCoMa" %}</a></li>
+                  <li class="nav-item"><a class="nav-link landing-navbar__login" href="{% url 'kitchen:about' %}">{% translate "Přihlásit se" %}</a></li>
                 </ul>
             </div>
         </div>
@@ -71,21 +75,21 @@
     
     {% block content %}{% endblock %}
     
-    <footer class="bg-body-secondary py-4">
-  <div class="container d-flex flex-wrap justify-content-between">
-    <span class="me-3">
+    <footer class="landing-footer py-4">
+  <div class="container d-flex flex-wrap justify-content-between align-items-center gap-3">
+    <span class="landing-footer__brand">
       <img
         src="{% static 'images/logo.png'%}"
-        alt="logo"
-        class="mx-2 mb-2"
-        style="width: 25px;"
+        alt=""
+        width="28"
+        height="28"
       />
       {% blocktranslate trimmed %}
       KiCoMa je navržena, vyvinuta a podporována
       <a href="https://www.stanislavvalasek.com/contact" target="_blank">Stanislavem Valáškem</a>, vytvořena s ❤️ na Slovensku
       {% endblocktranslate %}
     </span>
-    <span class="mt-2 mt-md-0">
+    <span>
       <a href="{% url 'kitchen:policy' %}">{% trans "Podmínky" %}</a>, 
       <a href="https://stats.uptimerobot.com/tjN875xKdi">Status</a>
       &copy; {% now "Y" %} {% translate "Stanislav Valášek" %}

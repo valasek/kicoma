@@ -210,6 +210,19 @@ def docs(request):
         + user_group_rel_count
     )
 
+    role_users = {}
+    if request.user.is_authenticated:
+        role_users = {
+            "admin_users": User.objects.filter(is_superuser=True).order_by("username"),
+            "nutrition_advisor_users": User.objects.filter(
+                groups__name="nutrition_advisor"
+            ).order_by("username"),
+            "cook_users": User.objects.filter(groups__name="cook").order_by("username"),
+            "stockkeeper_users": User.objects.filter(
+                groups__name="stockkeeper"
+            ).order_by("username"),
+        }
+
     return render(
         request,
         "kitchen/docs.html",
@@ -231,14 +244,6 @@ def docs(request):
             "dailyMenuRecipeCount": daily_menu_recipe_count,
             "groupCount": group_count,
             "userCount": user_count,
-            "admin_users": User.objects.filter(is_superuser=True).order_by("username"),
-            "nutrition_advisor_users": User.objects.filter(
-                groups__name="nutrition_advisor"
-            ).order_by("username"),
-            "cook_users": User.objects.filter(groups__name="cook").order_by("username"),
-            "stockkeeper_users": User.objects.filter(
-                groups__name="stockkeeper"
-            ).order_by("username"),
             "content_type_count": content_type_count,
             "permission_count": permission_count,
             "migration_count": migration_count,
@@ -246,6 +251,7 @@ def docs(request):
             "site_count": site_count,
             "user_group_rel_count": user_group_rel_count,
             "total_records": total_records,
+            **role_users,
         },
     )
 

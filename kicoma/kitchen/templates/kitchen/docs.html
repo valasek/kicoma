@@ -60,15 +60,15 @@
         <thead class="thead-light">
           <tr>
             <th>{% translate "Skupina" %}</th>
-            <th>{% translate "Uživatelé" %}</th>
+            {% if request.user.is_authenticated %}<th>{% translate "Uživatelé" %}</th>{% endif %}
             <th>{% translate "Oprávnění" %}</th>
           </tr>
         </thead>
         <tr>
           <th>{% translate "-" %}</th>
-          <td>
+          {% if request.user.is_authenticated %}<td>
             {% for user in admin_users %}{{ user.username }}<br />{% endfor %}
-          </td>
+          </td>{% endif %}
           <td>
             {% translate "Administrátor" %}<br />
             {% translate "Správa skupin i uživatelů, všech číselníků." %}<br/>
@@ -77,25 +77,25 @@
         </tr>
         <tr>
           <th>{% translate "Nutriční poradce" %}</th>
-          <td>
+          {% if request.user.is_authenticated %}<td>
             {% for user in nutrition_advisor_users %}{{ user.username }}<br />{% endfor %}
-          </td>
+          </td>{% endif %}
           <td>
             {% translate "Úprava výživových údajú." %}
           </td>
         </tr>
         <tr>
           <th>{% translate "Kuchař" %}</th>
-          <td>
+          {% if request.user.is_authenticated %}<td>
             {% for user in cook_users %}{{ user.username }}<br />{% endfor %}
-          </td>
+          </td>{% endif %}
           <td>{% translate "Tvorba denního menu, tvorba a správa výdejek kromě schvalování a PDF reporty" %}</td>
         </tr>
         <tr>
           <th>{% translate "Skladník" %}</th>
-          <td>
+          {% if request.user.is_authenticated %}<td>
             {% for user in stockkeeper_users %}{{ user.username }}<br />{% endfor %}
-          </td>
+          </td>{% endif %}
           <td>
             {% translate "Správa skladu - založení nové skladové karty, úprava zboží, zadávání a schvalování příjemek, schvalování a tvorba výdejek" %}<br/>
             {% translate "Inventura" %}

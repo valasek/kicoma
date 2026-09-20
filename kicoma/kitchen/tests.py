@@ -314,11 +314,19 @@ class ViewTests(TestCase):
     def test_docs_lists_users_in_each_role(self):
         self.user.is_superuser = True
         self.user.save()
+        self.client.force_login(self.user)
 
         response = self.client.get(reverse("kitchen:docs"))
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content.decode().count("john<br />"), 4)
+
+    def test_docs_does_not_list_users_for_anonymous_visitors(self):
+        response = self.client.get(reverse("kitchen:docs"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "john")
+        self.assertNotContains(response, "Uživatelé")
 
     def test_docs_links_follow_menu_role_visibility(self):
         role_links = {
