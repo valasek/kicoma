@@ -132,6 +132,31 @@ Check if litestream is running:
 
 `./reset-db.sh`
 
+### Recover Local Superuser Access
+
+If the superuser already exists, reset its password instead of deleting and
+recreating it. Deleting a user can also delete related application data.
+
+```bash
+uv run python manage.py changepassword valasek
+```
+
+To list the available superuser usernames:
+
+```bash
+uv run python manage.py shell -c "from django.contrib.auth import get_user_model; print(list(get_user_model().objects.filter(is_superuser=True).values_list('username', flat=True)))"
+```
+
+Create a superuser only when the database does not contain one:
+
+```bash
+uv run python manage.py createsuperuser
+```
+
+Importing the production database also imports its users and password hashes.
+After the import, reset the imported superuser's password locally with
+`changepassword` as shown above.
+
 ### Generate user password for fixture
 
 ```bash

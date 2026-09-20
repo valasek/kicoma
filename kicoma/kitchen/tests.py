@@ -1,4 +1,5 @@
 import json
+from datetime import date
 from decimal import Decimal
 from unittest.mock import patch
 
@@ -460,6 +461,78 @@ class ViewTests(TestCase):
             response,
             "contact a user in the Stockkeeper or Nutrition advisor group",
         )
+
+    def test_incorrect_units_report_includes_stock_document_articles(self):
+        self.client.login(username="john", password="password")
+        article = Article.objects.create(
+            article="Incorrect historical unit",
+            unit="kg",
+            on_stock=0,
+            total_price=0,
+        )
+        stock_issue = StockIssue.objects.create(user_created=self.user)
+        StockIssueArticle.objects.create(
+            stock_issue=stock_issue,
+            article=article,
+            amount=1,
+            unit="ks",
+            average_unit_price=10,
+        )
+        vat = VAT.objects.create(percentage=21, rate="standard")
+        stock_receipt = StockReceipt.objects.create(user_created=self.user)
+        StockReceiptArticle.objects.create(
+            stock_receipt=stock_receipt,
+            article=article,
+            amount=1,
+            unit="ks",
+            price_without_vat=10,
+            vat=vat,
+        )
+
+        response = self.client.get(reverse("kitchen:showIncorrectUnits"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Incorrect historical unit")
+        self.assertContains(
+            response,
+            reverse("kitchen:showStockIssueArticles", args=[stock_issue.pk]),
+        )
+        self.assertContains(
+            response,
+            reverse("kitchen:showStockReceiptArticles", args=[stock_receipt.pk]),
+        )
+        self.assertNotContains(response, "Všechny jednotky jsou zadány správně")
+
+    def test_total_price_report_redirects_on_incorrect_historical_unit(self):
+        self.client.login(username="john", password="password")
+        article = Article.objects.create(
+            article="Incorrect historical unit",
+            unit="kg",
+            on_stock=0,
+            total_price=0,
+        )
+        stock_issue = StockIssue.objects.create(
+            user_created=self.user,
+            approved=True,
+            date_approved=date.today(),
+        )
+        StockIssueArticle.objects.create(
+            stock_issue=stock_issue,
+            article=article,
+            amount=1,
+            unit="ks",
+            average_unit_price=10,
+        )
+
+        response = self.client.get(reverse("kitchen:showFoodConsumptionTotalPrice"))
+
+        self.assertRedirects(
+            response,
+            reverse("kitchen:showIncorrectUnits"),
+            fetch_redirect_response=False,
+        )
+        message = next(iter(response.wsgi_request._messages))
+        self.assertIn("Není možné provést konverzi 1.00 ks na kg", str(message))
 
     def test_docs_lists_users_in_each_role(self):
         self.user.is_superuser = True

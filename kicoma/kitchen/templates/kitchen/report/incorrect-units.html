@@ -2,29 +2,53 @@
 {% load crispy_forms_tags static i18n %} 
 {% block content %}
 <div class="container-fluid">
-  <h4>{% blocktranslate trimmed with total=object_list|length %}{{ total }} receptů k opravě{% endblocktranslate %}</h4>
+  <h4>{% translate "Nesprávné jednotky" %}</h4>
   <hr />
-  {% if object_list %}
+  {% if object_list or stock_issue_articles or stock_receipt_articles %}
     {% blocktranslate trimmed %}
       <b>Důvod:</b><br/>
-      Na níže uvedených receptech je zboží zadáno s jinou jednotkou než je uloženo na skladu, například skořice je na skladu evidována v ks a na receptu v kg.<br/>
-      Proto není možno spočítat celkovou cenu receptu (není možno převést jednotku z receptu na skladovou jednotku).<br/>
+      Níže uvedené zboží je zadáno s jinou jednotkou než je aktuálně uloženo na skladu, například skořice je evidována v ks a v dokladu v kg.<br/>
+      Proto není možno spočítat celkovou cenu (jednotky není možno převést).<br/>
       <br/>
       <b>Řešení:</b><br/>
-      Na níže uvedených receptech oprav jednotku i množství v závorce uvedeného zboží, nebo změn jednotku zboží na skladu.<br/>
+      Oprav jednotku i množství uvedeného zboží, nebo změn jednotku zboží na skladu.<br/>
     {% endblocktranslate %}<br/>
     <hr/>
-    {% blocktranslate trimmed with total=object_list|length %}Celkem jde o {{ total }} receptů:{% endblocktranslate %}<br/>
-    <ul>
-    {% for object in object_list %}
-      <li>
-        <a href="{% url 'kitchen:showRecipeArticles' object.recipe.pk %}">{{ object.recipe }}</a>
-        ({{ object.articles|join:", " }})
-      </li>
-    {% endfor %}
-    </ul>
+    {% if object_list %}
+      {% blocktranslate trimmed with total=object_list|length %}Celkem jde o {{ total }} receptů:{% endblocktranslate %}<br/>
+      <ul>
+      {% for object in object_list %}
+        <li>
+          <a href="{% url 'kitchen:showRecipeArticles' object.recipe.pk %}">{{ object.recipe }}</a>
+          ({{ object.articles|join:", " }})
+        </li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    {% if stock_issue_articles %}
+      <b>{% translate "Výdejky s nesprávnými jednotkami:" %}</b><br/>
+      <ul>
+      {% for object in stock_issue_articles %}
+        <li>
+          <a href="{% url 'kitchen:showStockIssueArticles' object.stock_issue.pk %}">{{ object.stock_issue }}</a>
+          ({{ object.article }}: {{ object.amount }} {{ object.unit }} &rarr; {{ object.article.unit }})
+        </li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    {% if stock_receipt_articles %}
+      <b>{% translate "Příjemky s nesprávnými jednotkami:" %}</b><br/>
+      <ul>
+      {% for object in stock_receipt_articles %}
+        <li>
+          <a href="{% url 'kitchen:showStockReceiptArticles' object.stock_receipt.pk %}">{{ object.stock_receipt }}</a>
+          ({{ object.article }}: {{ object.amount }} {{ object.unit }} &rarr; {{ object.article.unit }})
+        </li>
+      {% endfor %}
+      </ul>
+    {% endif %}
   {% else %}
-      {% translate "Všechny recepty jsou zadány správně. Není nutná žádná další akce." %}
+      {% translate "Všechny jednotky jsou zadány správně. Není nutná žádná další akce." %}
   {% endif %}
 </div>
 {% endblock content %}

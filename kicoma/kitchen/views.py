@@ -2097,6 +2097,24 @@ def stock_issues_receipts_data(month):
 class ShowFoodConsumptionTotalPrice(AnyRoleRequiredMixin, TemplateView):
     template_name = "kitchen/report/show_stock_issues_receipts_total_price.html"
 
+    def get(self, request, *args, **kwargs):
+        try:
+            return super().get(request, *args, **kwargs)
+        except ValidationError as error:
+            messages.error(
+                request,
+                format_html(
+                    _(
+                        "Celkovou cenu nelze spočítat: {error}. "
+                        'Podrobnosti najdete v <a href="{report_url}">reportu '
+                        "nesprávných jednotek</a>."
+                    ),
+                    error="; ".join(error.messages),
+                    report_url=reverse("kitchen:showIncorrectUnits"),
+                ),
+            )
+            return HttpResponseRedirect(reverse("kitchen:showIncorrectUnits"))
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -2124,6 +2142,16 @@ class IncorrectUnitsListView(SingleTableMixin, AnyRoleRequiredMixin, ListView):
     model = Recipe
     template_name = "kitchen/report/incorrect-units.html"
 
+    @staticmethod
+    def get_incorrect_articles(queryset):
+        items_to_fix = []
+        for item in queryset.select_related("article"):
+            try:
+                convert_units(item.amount, item.unit, item.article.unit)
+            except ValidationError:
+                items_to_fix.append(item)
+        return items_to_fix
+
     def get_queryset(self):
         # show only recipes where article unit cannot be converted to stock article unit
         recipes = super().get_queryset()
@@ -2149,6 +2177,16 @@ class IncorrectUnitsListView(SingleTableMixin, AnyRoleRequiredMixin, ListView):
         # update message
         daily_job.run_daily_job()
         return items_to_fix
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["stock_issue_articles"] = self.get_incorrect_articles(
+            StockIssueArticle.objects.all()
+        )
+        context["stock_receipt_articles"] = self.get_incorrect_articles(
+            StockReceiptArticle.objects.all()
+        )
+        return context
 
 
 class ArticlesNotInRecipesListView(SingleTableMixin, AnyRoleRequiredMixin, ListView):
