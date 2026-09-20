@@ -211,7 +211,7 @@ class Article(TimeStampedModel):
         blank=True,
         null=True,
         default=0,
-        validators=[MinValueValidator(0), MaxValueValidator(3800)],
+        validators=[MinValueValidator(0), MaxValueValidator(10000)],
         verbose_name=_("Energie"),
         help_text=_("kJ / 100 g"),
     )

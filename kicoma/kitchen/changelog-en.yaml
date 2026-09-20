@@ -1,4 +1,7 @@
 2026:
+  - date: 2026-09-20
+    items:
+      - "The maximum energy value for goods has been increased from 3,800 to 10,000 kJ / 100 g."
   - date: 2026-09-17
     items:
       - "Article nutrition data now includes saturated, monounsaturated and polyunsaturated fat, polyols, starch and salt."
