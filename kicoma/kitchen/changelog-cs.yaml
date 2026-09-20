@@ -4,6 +4,8 @@
       - "Maximální hodnota energie u zboží byla zvýšena z 3 800 na 10 000 kJ / 100 g."
       - "Úvodní stránka byla přepracována a nově představuje výživové hodnoty, propojený provoz kuchyně a skutečné obrazovky aplikace."
       - "Cena 29 € měsíčně nyní jasně uvádí, že zahrnuje DPH, bezpečnostní aktualizace, neomezený počet uživatelů a více provozů."
+      - "Vyskladnění výdejky a naskladnění příjemky je nyní rychlejší, hlavně u dokladů s větším počtem zboží."
+      - "Oprava: Když vyskladňuje nebo naskladňuje více lidí najednou, množství a cena na skladě se už nepřepíšou."
       - "Bezpečnost: Nepřihlášeným návštěvníkům příručky se již nezobrazují uživatelská jména."
   - date: 2026-09-17
     items:

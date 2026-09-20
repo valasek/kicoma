@@ -4,6 +4,8 @@
       - "The maximum energy value for goods has been increased from 3,800 to 10,000 kJ / 100 g."
       - "The landing page has been redesigned to present nutrition data, the connected kitchen workflow and real application screens."
       - "The €29 monthly price now clearly states that it includes VAT, security updates, unlimited users and multiple facilities."
+      - "Issuing a stock issue and receiving a stock receipt is now faster, mainly for documents with more goods."
+      - "FIX: When several people issue or receive goods at the same time, the amount and price in stock are no longer overwritten."
       - "SECURITY: Usernames are no longer displayed to signed-out visitors of the application guide."
   - date: 2026-09-17
     items:

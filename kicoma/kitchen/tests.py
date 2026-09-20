@@ -23,6 +23,8 @@ from kicoma.kitchen.models import (
     MenuRecipe,
     Recipe,
     RecipeArticle,
+    StockIssue,
+    StockIssueArticle,
     StockReceipt,
     StockReceiptArticle,
 )
@@ -105,6 +107,154 @@ class TestUrl(SimpleTestCase):
     def test_article_create_view_is_resolved(self):
         url = reverse("kitchen:createArticle")
         self.assertEqual(resolve(url).func.view_class, ArticleCreateView)
+
+
+class StockUpdateTests(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="stockkeeper",
+            password="password",
+        )
+
+    def create_article(self, name):
+        return Article.objects.create(
+            article=name,
+            unit="kg",
+            on_stock=10,
+            min_on_stock=0,
+            total_price=100,
+        )
+
+    def create_stock_issue(self, article_count):
+        stock_issue = StockIssue.objects.create(user_created=self.user)
+        articles = []
+        for index in range(article_count):
+            article = self.create_article(f"Article {stock_issue.pk}-{index}")
+            StockIssueArticle.objects.create(
+                stock_issue=stock_issue,
+                article=article,
+                amount=1,
+                unit="kg",
+                average_unit_price=10,
+            )
+            articles.append(article)
+        return stock_issue, articles
+
+    def create_stock_receipt(self, article_count):
+        vat = VAT.objects.create(percentage=article_count, rate=f"rate {article_count}")
+        stock_receipt = StockReceipt.objects.create(user_created=self.user)
+        for index in range(article_count):
+            StockReceiptArticle.objects.create(
+                stock_receipt=stock_receipt,
+                article=self.create_article(f"Receipt {stock_receipt.pk}-{index}"),
+                amount=1,
+                unit="kg",
+                price_without_vat=10,
+                vat=vat,
+            )
+        return stock_receipt
+
+    def test_stock_update_query_count_does_not_scale_with_articles(self):
+        single_issue, _ = self.create_stock_issue(1)
+        double_issue, articles = self.create_stock_issue(2)
+
+        with CaptureQueriesContext(connection) as single_queries:
+            StockIssue.update_article_on_stock(single_issue.pk, "Lunch", False)
+        with CaptureQueriesContext(connection) as double_queries:
+            StockIssue.update_article_on_stock(double_issue.pk, "Lunch", False)
+
+        self.assertEqual(len(double_queries), len(single_queries))
+        for article in articles:
+            article.refresh_from_db()
+            self.assertEqual(article.on_stock, Decimal("9"))
+            self.assertEqual(article.total_price, Decimal("90"))
+            self.assertEqual(article.history.count(), 2)
+            self.assertTrue(
+                article.history.first().history_change_reason.endswith("Lunch")
+            )
+
+    def test_stock_update_sums_repeated_rows_for_the_same_article(self):
+        stock_issue, articles = self.create_stock_issue(1)
+        article = articles[0]
+        StockIssueArticle.objects.create(
+            stock_issue=stock_issue,
+            article=article,
+            amount=3,
+            unit="kg",
+            average_unit_price=10,
+        )
+
+        StockIssue.update_article_on_stock(stock_issue.pk, "Lunch", False)
+
+        article.refresh_from_db()
+        self.assertEqual(article.on_stock, Decimal("6"))
+        self.assertEqual(article.total_price, Decimal("60"))
+        self.assertEqual(article.history.count(), 2)
+
+    def test_change_reason_is_truncated_to_the_history_column(self):
+        stock_issue, articles = self.create_stock_issue(1)
+
+        StockIssue.update_article_on_stock(stock_issue.pk, "x" * 200, False)
+
+        reason = articles[0].history.first().history_change_reason
+        self.assertEqual(len(reason), 100)
+
+    def test_receipt_stock_update_query_count_does_not_scale_with_articles(self):
+        single_receipt = self.create_stock_receipt(1)
+        double_receipt = self.create_stock_receipt(2)
+
+        with CaptureQueriesContext(connection) as single_queries:
+            StockReceipt.update_article_on_stock(single_receipt.pk, "Delivery")
+        with CaptureQueriesContext(connection) as double_queries:
+            StockReceipt.update_article_on_stock(double_receipt.pk, "Delivery")
+
+        self.assertEqual(len(double_queries), len(single_queries))
+        for article in Article.objects.filter(
+            stockreceiptarticle_set__stock_receipt=double_receipt
+        ):
+            self.assertEqual(article.on_stock, Decimal("11"))
+            self.assertEqual(article.total_price, Decimal("110"))
+
+    def test_average_price_update_query_count_does_not_scale_with_articles(self):
+        single_issue, _ = self.create_stock_issue(1)
+        double_issue, _ = self.create_stock_issue(2)
+
+        with CaptureQueriesContext(connection) as single_queries:
+            StockIssue.update_stock_issue_article_average_unit_price(single_issue.pk)
+        with CaptureQueriesContext(connection) as double_queries:
+            StockIssue.update_stock_issue_article_average_unit_price(double_issue.pk)
+
+        self.assertEqual(len(double_queries), len(single_queries))
+        self.assertEqual(
+            list(
+                double_issue.stockissuearticle_set.values_list(
+                    "average_unit_price", flat=True
+                )
+            ),
+            [Decimal("10"), Decimal("10")],
+        )
+
+    def test_average_price_uses_latest_receipt_for_empty_stock(self):
+        stock_issue, articles = self.create_stock_issue(1)
+        article = articles[0]
+        article.on_stock = 0
+        article.total_price = 0
+        article.save()
+        vat = VAT.objects.create(percentage=20, rate="basic")
+        stock_receipt = StockReceipt.objects.create(user_created=self.user)
+        StockReceiptArticle.objects.create(
+            stock_receipt=stock_receipt,
+            article=article,
+            amount=1,
+            unit="kg",
+            price_without_vat=10,
+            vat=vat,
+        )
+
+        StockIssue.update_stock_issue_article_average_unit_price(stock_issue.pk)
+
+        stock_issue_article = stock_issue.stockissuearticle_set.get()
+        self.assertEqual(stock_issue_article.average_unit_price, Decimal("12"))
 
 
 class RolePermissionTests(TestCase):

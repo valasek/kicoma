@@ -1,4 +1,3 @@
-import contextlib
 import datetime
 from decimal import Decimal
 
@@ -7,9 +6,10 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models, transaction
 from django.db.models import Count, F, Min, Sum, UniqueConstraint
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
-from simple_history.utils import update_change_reason
+from simple_history.utils import bulk_update_with_history
 
 from .functions import convert_units, total_recipe_article_price
 from .managers import CollatableManager
@@ -23,27 +23,37 @@ UNIT = (
 )
 
 
-def _record_history_change_reason(instance, prefix, comment):
-    """Safely set history change reason and persist a history entry.
+def _apply_article_stock_changes(changes, prefix, comment):
+    """Apply `(article, amount_delta, price_delta)` changes in a fixed number of queries.
 
-    - Accepts possible None in `comment`.
-    - Tolerates environments where update_change_reason may raise AttributeError.
-    - Ensures a history row is created by saving the instance.
+    Deltas are summed per article first, because one document may list the same
+    article on several rows. They are written as F() expressions so a concurrent
+    approval adds to the stock instead of overwriting it.
     """
-    if not instance:
+    totals = {}
+    for article, amount_delta, price_delta in changes:
+        total = totals.setdefault(article.pk, [article, Decimal("0"), Decimal("0")])
+        total[1] += amount_delta
+        total[2] += price_delta
+    if not totals:
         return
-    reason = f"{prefix} - {comment or ''}"
-    try:
-        update_change_reason(instance, reason)
-    except Exception:
-        # Fallback: set attribute directly if utils helper is unavailable/problematic
-        # As a last resort, do nothing — don't break the workflow
-        with contextlib.suppress(Exception):
-            instance.history_change_reason = reason
-    # Create a historical record reflecting current values and reason
-    # Don't block stock operations on history save issues
-    with contextlib.suppress(Exception):
-        instance.save()
+    modified = timezone.now()
+    articles = []
+    for article, amount_delta, price_delta in totals.values():
+        article.on_stock = F("on_stock") + amount_delta
+        article.total_price = F("total_price") + price_delta
+        article.modified = modified
+        articles.append(article)
+    Article.objects.bulk_update(articles, ["on_stock", "total_price", "modified"])
+    reason_field = Article.history.model._meta.get_field("history_change_reason")
+    bulk_update_with_history(
+        # Re-read because the instances above still hold unresolved F() expressions.
+        list(Article.objects.filter(pk__in=list(totals))),
+        Article,
+        # No fields: the rows are already written, only history rows are missing.
+        [],
+        default_change_reason=f"{prefix} - {comment or ''}"[: reason_field.max_length],
+    )
 
 
 class TimeStampedModel(models.Model):
@@ -821,14 +831,28 @@ class StockIssue(TimeStampedModel):
 
     @staticmethod
     def update_stock_issue_article_average_unit_price(stock_issue_id):
-        stock_issue_articles = StockIssueArticle.objects.filter(
-            stock_issue_id=stock_issue_id
+        latest_receipt = models.Prefetch(
+            "article__stockreceiptarticle_set",
+            queryset=StockReceiptArticle.objects.select_related("vat").order_by("-id")[
+                :1
+            ],
+            to_attr="latest_receipt",
         )
+        stock_issue_articles = list(
+            StockIssueArticle.objects.filter(stock_issue_id=stock_issue_id)
+            .select_related("article")
+            .prefetch_related(latest_receipt)
+        )
+        modified = timezone.now()
         for stock_issue_article in stock_issue_articles:
             stock_issue_article.average_unit_price = (
                 stock_issue_article.article.average_price
             )
-            stock_issue_article.save()
+            stock_issue_article.modified = modified
+        StockIssueArticle.objects.bulk_update(
+            stock_issue_articles,
+            ["average_unit_price", "modified"],
+        )
 
     @staticmethod
     def update_article_on_stock(stock_id, comment, fake):
@@ -836,6 +860,7 @@ class StockIssue(TimeStampedModel):
             stock_issue=stock_id
         )
         messages = ""
+        changes = []
         for stock_article in stock_articles:
             article = stock_article.article
             converted_amount = convert_units(
@@ -857,12 +882,8 @@ class StockIssue(TimeStampedModel):
                 )
                 delta_amount = Decimal(round(converted_amount, 2))
                 delta_price = Decimal(round(new_total_price, 0))
-                Article.objects.filter(pk=article.pk).update(
-                    on_stock=F("on_stock") - delta_amount,
-                    total_price=F("total_price") - delta_price,
-                )
-                updated_article = Article.objects.get(pk=article.pk)
-                _record_history_change_reason(updated_article, _("Výdej"), comment)
+                changes.append((article, -delta_amount, -delta_price))
+        _apply_article_stock_changes(changes, _("Výdej"), comment)
         return messages
 
 
@@ -914,9 +935,10 @@ class StockReceipt(TimeStampedModel):
 
     @staticmethod
     def update_article_on_stock(stock_id, comment):
-        stock_articles = StockReceiptArticle.objects.select_related("article").filter(
-            stock_receipt=stock_id
-        )
+        stock_articles = StockReceiptArticle.objects.select_related(
+            "article", "vat"
+        ).filter(stock_receipt=stock_id)
+        changes = []
         for stock_article in stock_articles:
             article = stock_article.article
             converted_amount = convert_units(
@@ -927,12 +949,8 @@ class StockReceipt(TimeStampedModel):
             )
             delta_amount = Decimal(round(converted_amount, 2))
             delta_price = Decimal(round(new_total_price, 0))
-            Article.objects.filter(pk=article.pk).update(
-                on_stock=F("on_stock") + delta_amount,
-                total_price=F("total_price") + delta_price,
-            )
-            updated_article = Article.objects.get(pk=article.pk)
-            _record_history_change_reason(updated_article, "Příjem", comment)
+            changes.append((article, delta_amount, delta_price))
+        _apply_article_stock_changes(changes, "Příjem", comment)
 
 
 class StockIssueArticle(TimeStampedModel):
