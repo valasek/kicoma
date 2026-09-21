@@ -20,6 +20,9 @@ from kicoma.kitchen.models import (
     UNIT,
     VAT,
     Article,
+    DailyMenu,
+    DailyMenuRecipe,
+    MealGroup,
     Menu,
     MenuRecipe,
     Recipe,
@@ -46,6 +49,20 @@ class ArticleFormRoleTests(TestCase):
         user.groups.add(Group.objects.create(name=group_name))
         return user
 
+    def test_nutrition_fields_are_the_supported_set(self):
+        self.assertEqual(
+            NUTRITION_FIELDS,
+            (
+                "energy",
+                "fat",
+                "saturated_fat",
+                "carbohydrates",
+                "sugars",
+                "fiber",
+                "protein",
+            ),
+        )
+
     def test_stockkeeper_can_edit_only_stock_and_common_fields(self):
         form = ArticleForm(user=self.create_user("stockkeeper"))
 
@@ -71,15 +88,10 @@ class ArticleFormRoleTests(TestCase):
                 "energy": 1234,
                 "fat": "4.5",
                 "saturated_fat": "1.1",
-                "monounsaturated_fat": "1.2",
-                "polyunsaturated_fat": "1.3",
                 "carbohydrates": "67.8",
                 "sugars": "9.1",
-                "polyols": "2.1",
-                "starch": "3.1",
                 "fiber": "2.3",
                 "protein": "12.3",
-                "salt": "0.8",
                 "comment": "Nutrition updated",
             },
             instance=article,
@@ -265,6 +277,11 @@ class RolePermissionTests(TestCase):
         "/kitchen/article/list": ("stockkeeper", "nutrition_advisor"),
         "/kitchen/recipe/list": ("cook", "nutrition_advisor"),
         "/kitchen/dailymenu/list": ("cook", "nutrition_advisor"),
+        "/kitchen/report/stockbyunit": (
+            "cook",
+            "stockkeeper",
+            "nutrition_advisor",
+        ),
     }
 
     def make_user(self, username, roles=()):
@@ -402,6 +419,7 @@ class ViewTests(TestCase):
         # "/kitchen/report/print/cateringunit", - doplnit date argument
         "/kitchen/report/incorrectunits",
         "/kitchen/report/articlesnotinrecipes",
+        "/kitchen/report/stockbyunit",
     ]
 
     def test_access_private_urls_with_login(self):
@@ -502,6 +520,59 @@ class ViewTests(TestCase):
             reverse("kitchen:showStockReceiptArticles", args=[stock_receipt.pk]),
         )
         self.assertNotContains(response, "Všechny jednotky jsou zadány správně")
+
+    def test_stock_by_unit_report_shows_overview_and_selected_goods(self):
+        self.client.login(username="john", password="password")
+        flour = Article.objects.create(
+            article="Flour",
+            unit="kg",
+            on_stock=Decimal("2.5"),
+            total_price=0,
+        )
+        Article.objects.create(
+            article="Salt",
+            unit="kg",
+            on_stock=Decimal("1.5"),
+            total_price=0,
+        )
+        Article.objects.create(
+            article="Empty bottle",
+            unit="ks",
+            on_stock=0,
+            total_price=0,
+        )
+
+        overview = self.client.get(reverse("kitchen:showStockByUnit"))
+
+        self.assertEqual(overview.status_code, 200)
+        self.assertEqual(overview.context["total_articles"], 3)
+        self.assertEqual(
+            overview.context["units"],
+            [
+                {
+                    "value": "kg",
+                    "label": "kg",
+                    "unit": "kg",
+                    "article_count": 2,
+                    "total_on_stock": Decimal("4"),
+                },
+                {
+                    "value": "ks",
+                    "label": "ks",
+                    "unit": "ks",
+                    "article_count": 1,
+                    "total_on_stock": Decimal("0"),
+                },
+            ],
+        )
+        self.assertNotContains(overview, "Flour")
+
+        detail = self.client.get(reverse("kitchen:showStockByUnit"), {"unit": "kg"})
+
+        self.assertContains(detail, "Flour")
+        self.assertContains(detail, "Salt")
+        self.assertNotContains(detail, "Empty bottle")
+        self.assertContains(detail, reverse("kitchen:updateArticle", args=[flour.pk]))
 
     def test_total_price_report_redirects_on_incorrect_historical_unit(self):
         self.client.login(username="john", password="password")
@@ -662,15 +733,10 @@ class ViewTests(TestCase):
                 "energy": 1234,
                 "fat": "4.5",
                 "saturated_fat": "1.1",
-                "monounsaturated_fat": "1.2",
-                "polyunsaturated_fat": "1.3",
                 "carbohydrates": "67.8",
                 "sugars": "9.1",
-                "polyols": "2.1",
-                "starch": "3.1",
                 "fiber": "2.3",
                 "protein": "12.3",
-                "salt": "0.8",
                 "comment": article.comment,
             },
         )
@@ -679,15 +745,10 @@ class ViewTests(TestCase):
         self.assertEqual(article.energy, 1234)
         self.assertEqual(article.fat, Decimal("4.5"))
         self.assertEqual(article.saturated_fat, Decimal("1.1"))
-        self.assertEqual(article.monounsaturated_fat, Decimal("1.2"))
-        self.assertEqual(article.polyunsaturated_fat, Decimal("1.3"))
         self.assertEqual(article.carbohydrates, Decimal("67.8"))
         self.assertEqual(article.sugars, Decimal("9.1"))
-        self.assertEqual(article.polyols, Decimal("2.1"))
-        self.assertEqual(article.starch, Decimal("3.1"))
         self.assertEqual(article.fiber, Decimal("2.3"))
         self.assertEqual(article.protein, Decimal("12.3"))
-        self.assertEqual(article.salt, Decimal("0.8"))
 
     def test_update_article_with_blank_nutrition(self):
         self.client.login(username="john", password="password")
@@ -773,15 +834,10 @@ class ViewTests(TestCase):
             "energy": 100,
             "fat": Decimal("2.0"),
             "saturated_fat": Decimal("3.0"),
-            "monounsaturated_fat": Decimal("4.0"),
-            "polyunsaturated_fat": Decimal("5.0"),
             "carbohydrates": Decimal("6.0"),
             "sugars": Decimal("7.0"),
-            "polyols": Decimal("8.0"),
-            "starch": Decimal("9.0"),
             "fiber": Decimal("10.0"),
             "protein": Decimal("11.0"),
-            "salt": Decimal("12.0"),
         }
         grams = Article.objects.create(
             article="Grams nutrition",
@@ -821,13 +877,99 @@ class ViewTests(TestCase):
         self.assertContains(response, "z toho nasycené mastné kyseliny")
         self.assertContains(response, "Celkem")
         self.assertContains(response, "nutrition-facts--total")
-        self.assertContains(response, "350.0")
-        self.assertContains(response, "42.0")
-        self.assertContains(response, "Podrobné složení")
+        self.assertContains(response, "350,0")
+        self.assertContains(response, "38,5")
+        self.assertNotContains(response, "<details")
         self.assertContains(response, "<span>kJ</span>", html=True)
         self.assertContains(response, "310 Kč")
         self.assertNotContains(response, "celková cena:")
         self.assertNotContains(response, "Hidden")
+
+    def test_daily_menu_views_show_scaled_nutrition_totals(self):
+        self.client.login(username="john", password="password")
+        nutrition = {
+            "energy": 1000,
+            "fat": Decimal("2.0"),
+            "saturated_fat": Decimal("1.0"),
+            "carbohydrates": Decimal("4.0"),
+            "sugars": Decimal("3.0"),
+            "fiber": Decimal("5.0"),
+            "protein": Decimal("6.0"),
+        }
+        article = Article.objects.create(
+            article="Daily menu nutrition",
+            unit="g",
+            **nutrition,
+        )
+        first_recipe = Recipe.objects.create(recipe="First course", norm_amount=4)
+        second_recipe = Recipe.objects.create(recipe="Second course", norm_amount=2)
+        RecipeArticle.objects.create(
+            recipe=first_recipe,
+            article=article,
+            amount=100,
+            unit="g",
+        )
+        RecipeArticle.objects.create(
+            recipe=second_recipe,
+            article=article,
+            amount=200,
+            unit="g",
+        )
+        daily_menu = DailyMenu.objects.create(
+            date=date.today(),
+            meal_group=MealGroup.objects.create(meal_group="Residents"),
+            meal_type_id=MealTypeFactory.ensure(),
+        )
+        DailyMenuRecipe.objects.create(
+            daily_menu=daily_menu,
+            recipe=first_recipe,
+            amount=6,
+        )
+        DailyMenuRecipe.objects.create(
+            daily_menu=daily_menu,
+            recipe=second_recipe,
+            amount=1,
+        )
+
+        list_response = self.client.get(reverse("kitchen:showDailyMenus"))
+        self.assertContains(list_response, "2\xa0500,0")
+        list_table = list_response.context["table"]
+        self.assertIn("nutrition", list_table.columns)
+        list_record = next(iter(list_table.data))
+        with CaptureQueriesContext(connection) as list_nutrition_queries:
+            list_totals = list_record.nutrition_totals
+        self.assertEqual(len(list_nutrition_queries), 0)
+        for field_name, value in nutrition.items():
+            self.assertEqual(
+                list_totals[field_name],
+                Decimal(value) * Decimal("2.5"),
+            )
+
+        detail_response = self.client.get(
+            reverse("kitchen:showDailyMenuRecipes", args=[daily_menu.pk])
+        )
+        detail_table = detail_response.context["table"]
+        self.assertIn("nutrition", detail_table.columns)
+        detail_records = {record.recipe: record for record in detail_table.data}
+        with CaptureQueriesContext(connection) as detail_nutrition_queries:
+            detail_totals = {
+                recipe: record.nutrition_totals
+                for recipe, record in detail_records.items()
+            }
+        self.assertEqual(len(detail_nutrition_queries), 0)
+        for field_name, value in nutrition.items():
+            self.assertEqual(
+                detail_totals[first_recipe][field_name],
+                Decimal(value) * Decimal("1.5"),
+            )
+            self.assertEqual(
+                detail_totals[second_recipe][field_name],
+                Decimal(value),
+            )
+            self.assertEqual(
+                detail_table.pinned_data["bottom"][0]["nutrition_totals"][field_name],
+                Decimal(value) * Decimal("2.5"),
+            )
 
     def test_article_nutrition_defaults_and_validators(self):
         article = Article(article="Nutrition", unit=UNIT[0][0])
@@ -926,7 +1068,7 @@ class ModelBehaviorTests(TestCase):
                 article=f"Nutrition {unit}",
                 unit=unit,
                 energy=100,
-                salt=Decimal("2.0"),
+                saturated_fat=Decimal("2.0"),
             )
             recipe_article = RecipeArticle(
                 recipe=recipe, article=article, amount=1, unit=unit
@@ -936,7 +1078,8 @@ class ModelBehaviorTests(TestCase):
                 recipe_article.total_energy, Decimal("100") * expected_factor
             )
             self.assertEqual(
-                recipe_article.total_salt, Decimal("2.0") * expected_factor
+                recipe_article.total_saturated_fat,
+                Decimal("2.0") * expected_factor,
             )
 
     def test_menu_recipe_count_property_with_and_without_annotation(self):

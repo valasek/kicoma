@@ -1,4 +1,8 @@
 2026:
+  - date: 2026-09-21
+    items:
+      - "Výživové údaje byly zjednodušeny na energii, tuky a nasycené mastné kyseliny, sacharidy a cukry, vlákninu a bílkoviny. Kompaktní souhrn je viditelný v receptech i denních menu."
+      - "Přidán report Zboží na skladu dle použitých jednotek s přehledem jednotek, počty a celkovým množstvím. Po výběru jednotky zobrazí všechno zboží, které ji používá."
   - date: 2026-09-20
     items:
       - "Maximální hodnota energie u zboží byla zvýšena z 3 800 na 10 000 kJ / 100 g."

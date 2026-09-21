@@ -88,9 +88,9 @@
             {% translate "Nutriční poradce zadá hodnoty ke zboží jednou. KiCoMa je podle množství a jednotek automaticky přepočítá u každé ingredience a sečte za celý recept." %}
           </p>
           <ul class="landing-checklist list-unstyled">
-            <li>{% translate "Energie, tuky, sacharidy, vláknina, bílkoviny a sůl" %}</li>
-            <li>{% translate "Detail nasycených, mononenasycených a polynenasycených tuků" %}</li>
-            <li>{% translate "Cukry, polyoly a škrob v přehledném členění" %}</li>
+            <li>{% translate "Energie, tuky, sacharidy, vláknina a bílkoviny" %}</li>
+            <li>{% translate "Nasycené tuky a cukry v přehledném členění" %}</li>
+            <li>{% translate "Všechny hodnoty v receptu viditelné najednou" %}</li>
             <li>{% translate "Samostatná role nutričního poradce pro správu údajů" %}</li>
           </ul>
         </div>
@@ -100,17 +100,18 @@
               <span>{% translate "Výživové údaje celkem" %}</span>
               <strong>{% translate "Ukázkový recept" %}</strong>
             </div>
-            <dl class="landing-nutrition__metrics">
-              <div><dt>{% translate "Energie" %}</dt><dd>2 340 <span>kJ</span></dd></div>
-              <div><dt>{% translate "Tuky" %}</dt><dd>18,4 <span>g</span></dd></div>
-              <div><dt>{% translate "Sacharidy" %}</dt><dd>72,1 <span>g</span></dd></div>
-              <div><dt>{% translate "Vláknina" %}</dt><dd>9,2 <span>g</span></dd></div>
-              <div><dt>{% translate "Bílkoviny" %}</dt><dd>24,8 <span>g</span></dd></div>
-              <div><dt>{% translate "Sůl" %}</dt><dd>2,1 <span>g</span></dd></div>
-            </dl>
-            <div class="landing-nutrition__detail">
-              <span>{% translate "Podrobné složení tuků a sacharidů" %}</span>
-              <span aria-hidden="true">+</span>
+            <div class="landing-nutrition__metrics">
+              <dl><dt>{% translate "Energie" %}</dt><dd>2 340 <span>kJ</span></dd></dl>
+              <dl class="landing-nutrition__group">
+                <div><dt>{% translate "Tuky" %}</dt><dd>18,4 <span>g</span></dd></div>
+                <div class="landing-nutrition__child"><dt>{% translate "z toho nasycené mastné kyseliny" %}</dt><dd>6,2 <span>g</span></dd></div>
+              </dl>
+              <dl class="landing-nutrition__group">
+                <div><dt>{% translate "Sacharidy" %}</dt><dd>72,1 <span>g</span></dd></div>
+                <div class="landing-nutrition__child"><dt>{% translate "z toho cukry" %}</dt><dd>12,3 <span>g</span></dd></div>
+              </dl>
+              <dl><dt>{% translate "Vláknina" %}</dt><dd>9,2 <span>g</span></dd></dl>
+              <dl><dt>{% translate "Bílkoviny" %}</dt><dd>24,8 <span>g</span></dd></dl>
             </div>
           </div>
           <p class="landing-nutrition__caption">{% translate "Ilustrační hodnoty ukazují způsob zobrazení v aplikaci." %}</p>

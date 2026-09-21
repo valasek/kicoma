@@ -98,7 +98,6 @@ class ArticleForm(forms.ModelForm):
             ),
         ]
         if "nutrition_advisor" in group_names:
-            nutrition_children = dict(NUTRITION_STRUCTURE)
             nutrition_groups = Row(
                 *(
                     Column(
@@ -107,28 +106,29 @@ class ArticleForm(forms.ModelForm):
                             css_class="nutrition-form__parent",
                         ),
                         Div(
-                            *nutrition_children[parent_name],
+                            *child_names,
                             css_class="nutrition-form__children",
                         ),
                         css_class="col-xl-6 nutrition-form__group",
                     )
-                    for parent_name in ("fat", "carbohydrates")
+                    for parent_name, child_names in NUTRITION_STRUCTURE
+                    if child_names
                 ),
                 css_class="g-4",
             )
             nutrition_summary = Row(
                 *(
                     Column(field_name, css_class="col-md-4")
-                    for field_name in ("fiber", "protein", "salt")
+                    for field_name, child_names in NUTRITION_STRUCTURE
+                    if not child_names
                 ),
                 css_class="nutrition-form__summary",
             )
             layout.append(
                 Fieldset(
                     _("Výživové údaje"),
-                    Row(Column("energy", css_class="col-md-4")),
-                    nutrition_groups,
                     nutrition_summary,
+                    nutrition_groups,
                     css_class="nutrition-form",
                 )
             )

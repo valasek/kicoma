@@ -151,21 +151,16 @@ NUTRITION_STRUCTURE = (
         "fat",  # Tuky
         (
             "saturated_fat",  # z toho nasycené mastné kyseliny
-            "monounsaturated_fat",  # z toho mononenasycené mastné kyseliny
-            "polyunsaturated_fat",  # z toho polynenasycené mastné kyseliny
         ),
     ),
     (
         "carbohydrates",  # Sacharidy
         (
             "sugars",  # z toho cukry
-            "polyols",  # z toho polyoly
-            "starch",  # z toho škrob
         ),
     ),
     ("fiber", ()),  # Vláknina
     ("protein", ()),  # Bílkoviny
-    ("salt", ()),  # Sůl
 )
 
 NUTRITION_FIELDS = tuple(
@@ -173,6 +168,14 @@ NUTRITION_FIELDS = tuple(
     for parent_name, child_names in NUTRITION_STRUCTURE
     for field_name in (parent_name, *child_names)
 )
+
+
+def sum_nutrition_totals(records):
+    totals = {field_name: Decimal("0") for field_name in NUTRITION_FIELDS}
+    for record in records:
+        for field_name, value in record.nutrition_totals.items():
+            totals[field_name] += value
+    return totals
 
 
 class Article(TimeStampedModel):
@@ -245,26 +248,6 @@ class Article(TimeStampedModel):
         verbose_name=_("z toho nasycené mastné kyseliny"),
         help_text=_("g / 100 g"),
     )
-    monounsaturated_fat = models.DecimalField(
-        max_digits=5,
-        decimal_places=1,
-        blank=True,
-        null=True,
-        default=0,
-        validators=[MinValueValidator(Decimal("0"))],
-        verbose_name=_("z toho mononenasycené mastné kyseliny"),
-        help_text=_("g / 100 g"),
-    )
-    polyunsaturated_fat = models.DecimalField(
-        max_digits=5,
-        decimal_places=1,
-        blank=True,
-        null=True,
-        default=0,
-        validators=[MinValueValidator(Decimal("0"))],
-        verbose_name=_("z toho polynenasycené mastné kyseliny"),
-        help_text=_("g / 100 g"),
-    )
     carbohydrates = models.DecimalField(
         max_digits=5,
         decimal_places=1,
@@ -285,26 +268,6 @@ class Article(TimeStampedModel):
         verbose_name=_("z toho cukry"),
         help_text=_("g / 100 g"),
     )
-    polyols = models.DecimalField(
-        max_digits=5,
-        decimal_places=1,
-        blank=True,
-        null=True,
-        default=0,
-        validators=[MinValueValidator(Decimal("0"))],
-        verbose_name=_("z toho polyoly"),
-        help_text=_("g / 100 g"),
-    )
-    starch = models.DecimalField(
-        max_digits=5,
-        decimal_places=1,
-        blank=True,
-        null=True,
-        default=0,
-        validators=[MinValueValidator(Decimal("0"))],
-        verbose_name=_("z toho škrob"),
-        help_text=_("g / 100 g"),
-    )
     fiber = models.DecimalField(
         max_digits=5,
         decimal_places=1,
@@ -323,16 +286,6 @@ class Article(TimeStampedModel):
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("Bílkoviny"),
-        help_text=_("g / 100 g"),
-    )
-    salt = models.DecimalField(
-        max_digits=5,
-        decimal_places=1,
-        blank=True,
-        null=True,
-        default=0,
-        validators=[MinValueValidator(Decimal("0"))],
-        verbose_name=_("Sůl"),
         help_text=_("g / 100 g"),
     )
     allergen = models.ManyToManyField(Allergen, blank=True, verbose_name=_("Alergeny"))
@@ -411,6 +364,15 @@ class Recipe(TimeStampedModel):
     # used due to django-tables2 linkify
     def get_absolute_url(self):
         return reverse_lazy("kitchen:showRecipeArticles", args=[str(self.id)])
+
+    @property
+    def nutrition_totals(self):
+        recipe_articles = getattr(self, "prefetched_recipe_articles", None)
+        if recipe_articles is None:
+            recipe_articles = RecipeArticle.objects.select_related("article").filter(
+                recipe=self.id
+            )
+        return sum_nutrition_totals(recipe_articles)
 
     @property
     def total_recipe_articles_price(self):
@@ -508,6 +470,13 @@ class RecipeArticle(TimeStampedModel):
         return value * self.nutrition_factor
 
     @property
+    def nutrition_totals(self):
+        return {
+            field_name: self.nutrition_total(field_name)
+            for field_name in NUTRITION_FIELDS
+        }
+
+    @property
     def total_energy(self):
         return self.nutrition_total("energy")
 
@@ -520,14 +489,6 @@ class RecipeArticle(TimeStampedModel):
         return self.nutrition_total("saturated_fat")
 
     @property
-    def total_monounsaturated_fat(self):
-        return self.nutrition_total("monounsaturated_fat")
-
-    @property
-    def total_polyunsaturated_fat(self):
-        return self.nutrition_total("polyunsaturated_fat")
-
-    @property
     def total_carbohydrates(self):
         return self.nutrition_total("carbohydrates")
 
@@ -536,24 +497,12 @@ class RecipeArticle(TimeStampedModel):
         return self.nutrition_total("sugars")
 
     @property
-    def total_polyols(self):
-        return self.nutrition_total("polyols")
-
-    @property
-    def total_starch(self):
-        return self.nutrition_total("starch")
-
-    @property
     def total_fiber(self):
         return self.nutrition_total("fiber")
 
     @property
     def total_protein(self):
         return self.nutrition_total("protein")
-
-    @property
-    def total_salt(self):
-        return self.nutrition_total("salt")
 
     @property
     def total_average_price(self):
@@ -678,6 +627,22 @@ class DailyMenu(TimeStampedModel):
             + self.meal_group.meal_group
         )
 
+    @property
+    def nutrition_totals(self):
+        daily_menu_recipes = getattr(self, "prefetched_daily_menu_recipes", None)
+        if daily_menu_recipes is None:
+            recipe_articles = models.Prefetch(
+                "recipe__recipearticle_set",
+                queryset=RecipeArticle.objects.select_related("article"),
+                to_attr="prefetched_recipe_articles",
+            )
+            daily_menu_recipes = (
+                DailyMenuRecipe.objects.filter(daily_menu=self.id)
+                .select_related("recipe")
+                .prefetch_related(recipe_articles)
+            )
+        return sum_nutrition_totals(daily_menu_recipes)
+
 
 class DailyMenuRecipe(TimeStampedModel):
     objects = CollatableManager()
@@ -715,6 +680,17 @@ class DailyMenuRecipe(TimeStampedModel):
 
     def __str__(self):
         return self.recipe.recipe + " - " + str(self.amount)
+
+    @property
+    def nutrition_factor(self):
+        return Decimal(self.amount) / Decimal(self.recipe.norm_amount)
+
+    @property
+    def nutrition_totals(self):
+        return {
+            field_name: value * self.nutrition_factor
+            for field_name, value in self.recipe.nutrition_totals.items()
+        }
 
 
 class StockIssue(TimeStampedModel):

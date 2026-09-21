@@ -47,6 +47,7 @@ from .views import (
     RecipePDFView,
     RecipeUpdateView,
     ShowFoodConsumptionTotalPrice,
+    StockByUnitReportView,
     StockIssueApproveView,
     StockIssueArticleCreateView,
     StockIssueArticleDeleteView,
@@ -169,4 +170,5 @@ urlpatterns = [
     path('report/print/cateringunit', CateringUnitShowView.as_view(), name='showCateringUnit'),
     path('report/incorrectunits', IncorrectUnitsListView.as_view(), name='showIncorrectUnits'),
     path('report/articlesnotinrecipes', ArticlesNotInRecipesListView.as_view(), name='showArticlesNotInRecipes'),
+    path('report/stockbyunit', StockByUnitReportView.as_view(), name='showStockByUnit'),
 ]

@@ -40,6 +40,35 @@ LABEL_ISSUE = _("Vyskladnit")
 LABEL_RECEIPT = _("Naskladnit")
 
 
+def render_nutrition_facts(totals, is_total=False):
+    def nutrition_item(field_name):
+        field = Article._meta.get_field(field_name)
+        return {
+            "label": field.verbose_name,
+            "value": intcomma(f"{totals[field_name]:.1f}"),
+            "unit": "kJ" if field_name == "energy" else "g",
+        }
+
+    standalone = []
+    grouped = []
+    for parent_name, child_names in NUTRITION_STRUCTURE:
+        group = {
+            "parent": nutrition_item(parent_name),
+            "children": [nutrition_item(name) for name in child_names],
+        }
+        (grouped if child_names else standalone).append(group)
+
+    return mark_safe(
+        render_to_string(
+            "kitchen/recipe/_nutrition_facts.html",
+            {
+                "columns": (standalone, grouped),
+                "is_total": is_total,
+            },
+        )
+    )
+
+
 class ArticleTable(tables.Table):
     average_price = tables.Column(
         verbose_name=_("Průměrná jednotková cena s DPH"), orderable=False
@@ -220,45 +249,23 @@ class RecipeArticleTable(tables.Table):
 
     @staticmethod
     def render_nutrition(record):
-        def nutrition_item(field_name):
-            if isinstance(record, RecipeArticle):
-                value = getattr(record, f"total_{field_name}")
-            else:
-                value = record[f"total_{field_name}"]
-            field = Article._meta.get_field(field_name)
-            return {
-                "label": field.verbose_name,
-                "value": f"{value:.1f}",
-                "unit": "kJ" if field_name == "energy" else "g",
-            }
-
-        summary = []
-        detail_groups = []
-        for parent_name, child_names in NUTRITION_STRUCTURE:
-            parent = nutrition_item(parent_name)
-            summary.append(parent)
-            if child_names:
-                detail_groups.append(
-                    {
-                        "label": parent["label"],
-                        "items": [nutrition_item(name) for name in child_names],
-                    }
-                )
-
-        return mark_safe(
-            render_to_string(
-                "kitchen/recipe/_nutrition_facts.html",
-                {
-                    "summary": summary,
-                    "detail_groups": detail_groups,
-                    "expanded": not isinstance(record, RecipeArticle),
-                },
-            )
+        if isinstance(record, RecipeArticle):
+            return render_nutrition_facts(record.nutrition_totals)
+        return render_nutrition_facts(
+            {
+                field_name: record[f"total_{field_name}"]
+                for parent_name, child_names in NUTRITION_STRUCTURE
+                for field_name in (parent_name, *child_names)
+            },
+            is_total=True,
         )
 
 
 class DailyMenuTable(tables.Table):
     recipe_count = tables.Column(verbose_name=_("Počet porcí"), empty_values=())
+    nutrition = tables.Column(
+        empty_values=(), verbose_name=_("Výživové údaje celkem"), orderable=False
+    )
     change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
     def render_change(self, record):
@@ -276,12 +283,23 @@ class DailyMenuTable(tables.Table):
         order_by = ("-date", "meal_group")
         template_name = "django_tables2/bootstrap5.html"
         attrs = table_attributes
-        fields = ("date", "meal_group", "meal_type", "recipe_count", "change")
+        fields = (
+            "date",
+            "meal_group",
+            "meal_type",
+            "recipe_count",
+            "nutrition",
+            "change",
+        )
 
     @staticmethod
     def render_recipe_count(record):
         value = getattr(record, "recipe_count", None)
         return value if value is not None else "-"
+
+    @staticmethod
+    def render_nutrition(record):
+        return render_nutrition_facts(record.nutrition_totals, is_total=True)
 
 
 class DailyMenuFilter(FilterSet):
@@ -303,10 +321,35 @@ class DailyMenuFilter(FilterSet):
 
 
 class DailyMenuRecipeTable(tables.Table):
-    recipe = tables.Column(linkify=True)
+    recipe = tables.Column(
+        linkify=lambda record: (
+            record.recipe.get_absolute_url()
+            if isinstance(record, DailyMenuRecipe)
+            else None
+        )
+    )
+    nutrition = tables.Column(
+        empty_values=(), verbose_name=_("Výživové údaje celkem"), orderable=False
+    )
     change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
+    def __init__(self, *args, nutrition_totals=None, **kwargs):
+        self.nutrition_totals = nutrition_totals
+        super().__init__(*args, **kwargs)
+
+    def get_bottom_pinned_data(self):
+        if self.nutrition_totals is None:
+            return None
+        return [
+            {
+                "recipe": _("Celkem"),
+                "nutrition_totals": self.nutrition_totals,
+            }
+        ]
+
     def render_change(self, record):
+        if not isinstance(record, DailyMenuRecipe):
+            return ""
         edit_url = reverse("kitchen:updateDailyMenuRecipe", args=[record.id])
         delete_url = reverse("kitchen:deleteDailyMenuRecipe", args=[record.id])
         return mark_safe(
@@ -318,7 +361,14 @@ class DailyMenuRecipeTable(tables.Table):
         model = DailyMenuRecipe
         template_name = "django_tables2/bootstrap5.html"
         attrs = table_attributes
-        fields = ("recipe", "amount", "change")
+        pinned_row_attrs = {"class": "table-secondary fw-bold"}
+        fields = ("recipe", "amount", "nutrition", "change")
+
+    @staticmethod
+    def render_nutrition(record):
+        if isinstance(record, DailyMenuRecipe):
+            return render_nutrition_facts(record.nutrition_totals)
+        return render_nutrition_facts(record["nutrition_totals"], is_total=True)
 
 
 class MenuTable(tables.Table):

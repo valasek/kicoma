@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="d-flex flex-wrap align-items-baseline justify-content-between gap-2">
+    <h4>{% translate "Zboží na skladu dle použitých jednotek" %}</h4>
+    <span class="text-muted">
+      {% blocktranslate trimmed with total=total_articles %}Celkem {{ total }} druhů zboží{% endblocktranslate %}
+    </span>
+  </div>
+  <hr />
+
+  {% if units %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 g-3 mb-4">
+      {% for unit in units %}
+        <div class="col">
+          <div class="card h-100{% if selected_unit.value == unit.value %} border-primary{% endif %}">
+            <div class="card-body position-relative">
+              <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+                <h5 class="card-title mb-0">{{ unit.label }}</h5>
+                <span class="badge bg-secondary rounded-pill">{{ unit.article_count }}</span>
+              </div>
+              <div class="text-muted small">{% translate "Celkem na skladu" %}</div>
+              <div class="fs-5">{{ unit.total_on_stock|floatformat:"-2" }} {{ unit.label }}</div>
+              <a class="stretched-link" href="?unit={{ unit.value }}#unit-detail">
+                <span class="visually-hidden">
+                  {% blocktranslate trimmed with unit=unit.label %}Zobrazit zboží v jednotce {{ unit }}{% endblocktranslate %}
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if selected_unit %}
+      <section id="unit-detail" tabindex="-1">
+        <div class="d-flex flex-wrap align-items-baseline justify-content-between gap-2 mb-2">
+          <h5 class="mb-0">
+            {% blocktranslate trimmed with unit=selected_unit.label %}Zboží v jednotce {{ unit }}{% endblocktranslate %}
+          </h5>
+          <span class="text-muted">
+            {% blocktranslate trimmed with count=selected_unit.article_count total=selected_unit.total_on_stock|floatformat:"-2" unit=selected_unit.label %}{{ count }} druhů, celkem {{ total }} {{ unit }}{% endblocktranslate %}
+          </span>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover align-middle">
+            <thead>
+              <tr>
+                <th scope="col">{% translate "Zboží" %}</th>
+                <th scope="col" class="text-end">{% translate "Na skladu" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for article in articles %}
+                <tr>
+                  <td><a href="{% url 'kitchen:updateArticle' pk=article.pk %}">{{ article }}</a></td>
+                  <td class="text-end">{{ article.on_stock|floatformat:"-2" }} {{ article.get_unit_display }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot>
+              <tr class="fw-bold">
+                <th scope="row">{% translate "Celkem" %}</th>
+                <td class="text-end">{{ selected_unit.total_on_stock|floatformat:"-2" }} {{ selected_unit.label }}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+    {% else %}
+      <p class="text-muted mb-0">{% translate "Vyberte jednotku pro zobrazení zboží." %}</p>
+    {% endif %}
+  {% else %}
+    <p>{% translate "Na skladu není žádné zboží." %}</p>
+  {% endif %}
+</div>
+{% endblock content %}

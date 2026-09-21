@@ -66,6 +66,7 @@ from .forms import (
 from .functions import convert_units
 from .models import (
     NUTRITION_FIELDS,
+    UNIT,
     VAT,
     Allergen,
     Article,
@@ -82,6 +83,7 @@ from .models import (
     StockIssueArticle,
     StockReceipt,
     StockReceiptArticle,
+    sum_nutrition_totals,
 )
 from .permissions import (
     AnyRoleRequiredMixin,
@@ -975,11 +977,25 @@ class DailyMenuListView(
     paginate_by = settings.PAGINATE_BY
 
     def get_queryset(self):
-        # Annotate max portions per daily menu to avoid per-row queries
+        recipe_articles = Prefetch(
+            "recipe__recipearticle_set",
+            queryset=RecipeArticle.objects.select_related("article").order_by("id"),
+            to_attr="prefetched_recipe_articles",
+        )
+        daily_menu_recipes = Prefetch(
+            "dailymenurecipe",
+            queryset=(
+                DailyMenuRecipe.objects.select_related("recipe")
+                .prefetch_related(recipe_articles)
+                .order_by("id")
+            ),
+            to_attr="prefetched_daily_menu_recipes",
+        )
         return (
             super()
             .get_queryset()
             .select_related("meal_group", "meal_type")
+            .prefetch_related(daily_menu_recipes)
             .annotate(recipe_count=Max("dailymenurecipe__amount"))
         )
 
@@ -1248,9 +1264,22 @@ class DailyMenuRecipeListView(
         context["dailymenu"] = DailyMenu.objects.filter(pk=self.kwargs["pk"])[0]
         return context
 
+    def get_table_kwargs(self):
+        return {"nutrition_totals": sum_nutrition_totals(self.object_list)}
+
     def get_queryset(self):
-        # show only DailyMeny recipes
-        return super().get_queryset().filter(daily_menu=self.kwargs["pk"])
+        recipe_articles = Prefetch(
+            "recipe__recipearticle_set",
+            queryset=RecipeArticle.objects.select_related("article").order_by("id"),
+            to_attr="prefetched_recipe_articles",
+        )
+        return (
+            super()
+            .get_queryset()
+            .filter(daily_menu=self.kwargs["pk"])
+            .select_related("recipe")
+            .prefetch_related(recipe_articles)
+        )
 
 
 class DailyMenuRecipeCreateView(
@@ -2198,6 +2227,46 @@ class ArticlesNotInRecipesListView(SingleTableMixin, AnyRoleRequiredMixin, ListV
         articles_on_recipes = RecipeArticle.objects.values_list("article__id")
         articles = Article.objects.exclude(pk__in=articles_on_recipes)
         context["articles"] = articles
+        return context
+
+
+class StockByUnitReportView(AnyRoleRequiredMixin, TemplateView):
+    template_name = "kitchen/report/stock_by_unit.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        totals_by_unit = {
+            item["unit"]: item
+            for item in Article.objects.order_by()
+            .values("unit")
+            .annotate(
+                article_count=Count("id"),
+                total_on_stock=Sum("on_stock"),
+            )
+        }
+        context["units"] = [
+            {
+                "value": value,
+                "label": label,
+                **totals_by_unit[value],
+            }
+            for value, label in UNIT
+            if value in totals_by_unit
+        ]
+        context["total_articles"] = sum(
+            unit["article_count"] for unit in context["units"]
+        )
+
+        selected_unit = self.request.GET.get("unit")
+        unit_labels = dict(UNIT)
+        if selected_unit in totals_by_unit:
+            context["selected_unit"] = {
+                "value": selected_unit,
+                "label": unit_labels[selected_unit],
+                **totals_by_unit[selected_unit],
+            }
+            context["articles"] = Article.objects.filter(unit=selected_unit)
+
         return context
 
 
