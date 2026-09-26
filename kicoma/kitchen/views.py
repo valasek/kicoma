@@ -1014,11 +1014,21 @@ class DailyMenuCreateView(
     success_message = _(
         "Denní menu pro den %(formatted_date)s bylo vytvořeno, přidej recepty"
     )
+    success_message_from_menu = _(
+        "Denní menu pro den %(formatted_date)s bylo vytvořeno, "
+        "recepty byly převzaty z menu %(menu)s"
+    )
 
     def get_success_message(self, cleaned_data):
         date_obj = self.object.date
         formatted_date = formats.date_format(date_obj, "SHORT_DATE_FORMAT")
 
+        menu = cleaned_data.get("menu")
+        if menu:
+            return self.success_message_from_menu % {
+                "formatted_date": formatted_date,
+                "menu": menu,
+            }
         return self.success_message % {"formatted_date": formatted_date}
 
     def get_success_url(self):
@@ -1026,14 +1036,16 @@ class DailyMenuCreateView(
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        if form.data["menu"]:
-            menu_recipes = MenuRecipe.objects.filter(menu=self.object.menu)
-            for menu_recipe in menu_recipes:
+        menu = form.cleaned_data.get("menu")
+        if menu:
+            # name the source menu so a wrongly picked menu is visible in the recipe list
+            comment = _("Recept byl převzatý z menu %(menu)s") % {"menu": menu}
+            for menu_recipe in MenuRecipe.objects.filter(menu=menu):
                 DailyMenuRecipe.objects.create(
                     daily_menu=self.object,
                     recipe=menu_recipe.recipe,
                     amount=menu_recipe.amount,
-                    comment=_("Recept byl převzatý z menu"),
+                    comment=comment[:200],
                 )
         return response
 

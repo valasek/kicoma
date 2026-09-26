@@ -963,6 +963,10 @@ msgstr "Meal type:"
 msgid "Poznámka:"
 msgstr "Note:"
 
+#: kicoma/kitchen/templates/kitchen/dailymenu/listrecipe.html:13
+msgid "Převzato z menu:"
+msgstr "Taken from the menu:"
+
 #: kicoma/kitchen/templates/kitchen/dailymenu/deleterecipe.html:5
 msgid "Odstranění receptu z denního menu"
 msgstr "Remove recipe from daily menu"
@@ -2288,8 +2292,18 @@ msgstr ""
 "The daily menu for %(formatted_date)s has been created. Please add recipes."
 
 #: kicoma/kitchen/views.py:1015
-msgid "Recept byl převzatý z menu"
-msgstr "The recipe has been taken from the menu."
+#, python-format
+msgid "Recept byl převzatý z menu %(menu)s"
+msgstr "The recipe has been taken from the menu %(menu)s."
+
+#: kicoma/kitchen/views.py:994
+#, python-format
+msgid ""
+"Denní menu pro den %(formatted_date)s bylo vytvořeno, recepty byly převzaty z "
+"menu %(menu)s"
+msgstr ""
+"The daily menu for %(formatted_date)s has been created, recipes were taken "
+"from the menu %(menu)s."
 
 #: kicoma/kitchen/views.py:1027
 #, python-format

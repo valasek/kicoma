@@ -3,6 +3,9 @@
     items:
       - "Výživové údaje v ingrediencích receptu, v seznamu denních menu a v receptech denního menu se zobrazují na 1 porci."
       - "Výživové údaje celkem v seznamu denních menu se nyní zobrazují pouze nutričním poradcům."
+      - "V seznamu receptů denního menu je nově vidět, z jakého menu byly recepty převzaty. Název menu se zapisuje i do poznámky u každého převzatého receptu a do hlášky po vytvoření denního menu, takže omylem vybrané menu z jiného dne hned odhalíš."
+      - "Oprava: v seznamu denních menu se při listování stránkami mohly řádky opakovat nebo chybět, pokud bylo na jeden den a skupinu strávníků více druhů jídla."
+      - "Oprava: filtr podle data v seznamu denních menu nyní hledá přesné datum."
   - date: 2026-09-21
     items:
       - "Výživové údaje byly zjednodušeny na energii, tuky a nasycené mastné kyseliny, sacharidy a cukry, vlákninu a bílkoviny. Kompaktní souhrn je viditelný v receptech i denních menu."

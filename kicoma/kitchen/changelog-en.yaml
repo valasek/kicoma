@@ -3,6 +3,9 @@
     items:
       - "Nutrition data in recipe ingredients, the daily menu list and daily menu recipes is shown per serving."
       - "Total nutrition data in the daily menu list is now shown only to nutrition advisors."
+      - "The daily menu recipe list now shows which menu the recipes were taken from. The menu name is also written into the note of every copied recipe and into the confirmation message, so a menu accidentally picked from another day is spotted immediately."
+      - "FIX: Rows in the daily menu list could be repeated or missing when paging through it if one day and diner group had several meal types."
+      - "FIX: The date filter in the daily menu list now matches the exact date."
   - date: 2026-09-21
     items:
       - "Nutrition data has been simplified to energy, fat and saturated fat, carbohydrates and sugars, fiber, and protein. The compact summary is visible in recipes and daily menus."

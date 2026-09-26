@@ -11,6 +11,7 @@
     <div class="col-8 justify-content-start d-inline">
       <a href="{% url 'kitchen:showDailyMenus' %}" class="btn btn-secondary mb-2">{% translate "Zpět na seznam denních menu" %}</a>
       <a href="{% url 'kitchen:createDailyMenuRecipe' dailymenu.id %}" class="btn btn-primary mb-2">{% translate "Přidat recept" %}</a>
+      {% if dailymenu.menu %}{% translate "Převzato z menu:" %} <strong>{{ dailymenu.menu }}</strong> |{% endif %}
       {% translate "Poznámka:" %} {{ dailymenu.comment }}
     </div>
   </div>

@@ -282,7 +282,8 @@ class DailyMenuTable(tables.Table):
 
     class Meta:
         model = DailyMenu
-        order_by = ("-date", "meal_group")
+        # date + meal_group + meal_type is unique, so paging cannot repeat or skip rows
+        order_by = ("-date", "meal_group", "meal_type")
         template_name = "django_tables2/bootstrap5.html"
         attrs = table_attributes
         fields = (
@@ -306,7 +307,6 @@ class DailyMenuTable(tables.Table):
 
 class DailyMenuFilter(FilterSet):
     date = DateFilter(
-        lookup_expr="contains",
         widget=forms.DateInput(
             format="%Y-%m-%d",
             attrs={
