@@ -199,18 +199,27 @@ class RecipeArticleTable(tables.Table):
         verbose_name=_("Celková cena s DPH"), orderable=False
     )
     nutrition = tables.Column(
-        empty_values=(), verbose_name=_("Výživové údaje celkem"), orderable=False
+        empty_values=(), verbose_name=_("Výživové údaje na 1 porci"), orderable=False
     )
     change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
-    def __init__(self, *args, nutrition_totals=None, **kwargs):
-        self.nutrition_totals = nutrition_totals
+    def __init__(
+        self, *args, nutrition_per_portion=None, total_average_price=None, **kwargs
+    ):
+        self.nutrition_per_portion = nutrition_per_portion
+        self.total_average_price = total_average_price
         super().__init__(*args, **kwargs)
 
     def get_bottom_pinned_data(self):
-        if self.nutrition_totals is None:
+        if self.nutrition_per_portion is None:
             return None
-        return [{"article": _("Celkem"), **self.nutrition_totals}]
+        return [
+            {
+                "article": _("Celkem"),
+                "total_average_price": self.total_average_price,
+                "nutrition_per_portion": self.nutrition_per_portion,
+            }
+        ]
 
     def render_change(self, record):
         if not isinstance(record, RecipeArticle):
@@ -250,21 +259,14 @@ class RecipeArticleTable(tables.Table):
     @staticmethod
     def render_nutrition(record):
         if isinstance(record, RecipeArticle):
-            return render_nutrition_facts(record.nutrition_totals)
-        return render_nutrition_facts(
-            {
-                field_name: record[f"total_{field_name}"]
-                for parent_name, child_names in NUTRITION_STRUCTURE
-                for field_name in (parent_name, *child_names)
-            },
-            is_total=True,
-        )
+            return render_nutrition_facts(record.nutrition_per_portion)
+        return render_nutrition_facts(record["nutrition_per_portion"], is_total=True)
 
 
 class DailyMenuTable(tables.Table):
     recipe_count = tables.Column(verbose_name=_("Počet porcí"), empty_values=())
     nutrition = tables.Column(
-        empty_values=(), verbose_name=_("Výživové údaje celkem"), orderable=False
+        empty_values=(), verbose_name=_("Výživové údaje na 1 porci"), orderable=False
     )
     change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
@@ -299,7 +301,7 @@ class DailyMenuTable(tables.Table):
 
     @staticmethod
     def render_nutrition(record):
-        return render_nutrition_facts(record.nutrition_totals, is_total=True)
+        return render_nutrition_facts(record.nutrition_per_portion, is_total=True)
 
 
 class DailyMenuFilter(FilterSet):
@@ -329,21 +331,21 @@ class DailyMenuRecipeTable(tables.Table):
         )
     )
     nutrition = tables.Column(
-        empty_values=(), verbose_name=_("Výživové údaje celkem"), orderable=False
+        empty_values=(), verbose_name=_("Výživové údaje na 1 porci"), orderable=False
     )
     change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
-    def __init__(self, *args, nutrition_totals=None, **kwargs):
-        self.nutrition_totals = nutrition_totals
+    def __init__(self, *args, nutrition_per_portion=None, **kwargs):
+        self.nutrition_per_portion = nutrition_per_portion
         super().__init__(*args, **kwargs)
 
     def get_bottom_pinned_data(self):
-        if self.nutrition_totals is None:
+        if self.nutrition_per_portion is None:
             return None
         return [
             {
                 "recipe": _("Celkem"),
-                "nutrition_totals": self.nutrition_totals,
+                "nutrition_per_portion": self.nutrition_per_portion,
             }
         ]
 
@@ -367,8 +369,8 @@ class DailyMenuRecipeTable(tables.Table):
     @staticmethod
     def render_nutrition(record):
         if isinstance(record, DailyMenuRecipe):
-            return render_nutrition_facts(record.nutrition_totals)
-        return render_nutrition_facts(record["nutrition_totals"], is_total=True)
+            return render_nutrition_facts(record.nutrition_per_portion)
+        return render_nutrition_facts(record["nutrition_per_portion"], is_total=True)
 
 
 class MenuTable(tables.Table):

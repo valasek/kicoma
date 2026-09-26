@@ -170,12 +170,21 @@ NUTRITION_FIELDS = tuple(
 )
 
 
-def sum_nutrition_totals(records):
+def sum_nutrition(nutrition_values):
     totals = {field_name: Decimal("0") for field_name in NUTRITION_FIELDS}
-    for record in records:
-        for field_name, value in record.nutrition_totals.items():
+    for values in nutrition_values:
+        for field_name, value in values.items():
             totals[field_name] += value
     return totals
+
+
+def divide_nutrition(values, portions):
+    # a recipe without portions has no meaningful per-portion value
+    if not portions:
+        return sum_nutrition(())
+    return {
+        field_name: value / Decimal(portions) for field_name, value in values.items()
+    }
 
 
 class Article(TimeStampedModel):
@@ -308,8 +317,8 @@ class Article(TimeStampedModel):
                 return 0
         # If queryset was prefetched to attr `latest_receipt`, use it to avoid an extra query
         latest = getattr(self, "latest_receipt", None)
-        if latest:
-            return round(latest[0].price_with_vat, 0)
+        if latest is not None:
+            return round(latest[0].price_with_vat, 0) if latest else 0
         # Fallback: hit DB once for the latest receipt article
         sra = (
             StockReceiptArticle.objects.filter(article_id=self.id)
@@ -372,7 +381,13 @@ class Recipe(TimeStampedModel):
             recipe_articles = RecipeArticle.objects.select_related("article").filter(
                 recipe=self.id
             )
-        return sum_nutrition_totals(recipe_articles)
+        return sum_nutrition(
+            recipe_article.nutrition_totals for recipe_article in recipe_articles
+        )
+
+    @property
+    def nutrition_per_portion(self):
+        return divide_nutrition(self.nutrition_totals, self.norm_amount)
 
     @property
     def total_recipe_articles_price(self):
@@ -477,32 +492,8 @@ class RecipeArticle(TimeStampedModel):
         }
 
     @property
-    def total_energy(self):
-        return self.nutrition_total("energy")
-
-    @property
-    def total_fat(self):
-        return self.nutrition_total("fat")
-
-    @property
-    def total_saturated_fat(self):
-        return self.nutrition_total("saturated_fat")
-
-    @property
-    def total_carbohydrates(self):
-        return self.nutrition_total("carbohydrates")
-
-    @property
-    def total_sugars(self):
-        return self.nutrition_total("sugars")
-
-    @property
-    def total_fiber(self):
-        return self.nutrition_total("fiber")
-
-    @property
-    def total_protein(self):
-        return self.nutrition_total("protein")
+    def nutrition_per_portion(self):
+        return divide_nutrition(self.nutrition_totals, self.recipe.norm_amount)
 
     @property
     def total_average_price(self):
@@ -628,7 +619,7 @@ class DailyMenu(TimeStampedModel):
         )
 
     @property
-    def nutrition_totals(self):
+    def nutrition_per_portion(self):
         daily_menu_recipes = getattr(self, "prefetched_daily_menu_recipes", None)
         if daily_menu_recipes is None:
             recipe_articles = models.Prefetch(
@@ -641,7 +632,10 @@ class DailyMenu(TimeStampedModel):
                 .select_related("recipe")
                 .prefetch_related(recipe_articles)
             )
-        return sum_nutrition_totals(daily_menu_recipes)
+        return sum_nutrition(
+            daily_menu_recipe.nutrition_per_portion
+            for daily_menu_recipe in daily_menu_recipes
+        )
 
 
 class DailyMenuRecipe(TimeStampedModel):
@@ -682,15 +676,11 @@ class DailyMenuRecipe(TimeStampedModel):
         return self.recipe.recipe + " - " + str(self.amount)
 
     @property
-    def nutrition_factor(self):
-        return Decimal(self.amount) / Decimal(self.recipe.norm_amount)
-
-    @property
-    def nutrition_totals(self):
-        return {
-            field_name: value * self.nutrition_factor
-            for field_name, value in self.recipe.nutrition_totals.items()
-        }
+    def nutrition_per_portion(self):
+        # a recipe with 0 portions is not served, so it adds nothing to the menu
+        if not self.amount:
+            return sum_nutrition(())
+        return self.recipe.nutrition_per_portion
 
 
 class StockIssue(TimeStampedModel):

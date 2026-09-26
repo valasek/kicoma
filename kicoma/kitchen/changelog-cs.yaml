@@ -1,6 +1,7 @@
 2026:
   - date: 2026-09-26
     items:
+      - "Výživové údaje v ingrediencích receptu, v seznamu denních menu a v receptech denního menu se zobrazují na 1 porci."
       - "Výživové údaje celkem v seznamu denních menu se nyní zobrazují pouze nutričním poradcům."
   - date: 2026-09-21
     items:

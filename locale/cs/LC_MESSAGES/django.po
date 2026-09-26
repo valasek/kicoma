@@ -588,8 +588,8 @@ msgstr ""
 msgid "Cena receptu s DPH"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:173 kicoma/templates/common/home.html:100
-msgid "Výživové údaje celkem"
+#: kicoma/kitchen/tables.py kicoma/templates/common/home.html:100
+msgid "Výživové údaje na 1 porci"
 msgstr ""
 
 #: kicoma/kitchen/tables.py:184
@@ -1186,8 +1186,9 @@ msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/docs.html:45
 msgid ""
-"Výživové údaje jsou spravované na skladové kartě. Zobrazené jsou v rámci "
-"receptu pro každou ingredienci a sumárně pro celý recept."
+"Výživové údaje jsou spravované na skladové kartě. V receptech se zobrazují "
+"pro každou ingredienci i celkem na 1 porci. Denní menu zobrazuje součet na "
+"1 porci z každého receptu."
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/docs.html:46

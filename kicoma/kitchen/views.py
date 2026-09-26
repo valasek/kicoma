@@ -65,7 +65,6 @@ from .forms import (
 )
 from .functions import convert_units
 from .models import (
-    NUTRITION_FIELDS,
     UNIT,
     VAT,
     Allergen,
@@ -83,7 +82,7 @@ from .models import (
     StockIssueArticle,
     StockReceipt,
     StockReceiptArticle,
-    sum_nutrition_totals,
+    sum_nutrition,
 )
 from .permissions import (
     AnyRoleRequiredMixin,
@@ -841,17 +840,16 @@ class RecipeArticleListView(
         return context
 
     def get_table_kwargs(self):
-        totals = {
-            f"total_{field_name}": sum(
-                getattr(recipe_article, f"total_{field_name}")
+        return {
+            "nutrition_per_portion": sum_nutrition(
+                recipe_article.nutrition_per_portion
                 for recipe_article in self.object_list
-            )
-            for field_name in NUTRITION_FIELDS
+            ),
+            "total_average_price": sum(
+                recipe_article.total_average_price
+                for recipe_article in self.object_list
+            ),
         }
-        totals["total_average_price"] = sum(
-            recipe_article.total_average_price for recipe_article in self.object_list
-        )
-        return {"nutrition_totals": totals}
 
     def get_queryset(self):
         # show only recipe ingredients
@@ -868,7 +866,7 @@ class RecipeArticleListView(
             super()
             .get_queryset()
             .filter(recipe=self.kwargs["pk"])
-            .select_related("article")
+            .select_related("article", "recipe")
             .prefetch_related(latest_receipt)
         )
 
@@ -1272,7 +1270,11 @@ class DailyMenuRecipeListView(
         return context
 
     def get_table_kwargs(self):
-        return {"nutrition_totals": sum_nutrition_totals(self.object_list)}
+        return {
+            "nutrition_per_portion": sum_nutrition(
+                record.nutrition_per_portion for record in self.object_list
+            )
+        }
 
     def get_queryset(self):
         recipe_articles = Prefetch(

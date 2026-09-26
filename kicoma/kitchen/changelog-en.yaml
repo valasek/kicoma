@@ -1,6 +1,7 @@
 2026:
   - date: 2026-09-26
     items:
+      - "Nutrition data in recipe ingredients, the daily menu list and daily menu recipes is shown per serving."
       - "Total nutrition data in the daily menu list is now shown only to nutrition advisors."
   - date: 2026-09-21
     items:

@@ -871,19 +871,74 @@ class ViewTests(TestCase):
         self.assertEqual(totals["total_average_price"], 310)
         for field_name, value in nutrition.items():
             self.assertEqual(
-                totals[f"total_{field_name}"], Decimal(value) * Decimal("3.5")
+                totals["nutrition_per_portion"][field_name],
+                Decimal(value) * Decimal("3.5") / 4,
             )
-        self.assertContains(response, "Výživové údaje celkem")
+        with CaptureQueriesContext(connection) as ingredient_queries:
+            for recipe_article in table.data:
+                for field_name, value in nutrition.items():
+                    self.assertEqual(
+                        recipe_article.nutrition_per_portion[field_name],
+                        Decimal(value) * recipe_article.nutrition_factor / 4,
+                    )
+        self.assertEqual(len(ingredient_queries), 0)
+        with CaptureQueriesContext(connection) as price_queries:
+            view_totals = response.context["view"].get_table_kwargs()
+        self.assertEqual(len(price_queries), 0)
+        self.assertEqual(view_totals["total_average_price"], 310)
+        self.assertContains(response, "Výživové údaje na 1 porci")
         self.assertContains(response, "z toho nasycené mastné kyseliny")
         self.assertContains(response, "Celkem")
         self.assertContains(response, "nutrition-facts--total")
-        self.assertContains(response, "350,0")
-        self.assertContains(response, "38,5")
+        self.assertContains(response, "87,5")
+        self.assertContains(response, "9,6")
         self.assertNotContains(response, "<details")
         self.assertContains(response, "<span>kJ</span>", html=True)
         self.assertContains(response, "310 Kč")
         self.assertNotContains(response, "celková cena:")
         self.assertNotContains(response, "Hidden")
+
+    def test_zero_serving_recipe_nutrition_does_not_divide_by_zero(self):
+        self.client.login(username="john", password="password")
+        article = Article.objects.create(article="No servings", unit="g", energy=100)
+        recipe = Recipe.objects.create(recipe="Zero servings", norm_amount=0)
+        RecipeArticle.objects.create(
+            recipe=recipe, article=article, amount=100, unit="g"
+        )
+        recipe_response = self.client.get(
+            reverse("kitchen:showRecipeArticles", args=[recipe.pk])
+        )
+        self.assertEqual(recipe_response.status_code, 200)
+        with CaptureQueriesContext(connection) as no_receipt_queries:
+            recipe_response.context["view"].get_table_kwargs()
+        self.assertEqual(len(no_receipt_queries), 0)
+        self.assertEqual(
+            recipe_response.context["table"].pinned_data["bottom"][0][
+                "nutrition_per_portion"
+            ]["energy"],
+            0,
+        )
+
+        daily_menu = DailyMenu.objects.create(
+            date=date.today(),
+            meal_group=MealGroup.objects.create(meal_group="No servings"),
+            meal_type_id=MealTypeFactory.ensure(),
+        )
+        DailyMenuRecipe.objects.create(daily_menu=daily_menu, recipe=recipe, amount=1)
+        list_response = self.client.get(reverse("kitchen:showDailyMenus"))
+        self.assertEqual(list_response.status_code, 200)
+        list_record = next(iter(list_response.context["table"].data))
+        self.assertEqual(list_record.nutrition_per_portion["energy"], 0)
+        detail_response = self.client.get(
+            reverse("kitchen:showDailyMenuRecipes", args=[daily_menu.pk])
+        )
+        self.assertEqual(detail_response.status_code, 200)
+        self.assertEqual(
+            detail_response.context["table"].pinned_data["bottom"][0][
+                "nutrition_per_portion"
+            ]["energy"],
+            0,
+        )
 
     def test_daily_menu_list_shows_nutrition_only_to_advisors(self):
         article = Article.objects.create(
@@ -905,17 +960,17 @@ class ViewTests(TestCase):
 
         cook_response = self.client.get(url)
         self.assertNotIn("nutrition", cook_response.context["table"].columns)
-        self.assertNotContains(cook_response, "Výživové údaje celkem")
+        self.assertNotContains(cook_response, "Výživové údaje na 1 porci")
         self.assertNotContains(cook_response, "nutrition-facts--total")
 
         self.user.groups.remove(Group.objects.get(name="cook"))
         self.addGroup(self.user, "nutrition_advisor")
         advisor_response = self.client.get(url)
         self.assertIn("nutrition", advisor_response.context["table"].columns)
-        self.assertContains(advisor_response, "Výživové údaje celkem")
+        self.assertContains(advisor_response, "Výživové údaje na 1 porci")
         self.assertContains(advisor_response, "1\xa0000,0")
 
-    def test_daily_menu_views_show_scaled_nutrition_totals(self):
+    def test_daily_menu_views_show_nutrition_per_portion(self):
         self.client.login(username="john", password="password")
         nutrition = {
             "energy": 1000,
@@ -962,17 +1017,18 @@ class ViewTests(TestCase):
         )
 
         list_response = self.client.get(reverse("kitchen:showDailyMenus"))
-        self.assertContains(list_response, "2\xa0500,0")
+        self.assertContains(list_response, "1\xa0250,0")
+        self.assertNotContains(list_response, "2\xa0500,0")
         list_table = list_response.context["table"]
         self.assertIn("nutrition", list_table.columns)
         list_record = next(iter(list_table.data))
         with CaptureQueriesContext(connection) as list_nutrition_queries:
-            list_totals = list_record.nutrition_totals
+            list_totals = list_record.nutrition_per_portion
         self.assertEqual(len(list_nutrition_queries), 0)
         for field_name, value in nutrition.items():
             self.assertEqual(
                 list_totals[field_name],
-                Decimal(value) * Decimal("2.5"),
+                Decimal(value) * Decimal("1.25"),
             )
 
         detail_response = self.client.get(
@@ -980,25 +1036,54 @@ class ViewTests(TestCase):
         )
         detail_table = detail_response.context["table"]
         self.assertIn("nutrition", detail_table.columns)
+        self.assertContains(detail_response, "Výživové údaje na 1 porci")
         detail_records = {record.recipe: record for record in detail_table.data}
         with CaptureQueriesContext(connection) as detail_nutrition_queries:
             detail_totals = {
-                recipe: record.nutrition_totals
+                recipe: record.nutrition_per_portion
                 for recipe, record in detail_records.items()
             }
         self.assertEqual(len(detail_nutrition_queries), 0)
         for field_name, value in nutrition.items():
             self.assertEqual(
                 detail_totals[first_recipe][field_name],
-                Decimal(value) * Decimal("1.5"),
+                Decimal(value) / 4,
             )
             self.assertEqual(
                 detail_totals[second_recipe][field_name],
                 Decimal(value),
             )
             self.assertEqual(
-                detail_table.pinned_data["bottom"][0]["nutrition_totals"][field_name],
-                Decimal(value) * Decimal("2.5"),
+                detail_table.pinned_data["bottom"][0]["nutrition_per_portion"][
+                    field_name
+                ],
+                Decimal(value) * Decimal("1.25"),
+            )
+
+        unserved_recipe = Recipe.objects.create(recipe="Unserved course", norm_amount=1)
+        RecipeArticle.objects.create(
+            recipe=unserved_recipe, article=article, amount=100, unit="g"
+        )
+        DailyMenuRecipe.objects.create(
+            daily_menu=daily_menu, recipe=unserved_recipe, amount=0
+        )
+        zero_list_response = self.client.get(reverse("kitchen:showDailyMenus"))
+        self.assertContains(zero_list_response, "1\xa0250,0")
+        zero_response = self.client.get(
+            reverse("kitchen:showDailyMenuRecipes", args=[daily_menu.pk])
+        )
+        unserved_record = next(
+            record
+            for record in zero_response.context["table"].data
+            if record.recipe == unserved_recipe
+        )
+        for field_name, value in nutrition.items():
+            self.assertEqual(unserved_record.nutrition_per_portion[field_name], 0)
+            self.assertEqual(
+                zero_response.context["table"].pinned_data["bottom"][0][
+                    "nutrition_per_portion"
+                ][field_name],
+                Decimal(value) * Decimal("1.25"),
             )
 
     def test_article_nutrition_defaults_and_validators(self):
@@ -1105,10 +1190,11 @@ class ModelBehaviorTests(TestCase):
             )
             self.assertEqual(recipe_article.nutrition_factor, expected_factor)
             self.assertEqual(
-                recipe_article.total_energy, Decimal("100") * expected_factor
+                recipe_article.nutrition_totals["energy"],
+                Decimal("100") * expected_factor,
             )
             self.assertEqual(
-                recipe_article.total_saturated_fat,
+                recipe_article.nutrition_totals["saturated_fat"],
                 Decimal("2.0") * expected_factor,
             )
 
