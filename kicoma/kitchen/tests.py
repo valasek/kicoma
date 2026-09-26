@@ -885,6 +885,36 @@ class ViewTests(TestCase):
         self.assertNotContains(response, "celková cena:")
         self.assertNotContains(response, "Hidden")
 
+    def test_daily_menu_list_shows_nutrition_only_to_advisors(self):
+        article = Article.objects.create(
+            article="Role-specific nutrition", unit="g", energy=1000
+        )
+        recipe = Recipe.objects.create(recipe="Role-specific recipe", norm_amount=1)
+        RecipeArticle.objects.create(
+            recipe=recipe, article=article, amount=100, unit="g"
+        )
+        daily_menu = DailyMenu.objects.create(
+            date=date.today(),
+            meal_group=MealGroup.objects.create(meal_group="Residents"),
+            meal_type_id=MealTypeFactory.ensure(),
+        )
+        DailyMenuRecipe.objects.create(daily_menu=daily_menu, recipe=recipe, amount=1)
+        url = reverse("kitchen:showDailyMenus")
+        self.user.groups.remove(Group.objects.get(name="nutrition_advisor"))
+        self.client.force_login(self.user)
+
+        cook_response = self.client.get(url)
+        self.assertNotIn("nutrition", cook_response.context["table"].columns)
+        self.assertNotContains(cook_response, "Výživové údaje celkem")
+        self.assertNotContains(cook_response, "nutrition-facts--total")
+
+        self.user.groups.remove(Group.objects.get(name="cook"))
+        self.addGroup(self.user, "nutrition_advisor")
+        advisor_response = self.client.get(url)
+        self.assertIn("nutrition", advisor_response.context["table"].columns)
+        self.assertContains(advisor_response, "Výživové údaje celkem")
+        self.assertContains(advisor_response, "1\xa0000,0")
+
     def test_daily_menu_views_show_scaled_nutrition_totals(self):
         self.client.login(username="john", password="password")
         nutrition = {

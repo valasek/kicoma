@@ -1,4 +1,7 @@
 2026:
+  - date: 2026-09-26
+    items:
+      - "Výživové údaje celkem v seznamu denních menu se nyní zobrazují pouze nutričním poradcům."
   - date: 2026-09-21
     items:
       - "Výživové údaje byly zjednodušeny na energii, tuky a nasycené mastné kyseliny, sacharidy a cukry, vlákninu a bílkoviny. Kompaktní souhrn je viditelný v receptech i denních menu."

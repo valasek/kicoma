@@ -1,4 +1,7 @@
 2026:
+  - date: 2026-09-26
+    items:
+      - "Total nutrition data in the daily menu list is now shown only to nutrition advisors."
   - date: 2026-09-21
     items:
       - "Nutrition data has been simplified to energy, fat and saturated fat, carbohydrates and sugars, fiber, and protein. The compact summary is visible in recipes and daily menus."

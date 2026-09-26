@@ -89,8 +89,10 @@ from .permissions import (
     AnyRoleRequiredMixin,
     CookOrNutritionAdvisorRequiredMixin,
     CookOrStockkeeperRequiredMixin,
+    Roles,
     StockkeeperOrNutritionAdvisorRequiredMixin,
     StockkeeperRequiredMixin,
+    user_has_any_role,
 )
 from .tables import (
     ArticleFilter,
@@ -975,6 +977,11 @@ class DailyMenuListView(
     template_name = "kitchen/dailymenu/list.html"
     filterset_class = DailyMenuFilter
     paginate_by = settings.PAGINATE_BY
+
+    def get_table_kwargs(self):
+        if user_has_any_role(self.request.user, (Roles.NUTRITION_ADVISOR,)):
+            return {}
+        return {"exclude": ("nutrition",)}
 
     def get_queryset(self):
         recipe_articles = Prefetch(
