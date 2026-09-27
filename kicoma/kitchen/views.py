@@ -1282,6 +1282,8 @@ class DailyMenuRecipeListView(
         return context
 
     def get_table_kwargs(self):
+        if not user_has_any_role(self.request.user, (Roles.NUTRITION_ADVISOR,)):
+            return {"exclude": ("nutrition",)}
         return {
             "nutrition_per_portion": sum_nutrition(
                 record.nutrition_per_portion for record in self.object_list

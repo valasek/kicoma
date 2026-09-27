@@ -970,6 +970,41 @@ class ViewTests(TestCase):
         self.assertContains(advisor_response, "Výživové údaje na 1 porci")
         self.assertContains(advisor_response, "1\xa0000,0")
 
+    def test_daily_menu_recipe_list_shows_nutrition_only_to_advisors(self):
+        article = Article.objects.create(
+            article="Role-specific nutrition", unit="g", energy=1000
+        )
+        recipe = Recipe.objects.create(recipe="Role-specific recipe", norm_amount=1)
+        RecipeArticle.objects.create(
+            recipe=recipe, article=article, amount=100, unit="g"
+        )
+        daily_menu = DailyMenu.objects.create(
+            date=date.today(),
+            meal_group=MealGroup.objects.create(meal_group="Residents"),
+            meal_type_id=MealTypeFactory.ensure(),
+        )
+        DailyMenuRecipe.objects.create(daily_menu=daily_menu, recipe=recipe, amount=1)
+        url = reverse("kitchen:showDailyMenuRecipes", args=[daily_menu.pk])
+        self.user.groups.remove(Group.objects.get(name="nutrition_advisor"))
+        self.client.force_login(self.user)
+
+        cook_response = self.client.get(url)
+        cook_table = cook_response.context["table"]
+        self.assertNotIn("nutrition", cook_table.columns)
+        self.assertIsNone(cook_table.get_bottom_pinned_data())
+        self.assertNotContains(cook_response, "Výživové údaje na 1 porci")
+        self.assertNotContains(cook_response, "nutrition-facts")
+
+        self.user.groups.remove(Group.objects.get(name="cook"))
+        self.addGroup(self.user, "nutrition_advisor")
+        advisor_response = self.client.get(url)
+        advisor_table = advisor_response.context["table"]
+        self.assertIn("nutrition", advisor_table.columns)
+        self.assertIsNotNone(advisor_table.get_bottom_pinned_data())
+        self.assertContains(advisor_response, "Výživové údaje na 1 porci")
+        self.assertContains(advisor_response, "nutrition-facts--total")
+        self.assertContains(advisor_response, "1\xa0000,0")
+
     def test_daily_menu_views_show_nutrition_per_portion(self):
         self.client.login(username="john", password="password")
         nutrition = {
