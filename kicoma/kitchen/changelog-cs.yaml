@@ -1,4 +1,7 @@
 2026:
+  - date: 2026-09-30
+    items:
+      - "Při vytváření nového menu se název předvyplní podle naposledy vytvořeného menu. Stačí ho upravit, protože názvy menu musí být jedinečné."
   - date: 2026-09-27
     items:
       - "Výživové údaje a jejich součet v seznamu receptů denního menu se nyní zobrazují pouze nutričním poradcům."

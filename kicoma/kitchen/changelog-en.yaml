@@ -1,4 +1,7 @@
 2026:
+  - date: 2026-09-30
+    items:
+      - "When creating a new menu, the name is prefilled with the name of the last created menu. Just adjust it, because menu names must be unique."
   - date: 2026-09-27
     items:
       - "Nutrition data and its totals in the daily menu recipe list are now shown only to nutrition advisors."

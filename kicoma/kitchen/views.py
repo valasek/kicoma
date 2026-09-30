@@ -1150,6 +1150,17 @@ class MenuCreateView(
     template_name = "kitchen/menu/create.html"
     success_message = _("Menu bylo vytvořeno, přidej recepty")
 
+    def get_initial(self):
+        initial = super().get_initial()
+        latest_menu = (
+            Menu.objects.order_by("-created", "-pk")
+            .values_list("menu", flat=True)
+            .first()
+        )
+        if latest_menu is not None:
+            initial["menu"] = latest_menu
+        return initial
+
     def get_success_url(self):
         return reverse_lazy("kitchen:showMenuRecipes", kwargs={"pk": self.object.id})
 

@@ -23,6 +23,7 @@ from kicoma.kitchen.models import (
     DailyMenu,
     DailyMenuRecipe,
     MealGroup,
+    MealType,
     Menu,
     MenuRecipe,
     Recipe,
@@ -351,6 +352,21 @@ class ViewTests(TestCase):
         self.addGroup(self.user, "cook")
         self.addGroup(self.user, "nutrition_advisor")
         self.addGroup(self.user, "stockkeeper")
+
+    def test_create_menu_prefills_latest_saved_name(self):
+        self.client.force_login(self.user)
+        url = reverse("kitchen:createMenu")
+        self.assertIsNone(self.client.get(url).context["form"]["menu"].value())
+
+        meal_type = MealType.objects.create(meal_type="Lunch")
+        Menu.objects.create(menu="Earlier menu", meal_type=meal_type)
+        Menu.objects.create(menu="Latest menu", meal_type=meal_type)
+
+        response = self.client.get(url)
+        self.assertEqual(response.context["form"]["menu"].value(), "Latest menu")
+
+        response = self.client.post(url, {"menu": "New menu"})
+        self.assertEqual(response.context["form"]["menu"].value(), "New menu")
 
     private_urls = [
         "/kitchen/article/list",
