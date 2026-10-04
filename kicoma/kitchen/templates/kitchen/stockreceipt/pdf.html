@@ -1,6 +1,6 @@
 {% extends "../pdf_page.html" %}
 {% load humanize %}
-{% load static i18n %}
+{% load static i18n filter_extras %}
 {% block content %}
 <table class="table table-sm w-auto">
   <thead>
@@ -46,9 +46,9 @@
       <td>
         {{ stock_receipt_article.amount }} {{ stock_receipt_article.unit }}
       </td>
-      <td>{{ stock_receipt_article.price_without_vat|intcomma }} {{ CURRENCY }}</td>
+      <td>{{ stock_receipt_article.price_without_vat|unit_price }} {{ CURRENCY }}</td>
       <td>{{ stock_receipt_article.vat }}</td>
-      <td>{{ stock_receipt_article.price_with_vat|intcomma }} {{ CURRENCY }}</td>
+      <td>{{ stock_receipt_article.price_with_vat|unit_price }} {{ CURRENCY }}</td>
       <td>{{ stock_receipt_article.total_price_with_vat|intcomma }} {{ CURRENCY }}</td>
       <td>{{ stock_receipt_article.comment }}</td>
     </tr>

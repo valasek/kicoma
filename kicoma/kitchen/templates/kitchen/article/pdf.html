@@ -1,5 +1,5 @@
 {% extends "../pdf_page.html" %}
-{% load humanize static i18n %}
+{% load humanize static i18n filter_extras %}
 {% block content %}
 <div class="text-center mb-4">{% translate "Celková cena zboží na skladu s DPH:" %} {{ total_stock_price|intcomma }} {{ CURRENCY }}</div>
   <table class="table table-sm w-auto">
@@ -18,7 +18,7 @@
         <td scope="row" class="text-start">{{article.article}}</td>
         <td>{{article.on_stock}} {{article.unit}}</td>
         <td>{{article.min_on_stock}} {{article.unit}}</td>
-        <td>{{article.average_price|intcomma}} {{ CURRENCY }} / {{article.unit}}</td>
+        <td>{{article.average_price|unit_price}} {{ CURRENCY }} / {{article.unit}}</td>
         <td>{{article.total_price}} {{ CURRENCY }}</td>
       </tr>
     {% endfor %}

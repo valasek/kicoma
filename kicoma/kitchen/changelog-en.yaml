@@ -3,6 +3,11 @@
     items:
       - "The unit of existing goods can no longer be changed in goods editing, in the administration or by the goods list import. Changing the unit would change the meaning of stock, recipes and documents. Import all data (backup) loads units from the file unchanged."
       - "FIX: Approving a stock receipt or issue with a unit different from the goods unit (e.g. g for goods in kg) converted the stock value a second time (1000 times more or less). The line price is now used."
+      - "Goods in pcs have a new piece weight (g or ml). Nutrition data is entered per 100 g / 100 ml, and recipes and daily menus calculate pieces from the piece weight. Until the nutrition advisor fills in the piece weight, nutrition is marked as incomplete and the goods list shows a warning."
+      - "FIX: Unit prices are no longer rounded to whole crowns, they are stored with 4 decimal places and shown with 2. Goods in g, ml or cheap goods no longer have a zero price and stock issues with them can be approved."
+      - "FIX: The Refresh button of a stock issue created from a daily menu works again in Czech and English and keeps the original author of the issue."
+      - "FIX: A stock card cannot be deleted while the goods are in stock or on stock receipts or issues. Previously this silently deleted lines of approved documents too."
+      - "SECURITY: Goods and recipe names and notes are shown as text, not HTML, in application messages."
   - date: 2026-09-30
     items:
       - "When creating a new menu, the name is prefilled with the name of the last created menu. Just adjust it, because menu names must be unique."

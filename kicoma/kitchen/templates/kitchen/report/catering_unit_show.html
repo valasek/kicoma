@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load humanize static i18n %}
+{% load humanize static i18n filter_extras %}
 {% block content %}
 <div class="container-fluid">
   <h4>
@@ -16,9 +16,9 @@
     <tbody>
       <tr>
         <td>{{ daily_menu_recipe.recipe }}</td>
-        <td>{{ daily_menu_recipe.unit_price|intcomma }} {{ CURRENCY }}</td>
+        <td>{{ daily_menu_recipe.unit_price|unit_price }} {{ CURRENCY }}</td>
         <td>{{ daily_menu_recipe.amount }}</td>
-        <td>{{ daily_menu_recipe.total_price|intcomma }} {{ CURRENCY }}</td>
+        <td>{{ daily_menu_recipe.total_price|unit_price }} {{ CURRENCY }}</td>
       </tr>
     </tbody>
     {% endfor %}
@@ -27,7 +27,7 @@
     {% blocktranslate trimmed with total=daily_menu_recipes_total|intcomma %}Celkem receptů: {{ total }}{% endblocktranslate %}
   </p>
   <p>
-    {% blocktranslate trimmed with total_price=daily_menu_recipes_total_price|intcomma %}Celková cena receptů za den: {{ total_price }} {{ CURRENCY }}{% endblocktranslate %}
+    {% blocktranslate trimmed with total_price=daily_menu_recipes_total_price|unit_price %}Celková cena receptů za den: {{ total_price }} {{ CURRENCY }}{% endblocktranslate %}
   </p>
 </div>
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends "../pdf_page.html" %}
-{% load humanize static i18n %}
+{% load humanize static i18n filter_extras %}
 {% block content %}
 <table class="table table-sm w-auto">
   <thead>
@@ -41,7 +41,7 @@
     <tr>
       <th scope="row">{{ stock_issue_article.article }}</th>
       <td>{{ stock_issue_article.amount }} {{ stock_issue_article.unit }}</td>
-      <td>{{ stock_issue_article.average_unit_price|intcomma }} {{ CURRENCY }}</td>
+      <td>{{ stock_issue_article.average_unit_price|unit_price }} {{ CURRENCY }}</td>
       <td>{{ stock_issue_article.total_average_price_with_vat|intcomma }} {{ CURRENCY }}</td>
       <td>{{ stock_issue_article.comment }}</td>
     </tr>

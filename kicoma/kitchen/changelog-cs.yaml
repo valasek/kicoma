@@ -3,6 +3,11 @@
     items:
       - "Jednotku existujícího zboží už nelze změnit při úpravě zboží, v administraci ani importem seznamu zboží. Změna jednotky by změnila význam zásob, receptů a dokladů. Import všech dat (záloha) nahraje jednotky ze souboru beze změny."
       - "OPRAVA: Při naskladnění příjemky nebo vyskladnění výdejky s jinou jednotkou, než má zboží (např. g u zboží v kg), se cena na skladu nesprávně přepočítala ještě jednou (1000× víc nebo méně). Nyní se použije cena řádku."
+      - "Zboží v ks má novou hmotnost kusu (g nebo ml). Výživové údaje se zadávají na 100 g / 100 ml a v receptech a denním menu se pro kusy počítají z hmotnosti kusu. Dokud nutriční poradce hmotnost kusu nedoplní, jsou výživové údaje označeny jako neúplné a v seznamu zboží je u zboží upozornění."
+      - "OPRAVA: Jednotkové ceny se už nezaokrouhlují na celé koruny, ale ukládají se na 4 desetinná místa a zobrazují na 2 desetinná místa. Zboží v g, ml nebo levné zboží už nemá nulovou cenu a výdejky s ním lze vyskladnit."
+      - "OPRAVA: Tlačítko Aktualizovat u výdejky vytvořené z denního menu znovu funguje v češtině i angličtině a ponechá původního autora výdejky."
+      - "OPRAVA: Skladovou kartu nelze odstranit, pokud je zboží na skladu nebo na příjemkách či výdejkách. Dříve se tím tiše smazaly i řádky již naskladněných dokladů."
+      - "BEZPEČNOST: Názvy zboží, receptů a poznámky se ve zprávách aplikace zobrazují jako text, nikoli jako HTML."
   - date: 2026-09-30
     items:
       - "Při vytváření nového menu se název předvyplní podle naposledy vytvořeného menu. Stačí ho upravit, protože názvy menu musí být jedinečné."

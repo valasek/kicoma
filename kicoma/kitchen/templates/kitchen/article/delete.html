@@ -20,6 +20,15 @@
     <li><a href="{% url 'kitchen:showRecipeArticles' pk=recipe_article.recipe.id %}">{{ recipe_article.recipe }}</a><br/></li>
   {% endfor %}
   </ol>
+  {% elif delete_blockers %}
+  <div class="alert alert-warning">
+    <p>{% translate "Skladovou kartu nelze odstranit:" %}</p>
+    <ul>
+    {% for blocker in delete_blockers %}
+      <li>{{ blocker }}</li>
+    {% endfor %}
+    </ul>
+  </div>
   {% else %}
   <form method="post" action="{% url 'kitchen:deleteArticle' pk=object.id %}">
     {% csrf_token %}

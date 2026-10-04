@@ -9,6 +9,7 @@ from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import connection
+from django.db.models import ProtectedError
 from django.test import SimpleTestCase, TestCase, TransactionTestCase
 from django.test.client import Client
 from django.test.utils import CaptureQueriesContext
@@ -18,6 +19,7 @@ from tablib import Dataset
 
 from kicoma.kitchen.admin import ArticleAdmin, ArticleResource
 from kicoma.kitchen.forms import ArticleForm
+from kicoma.kitchen.functions import format_unit_price
 from kicoma.kitchen.models import (
     NUTRITION_FIELDS,
     UNIT,
@@ -962,6 +964,8 @@ class ViewTests(TestCase):
             unit="ks",
             on_stock=10,
             total_price=50,
+            piece_weight=100,
+            piece_weight_unit="g",
             **nutrition,
         )
         RecipeArticle.objects.create(
@@ -1289,8 +1293,8 @@ class ModelBehaviorTests(TestCase):
             price_without_vat=20,
             vat=self.vat21,
         )
-        # price_with_vat for newer = 20 * 1.21 = 24.2 -> rounded 24
-        self.assertEqual(a.average_price, 24)
+        # price_with_vat for newer = 20 * 1.21 = 24.2, kept to 4 decimal places
+        self.assertEqual(a.average_price, Decimal("24.2"))
 
     def test_recipe_total_price_same_with_and_without_prefetch(self):
         # Article with stock-based average: average = total_price/on_stock = 100/5 = 20
@@ -1321,7 +1325,7 @@ class ModelBehaviorTests(TestCase):
             "g": Decimal("0.01"),
             "l": Decimal("10"),
             "ml": Decimal("0.01"),
-            "ks": Decimal("1"),
+            "ks": Decimal("0.5"),
         }
 
         for unit, expected_factor in expected_factors.items():
@@ -1330,6 +1334,8 @@ class ModelBehaviorTests(TestCase):
                 unit=unit,
                 energy=100,
                 saturated_fat=Decimal("2.0"),
+                piece_weight=Decimal("50") if unit == "ks" else None,
+                piece_weight_unit="g" if unit == "ks" else None,
             )
             recipe_article = RecipeArticle(
                 recipe=recipe, article=article, amount=1, unit=unit
@@ -1360,6 +1366,263 @@ class ModelBehaviorTests(TestCase):
 
         m_annot = Menu.objects.annotate(rc=Count("menurecipe")).get(pk=m.pk)
         self.assertEqual(m_annot.recipe_count, 2)
+
+
+class HighPriorityFixTests(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user("jane", password="password")
+        for name in ("cook", "stockkeeper", "nutrition_advisor"):
+            self.user.groups.add(Group.objects.get_or_create(name=name)[0])
+        self.client.force_login(self.user)
+        self.vat = VAT.objects.create(percentage=0, rate="zero")
+
+    # H1
+    def test_gram_article_average_price_is_not_rounded_to_zero(self):
+        article = Article.objects.create(
+            article="Sul", unit="g", on_stock=1000, total_price=50
+        )
+
+        self.assertEqual(article.average_price, Decimal("0.05"))
+
+    def test_receipt_keeps_four_decimal_unit_price(self):
+        article = Article.objects.create(article="Koreni", unit="g")
+        line = StockReceiptArticle.objects.create(
+            stock_receipt=StockReceipt.objects.create(user_created=self.user),
+            article=article,
+            amount=200,
+            unit="g",
+            price_without_vat=Decimal("0.0125"),
+            vat=self.vat,
+        )
+        line.refresh_from_db()
+
+        self.assertEqual(line.price_without_vat, Decimal("0.0125"))
+        self.assertEqual(line.total_price_with_vat, Decimal("2"))
+
+    def test_unit_price_is_shown_with_two_decimals(self):
+        with translation.override("en"):
+            self.assertEqual(format_unit_price(Decimal("0.0500")), "0.05")
+            self.assertEqual(format_unit_price(Decimal("0.0125")), "0.01")
+            self.assertEqual(format_unit_price(Decimal("0.005")), "0.01")
+            self.assertEqual(format_unit_price(Decimal("1234.5")), "1,234.50")
+            self.assertEqual(format_unit_price(Decimal("12")), "12.00")
+
+    def test_stock_issue_article_list_shows_two_decimal_unit_price(self):
+        article = Article.objects.create(article="Maso", unit="kg")
+        stock_issue = StockIssue.objects.create(user_created=self.user)
+        StockIssueArticle.objects.create(
+            stock_issue=stock_issue,
+            article=article,
+            amount=1,
+            unit="kg",
+            average_unit_price=Decimal("12.3456"),
+        )
+
+        response = self.client.get(
+            reverse("kitchen:showStockIssueArticles", args=[stock_issue.pk])
+        )
+
+        self.assertContains(response, "12,35 Kč / kg")
+        self.assertNotContains(response, "12,3456")
+
+    # H2
+    def test_article_name_is_escaped_in_messages(self):
+        response = self.client.post(
+            reverse("kitchen:createArticle"),
+            {
+                "article": "<b>x</b>",
+                "unit": "kg",
+                "on_stock": 0,
+                "min_on_stock": 0,
+                "total_price": 0,
+            },
+            follow=True,
+        )
+
+        self.assertContains(response, "&lt;b&gt;x&lt;/b&gt;")
+        self.assertNotContains(response, "<b>x</b>")
+
+    def test_issue_approval_errors_are_escaped(self):
+        article = Article.objects.create(
+            article="<i>y</i>", unit="kg", on_stock=1, total_price=10
+        )
+        stock_issue = StockIssue.objects.create(user_created=self.user)
+        StockIssueArticle.objects.create(
+            stock_issue=stock_issue,
+            article=article,
+            amount=5,
+            unit="kg",
+            average_unit_price=10,
+        )
+
+        response = self.client.post(
+            reverse("kitchen:approveStockIssue", args=[stock_issue.pk]), follow=True
+        )
+
+        self.assertContains(response, "&lt;i&gt;y&lt;/i&gt; - na výdejce 5")
+        self.assertNotContains(response, "<i>y</i>")
+        stock_issue.refresh_from_db()
+        self.assertFalse(stock_issue.approved)
+
+    # H3
+    def test_article_with_documents_cannot_be_deleted(self):
+        article = Article.objects.create(article="Mouka", unit="kg")
+        StockReceiptArticle.objects.create(
+            stock_receipt=StockReceipt.objects.create(user_created=self.user),
+            article=article,
+            amount=1,
+            unit="kg",
+            price_without_vat=10,
+            vat=self.vat,
+        )
+
+        response = self.client.post(reverse("kitchen:deleteArticle", args=[article.pk]))
+
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(Article.objects.filter(pk=article.pk).exists())
+        with self.assertRaises(ProtectedError):
+            article.delete()
+
+    def test_article_on_stock_cannot_be_deleted(self):
+        article = Article.objects.create(
+            article="Cukr", unit="kg", on_stock=1, total_price=20
+        )
+
+        self.client.post(reverse("kitchen:deleteArticle", args=[article.pk]))
+
+        self.assertTrue(Article.objects.filter(pk=article.pk).exists())
+
+    def test_unused_empty_article_can_be_deleted(self):
+        article = Article.objects.create(article="Prazdne", unit="kg")
+
+        self.client.post(reverse("kitchen:deleteArticle", args=[article.pk]))
+
+        self.assertFalse(Article.objects.filter(pk=article.pk).exists())
+
+    # H4
+    def create_daily_menu(self, menu_date):
+        article = Article.objects.create(
+            article="Brambory", unit="kg", on_stock=10, total_price=100
+        )
+        recipe = Recipe.objects.create(recipe="Pure", norm_amount=10)
+        RecipeArticle.objects.create(
+            recipe=recipe, article=article, amount=1, unit="kg"
+        )
+        daily_menu = DailyMenu.objects.create(
+            date=menu_date,
+            meal_group=MealGroup.objects.create(meal_group="Deti"),
+            meal_type_id=MealTypeFactory.ensure(),
+        )
+        DailyMenuRecipe.objects.create(daily_menu=daily_menu, recipe=recipe, amount=20)
+
+    def test_refresh_parses_legacy_cs_and_en_comments(self):
+        menu_date = date(2026, 10, 4)
+        self.create_daily_menu(menu_date)
+        creator = get_user_model().objects.create_user("creator")
+        for comment in ("Pro 04.10.2026", "For 10/04/2026", "Pro 2026-10-04"):
+            with self.subTest(comment=comment):
+                stock_issue = StockIssue.objects.create(
+                    user_created=creator, comment=comment
+                )
+
+                response = self.client.post(
+                    reverse("kitchen:refreshStockIssue", args=[stock_issue.pk])
+                )
+
+                self.assertEqual(response.status_code, 302)
+                self.assertFalse(StockIssue.objects.filter(pk=stock_issue.pk).exists())
+                refreshed = StockIssue.objects.get()
+                self.assertEqual(refreshed.menu_date, menu_date)
+                self.assertEqual(refreshed.user_created, creator)
+                self.assertEqual(
+                    refreshed.stockissuearticle_set.get().amount, Decimal("2")
+                )
+                refreshed.delete()
+
+    def test_refresh_is_post_only(self):
+        stock_issue = StockIssue.objects.create(
+            user_created=self.user, menu_date=date(2026, 10, 4)
+        )
+
+        response = self.client.get(
+            reverse("kitchen:refreshStockIssue", args=[stock_issue.pk])
+        )
+
+        self.assertEqual(response.status_code, 405)
+        self.assertTrue(StockIssue.objects.filter(pk=stock_issue.pk).exists())
+
+    def test_refresh_without_daily_menu_keeps_issue(self):
+        stock_issue = StockIssue.objects.create(
+            user_created=self.user, menu_date=date(2026, 10, 4)
+        )
+
+        self.client.post(reverse("kitchen:refreshStockIssue", args=[stock_issue.pk]))
+
+        self.assertTrue(StockIssue.objects.filter(pk=stock_issue.pk).exists())
+
+    # H5
+    def create_piece_recipe(self, piece_weight=None):
+        article = Article.objects.create(
+            article="Vejce",
+            unit="ks",
+            energy=600,
+            protein=Decimal("12.0"),
+            piece_weight=piece_weight,
+            piece_weight_unit="g" if piece_weight else None,
+        )
+        recipe = Recipe.objects.create(recipe="Omeleta", norm_amount=2)
+        RecipeArticle.objects.create(
+            recipe=recipe, article=article, amount=4, unit="ks"
+        )
+        return recipe
+
+    def test_piece_line_uses_piece_weight(self):
+        recipe = self.create_piece_recipe(piece_weight=Decimal("50"))
+
+        # 4 pieces x 50 g = 200 g = 2 x 100 g, 2 portions
+        self.assertEqual(recipe.nutrition_per_portion["energy"], Decimal("600"))
+        self.assertEqual(recipe.nutrition_per_portion["protein"], Decimal("12"))
+        self.assertEqual(recipe.nutrition_missing_articles, [])
+
+    def test_piece_line_without_piece_weight_is_incomplete(self):
+        recipe = self.create_piece_recipe()
+        recipe_article = recipe.recipearticle_set.get()
+
+        self.assertIsNone(recipe_article.nutrition_factor)
+        self.assertTrue(recipe_article.nutrition_incomplete)
+        self.assertEqual(recipe.nutrition_per_portion["energy"], Decimal("0"))
+        self.assertEqual(recipe.nutrition_missing_articles, ["Vejce"])
+        self.assertTrue(recipe_article.article.nutrition_needs_piece_weight)
+
+        response = self.client.get(
+            reverse("kitchen:showRecipeArticles", args=[recipe.pk])
+        )
+        self.assertContains(response, "chybí hmotnost kusu: Vejce")
+
+    def test_daily_menu_nutrition_with_piece_article(self):
+        recipe = self.create_piece_recipe(piece_weight=Decimal("50"))
+        daily_menu = DailyMenu.objects.create(
+            date=date(2026, 10, 4),
+            meal_group=MealGroup.objects.create(meal_group="Deti"),
+            meal_type_id=MealTypeFactory.ensure(),
+        )
+        DailyMenuRecipe.objects.create(daily_menu=daily_menu, recipe=recipe, amount=30)
+
+        self.assertEqual(daily_menu.nutrition_per_portion["energy"], Decimal("600"))
+        self.assertEqual(daily_menu.nutrition_missing_articles, [])
+
+    def test_piece_article_with_nutrition_requires_piece_weight(self):
+        data = {"article": "Rohlik", "unit": "ks", "on_stock": 0, "energy": 1200}
+        form = ArticleForm(data=data, user=self.user)
+
+        self.assertFalse(form.is_valid())
+        self.assertIn("piece_weight", form.errors)
+        self.assertIn("piece_weight_unit", form.errors)
+
+        form = ArticleForm(
+            data={**data, "piece_weight": 43, "piece_weight_unit": "g"}, user=self.user
+        )
+        self.assertTrue(form.is_valid(), form.errors)
 
 
 class DataImportExportTests(TransactionTestCase):

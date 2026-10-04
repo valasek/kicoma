@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="nutrition-facts{% if is_total %} nutrition-facts--total{% endif %}">
   <div class="nutrition-facts__grid">
     {% for column in columns %}
@@ -19,4 +20,9 @@
       </div>
     {% endfor %}
   </div>
+  {% if missing %}
+    <p class="nutrition-facts__incomplete text-warning-emphasis small mb-0">
+      {% translate "Výživové údaje jsou neúplné, chybí hmotnost kusu:" %} {{ missing|join:", " }}
+    </p>
+  {% endif %}
 </div>

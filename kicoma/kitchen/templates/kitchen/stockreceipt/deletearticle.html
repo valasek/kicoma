@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load humanize %}
+{% load humanize filter_extras %}
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
@@ -22,7 +22,7 @@
     <p>{% translate "Chcete odstranit zboží z příjemky:" %}</p>
     <ul>
       <li>{% translate "Zboží:" %} {{ object.article }}</li>
-      <li>{% translate "Cena bez DPH:" %} {{ object.price_without_vat|intcomma }} {{ CURRENCY }}</li>
+      <li>{% translate "Cena bez DPH:" %} {{ object.price_without_vat|unit_price }} {{ CURRENCY }}</li>
       <li>{% translate "Poznámka:" %} {{ object.comment }}</li>
     </ul>
     <button type="submit" class="btn btn-success">{% translate "Odstranit" %}</button>

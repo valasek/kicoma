@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
 from simple_history.utils import bulk_update_with_history
 
-from .functions import convert_units, total_recipe_article_price
+from .functions import convert_units, quantize_unit_price, total_recipe_article_price
 from .managers import CollatableManager
 
 UNIT = (
@@ -20,6 +20,11 @@ UNIT = (
     ("l", _("l")),
     ("ml", _("ml")),
     ("ks", _("ks")),
+)
+
+PIECE_WEIGHT_UNIT = (
+    ("g", _("g")),
+    ("ml", _("ml")),
 )
 
 
@@ -187,6 +192,13 @@ def divide_nutrition(values, portions):
     }
 
 
+def missing_piece_weight_articles(recipe_articles):
+    return sorted(
+        {ra.article.article for ra in recipe_articles if ra.nutrition_incomplete},
+        key=str.lower,
+    )
+
+
 class Article(TimeStampedModel):
     objects = CollatableManager()
 
@@ -235,7 +247,7 @@ class Article(TimeStampedModel):
         default=0,
         validators=[MinValueValidator(0), MaxValueValidator(10000)],
         verbose_name=_("Energie"),
-        help_text=_("kJ / 100 g"),
+        help_text=_("kJ / 100 g (ml)"),
     )
     fat = models.DecimalField(
         max_digits=5,
@@ -245,7 +257,7 @@ class Article(TimeStampedModel):
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("Tuky"),
-        help_text=_("g / 100 g"),
+        help_text=_("g / 100 g (ml)"),
     )
     saturated_fat = models.DecimalField(
         max_digits=5,
@@ -255,7 +267,7 @@ class Article(TimeStampedModel):
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("z toho nasycené mastné kyseliny"),
-        help_text=_("g / 100 g"),
+        help_text=_("g / 100 g (ml)"),
     )
     carbohydrates = models.DecimalField(
         max_digits=5,
@@ -265,7 +277,7 @@ class Article(TimeStampedModel):
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("Sacharidy"),
-        help_text=_("g / 100 g"),
+        help_text=_("g / 100 g (ml)"),
     )
     sugars = models.DecimalField(
         max_digits=5,
@@ -275,7 +287,7 @@ class Article(TimeStampedModel):
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("z toho cukry"),
-        help_text=_("g / 100 g"),
+        help_text=_("g / 100 g (ml)"),
     )
     fiber = models.DecimalField(
         max_digits=5,
@@ -285,7 +297,7 @@ class Article(TimeStampedModel):
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("Vláknina"),
-        help_text=_("g / 100 g"),
+        help_text=_("g / 100 g (ml)"),
     )
     protein = models.DecimalField(
         max_digits=5,
@@ -295,9 +307,24 @@ class Article(TimeStampedModel):
         default=0,
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("Bílkoviny"),
-        help_text=_("g / 100 g"),
+        help_text=_("g / 100 g (ml)"),
     )
     allergen = models.ManyToManyField(Allergen, blank=True, verbose_name=_("Alergeny"))
+    piece_weight = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        validators=[MinValueValidator(Decimal("0.01"))],
+        verbose_name=_("Hmotnost kusu"),
+        help_text=_("Pro zboží v ks: hmotnost nebo objem jednoho kusu"),
+    )
+    piece_weight_unit = models.CharField(
+        max_length=2,
+        choices=PIECE_WEIGHT_UNIT,
+        blank=True,
+        verbose_name=_("Jednotka hmotnosti kusu"),
+    )
     comment = models.CharField(
         max_length=200, blank=True, default="", verbose_name=_("Poznámka")
     )
@@ -306,19 +333,31 @@ class Article(TimeStampedModel):
     def __str__(self):
         return self.article
 
+    @property
+    def has_piece_weight(self):
+        return bool(self.piece_weight and self.piece_weight_unit)
+
+    @property
+    def nutrition_needs_piece_weight(self):
+        return (
+            self.unit == "ks"
+            and not self.has_piece_weight
+            and any(getattr(self, name) for name in NUTRITION_FIELDS)
+        )
+
     # average unit price with VAT or last unit price with vat from stockreceipt
     @property
     def average_price(self):
         # Prefer current stock-based average if available
         if self.on_stock:
             try:
-                return round(self.total_price / self.on_stock, 0)
+                return quantize_unit_price(self.total_price / self.on_stock)
             except Exception:
                 return 0
         # If queryset was prefetched to attr `latest_receipt`, use it to avoid an extra query
         latest = getattr(self, "latest_receipt", None)
         if latest is not None:
-            return round(latest[0].price_with_vat, 0) if latest else 0
+            return quantize_unit_price(latest[0].price_with_vat) if latest else 0
         # Fallback: hit DB once for the latest receipt article
         sra = (
             StockReceiptArticle.objects.filter(article_id=self.id)
@@ -326,7 +365,7 @@ class Article(TimeStampedModel):
             .order_by("-id")
             .first()
         )
-        return 0 if sra is None else round(sra.price_with_vat, 0)
+        return 0 if sra is None else quantize_unit_price(sra.price_with_vat)
 
     @staticmethod
     def sum_total_price():
@@ -388,6 +427,15 @@ class Recipe(TimeStampedModel):
     @property
     def nutrition_per_portion(self):
         return divide_nutrition(self.nutrition_totals, self.norm_amount)
+
+    @property
+    def nutrition_missing_articles(self):
+        recipe_articles = getattr(self, "prefetched_recipe_articles", None)
+        if recipe_articles is None:
+            recipe_articles = RecipeArticle.objects.select_related("article").filter(
+                recipe=self.id
+            )
+        return missing_piece_weight_articles(recipe_articles)
 
     @property
     def total_recipe_articles_price(self):
@@ -473,16 +521,26 @@ class RecipeArticle(TimeStampedModel):
 
     @property
     def nutrition_factor(self):
+        # nutrition is per 100 g / 100 ml, a piece needs its own weight
         if self.unit in ("kg", "l"):
             return self.amount * Decimal("10")
         if self.unit in ("g", "ml"):
             return self.amount / Decimal("100")
-        return self.amount
+        if self.article.has_piece_weight:
+            return self.amount * self.article.piece_weight / Decimal("100")
+        return None
+
+    @property
+    def nutrition_incomplete(self):
+        return self.nutrition_factor is None
 
     def nutrition_total(self, field_name):
+        factor = self.nutrition_factor
+        if factor is None:
+            return Decimal("0")
         # nutrition values are nullable - a missing value counts as zero
         value = getattr(self.article, field_name) or 0
-        return value * self.nutrition_factor
+        return value * factor
 
     @property
     def nutrition_totals(self):
@@ -637,6 +695,18 @@ class DailyMenu(TimeStampedModel):
             for daily_menu_recipe in daily_menu_recipes
         )
 
+    @property
+    def nutrition_missing_articles(self):
+        daily_menu_recipes = getattr(self, "prefetched_daily_menu_recipes", None)
+        if daily_menu_recipes is None:
+            daily_menu_recipes = DailyMenuRecipe.objects.filter(
+                daily_menu=self.id
+            ).select_related("recipe")
+        names = set()
+        for daily_menu_recipe in daily_menu_recipes:
+            names.update(daily_menu_recipe.nutrition_missing_articles)
+        return sorted(names, key=str.lower)
+
 
 class DailyMenuRecipe(TimeStampedModel):
     objects = CollatableManager()
@@ -682,6 +752,12 @@ class DailyMenuRecipe(TimeStampedModel):
             return sum_nutrition(())
         return self.recipe.nutrition_per_portion
 
+    @property
+    def nutrition_missing_articles(self):
+        if not self.amount:
+            return []
+        return self.recipe.nutrition_missing_articles
+
 
 class StockIssue(TimeStampedModel):
     class Meta:
@@ -711,6 +787,9 @@ class StockIssue(TimeStampedModel):
     )
     comment = models.CharField(
         max_length=200, blank=True, default="", verbose_name=_("Poznámka")
+    )
+    menu_date = models.DateField(
+        blank=True, null=True, verbose_name=_("Datum denního menu")
     )
 
     def __str__(self):
@@ -757,10 +836,12 @@ class StockIssue(TimeStampedModel):
         return len(StockIssueArticle.objects.filter(stock_issue_id=self.pk))
 
     @staticmethod
-    def create_from_daily_menu(daily_menus, date, user):
+    def create_from_daily_menu(daily_menus, date, user, menu_date=None):
         with transaction.atomic():
             # save the StockIssue
-            stock_issue = StockIssue(comment=_("Pro ") + date, user_created=user)
+            stock_issue = StockIssue(
+                comment=_("Pro ") + date, user_created=user, menu_date=menu_date
+            )
             stock_issue.save()
             # save all StockIssue Articles
             daily_menu_recipes = DailyMenuRecipe.objects.select_related(
@@ -825,7 +906,7 @@ class StockIssue(TimeStampedModel):
         stock_articles = StockIssueArticle.objects.select_related("article").filter(
             stock_issue=stock_id
         )
-        messages = ""
+        messages = []
         changes = []
         for stock_article in stock_articles:
             article = stock_article.article
@@ -833,12 +914,14 @@ class StockIssue(TimeStampedModel):
                 stock_article.amount, stock_article.unit, article.unit
             )
             if article.on_stock < 0 or article.on_stock - converted_amount < 0:
-                messages += _(
-                    "{article} - na výdejce {converted_amount}, na skladu {on_stock}<br/>"
-                ).format(
-                    article=stock_article.article,
-                    converted_amount=converted_amount,
-                    on_stock=article.on_stock,
+                messages.append(
+                    _(
+                        "{article} - na výdejce {converted_amount}, na skladu {on_stock}"
+                    ).format(
+                        article=stock_article.article,
+                        converted_amount=converted_amount,
+                        on_stock=article.on_stock,
+                    )
                 )
             if not fake:
                 delta_amount = Decimal(round(converted_amount, 2))
@@ -925,7 +1008,7 @@ class StockIssueArticle(TimeStampedModel):
         StockIssue, on_delete=models.CASCADE, verbose_name=_("Výdejka")
     )
     article = models.ForeignKey(
-        Article, on_delete=models.CASCADE, verbose_name=_("Zboží")
+        Article, on_delete=models.PROTECT, verbose_name=_("Zboží")
     )
     amount = models.DecimalField(
         decimal_places=2,
@@ -935,8 +1018,8 @@ class StockIssueArticle(TimeStampedModel):
     )
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name=_("Jednotka"))
     average_unit_price = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
+        max_digits=12,
+        decimal_places=4,
         validators=[MinValueValidator(Decimal("0"))],
         blank=True,
         null=True,
@@ -973,7 +1056,7 @@ class StockReceiptArticle(TimeStampedModel):
     )
     article = models.ForeignKey(
         Article,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         verbose_name=_("Zboží"),
         related_name="stockreceiptarticle_set",
     )
@@ -985,9 +1068,9 @@ class StockReceiptArticle(TimeStampedModel):
     )
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name=_("Jednotka"))
     price_without_vat = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        validators=[MinValueValidator(Decimal("0.1"))],
+        max_digits=12,
+        decimal_places=4,
+        validators=[MinValueValidator(Decimal("0.0001"))],
         verbose_name=_("Jednotková cena bez DPH"),
     )
     vat = models.ForeignKey(

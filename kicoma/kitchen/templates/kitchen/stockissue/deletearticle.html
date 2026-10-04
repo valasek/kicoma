@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load humanize %}
+{% load humanize filter_extras %}
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
@@ -21,7 +21,7 @@
         {% blocktranslate trimmed with article=object.article %}Zboží: {{ article }}{% endblocktranslate %}
       </li>
       <li>
-        {% blocktranslate trimmed with price=object.price_without_vat|intcomma %}Cena bez DPH: {{ price }} {{ CURRENCY }}{% endblocktranslate %}
+        {% translate "Průměrná jednotková cena s DPH" %}: {{ object.average_unit_price|unit_price }} {{ CURRENCY }} / {{ object.article.unit }}
       </li>
       <li>
         {% blocktranslate trimmed with comment=object.comment %}Poznámka: {{ comment }}{% endblocktranslate %}

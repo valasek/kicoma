@@ -49,6 +49,7 @@ class ArticleForm(forms.ModelForm):
         "total_price",
     )
     nutrition_fields = NUTRITION_FIELDS
+    piece_fields = ("piece_weight", "piece_weight_unit")
 
     class Meta:
         model = Article
@@ -59,6 +60,8 @@ class ArticleForm(forms.ModelForm):
             "min_on_stock",
             "total_price",
             *NUTRITION_FIELDS,
+            "piece_weight",
+            "piece_weight_unit",
             "comment",
             "allergen",
         ]
@@ -75,6 +78,9 @@ class ArticleForm(forms.ModelForm):
             editable_fields.update(self.stock_fields)
         if "nutrition_advisor" in group_names:
             editable_fields.update(self.nutrition_fields)
+            # piece weight only matters for ks; the unit of a new article is not known yet
+            if not self.instance.pk or self.instance.unit == "ks":
+                editable_fields.update(self.piece_fields)
         for field_name in tuple(self.fields):
             if field_name not in editable_fields:
                 self.fields.pop(field_name)
@@ -134,6 +140,18 @@ class ArticleForm(forms.ModelForm):
                     _("Výživové údaje"),
                     nutrition_summary,
                     nutrition_groups,
+                    *(
+                        [
+                            Row(
+                                *(
+                                    Column(field_name, css_class="col-md-3")
+                                    for field_name in self.piece_fields
+                                )
+                            )
+                        ]
+                        if "piece_weight" in self.fields
+                        else []
+                    ),
                     css_class="nutrition-form",
                 )
             )
@@ -147,7 +165,25 @@ class ArticleForm(forms.ModelForm):
                 cleaned_data[field_name] = Article._meta.get_field(
                     field_name
                 ).get_default()
+        if "piece_weight" in self.fields:
+            self.clean_piece_weight_fields(cleaned_data)
         return cleaned_data
+
+    def clean_piece_weight_fields(self, cleaned_data):
+        weight = cleaned_data.get("piece_weight")
+        weight_unit = cleaned_data.get("piece_weight_unit")
+        unit = cleaned_data.get("unit") or self.instance.unit
+        has_nutrition = any(
+            cleaned_data.get(field_name) for field_name in NUTRITION_FIELDS
+        )
+        required = bool(weight or weight_unit) or (unit == "ks" and has_nutrition)
+        if not required:
+            return
+        message = _("Zboží v ks s výživovými údaji potřebuje hmotnost kusu i jednotku.")
+        if not weight:
+            self.add_error("piece_weight", message)
+        if not weight_unit:
+            self.add_error("piece_weight_unit", message)
 
 
 class ArticleSearchForm(forms.Form):

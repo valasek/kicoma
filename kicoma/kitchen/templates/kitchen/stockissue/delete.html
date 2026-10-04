@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load humanize %}
+{% load humanize filter_extras %}
 {% load crispy_forms_tags static i18n %}
 {% block content %}
 <div class="container-fluid">
@@ -46,7 +46,7 @@
       <tr>
         <td>{{ stock_issue_article.article }}</td>
         <td>{{ stock_issue_article.amount }} {{ stock_issue_article.unit }}</td>
-        <td>{{ stock_issue_article.article.average_price|intcomma }} {{ CURRENCY }}</td>
+        <td>{{ stock_issue_article.article.average_price|unit_price }} {{ CURRENCY }}</td>
         <td>{{ stock_issue_article.total_average_price_with_vat|intcomma }} {{ CURRENCY }}</td>
         <td>{{ stock_issue_article.comment }}</td>
       </tr>

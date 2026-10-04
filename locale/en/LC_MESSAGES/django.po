@@ -411,7 +411,7 @@ msgstr "Date"
 
 #: kicoma/kitchen/models.py:572
 msgid "Datum denního menu"
-msgstr "Daily menu recipes"
+msgstr "Daily menu date"
 
 #: kicoma/kitchen/models.py:579
 msgid "Přeber recepty z připraveného menu"
@@ -454,8 +454,8 @@ msgstr "For "
 
 #: kicoma/kitchen/models.py:796
 #, python-brace-format
-msgid "{article} - na výdejce {converted_amount}, na skladu {on_stock}<br/>"
-msgstr "{article} - issued {converted_amount}, in stock {on_stock}<br/>"
+msgid "{article} - na výdejce {converted_amount}, na skladu {on_stock}"
+msgstr "{article} - issued {converted_amount}, in stock {on_stock}"
 
 #: kicoma/kitchen/models.py:811
 msgid "Výdej"
@@ -2428,8 +2428,8 @@ msgid "Vyskladnění neprovedeno - nulová cena zboží, je zboží naskladněno
 msgstr "Dispatch not performed – item price is zero, is the item stocked?"
 
 #: kicoma/kitchen/views.py:1571
-msgid "Níže uvedené zboží není možné vyskladnit:<br/>"
-msgstr "The following items cannot be dispatched:<br/>"
+msgid "Níže uvedené zboží není možné vyskladnit:"
+msgstr "The following items cannot be dispatched:"
 
 #: kicoma/kitchen/views.py:1588
 msgid "Výdejka byla vyskladněna"
@@ -3388,6 +3388,62 @@ msgstr ""
 #: kicoma/kitchen/admin.py
 msgid "{article}: jednotku nelze měnit ({old} -> {new})."
 msgstr "{article}: the unit cannot be changed ({old} -> {new})."
+
+#: kicoma/kitchen/views.py
+msgid ""
+"Zboží je na skladu nebo má nenulovou cenu. Nejdříve ho vyskladněte nebo "
+"opravte stav skladu."
+msgstr ""
+"The item is in stock or has a non-zero value. Issue it or correct the stock "
+"first."
+
+#: kicoma/kitchen/views.py
+msgid ""
+"Zboží je použité na {receipts} příjemkách a {issues} výdejkách, jejich "
+"historie by se změnila."
+msgstr ""
+"The item is used on {receipts} stock receipts and {issues} stock issues, "
+"their history would change."
+
+#: kicoma/kitchen/views.py
+msgid "Zboží je použité v receptech."
+msgstr "The item is used in recipes."
+
+#: kicoma/kitchen/templates/kitchen/article/delete.html
+msgid "Skladovou kartu nelze odstranit:"
+msgstr "The stock card cannot be deleted:"
+
+#: kicoma/kitchen/models.py
+msgid "kJ / 100 g (ml)"
+msgstr "kJ / 100 g (ml)"
+
+#: kicoma/kitchen/models.py
+msgid "g / 100 g (ml)"
+msgstr "g / 100 g (ml)"
+
+#: kicoma/kitchen/models.py
+msgid "Hmotnost kusu"
+msgstr "Piece weight"
+
+#: kicoma/kitchen/models.py
+msgid "Pro zboží v ks: hmotnost nebo objem jednoho kusu"
+msgstr "For items in pcs: weight or volume of one piece"
+
+#: kicoma/kitchen/models.py
+msgid "Jednotka hmotnosti kusu"
+msgstr "Piece weight unit"
+
+#: kicoma/kitchen/templates/kitchen/recipe/_nutrition_facts.html
+msgid "Výživové údaje jsou neúplné, chybí hmotnost kusu:"
+msgstr "Nutrition is incomplete, piece weight missing for:"
+
+#: kicoma/kitchen/tables.py
+msgid "chybí hmotnost kusu"
+msgstr "piece weight missing"
+
+#: kicoma/kitchen/forms.py
+msgid "Zboží v ks s výživovými údaji potřebuje hmotnost kusu i jednotku."
+msgstr "An item in pcs with nutrition data needs a piece weight and its unit."
 
 #, python-format
 #~ msgid "%(total)s receptů k opravě"

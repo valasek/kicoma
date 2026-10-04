@@ -1,12 +1,15 @@
 import django_tables2 as tables
 from django import forms
 from django.contrib.humanize.templatetags.humanize import intcomma
+from django.middleware.csrf import get_token
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django_filters import CharFilter, DateFilter, FilterSet
 
+from .functions import format_unit_price
 from .models import (
     NUTRITION_STRUCTURE,
     Article,
@@ -40,7 +43,7 @@ LABEL_ISSUE = _("Vyskladnit")
 LABEL_RECEIPT = _("Naskladnit")
 
 
-def render_nutrition_facts(totals, is_total=False):
+def render_nutrition_facts(totals, is_total=False, missing=None):
     def nutrition_item(field_name):
         field = Article._meta.get_field(field_name)
         return {
@@ -64,6 +67,7 @@ def render_nutrition_facts(totals, is_total=False):
             {
                 "columns": (standalone, grouped),
                 "is_total": is_total,
+                "missing": missing,
             },
         )
     )
@@ -85,6 +89,16 @@ class ArticleTable(tables.Table):
     def before_render(self, request):
         if not self.is_stockkeeper(request.user):
             self.columns.hide("total_price")
+
+    @staticmethod
+    def render_article(value, record):
+        if record.nutrition_needs_piece_weight:
+            return format_html(
+                '{} <span class="badge text-bg-warning">{}</span>',
+                value,
+                _("chybí hmotnost kusu"),
+            )
+        return value
 
     def render_change(self, record):
         edit_url = reverse("kitchen:updateArticle", args=[record.id])
@@ -120,7 +134,7 @@ class ArticleTable(tables.Table):
 
     @staticmethod
     def render_average_price(value, record):
-        return f"{intcomma(value)} {get_currency()} / {record.unit}"
+        return f"{format_unit_price(value)} {get_currency()} / {record.unit}"
 
     @staticmethod
     def render_total_price(value):
@@ -204,10 +218,16 @@ class RecipeArticleTable(tables.Table):
     change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
     def __init__(
-        self, *args, nutrition_per_portion=None, total_average_price=None, **kwargs
+        self,
+        *args,
+        nutrition_per_portion=None,
+        total_average_price=None,
+        nutrition_missing=None,
+        **kwargs,
     ):
         self.nutrition_per_portion = nutrition_per_portion
         self.total_average_price = total_average_price
+        self.nutrition_missing = nutrition_missing
         super().__init__(*args, **kwargs)
 
     def get_bottom_pinned_data(self):
@@ -218,6 +238,7 @@ class RecipeArticleTable(tables.Table):
                 "article": _("Celkem"),
                 "total_average_price": self.total_average_price,
                 "nutrition_per_portion": self.nutrition_per_portion,
+                "nutrition_missing": self.nutrition_missing,
             }
         ]
 
@@ -250,7 +271,7 @@ class RecipeArticleTable(tables.Table):
 
     @staticmethod
     def render_average_price(value, record):
-        return f"{intcomma(value)} {get_currency()} / {record.article.unit}"
+        return f"{format_unit_price(value)} {get_currency()} / {record.article.unit}"
 
     @staticmethod
     def render_total_average_price(value):
@@ -259,8 +280,14 @@ class RecipeArticleTable(tables.Table):
     @staticmethod
     def render_nutrition(record):
         if isinstance(record, RecipeArticle):
+            if record.nutrition_incomplete:
+                return "-"
             return render_nutrition_facts(record.nutrition_per_portion)
-        return render_nutrition_facts(record["nutrition_per_portion"], is_total=True)
+        return render_nutrition_facts(
+            record["nutrition_per_portion"],
+            is_total=True,
+            missing=record.get("nutrition_missing"),
+        )
 
 
 class DailyMenuTable(tables.Table):
@@ -302,7 +329,11 @@ class DailyMenuTable(tables.Table):
 
     @staticmethod
     def render_nutrition(record):
-        return render_nutrition_facts(record.nutrition_per_portion, is_total=True)
+        return render_nutrition_facts(
+            record.nutrition_per_portion,
+            is_total=True,
+            missing=record.nutrition_missing_articles,
+        )
 
 
 class DailyMenuFilter(FilterSet):
@@ -335,8 +366,9 @@ class DailyMenuRecipeTable(tables.Table):
     )
     change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
-    def __init__(self, *args, nutrition_per_portion=None, **kwargs):
+    def __init__(self, *args, nutrition_per_portion=None, nutrition_missing=None, **kwargs):
         self.nutrition_per_portion = nutrition_per_portion
+        self.nutrition_missing = nutrition_missing
         super().__init__(*args, **kwargs)
 
     def get_bottom_pinned_data(self):
@@ -346,6 +378,7 @@ class DailyMenuRecipeTable(tables.Table):
             {
                 "recipe": _("Celkem"),
                 "nutrition_per_portion": self.nutrition_per_portion,
+                "nutrition_missing": self.nutrition_missing,
             }
         ]
 
@@ -369,8 +402,15 @@ class DailyMenuRecipeTable(tables.Table):
     @staticmethod
     def render_nutrition(record):
         if isinstance(record, DailyMenuRecipe):
-            return render_nutrition_facts(record.nutrition_per_portion)
-        return render_nutrition_facts(record["nutrition_per_portion"], is_total=True)
+            return render_nutrition_facts(
+                record.nutrition_per_portion,
+                missing=record.nutrition_missing_articles,
+            )
+        return render_nutrition_facts(
+            record["nutrition_per_portion"],
+            is_total=True,
+            missing=record.get("nutrition_missing"),
+        )
 
 
 class MenuTable(tables.Table):
@@ -430,7 +470,15 @@ class StockIssueTable(tables.Table):
         user = getattr(self, "request", None).user if hasattr(self, "request") else None
         if user and user.groups.filter(name="stockkeeper").exists():
             links.append(
-                f'<a href="{reverse("kitchen:refreshStockIssue", args=[record.id])}">{LABEL_REFRESH}</a>'
+                format_html(
+                    '<form method="post" action="{}" class="d-inline">'
+                    '<input type="hidden" name="csrfmiddlewaretoken" value="{}">'
+                    '<button type="submit" class="btn btn-link p-0 align-baseline">{}</button>'
+                    "</form>",
+                    reverse("kitchen:refreshStockIssue", args=[record.id]),
+                    get_token(self.request),
+                    LABEL_REFRESH,
+                )
             )
             links.append(
                 f'<a href="{reverse("kitchen:approveStockIssue", args=[record.id])}">{LABEL_ISSUE}</a>'
@@ -518,7 +566,7 @@ class StockIssueArticleTable(tables.Table):
 
     @staticmethod
     def render_average_unit_price(value, record):
-        return f"{intcomma(value)} {get_currency()} / {record.article.unit}"
+        return f"{format_unit_price(value)} {get_currency()} / {record.article.unit}"
 
     @staticmethod
     def render_total_average_price_with_vat(value):
@@ -621,11 +669,11 @@ class StockReceiptArticleTable(tables.Table):
 
     @staticmethod
     def render_price_without_vat(value):
-        return f"{intcomma(value)} {get_currency()}"
+        return f"{format_unit_price(value)} {get_currency()}"
 
     @staticmethod
     def render_price_with_vat(value):
-        return f"{intcomma(value)} {get_currency()}"
+        return f"{format_unit_price(value)} {get_currency()}"
 
     @staticmethod
     def render_total_price_with_vat(value):

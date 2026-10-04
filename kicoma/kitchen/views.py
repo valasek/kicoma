@@ -17,14 +17,14 @@ from django.core import management
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.files.storage import FileSystemStorage
 from django.db import connection, transaction
-from django.db.models import Count, F, Max, Prefetch, Sum
+from django.db.models import Count, F, Max, Prefetch, ProtectedError, Sum
 from django.db.models.functions import ExtractYear, Lower
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils import formats, translation
-from django.utils.html import format_html
+from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.views import View
@@ -63,7 +63,7 @@ from .forms import (
     StockReceiptForm,
     StockReceiptSearchForm,
 )
-from .functions import convert_units
+from .functions import convert_units, format_unit_price
 from .models import (
     UNIT,
     VAT,
@@ -82,6 +82,7 @@ from .models import (
     StockIssueArticle,
     StockReceipt,
     StockReceiptArticle,
+    missing_piece_weight_articles,
     sum_nutrition,
 )
 from .permissions import (
@@ -541,10 +542,54 @@ class ArticleDeleteView(SuccessMessageMixin, StockkeeperRequiredMixin, DeleteVie
         obj = self.get_object()
         recipe_articles = RecipeArticle.objects.filter(article=obj)
         context["recipe_articles"] = recipe_articles
+        context["delete_blockers"] = self.delete_blockers(obj)
         return context
 
+    @staticmethod
+    def delete_blockers(article):
+        blockers = []
+        if article.on_stock or article.total_price:
+            blockers.append(
+                _(
+                    "Zboží je na skladu nebo má nenulovou cenu. "
+                    "Nejdříve ho vyskladněte nebo opravte stav skladu."
+                )
+            )
+        receipt_count = (
+            StockReceiptArticle.objects.filter(article=article)
+            .values("stock_receipt")
+            .distinct()
+            .count()
+        )
+        issue_count = (
+            StockIssueArticle.objects.filter(article=article)
+            .values("stock_issue")
+            .distinct()
+            .count()
+        )
+        if receipt_count or issue_count:
+            blockers.append(
+                _(
+                    "Zboží je použité na {receipts} příjemkách a {issues} výdejkách, "
+                    "jejich historie by se změnila."
+                ).format(receipts=receipt_count, issues=issue_count)
+            )
+        return blockers
+
     def form_valid(self, form):
-        return super().form_valid(form)
+        blockers = self.delete_blockers(self.object)
+        if RecipeArticle.objects.filter(article=self.object).exists():
+            blockers.append(_("Zboží je použité v receptech."))
+        if not blockers:
+            try:
+                return super().form_valid(form)
+            except ProtectedError:
+                blockers = self.delete_blockers(self.object)
+        for blocker in blockers:
+            messages.warning(self.request, blocker)
+        return HttpResponseRedirect(
+            reverse("kitchen:deleteArticle", args=[self.object.pk])
+        )
 
 
 class ArticlePDFView(StockkeeperOrNutritionAdvisorRequiredMixin, TemplateView):
@@ -849,6 +894,7 @@ class RecipeArticleListView(
                 recipe_article.total_average_price
                 for recipe_article in self.object_list
             ),
+            "nutrition_missing": missing_piece_weight_articles(self.object_list),
         }
 
     def get_queryset(self):
@@ -1298,7 +1344,15 @@ class DailyMenuRecipeListView(
         return {
             "nutrition_per_portion": sum_nutrition(
                 record.nutrition_per_portion for record in self.object_list
-            )
+            ),
+            "nutrition_missing": sorted(
+                {
+                    name
+                    for record in self.object_list
+                    for name in record.nutrition_missing_articles
+                },
+                key=str.lower,
+            ),
         }
 
     def get_queryset(self):
@@ -1446,7 +1500,7 @@ class StockIssueFromDailyMenuCreateView(
             return super().form_invalid(form)
         try:
             count = StockIssue.create_from_daily_menu(
-                daily_menus, formatted_date, self.request.user
+                daily_menus, formatted_date, self.request.user, menu_date=date_obj
             )
         except ValidationError as error:
             messages.error(
@@ -1484,50 +1538,78 @@ class StockIssueUpdateView(
 
 class StockIssueRefreshView(CookOrStockkeeperRequiredMixin, View):
     model = StockIssue
+    http_method_names = ["post"]
+    # "Pro <date>" comments written before menu_date existed, in cs and en
+    comment_prefixes = ("Pro ", "For ")
+    comment_date_formats = ("%Y-%m-%d", "%d.%m.%Y", "%m/%d/%Y")
 
-    def get(self, *args, **kwargs):
-        stock_issue = StockIssue.objects.filter(pk=kwargs["pk"]).get()
+    @classmethod
+    def menu_date_from_comment(cls, comment):
+        for prefix in cls.comment_prefixes:
+            if comment.startswith(prefix):
+                value = comment[len(prefix) :].strip()
+                for date_format in cls.comment_date_formats:
+                    try:
+                        return datetime.strptime(value, date_format).date()
+                    except ValueError:
+                        continue
+        return None
+
+    def post(self, *args, **kwargs):
+        redirect_url = reverse_lazy("kitchen:showStockIssues")
+        stock_issue = get_object_or_404(StockIssue, pk=kwargs["pk"])
         if stock_issue.approved:
             messages.warning(
                 self.request, _("Aktualizace neprovedena - výdejka je již vyskladněna")
             )
-            return HttpResponseRedirect(
-                reverse_lazy(
-                    "kitchen:showStockIssues",
-                )
-            )
-        comment = stock_issue.comment
-        if "Pro " not in comment:
+            return HttpResponseRedirect(redirect_url)
+        menu_date = stock_issue.menu_date or self.menu_date_from_comment(
+            stock_issue.comment
+        )
+        if menu_date is None:
             messages.warning(
                 self.request,
                 _(
                     "Aktualizace zboží je možná jenom pro výdejku vytvořenou z denního menu"
                 ),
             )
-        else:
-            # FIXME: this does not work in EN locale, it will get string: "Pro 2025-03-05"
-            date = comment[4:]
+            return HttpResponseRedirect(redirect_url)
+        daily_menus = DailyMenu.objects.filter(date=menu_date)
+        if not daily_menus.exists():
+            messages.error(
+                self.request, _("Pro zadané datum není vytvořeno denní menu")
+            )
+            return HttpResponseRedirect(redirect_url)
+        formatted_date = formats.date_format(menu_date, "SHORT_DATE_FORMAT")
+        try:
             with transaction.atomic():
+                user_created = stock_issue.user_created
                 stock_issue.delete()
-                # FIXME: and here it gives converting error
-                daily_menus = DailyMenu.objects.filter(
-                    date=datetime.strptime(date, "%Y-%m-%d")
-                )
-                if len(daily_menus) < 1:
-                    messages.error(
-                        "date", _("Pro zadané datum není vytvořeno denní menu")
-                    )
-                    return HttpResponseRedirect(reverse_lazy("kitchen:showStockIssues"))
                 count = StockIssue.create_from_daily_menu(
-                    daily_menus, date, self.request.user
+                    daily_menus, formatted_date, user_created, menu_date=menu_date
                 )
-                messages.success(
-                    self.request,
+        except ValidationError as error:
+            messages.error(
+                self.request,
+                format_html(
                     _(
-                        "Seznam zboží na výdejce byl aktualizován dle aktuálních receptů na denním menu a vyskladňuje {count} druhů zboží"  # noqa: E501
-                    ).format(count=count),
-                )
-        return HttpResponseRedirect(reverse_lazy("kitchen:showStockIssues"))
+                        "Výdejku nelze vytvořit: {error}. Zkontrolujte "
+                        '<a href="{report_url}">report nesprávných jednotek</a> a '
+                        "kontaktujte uživatele ve skupině Skladník nebo Výživový "
+                        "poradce, aby opravil jednotky na skladu nebo v receptu."
+                    ),
+                    error="; ".join(error.messages),
+                    report_url=reverse("kitchen:showIncorrectUnits"),
+                ),
+            )
+            return HttpResponseRedirect(redirect_url)
+        messages.success(
+            self.request,
+            _(
+                "Seznam zboží na výdejce byl aktualizován dle aktuálních receptů na denním menu a vyskladňuje {count} druhů zboží"  # noqa: E501
+            ).format(count=count),
+        )
+        return HttpResponseRedirect(redirect_url)
 
 
 class StockIssueDeleteView(
@@ -1631,8 +1713,14 @@ class StockIssueApproveView(StockkeeperRequiredMixin, TemplateView):
                 stock_issue.id, stock_issue.comment, True
             )
             if errors:
-                errors = _("Níže uvedené zboží není možné vyskladnit:<br/>") + errors
-                messages.error(self.request, mark_safe(errors))
+                messages.error(
+                    self.request,
+                    format_html(
+                        "{}<br/>{}",
+                        _("Níže uvedené zboží není možné vyskladnit:"),
+                        format_html_join(mark_safe("<br/>"), "{}", ((e,) for e in errors)),
+                    ),
+                )
                 return HttpResponseRedirect(
                     reverse_lazy(
                         "kitchen:approveStockIssue", kwargs={"pk": self.kwargs["pk"]}
@@ -2007,7 +2095,7 @@ class StockReceiptArticleCreateView(
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(
             cleaned_data,
-            unit_price=self.object.price_with_vat,
+            unit_price=format_unit_price(self.object.price_with_vat),
             total_price=self.object.total_price_with_vat,
             currency=get_currency(),
         )
