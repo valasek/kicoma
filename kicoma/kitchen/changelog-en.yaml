@@ -4,6 +4,7 @@
       - >-
         <strong>New user functionality</strong>
         <ul>
+          <li>The <a href='{% url 'kitchen:docs' %}'>Manual</a> has been rewritten as a story from the supplier to the plate: contents, role-based chapters with steps and "Good to know" tips, a When something goes wrong section and a link to the news. The data model and data volume overview include the new menu, menu recipe, unit change and settings tables.</li>
           <li>Unit management supports managed stock-item conversion and conversion of a single recipe ingredient. Stock-item conversion recalculates stock, minimum stock, recipe ingredients and all receipt and issue lines, including approved documents; total stock value and approval metadata remain unchanged.</li>
           <li>A preview shows examples, the factor in both directions, warnings and document rounding differences. The factor source is required, and warnings require confirmation. The latest change can be undone exactly if the related data has not changed since.</li>
           <li>Unit management is accessible from the profile and user menu, stock-item editing, and stock-item and recipe ingredient lists. The incorrect units report offers separate ingredient and stock-item conversion links, including stock-item links on receipt and issue rows. Links and actions respect user roles.</li>

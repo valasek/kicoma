@@ -4,6 +4,7 @@
       - >-
         <strong>Nové funkce pro uživatele</strong>
         <ul>
+          <li><a href='{% url 'kitchen:docs' %}'>Příručka</a> je přepsaná jako příběh od dodavatele až na talíř: obsah, kapitoly podle rolí s kroky a tipy „Dobré vědět“, sekce Když něco nejde a odkaz na novinky. Datový model a přehled objemu dat obsahují nové tabulky menu, recepty v menu, změny jednotek a nastavení.</li>
           <li>Správa jednotek umožňuje řízenou změnu jednotky zboží i převod jedné suroviny v receptu. Změna zboží přepočte zásoby, minimální zásobu, suroviny v receptech a řádky všech příjemek a výdejek včetně schválených; celková hodnota skladu a údaje o schválení zůstanou beze změny.</li>
           <li>Před převodem se zobrazí náhled s příklady, koeficientem v obou směrech, varováními a rozdíly zaokrouhlení dokladů. Zdroj koeficientu je povinný, varování vyžadují potvrzení. Poslední změnu lze přesně vrátit, pokud se související data od té doby nezměnila.</li>
           <li>Správa jednotek je dostupná z profilu a uživatelské nabídky, úpravy zboží a seznamů zboží a surovin receptu. Report nesprávných jednotek nabízí samostatné odkazy na změnu jednotky suroviny a zboží, také u příjemek a výdejek. Odkazy i akce respektují role uživatele.</li>

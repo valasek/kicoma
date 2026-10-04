@@ -3,111 +3,369 @@
 {% load auth_extras %}
 {% load humanize %}
 {% block content %}
-<h4>{% translate "Příručka" %}</h4>
-<hr />
+{% translate "Administrátor" as role_admin %}
+{% translate "Nutriční poradce" as role_nutrition %}
+{% translate "Kuchař" as role_cook %}
+{% translate "Skladník" as role_stockkeeper %}
+{% translate "Všechny role" as role_all %}
+{% translate "Kdo:" as label_who %}
+{% translate "Kde:" as label_where %}
+{% translate "Dobré vědět" as label_good_to_know %}
+{% url 'kitchen:changelog' as url_changelog %}
+{% url 'kitchen:showArticles' as url_articles %}
+{% url 'kitchen:showLackArticles' as url_lack_articles %}
+{% url 'kitchen:createArticle' as url_create_article %}
+{% url 'kitchen:showStockReceipts' as url_receipts %}
+{% url 'kitchen:createStockReceipt' as url_create_receipt %}
+{% url 'kitchen:showRecipes' as url_recipes %}
+{% url 'kitchen:createRecipe' as url_create_recipe %}
+{% url 'kitchen:showMenus' as url_menus %}
+{% url 'kitchen:showDailyMenus' as url_daily_menus %}
+{% url 'kitchen:createDailyMenu' as url_create_daily_menu %}
+{% url 'kitchen:filterPrintDailyMenu' as url_print_daily_menu %}
+{% url 'kitchen:showStockIssues' as url_issues %}
+{% url 'kitchen:createStockIssue' as url_create_issue %}
+{% url 'kitchen:createStockIssueFromDailyMenu' as url_issue_from_menu %}
+{% url 'kitchen:printStockArticles' as url_stocktake_pdf %}
+{% url 'kitchen:exportStockArticlesSelectedDay' as url_stock_at_date %}
+{% url 'kitchen:exportArticles' as url_export_articles %}
+{% url 'kitchen:importArticles' as url_import_articles %}
+{% url 'kitchen:showUnitManagement' as url_units %}
+{% url 'kitchen:showFoodConsumptionTotalPrice' as url_report_monthly %}
+{% url 'kitchen:filterCateringUnit' as url_report_catering %}
+{% url 'kitchen:showArticlesNotInRecipes' as url_report_unused %}
+{% url 'kitchen:showStockByUnit' as url_report_by_unit %}
+{% url 'kitchen:showIncorrectUnits' as url_report_units %}
+{% translate "Seznam zboží na skladu" as label_articles %}
+{% translate "Seznam zboží vyžadující naskladnění" as label_lack_articles %}
+{% translate "Nová skladová karta" as label_create_article %}
+{% translate "Seznam příjemek" as label_receipts %}
+{% translate "Nová příjemka" as label_create_receipt %}
+{% translate "Seznam receptů" as label_recipes %}
+{% translate "Nový recept" as label_create_recipe %}
+{% translate "Seznam menu" as label_menus %}
+{% translate "Seznam denních menu" as label_daily_menus %}
+{% translate "Nové denní menu" as label_create_daily_menu %}
+{% translate "PDF - denní menu" as label_print_daily_menu %}
+{% translate "Seznam výdejek" as label_issues %}
+{% translate "Nová výdejka" as label_create_issue %}
+{% translate "Nová výdejka z denního menu" as label_issue_from_menu %}
+{% translate "Seznam zboží na skladu ke kontrole (PDF)" as label_stocktake_pdf %}
+{% translate "Stav zboží na skladu k vybranému dni" as label_stock_at_date %}
+{% translate "Export zboží na skladu" as label_export_articles %}
+{% translate "Import zboží na skladu" as label_import_articles %}
+{% translate "Správa jednotek" as label_units %}
+{% translate "Celková cena příjemky/výdejky měsíčně" as label_report_monthly %}
+{% translate "Stravovací jednotka" as label_report_catering %}
+{% translate "Zboží nepoužito ani na jednom receptu" as label_report_unused %}
+{% translate "Zboží na skladu dle použitých jednotek" as label_report_by_unit %}
+{% translate "Recepty kde jednotky nesedí ze skladem" as label_report_units %}
 <div class="container-fluid">
-  <div class="row">
-  <div class="col-sm-7">
-    {% url 'admin:index' as admin_index %}
-    <h5>{% translate "Správa zboží" %}</h5>
-    {% translate "Zboží na skladu" as label_articles %}
-    {% translate "administraci" as label_admin %}
-    {% url 'kitchen:showArticles' as url_articles %}
-    <p>{% translate "Zboží je možné vytvořit nebo upravit v menu" %} {% role_link url_articles label_articles "stockkeeper,nutrition_advisor" %}. {% translate "Vymazat se dá v" %} {% superuser_link admin_index|add:"kitchen/article" label_admin %}.
-    {% translate "Výše zásob na skladu nebo cena zboží se mění pomocí příjemky/výdejky." %}
-    </p>
-    <h5>{% translate "Příjem zboží na sklad" %}</h5>
-    {% translate "příjemek" as label_receipts %}
-    {% url 'kitchen:showStockReceipts' as url_receipts %}
-    <p>{% translate "Příjem zboží na sklad probíhá pomocí" %} {% role_link url_receipts label_receipts "stockkeeper" %} {% translate "uživatelem ve skupine 'Skladník'." %}
-    {% translate "Před příjmem musí být zboží na skladu založeno. Výše zásob a cena zboží je aktualizována jenom když je příjemka schválená." %}
-    {% translate "Úprava zboží a vyskladnění již naskladněné přijemky není možná." %}</p>
-    <h5>{% translate "Inventura" %}</h5>
-    <p>{% translate "Program umožňuje PDF export úplného seznamu zboží pro kontrolu skladových zásob a pak možnost exportu skladu ve formátu MS Excel s následným importem." %}</p>
-    <h5>{% translate "Výdej zboží ze skladu" %}</h5>
-    {% translate "založit dle všech denních menu pro zadaný den" as label_issue_from_menu %}
-    {% translate "výdejek" as label_issues %}
-    {% url 'kitchen:createStockIssueFromDailyMenu' as url_issue_from_menu %}
-    {% url 'kitchen:showStockIssues' as url_issues %}
-    <p>{% translate "Výdejku je možno vytvořit manuálně nebo ji" %} {% role_link url_issue_from_menu label_issue_from_menu "cook,stockkeeper" %}.<br />
-    {% translate "Když se denní menu změní, je možno Výdejku 'Aktualizovat' a tím se vymaže všechno zboží a znovu se vytvoří ve výdejce dle zadaného dne." %}
-    {% translate "Příjem zboží na sklad probíhá pomocí" %} {% role_link url_issues label_issues "cook,stockkeeper" %} {% translate "uživatelem ve skupine 'Skladník'." %}
-    {% translate "Před výdejem musí být zboží v minimálně vyskladňované výši naskladněno. Výše zásob a cena zboží je aktualizována jenom když je výdejka schválená." %}</p>
-    <h5>{% translate "Správa receptů" %}</h5>
-    {% translate "Seznam receptů" as label_recipes %}
-    {% url 'kitchen:showRecipes' as url_recipes %}
-    <p>{% translate "Recepty a ingredience v receptech je možné vytvořit, upravit nebo vymazat v menu" %} {% role_link url_recipes label_recipes "cook,nutrition_advisor" %}.</p>
-    <h5>{% translate "Správa denního menu" %}</h5>
-    {% translate "Sestavit denní menu" as label_daily_menus %}
-    {% url 'kitchen:showDailyMenus' as url_daily_menus %}
-    <p>{% translate "Denní menu a související recepty je možné vytvořit, upravit nebo vymazat v menu" %} {% role_link url_daily_menus label_daily_menus "cook,nutrition_advisor" %}.</p>
-    <h5>{% translate "Výživové údaje" %}</h5>
-    <p>{% translate "Výživové údaje jsou spravované na skladové kartě. V receptech se zobrazují pro každou ingredienci i celkem na 1 porci. Denní menu zobrazuje součet na 1 porci z každého receptu." %}</p>
-    <h5>{% translate "Reporty a tisky" %}</h5>
-    <p>{% translate "Všechny tisky probíhají pomocí generování PDF, které je možno zobrazit, uložit nebo vytisknout." %}</p>
-    {% if request.user.is_superuser %}<h5>{% translate "Správa číselníků" %}</h5>
-    <p>{% translate "Číselníky spravuje administrátor v" %} <a href="{% url 'admin:index' %}kitchen">{% translate "Administraci" %}</a>.
-    <br />
-    {% translate "Odkaz na úpravu konkrétního číselníku:" %} <a href="{% url 'admin:index' %}kitchen/allergen">{% translate "alergeny" %}</a>,
-    <a href="{% url 'admin:index' %}kitchen/vat">{% translate "DPH" %}</a>,
-    <a href="{% url 'admin:index' %}kitchen/mealtype">{% translate "druhy jídla" %}</a>,
-    <a href="{% url 'admin:index' %}kitchen/mealgroup">{% translate "skupinu strávníků" %}</a>.</p>{% endif %}
-  </div>
-  <div class="col-sm">
-    <h5>{% translate "Uživatelské skupiny" %}</h5>
-      {% if request.user.is_superuser %}<p>{% translate "Založení, úprava nebo výmaz uživatele je možný v" %} <a href="{% url 'admin:index' %}users/user/">{% translate "administraci" %}</a>.</p>{% endif %}
-      <table class="table table-responsive table-sm">
-        <thead class="thead-light">
-          <tr>
-            <th>{% translate "Skupina" %}</th>
-            {% if request.user.is_authenticated %}<th>{% translate "Uživatelé" %}</th>{% endif %}
-            <th>{% translate "Oprávnění" %}</th>
-          </tr>
-        </thead>
-        <tr>
-          <th>{% translate "-" %}</th>
-          {% if request.user.is_authenticated %}<td>
-            {% for user in admin_users %}{{ user.username }}<br />{% endfor %}
-          </td>{% endif %}
-          <td>
-            {% translate "Administrátor" %}<br />
-            {% translate "Správa skupin i uživatelů, všech číselníků." %}<br/>
-            {% translate "Export a import jakýchkoli dat." %}<br/>
-          </td>
-        </tr>
-        <tr>
-          <th>{% translate "Nutriční poradce" %}</th>
-          {% if request.user.is_authenticated %}<td>
-            {% for user in nutrition_advisor_users %}{{ user.username }}<br />{% endfor %}
-          </td>{% endif %}
-          <td>
-            {% translate "Úprava výživových údajú." %}
-          </td>
-        </tr>
-        <tr>
-          <th>{% translate "Kuchař" %}</th>
-          {% if request.user.is_authenticated %}<td>
-            {% for user in cook_users %}{{ user.username }}<br />{% endfor %}
-          </td>{% endif %}
-          <td>{% translate "Tvorba denního menu, tvorba a správa výdejek kromě schvalování a PDF reporty" %}</td>
-        </tr>
-        <tr>
-          <th>{% translate "Skladník" %}</th>
-          {% if request.user.is_authenticated %}<td>
-            {% for user in stockkeeper_users %}{{ user.username }}<br />{% endfor %}
-          </td>{% endif %}
-          <td>
-            {% translate "Správa skladu - založení nové skladové karty, úprava zboží, zadávání a schvalování příjemek, schvalování a tvorba výdejek" %}<br/>
-            {% translate "Inventura" %}
-          </td>
-        </tr>
-      </table>
-      {% if request.user.is_superuser %}<h5>{% translate "Administrace aplikace" %}</h5>
-      <p>{% translate "Administrátor má právo na Administrační sekci a export nebo import dat. Každou datovou tabulku včetně uživatelů je možno plně zpravovat v" %} <a href="{% url 'admin:index' %}kitchen">{% translate "administraci" %}</a> {% translate "a nejsou aplikovány žádné dodatečné kontroly." %}
+<div style="max-width: 72rem;">
+<h4>{% translate "Příručka" %}</h4>
+<p class="lead">{% translate "Vítej v KiCoMa! Příručka tě provede cestou potravin od dodavatele až na talíř. Čti ji popořadě jako příběh, nebo skoč rovnou na kapitolu, kterou zrovna potřebuješ." %}</p>
+<div class="alert alert-info">
+  <b>{% translate "Co je nového?" %}</b>
+  {% translate "Novinky a opravy najdeš v přehledu" %} <a href="{{ url_changelog }}">{% translate "Novinky" %}</a>.
+</div>
+
+<nav class="mb-4">
+  <h5>{% translate "Obsah" %}</h5>
+  <ol class="mb-0">
+    <li><a href="#overview">{% translate "Jak to celé funguje" %}</a></li>
+    <li><a href="#roles">{% translate "Kdo co dělá" %}</a></li>
+    <li><a href="#stock-items">{% translate "Skladová karta" %}</a></li>
+    <li><a href="#receipts">{% translate "Příjem zboží – příjemka" %}</a></li>
+    <li><a href="#recipes">{% translate "Recepty" %}</a></li>
+    <li><a href="#daily-menus">{% translate "Menu a denní menu" %}</a></li>
+    <li><a href="#issues">{% translate "Výdej zboží – výdejka" %}</a></li>
+    <li><a href="#stocktaking">{% translate "Inventura" %}</a></li>
+    <li><a href="#units">{% translate "Správa jednotek" %}</a></li>
+    <li><a href="#reports">{% translate "Reporty" %}</a></li>
+    <li><a href="#troubleshooting">{% translate "Když něco nejde" %}</a></li>
+    {% if request.user.is_superuser %}<li><a href="#administration">{% translate "Administrace aplikace" %}</a></li>{% endif %}
+  </ol>
+</nav>
+
+<section id="overview" class="mb-4">
+  <h5>{% translate "Jak to celé funguje" %}</h5>
+  <p>{% translate "KiCoMa propojuje sklad, recepty a denní menu. Každý krok navazuje na ten předchozí:" %}</p>
+  <ol>
+    <li><a href="#stock-items">{% translate "Skladník založí skladovou kartu zboží." %}</a></li>
+    <li><a href="#receipts">{% translate "Skladník zboží naskladní příjemkou." %}</a></li>
+    <li><a href="#recipes">{% translate "Kuchař ze zboží sestaví recept." %}</a></li>
+    <li><a href="#daily-menus">{% translate "Kuchař naplánuje denní menu s recepty a počtem porcí." %}</a></li>
+    <li><a href="#issues">{% translate "Z denního menu vznikne výdejka a skladník ji vyskladní." %}</a></li>
+    <li><a href="#stocktaking">{% translate "Inventura a reporty ukážou, co kolik stálo a co zbylo na skladu." %}</a></li>
+  </ol>
+  <p>{% translate "Menu aplikace i odkazy v příručce se řídí tvojí rolí. Co je jen text bez odkazu, dělá někdo jiný." %}</p>
+</section>
+
+<section id="roles" class="mb-4">
+  <h5>{% translate "Kdo co dělá" %}</h5>
+  {% if request.user.is_superuser %}<p>{% translate "Uživatele a jejich role spravuješ v" %} <a href="{% url 'admin:index' %}users/user/">{% translate "administraci" %}</a>.</p>{% endif %}
+  <table class="table table-sm">
+    <thead class="table-light">
+      <tr>
+        <th>{% translate "Role" %}</th>
+        {% if request.user.is_authenticated %}<th>{% translate "Uživatelé" %}</th>{% endif %}
+        <th>{% translate "Co dělá" %}</th>
+      </tr>
+    </thead>
+    <tr>
+      <th>{{ role_stockkeeper }}</th>
+      {% if request.user.is_authenticated %}<td>{% for user in stockkeeper_users %}{{ user.username }}<br />{% endfor %}</td>{% endif %}
+      <td>{% translate "Zakládá skladové karty, přijímá zboží příjemkami, schvaluje výdejky a dělá inventuru." %}</td>
+    </tr>
+    <tr>
+      <th>{{ role_cook }}</th>
+      {% if request.user.is_authenticated %}<td>{% for user in cook_users %}{{ user.username }}<br />{% endfor %}</td>{% endif %}
+      <td>{% translate "Píše recepty, plánuje menu a denní menu, vytváří výdejky. Výdejky neschvaluje." %}</td>
+    </tr>
+    <tr>
+      <th>{{ role_nutrition }}</th>
+      {% if request.user.is_authenticated %}<td>{% for user in nutrition_advisor_users %}{{ user.username }}<br />{% endfor %}</td>{% endif %}
+      <td>{% translate "Doplňuje výživové údaje a hmotnost kusu zboží, upravuje recepty a denní menu a vidí v nich výživu." %}</td>
+    </tr>
+    <tr>
+      <th>{{ role_admin }}</th>
+      {% if request.user.is_authenticated %}<td>{% for user in admin_users %}{{ user.username }}<br />{% endfor %}</td>{% endif %}
+      <td>{% translate "Spravuje uživatele, role a číselníky, zálohuje, obnovuje a čistí data." %}</td>
+    </tr>
+  </table>
+  <p class="text-muted small">{% translate "Jeden uživatel může mít víc rolí najednou." %}</p>
+</section>
+
+<section id="stock-items" class="mb-4">
+  <h5>1. {% translate "Skladová karta" %}</h5>
+  <p class="small text-muted">
+    <b>{{ label_who }}</b> <span class="badge bg-secondary">{{ role_stockkeeper }}</span> <span class="badge bg-secondary">{{ role_nutrition }}</span>
+    &nbsp;<b>{{ label_where }}</b> {% role_link url_articles label_articles "stockkeeper,nutrition_advisor" %}, {% role_link url_create_article label_create_article "stockkeeper" %}
+  </p>
+  <p>{% translate "Všechno začíná skladovou kartou. Zboží musí existovat dřív, než ho naskladníš nebo dáš do receptu." %}</p>
+  <ul>
+    <li>{% translate "Jednotka: kg, g, l, ml nebo ks. Vybírej pečlivě, později ji změníš jen přes Správu jednotek." %}</li>
+    <li>{% translate "Minimální zásoba: zboží pod minimem najdeš v seznamu" %} {% role_link url_lack_articles label_lack_articles "stockkeeper" %}.</li>
+    <li>{% translate "Alergeny: recepty je převezmou automaticky ze svých surovin." %}</li>
+    <li>{% translate "Výživové údaje zadává nutriční poradce vždy na 100 g nebo 100 ml." %}</li>
+    <li>{% translate "Hmotnost kusu: u zboží v kusech (ks) ji doplň v g nebo ml. Bez ní nejde spočítat výživa a recept ukáže varování." %}</li>
+  </ul>
+  <p class="mb-1"><b>{{ label_good_to_know }}</b></p>
+  <ul>
+    <li>{% translate "Stav a hodnotu skladu mění schválené příjemky a výdejky." %}</li>
+    <li>{% translate "Zboží se záporným množstvím nebo hodnotou je v seznamu i v PDF červeně s výstražnou ikonou. Zkontroluj ho." %}</li>
+    <li>{% translate "Tlačítko Historie ukáže všechny změny karty včetně změn jednotky." %}</li>
+    <li>{% translate "Smazat jde jen zboží, které není na skladu, není v žádném receptu a není na žádné příjemce ani výdejce." %}</li>
+  </ul>
+</section>
+
+<section id="receipts" class="mb-4">
+  <h5>2. {% translate "Příjem zboží – příjemka" %}</h5>
+  <p class="small text-muted">
+    <b>{{ label_who }}</b> <span class="badge bg-secondary">{{ role_stockkeeper }}</span>
+    &nbsp;<b>{{ label_where }}</b> {% role_link url_receipts label_receipts "stockkeeper" %}, {% role_link url_create_receipt label_create_receipt "stockkeeper" %}
+  </p>
+  <p>{% translate "Dorazilo zboží od dodavatele? Zapiš ho na příjemku." %}</p>
+  <ol>
+    <li>{% translate "Vytvoř novou příjemku s datem a poznámkou, třeba s názvem dodavatele nebo číslem faktury." %}</li>
+    <li>{% translate "Přidej zboží: množství, jednotku, jednotkovou cenu bez DPH a sazbu DPH (výchozí je 12 %)." %}</li>
+    <li>{% translate "Zkontroluj řádky a klikni na Naskladnit. Teprve teď se zvýší stav skladu a přepočte průměrná cena." %}</li>
+  </ol>
+  <p class="mb-1"><b>{{ label_good_to_know }}</b></p>
+  <ul>
+    <li>{% translate "Dokud příjemka není naskladněná, můžeš ji upravit nebo smazat. Potom už ne." %}</li>
+    <li>{% translate "Prázdnou příjemku nebo příjemku s nulovou cenou nejde naskladnit." %}</li>
+    <li>{% translate "Jednotka řádku musí jít převést na jednotku skladu: kg ↔ g, l ↔ ml. Jednotku skladu vidíš vedle názvu zboží." %}</li>
+    <li>{% translate "Každou příjemku si stáhneš jako PDF." %}</li>
+  </ul>
+</section>
+
+<section id="recipes" class="mb-4">
+  <h5>3. {% translate "Recepty" %}</h5>
+  <p class="small text-muted">
+    <b>{{ label_who }}</b> <span class="badge bg-secondary">{{ role_cook }}</span> <span class="badge bg-secondary">{{ role_nutrition }}</span>
+    &nbsp;<b>{{ label_where }}</b> {% role_link url_recipes label_recipes "cook,nutrition_advisor" %}, {% role_link url_create_recipe label_create_recipe "cook,nutrition_advisor" %}
+  </p>
+  <p>{% translate "Recept říká, co a kolik se ze skladu spotřebuje." %}</p>
+  <ol>
+    <li>{% translate "Založ recept: název, počet porcí (aspoň 1), postup a poznámku." %}</li>
+    <li>{% translate "Přidej suroviny ze skladu. Množství zadávej na celý recept, tedy na zadaný počet porcí." %}</li>
+  </ol>
+  <p class="mb-1"><b>{{ label_good_to_know }}</b></p>
+  <ul>
+    <li>{% translate "Recept sám spočítá cenu podle průměrných skladových cen, sečte alergeny a ukáže výživové údaje na 1 porci." %}</li>
+    <li>{% translate "Jednotka suroviny musí jít převést na jednotku skladu: kg ↔ g, l ↔ ml. Kusy (ks) zůstávají v kusech." %}</li>
+    <li>{% translate "Nesedí jednotka? U suroviny klikni na Změnit jednotku, nebo projdi report" %} {% role_link url_report_units label_report_units "stockkeeper,cook,nutrition_advisor" %}.</li>
+    <li>{% translate "Recept i celý seznam receptů si stáhneš jako PDF." %}</li>
+  </ul>
+</section>
+
+<section id="daily-menus" class="mb-4">
+  <h5>4. {% translate "Menu a denní menu" %}</h5>
+  <p class="small text-muted">
+    <b>{{ label_who }}</b> <span class="badge bg-secondary">{{ role_cook }}</span> <span class="badge bg-secondary">{{ role_nutrition }}</span>
+    &nbsp;<b>{{ label_where }}</b> {% role_link url_menus label_menus "cook,nutrition_advisor" %}, {% role_link url_daily_menus label_daily_menus "cook,nutrition_advisor" %}, {% role_link url_create_daily_menu label_create_daily_menu "cook,nutrition_advisor" %}, {% role_link url_print_daily_menu label_print_daily_menu "cook,nutrition_advisor" %}
+  </p>
+  <p>{% translate "Menu je šablona, kterou použiješ znovu a znovu. Denní menu je plán na konkrétní den." %}</p>
+  <ol>
+    <li>{% translate "Připrav si menu s recepty a počty porcí. Nové menu převezme název posledního, jen ho uprav – názvy musí být jedinečné." %}</li>
+    <li>{% translate "Založ denní menu: datum, skupinu strávníků a druh jídla. Každá kombinace může být jen jednou." %}</li>
+    <li>{% translate "Vyber menu a recepty se zkopírují samy. Poznámka u receptu prozradí, ze kterého menu pochází." %}</li>
+    <li>{% translate "Dolaď recepty a počty porcí. Zadat jde i 0 porcí." %}</li>
+    <li>{% translate "Vytiskni denní menu do PDF pro celý den nebo jen pro jednu skupinu strávníků." %}</li>
+  </ol>
+  <p class="mb-1"><b>{{ label_good_to_know }}</b></p>
+  <ul>
+    <li>{% translate "Stejný recept nejde přidat dvakrát. Změň počet porcí u toho, který už tam je." %}</li>
+    <li>{% translate "Seznam denních menu ukazuje nejvyšší počet porcí ze všech receptů." %}</li>
+    <li>{% translate "Výživové údaje v denním menu vidí jen nutriční poradce." %}</li>
+  </ul>
+</section>
+
+<section id="issues" class="mb-4">
+  <h5>5. {% translate "Výdej zboží – výdejka" %}</h5>
+  <p class="small text-muted">
+    <b>{{ label_who }}</b> <span class="badge bg-secondary">{{ role_cook }}</span> <span class="badge bg-secondary">{{ role_stockkeeper }}</span>
+    &nbsp;<b>{{ label_where }}</b> {% role_link url_issue_from_menu label_issue_from_menu "cook,stockkeeper" %}, {% role_link url_issues label_issues "cook,stockkeeper" %}, {% role_link url_create_issue label_create_issue "cook,stockkeeper" %}
+  </p>
+  <p>{% translate "Menu je naplánované, je čas vydat suroviny do kuchyně." %}</p>
+  <ol>
+    <li>{% translate "Vytvoř výdejku z denního menu. Zadej den a KiCoMa sečte suroviny ze všech denních menu toho dne podle počtu porcí." %}</li>
+    <li>{% translate "Změnilo se menu? U výdejky klikni na Aktualizovat a zboží se načte znovu podle aktuálních receptů." %}</li>
+    <li>{% translate "Skladník výdejku zkontroluje a klikne na Vyskladnit. Teprve teď zboží ubude ze skladu." %}</li>
+  </ol>
+  <p class="mb-1"><b>{{ label_good_to_know }}</b></p>
+  <ul>
+    <li>{% translate "Vyskladnit může jen skladník." %}</li>
+    <li>{% translate "Výdejku můžeš vytvořit i ručně a zboží přidat sám." %}</li>
+    <li>{% translate "Vyskladnit jde jen zboží, kterého je na skladu dost. Jinak KiCoMa vypíše, co chybí, a sklad nezmění." %}</li>
+    <li>{% translate "Cena se bere z průměrné skladové ceny v okamžiku vyskladnění." %}</li>
+    <li>{% translate "Vyskladněnou výdejku už nejde upravit, aktualizovat ani smazat." %}</li>
+    <li>{% translate "Každou výdejku si stáhneš jako PDF." %}</li>
+  </ul>
+</section>
+
+<section id="stocktaking" class="mb-4">
+  <h5>6. {% translate "Inventura" %}</h5>
+  <p class="small text-muted">
+    <b>{{ label_who }}</b> <span class="badge bg-secondary">{{ role_stockkeeper }}</span> <span class="badge bg-secondary">{{ role_cook }}</span>
+  </p>
+  <p>{% translate "Čas zkontrolovat, jestli sklad v aplikaci sedí se skutečností." %}</p>
+  <ul>
+    <li>{% role_link url_stocktake_pdf label_stocktake_pdf "cook,stockkeeper" %} – {% translate "vytiskni a projdi sklad s tužkou v ruce." %}</li>
+    <li>{% role_link url_stock_at_date label_stock_at_date "cook,stockkeeper" %} – {% translate "Excel se stavem skladu k libovolnému dni v minulosti." %}</li>
+    <li>{% role_link url_export_articles label_export_articles "stockkeeper" %} {% translate "a" %} {% role_link url_import_articles label_import_articles "stockkeeper" %} – {% translate "stáhni seznam do Excelu, oprav stavy a nahraj ho zpět. Jen pro skladníka." %}</li>
+  </ul>
+  <p class="mb-1"><b>{{ label_good_to_know }}</b></p>
+  <ul>
+    <li>{% translate "Import nemění jednotky zboží. Na to slouží Správa jednotek." %}</li>
+    <li>{% translate "Když stav k datu nejde spočítat, zůstane prázdný a sloupec export_warning prozradí proč." %}</li>
+  </ul>
+</section>
+
+<section id="units" class="mb-4">
+  <h5>7. {% translate "Správa jednotek" %}</h5>
+  <p class="small text-muted">
+    <b>{{ label_who }}</b> <span class="badge bg-secondary">{{ role_stockkeeper }}</span> <span class="badge bg-secondary">{{ role_nutrition }}</span> {% translate "(zboží)" %},
+    <span class="badge bg-secondary">{{ role_cook }}</span> <span class="badge bg-secondary">{{ role_nutrition }}</span> {% translate "(suroviny v receptu)" %}
+    &nbsp;<b>{{ label_where }}</b> {% role_link url_units label_units "stockkeeper,cook,nutrition_advisor" %} {% translate "v menu uživatele nebo tlačítko Změnit jednotku" %}
+  </p>
+  <p>{% translate "Chceš místo kusů počítat v gramech? Správa jednotek všechno bezpečně přepočítá." %}</p>
+  <ul>
+    <li>{% translate "Změna jednotky zboží přepočte stav skladu, minimální zásobu, suroviny v receptech a všechny řádky příjemek a výdejek, i schválených. Celková hodnota skladu zůstane stejná." %}</li>
+    <li>{% translate "Změna jednotky suroviny přepočte jen jeden řádek receptu." %}</li>
+  </ul>
+  <ol>
+    <li>{% translate "Vyber novou jednotku a koeficient – kolik nových jednotek odpovídá 1 staré. Pro kg ↔ g a l ↔ ml ho KiCoMa doplní sám." %}</li>
+    <li>{% translate "Vyplň zdroj koeficientu, třeba „zváženo 10 kusů“ nebo „údaj z obalu“." %}</li>
+    <li>{% translate "Klikni na Náhled. Uvidíš příklady, dopad na recepty a doklady a případná varování." %}</li>
+    <li>{% translate "Potvrď varování a klikni na Provést změnu." %}</li>
+  </ol>
+  <p class="mb-1"><b>{{ label_good_to_know }}</b></p>
+  <ul>
+    <li>{% translate "Poslední změnu vrátíš tlačítkem Vrátit, pokud se související data mezitím nezměnila." %}</li>
+    <li>{% translate "Každá změna se zapíše do historie a nejde ji upravit ani smazat." %}</li>
+  </ul>
+</section>
+
+<section id="reports" class="mb-4">
+  <h5>8. {% translate "Reporty" %}</h5>
+  <p class="small text-muted">
+    <b>{{ label_who }}</b> <span class="badge bg-secondary">{{ role_all }}</span>
+  </p>
+  <ul>
+    <li>{% role_link url_report_monthly label_report_monthly "stockkeeper,cook,nutrition_advisor" %} – {% translate "počet a hodnota schválených dokladů za poslední tři měsíce." %}</li>
+    <li>{% role_link url_report_catering label_report_catering "stockkeeper,cook,nutrition_advisor" %} – {% translate "cena porce každého receptu a cena všech jídel za vybraný den." %}</li>
+    <li>{% role_link url_report_unused label_report_unused "stockkeeper,cook,nutrition_advisor" %} – {% translate "zboží, které můžeš uklidit." %}</li>
+    <li>{% role_link url_report_by_unit label_report_by_unit "stockkeeper,cook,nutrition_advisor" %} – {% translate "přehled jednotek. Klikni na jednotku a uvidíš její zboží." %}</li>
+    <li>{% role_link url_report_units label_report_units "stockkeeper,cook,nutrition_advisor" %} – {% translate "suroviny a řádky dokladů s jednotkou, kterou nejde převést. Oprav je dřív, než vytvoříš výdejku." %}</li>
+  </ul>
+  <p>{% translate "Všechny tisky jsou PDF, které můžeš zobrazit, uložit nebo vytisknout." %}</p>
+</section>
+
+<section id="troubleshooting" class="mb-4">
+  <h5>9. {% translate "Když něco nejde" %}</h5>
+  <table class="table table-sm">
+    <thead class="table-light">
+      <tr><th>{% translate "Co se stalo" %}</th><th>{% translate "Co s tím" %}</th></tr>
+    </thead>
+    <tr>
+      <td>{% translate "Výdejka z denního menu nejde vytvořit kvůli jednotkám." %}</td>
+      <td>{% translate "Otevři report nesprávných jednotek a jednotku oprav ve Správě jednotek." %}</td>
+    </tr>
+    <tr>
+      <td>{% translate "Vyskladnění skončilo chybou." %}</td>
+      <td>{% translate "Některé zboží chybí na skladu nebo má nulovou cenu. Nejdřív ho naskladni příjemkou." %}</td>
+    </tr>
+    <tr>
+      <td>{% translate "Na skladové kartě nejde změnit jednotka." %}</td>
+      <td>{% translate "To je záměr. Použij tlačítko Změnit jednotku, přepočte vše najednou." %}</td>
+    </tr>
+    <tr>
+      <td>{% translate "Formulář hlásí, že se jednotka mezitím změnila." %}</td>
+      <td>{% translate "Někdo právě změnil jednotku zboží. Načti stránku znovu a zadej množství a cenu znovu." %}</td>
+    </tr>
+    <tr>
+      <td>{% translate "U výživových údajů svítí varování." %}</td>
+      <td>{% translate "Zboží v kusech nemá hmotnost kusu. Požádej nutričního poradce, ať ji doplní." %}</td>
+    </tr>
+    <tr>
+      <td>{% translate "Skladovou kartu nejde smazat." %}</td>
+      <td>{% translate "Zboží je na skladu, v receptu nebo na příjemce či výdejce. Nepoužívané zboží najdeš v reportu Zboží nepoužito ani na jednom receptu." %}</td>
+    </tr>
+    <tr>
+      <td>{% translate "Recept nejde přidat do menu." %}</td>
+      <td>{% translate "Recept už v menu je. Uprav jen jeho počet porcí." %}</td>
+    </tr>
+    <tr>
+      <td>{% translate "Nevidím nějaké menu nebo odkaz." %}</td>
+      <td>{% translate "Chybí ti role. Požádej administrátora, ať tě přidá do správné skupiny." %}</td>
+    </tr>
+  </table>
+  <p>{% translate "Pořád si nevíš rady? Mrkni do" %} <a href="{{ url_changelog }}">{% translate "Novinky" %}</a>, {% translate "jestli se něco nezměnilo, nebo se obrať na administrátora." %}</p>
+</section>
+
+{% if request.user.is_superuser %}
+<section id="administration" class="mb-4">
+  <h5>10. {% translate "Administrace aplikace" %}</h5>
+  <p class="small text-muted">
+    <b>{{ label_who }}</b> <span class="badge bg-secondary">{{ role_admin }}</span>
+  </p>
+  <ul>
+    <li>{% translate "Číselníky spravuješ v" %} <a href="{% url 'admin:index' %}kitchen">{% translate "administraci" %}</a>:
+      <a href="{% url 'admin:index' %}kitchen/allergen">{% translate "alergeny" %}</a>,
+      <a href="{% url 'admin:index' %}kitchen/vat">{% translate "DPH" %}</a>,
+      <a href="{% url 'admin:index' %}kitchen/mealtype">{% translate "druhy jídla" %}</a>,
+      <a href="{% url 'admin:index' %}kitchen/mealgroup">{% translate "skupinu strávníků" %}</a>.</li>
+    <li><a href="{% url 'kitchen:export' %}">{% translate "Export všech dat" %}</a> – {% translate "záloha všech dat KiCoMa včetně uživatelů a skupin." %}</li>
+    <li><a href="{% url 'kitchen:import' %}">{% translate "Import všech dat" %}</a> – {% translate "nejdřív smaže všechna současná data a pak nahraje zálohu. Používej opatrně." %}</li>
+    <li><a href="{% url 'kitchen:data_cleanup' %}">{% translate "Údržba dat" %}</a> – {% translate "smaže schválené doklady, denní menu a historii zboží starší než dva roky (celé roky). Neschválené doklady zůstanou." %}</li>
+    <li>{% translate "Administrace obchází kontroly aplikace. Schválené doklady a jednotky v ní měnit nejde, ostatní změny dělej opatrně." %}
       {% translate "Není doporučeno měnit sekce" %} <a href="{% url 'admin:index' %}auth">{% translate "Autentizace a autorizace" %}</a>, <a href="{% url 'admin:index' %}sites">{% translate "Weby" %}</a>,
-      <a href="{% url 'admin:index' %}account">{% translate "Účty" %}</a> {% translate "a" %} <a href="{% url 'admin:index' %}socialaccount">{% translate "Účty sociálních sítí" %}</a>.</p>
-      <p>{% translate "Export nebo import dat obsahuje provozní data KiCoMa, uživatele a skupiny." %}</p>{% endif %}
-  </div>
+      <a href="{% url 'admin:index' %}account">{% translate "Účty" %}</a> {% translate "a" %} <a href="{% url 'admin:index' %}socialaccount">{% translate "Účty sociálních sítí" %}</a>.</li>
+  </ul>
+</section>
+{% endif %}
 </div>
 <hr/>
 <div class="row">
@@ -174,6 +432,18 @@
             <td scope="row">{% translate "Recepty v denních menu" %}</td>
             <td >{{ dailyMenuRecipeCount | intcomma }}</td>
           </tr>
+          <tr>
+            <td scope="row">{% translate "Menu" %}</td>
+            <td >{{ menu_count | intcomma }}</td>
+          </tr>
+          <tr>
+            <td scope="row">{% translate "Recepty v menu" %}</td>
+            <td >{{ menu_recipe_count | intcomma }}</td>
+          </tr>
+          <tr>
+            <td scope="row">{% translate "Změny jednotek" %}</td>
+            <td >{{ unit_change_log_count | intcomma }}</td>
+          </tr>
         </table>
       </div>
       <div class="col-sm">
@@ -198,6 +468,10 @@
           <tr>
             <td scope="row">{% translate "DPH" %}</td>
             <td >{{ vatCount | intcomma }}</td>
+          </tr>
+          <tr>
+            <td scope="row">{% translate "Nastavení" %}</td>
+            <td >{{ app_settings_count | intcomma }}</td>
           </tr>
         </table>
         <h5>{% translate "Práva" %}</h5>
@@ -253,4 +527,5 @@
   </div>
 </div>
 {% endif %}
+</div>
 {% endblock content %}

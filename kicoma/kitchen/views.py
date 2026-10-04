@@ -71,6 +71,7 @@ from .models import (
     UNIT,
     VAT,
     Allergen,
+    AppSettings,
     Article,
     DailyMenu,
     DailyMenuRecipe,
@@ -179,6 +180,10 @@ def docs(request):
     stock_receipt_article_count = StockReceiptArticle.objects.all().count()
     daily_menu_count = DailyMenu.objects.all().count()
     daily_menu_recipe_count = DailyMenuRecipe.objects.all().count()
+    menu_count = Menu.objects.all().count()
+    menu_recipe_count = MenuRecipe.objects.all().count()
+    unit_change_log_count = UnitChangeLog.objects.all().count()
+    app_settings_count = AppSettings.objects.all().count()
 
     user_count = User.objects.all().count()
     group_count = Group.objects.all().count()
@@ -222,6 +227,10 @@ def docs(request):
         + stock_receipt_article_count
         + daily_menu_count
         + daily_menu_recipe_count
+        + menu_count
+        + menu_recipe_count
+        + unit_change_log_count
+        + app_settings_count
         + user_count
         + group_count
         + content_type_count
@@ -264,6 +273,10 @@ def docs(request):
             "stock_receipt_article_count": stock_receipt_article_count,
             "dailyMenuCount": daily_menu_count,
             "dailyMenuRecipeCount": daily_menu_recipe_count,
+            "menu_count": menu_count,
+            "menu_recipe_count": menu_recipe_count,
+            "unit_change_log_count": unit_change_log_count,
+            "app_settings_count": app_settings_count,
             "groupCount": group_count,
             "userCount": user_count,
             "content_type_count": content_type_count,
