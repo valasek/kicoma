@@ -841,13 +841,10 @@ class StockIssue(TimeStampedModel):
                     on_stock=article.on_stock,
                 )
             if not fake:
-                new_total_price = convert_units(
-                    stock_article.total_average_price_with_vat,
-                    stock_article.unit,
-                    article.unit,
-                )
                 delta_amount = Decimal(round(converted_amount, 2))
-                delta_price = Decimal(round(new_total_price, 0))
+                delta_price = Decimal(
+                    round(stock_article.total_average_price_with_vat, 0)
+                )
                 changes.append((article, -delta_amount, -delta_price))
         _apply_article_stock_changes(changes, _("Výdej"), comment)
         return messages
@@ -910,11 +907,8 @@ class StockReceipt(TimeStampedModel):
             converted_amount = convert_units(
                 stock_article.amount, stock_article.unit, article.unit
             )
-            new_total_price = convert_units(
-                stock_article.total_price_with_vat, stock_article.unit, article.unit
-            )
             delta_amount = Decimal(round(converted_amount, 2))
-            delta_price = Decimal(round(new_total_price, 0))
+            delta_price = Decimal(round(stock_article.total_price_with_vat, 0))
             changes.append((article, delta_amount, delta_price))
         _apply_article_stock_changes(changes, "Příjem", comment)
 

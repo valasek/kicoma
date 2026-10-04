@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext as _
 from import_export import fields, resources, widgets
 from import_export.admin import ImportExportActionModelAdmin
 
@@ -23,8 +25,8 @@ from .models import (
 
 # create import export resources
 
-class AppSettingsResource(resources.ModelResource):
 
+class AppSettingsResource(resources.ModelResource):
     class Meta:
         model = AppSettings
         skip_unchanged = True
@@ -32,7 +34,6 @@ class AppSettingsResource(resources.ModelResource):
 
 
 class VATResource(resources.ModelResource):
-
     class Meta:
         model = VAT
         skip_unchanged = True
@@ -40,7 +41,6 @@ class VATResource(resources.ModelResource):
 
 
 class AllergenResource(resources.ModelResource):
-
     class Meta:
         model = Allergen
         skip_unchanged = True
@@ -48,7 +48,6 @@ class AllergenResource(resources.ModelResource):
 
 
 class StockIssueResource(resources.ModelResource):
-
     class Meta:
         model = StockIssue
         skip_unchanged = True
@@ -56,7 +55,6 @@ class StockIssueResource(resources.ModelResource):
 
 
 class StockReceiptResource(resources.ModelResource):
-
     class Meta:
         model = StockReceipt
         skip_unchanged = True
@@ -64,7 +62,6 @@ class StockReceiptResource(resources.ModelResource):
 
 
 class MealTypeResource(resources.ModelResource):
-
     class Meta:
         model = MealType
         skip_unchanged = True
@@ -72,7 +69,6 @@ class MealTypeResource(resources.ModelResource):
 
 
 class MealGroupResource(resources.ModelResource):
-
     class Meta:
         model = MealGroup
         skip_unchanged = True
@@ -83,17 +79,17 @@ class ArticleResource(resources.ModelResource):
     on_stock = fields.Field(
         attribute="on_stock",
         column_name="on_stock",
-        widget=widgets.DecimalWidget(coerce_to_string=False)
+        widget=widgets.DecimalWidget(coerce_to_string=False),
     )
     min_on_stock = fields.Field(
         attribute="min_on_stock",
         column_name="min_on_stock",
-        widget=widgets.DecimalWidget(coerce_to_string=False)
+        widget=widgets.DecimalWidget(coerce_to_string=False),
     )
     total_price = fields.Field(
         attribute="total_price",
         column_name="total_price",
-        widget=widgets.DecimalWidget(coerce_to_string=False)
+        widget=widgets.DecimalWidget(coerce_to_string=False),
     )
 
     class Meta:
@@ -101,9 +97,23 @@ class ArticleResource(resources.ModelResource):
         skip_unchanged = True
         report_skipped = True
 
+    def before_save_instance(self, instance, row, **kwargs):
+        if instance.pk:
+            old_unit = (
+                Article.objects.filter(pk=instance.pk)
+                .values_list("unit", flat=True)
+                .first()
+            )
+            if old_unit is not None and old_unit != instance.unit:
+                raise ValidationError(
+                    _("{article}: jednotku nelze měnit ({old} -> {new}).").format(
+                        article=instance.article, old=old_unit, new=instance.unit
+                    )
+                )
+        super().before_save_instance(instance, row, **kwargs)
+
 
 class MenuResource(resources.ModelResource):
-
     class Meta:
         model = Menu
         skip_unchanged = True
@@ -111,7 +121,6 @@ class MenuResource(resources.ModelResource):
 
 
 class MenuRecipeResource(resources.ModelResource):
-
     class Meta:
         model = MenuRecipe
         skip_unchanged = True
@@ -119,7 +128,6 @@ class MenuRecipeResource(resources.ModelResource):
 
 
 class DailyMenuResource(resources.ModelResource):
-
     class Meta:
         model = DailyMenu
         skip_unchanged = True
@@ -127,7 +135,6 @@ class DailyMenuResource(resources.ModelResource):
 
 
 class DailyMenuRecipeResource(resources.ModelResource):
-
     class Meta:
         model = DailyMenuRecipe
         skip_unchanged = True
@@ -135,7 +142,6 @@ class DailyMenuRecipeResource(resources.ModelResource):
 
 
 class RecipeResource(resources.ModelResource):
-
     class Meta:
         model = Recipe
         skip_unchanged = True
@@ -143,7 +149,6 @@ class RecipeResource(resources.ModelResource):
 
 
 class RecipeArticleResource(resources.ModelResource):
-
     class Meta:
         model = RecipeArticle
         skip_unchanged = True
@@ -151,7 +156,6 @@ class RecipeArticleResource(resources.ModelResource):
 
 
 class StockIssueArticleResource(resources.ModelResource):
-
     class Meta:
         model = StockIssueArticle
         skip_unchanged = True
@@ -159,134 +163,192 @@ class StockIssueArticleResource(resources.ModelResource):
 
 
 class StockReceiptArticleResource(resources.ModelResource):
-
     class Meta:
         model = StockReceiptArticle
         skip_unchanged = True
         report_skipped = True
+
 
 # integrate import/export into admin
 
 
 @admin.register(AppSettings)
 class AppSettingsAdmin(ImportExportActionModelAdmin):
-    list_display = ('currency', )
+    list_display = ("currency",)
     resource_class = AppSettingsResource
 
 
 @admin.register(VAT)
 class VATAdmin(ImportExportActionModelAdmin):
-    list_display = ('percentage', 'rate',)
-    ordering = ('-percentage',)
+    list_display = (
+        "percentage",
+        "rate",
+    )
+    ordering = ("-percentage",)
     resource_class = VATResource
 
 
 @admin.register(Allergen)
 class AllergenAdmin(ImportExportActionModelAdmin):
-    list_display = ('code', 'description',)
-    ordering = ('code',)
+    list_display = (
+        "code",
+        "description",
+    )
+    ordering = ("code",)
     resource_class = AllergenResource
 
 
 @admin.register(MealGroup)
 class MealGroupAdmin(ImportExportActionModelAdmin):
-    list_display = ('meal_group',)
-    ordering = ('meal_group',)
+    list_display = ("meal_group",)
+    ordering = ("meal_group",)
     resource_class = MealGroupResource
 
 
 @admin.register(MealType)
 class MealTypeAdmin(ImportExportActionModelAdmin):
-    list_display = ('meal_type',)
-    ordering = ('meal_type',)
+    list_display = ("meal_type",)
+    ordering = ("meal_type",)
     resource_class = MealTypeResource
 
 
 @admin.register(Article)
 class ArticleAdmin(ImportExportActionModelAdmin):
-    list_display = ('article', 'unit', 'on_stock', 'min_on_stock',
-                    'total_price', 'display_allergens', 'comment', )
-    fields = [('article', 'unit'),
-              ('on_stock', 'min_on_stock', 'total_price'),
-              'allergen', 'comment', ]
+    list_display = (
+        "article",
+        "unit",
+        "on_stock",
+        "min_on_stock",
+        "total_price",
+        "display_allergens",
+        "comment",
+    )
+    fields = [
+        ("article", "unit"),
+        ("on_stock", "min_on_stock", "total_price"),
+        "allergen",
+        "comment",
+    ]
     # list_filter = ('unit', 'coefficient')
-    search_fields = ('article',)
+    search_fields = ("article",)
     resource_class = ArticleResource
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj is not None and obj.pk:
+            return (*super().get_readonly_fields(request, obj), "unit")
+        return super().get_readonly_fields(request, obj)
 
 
 @admin.register(Recipe)
 class RecipeAdmin(ImportExportActionModelAdmin):
-    list_display = ('recipe', 'norm_amount', 'procedure', 'comment')
-    fields = ([('recipe', 'norm_amount'), ('comment', 'procedure')])
+    list_display = ("recipe", "norm_amount", "procedure", "comment")
+    fields = [("recipe", "norm_amount"), ("comment", "procedure")]
     resource_class = RecipeResource
 
 
 @admin.register(RecipeArticle)
 class RecipeArticleAdmin(ImportExportActionModelAdmin):
-    list_display = ('recipe', 'article', 'amount', 'unit', 'comment',)
-    fields = [('recipe', 'article', 'amount', 'unit', 'comment')]
+    list_display = (
+        "recipe",
+        "article",
+        "amount",
+        "unit",
+        "comment",
+    )
+    fields = [("recipe", "article", "amount", "unit", "comment")]
     resource_class = RecipeArticleResource
 
 
 @admin.register(Menu)
 class MenuAdmin(ImportExportActionModelAdmin):
-    list_display = ('menu', 'meal_type', 'comment')
+    list_display = ("menu", "meal_type", "comment")
     resource_class = MenuResource
 
 
 @admin.register(MenuRecipe)
 class MenuRecipeAdmin(ImportExportActionModelAdmin):
-    list_display = ('menu', 'recipe', 'amount')
+    list_display = ("menu", "recipe", "amount")
     resource_class = MenuRecipeResource
 
 
 @admin.register(DailyMenu)
 class DailyMenuAdmin(ImportExportActionModelAdmin):
-    list_display = ('date', 'menu', 'meal_group', 'meal_type', 'comment')
+    list_display = ("date", "menu", "meal_group", "meal_type", "comment")
     resource_class = DailyMenuResource
 
 
 @admin.register(DailyMenuRecipe)
 class DailyMenuRecipeAdmin(ImportExportActionModelAdmin):
-    list_display = ('daily_menu', 'amount', 'recipe', 'comment')
+    list_display = ("daily_menu", "amount", "recipe", "comment")
     resource_class = DailyMenuRecipeResource
 
 
 @admin.register(StockIssue)
 class StockIssueAdmin(ImportExportActionModelAdmin):
-    list_display = ('user_created', 'approved', 'date_approved', 'user_approved',
-                    'comment', )
-    fields = [('user_created', ), ('approved', 'date_approved', 'user_approved'),
-              'comment', ]
+    list_display = (
+        "user_created",
+        "approved",
+        "date_approved",
+        "user_approved",
+        "comment",
+    )
+    fields = [
+        ("user_created",),
+        ("approved", "date_approved", "user_approved"),
+        "comment",
+    ]
     resource_class = StockIssueResource
 
 
 @admin.register(StockReceipt)
 class StockReceiptAdmin(ImportExportActionModelAdmin):
-    list_display = ('user_created', 'approved', 'date_approved', 'user_approved',
-                    'comment', )
-    fields = [('user_created', ), ('approved', 'date_approved', 'user_approved'),
-              'comment', ]
+    list_display = (
+        "user_created",
+        "approved",
+        "date_approved",
+        "user_approved",
+        "comment",
+    )
+    fields = [
+        ("user_created",),
+        ("approved", "date_approved", "user_approved"),
+        "comment",
+    ]
     resource_class = StockReceiptResource
 
 
 @admin.register(StockIssueArticle)
 class StockIssueArticleAdmin(ImportExportActionModelAdmin):
-    list_display = ('stock_issue', 'article', 'amount',
-                    'unit', 'average_unit_price', 'comment', )
-    fields = [('stock_issue', 'article', 'amount'),
-              ('average_unit_price', 'unit'),
-              'comment', ]
+    list_display = (
+        "stock_issue",
+        "article",
+        "amount",
+        "unit",
+        "average_unit_price",
+        "comment",
+    )
+    fields = [
+        ("stock_issue", "article", "amount"),
+        ("average_unit_price", "unit"),
+        "comment",
+    ]
     resource_class = StockIssueArticleResource
 
 
 @admin.register(StockReceiptArticle)
 class StockReceiptArticleAdmin(ImportExportActionModelAdmin):
-    list_display = ('stock_receipt', 'article', 'amount',
-                    'unit', 'price_without_vat', 'vat', 'comment', )
-    fields = [('stock_receipt', 'article', 'amount'),
-              ('unit', 'price_without_vat', 'vat'),
-              'comment', ]
+    list_display = (
+        "stock_receipt",
+        "article",
+        "amount",
+        "unit",
+        "price_without_vat",
+        "vat",
+        "comment",
+    )
+    fields = [
+        ("stock_receipt", "article", "amount"),
+        ("unit", "price_without_vat", "vat"),
+        "comment",
+    ]
     resource_class = StockReceiptArticleResource
-
-

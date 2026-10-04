@@ -3379,6 +3379,16 @@ msgstr "Name of User"
 msgid "Infos successfully updated"
 msgstr "Infos successfully updated"
 
+#: kicoma/kitchen/forms.py
+msgid "Jednotku nelze měnit, změnil by se význam zásob, receptů a dokladů."
+msgstr ""
+"The unit cannot be changed, it would change the meaning of stock, recipes "
+"and documents."
+
+#: kicoma/kitchen/admin.py
+msgid "{article}: jednotku nelze měnit ({old} -> {new})."
+msgstr "{article}: the unit cannot be changed ({old} -> {new})."
+
 #, python-format
 #~ msgid "%(total)s receptů k opravě"
 #~ msgstr "%(total)s recipies to be fixed"

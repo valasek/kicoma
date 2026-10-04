@@ -3,6 +3,7 @@ from datetime import date
 from decimal import Decimal
 from unittest.mock import patch
 
+from django.contrib.admin.sites import AdminSite
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
@@ -13,7 +14,9 @@ from django.test.client import Client
 from django.test.utils import CaptureQueriesContext
 from django.urls import resolve, reverse
 from django.utils import translation
+from tablib import Dataset
 
+from kicoma.kitchen.admin import ArticleAdmin, ArticleResource
 from kicoma.kitchen.forms import ArticleForm
 from kicoma.kitchen.models import (
     NUTRITION_FIELDS,
@@ -116,6 +119,68 @@ class ArticleFormRoleTests(TestCase):
         self.assertEqual(article.total_price, Decimal("100"))
         self.assertEqual(article.energy, 1234)
 
+    def test_unit_is_editable_only_for_new_article(self):
+        user = self.create_user("stockkeeper")
+        self.assertFalse(ArticleForm(user=user).fields["unit"].disabled)
+
+        article = Article.objects.create(
+            article="Locked unit",
+            unit="kg",
+            on_stock=1,
+            min_on_stock=0,
+            total_price=10,
+        )
+        form = ArticleForm(
+            data={
+                "article": article.article,
+                "unit": "g",
+                "on_stock": 1,
+                "min_on_stock": 0,
+                "total_price": 10,
+            },
+            instance=article,
+            user=user,
+        )
+
+        self.assertTrue(form.fields["unit"].disabled)
+        self.assertTrue(form.is_valid(), form.errors)
+        form.save()
+        article.refresh_from_db()
+        self.assertEqual(article.unit, "kg")
+
+
+class ArticleUnitLockTests(TestCase):
+    def setUp(self):
+        self.article = Article.objects.create(
+            article="Mouka", unit="kg", on_stock=1, min_on_stock=0, total_price=10
+        )
+
+    def import_article(self, unit, name="Mouka", pk=None):
+        dataset = Dataset(headers=["id", "article", "unit"])
+        dataset.append([pk or "", name, unit])
+        return ArticleResource().import_data(dataset, dry_run=False)
+
+    def test_import_with_changed_unit_is_rejected(self):
+        result = self.import_article("g", pk=self.article.pk)
+
+        self.assertTrue(result.has_validation_errors())
+        self.article.refresh_from_db()
+        self.assertEqual(self.article.unit, "kg")
+
+    def test_import_with_same_unit_and_new_article_is_allowed(self):
+        same_unit = self.import_article("kg", name="Mouka 2", pk=self.article.pk)
+        self.assertFalse(same_unit.has_validation_errors())
+        result = self.import_article("ks", name="Vejce")
+
+        self.assertFalse(result.has_errors() or result.has_validation_errors())
+        self.assertEqual(Article.objects.get(article="Vejce").unit, "ks")
+
+    def test_admin_unit_is_readonly_on_change(self):
+        model_admin = ArticleAdmin(Article, AdminSite())
+
+        self.assertNotIn("unit", model_admin.get_readonly_fields(None))
+        self.assertIn("unit", model_admin.get_readonly_fields(None, self.article))
+
 
 class TestUrl(SimpleTestCase):
     def test_article_create_view_is_resolved(self):
@@ -205,7 +270,37 @@ class StockUpdateTests(TestCase):
         self.assertEqual(article.total_price, Decimal("60"))
         self.assertEqual(article.history.count(), 2)
 
-    def test_change_reason_is_truncated_to_the_history_column(self):
+    def test_receipt_in_other_unit_adds_line_value_once(self):
+        article = self.create_article("Mouka")
+        stock_receipt = StockReceipt.objects.create(user_created=self.user)
+        StockReceiptArticle.objects.create(
+            stock_receipt=stock_receipt,
+            article=article,
+            amount=500,
+            unit="g",
+            price_without_vat=100,
+            vat=VAT.objects.create(percentage=0, rate="zero"),
+        )
+
+        StockReceipt.update_article_on_stock(stock_receipt.pk, "Delivery")
+
+        article.refresh_from_db()
+        self.assertEqual(article.on_stock, Decimal("10.5"))
+        self.assertEqual(article.total_price, Decimal("150"))
+
+    def test_issue_in_other_unit_removes_line_value_once(self):
+        stock_issue, articles = self.create_stock_issue(1)
+        line = stock_issue.stockissuearticle_set.get()
+        line.amount = 2000
+        line.unit = "g"
+        line.save()
+
+        StockIssue.update_article_on_stock(stock_issue.pk, "Lunch", False)
+
+        article = articles[0]
+        article.refresh_from_db()
+        self.assertEqual(article.on_stock, Decimal("8"))
+        self.assertEqual(article.total_price, Decimal("80"))
         stock_issue, articles = self.create_stock_issue(1)
 
         StockIssue.update_article_on_stock(stock_issue.pk, "x" * 200, False)
@@ -1325,6 +1420,23 @@ class DataImportExportTests(TransactionTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(get_user_model().objects.get(pk=12).username, "backup-admin")
         self.assertTrue(Article.objects.filter(article="Imported article").exists())
+
+    def test_full_import_loads_changed_unit_from_dump(self):
+        export_response = self.client.get(reverse("kitchen:export"))
+        fixture_objects = json.loads(export_response.content)
+        for item in fixture_objects:
+            if item["model"] == "kitchen.article":
+                item["fields"]["unit"] = "ks"
+        upload = SimpleUploadedFile(
+            "data.json",
+            json.dumps(fixture_objects).encode(),
+            content_type="application/json",
+        )
+
+        response = self.client.post(reverse("kitchen:import"), {"myfile": upload})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Article.objects.get().unit, "ks")
 
 
 # Helper factory for MealType to satisfy FK without importing fixtures

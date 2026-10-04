@@ -78,6 +78,11 @@ class ArticleForm(forms.ModelForm):
         for field_name in tuple(self.fields):
             if field_name not in editable_fields:
                 self.fields.pop(field_name)
+        if self.instance.pk and "unit" in self.fields:
+            self.fields["unit"].disabled = True
+            self.fields["unit"].help_text = _(
+                "Jednotku nelze měnit, změnil by se význam zásob, receptů a dokladů."
+            )
 
         self.helper = FormHelper()
         self.helper.form_tag = False

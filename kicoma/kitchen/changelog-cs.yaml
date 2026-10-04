@@ -1,4 +1,8 @@
 2026:
+  - date: 2026-10-04
+    items:
+      - "Jednotku existujícího zboží už nelze změnit při úpravě zboží, v administraci ani importem seznamu zboží. Změna jednotky by změnila význam zásob, receptů a dokladů. Import všech dat (záloha) nahraje jednotky ze souboru beze změny."
+      - "OPRAVA: Při naskladnění příjemky nebo vyskladnění výdejky s jinou jednotkou, než má zboží (např. g u zboží v kg), se cena na skladu nesprávně přepočítala ještě jednou (1000× víc nebo méně). Nyní se použije cena řádku."
   - date: 2026-09-30
     items:
       - "Při vytváření nového menu se název předvyplní podle naposledy vytvořeného menu. Stačí ho upravit, protože názvy menu musí být jedinečné."

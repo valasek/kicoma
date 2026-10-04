@@ -1,4 +1,8 @@
 2026:
+  - date: 2026-10-04
+    items:
+      - "The unit of existing goods can no longer be changed in goods editing, in the administration or by the goods list import. Changing the unit would change the meaning of stock, recipes and documents. Import all data (backup) loads units from the file unchanged."
+      - "FIX: Approving a stock receipt or issue with a unit different from the goods unit (e.g. g for goods in kg) converted the stock value a second time (1000 times more or less). The line price is now used."
   - date: 2026-09-30
     items:
       - "When creating a new menu, the name is prefilled with the name of the last created menu. Just adjust it, because menu names must be unique."
