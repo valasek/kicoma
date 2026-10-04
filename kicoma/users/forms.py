@@ -10,14 +10,13 @@ class UserChangeForm(forms.UserChangeForm):
         model = User
 
 
-# may be obsolete class as it was replaced by AdminUserCreationForm
-class UserCreationForm(forms.UserCreationForm):
-
-    error_message = forms.UserCreationForm.error_messages.update(
+# Based on AdminUserCreationForm, which provides the usable_password field required by UserAdmin.add_fieldsets
+class UserCreationForm(forms.AdminUserCreationForm):
+    error_message = forms.AdminUserCreationForm.error_messages.update(
         {"duplicate_username": _("This username has already been taken.")}
     )
 
-    class Meta(forms.UserCreationForm.Meta):
+    class Meta(forms.AdminUserCreationForm.Meta):
         model = User
 
     def clean_username(self):
