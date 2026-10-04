@@ -5,6 +5,8 @@
 <div class="container-fluid">
   <h4>{% translate "Údržba dat" %}</h4>
   <p>{% translate "Bezpečné vymazání záznamů z roku" %} {{ two_years_ago }} {% translate "(včetně) a starších povede ke zrychlení aplikace." %}</p>
+  <p>{% translate "Příjemky a výdejky se posuzují podle data naskladnění / vyskladnění, neschválené doklady se nemažou. Export stavu skladu k datu před vymazaným obdobím už nebude správný." %}</p>
+  {% translate "neschváleno" as unapproved %}
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger" id="myBtn">{% translate "Vymazat záznamy z roku" %} {{ two_years_ago }} {% translate "(včetně) a starších" %}</button>
@@ -21,7 +23,7 @@
             </tr>
             {% for item in stockreceipts_year_counts %}
             <tr>
-                <td scope="row">{{ item.year }}</td>
+                <td scope="row">{{ item.year|default:unapproved }}</td>
                 <td >{{ item.count | intcomma }}</td>
             </tr>
             {% endfor %}
@@ -36,7 +38,7 @@
             </tr>
             {% for item in stockreceiptarticles_year_counts %}
             <tr>
-                <td scope="row">{{ item.year }}</td>
+                <td scope="row">{{ item.year|default:unapproved }}</td>
                 <td >{{ item.count | intcomma }}</td>
             </tr>
             {% endfor %}
@@ -51,7 +53,7 @@
             </tr>
             {% for item in stockissues_year_counts %}
             <tr>
-                <td scope="row">{{ item.year }}</td>
+                <td scope="row">{{ item.year|default:unapproved }}</td>
                 <td >{{ item.count | intcomma }}</td>
             </tr>
             {% endfor %}
@@ -66,7 +68,7 @@
             </tr>
             {% for item in stockissuearticles_year_counts %}
             <tr>
-                <td scope="row">{{ item.year }}</td>
+                <td scope="row">{{ item.year|default:unapproved }}</td>
                 <td >{{ item.count | intcomma }}</td>
             </tr>
             {% endfor %}

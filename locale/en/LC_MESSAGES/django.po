@@ -3441,9 +3441,47 @@ msgstr "Nutrition is incomplete, piece weight missing for:"
 msgid "chybí hmotnost kusu"
 msgstr "piece weight missing"
 
+#: kicoma/kitchen/tables.py
+msgid "Záporný stav nebo cena na skladu"
+msgstr "Negative stock quantity or price"
+
 #: kicoma/kitchen/forms.py
 msgid "Zboží v ks s výživovými údaji potřebuje hmotnost kusu i jednotku."
 msgstr "An item in pcs with nutrition data needs a piece weight and its unit."
+
+#: kicoma/kitchen/models.py
+msgid "Recept {recipe} má nulový počet porcí"
+msgstr "Recipe {recipe} has zero servings"
+
+#: kicoma/kitchen/views.py
+msgid "Následující řádky mají jednotku, kterou nelze převést na jednotku skladu, a v exportu nejsou započteny. Opravte je (report nesprávných jednotek):"
+msgstr "The following lines have a unit that cannot be converted to the stock unit and are not included in the export. Correct them (incorrect units report):"
+
+#: kicoma/kitchen/templates/kitchen/data_cleanup.html
+msgid "Příjemky a výdejky se posuzují podle data naskladnění / vyskladnění, neschválené doklady se nemažou. Export stavu skladu k datu před vymazaným obdobím už nebude správný."
+msgstr "Stock receipts and issues are selected by their approval date, unapproved documents are not deleted. A stock export for a date before the deleted period will no longer be correct."
+
+#: kicoma/kitchen/templates/kitchen/data_cleanup.html
+msgid "neschváleno"
+msgstr "not approved"
+
+#: kicoma/kitchen/admin.py
+msgid "Řádek schváleného dokladu nelze změnit ani smazat ({line})."
+msgstr "A line of an approved document cannot be changed or deleted ({line})."
+
+#: kicoma/kitchen/admin.py
+msgid "Schválené doklady a jejich řádky nebyly smazány: {count}"
+msgstr "Approved documents and their lines were not deleted: {count}"
+
+#: kicoma/kitchen/admin.py
+msgid "Schválený doklad nelze importem změnit ani smazat ({document})."
+msgstr "An approved document cannot be changed or deleted by import ({document})."
+
+msgid "Stav nelze určit: "
+msgstr "Stock cannot be determined: "
+
+msgid "Sazbu DPH použitou na schválené příjemce nelze změnit."
+msgstr "A VAT percentage used on an approved receipt cannot be changed."
 
 #, python-format
 #~ msgid "%(total)s receptů k opravě"

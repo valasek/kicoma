@@ -1,1 +1,3 @@
 .venv
+kicoma/media/data*.json
+storage/*.sqlite3*

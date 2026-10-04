@@ -12,7 +12,7 @@
   <tbody>
     <tr>
       <th scope="row">{{recipe.norm_amount}}</th>
-      <td>{{recipe.total_recipe_articles_price|intcomma}} {{ CURRENCY }}</td>
+      <td>{{recipe.total_recipe_articles_price|floatformat:0|intcomma}} {{ CURRENCY }}</td>
       <td>{{recipe.comment}}</td>
     </tr>
   </tbody>
@@ -35,7 +35,7 @@
       <th scope="row">{{recipe_article.article}}</th>
       <td>{{recipe_article.amount}} {{recipe_article.unit}}</td>
       <td>{{recipe_article.article.average_price|unit_price}}{{ CURRENCY }}</td>
-      <td>{{recipe_article.total_average_price|intcomma}} {{ CURRENCY }}</td>
+      <td>{{recipe_article.total_average_price|unit_price}} {{ CURRENCY }}</td>
       <td>{{recipe_article.comment}}</td>
     </tr>
   {% endfor %}

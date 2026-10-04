@@ -40,17 +40,3 @@ def convert_units(number, unit_in, unit_out):
             number=number, unit_in=unit_in, unit_out=unit_out
         )
     )
-
-
-# returns total RecipeArticle price, RecipeArticle amount is converted using Article unit
-def total_recipe_article_price(recipe_articles, norm_amount):
-    total_price = 0
-    for recipe_article in recipe_articles:
-        converted_amount = convert_units(
-            recipe_article.amount, recipe_article.unit, recipe_article.article.unit
-        )
-        recipe_article_price = (
-            converted_amount * recipe_article.average_unit_price * norm_amount
-        )
-        total_price += recipe_article_price
-    return total_price

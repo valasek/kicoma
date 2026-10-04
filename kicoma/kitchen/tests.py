@@ -1,8 +1,9 @@
 import json
-from datetime import date
+from datetime import UTC, date, datetime, timedelta
 from decimal import Decimal
 from unittest.mock import patch
 
+from crispy_forms.utils import render_crispy_form
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
@@ -10,15 +11,30 @@ from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import connection
 from django.db.models import ProtectedError
-from django.test import SimpleTestCase, TestCase, TransactionTestCase
+from django.test import RequestFactory, SimpleTestCase, TestCase, TransactionTestCase
 from django.test.client import Client
 from django.test.utils import CaptureQueriesContext
 from django.urls import resolve, reverse
-from django.utils import translation
+from django.utils import timezone, translation
 from tablib import Dataset
 
-from kicoma.kitchen.admin import ArticleAdmin, ArticleResource
-from kicoma.kitchen.forms import ArticleForm
+from kicoma.kitchen.admin import (
+    ArticleAdmin,
+    ArticleResource,
+    StockIssueAdmin,
+    StockIssueArticleAdmin,
+    StockIssueArticleResource,
+    VATAdmin,
+    VATResource,
+)
+from kicoma.kitchen.forms import (
+    ArticleForm,
+    RecipeArticleForm,
+    RecipeForm,
+    StockArticlesExportForm,
+    StockIssueArticleForm,
+    StockReceiptArticleForm,
+)
 from kicoma.kitchen.functions import format_unit_price
 from kicoma.kitchen.models import (
     NUTRITION_FIELDS,
@@ -39,7 +55,7 @@ from kicoma.kitchen.models import (
     StockReceiptArticle,
 )
 from kicoma.kitchen.permissions import user_has_any_role
-from kicoma.kitchen.views import ArticleCreateView
+from kicoma.kitchen.views import ArticleCreateView, stock_issues_receipts_data
 
 
 class ArticleFormRoleTests(TestCase):
@@ -120,6 +136,53 @@ class ArticleFormRoleTests(TestCase):
         self.assertEqual(article.min_on_stock, Decimal("2"))
         self.assertEqual(article.total_price, Decimal("100"))
         self.assertEqual(article.energy, 1234)
+
+    def test_superuser_can_edit_stock_and_nutrition_with_or_without_groups(self):
+        user = get_user_model().objects.create_superuser(
+            "admin", "admin@example.com", "password"
+        )
+        article = Article.objects.create(article="Eggs", unit="ks")
+        for grouped in (False, True):
+            with self.subTest(grouped=grouped):
+                if grouped:
+                    user.groups.add(Group.objects.create(name="cook"))
+                form = ArticleForm(
+                    data={
+                        "article": article.article,
+                        "unit": "g",
+                        "on_stock": "2",
+                        "min_on_stock": "1",
+                        "total_price": "20",
+                        "energy": "100",
+                        "piece_weight": "50",
+                        "piece_weight_unit": "g",
+                    },
+                    instance=article,
+                    user=user,
+                )
+                expected = (
+                    self.common_fields
+                    | self.stock_fields
+                    | self.nutrition_fields
+                    | set(ArticleForm.piece_fields)
+                )
+                self.assertEqual(set(form.fields), expected)
+                rendered = render_crispy_form(form)
+                for field_name in expected:
+                    self.assertIn(f'name="{field_name}"', rendered)
+                self.assertTrue(form.fields["unit"].disabled)
+                self.assertTrue(form.is_valid(), form.errors)
+                form.save()
+                article.refresh_from_db()
+                self.assertEqual(article.unit, "ks")
+                self.assertEqual(article.on_stock, Decimal("2"))
+                self.assertEqual(article.total_price, Decimal("20"))
+                self.assertEqual(article.energy, 100)
+                self.assertEqual(article.piece_weight, Decimal("50"))
+
+    def test_user_without_roles_cannot_edit_stock_or_nutrition(self):
+        user = get_user_model().objects.create_user("unprivileged")
+        self.assertEqual(set(ArticleForm(user=user).fields), self.common_fields)
 
     def test_unit_is_editable_only_for_new_article(self):
         user = self.create_user("stockkeeper")
@@ -1260,9 +1323,6 @@ class ModelBehaviorTests(TestCase):
         # Ensure a VAT record exists for receipt price calculations
         self.vat21 = VAT.objects.create(percentage=21, rate="high")
 
-    def tearDown(self):
-        self.user.delete()
-
     def test_article_average_price_from_stock(self):
         a = Article.objects.create(
             article="Flour",
@@ -1625,6 +1685,498 @@ class HighPriorityFixTests(TestCase):
         self.assertTrue(form.is_valid(), form.errors)
 
 
+class MediumPriorityFixTests(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user("max", password="password")
+        for name in ("cook", "stockkeeper", "nutrition_advisor"):
+            self.user.groups.add(Group.objects.get_or_create(name=name)[0])
+        self.client.force_login(self.user)
+
+    def test_data_cleanup_deletes_old_records(self):
+        superuser = get_user_model().objects.create_superuser(
+            "root", "root@example.com", "password"
+        )
+        old_date = timezone.localdate().replace(year=timezone.localdate().year - 3)
+        old_issue = StockIssue.objects.create(
+            user_created=self.user, approved=True, date_approved=old_date
+        )
+        self.client.force_login(superuser)
+
+        response = self.client.post(reverse("kitchen:data_cleanup"), follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(StockIssue.objects.filter(pk=old_issue.pk).exists())
+        self.assertContains(response, "Výdejky, úspěšne vymazáno: 1 záznamů")
+        self.assertNotContains(response, "Chyba při mazání")
+
+    def test_issue_approval_checks_stock_per_article(self):
+        article = Article.objects.create(
+            article="Mouka", unit="kg", on_stock=5, total_price=50
+        )
+        stock_issue = StockIssue.objects.create(user_created=self.user)
+        for _index in range(2):
+            StockIssueArticle.objects.create(
+                stock_issue=stock_issue,
+                article=article,
+                amount=3,
+                unit="kg",
+                average_unit_price=10,
+            )
+
+        errors = StockIssue.update_article_on_stock(stock_issue.pk, "", True)
+
+        self.assertEqual(len(errors), 1)
+        self.assertIn("na výdejce 6", str(errors[0]))
+        article.refresh_from_db()
+        self.assertEqual(article.on_stock, Decimal("5"))
+
+    def test_recipe_line_price_keeps_two_decimals(self):
+        article = Article.objects.create(
+            article="Sul", unit="g", on_stock=1000, total_price=50
+        )
+        recipe = Recipe.objects.create(recipe="Polevka", norm_amount=10)
+        RecipeArticle.objects.create(recipe=recipe, article=article, amount=7, unit="g")
+        RecipeArticle.objects.create(recipe=recipe, article=article, amount=3, unit="g")
+
+        self.assertEqual(
+            recipe.recipearticle_set.get(amount=7).total_average_price,
+            Decimal("0.35"),
+        )
+        self.assertEqual(recipe.total_recipe_articles_price, Decimal("0.50"))
+
+    def test_recipe_norm_amount_must_be_positive(self):
+        form = RecipeForm(data={"recipe": "Nula", "norm_amount": 0})
+
+        self.assertFalse(form.is_valid())
+        self.assertIn("norm_amount", form.errors)
+
+    def test_issue_from_daily_menu_with_zero_portions_recipe(self):
+        article = Article.objects.create(article="Ryze", unit="kg")
+        recipe = Recipe.objects.create(recipe="Rizoto", norm_amount=0)
+        RecipeArticle.objects.create(
+            recipe=recipe, article=article, amount=1, unit="kg"
+        )
+        daily_menu = DailyMenu.objects.create(
+            date=date(2026, 10, 4),
+            meal_group=MealGroup.objects.create(meal_group="Deti"),
+            meal_type_id=MealTypeFactory.ensure(),
+        )
+        DailyMenuRecipe.objects.create(daily_menu=daily_menu, recipe=recipe, amount=5)
+
+        with self.assertRaises(ValidationError):
+            StockIssue.create_from_daily_menu(
+                DailyMenu.objects.all(), "04.10.2026", self.user
+            )
+        self.assertFalse(StockIssue.objects.exists())
+
+    def test_user_with_documents_cannot_be_deleted(self):
+        StockIssue.objects.create(user_created=self.user)
+        StockReceipt.objects.create(user_created=self.user, user_approved=self.user)
+
+        with self.assertRaises(ProtectedError):
+            self.user.delete()
+
+
+class LowPriorityFixTests(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user("eva", password="password")
+        for name in ("cook", "stockkeeper", "nutrition_advisor"):
+            self.user.groups.add(Group.objects.get_or_create(name=name)[0])
+        self.client.force_login(self.user)
+        self.vat = VAT.objects.create(percentage=0, rate="zero")
+        self.superuser = get_user_model().objects.create_superuser(
+            "root", "root@example.com", "password"
+        )
+
+    def approved_issue(self, article, amount, unit, date_approved=None, price=10):
+        stock_issue = StockIssue.objects.create(
+            user_created=self.user,
+            approved=True,
+            date_approved=date_approved or timezone.localdate(),
+        )
+        StockIssueArticle.objects.create(
+            stock_issue=stock_issue,
+            article=article,
+            amount=amount,
+            unit=unit,
+            average_unit_price=price,
+        )
+        return stock_issue
+
+    def test_line_amount_minimum_is_one_hundredth(self):
+        article = Article.objects.create(article="Small quantity", unit="kg")
+        for form_class in (
+            RecipeArticleForm,
+            StockReceiptArticleForm,
+            StockIssueArticleForm,
+        ):
+            for amount in ("0.01", "0", "-0.01", "0.001"):
+                with self.subTest(form=form_class.__name__, amount=amount):
+                    form = form_class(
+                        data={
+                            "article": article.pk,
+                            "amount": amount,
+                            "unit": "kg",
+                            "price_without_vat": "10",
+                            "vat": self.vat.pk,
+                        }
+                    )
+                    field = form._meta.model._meta.get_field("amount")
+                    if amount == "0.01":
+                        self.assertTrue(form.is_valid(), form.errors)
+                        self.assertEqual(
+                            field.clean(Decimal(amount), None), Decimal(amount)
+                        )
+                    else:
+                        self.assertFalse(form.is_valid())
+                        self.assertIn("amount", form.errors)
+                        with self.assertRaises(ValidationError):
+                            field.clean(Decimal(amount), None)
+
+    def test_export_date_uses_the_current_timezone(self):
+        cases = (
+            (
+                "Europe/Prague",
+                datetime(2026, 10, 4, 23, 30, tzinfo=UTC),
+                date(2026, 10, 5),
+            ),
+            (
+                "America/Los_Angeles",
+                datetime(2026, 10, 5, 0, 30, tzinfo=UTC),
+                date(2026, 10, 4),
+            ),
+        )
+        for zone, instant, local_day in cases:
+            with (
+                self.subTest(zone=zone),
+                timezone.override(zone),
+                patch("django.utils.timezone.datetime", wraps=datetime) as clock,
+            ):
+                clock.now.return_value = instant
+                for day, valid in (
+                    (local_day - timedelta(days=1), True),
+                    (local_day, True),
+                    (local_day + timedelta(days=1), False),
+                ):
+                    form = StockArticlesExportForm(data={"date": day.isoformat()})
+                    self.assertEqual(form.is_valid(), valid, form.errors.as_data())
+                    if not valid:
+                        self.assertIn("date", form.errors)
+
+    def test_monthly_report_starts_at_zero(self):
+        data = stock_issues_receipts_data(0)
+
+        self.assertEqual(data["stock_issues_price"], 0)
+        self.assertEqual(data["stock_receipts_price"], 0)
+
+    def test_generated_issue_skips_lines_rounding_to_zero(self):
+        salt = Article.objects.create(article="Sul", unit="kg")
+        rice = Article.objects.create(article="Ryze", unit="kg")
+        recipe = Recipe.objects.create(recipe="Rizoto", norm_amount=100)
+        RecipeArticle.objects.create(recipe=recipe, article=salt, amount=1, unit="g")
+        RecipeArticle.objects.create(recipe=recipe, article=rice, amount=1000, unit="g")
+        daily_menu = DailyMenu.objects.create(
+            date=date(2026, 10, 4),
+            meal_group=MealGroup.objects.create(meal_group="Deti"),
+            meal_type_id=MealTypeFactory.ensure(),
+        )
+        DailyMenuRecipe.objects.create(daily_menu=daily_menu, recipe=recipe, amount=1)
+
+        count = StockIssue.create_from_daily_menu(
+            DailyMenu.objects.all(), "04.10.2026", self.user
+        )
+
+        self.assertEqual(count, 1)
+        line = StockIssueArticle.objects.get()
+        self.assertEqual(line.article, rice)
+        self.assertEqual(line.amount, Decimal("0.01"))
+
+    def test_issue_total_is_sum_of_rounded_lines(self):
+        stock_issue = StockIssue.objects.create(user_created=self.user)
+        for name in ("A", "B", "C"):
+            StockIssueArticle.objects.create(
+                stock_issue=stock_issue,
+                article=Article.objects.create(
+                    article=name, unit="kg", on_stock=10, total_price=100
+                ),
+                amount=Decimal("0.6"),
+                unit="kg",
+                average_unit_price=1,
+            )
+
+        # each line 0.6 Kc rounds to 1 Kc, the stock change is 3 Kc
+        self.assertEqual(stock_issue.total_price, 3)
+
+    def test_approval_checks_the_rounded_stock_deduction(self):
+        article = Article.objects.create(
+            article="Rounded stock",
+            unit="kg",
+            on_stock=Decimal("0.03"),
+            total_price=30,
+        )
+        stock_issue = StockIssue.objects.create(user_created=self.user)
+        for _index in range(4):
+            StockIssueArticle.objects.create(
+                stock_issue=stock_issue,
+                article=article,
+                amount=6,
+                unit="g",
+                average_unit_price=1000,
+            )
+
+        self.client.post(reverse("kitchen:approveStockIssue", args=[stock_issue.pk]))
+
+        stock_issue.refresh_from_db()
+        article.refresh_from_db()
+        self.assertFalse(stock_issue.approved)
+        self.assertEqual(article.on_stock, Decimal("0.03"))
+
+    def test_approval_refreshes_prices_and_rolls_back_rejections(self):
+        cases = (
+            ("stale zero price", 10, 100, 0, 1, True),
+            ("insufficient stock", 1, 100, 1, 2, False),
+            ("refreshed zero price", 10, 0, 10, 1, False),
+        )
+        for name, stock, value, old_price, amount, approved in cases:
+            with self.subTest(name=name):
+                article = Article.objects.create(
+                    article=name, unit="kg", on_stock=stock, total_price=value
+                )
+                stock_issue = StockIssue.objects.create(user_created=self.user)
+                line = StockIssueArticle.objects.create(
+                    stock_issue=stock_issue,
+                    article=article,
+                    amount=amount,
+                    unit="kg",
+                    average_unit_price=old_price,
+                )
+                history_count = article.history.count()
+
+                response = self.client.post(
+                    reverse("kitchen:approveStockIssue", args=[stock_issue.pk])
+                )
+
+                self.assertEqual(response.status_code, 302)
+                stock_issue.refresh_from_db()
+                article.refresh_from_db()
+                line.refresh_from_db()
+                self.assertEqual(stock_issue.approved, approved)
+                if approved:
+                    self.assertEqual(line.average_unit_price, Decimal("10"))
+                    self.assertEqual(article.on_stock, Decimal("9"))
+                    self.assertEqual(article.total_price, Decimal("90"))
+                    self.assertEqual(stock_issue.user_approved, self.user)
+                    self.assertEqual(stock_issue.date_approved, timezone.localdate())
+                else:
+                    self.assertEqual(line.average_unit_price, old_price)
+                    self.assertEqual(article.on_stock, stock)
+                    self.assertEqual(article.total_price, value)
+                    self.assertEqual(article.history.count(), history_count)
+                    self.assertIsNone(stock_issue.user_approved)
+                    self.assertIsNone(stock_issue.date_approved)
+
+    def test_generated_issue_rounds_after_summing_the_article(self):
+        article = Article.objects.create(article="Small portions", unit="kg")
+        recipe = Recipe.objects.create(recipe="Small portions", norm_amount=1)
+        for _index in range(3):
+            RecipeArticle.objects.create(
+                recipe=recipe, article=article, amount=4, unit="g"
+            )
+        daily_menu = DailyMenu.objects.create(
+            date=date(2026, 10, 4),
+            meal_group=MealGroup.objects.create(meal_group="Small portions"),
+            meal_type_id=MealTypeFactory.ensure(),
+        )
+        DailyMenuRecipe.objects.create(daily_menu=daily_menu, recipe=recipe, amount=1)
+
+        count = StockIssue.create_from_daily_menu(
+            DailyMenu.objects.all(), "04.10.2026", self.user
+        )
+
+        self.assertEqual(count, 1)
+        self.assertEqual(StockIssueArticle.objects.get().amount, Decimal("0.01"))
+
+    def test_receipt_approval_uses_local_date(self):
+        article = Article.objects.create(article="Mouka", unit="kg")
+        stock_receipt = StockReceipt.objects.create(user_created=self.user)
+        StockReceiptArticle.objects.create(
+            stock_receipt=stock_receipt,
+            article=article,
+            amount=1,
+            unit="kg",
+            price_without_vat=10,
+            vat=self.vat,
+        )
+        local_day = date(2026, 10, 5)
+
+        with patch("django.utils.timezone.localdate", return_value=local_day):
+            self.client.post(
+                reverse("kitchen:approveStockReceipt", args=[stock_receipt.pk])
+            )
+
+        stock_receipt.refresh_from_db()
+        self.assertTrue(stock_receipt.approved)
+        self.assertEqual(stock_receipt.date_approved, local_day)
+
+    def test_user_profile_is_visible_only_to_owner_and_superuser(self):
+        other = get_user_model().objects.create_user("other", password="password")
+        other_url = reverse("users:detail", kwargs={"username": other.username})
+
+        self.assertEqual(self.client.get(other_url).status_code, 404)
+        own_url = reverse("users:detail", kwargs={"username": self.user.username})
+        self.assertEqual(self.client.get(own_url).status_code, 200)
+        self.client.force_login(self.superuser)
+        self.assertEqual(self.client.get(other_url).status_code, 200)
+
+    def test_admin_cannot_change_or_delete_approved_document_lines(self):
+        article = Article.objects.create(article="Maso", unit="kg")
+        approved = self.approved_issue(article, 1, "kg")
+        open_issue = StockIssue.objects.create(user_created=self.user)
+        open_line = StockIssueArticle.objects.create(
+            stock_issue=open_issue, article=article, amount=1, unit="kg"
+        )
+        approved_line = StockIssueArticle.objects.get(stock_issue=approved)
+        request = RequestFactory().get("/")
+        request.user = self.superuser
+        line_admin = StockIssueArticleAdmin(StockIssueArticle, AdminSite())
+        issue_admin = StockIssueAdmin(StockIssue, AdminSite())
+
+        self.assertFalse(line_admin.has_change_permission(request, approved_line))
+        self.assertFalse(line_admin.has_delete_permission(request, approved_line))
+        self.assertTrue(line_admin.has_change_permission(request, open_line))
+        self.assertFalse(issue_admin.has_delete_permission(request, approved))
+        self.assertIn("approved", issue_admin.get_readonly_fields(request, open_issue))
+
+        with patch.object(line_admin, "message_user"):
+            line_admin.delete_queryset(request, StockIssueArticle.objects.all())
+        self.assertEqual(list(StockIssueArticle.objects.all()), [approved_line])
+
+    def test_admin_import_cannot_change_approved_document_lines(self):
+        article = Article.objects.create(article="Maso", unit="kg")
+        line = StockIssueArticle.objects.get(
+            stock_issue=self.approved_issue(article, 1, "kg")
+        )
+        dataset = StockIssueArticleResource().export(
+            StockIssueArticle.objects.filter(pk=line.pk)
+        )
+        dataset.dict = [{**row, "amount": "5"} for row in dataset.dict]
+
+        result = StockIssueArticleResource().import_data(dataset, dry_run=False)
+
+        self.assertTrue(result.has_validation_errors() or result.has_errors())
+        line.refresh_from_db()
+        self.assertEqual(line.amount, Decimal("1"))
+
+    def test_data_cleanup_keeps_unapproved_and_recent_documents(self):
+        article = Article.objects.create(article="Mouka", unit="kg")
+        old_date = timezone.localdate().replace(year=timezone.localdate().year - 2)
+        old_approved = self.approved_issue(article, 1, "kg", date_approved=old_date)
+        recent = self.approved_issue(
+            article,
+            1,
+            "kg",
+            date_approved=old_date.replace(year=old_date.year + 1),
+        )
+        old_open = StockIssue.objects.create(user_created=self.user)
+        StockIssue.objects.filter(pk=old_open.pk).update(
+            modified=timezone.now().replace(year=old_date.year - 1)
+        )
+        self.client.force_login(self.superuser)
+
+        self.client.post(reverse("kitchen:data_cleanup"))
+
+        self.assertFalse(StockIssue.objects.filter(pk=old_approved.pk).exists())
+        self.assertTrue(StockIssue.objects.filter(pk=recent.pk).exists())
+        self.assertTrue(StockIssue.objects.filter(pk=old_open.pk).exists())
+
+    def test_vat_deletion_cannot_cascade_into_approved_receipts(self):
+        receipt = StockReceipt.objects.create(user_created=self.user, approved=True)
+        line = StockReceiptArticle.objects.create(
+            stock_receipt=receipt,
+            article=Article.objects.create(article="Protected VAT", unit="kg"),
+            amount=1,
+            unit="kg",
+            price_without_vat=100,
+            vat=self.vat,
+        )
+
+        with self.assertRaises(ProtectedError):
+            self.vat.delete()
+
+        self.assertTrue(StockReceiptArticle.objects.filter(pk=line.pk).exists())
+
+    def test_vat_percentage_on_approved_receipts_is_locked_in_admin_and_import(self):
+        receipt = StockReceipt.objects.create(user_created=self.user, approved=True)
+        StockReceiptArticle.objects.create(
+            stock_receipt=receipt,
+            article=Article.objects.create(article="VAT history", unit="kg"),
+            amount=1,
+            unit="kg",
+            price_without_vat=100,
+            vat=self.vat,
+        )
+        request = RequestFactory().get("/")
+        request.user = self.superuser
+        vat_admin = VATAdmin(VAT, AdminSite())
+        self.assertIn("percentage", vat_admin.get_readonly_fields(request, self.vat))
+        dataset = VATResource().export(VAT.objects.filter(pk=self.vat.pk))
+        dataset.dict = [{**row, "percentage": 21} for row in dataset.dict]
+
+        result = VATResource().import_data(dataset, dry_run=False)
+
+        self.assertTrue(result.has_validation_errors() or result.has_errors())
+        self.vat.refresh_from_db()
+        self.assertEqual(self.vat.percentage, 0)
+        self.assertEqual(receipt.total_price, 100)
+
+    def test_stock_export_skips_unconvertible_lines(self):
+        article = Article.objects.create(
+            article="Vejce", unit="kg", on_stock=5, total_price=50
+        )
+        self.approved_issue(article, 2, "kg")
+        broken_issue = self.approved_issue(article, 3, "ks")
+        valid_article = Article.objects.create(
+            article="Valid stock", unit="kg", on_stock=5, total_price=50
+        )
+        self.approved_issue(valid_article, 2, "kg")
+        receipt = StockReceipt.objects.create(
+            user_created=self.user, approved=True, date_approved=timezone.localdate()
+        )
+        StockReceiptArticle.objects.create(
+            stock_receipt=receipt,
+            article=article,
+            amount=1,
+            unit="l",
+            price_without_vat=10,
+            vat=self.vat,
+        )
+        yesterday = timezone.localdate() - timedelta(days=1)
+
+        response = self.client.post(
+            reverse("kitchen:exportStockArticlesSelectedDay"),
+            {"date": yesterday.isoformat()},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        exported = {
+            row["article"]: row
+            for row in Dataset().load(response.content, format="xlsx").dict
+        }
+        self.assertIsNone(exported[article.article]["on_stock"])
+        self.assertIsNone(exported[article.article]["total_price"])
+        self.assertIn(
+            f"StockIssue #{broken_issue.pk}",
+            exported[article.article]["export_warning"],
+        )
+        self.assertIn(
+            f"StockReceipt #{receipt.pk}", exported[article.article]["export_warning"]
+        )
+        self.assertEqual(exported[valid_article.article]["on_stock"], 7)
+        self.assertEqual(exported[valid_article.article]["total_price"], 70)
+        warnings = [str(m) for m in response.wsgi_request._messages]
+        self.assertTrue(any("Vejce - 3.00 ks" in m for m in warnings), warnings)
+
+
 class DataImportExportTests(TransactionTestCase):
     reset_sequences = True
 
@@ -1648,6 +2200,35 @@ class DataImportExportTests(TransactionTestCase):
         article.save()
 
     def test_full_export_import_preserves_users_and_history(self):
+        article = Article.objects.get()
+        vat = VAT.objects.create(percentage=12, rate="Protected VAT")
+        receipt = StockReceipt.objects.create(
+            user_created=self.user,
+            user_approved=self.user,
+            approved=True,
+            date_approved=date(2026, 10, 4),
+        )
+        StockReceiptArticle.objects.create(
+            stock_receipt=receipt,
+            article=article,
+            vat=vat,
+            amount=1,
+            unit=article.unit,
+            price_without_vat=Decimal("12.3456"),
+        )
+        issue = StockIssue.objects.create(
+            user_created=self.user,
+            user_approved=self.user,
+            approved=True,
+            date_approved=date(2026, 10, 4),
+        )
+        StockIssueArticle.objects.create(
+            stock_issue=issue,
+            article=article,
+            amount=1,
+            unit=article.unit,
+            average_unit_price=Decimal("13.8271"),
+        )
         export_response = self.client.get(reverse("kitchen:export"))
         exported_objects = json.loads(export_response.content)
         exported_models = {item["model"] for item in exported_objects}
@@ -1664,6 +2245,15 @@ class DataImportExportTests(TransactionTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(get_user_model().objects.get(pk=12).username, "backup-admin")
         self.assertEqual(Article.objects.get().history.get().history_user_id, 12)
+        self.assertTrue(StockReceipt.objects.get(pk=receipt.pk).approved)
+        self.assertTrue(StockIssue.objects.get(pk=issue.pk).approved)
+        self.assertEqual(StockReceiptArticle.objects.get().vat_id, vat.pk)
+        self.assertEqual(
+            StockReceiptArticle.objects.get().price_without_vat, Decimal("12.3456")
+        )
+        self.assertEqual(
+            StockIssueArticle.objects.get().average_unit_price, Decimal("13.8271")
+        )
 
     def test_failed_import_does_not_erase_existing_data(self):
         export_response = self.client.get(reverse("kitchen:export"))
@@ -1700,6 +2290,19 @@ class DataImportExportTests(TransactionTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Article.objects.get().unit, "ks")
+
+    def test_full_import_does_not_store_dump_in_media_root(self):
+        export_response = self.client.get(reverse("kitchen:export"))
+        upload = SimpleUploadedFile(
+            "data.json", export_response.content, content_type="application/json"
+        )
+
+        with patch("django.core.files.storage.FileSystemStorage.save") as save:
+            response = self.client.post(reverse("kitchen:import"), {"myfile": upload})
+
+        self.assertEqual(response.status_code, 200)
+        save.assert_not_called()
+        self.assertEqual(Article.objects.get().article, "Imported article")
 
 
 # Helper factory for MealType to satisfy FK without importing fixtures

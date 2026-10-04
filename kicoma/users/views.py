@@ -9,17 +9,22 @@ User = get_user_model()
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
-
     model = User
     slug_field = "username"
     slug_url_kwarg = "username"
+
+    def get_queryset(self):
+        # other users' profiles are hidden (404) unless superuser
+        queryset = super().get_queryset()
+        if self.request.user.is_superuser:
+            return queryset
+        return queryset.filter(pk=self.request.user.pk)
 
 
 user_detail_view = UserDetailView.as_view()
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
-
     model = User
     fields = ["name"]
 
@@ -40,7 +45,6 @@ user_update_view = UserUpdateView.as_view()
 
 
 class UserRedirectView(LoginRequiredMixin, RedirectView):
-
     permanent = False
 
     def get_redirect_url(self):

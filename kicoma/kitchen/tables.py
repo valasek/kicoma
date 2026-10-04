@@ -73,6 +73,10 @@ def render_nutrition_facts(totals, is_total=False, missing=None):
     )
 
 
+def has_negative_stock(record):
+    return record.on_stock < 0 or (record.total_price or 0) < 0
+
+
 class ArticleTable(tables.Table):
     average_price = tables.Column(
         verbose_name=_("Průměrná jednotková cena s DPH"), orderable=False
@@ -92,6 +96,12 @@ class ArticleTable(tables.Table):
 
     @staticmethod
     def render_article(value, record):
+        if has_negative_stock(record):
+            value = format_html(
+                '<span title="{}">&#9888;</span> {}',
+                _("Záporný stav nebo cena na skladu"),
+                value,
+            )
         if record.nutrition_needs_piece_weight:
             return format_html(
                 '{} <span class="badge text-bg-warning">{}</span>',
@@ -121,6 +131,9 @@ class ArticleTable(tables.Table):
         model = Article
         template_name = "django_tables2/bootstrap5.html"
         attrs = table_attributes
+        row_attrs = {
+            "class": lambda record: "table-danger" if has_negative_stock(record) else ""
+        }
         fields = (
             "article",
             "on_stock",
@@ -192,7 +205,7 @@ class RecipeTable(tables.Table):
 
     @staticmethod
     def render_total_recipe_articles_price(value):
-        return f"{intcomma(value)} {get_currency()}"
+        return f"{intcomma(round(value, 0))} {get_currency()}"
 
     @staticmethod
     def render_allergens(record):
@@ -274,8 +287,10 @@ class RecipeArticleTable(tables.Table):
         return f"{format_unit_price(value)} {get_currency()} / {record.article.unit}"
 
     @staticmethod
-    def render_total_average_price(value):
-        return f"{intcomma(value)} {get_currency()}"
+    def render_total_average_price(value, record):
+        if isinstance(record, RecipeArticle):
+            return f"{format_unit_price(value)} {get_currency()}"
+        return f"{intcomma(round(value, 0))} {get_currency()}"
 
     @staticmethod
     def render_nutrition(record):
@@ -366,7 +381,9 @@ class DailyMenuRecipeTable(tables.Table):
     )
     change = tables.Column(empty_values=(), verbose_name=_("Akce"), orderable=False)
 
-    def __init__(self, *args, nutrition_per_portion=None, nutrition_missing=None, **kwargs):
+    def __init__(
+        self, *args, nutrition_per_portion=None, nutrition_missing=None, **kwargs
+    ):
         self.nutrition_per_portion = nutrition_per_portion
         self.nutrition_missing = nutrition_missing
         super().__init__(*args, **kwargs)

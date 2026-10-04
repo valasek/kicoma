@@ -1,7 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Div, Fieldset, Layout, Row
 from django import forms
-from django.utils.timezone import now
+from django.utils.timezone import localdate
 from django.utils.translation import gettext_lazy as _
 
 from .models import (
@@ -72,6 +72,8 @@ class ArticleForm(forms.ModelForm):
         group_names = set()
         if user is not None:
             group_names = set(user.groups.values_list("name", flat=True))
+            if user.is_superuser:
+                group_names.update(("stockkeeper", "nutrition_advisor"))
 
         editable_fields = set(self.common_fields)
         if "stockkeeper" in group_names:
@@ -195,7 +197,7 @@ class StockArticlesExportForm(forms.Form):
 
     def clean_date(self):
         value = self.cleaned_data["date"]
-        if value > now().date():
+        if value > localdate():
             raise forms.ValidationError(_("Datum nemůže být v budoucnosti."))
         return value
 

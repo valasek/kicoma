@@ -1,6 +1,7 @@
 """
 Base settings to build other settings files upon.
 """
+
 import os
 from pathlib import Path
 
@@ -40,8 +41,8 @@ USE_TZ = True
 LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 
 LANGUAGES = [
-    ('cs', _('Czech')),
-    ('en', _('English')),
+    ("cs", _("Czech")),
+    ("en", _("English")),
 ]
 
 # DATABASES
@@ -49,15 +50,17 @@ LANGUAGES = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 # Local SQLite DB
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(ROOT_DIR, 'storage/kicoma.sqlite3'),
-        'OPTIONS': {
-            'init_command': 'PRAGMA journal_mode=wal; PRAGMA synchronous=1; PRAGMA mmap_size=134217728; PRAGMA journal_size_limit=67108864; PRAGMA cache_size=2000;',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(ROOT_DIR, "storage/kicoma.sqlite3"),
+        "OPTIONS": {
+            # same transaction behavior as production (ATOMIC_REQUESTS takes the write lock upfront)
+            "transaction_mode": "IMMEDIATE",
+            "init_command": "PRAGMA journal_mode=wal; PRAGMA synchronous=1; PRAGMA mmap_size=134217728; PRAGMA journal_size_limit=67108864; PRAGMA cache_size=2000;",
         },
     }
 }
-# DATABASES["default"]["ATOMIC_REQUESTS"] = True
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # Local PostgreSQL as defined
 # DATABASES = {
 #     'default': {
@@ -71,7 +74,7 @@ DATABASES = {
 # }
 # Local PostgreSQL as defined via command line
 # DATABASES = {
-    # 'default': env.db('DATABASE_URL'),  # noqa F405
+# 'default': env.db('DATABASE_URL'),  # noqa F405
 # }
 
 # URLS
@@ -100,10 +103,10 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    'import_export',
-    'django_tables2',
-    'django_filters',
-    'django_bootstrap5',
+    "import_export",
+    "django_tables2",
+    "django_filters",
+    "django_bootstrap5",
     "simple_history",
 ]
 
@@ -111,7 +114,7 @@ LOCAL_APPS = [
     "kicoma.users",
     # Your stuff: custom apps go here
     "kicoma.kitchen",
-    "kicoma.common"
+    "kicoma.common",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -167,7 +170,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
     "allauth.account.middleware.AccountMiddleware",
-    # "kicoma.middleware.DailyJobMiddleware",
 ]
 
 # STATIC
@@ -275,7 +277,7 @@ LOGGING = {
     "formatters": {
         "verbose": {
             "format": "%(levelname)s %(asctime)s %(module)s "
-                      "%(process)d %(thread)d %(message)s"
+            "%(process)d %(thread)d %(message)s"
         }
     },
     "handlers": {
@@ -292,8 +294,16 @@ LOGGING = {
         "weasyprint": {"level": "ERROR", "handlers": ["console"], "propagate": False},
         # FontTools is used by WeasyPrint and can be very chatty
         "fontTools": {"level": "ERROR", "handlers": ["console"], "propagate": False},
-        "fontTools.subset": {"level": "ERROR", "handlers": ["console"], "propagate": False},
-        "fontTools.ttLib": {"level": "ERROR", "handlers": ["console"], "propagate": False},
+        "fontTools.subset": {
+            "level": "ERROR",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        "fontTools.ttLib": {
+            "level": "ERROR",
+            "handlers": ["console"],
+            "propagate": False,
+        },
     },
 }
 
@@ -303,10 +313,10 @@ LOGGING = {
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 # ACCOUNT_AUTHENTICATION_METHOD = "username" # deprecated in Django 5.2
-ACCOUNT_LOGIN_METHODS = {'username'}
+ACCOUNT_LOGIN_METHODS = {"username"}
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 # ACCOUNT_EMAIL_REQUIRED = True # deprecated in Django 5.2
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
+ACCOUNT_SIGNUP_FIELDS = ["email*", "username*", "password1*", "password2*"]
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 # ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_VERIFICATION = "none"
@@ -322,7 +332,7 @@ SOCIALACCOUNT_ADAPTER = "kicoma.users.adapters.SocialAccountAdapter"
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 PAGINATE_BY = 30
 
 # due to https://github.com/django-crispy-forms/crispy-bootstrap5

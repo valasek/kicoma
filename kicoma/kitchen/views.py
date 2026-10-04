@@ -1,5 +1,6 @@
 import io
 import logging
+import tempfile
 from collections import defaultdict
 from contextlib import redirect_stdout
 from datetime import datetime
@@ -15,7 +16,6 @@ from django.contrib.auth.models import ContentType, Group, Permission
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core import management
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.core.files.storage import FileSystemStorage
 from django.db import connection, transaction
 from django.db.models import Count, F, Max, Prefetch, ProtectedError, Sum
 from django.db.models.functions import ExtractYear, Lower
@@ -23,7 +23,8 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedire
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
-from django.utils import formats, translation
+from django.utils import formats, timezone, translation
+from django.utils.decorators import method_decorator
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -37,7 +38,6 @@ from django_tables2 import SingleTableMixin
 from tablib import Dataset
 from weasyprint import HTML
 
-from kicoma.kitchen import daily_job
 from kicoma.users.models import User
 
 from .admin import ArticleResource
@@ -280,6 +280,7 @@ class SuperuserRequiredMixin(UserPassesTestMixin):
         return self.request.user.is_superuser
 
 
+@method_decorator(transaction.non_atomic_requests, name="dispatch")
 class ImportDataView(SuperuserRequiredMixin, TemplateView):
     template_name = "kitchen/import.html"
 
@@ -292,90 +293,77 @@ class ImportDataView(SuperuserRequiredMixin, TemplateView):
             )
             return super().render_to_response(context)
         uploaded_file = request.FILES["myfile"]
-        fs = FileSystemStorage()
-        filename = fs.save(uploaded_file.name, uploaded_file)
         f = io.StringIO()
-        try:
-            with transaction.atomic(), redirect_stdout(f):
-                management.call_command("flush", interactive=False, verbosity=1)
-                management.call_command("loaddata", fs.path(filename), verbosity=1)
-                messages.success(
-                    self.request, _("Data úspěšně nahrána: ") + f.getvalue()
+        with tempfile.NamedTemporaryFile(suffix=".json") as dump:
+            for chunk in uploaded_file.chunks():
+                dump.write(chunk)
+            dump.flush()
+            try:
+                with transaction.atomic(), redirect_stdout(f):
+                    management.call_command("flush", interactive=False, verbosity=1)
+                    management.call_command("loaddata", dump.name, verbosity=1)
+                    messages.success(
+                        self.request, _("Data úspěšně nahrána: ") + f.getvalue()
+                    )
+            except Exception as e:
+                messages.error(
+                    self.request, _("Chyba při výmazu dat před importem: ") + str(e)
                 )
-        except Exception as e:
-            messages.error(
-                self.request, _("Chyba při výmazu dat před importem: ") + str(e)
-            )
-        finally:
-            fs.delete(filename)
         return super().render_to_response(context)
 
 
 class DataCleanUpView(SuccessMessageMixin, SuperuserRequiredMixin, TemplateView):
     template_name = "kitchen/data_cleanup.html"
 
+    @staticmethod
+    def cutoff_year():
+        # records from this year and older are deleted
+        return timezone.localdate().year - 2
+
+    @staticmethod
+    def year_counts(queryset, date_field):
+        return (
+            queryset.annotate(year=ExtractYear(date_field))
+            .values("year")
+            .annotate(count=Count("id"))
+            .order_by("year")
+        )
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        two_years_ago = datetime.now().year - 2
-        stockreceipts_year_counts = (
-            StockReceipt.objects.annotate(year=ExtractYear("modified"))
-            .values("year")
-            .annotate(count=Count("id"))
-            .order_by("year")
+        context["stockreceipts_year_counts"] = self.year_counts(
+            StockReceipt.objects.all(), "date_approved"
         )
-        stockreceiptarticles_year_counts = (
-            StockReceiptArticle.objects.annotate(year=ExtractYear("modified"))
-            .values("year")
-            .annotate(count=Count("id"))
-            .order_by("year")
+        context["stockreceiptarticles_year_counts"] = self.year_counts(
+            StockReceiptArticle.objects.all(), "stock_receipt__date_approved"
         )
-        stockissues_year_counts = (
-            StockIssue.objects.annotate(year=ExtractYear("modified"))
-            .values("year")
-            .annotate(count=Count("id"))
-            .order_by("year")
+        context["stockissues_year_counts"] = self.year_counts(
+            StockIssue.objects.all(), "date_approved"
         )
-        stockissuearticles_year_counts = (
-            StockIssueArticle.objects.annotate(year=ExtractYear("modified"))
-            .values("year")
-            .annotate(count=Count("id"))
-            .order_by("year")
+        context["stockissuearticles_year_counts"] = self.year_counts(
+            StockIssueArticle.objects.all(), "stock_issue__date_approved"
         )
-        dailymenu_year_counts = (
-            DailyMenu.objects.annotate(year=ExtractYear("modified"))
-            .values("year")
-            .annotate(count=Count("id"))
-            .order_by("year")
+        context["dailymenu_year_counts"] = self.year_counts(
+            DailyMenu.objects.all(), "date"
         )
-        dailymenuarticles_year_counts = (
-            DailyMenuRecipe.objects.annotate(year=ExtractYear("modified"))
-            .values("year")
-            .annotate(count=Count("id"))
-            .order_by("year")
+        context["dailymenuarticles_year_counts"] = self.year_counts(
+            DailyMenuRecipe.objects.all(), "daily_menu__date"
         )
-        historicalarticles_year_counts = (
-            HistoricalArticle.objects.annotate(year=ExtractYear("modified"))
-            .values("year")
-            .annotate(count=Count("id"))
-            .order_by("year")
+        context["historicalarticles_year_counts"] = self.year_counts(
+            HistoricalArticle.objects.all(), "history_date"
         )
-        context["stockreceipts_year_counts"] = stockreceipts_year_counts
-        context["stockreceiptarticles_year_counts"] = stockreceiptarticles_year_counts
-        context["stockissues_year_counts"] = stockissues_year_counts
-        context["stockissuearticles_year_counts"] = stockissuearticles_year_counts
-        context["dailymenu_year_counts"] = dailymenu_year_counts
-        context["dailymenuarticles_year_counts"] = dailymenuarticles_year_counts
-        context["two_years_ago"] = two_years_ago
-        context["historicalarticles_year_counts"] = historicalarticles_year_counts
+        context["two_years_ago"] = self.cutoff_year()
         return context
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
-        year_ago = datetime.now().year - 1
+        cutoff_year = self.cutoff_year()
         try:
-            deleted_historical_articles_count, _ = HistoricalArticle.objects.filter(
-                modified__year__lt=year_ago
-            ).delete()
+            deleted_historical_articles_count, _deleted = (
+                HistoricalArticle.objects.filter(
+                    history_date__year__lte=cutoff_year
+                ).delete()
+            )
             if deleted_historical_articles_count > 0:
                 messages.success(
                     self.request,
@@ -385,18 +373,19 @@ class DataCleanUpView(SuccessMessageMixin, SuperuserRequiredMixin, TemplateView)
                         deleted_historical_articles_count=deleted_historical_articles_count
                     ),
                 )
-            deleted_stock_issues_count, _ = StockIssue.objects.filter(
-                modified__year__lt=year_ago
+            # unapproved documents are kept, they may still be approved
+            deleted_stock_issues_count, _deleted = StockIssue.objects.filter(
+                approved=True, date_approved__year__lte=cutoff_year
             ).delete()
             if deleted_stock_issues_count > 0:
                 messages.success(
                     self.request,
                     _(
-                        f"Výdejky, úspěšne vymazáno: {deleted_stock_issues_count} záznamů"
+                        "Výdejky, úspěšne vymazáno: {deleted_stock_issues_count} záznamů"
                     ).format(deleted_stock_issues_count=deleted_stock_issues_count),
                 )
-            deleted_stock_receipts_count, _ = StockReceipt.objects.filter(
-                modified__year__lt=year_ago
+            deleted_stock_receipts_count, _deleted = StockReceipt.objects.filter(
+                approved=True, date_approved__year__lte=cutoff_year
             ).delete()
             if deleted_stock_receipts_count > 0:
                 messages.success(
@@ -405,8 +394,8 @@ class DataCleanUpView(SuccessMessageMixin, SuperuserRequiredMixin, TemplateView)
                         "Příjemky, úspěšne vymazáno: {deleted_stock_receipts_count} záznamů"
                     ).format(deleted_stock_receipts_count=deleted_stock_receipts_count),
                 )
-            daily_menus_count, _ = DailyMenu.objects.filter(
-                modified__year__lt=year_ago
+            daily_menus_count, _deleted = DailyMenu.objects.filter(
+                date__year__lte=cutoff_year
             ).delete()
             if daily_menus_count > 0:
                 messages.success(
@@ -719,12 +708,13 @@ class ArticleExportInSelectedDaysFilter(CookOrStockkeeperRequiredMixin, FormView
 
         issue_amount_by_article = defaultdict(lambda: Decimal("0"))
         issue_value_by_article = defaultdict(lambda: Decimal("0"))
+        skipped_lines = []
         for row in issues_after:
             try:
                 converted_amount = convert_units(row.amount, row.unit, row.article.unit)
-            except ValidationError as err:
-                messages.warning(self.request, err.message)
-                return super().form_invalid(form)
+            except ValidationError:
+                skipped_lines.append(row)
+                continue
             issue_amount_by_article[row.article_id] += Decimal(converted_amount)
             issue_value_by_article[row.article_id] += Decimal(
                 row.total_average_price_with_vat or 0
@@ -735,17 +725,33 @@ class ArticleExportInSelectedDaysFilter(CookOrStockkeeperRequiredMixin, FormView
         for row in receipts_after:
             try:
                 converted_amount = convert_units(row.amount, row.unit, row.article.unit)
-            except ValidationError as err:
-                messages.warning(self.request, err.message)
-                return super().form_invalid(form)
+            except ValidationError:
+                skipped_lines.append(row)
+                continue
             receipt_amount_by_article[row.article_id] += Decimal(converted_amount)
             receipt_value_by_article[row.article_id] += Decimal(
                 row.total_price_with_vat or 0
             )
 
+        incomplete_articles = defaultdict(list)
+        for line in skipped_lines:
+            document = (
+                line.stock_issue
+                if isinstance(line, StockIssueArticle)
+                else line.stock_receipt
+            )
+            incomplete_articles[line.article_id].append(
+                f"{type(document).__name__} #{document.pk}, "
+                f"{type(line).__name__} #{line.pk}: {line.amount} {line.unit}"
+            )
+
         # Prepare in-memory Article objects with historical values as of selected_date
         articles = list(Article.objects.all())
         for a in articles:
+            if a.pk in incomplete_articles:
+                a.on_stock = None
+                a.total_price = None
+                continue
             current_stock = a.on_stock or Decimal("0")
             current_value = a.total_price or Decimal("0")
             a.on_stock = (
@@ -760,6 +766,17 @@ class ArticleExportInSelectedDaysFilter(CookOrStockkeeperRequiredMixin, FormView
             )
 
         data = ArticleResource().export(articles)
+        if incomplete_articles:
+            data.append_col(
+                [
+                    str(_("Stav nelze určit: "))
+                    + "; ".join(incomplete_articles[article.pk])
+                    if article.pk in incomplete_articles
+                    else ""
+                    for article in articles
+                ],
+                header="export_warning",
+            )
         response = HttpResponse(
             data.xlsx,
             content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -770,8 +787,30 @@ class ArticleExportInSelectedDaysFilter(CookOrStockkeeperRequiredMixin, FormView
         response["Content-Disposition"] = f"attachment; filename={filename}"
         messages.success(
             self.request,
-            _("Seznam zboží na skladu ke dni {selected_date} byl exportován"),
+            _("Seznam zboží na skladu ke dni {selected_date} byl exportován").format(
+                selected_date=selected_date
+            ),
         )
+        if skipped_lines:
+            messages.warning(
+                self.request,
+                format_html(
+                    "{}<br/>{}",
+                    _(
+                        "Následující řádky mají jednotku, kterou nelze převést na "
+                        "jednotku skladu, a v exportu nejsou započteny. Opravte je "
+                        "(report nesprávných jednotek):"
+                    ),
+                    format_html_join(
+                        mark_safe("<br/>"),
+                        "{} - {} {}",
+                        (
+                            (line.article, line.amount, line.unit)
+                            for line in skipped_lines
+                        ),
+                    ),
+                ),
+            )
         return response
 
 
@@ -1694,21 +1733,17 @@ class StockIssueApproveView(StockkeeperRequiredMixin, TemplateView):
                     "kitchen:showStockIssues",
                 )
             )
-        if stock_issue.total_price <= 0:
-            messages.warning(
-                self.request,
-                _("Vyskladnění neprovedeno - nulová cena zboží, je zboží naskladněno?"),
-            )
-            return HttpResponseRedirect(
-                reverse_lazy(
-                    "kitchen:showStockIssues",
-                )
-            )
         with transaction.atomic():
-            stock_issue.approved = True
-            stock_issue.date_approved = datetime.now()
-            stock_issue.user_approved = self.request.user
             StockIssue.update_stock_issue_article_average_unit_price(stock_issue.id)
+            if stock_issue.total_price <= 0:
+                messages.warning(
+                    self.request,
+                    _(
+                        "Vyskladnění neprovedeno - nulová cena zboží, je zboží naskladněno?"
+                    ),
+                )
+                transaction.set_rollback(True)
+                return HttpResponseRedirect(reverse_lazy("kitchen:showStockIssues"))
             errors = StockIssue.update_article_on_stock(
                 stock_issue.id, stock_issue.comment, True
             )
@@ -1718,9 +1753,12 @@ class StockIssueApproveView(StockkeeperRequiredMixin, TemplateView):
                     format_html(
                         "{}<br/>{}",
                         _("Níže uvedené zboží není možné vyskladnit:"),
-                        format_html_join(mark_safe("<br/>"), "{}", ((e,) for e in errors)),
+                        format_html_join(
+                            mark_safe("<br/>"), "{}", ((e,) for e in errors)
+                        ),
                     ),
                 )
+                transaction.set_rollback(True)
                 return HttpResponseRedirect(
                     reverse_lazy(
                         "kitchen:approveStockIssue", kwargs={"pk": self.kwargs["pk"]}
@@ -1729,6 +1767,9 @@ class StockIssueApproveView(StockkeeperRequiredMixin, TemplateView):
             StockIssue.update_article_on_stock(
                 stock_issue.id, stock_issue.comment, False
             )
+            stock_issue.approved = True
+            stock_issue.date_approved = timezone.localdate()
+            stock_issue.user_approved = self.request.user
             stock_issue.save(
                 update_fields=(
                     "approved",
@@ -2032,7 +2073,7 @@ class StockReceiptApproveView(StockkeeperRequiredMixin, TemplateView):
             )
         with transaction.atomic():
             stock_receipt.approved = True
-            stock_receipt.date_approved = datetime.now()
+            stock_receipt.date_approved = timezone.localdate()
             stock_receipt.user_approved = self.request.user
             StockReceipt.update_article_on_stock(
                 stock_receipt.id, stock_receipt.comment
@@ -2229,10 +2270,10 @@ def stock_issues_receipts_data(month):
     stock_receipts = StockReceipt.objects.filter(
         date_approved__year=month_year, date_approved__month=month_month
     )
-    stock_issues_price = -1
+    stock_issues_price = 0
     for si in stock_issues:
         stock_issues_price += si.total_price
-    stock_receipts_price = -1
+    stock_receipts_price = 0
     for sr in stock_receipts:
         stock_receipts_price += sr.total_price
     return {
@@ -2325,8 +2366,6 @@ class IncorrectUnitsListView(SingleTableMixin, AnyRoleRequiredMixin, ListView):
                         "articles": articles_to_fix,
                     }
                 )
-        # update message
-        daily_job.run_daily_job()
         return items_to_fix
 
     def get_context_data(self, **kwargs):

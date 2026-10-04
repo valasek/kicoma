@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 from import_export import fields, resources, widgets
@@ -39,6 +39,20 @@ class VATResource(resources.ModelResource):
         skip_unchanged = True
         report_skipped = True
 
+    def before_save_instance(self, instance, row, **kwargs):
+        if (
+            instance.pk
+            and StockReceiptArticle.objects.filter(
+                vat_id=instance.pk, stock_receipt__approved=True
+            ).exists()
+        ):
+            old_percentage = VAT.objects.get(pk=instance.pk).percentage
+            if old_percentage != instance.percentage:
+                raise ValidationError(
+                    _("Sazbu DPH použitou na schválené příjemce nelze změnit.")
+                )
+        super().before_save_instance(instance, row, **kwargs)
+
 
 class AllergenResource(resources.ModelResource):
     class Meta:
@@ -53,12 +67,45 @@ class StockIssueResource(resources.ModelResource):
         skip_unchanged = True
         report_skipped = True
 
+    def before_save_instance(self, instance, row, **kwargs):
+        reject_approval_change(instance)
+        super().before_save_instance(instance, row, **kwargs)
+
+    def before_delete_instance(self, instance, row, **kwargs):
+        reject_approval_change(instance, deleting=True)
+        super().before_delete_instance(instance, row, **kwargs)
+
 
 class StockReceiptResource(resources.ModelResource):
     class Meta:
         model = StockReceipt
         skip_unchanged = True
         report_skipped = True
+
+    def before_save_instance(self, instance, row, **kwargs):
+        reject_approval_change(instance)
+        super().before_save_instance(instance, row, **kwargs)
+
+    def before_delete_instance(self, instance, row, **kwargs):
+        reject_approval_change(instance, deleting=True)
+        super().before_delete_instance(instance, row, **kwargs)
+
+
+def reject_approval_change(document, deleting=False):
+    stored_approved = (
+        type(document)
+        .objects.filter(pk=document.pk)
+        .values_list("approved", flat=True)
+        .first()
+        if document.pk
+        else None
+    )
+    if stored_approved or (not deleting and document.approved):
+        raise ValidationError(
+            _("Schválený doklad nelze importem změnit ani smazat ({document}).").format(
+                document=document
+            )
+        )
 
 
 class MealTypeResource(resources.ModelResource):
@@ -161,12 +208,111 @@ class StockIssueArticleResource(resources.ModelResource):
         skip_unchanged = True
         report_skipped = True
 
+    def before_save_instance(self, instance, row, **kwargs):
+        reject_approved_line_change(instance, "stock_issue")
+        super().before_save_instance(instance, row, **kwargs)
+
+    def before_delete_instance(self, instance, row, **kwargs):
+        reject_approved_line_change(instance, "stock_issue")
+        super().before_delete_instance(instance, row, **kwargs)
+
 
 class StockReceiptArticleResource(resources.ModelResource):
     class Meta:
         model = StockReceiptArticle
         skip_unchanged = True
         report_skipped = True
+
+    def before_save_instance(self, instance, row, **kwargs):
+        reject_approved_line_change(instance, "stock_receipt")
+        super().before_save_instance(instance, row, **kwargs)
+
+    def before_delete_instance(self, instance, row, **kwargs):
+        reject_approved_line_change(instance, "stock_receipt")
+        super().before_delete_instance(instance, row, **kwargs)
+
+
+def line_document_approved(line, document_field):
+    """True when the line's new or stored document is approved."""
+    model = type(line)
+    document_ids = {getattr(line, f"{document_field}_id")}
+    if line.pk:
+        document_ids.add(
+            model.objects.filter(pk=line.pk)
+            .values_list(f"{document_field}_id", flat=True)
+            .first()
+        )
+    document_model = model._meta.get_field(document_field).related_model
+    return document_model.objects.filter(
+        pk__in=[pk for pk in document_ids if pk], approved=True
+    ).exists()
+
+
+def reject_approved_line_change(line, document_field):
+    if line_document_approved(line, document_field):
+        raise ValidationError(
+            _("Řádek schváleného dokladu nelze změnit ani smazat ({line}).").format(
+                line=line
+            )
+        )
+
+
+class ApprovedDocumentAdminMixin:
+    """Approved receipts/issues and their lines are read-only, stock is not recalculated here."""
+
+    document_field = None
+
+    def is_approved(self, obj):
+        if obj is None:
+            return False
+        if self.document_field is None:
+            return bool(obj.approved)
+        return line_document_approved(obj, self.document_field)
+
+    def has_change_permission(self, request, obj=None):
+        if self.is_approved(obj):
+            return False
+        return super().has_change_permission(request, obj)
+
+    def has_delete_permission(self, request, obj=None):
+        if self.is_approved(obj):
+            return False
+        return super().has_delete_permission(request, obj)
+
+    def get_approved_filter(self):
+        if self.document_field is None:
+            return {"approved": True}
+        return {f"{self.document_field}__approved": True}
+
+    def delete_queryset(self, request, queryset):
+        approved = queryset.filter(**self.get_approved_filter())
+        if approved.exists():
+            self.message_user(
+                request,
+                _("Schválené doklady a jejich řádky nebyly smazány: {count}").format(
+                    count=approved.count()
+                ),
+                level=messages.WARNING,
+            )
+        super().delete_queryset(request, queryset.exclude(**self.get_approved_filter()))
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        document_field = self.document_field
+        if document_field is None or document_field not in form.base_fields:
+            return form
+        # a line cannot be added to an approved document
+        form.base_fields[document_field].queryset = form.base_fields[
+            document_field
+        ].queryset.exclude(approved=True)
+        return form
+
+    def get_readonly_fields(self, request, obj=None):
+        readonly = super().get_readonly_fields(request, obj)
+        if self.document_field is None:
+            # approval only through the application, it changes the stock
+            return (*readonly, "approved", "date_approved", "user_approved")
+        return readonly
 
 
 # integrate import/export into admin
@@ -180,6 +326,17 @@ class AppSettingsAdmin(ImportExportActionModelAdmin):
 
 @admin.register(VAT)
 class VATAdmin(ImportExportActionModelAdmin):
+    def get_readonly_fields(self, request, obj=None):
+        readonly = super().get_readonly_fields(request, obj)
+        if (
+            obj
+            and StockReceiptArticle.objects.filter(
+                vat=obj, stock_receipt__approved=True
+            ).exists()
+        ):
+            return (*readonly, "percentage")
+        return readonly
+
     list_display = (
         "percentage",
         "rate",
@@ -284,7 +441,7 @@ class DailyMenuRecipeAdmin(ImportExportActionModelAdmin):
 
 
 @admin.register(StockIssue)
-class StockIssueAdmin(ImportExportActionModelAdmin):
+class StockIssueAdmin(ApprovedDocumentAdminMixin, ImportExportActionModelAdmin):
     list_display = (
         "user_created",
         "approved",
@@ -301,7 +458,7 @@ class StockIssueAdmin(ImportExportActionModelAdmin):
 
 
 @admin.register(StockReceipt)
-class StockReceiptAdmin(ImportExportActionModelAdmin):
+class StockReceiptAdmin(ApprovedDocumentAdminMixin, ImportExportActionModelAdmin):
     list_display = (
         "user_created",
         "approved",
@@ -318,7 +475,8 @@ class StockReceiptAdmin(ImportExportActionModelAdmin):
 
 
 @admin.register(StockIssueArticle)
-class StockIssueArticleAdmin(ImportExportActionModelAdmin):
+class StockIssueArticleAdmin(ApprovedDocumentAdminMixin, ImportExportActionModelAdmin):
+    document_field = "stock_issue"
     list_display = (
         "stock_issue",
         "article",
@@ -336,7 +494,10 @@ class StockIssueArticleAdmin(ImportExportActionModelAdmin):
 
 
 @admin.register(StockReceiptArticle)
-class StockReceiptArticleAdmin(ImportExportActionModelAdmin):
+class StockReceiptArticleAdmin(
+    ApprovedDocumentAdminMixin, ImportExportActionModelAdmin
+):
+    document_field = "stock_receipt"
     list_display = (
         "stock_receipt",
         "article",

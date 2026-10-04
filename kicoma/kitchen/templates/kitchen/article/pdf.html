@@ -14,8 +14,8 @@
     </thead>
     <tbody>
     {% for article in articles %}
-      <tr>
-        <td scope="row" class="text-start">{{article.article}}</td>
+      <tr{% if article.on_stock < 0 or article.total_price < 0 %} style="color: red;"{% endif %}>
+        <td scope="row" class="text-start">{% if article.on_stock < 0 or article.total_price < 0 %}&#9888; {% endif %}{{article.article}}</td>
         <td>{{article.on_stock}} {{article.unit}}</td>
         <td>{{article.min_on_stock}} {{article.unit}}</td>
         <td>{{article.average_price|unit_price}} {{ CURRENCY }} / {{article.unit}}</td>

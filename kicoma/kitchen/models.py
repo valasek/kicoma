@@ -1,7 +1,7 @@
-import datetime
-from decimal import Decimal
+from decimal import ROUND_HALF_UP, Decimal
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models, transaction
 from django.db.models import Count, F, Min, Sum, UniqueConstraint
@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from simple_history.models import HistoricalRecords
 from simple_history.utils import bulk_update_with_history
 
-from .functions import convert_units, quantize_unit_price, total_recipe_article_price
+from .functions import convert_units, quantize_unit_price
 from .managers import CollatableManager
 
 UNIT = (
@@ -319,10 +319,11 @@ class Article(TimeStampedModel):
         verbose_name=_("Hmotnost kusu"),
         help_text=_("Pro zboží v ks: hmotnost nebo objem jednoho kusu"),
     )
-    piece_weight_unit = models.CharField(
+    piece_weight_unit = models.CharField(  # noqa: DJ001 - nullable in migration 0031
         max_length=2,
         choices=PIECE_WEIGHT_UNIT,
         blank=True,
+        null=True,
         verbose_name=_("Jednotka hmotnosti kusu"),
     )
     comment = models.CharField(
@@ -397,7 +398,8 @@ class Recipe(TimeStampedModel):
         help_text=_("Název receptu"),
     )
     norm_amount = models.PositiveSmallIntegerField(
-        validators=[MaxValueValidator(1000)], verbose_name=_("Porcí")
+        validators=[MinValueValidator(1), MaxValueValidator(1000)],
+        verbose_name=_("Porcí"),
     )
     procedure = models.TextField(
         max_length=1000, blank=True, default="", verbose_name=_("Postup receptu")
@@ -505,7 +507,7 @@ class RecipeArticle(TimeStampedModel):
     amount = models.DecimalField(
         decimal_places=2,
         max_digits=10,
-        validators=[MinValueValidator(Decimal("0.1"))],
+        validators=[MinValueValidator(Decimal("0.01"))],
         verbose_name=_("Množství"),
         help_text=_("Množství suroviny"),
     )
@@ -559,7 +561,7 @@ class RecipeArticle(TimeStampedModel):
             converted = convert_units(self.amount, self.unit, self.article.unit)
         except Exception:
             converted = 0
-        return round(converted * self.article.average_price, 0)
+        return round(converted * self.article.average_price, 2)
 
 
 class Menu(TimeStampedModel):
@@ -767,7 +769,7 @@ class StockIssue(TimeStampedModel):
 
     user_created = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name="user_is_created",
         verbose_name=_("Vytvořil"),
     )
@@ -779,7 +781,7 @@ class StockIssue(TimeStampedModel):
     )
     user_approved = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         blank=True,
         null=True,
         related_name="user_is_approved",
@@ -800,7 +802,8 @@ class StockIssue(TimeStampedModel):
         stock_issue_articles = StockIssueArticle.objects.select_related(
             "article"
         ).filter(stock_issue=self.id)
-        return round(total_recipe_article_price(stock_issue_articles, 1), 0)
+        # sum of rounded lines, same as the stock value change on approval
+        return sum(line.total_average_price_with_vat for line in stock_issue_articles)
 
     def consolidate_by_article(self):
         # select all articles where count > 1
@@ -847,15 +850,23 @@ class StockIssue(TimeStampedModel):
             daily_menu_recipes = DailyMenuRecipe.objects.select_related(
                 "recipe"
             ).filter(daily_menu__in=daily_menus)
+            article_totals = {}
             for daily_menu_recipe in daily_menu_recipes:
-                recipe_articles = RecipeArticle.objects.filter(
-                    recipe_id=daily_menu_recipe.recipe_id
-                )
+                recipe_articles = RecipeArticle.objects.select_related(
+                    "article"
+                ).filter(recipe_id=daily_menu_recipe.recipe_id)
+                norm_amount = daily_menu_recipe.recipe.norm_amount
+                if not norm_amount:
+                    raise ValidationError(
+                        _("Recept {recipe} má nulový počet porcí").format(
+                            recipe=daily_menu_recipe.recipe
+                        )
+                    )
                 for recipe_article in recipe_articles:
                     # get the coefficient between daily menu amount and recipe amount
                     recipe_article_coefficient = Decimal(
-                        daily_menu_recipe.amount / recipe_article.recipe.norm_amount
-                    )
+                        daily_menu_recipe.amount
+                    ) / Decimal(norm_amount)
                     recipe_article_amount = (
                         convert_units(
                             recipe_article.amount,
@@ -864,16 +875,25 @@ class StockIssue(TimeStampedModel):
                         )
                         * recipe_article_coefficient
                     )
-                    stock_issue_article = StockIssueArticle(
-                        stock_issue=stock_issue,
-                        article=recipe_article.article,
-                        amount=recipe_article_amount,
-                        unit=recipe_article.article.unit,
-                        average_unit_price=recipe_article.article.average_price,
-                        comment="",
+                    total = article_totals.setdefault(
+                        recipe_article.article_id,
+                        [recipe_article.article, Decimal("0")],
                     )
-                    stock_issue_article.save()
-            count = stock_issue.consolidate_by_article()
+                    total[1] += recipe_article_amount
+            count = 0
+            for article, amount in article_totals.values():
+                amount = amount.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+                if not amount:
+                    continue
+                StockIssueArticle.objects.create(
+                    stock_issue=stock_issue,
+                    article=article,
+                    amount=amount,
+                    unit=article.unit,
+                    average_unit_price=article.average_price,
+                    comment="",
+                )
+                count += 1
         return count
 
     @staticmethod
@@ -908,27 +928,31 @@ class StockIssue(TimeStampedModel):
         )
         messages = []
         changes = []
+        issued = {}
         for stock_article in stock_articles:
             article = stock_article.article
             converted_amount = convert_units(
                 stock_article.amount, stock_article.unit, article.unit
             )
+            delta_amount = Decimal(round(converted_amount, 2))
+            total = issued.setdefault(article.pk, [article, Decimal("0")])
+            total[1] += delta_amount
+            if not fake:
+                delta_price = Decimal(
+                    round(stock_article.total_average_price_with_vat, 0)
+                )
+                changes.append((article, -delta_amount, -delta_price))
+        for article, converted_amount in issued.values():
             if article.on_stock < 0 or article.on_stock - converted_amount < 0:
                 messages.append(
                     _(
                         "{article} - na výdejce {converted_amount}, na skladu {on_stock}"
                     ).format(
-                        article=stock_article.article,
+                        article=article,
                         converted_amount=converted_amount,
                         on_stock=article.on_stock,
                     )
                 )
-            if not fake:
-                delta_amount = Decimal(round(converted_amount, 2))
-                delta_price = Decimal(
-                    round(stock_article.total_average_price_with_vat, 0)
-                )
-                changes.append((article, -delta_amount, -delta_price))
         _apply_article_stock_changes(changes, _("Výdej"), comment)
         return messages
 
@@ -940,11 +964,11 @@ class StockReceipt(TimeStampedModel):
         ordering = ["-created"]
 
     date_created = models.DateField(
-        default=datetime.date.today, verbose_name=_("Datum založení")
+        default=timezone.localdate, verbose_name=_("Datum založení")
     )
     user_created = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name="user_created",
         verbose_name=_("Vytvořil"),
     )
@@ -956,7 +980,7 @@ class StockReceipt(TimeStampedModel):
     )
     user_approved = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         blank=True,
         null=True,
         related_name="user_approved",
@@ -1063,7 +1087,7 @@ class StockReceiptArticle(TimeStampedModel):
     amount = models.DecimalField(
         decimal_places=2,
         max_digits=8,
-        validators=[MinValueValidator(Decimal("0.1"))],
+        validators=[MinValueValidator(Decimal("0.01"))],
         verbose_name=_("Množství"),
     )
     unit = models.CharField(max_length=2, choices=UNIT, verbose_name=_("Jednotka"))
@@ -1074,7 +1098,7 @@ class StockReceiptArticle(TimeStampedModel):
         verbose_name=_("Jednotková cena bez DPH"),
     )
     vat = models.ForeignKey(
-        VAT, default=4, on_delete=models.CASCADE, verbose_name=_("DPH")
+        VAT, default=4, on_delete=models.PROTECT, verbose_name=_("DPH")
     )
     comment = models.CharField(
         max_length=200, blank=True, default="", verbose_name=_("Poznámka")
