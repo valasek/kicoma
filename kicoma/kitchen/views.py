@@ -1,3 +1,4 @@
+import contextlib
 import io
 import logging
 import tempfile
@@ -5,7 +6,7 @@ from collections import defaultdict
 from contextlib import redirect_stdout
 from datetime import datetime
 from decimal import Decimal
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import urlencode, urlparse, urlunparse
 
 from dateutil import relativedelta
 from django.conf import settings
@@ -63,8 +64,9 @@ from .forms import (
     StockReceiptArticleForm,
     StockReceiptForm,
     StockReceiptSearchForm,
+    UnitChangeForm,
 )
-from .functions import convert_units, format_unit_price
+from .functions import convert_units, format_decimal, format_unit_price
 from .models import (
     UNIT,
     VAT,
@@ -82,6 +84,7 @@ from .models import (
     StockIssueArticle,
     StockReceipt,
     StockReceiptArticle,
+    UnitChangeLog,
     missing_piece_weight_articles,
     sum_nutrition,
 )
@@ -111,6 +114,19 @@ from .tables import (
     StockReceiptArticleTable,
     StockReceiptFilter,
     StockReceiptTable,
+)
+from .unit_change import (
+    StaleUnitChangeError,
+    UnitChangeError,
+    apply_article_change,
+    apply_recipe_line_change,
+    convertible,
+    preview_article_change,
+    preview_recipe_line_change,
+    quantize_factor,
+    undo_blocker,
+    undo_change,
+    unit_factor,
 )
 from .utils import get_currency, load_changelog
 
@@ -668,6 +684,9 @@ class ArticleHistoryDetailView(StockkeeperOrNutritionAdvisorRequiredMixin, Detai
         context = super().get_context_data(**kwargs)
         context["article_name"] = kwargs["object"].article
         context["table"] = kwargs["object"].history.all()
+        context["unit_changes"] = kwargs["object"].unit_changes.select_related(
+            "user", "recipe"
+        )
         return context
 
 
@@ -2360,7 +2379,7 @@ class IncorrectUnitsListView(SingleTableMixin, AnyRoleRequiredMixin, ListView):
                         recipe_article.article.unit,
                     )
                 except ValidationError:
-                    articles_to_fix.append(recipe_article.article)
+                    articles_to_fix.append(recipe_article)
             if articles_to_fix:
                 items_to_fix.append(
                     {
@@ -2476,3 +2495,300 @@ class CateringUnitFilterView(AnyRoleRequiredMixin, CreateView):
     model = DailyMenu
     form_class = DailyMenuCateringUnitForm
     template_name = "kitchen/report/catering_unit_filter.html"
+
+
+UNIT_CHANGE_ROLES = {
+    UnitChangeLog.Kind.ARTICLE: (Roles.STOCKKEEPER, Roles.NUTRITION_ADVISOR),
+    UnitChangeLog.Kind.RECIPE_LINE: (Roles.COOK, Roles.NUTRITION_ADVISOR),
+}
+
+
+class UnitManagementView(AnyRoleRequiredMixin, TemplateView):
+    template_name = "kitchen/units/manage.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        can_change_articles = user_has_any_role(
+            user, UNIT_CHANGE_ROLES[UnitChangeLog.Kind.ARTICLE]
+        )
+        can_change_recipes = user_has_any_role(
+            user, UNIT_CHANGE_ROLES[UnitChangeLog.Kind.RECIPE_LINE]
+        )
+        context["can_change_articles"] = can_change_articles
+        context["can_change_recipes"] = can_change_recipes
+        if can_change_articles:
+            context["articles"] = Article.objects.all()
+        if can_change_recipes:
+            context["incorrect_recipe_articles"] = [
+                recipe_article
+                for recipe_article in RecipeArticle.objects.select_related(
+                    "article", "recipe"
+                ).order_by("recipe__recipe", "id")
+                if not convertible(recipe_article.unit, recipe_article.article.unit)
+            ]
+        context["logs"] = [
+            (
+                log,
+                log.kind in UNIT_CHANGE_ROLES
+                and user_has_any_role(user, UNIT_CHANGE_ROLES[log.kind])
+                and undo_blocker(log) is None,
+            )
+            for log in UnitChangeLog.objects.select_related("user", "recipe")[:50]
+        ]
+        return context
+
+
+class UnitChangeBaseView(View):
+    template_name = "kitchen/units/change.html"
+    old_unit = ""
+    unit_choices: list[str] = []
+
+    def load_subject(self):
+        raise NotImplementedError
+
+    def subject_article(self):
+        raise NotImplementedError
+
+    def subject_context(self):
+        raise NotImplementedError
+
+    def preview(self, data):
+        raise NotImplementedError
+
+    def apply(self, data):
+        raise NotImplementedError
+
+    def success_url(self):
+        raise NotImplementedError
+
+    def dispatch(self, request, *args, **kwargs):
+        # role mixins come first in the MRO, so the user is already checked here
+        self.load_subject()
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form(self, data=None, initial=None):
+        return UnitChangeForm(
+            data,
+            initial=initial,
+            old_unit=self.old_unit,
+            unit_choices=self.unit_choices,
+        )
+
+    def suggestions(self):
+        result = []
+        for unit in self.unit_choices:
+            factor, locked = unit_factor(self.old_unit, unit, self.subject_article())
+            if factor is not None:
+                result.append((unit, format_decimal(factor), locked))
+        return result
+
+    def render(self, form, preview=None):
+        context = {
+            "form": form,
+            "preview": preview,
+            "suggestions": self.suggestions(),
+            "suggested_factors": {
+                unit: {"factor": factor, "locked": locked}
+                for unit, factor, locked in self.suggestions()
+            },
+            **self.subject_context(),
+        }
+        return render(self.request, self.template_name, context)
+
+    def get(self, request, *args, **kwargs):
+        initial = {}
+        new_unit = request.GET.get("new_unit")
+        if new_unit in self.unit_choices:
+            initial["new_unit"] = new_unit
+            factor, _locked = unit_factor(
+                self.old_unit, new_unit, self.subject_article()
+            )
+            with contextlib.suppress(KeyError, ArithmeticError):
+                factor = Decimal(request.GET["factor"])
+            if factor is not None:
+                initial["factor"] = factor
+        return self.render(self.get_form(initial=initial))
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form(request.POST)
+        if not form.is_valid():
+            return self.render(form)
+        if request.POST.get("action") == "apply":
+            try:
+                log = self.apply(form.cleaned_data)
+            except StaleUnitChangeError as error:
+                for message in error.messages:
+                    messages.warning(request, message)
+            except UnitChangeError as error:
+                for message in error.messages:
+                    messages.error(request, message)
+            else:
+                messages.success(
+                    request,
+                    format_html(
+                        _(
+                            "Jednotka {name} byla změněna z {old} na {new}. "
+                            'Změnu lze vrátit na stránce <a href="{url}">Správa jednotek</a>.'
+                        ),
+                        name=log.article_name,
+                        old=log.old_unit,
+                        new=log.new_unit,
+                        url=reverse("kitchen:showUnitManagement"),
+                    ),
+                )
+                return redirect(self.success_url())
+        preview = self.preview(form.cleaned_data)
+        data = request.POST.copy()
+        data["fingerprint"] = preview.fingerprint
+        # every preview has to be confirmed again, its warnings may differ
+        data.pop("confirmed", None)
+        form = self.get_form(data)
+        form.is_valid()
+        return self.render(form, preview)
+
+
+class ArticleUnitChangeView(
+    StockkeeperOrNutritionAdvisorRequiredMixin, UnitChangeBaseView
+):
+    def load_subject(self):
+        self.article = get_object_or_404(Article, pk=self.kwargs["pk"])
+        self.old_unit = self.article.unit
+        self.unit_choices = [unit for unit, _label in UNIT]
+
+    def subject_article(self):
+        return self.article
+
+    def subject_context(self):
+        return {
+            "title": _("Změna jednotky zboží {article}").format(article=self.article),
+            "back_url": reverse("kitchen:updateArticle", args=[self.article.pk]),
+            "is_article": True,
+        }
+
+    def preview(self, data):
+        return preview_article_change(
+            self.article, data["new_unit"], data["factor"], data["source_note"]
+        )
+
+    def apply(self, data):
+        return apply_article_change(
+            self.article.pk,
+            data["new_unit"],
+            data["factor"],
+            data["source_note"],
+            self.request.user,
+            data["fingerprint"],
+            data["confirmed"],
+        )
+
+    def success_url(self):
+        return reverse("kitchen:showArticles")
+
+
+class RecipeArticleUnitChangeView(
+    CookOrNutritionAdvisorRequiredMixin, UnitChangeBaseView
+):
+    def load_subject(self):
+        self.recipe_article = get_object_or_404(
+            RecipeArticle.objects.select_related("article", "recipe"),
+            pk=self.kwargs["pk"],
+        )
+        self.old_unit = self.recipe_article.unit
+        self.unit_choices = [
+            unit
+            for unit, _label in UNIT
+            if convertible(unit, self.recipe_article.article.unit)
+        ]
+
+    def subject_article(self):
+        return self.recipe_article.article
+
+    def subject_context(self):
+        return {
+            "title": _("Změna jednotky suroviny {article} v receptu {recipe}").format(
+                article=self.recipe_article.article,
+                recipe=self.recipe_article.recipe,
+            ),
+            "back_url": reverse(
+                "kitchen:showRecipeArticles", args=[self.recipe_article.recipe_id]
+            ),
+            "recipe_article": self.recipe_article,
+            "can_change_article": user_has_any_role(
+                self.request.user, UNIT_CHANGE_ROLES[UnitChangeLog.Kind.ARTICLE]
+            ),
+        }
+
+    def preview(self, data):
+        return preview_recipe_line_change(
+            self.recipe_article, data["new_unit"], data["factor"], data["source_note"]
+        )
+
+    def apply(self, data):
+        return apply_recipe_line_change(
+            self.recipe_article.pk,
+            data["new_unit"],
+            data["factor"],
+            data["source_note"],
+            self.request.user,
+            data["fingerprint"],
+            data["confirmed"],
+        )
+
+    def success_url(self):
+        return reverse(
+            "kitchen:showRecipeArticles", args=[self.recipe_article.recipe_id]
+        )
+
+
+class UnitChangeUndoView(AnyRoleRequiredMixin, View):
+    http_method_names = ["post"]
+
+    def post(self, request, *args, **kwargs):
+        log = get_object_or_404(UnitChangeLog, pk=self.kwargs["pk"])
+        roles = UNIT_CHANGE_ROLES.get(log.kind)
+        if roles is not None and not user_has_any_role(request.user, roles):
+            raise PermissionDenied(_("Nemáte oprávnění vrátit tuto změnu."))
+        try:
+            undo_change(log.pk, request.user)
+        except UnitChangeError as error:
+            for message in error.messages:
+                messages.warning(request, message)
+            reverse_url = self.reverse_conversion_url(log)
+            if reverse_url:
+                messages.info(
+                    request,
+                    _("Je předvyplněn zpětný převod, zkontroluj ho v náhledu."),
+                )
+                return redirect(reverse_url)
+        else:
+            messages.success(
+                request,
+                _("Změna jednotky {name} byla vrácena.").format(name=log.article_name),
+            )
+        return redirect("kitchen:showUnitManagement")
+
+    @staticmethod
+    def reverse_conversion_url(log):
+        if log.kind == UnitChangeLog.Kind.UNDO or log.article_id is None:
+            return None
+        query = urlencode(
+            {"new_unit": log.old_unit, "factor": quantize_factor(1 / log.factor)}
+        )
+        if log.kind == UnitChangeLog.Kind.ARTICLE:
+            if not Article.objects.filter(
+                pk=log.article_id, unit=log.new_unit
+            ).exists():
+                return None
+            return (
+                f"{reverse('kitchen:changeArticleUnit', args=[log.article_id])}?{query}"
+            )
+        rows = log.details.get("rows") or [{}]
+        if not RecipeArticle.objects.filter(
+            pk=rows[0].get("id"),
+            article_id=log.article_id,
+            recipe_id=log.recipe_id,
+            unit=log.new_unit,
+        ).exists():
+            return None
+        return f"{reverse('kitchen:changeRecipeArticleUnit', args=[rows[0]['id']])}?{query}"

@@ -1,5 +1,5 @@
 {% extends "base.html" %} 
-{% load crispy_forms_tags static i18n %} 
+{% load crispy_forms_tags static i18n auth_extras %}
 {% block content %}
 <div class="container-fluid">
   <h4>{% translate "Nesprávné jednotky" %}</h4>
@@ -20,7 +20,19 @@
       {% for object in object_list %}
         <li>
           <a href="{% url 'kitchen:showRecipeArticles' object.recipe.pk %}">{{ object.recipe }}</a>
-          ({{ object.articles|join:", " }})
+          <ul>
+            {% for recipe_article in object.articles %}
+              <li>
+                {{ recipe_article.article }}: {{ recipe_article.amount }} {{ recipe_article.unit }} &rarr; {{ recipe_article.article.unit }}
+                {% if request.user|has_any_group:"cook,nutrition_advisor" %}
+                  &middot; <a href="{% url 'kitchen:changeRecipeArticleUnit' recipe_article.pk %}">{% translate "Změnit jednotku suroviny" %}</a>
+                {% endif %}
+                {% if request.user|has_any_group:"stockkeeper,nutrition_advisor" %}
+                  &middot; <a href="{% url 'kitchen:changeArticleUnit' recipe_article.article_id %}">{% translate "Změnit jednotku zboží" %}</a>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
         </li>
       {% endfor %}
       </ul>
@@ -32,6 +44,9 @@
         <li>
           <a href="{% url 'kitchen:showStockIssueArticles' object.stock_issue.pk %}">{{ object.stock_issue }}</a>
           ({{ object.article }}: {{ object.amount }} {{ object.unit }} &rarr; {{ object.article.unit }})
+          {% if request.user|has_any_group:"stockkeeper,nutrition_advisor" %}
+            &middot; <a href="{% url 'kitchen:changeArticleUnit' object.article_id %}">{% translate "Změnit jednotku zboží" %}</a>
+          {% endif %}
         </li>
       {% endfor %}
       </ul>
@@ -43,6 +58,9 @@
         <li>
           <a href="{% url 'kitchen:showStockReceiptArticles' object.stock_receipt.pk %}">{{ object.stock_receipt }}</a>
           ({{ object.article }}: {{ object.amount }} {{ object.unit }} &rarr; {{ object.article.unit }})
+          {% if request.user|has_any_group:"stockkeeper,nutrition_advisor" %}
+            &middot; <a href="{% url 'kitchen:changeArticleUnit' object.article_id %}">{% translate "Změnit jednotku zboží" %}</a>
+          {% endif %}
         </li>
       {% endfor %}
       </ul>

@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from .models import (
     NUTRITION_FIELDS,
     NUTRITION_STRUCTURE,
+    UNIT,
     Article,
     DailyMenu,
     DailyMenuRecipe,
@@ -18,6 +19,12 @@ from .models import (
     StockIssueArticle,
     StockReceipt,
     StockReceiptArticle,
+)
+from .unit_change import (
+    article_unit_changed_since,
+    latest_unit_change_id,
+    recipe_unit_changed_since,
+    unit_factor,
 )
 
 
@@ -89,11 +96,18 @@ class ArticleForm(forms.ModelForm):
         if self.instance.pk and "unit" in self.fields:
             self.fields["unit"].disabled = True
             self.fields["unit"].help_text = _(
-                "Jednotku nelze měnit, změnil by se význam zásob, receptů a dokladů."
+                "Jednotku změníš pomocí tlačítka „Změnit jednotku“."
+            )
+            self.fields["unit_change_marker"] = forms.IntegerField(
+                widget=forms.HiddenInput,
+                required=False,
+                min_value=0,
+                initial=latest_unit_change_id(),
             )
 
         self.helper = FormHelper()
         self.helper.form_tag = False
+        self.helper.render_hidden_fields = True
         main_columns = [
             Column("article", css_class="col-md-2"),
             Column("unit", css_class="col-md-2"),
@@ -161,6 +175,14 @@ class ArticleForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
+        if self.instance.pk and article_unit_changed_since(
+            self.instance, cleaned_data.get("unit_change_marker") or 0
+        ):
+            raise forms.ValidationError(
+                _(
+                    "Jednotka zboží se mezitím změnila. Obnov stránku a zadej změny znovu."
+                )
+            )
         # stock fields are blank=True but NOT NULL, an empty input must fall back to the model default
         for field_name in self.stock_fields:
             if field_name in cleaned_data and cleaned_data[field_name] is None:
@@ -227,7 +249,46 @@ class RecipeSearchForm(forms.Form):
     recipe = forms.CharField()
 
 
-class RecipeArticleForm(forms.ModelForm):
+class UnitChangeGuardedForm(forms.ModelForm):
+    """Reject a line whose units changed after the form was rendered."""
+
+    marker_field = "unit_change_marker"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields[self.marker_field] = forms.IntegerField(
+            widget=forms.HiddenInput,
+            required=False,
+            min_value=0,
+            initial=latest_unit_change_id(),
+        )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        article = cleaned_data.get("article")
+        marker = cleaned_data.get(self.marker_field) or 0
+        stale_recipe = isinstance(
+            self.instance, RecipeArticle
+        ) and recipe_unit_changed_since(self.instance, marker)
+        if article is not None and (
+            article_unit_changed_since(article, marker) or stale_recipe
+        ):
+            data = self.data.copy()
+            data[self.add_prefix(self.marker_field)] = latest_unit_change_id()
+            for field_name in ("amount", "unit", "price_without_vat"):
+                if field_name in self.fields:
+                    data[self.add_prefix(field_name)] = ""
+            self.data = data
+            raise forms.ValidationError(
+                _(
+                    "Jednotka zboží {article} se mezitím změnila na {unit}, "
+                    "zadej řádek znovu."
+                ).format(article=article, unit=article.unit)
+            )
+        return cleaned_data
+
+
+class RecipeArticleForm(UnitChangeGuardedForm):
     class Meta:
         model = RecipeArticle
         fields = ["article", "amount", "unit", "comment"]
@@ -236,6 +297,7 @@ class RecipeArticleForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
+        self.helper.render_hidden_fields = True
         self.helper.layout = Layout(
             Row(
                 Column("article", css_class="col-md-3"),
@@ -443,15 +505,22 @@ class StockIssueFromDailyMenuForm(forms.ModelForm):
         )
 
 
-class StockIssueArticleForm(forms.ModelForm):
+class ArticleWithUnitChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return f"{obj.article} [{obj.get_unit_display()}]"
+
+
+class StockIssueArticleForm(UnitChangeGuardedForm):
     class Meta:
         model = StockIssueArticle
         fields = ["article", "amount", "unit", "comment"]
+        field_classes = {"article": ArticleWithUnitChoiceField}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
+        self.helper.render_hidden_fields = True
         self.helper.layout = Layout(
             Row(
                 Column("article", css_class="col-md-2"),
@@ -484,15 +553,17 @@ class StockReceiptSearchForm(forms.Form):
     userCreated__name = forms.CharField()
 
 
-class StockReceiptArticleForm(forms.ModelForm):
+class StockReceiptArticleForm(UnitChangeGuardedForm):
     class Meta:
         model = StockReceiptArticle
         fields = ["article", "amount", "unit", "price_without_vat", "vat", "comment"]
+        field_classes = {"article": ArticleWithUnitChoiceField}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
+        self.helper.render_hidden_fields = True
         self.helper.layout = Layout(
             Row(
                 Column("article", css_class="col-md-2"),
@@ -503,3 +574,51 @@ class StockReceiptArticleForm(forms.ModelForm):
                 Column("comment", css_class="col-md-2"),
             )
         )
+
+
+class UnitChangeForm(forms.Form):
+    new_unit = forms.ChoiceField(label=_("Nová jednotka"))
+    factor = forms.DecimalField(
+        required=False,
+        localize=True,
+        label=_("Převodní koeficient"),
+        help_text=_("Pro kg ↔ g a l ↔ ml se doplní automaticky."),
+    )
+    source_note = forms.CharField(
+        max_length=200,
+        label=_("Zdroj koeficientu"),
+        help_text=_("Např. „etiketa 42 g“ nebo „zváženo 10 ks = 420 g“."),
+    )
+    confirmed = forms.BooleanField(
+        required=False,
+        label=_("Varování jsem zkontroloval a výsledek beru na sebe."),
+    )
+    fingerprint = forms.CharField(widget=forms.HiddenInput, required=False)
+
+    def __init__(self, *args, old_unit, unit_choices, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.old_unit = old_unit
+        new_unit_field = self.fields["new_unit"]
+        assert isinstance(new_unit_field, forms.ChoiceField)
+        new_unit_field.choices = [
+            (unit, label)
+            for unit, label in UNIT
+            if unit in unit_choices and unit != old_unit
+        ]
+        self.fields["factor"].label = _("1 {unit} = ? nové jednotky").format(
+            unit=old_unit
+        )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        new_unit = cleaned_data.get("new_unit")
+        if not new_unit:
+            return cleaned_data
+        fixed, locked = unit_factor(self.old_unit, new_unit)
+        if locked:
+            cleaned_data["factor"] = fixed
+        elif cleaned_data.get("factor") is None:
+            self.add_error("factor", _("Zadej převodní koeficient."))
+        elif cleaned_data["factor"] <= 0:
+            self.add_error("factor", _("Koeficient musí být větší než 0."))
+        return cleaned_data

@@ -1,38 +1,52 @@
 2026:
   - date: 2026-10-04
     items:
-      - "V seznamu zboží na skladu a v jeho PDF je zboží se záporným množstvím nebo zápornou celkovou cenou zvýrazněno červeně a označeno výstražnou ikonou."
-      - "OPRAVA: Vyskladnění nejprve aktualizuje ceny a poté je kontroluje. Zamítnuté vyskladnění ponechá původní ceny výdejky i stav skladu beze změny."
-      - "OPRAVA: Superuživatel může upravovat skladové i výživové údaje zboží i bez zařazení do skupin. Zámek jednotky existujícího zboží zůstává zachován."
-      - "OPRAVA: Minimální množství suroviny v receptu a zboží na příjemce je 0,01, stejně jako na výdejce."
-      - "OPRAVA: Datum exportu skladu se kontroluje podle aktuálního časového pásma aplikace. Dnešní datum je možné zadat i kolem půlnoci, budoucí datum nikoli."
-      - "OPRAVA: Kontrola zásob při vyskladnění používá stejná zaokrouhlená množství jako odpis skladu, i když je zboží na více řádcích v jiných jednotkách."
-      - "OPRAVA: Při tvorbě výdejky se množství stejného zboží nejprve sečtou a až potom zaokrouhlí. Malá množství z více receptů se tak neztratí."
-      - "OPRAVA: Pokud kvůli nesprávným jednotkám nelze určit historický stav zboží, export ponechá jeho množství a cenu prázdné. Sloupec export_warning uvádí dotčené doklady a řádky přímo v souboru."
-      - "OPRAVA: Použitou sazbu DPH nelze smazat; procento DPH na schválených příjemkách nelze změnit v administraci ani jejím importem. Historické doklady tak zůstanou zachovány."
-      - "BEZPEČNOST: Lokální databáze a staré soubory záloh se již nezahrnují do sestavení Docker image."
-      - "OPRAVA: Report celkové ceny příjemek a výdejek za měsíc už není o 1 Kč nižší a pro prázdný měsíc ukazuje 0."
-      - "OPRAVA: Výdejka z denního menu už neobsahuje řádky s nulovým množstvím; vynechají se jen součty, které se zaokrouhlí na nulu."
-      - "OPRAVA: Celková cena výdejky je součtem zaokrouhlených řádků, takže odpovídá změně hodnoty skladu při vyskladnění."
-      - "OPRAVA: Datum naskladnění, vyskladnění a založení příjemky se určuje podle českého času, ne podle času serveru (dosud mohl být krátce po půlnoci uložen předchozí den)."
-      - "BEZPEČNOST: Profil uživatele vidí jen jeho vlastník a administrátor."
-      - "V administraci nelze měnit ani mazat naskladněné příjemky, vyskladněné výdejky a jejich řádky ani měnit příznak schválení, protože se tím nepřepočítá sklad. Platí i pro import v administraci."
-      - "Údržba dat maže příjemky a výdejky podle data naskladnění / vyskladnění (rok před dvěma lety a starší), denní menu podle jeho data; neschválené doklady ponechá. Stránka upozorní, že export stavu skladu k datu před vymazaným obdobím nebude správný."
-      - "OPRAVA: Export stavu skladu k datu se už nepřeruší kvůli řádku s nepřevoditelnou jednotkou; takové řádky vynechá a vypíše je v upozornění k opravě."
-      - "Odstraněna nepoužívaná denní kontrola jednotek (byla vypnutá). Nesprávné jednotky ukazuje report nesprávných jednotek."
-      - "OPRAVA: Stránka čištění dat nyní dokončí mazání historických záznamů bez chyby."
-      - "OPRAVA: Výdejka se stejným zbožím na více řádcích nyní správně ověří součet množství proti skladu."
-      - "OPRAVA: Náklady receptu zachovávají přesnost na haléře u každé suroviny a zaokrouhlují až zobrazený součet."
-      - "OPRAVA: Recept musí mít alespoň jednu porci; nulový počet porcí už nezpůsobí chybu při tvorbě výdejky."
-      - "Záznamy příjemek a výdejek nyní brání smazání uživatele, který je vytvořil nebo schválil."
-      - "OPRAVA: Import úplné zálohy už neukládá soubor databáze do veřejného adresáře médií."
-      - "Jednotku existujícího zboží už nelze změnit při úpravě zboží, v administraci ani importem seznamu zboží. Změna jednotky by změnila význam zásob, receptů a dokladů. Import všech dat (záloha) nahraje jednotky ze souboru beze změny."
-      - "OPRAVA: Při naskladnění příjemky nebo vyskladnění výdejky s jinou jednotkou, než má zboží (např. g u zboží v kg), se cena na skladu nesprávně přepočítala ještě jednou (1000× víc nebo méně). Nyní se použije cena řádku."
-      - "Zboží v ks má novou hmotnost kusu (g nebo ml). Výživové údaje se zadávají na 100 g / 100 ml a v receptech a denním menu se pro kusy počítají z hmotnosti kusu. Dokud nutriční poradce hmotnost kusu nedoplní, jsou výživové údaje označeny jako neúplné a v seznamu zboží je u zboží upozornění."
-      - "OPRAVA: Jednotkové ceny se už nezaokrouhlují na celé koruny, ale ukládají se na 4 desetinná místa a zobrazují na 2 desetinná místa. Zboží v g, ml nebo levné zboží už nemá nulovou cenu a výdejky s ním lze vyskladnit."
-      - "OPRAVA: Tlačítko Aktualizovat u výdejky vytvořené z denního menu znovu funguje v češtině i angličtině a ponechá původního autora výdejky."
-      - "OPRAVA: Skladovou kartu nelze odstranit, pokud je zboží na skladu nebo na příjemkách či výdejkách. Dříve se tím tiše smazaly i řádky již naskladněných dokladů."
-      - "BEZPEČNOST: Názvy zboží, receptů a poznámky se ve zprávách aplikace zobrazují jako text, nikoli jako HTML."
+      - >-
+        <strong>Nové funkce pro uživatele</strong>
+        <ul>
+          <li>Správa jednotek umožňuje řízenou změnu jednotky zboží i převod jedné suroviny v receptu. Změna zboží přepočte zásoby, minimální zásobu, suroviny v receptech a řádky všech příjemek a výdejek včetně schválených; celková hodnota skladu a údaje o schválení zůstanou beze změny.</li>
+          <li>Před převodem se zobrazí náhled s příklady, koeficientem v obou směrech, varováními a rozdíly zaokrouhlení dokladů. Zdroj koeficientu je povinný, varování vyžadují potvrzení. Poslední změnu lze přesně vrátit, pokud se související data od té doby nezměnila.</li>
+          <li>Správa jednotek je dostupná z profilu a uživatelské nabídky, úpravy zboží a seznamů zboží a surovin receptu. Report nesprávných jednotek nabízí samostatné odkazy na změnu jednotky suroviny a zboží, také u příjemek a výdejek. Odkazy i akce respektují role uživatele.</li>
+          <li>Formuláře příjemek a výdejek zobrazují skladovou jednotku u názvu zboží. Nápověda na skladové kartě odkazuje na tlačítko Změnit jednotku; pokud recept nemá jinou použitelnou jednotku, stránka nabídne oprávněnému uživateli změnu jednotky zboží.</li>
+          <li>Zboží v ks má hmotnost kusu v g nebo ml. Výživové údaje se zadávají na 100 g / 100 ml; recepty a denní menu přepočítávají kusy podle této hmotnosti. Chybějící hmotnost je označena jako neúplný výživový údaj a upozornění v seznamu zboží.</li>
+          <li>Zboží se záporným množstvím nebo celkovou cenou je v seznamu skladu i jeho PDF zvýrazněno červeně a výstražnou ikonou.</li>
+        </ul>
+      - >-
+        <strong>Opravy chyb</strong>
+        <ul>
+          <li>Naskladnění a vyskladnění už nepřevádí jednotkovou cenu podruhé při odlišné jednotce řádku a skladu (chyba mohla změnit hodnotu 1000krát).</li>
+          <li>Jednotkové ceny se ukládají na 4 desetinná místa a zobrazují na 2, také v tabulce náhledu převodu. Levné zboží nebo zboží v g a ml už neztrácí cenu zaokrouhlením na celé koruny.</li>
+          <li>Vyskladnění nejprve aktualizuje ceny a poté je kontroluje. Zamítnutí ponechá původní ceny výdejky i stav skladu beze změny.</li>
+          <li>Kontrola zásob sčítá stejné zboží ze všech řádků a používá stejná zaokrouhlená množství jako odpis, i při různých jednotkách.</li>
+          <li>Při tvorbě výdejky z denního menu se množství stejného zboží nejprve sečtou a potom zaokrouhlí. Malé příspěvky z více receptů se neztratí; řádky se součtem zaokrouhleným na nulu se vynechají.</li>
+          <li>Celková cena výdejky je součtem zaokrouhlených řádků a odpovídá změně hodnoty skladu. Měsíční report příjemek a výdejek už není o 1 Kč nižší a pro prázdný měsíc ukazuje 0.</li>
+          <li>Náklady receptu zachovávají přesnost jednotlivých surovin a zaokrouhlují až zobrazený součet. Recept musí mít alespoň jednu porci; minimální množství suroviny v receptu a na příjemce je 0,01, stejně jako na výdejce.</li>
+          <li>Data naskladnění, vyskladnění a založení příjemky používají místní čas aplikace. Export skladu přijímá dnešní datum i kolem půlnoci a odmítá budoucí datum.</li>
+          <li>Historický export už neselže na nepřevoditelné jednotce. Pokud nelze stav určit, ponechá množství a cenu zboží prázdné; upozornění a sloupec export_warning označí dotčené doklady a řádky.</li>
+          <li>Čištění dat dokončí mazání historických záznamů bez chyby. Skladovou kartu nelze odstranit, pokud má zásobu nebo řádky na příjemkách či výdejkách, aby nezmizely i historické doklady.</li>
+          <li>Aktualizace výdejky z denního menu funguje v češtině i angličtině a zachovává původního autora. Opravena konfigurace společné části aplikace.</li>
+          <li>Formuláře zboží, surovin receptu, příjemek a výdejek odmítají staré hodnoty po změně jednotky. Chybějící kontrolní údaj ochranu neobejde a opakované odeslání odmítnutého řádku neuloží původní množství či cenu bez nového zadání.</li>
+          <li>Potvrzení náhledu a přesné vrácení převodu kontrolují skutečné hodnoty souvisejících dat, nejen čas změny. Novější ceny, množství, údaje dokladů a vstupy receptu se nepřepíšou; kontrola funguje i po obnově zálohy.</li>
+          <li>Vrácení převodu s nejmenším koeficientem 0,000001 už nevytvoří nečitelný auditní záznam. Zpětný koeficient se nepředvyplní, pokud mezitím došlo ke změně výchozí jednotky nebo vazeb suroviny.</li>
+        </ul>
+      - >-
+        <strong>Bezpečnost</strong>
+        <ul>
+          <li>Profil uživatele vidí jen jeho vlastník a administrátor.</li>
+          <li>Názvy zboží, receptů a poznámky se ve zprávách aplikace zobrazují jako text, nikoli jako HTML.</li>
+          <li>Import úplné zálohy už neukládá soubor databáze do veřejného adresáře médií.</li>
+          <li>Lokální databáze a staré soubory záloh se nezahrnují do sestavení Docker image.</li>
+        </ul>
+      - >-
+        <strong>Administrace</strong>
+        <ul>
+          <li>V administraci ani jejím importem nelze měnit nebo mazat schválené příjemky, výdejky a jejich řádky ani přímo měnit příznak schválení. Tyto zásahy by nepřepočítaly sklad.</li>
+          <li>Použitou sazbu DPH nelze smazat; procento DPH na schválených příjemkách nelze změnit v administraci ani jejím importem.</li>
+          <li>Přímá změna jednotky existujícího zboží zůstává blokována v běžné úpravě, administraci i importu seznamu zboží. Používá se řízený převod; import úplné zálohy nadále načítá jednotky ze souboru beze změny.</li>
+          <li>Záznamy změn jednotek lze v administraci prohlížet, filtrovat a vyhledávat, nikoli ručně přidávat, měnit nebo mazat.</li>
+          <li>Superuživatel může upravovat skladové i výživové údaje bez zařazení do skupin. Příjemky a výdejky brání smazání uživatele, který je vytvořil nebo schválil.</li>
+          <li>Údržba dat maže příjemky a výdejky podle data schválení (rok před dvěma lety a starší) a denní menu podle jeho data; neschválené doklady ponechá. Upozorňuje na omezení historických exportů před vymazaným obdobím.</li>
+        </ul>
   - date: 2026-09-30
     items:
       - "Při vytváření nového menu se název předvyplní podle naposledy vytvořeného menu. Stačí ho upravit, protože názvy menu musí být jedinečné."

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n auth_extras %}
 
 {% block title %}User: {{ object.username }}{% endblock %}
 
@@ -23,6 +23,9 @@
   <div class="col-sm-12">
     <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
     <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
+    {% if request.user|has_any_group:"stockkeeper,nutrition_advisor,cook" %}
+      <a class="btn btn-primary" href="{% url 'kitchen:showUnitManagement' %}" role="button">{% translate "Správa jednotek" %}</a>
+    {% endif %}
     <!-- Your Stuff: Custom user template urls -->
   </div>
 

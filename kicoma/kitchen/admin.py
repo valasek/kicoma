@@ -21,6 +21,7 @@ from .models import (
     StockIssueArticle,
     StockReceipt,
     StockReceiptArticle,
+    UnitChangeLog,
 )
 
 # create import export resources
@@ -513,3 +514,28 @@ class StockReceiptArticleAdmin(
         "comment",
     ]
     resource_class = StockReceiptArticleResource
+
+
+@admin.register(UnitChangeLog)
+class UnitChangeLogAdmin(admin.ModelAdmin):
+    list_display = (
+        "created",
+        "kind",
+        "article_name",
+        "old_unit",
+        "new_unit",
+        "factor",
+        "source_note",
+        "user",
+    )
+    list_filter = ("kind",)
+    search_fields = ("article_name", "source_note")
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False

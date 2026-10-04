@@ -3380,10 +3380,8 @@ msgid "Infos successfully updated"
 msgstr "Infos successfully updated"
 
 #: kicoma/kitchen/forms.py
-msgid "Jednotku nelze měnit, změnil by se význam zásob, receptů a dokladů."
-msgstr ""
-"The unit cannot be changed, it would change the meaning of stock, recipes "
-"and documents."
+msgid "Jednotku změníš pomocí tlačítka „Změnit jednotku“."
+msgstr "Use the \"Change unit\" button to change the unit."
 
 #: kicoma/kitchen/admin.py
 msgid "{article}: jednotku nelze měnit ({old} -> {new})."
@@ -3482,6 +3480,326 @@ msgstr "Stock cannot be determined: "
 
 msgid "Sazbu DPH použitou na schválené příjemce nelze změnit."
 msgstr "A VAT percentage used on an approved receipt cannot be changed."
+
+msgid "Jednotka zboží {article} se mezitím změnila na {unit}, zadej řádek znovu."
+msgstr "The unit of {article} has meanwhile changed to {unit}, enter the line again."
+
+msgid "Jednotka zboží se mezitím změnila. Obnov stránku a zadej změny znovu."
+msgstr "The article unit has changed. Reload the page and enter your changes again."
+
+msgid "Převodní koeficient"
+msgstr "Conversion factor"
+
+msgid "Pro kg ↔ g a l ↔ ml se doplní automaticky."
+msgstr "Filled in automatically for kg ↔ g and l ↔ ml."
+
+msgid "Zdroj koeficientu"
+msgstr "Factor source"
+
+msgid "Např. „etiketa 42 g“ nebo „zváženo 10 ks = 420 g“."
+msgstr "E.g. \"label 42 g\" or \"weighed 10 pcs = 420 g\"."
+
+msgid "Varování jsem zkontroloval a výsledek beru na sebe."
+msgstr "I have checked the warnings and take responsibility for the result."
+
+msgid "1 {unit} = ? nové jednotky"
+msgstr "1 {unit} = ? new units"
+
+msgid "Zadej převodní koeficient."
+msgstr "Enter the conversion factor."
+
+msgid "Koeficient musí být větší než 0."
+msgstr "The factor must be greater than 0."
+
+msgid "Vrácení změny"
+msgstr "Undo"
+
+msgid "Změny jednotek"
+msgstr "Unit changes"
+
+msgid "Změna jednotky"
+msgstr "Unit change"
+
+msgid "Druh"
+msgstr "Kind"
+
+msgid "Podrobnosti"
+msgstr "Details"
+
+msgid "Vrácená změna"
+msgstr "Undone change"
+
+msgid "Nová jednotka"
+msgstr "New unit"
+
+msgid "Původní jednotka"
+msgstr "Original unit"
+
+msgid "Změnil"
+msgstr "Changed by"
+
+msgid "Změna"
+msgstr "Change"
+
+msgid "Historie skladové karty"
+msgstr "Stock item history"
+
+msgid "Změnit jednotku"
+msgstr "Change unit"
+
+msgid "Zpět"
+msgstr "Back"
+
+#, python-format
+msgid "Koeficient udává, kolik nových jednotek odpovídá 1 %(unit)s. Změna přepočte množství, ceny a všechny řádky dokladů včetně schválených."
+msgstr "The factor states how many new units equal 1 %(unit)s. The change recalculates amounts, prices and all document lines, approved ones included."
+
+msgid "Navržené koeficienty:"
+msgstr "Suggested factors:"
+
+msgid "pevný"
+msgstr "fixed"
+
+msgid "Náhled změny"
+msgstr "Change preview"
+
+msgid "Změnu nelze provést:"
+msgstr "The change cannot be made:"
+
+msgid "Příklad"
+msgstr "Example"
+
+msgid "Před"
+msgstr "Before"
+
+msgid "Po"
+msgstr "After"
+
+msgid "Skladová karta"
+msgstr "Stock item"
+
+msgid "Recept na 1 porci"
+msgstr "Recipe per portion"
+
+msgid "Suroviny v receptech"
+msgstr "Recipe ingredients"
+
+msgid "Neschválené doklady"
+msgstr "Unapproved documents"
+
+msgid "Schválené doklady"
+msgstr "Approved documents"
+
+msgid "Údaje o schválení (příznak, datum, uživatel) zůstanou beze změny."
+msgstr "Approval data (flag, date, user) stays unchanged."
+
+msgid "Rozdíly celkových cen dokladů po zaokrouhlení"
+msgstr "Document total differences after rounding"
+
+msgid "Doklad"
+msgstr "Document"
+
+msgid "Schváleno"
+msgstr "Approved"
+
+msgid "Měsíc"
+msgstr "Month"
+
+msgid "Rozdíl"
+msgstr "Difference"
+
+msgid "Varování:"
+msgstr "Warnings:"
+
+msgid "Náhled"
+msgstr "Preview"
+
+msgid "Provést změnu"
+msgstr "Apply change"
+
+msgid "Množství před"
+msgstr "Amount before"
+
+msgid "Množství po"
+msgstr "Amount after"
+
+msgid "Jednotková cena před"
+msgstr "Unit price before"
+
+msgid "Jednotková cena po"
+msgstr "Unit price after"
+
+msgid "Celkem před"
+msgstr "Total before"
+
+msgid "Celkem po"
+msgstr "Total after"
+
+msgid "Správa jednotek"
+msgstr "Unit management"
+
+msgid "Změna jednotky zboží přepočte stav skladu, suroviny v receptech a všechny řádky příjemek a výdejek včetně schválených. Změna jedné suroviny v receptu přepočte jen tento řádek. Před provedením se zobrazí náhled."
+msgstr "An article unit change recalculates the stock, recipe ingredients and all receipt and issue lines, approved ones included. A recipe ingredient change recalculates only that line. A preview is shown first."
+
+msgid "Poslední změny"
+msgstr "Recent changes"
+
+msgid "Vrátit"
+msgstr "Undo"
+
+msgid "Zatím nebyla provedena žádná změna jednotky."
+msgstr "No unit change has been made yet."
+
+msgid "Suroviny v receptech s nesprávnou jednotkou"
+msgstr "Recipe ingredients with an incorrect unit"
+
+msgid "Jednotka skladu"
+msgstr "Stock unit"
+
+msgid "Všechny suroviny v receptech mají převoditelnou jednotku."
+msgstr "All recipe ingredients have a convertible unit."
+
+msgid "Příjemka #{id}"
+msgstr "Receipt #{id}"
+
+msgid "Výdejka #{id}"
+msgstr "Issue #{id}"
+
+msgid "Recept {recipe}"
+msgstr "Recipe {recipe}"
+
+msgid "Nová jednotka je stejná jako původní."
+msgstr "The new unit is the same as the original one."
+
+msgid "Zadej převodní koeficient větší než 0."
+msgstr "Enter a conversion factor greater than 0."
+
+msgid "Převodní koeficient je příliš velký."
+msgstr "The conversion factor is too large."
+
+msgid "Zadej zdroj koeficientu, například „etiketa 42 g“."
+msgstr "Enter the factor source, for example \"label 42 g\"."
+
+msgid "Název zboží „{name}“ uvádí jinou velikost kusu, než vychází z koeficientu (1 ks = {piece} {unit})."
+msgstr "The article name \"{name}\" states a different piece size than the factor implies (1 pc = {piece} {unit})."
+
+msgid "Koeficient neodpovídá uložené hmotnosti kusu {weight} {weight_unit} (1 ks = {piece} {unit})."
+msgstr "The factor does not match the stored piece weight {weight} {weight_unit} (1 pc = {piece} {unit})."
+
+msgid "1 ks = {piece} {unit} je mimo obvyklý rozsah 1 {unit} až 25 000 {unit}."
+msgstr "1 pc = {piece} {unit} is outside the usual range of 1 {unit} to 25,000 {unit}."
+
+msgid "Hustota {density} kg/l je mimo obvyklý rozsah 0,3 až 2,0 kg/l."
+msgstr "The density {density} kg/l is outside the usual range of 0.3 to 2.0 kg/l."
+
+msgid "Převod mezi hmotností a objemem: zkontroluj, zda jsou výživové údaje zadány na 100 g nebo na 100 ml."
+msgstr "Weight to volume conversion: check whether nutrition values are entered per 100 g or per 100 ml."
+
+msgid "Výsledná průměrná cena {price} {currency}/{unit} je mimo obvyklý rozsah 1 až 5 000 {currency}/{unit}."
+msgstr "The resulting average price {price} {currency}/{unit} is outside the usual range of 1 to 5,000 {currency}/{unit}."
+
+msgid "Množství by se zaokrouhlilo pod 0.01 {unit}, zvol menší jednotku: {lines}"
+msgstr "The amount would round below 0.01 {unit}, choose a smaller unit: {lines}"
+
+msgid "Jednotková cena by se zaokrouhlila na 0, zvol menší jednotku: {lines}"
+msgstr "The unit price would round to 0, choose a smaller unit: {lines}"
+
+msgid "Hodnota by přesáhla povolený počet číslic: {lines}"
+msgstr "A value would exceed the allowed number of digits: {lines}"
+
+msgid "Přepočtou se řádky dokladů: příjemky {open_receipts} nenaskladněné a {approved_receipts} naskladněné, výdejky {open_issues} nevyskladněné a {approved_issues} vyskladněné. Údaje o schválení zůstanou beze změny."
+msgstr "Document lines will be recalculated: receipts {open_receipts} unapproved and {approved_receipts} approved, issues {open_issues} unapproved and {approved_issues} approved. Approval data stays unchanged."
+
+msgid "Přepočtou se suroviny v receptech ({count}): {recipes}. Cena a výživové údaje se mohou zaokrouhlením mírně změnit."
+msgstr "Recipe ingredients will be recalculated ({count}): {recipes}. Price and nutrition may change slightly due to rounding."
+
+msgid "Množství {count} položek se zaokrouhlí na 2 desetinná místa."
+msgstr "The amount of {count} items will be rounded to 2 decimal places."
+
+msgid "Celková cena {count} dokladů se zaokrouhlením změní, viz seznam níže. U schválených dokladů se změní i měsíční přehled."
+msgstr "The total of {count} documents changes due to rounding, see the list below. For approved documents the monthly report changes too."
+
+msgid "Již vytištěná nebo exportovaná PDF a tabulky zůstávají v původní jednotce."
+msgstr "Already printed or exported PDFs and spreadsheets keep the original unit."
+
+msgid "{count} řádků má jednotku, kterou nelze převést na {old} ani na {new}; jejich množství zůstane beze změny (viz report nesprávných jednotek)."
+msgstr "{count} lines have a unit that converts to neither {old} nor {new}; their amount stays unchanged (see the incorrect units report)."
+
+msgid "Stav skladu"
+msgstr "Stock"
+
+msgid "Poslední příjemka"
+msgstr "Latest receipt"
+
+msgid "Hodnota by přesáhla povolený počet číslic: {field}"
+msgstr "A value would exceed the allowed number of digits: {field}"
+
+msgid "Stav skladu by se zaokrouhlil na 0, zvol menší jednotku."
+msgstr "The stock would round to 0, choose a smaller unit."
+
+msgid "Hmotnost kusu by byla menší než 0.01."
+msgstr "The piece weight would be less than 0.01."
+
+msgid "Jednotku {unit} nelze převést na skladovou jednotku zboží {article_unit}."
+msgstr "The unit {unit} cannot be converted to the article stock unit {article_unit}."
+
+msgid "Množství se zaokrouhlí na 2 desetinná místa."
+msgstr "The amount will be rounded to 2 decimal places."
+
+msgid "Data nebo zadání se mezitím změnila, zkontroluj náhled znovu."
+msgstr "The data or the input has changed meanwhile, review the preview again."
+
+msgid "Potvrď, že jsi zkontroloval varování."
+msgstr "Confirm that you have checked the warnings."
+
+msgid "Vrácení změny nelze vrátit, proveď nový převod."
+msgstr "An undo cannot be undone, make a new conversion."
+
+msgid "Změna již byla vrácena."
+msgstr "The change has already been undone."
+
+msgid "Zboží již neexistuje."
+msgstr "The article no longer exists."
+
+msgid "Po této změně následovala další změna jednotky."
+msgstr "Another unit change followed this change."
+
+msgid "Data se od změny upravila (pohyby na skladu, doklady nebo recepty). Použij zpětný převod."
+msgstr "Data has changed since (stock movements, documents or recipes). Use a reverse conversion."
+
+msgid "Vrácení změny jednotky"
+msgstr "Unit change undo"
+
+msgid "Vrácení změny #{id}"
+msgstr "Undo of change #{id}"
+
+msgid "Jednotka {name} byla změněna z {old} na {new}. Změnu lze vrátit na stránce <a href=\"{url}\">Správa jednotek</a>."
+msgstr "The unit of {name} was changed from {old} to {new}. The change can be undone on the <a href=\"{url}\">Unit management</a> page."
+
+msgid "Změna jednotky zboží {article}"
+msgstr "Unit change of {article}"
+
+msgid "Změna jednotky suroviny {article} v receptu {recipe}"
+msgstr "Unit change of ingredient {article} in recipe {recipe}"
+
+msgid "Nemáte oprávnění vrátit tuto změnu."
+msgstr "You do not have permission to undo this change."
+
+msgid "Je předvyplněn zpětný převod, zkontroluj ho v náhledu."
+msgstr "A reverse conversion is prefilled, check it in the preview."
+
+msgid "Změna jednotky {name} byla vrácena."
+msgstr "The unit change of {name} was undone."
+
+#, python-format
+msgid "Zboží %(article)s je na skladu v jednotce %(unit)s a surovina v receptu ji už používá. Jinou jednotku lze v receptu použít až po změně jednotky zboží, např. z ks na g."
+msgstr "%(article)s is stocked in %(unit)s and the recipe ingredient already uses it. Another unit can be used in the recipe only after changing the article unit, e.g. from ks to g."
+
+msgid "Změnit jednotku zboží"
+msgstr "Change article unit"
+
+msgid "Změnit jednotku suroviny"
+msgstr "Change ingredient unit"
 
 #, python-format
 #~ msgid "%(total)s receptů k opravě"

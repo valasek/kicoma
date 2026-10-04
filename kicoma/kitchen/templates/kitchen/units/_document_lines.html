@@ -1,0 +1,27 @@
+{% load i18n filter_extras %}
+<table class="table table-sm table-striped w-auto">
+  <thead class="table-secondary">
+    <tr>
+      <th>{% translate "Doklad" %}</th>
+      <th>{% translate "Množství před" %}</th>
+      <th>{% translate "Množství po" %}</th>
+      <th>{% translate "Jednotková cena před" %}</th>
+      <th>{% translate "Jednotková cena po" %}</th>
+      <th>{% translate "Celkem před" %}</th>
+      <th>{% translate "Celkem po" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for line in lines %}
+      <tr{% if line.broken %} class="table-warning"{% endif %}>
+        <td>{{ line.label }}</td>
+        <td>{{ line.before.amount }} {{ line.before.unit }}</td>
+        <td>{{ line.after.amount }} {{ line.after.unit }}</td>
+        <td>{{ line.before.price|unit_price|default:"-" }} {{ CURRENCY }} / {{ preview.old_unit }}</td>
+        <td>{{ line.after.price|unit_price|default:"-" }} {{ CURRENCY }} / {{ preview.new_unit }}</td>
+        <td>{{ line.total_before|default_if_none:"?" }} {{ CURRENCY }}</td>
+        <td>{{ line.total_after|default_if_none:"?" }} {{ CURRENCY }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

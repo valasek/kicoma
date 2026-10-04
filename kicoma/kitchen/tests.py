@@ -120,7 +120,10 @@ class ArticleFormRoleTests(TestCase):
             user=self.create_user("nutrition_advisor"),
         )
 
-        self.assertEqual(set(form.fields), self.common_fields | self.nutrition_fields)
+        self.assertEqual(
+            set(form.fields),
+            self.common_fields | self.nutrition_fields | {"unit_change_marker"},
+        )
         self.assertEqual(
             tuple(
                 field_name
@@ -165,6 +168,7 @@ class ArticleFormRoleTests(TestCase):
                     | self.stock_fields
                     | self.nutrition_fields
                     | set(ArticleForm.piece_fields)
+                    | {"unit_change_marker"}
                 )
                 self.assertEqual(set(form.fields), expected)
                 rendered = render_crispy_form(form)
@@ -208,6 +212,10 @@ class ArticleFormRoleTests(TestCase):
         )
 
         self.assertTrue(form.fields["unit"].disabled)
+        self.assertEqual(
+            str(form.fields["unit"].help_text),
+            "Jednotku změníš pomocí tlačítka „Změnit jednotku“.",
+        )
         self.assertTrue(form.is_valid(), form.errors)
         form.save()
         article.refresh_from_db()

@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load i18n filter_extras %}
+{% block content %}
+<div class="container-fluid">
+  <h4>{% translate "Správa jednotek" %}</h4>
+  <hr/>
+  <p>
+    {% blocktranslate trimmed %}
+      Změna jednotky zboží přepočte stav skladu, suroviny v receptech a všechny řádky příjemek a výdejek
+      včetně schválených. Změna jedné suroviny v receptu přepočte jen tento řádek.
+      Před provedením se zobrazí náhled.
+    {% endblocktranslate %}
+  </p>
+
+  <h5>{% translate "Poslední změny" %}</h5>
+  {% if logs %}
+    <table class="table table-sm table-striped table-hover">
+      <thead class="table-secondary">
+        <tr>
+          <th>{% translate "Datum" %}</th>
+          <th>{% translate "Druh" %}</th>
+          <th>{% translate "Zboží" %}</th>
+          <th>{% translate "Změna" %}</th>
+          <th>{% translate "Zdroj koeficientu" %}</th>
+          <th>{% translate "Změnil" %}</th>
+          <th>{% translate "Akce" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for log, can_undo in logs %}
+          <tr>
+            <td>{{ log.created }}</td>
+            <td>{{ log.get_kind_display }}{% if log.recipe %} ({{ log.recipe }}){% endif %}</td>
+            <td>{{ log.article_name }}</td>
+            <td>1 {{ log.old_unit }} = {{ log.factor|plain_decimal }} {{ log.new_unit }}</td>
+            <td>{{ log.source_note }}</td>
+            <td>{{ log.user|default_if_none:"-" }}</td>
+            <td>
+              {% if can_undo %}
+                <form method="post" action="{% url 'kitchen:undoUnitChange' log.pk %}" class="d-inline">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-sm btn-outline-danger">{% translate "Vrátit" %}</button>
+                </form>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>{% translate "Zatím nebyla provedena žádná změna jednotky." %}</p>
+  {% endif %}
+
+  {% if can_change_recipes %}
+    <h5>{% translate "Suroviny v receptech s nesprávnou jednotkou" %}</h5>
+    {% if incorrect_recipe_articles %}
+      <table class="table table-sm table-striped table-hover w-auto">
+        <thead class="table-secondary">
+          <tr>
+            <th>{% translate "Recept" %}</th>
+            <th>{% translate "Zboží" %}</th>
+            <th>{% translate "Množství" %}</th>
+            <th>{% translate "Jednotka skladu" %}</th>
+            <th>{% translate "Akce" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for recipe_article in incorrect_recipe_articles %}
+            <tr>
+              <td><a href="{% url 'kitchen:showRecipeArticles' recipe_article.recipe_id %}">{{ recipe_article.recipe }}</a></td>
+              <td>{{ recipe_article.article }}</td>
+              <td>{{ recipe_article.amount }} {{ recipe_article.unit }}</td>
+              <td>{{ recipe_article.article.unit }}</td>
+              <td><a href="{% url 'kitchen:changeRecipeArticleUnit' recipe_article.pk %}">{% translate "Změnit jednotku" %}</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>{% translate "Všechny suroviny v receptech mají převoditelnou jednotku." %}</p>
+    {% endif %}
+  {% endif %}
+
+  {% if can_change_articles %}
+    <h5>{% translate "Zboží" %}</h5>
+    <table class="table table-sm table-striped table-hover w-auto">
+      <thead class="table-secondary">
+        <tr>
+          <th>{% translate "Zboží" %}</th>
+          <th>{% translate "Jednotka" %}</th>
+          <th>{% translate "Na skladu" %}</th>
+          <th>{% translate "Hmotnost kusu" %}</th>
+          <th>{% translate "Akce" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for article in articles %}
+          <tr>
+            <td>{{ article.article }}</td>
+            <td>{{ article.unit }}</td>
+            <td>{{ article.on_stock }} {{ article.unit }}</td>
+            <td>{% if article.has_piece_weight %}{{ article.piece_weight|plain_decimal }} {{ article.piece_weight_unit }}{% endif %}</td>
+            <td><a href="{% url 'kitchen:changeArticleUnit' article.pk %}">{% translate "Změnit jednotku" %}</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</div>
+{% endblock content %}

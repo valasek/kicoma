@@ -1,38 +1,52 @@
 2026:
   - date: 2026-10-04
     items:
-      - "In the stock goods list and its PDF, goods with a negative quantity or negative total price are highlighted in red and marked with a warning icon."
-      - "FIX: Stock issue approval refreshes prices before validating them. Rejected approvals leave the saved issue prices and stock unchanged."
-      - "FIX: Superusers can edit stock and nutrition fields even without role groups. Existing goods units remain locked."
-      - "FIX: Recipe ingredient and stock receipt quantities now allow a minimum of 0.01, matching stock issues."
-      - "FIX: Stock export dates are validated in the current application timezone. Today remains valid around midnight, while future dates are rejected."
-      - "FIX: Stock issue validation checks the same rounded quantities that will be deducted, including repeated goods in different units."
-      - "FIX: Daily-menu issue generation sums quantities of the same goods before rounding, so small contributions from multiple recipes are not lost."
-      - "FIX: When incompatible units prevent determining historical stock, the export leaves the affected quantity and value blank. Its export_warning column identifies the documents and lines inside the workbook."
-      - "FIX: Referenced VAT rates cannot be deleted, and percentages used on approved receipts cannot be changed through admin or admin import. Historical documents are preserved."
-      - "SECURITY: Local databases and legacy backup files are excluded from the Docker image build."
-      - "FIX: The monthly receipts and issues total price report is no longer 1 CZK too low and shows 0 for an empty month."
-      - "FIX: Stock issues created from a daily menu no longer contain zero-quantity lines; only combined quantities that round to zero are left out."
-      - "FIX: The stock issue total is the sum of its rounded lines, so it matches the stock value change on approval."
-      - "FIX: Approval dates and the receipt creation date use Czech local time instead of the server clock (shortly after midnight the previous day could be stored)."
-      - "SECURITY: A user profile is visible only to its owner and to administrators."
-      - "The administration no longer allows changing or deleting approved stock receipts, issues and their lines, or changing the approval flag, because the stock would not be recalculated. This also applies to the administration import."
-      - "Data cleanup deletes stock receipts and issues by their approval date (the year two years ago and older) and daily menus by their date; unapproved documents are kept. The page warns that a stock export for a date before the deleted period will not be correct."
-      - "FIX: The stock export for a selected date no longer stops on a line with a unit that cannot be converted; such lines are left out and listed in a warning so they can be corrected."
-      - "Removed the unused daily unit check (it was switched off). Incorrect units are shown in the incorrect units report."
-      - "FIX: The data cleanup page now deletes historical records without failing."
-      - "FIX: Stock issue approval now checks the combined quantity when the same item appears on multiple lines."
-      - "FIX: Recipe costs retain cent-level precision for each ingredient and round only displayed totals."
-      - "FIX: Recipes must contain at least one serving; a zero serving count no longer breaks stock issue creation."
-      - "Stock receipts and issues now prevent deleting users who created or approved them."
-      - "FIX: Full database imports no longer store the uploaded dump in the publicly served media directory."
-      - "The unit of existing goods can no longer be changed in goods editing, in the administration or by the goods list import. Changing the unit would change the meaning of stock, recipes and documents. Import all data (backup) loads units from the file unchanged."
-      - "FIX: Approving a stock receipt or issue with a unit different from the goods unit (e.g. g for goods in kg) converted the stock value a second time (1000 times more or less). The line price is now used."
-      - "Goods in pcs have a new piece weight (g or ml). Nutrition data is entered per 100 g / 100 ml, and recipes and daily menus calculate pieces from the piece weight. Until the nutrition advisor fills in the piece weight, nutrition is marked as incomplete and the goods list shows a warning."
-      - "FIX: Unit prices are no longer rounded to whole crowns, they are stored with 4 decimal places and shown with 2. Goods in g, ml or cheap goods no longer have a zero price and stock issues with them can be approved."
-      - "FIX: The Refresh button of a stock issue created from a daily menu works again in Czech and English and keeps the original author of the issue."
-      - "FIX: A stock card cannot be deleted while the goods are in stock or on stock receipts or issues. Previously this silently deleted lines of approved documents too."
-      - "SECURITY: Goods and recipe names and notes are shown as text, not HTML, in application messages."
+      - >-
+        <strong>New user functionality</strong>
+        <ul>
+          <li>Unit management supports managed stock-item conversion and conversion of a single recipe ingredient. Stock-item conversion recalculates stock, minimum stock, recipe ingredients and all receipt and issue lines, including approved documents; total stock value and approval metadata remain unchanged.</li>
+          <li>A preview shows examples, the factor in both directions, warnings and document rounding differences. The factor source is required, and warnings require confirmation. The latest change can be undone exactly if the related data has not changed since.</li>
+          <li>Unit management is accessible from the profile and user menu, stock-item editing, and stock-item and recipe ingredient lists. The incorrect units report offers separate ingredient and stock-item conversion links, including stock-item links on receipt and issue rows. Links and actions respect user roles.</li>
+          <li>Receipt and issue forms show the stock unit beside the item name. Stock-item help points to the Change unit button; when a recipe has no other usable unit, authorized users are offered stock-item conversion.</li>
+          <li>Goods in pieces have a piece weight in g or ml. Nutrition is entered per 100 g / 100 ml; recipes and daily menus calculate pieces using that weight. Missing piece weights produce incomplete-nutrition indicators and a warning in the goods list.</li>
+          <li>Goods with a negative quantity or total value are highlighted in red with a warning icon in the stock list and its PDF.</li>
+        </ul>
+      - >-
+        <strong>Bug fixes</strong>
+        <ul>
+          <li>Receipt and issue approval no longer converts unit prices twice when line and stock units differ (the error could change values by a factor of 1000).</li>
+          <li>Unit prices are stored with 4 decimal places and displayed with 2, including the conversion preview table. Cheap goods or goods in g and ml no longer lose their price through whole-crown rounding.</li>
+          <li>Issue approval refreshes prices before validating them. Rejected approval leaves the original issue prices and stock unchanged.</li>
+          <li>Stock checks aggregate the same item across all lines and use the same rounded quantities as stock deductions, including lines with different units.</li>
+          <li>Daily-menu issue generation sums quantities of the same item before rounding. Small contributions from multiple recipes are retained; lines whose combined quantity rounds to zero are omitted.</li>
+          <li>Issue totals sum rounded lines and match the stock value change. The monthly receipt and issue report is no longer 1 CZK too low and shows 0 for an empty month.</li>
+          <li>Recipe costs preserve ingredient precision and round only displayed totals. Recipes require at least one portion; recipe ingredient and receipt quantities have a minimum of 0.01, matching issues.</li>
+          <li>Receipt creation and document approval dates use application-local time. Stock exports accept today's date around midnight and reject future dates.</li>
+          <li>Historical exports no longer fail on incompatible units. When stock cannot be determined, the item's quantity and value are left blank; warnings and the export_warning column identify affected documents and lines.</li>
+          <li>Data cleanup deletes historical records without failing. Stock cards cannot be deleted while stock or receipt/issue lines exist, preventing loss of historical documents.</li>
+          <li>Refreshing a daily-menu issue works in Czech and English and preserves its original author. Corrected the common application configuration.</li>
+          <li>Stock-item, recipe ingredient, receipt and issue forms reject stale values after unit conversion. Missing markers cannot bypass the guard, and resubmitting a rejected line cannot save its old quantity or price without re-entry.</li>
+          <li>Preview confirmation and exact undo check actual related values, not just modification timestamps. Newer prices, quantities, document metadata and recipe inputs are not overwritten; checks also work after backup restoration.</li>
+          <li>Undoing the smallest factor, 0.000001, no longer creates an unreadable audit record. An inverse factor is not prefilled when the source unit or ingredient relationships have since changed.</li>
+        </ul>
+      - >-
+        <strong>Security</strong>
+        <ul>
+          <li>User profiles are visible only to their owners and administrators.</li>
+          <li>Goods and recipe names and notes are displayed as text, not HTML, in application messages.</li>
+          <li>Full database imports no longer store uploaded dumps in the publicly served media directory.</li>
+          <li>Local databases and legacy backup files are excluded from Docker image builds.</li>
+        </ul>
+      - >-
+        <strong>Administration</strong>
+        <ul>
+          <li>Admin editing and import cannot change or delete approved receipts, issues or their lines, or directly change approval flags. Those operations would not recalculate stock.</li>
+          <li>Referenced VAT rates cannot be deleted; percentages used on approved receipts cannot be changed through admin editing or import.</li>
+          <li>Direct unit changes remain blocked in ordinary stock-item editing, admin and goods-list import. Use managed conversion instead; full backup import still restores units from the file unchanged.</li>
+          <li>Unit-change audit records can be viewed, filtered and searched in admin, but not manually added, edited or deleted.</li>
+          <li>Superusers can edit stock and nutrition fields without role-group membership. Receipts and issues prevent deletion of their creators and approvers.</li>
+          <li>Data cleanup uses document approval dates (the year two years ago and older) and daily-menu dates; unapproved documents are retained. It warns about historical export limitations before the deleted period.</li>
+        </ul>
   - date: 2026-09-30
     items:
       - "When creating a new menu, the name is prefilled with the name of the last created menu. Just adjust it, because menu names must be unique."

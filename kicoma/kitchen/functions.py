@@ -23,6 +23,13 @@ def format_unit_price(value):
     )
 
 
+# 0.042000 -> 0.042, 1000 -> 1000 (no exponent)
+def format_decimal(value):
+    if value is None or value == "":
+        return ""
+    return format(Decimal(str(value)).normalize(), "f")
+
+
 # convert article amount or price between units, units are defined in .models.UNIT
 def convert_units(number, unit_in, unit_out):
     if unit_in == unit_out:

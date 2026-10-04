@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags i18n filter_extras %}
+{% block content %}
+<div class="container-fluid">
+  <h4>{{ title }}</h4>
+  <hr/>
+  <p>
+    <a href="{{ back_url }}" class="btn btn-secondary">{% translate "Zpět" %}</a>
+    <a href="{% url 'kitchen:showUnitManagement' %}" class="btn btn-secondary">{% translate "Správa jednotek" %}</a>
+  </p>
+  <p>
+    {% blocktranslate trimmed with unit=form.old_unit %}
+      Koeficient udává, kolik nových jednotek odpovídá 1 {{ unit }}.
+      Změna přepočte množství, ceny a všechny řádky dokladů včetně schválených.
+    {% endblocktranslate %}
+  </p>
+  {% if suggestions %}
+    <p>
+      {% translate "Navržené koeficienty:" %}
+      {% for unit, factor, locked in suggestions %}
+        1 {{ form.old_unit }} = {{ factor }} {{ unit }}{% if locked %} ({% translate "pevný" %}){% endif %}{% if not forloop.last %};{% endif %}
+      {% endfor %}
+    </p>
+  {% endif %}
+  {% if not form.fields.new_unit.choices %}
+    <div class="alert alert-info">
+      {% blocktranslate trimmed with article=recipe_article.article unit=recipe_article.article.unit %}
+        Zboží {{ article }} je na skladu v jednotce {{ unit }} a surovina v receptu ji už používá.
+        Jinou jednotku lze v receptu použít až po změně jednotky zboží, např. z ks na g.
+      {% endblocktranslate %}
+      {% if can_change_article %}
+        <a href="{% url 'kitchen:changeArticleUnit' recipe_article.article_id %}">{% translate "Změnit jednotku zboží" %}</a>
+      {% endif %}
+    </div>
+  {% else %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.fingerprint }}
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+    {% endif %}
+    <div class="row">
+      <div class="col-md-2">{{ form.new_unit|as_crispy_field }}</div>
+      <div class="col-md-3">{{ form.factor|as_crispy_field }}</div>
+      <div class="col-md-7">{{ form.source_note|as_crispy_field }}</div>
+    </div>
+
+    {% if preview %}
+      <hr/>
+      <h5>{% translate "Náhled změny" %}</h5>
+      {% if preview.factor %}
+        <p class="fs-5">
+          1 {{ preview.old_unit }} = {{ preview.factor|plain_decimal }} {{ preview.new_unit }}
+          &nbsp;/&nbsp;
+          1 {{ preview.new_unit }} = {{ preview.reverse_factor|plain_decimal }} {{ preview.old_unit }}
+        </p>
+      {% endif %}
+
+      {% if preview.blockers %}
+        <div class="alert alert-danger">
+          <b>{% translate "Změnu nelze provést:" %}</b>
+          <ul class="mb-0">{% for blocker in preview.blockers %}<li>{{ blocker }}</li>{% endfor %}</ul>
+        </div>
+      {% endif %}
+
+      {% if preview.examples %}
+        <table class="table table-sm table-striped w-auto">
+          <thead class="table-secondary">
+            <tr><th>{% translate "Příklad" %}</th><th>{% translate "Před" %}</th><th>{% translate "Po" %}</th></tr>
+          </thead>
+          <tbody>
+            {% for label, before, after in preview.examples %}
+              <tr><td>{{ label }}</td><td>{{ before }}</td><td>{{ after }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+
+      {% if is_article and preview.article_after %}
+        <h6>{% translate "Skladová karta" %}</h6>
+        <table class="table table-sm table-striped w-auto">
+          <thead class="table-secondary">
+            <tr><th></th><th>{% translate "Před" %}</th><th>{% translate "Po" %}</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>{% translate "Jednotka" %}</td><td>{{ preview.article_before.unit }}</td><td>{{ preview.article_after.unit }}</td></tr>
+            <tr><td>{% translate "Na skladu" %}</td><td>{{ preview.article_before.on_stock }}</td><td>{{ preview.article_after.on_stock }}</td></tr>
+            <tr><td>{% translate "Minimálně na skladu" %}</td><td>{{ preview.article_before.min_on_stock }}</td><td>{{ preview.article_after.min_on_stock }}</td></tr>
+            <tr><td>{% translate "Celková cena s DPH" %}</td><td>{{ preview.article_before.total_price }} {{ CURRENCY }}</td><td>{{ preview.article_after.total_price }} {{ CURRENCY }}</td></tr>
+            <tr>
+              <td>{% translate "Hmotnost kusu" %}</td>
+              <td>{{ preview.article_before.piece_weight|default_if_none:"-" }} {{ preview.article_before.piece_weight_unit|default_if_none:"" }}</td>
+              <td>{{ preview.article_after.piece_weight|default_if_none:"-" }} {{ preview.article_after.piece_weight_unit|default_if_none:"" }}</td>
+            </tr>
+          </tbody>
+        </table>
+      {% endif %}
+
+      {% if preview.recipe_comparison %}
+        <h6>{% translate "Recept na 1 porci" %}</h6>
+        <table class="table table-sm table-striped w-auto">
+          <thead class="table-secondary">
+            <tr><th></th><th>{% translate "Před" %}</th><th>{% translate "Po" %}</th></tr>
+          </thead>
+          <tbody>
+            {% for label, before, after in preview.recipe_comparison %}
+              <tr><td>{{ label }}</td><td>{{ before }}</td><td>{{ after }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+
+      {% if is_article %}
+        {% if preview.recipe_lines %}
+          <h6>{% translate "Suroviny v receptech" %}</h6>
+          <table class="table table-sm table-striped w-auto">
+            <thead class="table-secondary">
+              <tr><th>{% translate "Recept" %}</th><th>{% translate "Před" %}</th><th>{% translate "Po" %}</th></tr>
+            </thead>
+            <tbody>
+              {% for line in preview.recipe_lines %}
+                <tr{% if line.broken %} class="table-warning"{% endif %}>
+                  <td>{{ line.label }}</td>
+                  <td>{{ line.before.amount }} {{ line.before.unit }}</td>
+                  <td>{{ line.after.amount }} {{ line.after.unit }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
+        {% if preview.open_document_lines %}
+          <h6>{% translate "Neschválené doklady" %}</h6>
+          {% include "kitchen/units/_document_lines.html" with lines=preview.open_document_lines %}
+        {% endif %}
+        {% if preview.approved_document_lines %}
+          <h6>{% translate "Schválené doklady" %}</h6>
+          <p class="text-muted">{% translate "Údaje o schválení (příznak, datum, uživatel) zůstanou beze změny." %}</p>
+          {% include "kitchen/units/_document_lines.html" with lines=preview.approved_document_lines %}
+        {% endif %}
+        {% if preview.document_differences %}
+          <h6>{% translate "Rozdíly celkových cen dokladů po zaokrouhlení" %}</h6>
+          <table class="table table-sm table-striped w-auto">
+            <thead class="table-secondary">
+              <tr><th>{% translate "Doklad" %}</th><th>{% translate "Schváleno" %}</th><th>{% translate "Měsíc" %}</th><th>{% translate "Rozdíl" %}</th></tr>
+            </thead>
+            <tbody>
+              {% for entry in preview.document_differences %}
+                <tr>
+                  <td>{{ entry.label }}</td>
+                  <td>{{ entry.approved|yesno }}</td>
+                  <td>{{ entry.month }}</td>
+                  <td>{{ entry.difference }} {{ CURRENCY }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
+      {% endif %}
+
+      {% if preview.info %}
+        <div class="alert alert-info">
+          <ul class="mb-0">{% for message in preview.info %}<li>{{ message }}</li>{% endfor %}</ul>
+        </div>
+      {% endif %}
+
+      {% if preview.warnings and not preview.blockers %}
+        <div class="alert alert-warning">
+          <b>{% translate "Varování:" %}</b>
+          <ul>{% for warning in preview.warnings %}<li>{{ warning }}</li>{% endfor %}</ul>
+          {{ form.confirmed|as_crispy_field }}
+        </div>
+      {% endif %}
+    {% endif %}
+
+    <button type="submit" name="action" value="preview" class="btn btn-primary">{% translate "Náhled" %}</button>
+    {% if preview and not preview.blockers %}
+      <button type="submit" name="action" value="apply" class="btn btn-success">{% translate "Provést změnu" %}</button>
+    {% endif %}
+  </form>
+  {{ suggested_factors|json_script:"suggested-factors" }}
+  <script>
+    (function () {
+      const factors = JSON.parse(document.getElementById("suggested-factors").textContent);
+      const unit = document.getElementById("id_new_unit");
+      const factor = document.getElementById("id_factor");
+      if (!unit || !factor) return;
+      function apply(fill) {
+        const suggestion = factors[unit.value];
+        factor.readOnly = Boolean(suggestion && suggestion.locked);
+        if (suggestion && (fill || suggestion.locked || !factor.value)) {
+          factor.value = suggestion.factor;
+        }
+      }
+      unit.addEventListener("change", function () { apply(true); });
+      apply(false);
+    })();
+  </script>
+  {% endif %}
+</div>
+{% endblock content %}

@@ -1067,6 +1067,70 @@ class StockIssueArticle(TimeStampedModel):
         return self.article.article + " - " + str(self.amount) + self.unit
 
 
+class UnitChangeLog(models.Model):
+    class Kind(models.TextChoices):
+        ARTICLE = "article", _("Zboží")
+        RECIPE_LINE = "recipe_line", _("Surovina v receptu")
+        UNDO = "undo", _("Vrácení změny")
+
+    class Meta:
+        verbose_name_plural = _("Změny jednotek")
+        verbose_name = _("Změna jednotky")
+        ordering = ["-created", "-id"]
+
+    kind = models.CharField(max_length=20, choices=Kind, verbose_name=_("Druh"))
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="unit_changes",
+        verbose_name=_("Zboží"),
+    )
+    recipe = models.ForeignKey(
+        Recipe,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="unit_changes",
+        verbose_name=_("Recept"),
+    )
+    article_name = models.CharField(max_length=30, verbose_name=_("Název zboží"))
+    old_unit = models.CharField(
+        max_length=2, choices=UNIT, verbose_name=_("Původní jednotka")
+    )
+    new_unit = models.CharField(
+        max_length=2, choices=UNIT, verbose_name=_("Nová jednotka")
+    )
+    factor = models.DecimalField(
+        max_digits=13, decimal_places=6, verbose_name=_("Převodní koeficient")
+    )
+    source_note = models.CharField(max_length=200, verbose_name=_("Zdroj koeficientu"))
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="unit_changes",
+        verbose_name=_("Změnil"),
+    )
+    created = models.DateTimeField(auto_now_add=True, verbose_name=_("Datum vytvoření"))
+    details = models.JSONField(default=dict, blank=True, verbose_name=_("Podrobnosti"))
+    undo_of = models.OneToOneField(
+        "self",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="undone_by",
+        verbose_name=_("Vrácená změna"),
+    )
+
+    def __str__(self):
+        return (
+            f"{self.article_name}: {self.old_unit} -> {self.new_unit} ({self.factor})"
+        )
+
+
 class StockReceiptArticle(TimeStampedModel):
     objects = CollatableManager()
 

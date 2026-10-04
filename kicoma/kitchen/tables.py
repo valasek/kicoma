@@ -41,6 +41,7 @@ LABEL_SHOW_ARTICLES = _("Zobrazit zboží")
 LABEL_REFRESH = _("Aktualizovat")
 LABEL_ISSUE = _("Vyskladnit")
 LABEL_RECEIPT = _("Naskladnit")
+LABEL_CHANGE_UNIT = _("Změnit jednotku")
 
 
 def render_nutrition_facts(totals, is_total=False, missing=None):
@@ -112,7 +113,11 @@ class ArticleTable(tables.Table):
 
     def render_change(self, record):
         edit_url = reverse("kitchen:updateArticle", args=[record.id])
-        links = [f'<a href="{edit_url}">{LABEL_EDIT}</a>']
+        unit_url = reverse("kitchen:changeArticleUnit", args=[record.id])
+        links = [
+            f'<a href="{edit_url}">{LABEL_EDIT}</a>',
+            f'<a href="{unit_url}">{LABEL_CHANGE_UNIT}</a>',
+        ]
 
         user = getattr(self, "request", None).user if hasattr(self, "request") else None
         if user and self.is_stockkeeper(user):
@@ -259,9 +264,11 @@ class RecipeArticleTable(tables.Table):
         if not isinstance(record, RecipeArticle):
             return ""
         edit_url = reverse("kitchen:updateRecipeArticle", args=[record.id])
+        unit_url = reverse("kitchen:changeRecipeArticleUnit", args=[record.id])
         delete_url = reverse("kitchen:deleteRecipeArticle", args=[record.id])
         return mark_safe(
             f'<a href="{edit_url}">{LABEL_EDIT}</a> | '
+            f'<a href="{unit_url}">{LABEL_CHANGE_UNIT}</a> | '
             f'<a href="{delete_url}">{LABEL_DELETE}</a>'
         )
 
