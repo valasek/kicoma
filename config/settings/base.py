@@ -4,6 +4,7 @@ Base settings to build other settings files upon.
 
 import os
 from pathlib import Path
+from typing import Any
 
 import environ
 from django.utils.translation import gettext_lazy as _
@@ -49,7 +50,7 @@ LANGUAGES = [
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 # Local SQLite DB
-DATABASES = {
+DATABASES: dict[str, dict[str, Any]] = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": os.path.join(ROOT_DIR, "storage/kicoma.sqlite3"),

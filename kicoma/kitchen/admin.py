@@ -260,7 +260,7 @@ def reject_approved_line_change(line, document_field):
 class ApprovedDocumentAdminMixin:
     """Approved receipts/issues and their lines are read-only, stock is not recalculated here."""
 
-    document_field = None
+    document_field: str | None = None
 
     def is_approved(self, obj):
         if obj is None:

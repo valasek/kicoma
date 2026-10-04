@@ -1,6 +1,7 @@
 from decimal import ROUND_HALF_UP, Decimal
 
 from django.conf import settings
+from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models, transaction
@@ -377,10 +378,9 @@ class Article(TimeStampedModel):
 
     """Create a string for the Allergens. This is required to display allergen in Admin and user table view."""
 
+    @admin.display(description=_("Alergeny"))
     def display_allergens(self):
         return ", ".join(allergen.code for allergen in self.allergen.all())
-
-    display_allergens.short_description = _("Alergeny")
 
 
 class Recipe(TimeStampedModel):

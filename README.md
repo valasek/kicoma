@@ -177,7 +177,7 @@ Using [Graph models](https://django-extensions.readthedocs.io/en/latest/graph_mo
 
 Running type checks with mypy:
 
-`mypy kicoma`
+`uv run mypy kicoma config`
 
 ### Test coverage
 

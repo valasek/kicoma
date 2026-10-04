@@ -6,21 +6,20 @@ from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 from django.views import defaults as default_views
 
-admin.site.index_title = _('Nastaveni')
-admin.site.site_header = _('KiCoMa')
-admin.site.site_title = _('Kuchyna nastavení')
+admin.site.index_title = _("Nastaveni")
+admin.site.site_header = _("KiCoMa")
+admin.site.site_title = _("Kuchyna nastavení")
 
 urlpatterns = i18n_patterns(
-    path('', include("kicoma.common.urls", namespace="kicoma")),
-    path('kitchen/', include("kicoma.kitchen.urls", namespace="kitchen")),
+    path("", include("kicoma.common.urls", namespace="kicoma")),
+    path("kitchen/", include("kicoma.kitchen.urls", namespace="kitchen")),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("kicoma.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # If no prefix is given, use the default language
-    prefix_default_language=False
-
+    prefix_default_language=False,
     # Your stuff: custom urls includes go here
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
@@ -48,4 +47,4 @@ if settings.DEBUG:
     if "debug_toolbar" in settings.INSTALLED_APPS:
         import debug_toolbar
 
-        urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
+        urlpatterns = [path("__debug__/", include(debug_toolbar.urls)), *urlpatterns]

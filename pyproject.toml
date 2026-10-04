@@ -44,6 +44,7 @@ dev = [
 
     # Testing
     "django-stubs",  # https://github.com/typeddjango/django-stubs
+    "mypy",          # https://github.com/python/mypy
     "pytest",        # https://github.com/pytest-dev/
     "pytest-sugar",  # https://github.com/Frozenball/pytest-sugar
     "pytest-django", # https://github.com/pytest-dev/pytest-django
@@ -119,14 +120,14 @@ indent-style = "space"
 skip-magic-trailing-comma = false
 line-ending = "auto"
 
-# ty configuration (type checking)
-[tool.ty]
-python-version = "3.13"
-strict = true
+[tool.mypy]
+python_version = "3.13"
+plugins = ["mypy_django_plugin.main"]
+ignore_missing_imports = true
+exclude = ["/migrations/", "staticfiles/"]
 
-[tool.ty.src]
-include = ["src", "tests"]
-exclude = ["migrations", "staticfiles"]
+[tool.django-stubs]
+django_settings_module = "config.settings.test"
 
 # Coverage configuration
 [tool.coverage.run]
@@ -168,9 +169,9 @@ language = "system"
 types = ["python"]
 
 [[tool.pre-commit.repos.hooks]]
-id = "ty-check"
-name = "ty-check"
-entry = "uv run ty check"
+id = "mypy"
+name = "mypy"
+entry = "uv run mypy kicoma config"
 language = "system"
 types = ["python"]
 pass_filenames = false

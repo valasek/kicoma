@@ -12,7 +12,8 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.contrib.auth.models import ContentType, Group, Permission
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core import management
 from django.core.exceptions import PermissionDenied, ValidationError
@@ -71,7 +72,6 @@ from .models import (
     Article,
     DailyMenu,
     DailyMenuRecipe,
-    HistoricalArticle,
     MealGroup,
     MealType,
     Menu,
@@ -113,6 +113,8 @@ from .tables import (
     StockReceiptTable,
 )
 from .utils import get_currency, load_changelog
+
+HistoricalArticle = Article.history.model
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
