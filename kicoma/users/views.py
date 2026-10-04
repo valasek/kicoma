@@ -5,6 +5,8 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, RedirectView, UpdateView
 
+from kicoma.kitchen.permissions import Roles
+
 User = get_user_model()
 
 
@@ -19,6 +21,14 @@ class UserDetailView(LoginRequiredMixin, DetailView):
         if self.request.user.is_superuser:
             return queryset
         return queryset.filter(pk=self.request.user.pk)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        labels = dict(Roles.choices)
+        context["group_labels"] = [
+            labels.get(group.name, group.name) for group in self.object.groups.all()
+        ]
+        return context
 
 
 user_detail_view = UserDetailView.as_view()

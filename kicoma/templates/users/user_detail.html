@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static i18n auth_extras %}
+{% load static i18n %}
 
 {% block title %}User: {{ object.username }}{% endblock %}
 
@@ -9,10 +9,22 @@
   <div class="row">
     <div class="col-sm-12">
 
-      <h2>{{ object.username }}</h2>
-      {% if object.name %}
-        <p>{{ object.name }}</p>
-      {% endif %}
+      <dl class="row">
+        <dt class="col-sm-3">{% translate "Uživatelské jméno" %}</dt>
+        <dd class="col-sm-9">{{ object.username }}</dd>
+        <dt class="col-sm-3">{% translate "Jméno" %}</dt>
+        <dd class="col-sm-9">{{ object.name|default:"-" }}</dd>
+        <dt class="col-sm-3">E-mail</dt>
+        <dd class="col-sm-9">{{ object.email|default:"-" }}</dd>
+        <dt class="col-sm-3">{% translate "Skupiny" %}</dt>
+        <dd class="col-sm-9">
+          {% for label in group_labels %}{{ label }}{% if not forloop.last %}, {% endif %}{% empty %}-{% endfor %}
+        </dd>
+        <dt class="col-sm-3">{% translate "Novinky" %}</dt>
+        <dd class="col-sm-9"><a href="{% url 'kitchen:changelog' %}">{% translate "Novinky" %}</a></dd>
+        <dt class="col-sm-3">{% translate "Příručka" %}</dt>
+        <dd class="col-sm-9"><a href="{% url 'kitchen:docs' %}">{% translate "Příručka" %}</a></dd>
+      </dl>
     </div>
   </div>
 
@@ -21,11 +33,8 @@
 <div class="row">
 
   <div class="col-sm-12">
-    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
+    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">{% translate "Moje údaje" %}</a>
     <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
-    {% if request.user|has_any_group:"stockkeeper,nutrition_advisor,cook" %}
-      <a class="btn btn-primary" href="{% url 'kitchen:showUnitManagement' %}" role="button">{% translate "Správa jednotek" %}</a>
-    {% endif %}
     <!-- Your Stuff: Custom user template urls -->
   </div>
 

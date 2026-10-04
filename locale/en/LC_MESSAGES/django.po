@@ -855,6 +855,18 @@ msgstr "Edit Items"
 msgid "Uložit"
 msgstr "Save"
 
+#: kicoma/templates/users/user_detail.html
+msgid "Moje údaje"
+msgstr "My info"
+
+#: kicoma/templates/users/user_detail.html
+msgid "Uživatelské jméno"
+msgstr "Username"
+
+#: kicoma/templates/users/user_detail.html
+msgid "Jméno"
+msgstr "Name"
+
 #: kicoma/kitchen/templates/kitchen/changelog.html:4
 msgid "Změny v aplikaci"
 msgstr "Changelog"
