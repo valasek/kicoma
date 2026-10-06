@@ -50,6 +50,7 @@
               <tr>
                 <th scope="col">{% translate "Zboží" %}</th>
                 <th scope="col" class="text-end">{% translate "Na skladu" %}</th>
+                {% if can_change_articles %}<th scope="col"></th>{% endif %}
               </tr>
             </thead>
             <tbody>
@@ -57,6 +58,9 @@
                 <tr>
                   <td><a href="{% url 'kitchen:updateArticle' pk=article.pk %}">{{ article }}</a></td>
                   <td class="text-end">{{ article.on_stock|floatformat:"-2" }} {{ article.get_unit_display }}</td>
+                  {% if can_change_articles %}
+                    <td class="text-end"><a href="{% url 'kitchen:changeArticleUnit' article.pk %}">{% translate "Změnit jednotku" %}</a></td>
+                  {% endif %}
                 </tr>
               {% endfor %}
             </tbody>
@@ -64,6 +68,7 @@
               <tr class="fw-bold">
                 <th scope="row">{% translate "Celkem" %}</th>
                 <td class="text-end">{{ selected_unit.total_on_stock|floatformat:"-2" }} {{ selected_unit.label }}</td>
+                {% if can_change_articles %}<td></td>{% endif %}
               </tr>
             </tfoot>
           </table>

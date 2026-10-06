@@ -1,4 +1,8 @@
 2026:
+  - date: 2026-10-06
+    items:
+      - "The Stock by unit report has a Change unit link next to each stock item for users who may change stock-item units."
+      - "When adding or editing an item on an issue or receipt, selecting a stock item prefills the Unit with the unit the item uses on stock."
   - date: 2026-10-04
     items:
       - >-

@@ -505,7 +505,17 @@ class StockIssueFromDailyMenuForm(forms.ModelForm):
         )
 
 
+class ArticleUnitSelect(forms.Select):
+    def create_option(self, name, value, *args, **kwargs):
+        option = super().create_option(name, value, *args, **kwargs)
+        if hasattr(value, "instance"):
+            option["attrs"]["data-unit"] = value.instance.unit
+        return option
+
+
 class ArticleWithUnitChoiceField(forms.ModelChoiceField):
+    widget = ArticleUnitSelect
+
     def label_from_instance(self, obj):
         return f"{obj.article} [{obj.get_unit_display()}]"
 

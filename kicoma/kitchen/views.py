@@ -2461,6 +2461,9 @@ class StockByUnitReportView(AnyRoleRequiredMixin, TemplateView):
                 **totals_by_unit[selected_unit],
             }
             context["articles"] = Article.objects.filter(unit=selected_unit)
+            context["can_change_articles"] = user_has_any_role(
+                self.request.user, UNIT_CHANGE_ROLES[UnitChangeLog.Kind.ARTICLE]
+            )
 
         return context
 

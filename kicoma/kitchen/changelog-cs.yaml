@@ -1,4 +1,8 @@
 2026:
+  - date: 2026-10-06
+    items:
+      - "Report Zboží na skladu dle použitých jednotek má u každého zboží odkaz Změnit jednotku pro uživatele, kteří smějí měnit jednotku zboží."
+      - "Při přidávání nebo úpravě zboží na výdejce či příjemce se po výběru zboží předvyplní Jednotka podle skladové jednotky zboží."
   - date: 2026-10-04
     items:
       - >-
