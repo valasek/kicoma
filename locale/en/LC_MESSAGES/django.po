@@ -131,8 +131,8 @@ msgstr "I have checked the warnings and take responsibility for the result."
 
 #: kicoma/kitchen/forms.py:608
 #, python-brace-format
-msgid "1 {unit} = ? nové jednotky"
-msgstr "1 {unit} = ? new units"
+msgid "Koeficient: 1 {unit} = ? nové jednotky"
+msgstr "Factor: 1 {unit} = ? new units"
 
 #: kicoma/kitchen/forms.py:621
 msgid "Zadej převodní koeficient."

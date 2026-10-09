@@ -615,9 +615,9 @@ class UnitChangeForm(forms.Form):
             for unit, label in UNIT
             if unit in unit_choices and unit != old_unit
         ]
-        self.fields["factor"].label = _("1 {unit} = ? nové jednotky").format(
-            unit=old_unit
-        )
+        self.fields["factor"].label = _(
+            "Koeficient: 1 {unit} = ? nové jednotky"
+        ).format(unit=old_unit)
 
     def clean(self):
         cleaned_data = super().clean()

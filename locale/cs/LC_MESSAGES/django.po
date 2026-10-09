@@ -128,7 +128,7 @@ msgstr ""
 
 #: kicoma/kitchen/forms.py:608
 #, python-brace-format
-msgid "1 {unit} = ? nové jednotky"
+msgid "Koeficient: 1 {unit} = ? nové jednotky"
 msgstr ""
 
 #: kicoma/kitchen/forms.py:621
