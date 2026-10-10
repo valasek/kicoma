@@ -16,7 +16,7 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">{{ total_price|intcomma }} {{ CURRENCY }}</th>
+      <th scope="row">{{ total_price|default_if_none:"—"|intcomma }} {{ CURRENCY }}</th>
       <td>{{ stock_receipt_articles.count }}</td>
       <td>{{ stock_receipt.created }}</td>
       <td>{{ stock_receipt.user_created.name }}</td>
@@ -49,7 +49,7 @@
       <td>{{ stock_receipt_article.price_without_vat|unit_price }} {{ CURRENCY }}</td>
       <td>{{ stock_receipt_article.vat }}</td>
       <td>{{ stock_receipt_article.price_with_vat|unit_price }} {{ CURRENCY }}</td>
-      <td>{{ stock_receipt_article.total_price_with_vat|intcomma }} {{ CURRENCY }}</td>
+      <td>{{ stock_receipt_article.total_price_with_vat|default_if_none:"—"|intcomma }} {{ CURRENCY }}</td>
       <td>{{ stock_receipt_article.comment }}</td>
     </tr>
 {% endfor %}

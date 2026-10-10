@@ -363,6 +363,16 @@ class ArticleUnitChangeServiceTests(UnitChangeFixtureMixin, TestCase):
         broken = [line for line in preview.lines if line.broken]
         self.assertEqual([line.line.pk for line in broken], [self.recipe_grams.pk])
 
+    def test_broken_document_line_keeps_its_price(self):
+        self.approved_issue_line.unit = "l"
+        self.approved_issue_line.save()
+
+        preview = preview_article_change(self.article, "kg", Decimal("0.042"), "x")
+
+        broken = next(line for line in preview.lines if line.broken)
+        self.assertEqual(broken.line.pk, self.approved_issue_line.pk)
+        self.assertEqual(broken.after, broken.before)
+
     def test_warnings_require_confirmation(self):
         with self.assertRaises(UnitChangeError):
             self.convert(factor="0.05", confirmed=False)

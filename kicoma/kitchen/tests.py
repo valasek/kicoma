@@ -1,6 +1,7 @@
 import json
 from datetime import UTC, date, datetime, timedelta
 from decimal import Decimal
+from io import StringIO
 from unittest.mock import patch
 
 from crispy_forms.utils import render_crispy_form
@@ -9,6 +10,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.management import call_command
+from django.core.management.base import CommandError
 from django.db import connection
 from django.db.models import ProtectedError
 from django.test import RequestFactory, SimpleTestCase, TestCase, TransactionTestCase
@@ -788,6 +791,79 @@ class ViewTests(TestCase):
         )
         message = next(iter(response.wsgi_request._messages))
         self.assertIn("Není možné provést konverzi 1.00 ks na kg", str(message))
+
+    def create_stale_issue(self, approved):
+        article = Article.objects.create(
+            article="Kapucino", unit="kg", on_stock=5, total_price=500
+        )
+        stock_issue = StockIssue.objects.create(
+            user_created=self.user,
+            approved=approved,
+            date_approved=date.today() if approved else None,
+        )
+        line = StockIssueArticle.objects.create(
+            stock_issue=stock_issue,
+            article=article,
+            amount=1,
+            unit="ks",
+            average_unit_price=116,
+        )
+        return stock_issue, line
+
+    def test_stale_line_unit_does_not_break_stock_issue_pages(self):
+        self.client.force_login(self.user)
+        stock_issue, line = self.create_stale_issue(approved=True)
+
+        self.assertIsNone(line.total_average_price_with_vat)
+        self.assertIsNone(stock_issue.total_price)
+        for name in ("showStockIssueArticles", "printStockIssue", "deleteStockIssue"):
+            with self.subTest(name):
+                response = self.client.get(
+                    reverse(f"kitchen:{name}", args=[stock_issue.pk])
+                )
+                self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            self.client.get(reverse("kitchen:showStockIssues")).status_code, 200
+        )
+
+    def test_stale_line_unit_blocks_stock_issue_approval(self):
+        self.client.force_login(self.user)
+        stock_issue, _line = self.create_stale_issue(approved=False)
+
+        response = self.client.post(
+            reverse("kitchen:approveStockIssue", args=[stock_issue.pk]), follow=True
+        )
+
+        stock_issue.refresh_from_db()
+        self.assertFalse(stock_issue.approved)
+        self.assertContains(response, "report nesprávných jednotek")
+        self.assertEqual(Article.objects.get(article="Kapucino").on_stock, 5)
+
+    def test_repair_stale_line_units_command(self):
+        stock_issue, line = self.create_stale_issue(approved=True)
+        out = StringIO()
+
+        call_command(
+            "repair_stale_line_units", line.article_id, "ks", "0.75", stdout=out
+        )
+        line.refresh_from_db()
+        self.assertEqual(line.unit, "ks")
+        self.assertIn("total 116 -> 116", out.getvalue())
+
+        call_command(
+            "repair_stale_line_units",
+            line.article_id,
+            "ks",
+            "0.75",
+            "--apply",
+            stdout=out,
+        )
+        line.refresh_from_db()
+        self.assertEqual((line.amount, line.unit), (Decimal("0.75"), "kg"))
+        self.assertEqual(line.average_unit_price, Decimal("154.6667"))
+        self.assertEqual(stock_issue.total_price, 116)
+        with self.assertRaises(CommandError):
+            call_command("repair_stale_line_units", line.article_id, "kg", "1")
 
     def test_docs_lists_users_in_each_role(self):
         self.user.is_superuser = True

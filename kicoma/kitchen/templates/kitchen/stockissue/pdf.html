@@ -15,7 +15,7 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">{{ total_price|intcomma }} {{ CURRENCY }}</th>
+      <th scope="row">{{ total_price|default_if_none:"—"|intcomma }} {{ CURRENCY }}</th>
       <td>{{ stock_issue_articles.count }}</td>
       <td>{{ stock_issue.created }}</td>
       <td>{{ stock_issue.user_created.name }}</td>
@@ -42,7 +42,7 @@
       <th scope="row">{{ stock_issue_article.article }}</th>
       <td>{{ stock_issue_article.amount }} {{ stock_issue_article.unit }}</td>
       <td>{{ stock_issue_article.average_unit_price|unit_price }} {{ CURRENCY }}</td>
-      <td>{{ stock_issue_article.total_average_price_with_vat|intcomma }} {{ CURRENCY }}</td>
+      <td>{{ stock_issue_article.total_average_price_with_vat|default_if_none:"—"|intcomma }} {{ CURRENCY }}</td>
       <td>{{ stock_issue_article.comment }}</td>
     </tr>
   {% endfor %}

@@ -1,4 +1,10 @@
 2026:
+  - date: 2026-10-10
+    items:
+      - "Issue and receipt item lists, PDFs, approval and delete pages no longer fail when a document contains a line in a unit that cannot be converted to the stock unit (after an earlier stock-item unit change). The total price is shown as \"—\"."
+      - "Approving such a receipt or issue is refused with a link to the incorrect units report."
+      - "Stock-item unit conversion leaves lines with an unconvertible unit completely unchanged, including their unit price."
+      - "Administrators can repair these lines with the repair_stale_line_units command, which converts both quantity and unit price and keeps the line total."
   - date: 2026-10-06
     items:
       - "The Stock by unit report has a Change unit link next to each stock item for users who may change stock-item units."

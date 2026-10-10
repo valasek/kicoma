@@ -4583,6 +4583,22 @@ msgstr "Name of User"
 msgid "Infos successfully updated"
 msgstr "Infos successfully updated"
 
+#: kicoma/kitchen/views.py
+msgid ""
+"Vyskladnění neprovedeno - jednotku některého zboží nelze převést na jednotku "
+"skladu, viz report nesprávných jednotek"
+msgstr ""
+"Not issued - the unit of some goods cannot be converted to the stock unit, "
+"see the incorrect units report"
+
+#: kicoma/kitchen/views.py
+msgid ""
+"Naskladnění neprovedeno - jednotku některého zboží nelze převést na jednotku "
+"skladu, viz report nesprávných jednotek"
+msgstr ""
+"Not received - the unit of some goods cannot be converted to the stock unit, "
+"see the incorrect units report"
+
 #~ msgid "kJ / 100 g"
 #~ msgstr "kJ / 100 g"
 

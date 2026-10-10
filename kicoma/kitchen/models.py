@@ -802,8 +802,11 @@ class StockIssue(TimeStampedModel):
         stock_issue_articles = StockIssueArticle.objects.select_related(
             "article"
         ).filter(stock_issue=self.id)
+        totals = [line.total_average_price_with_vat for line in stock_issue_articles]
+        if None in totals:
+            return None
         # sum of rounded lines, same as the stock value change on approval
-        return sum(line.total_average_price_with_vat for line in stock_issue_articles)
+        return sum(totals)
 
     def consolidate_by_article(self):
         # select all articles where count > 1
@@ -995,13 +998,13 @@ class StockReceipt(TimeStampedModel):
 
     @property
     def total_price(self):
-        stock_receipt_articles = StockReceiptArticle.objects.filter(
-            stock_receipt=self.id
-        )
-        total_price = 0
-        for stock_receipt_article in stock_receipt_articles:
-            total_price += stock_receipt_article.total_price_with_vat
-        return round(total_price, 0)
+        stock_receipt_articles = StockReceiptArticle.objects.select_related(
+            "article", "vat"
+        ).filter(stock_receipt=self.id)
+        totals = [line.total_price_with_vat for line in stock_receipt_articles]
+        if None in totals:
+            return None
+        return round(sum(totals), 0)
 
     @staticmethod
     def update_article_on_stock(stock_id, comment):
@@ -1056,11 +1059,12 @@ class StockIssueArticle(TimeStampedModel):
     @property
     def total_average_price_with_vat(self):
         if self.amount is not None and self.average_unit_price is not None:
-            return round(
-                self.average_unit_price
-                * convert_units(self.amount, self.unit, self.article.unit),
-                0,
-            )
+            # None: line unit left behind by an old article unit change
+            try:
+                amount = convert_units(self.amount, self.unit, self.article.unit)
+            except ValidationError:
+                return None
+            return round(self.average_unit_price * amount, 0)
         return 0
 
     def __str__(self):
@@ -1180,11 +1184,12 @@ class StockReceiptArticle(TimeStampedModel):
     @property
     def total_price_with_vat(self):
         if self.price_with_vat is not None and self.amount is not None:
-            return round(
-                self.price_with_vat
-                * convert_units(self.amount, self.unit, self.article.unit),
-                0,
-            )
+            # None: line unit left behind by an old article unit change
+            try:
+                amount = convert_units(self.amount, self.unit, self.article.unit)
+            except ValidationError:
+                return None
+            return round(self.price_with_vat * amount, 0)
         return 0
 
     def __str__(self):

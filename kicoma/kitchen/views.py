@@ -1769,7 +1769,18 @@ class StockIssueApproveView(StockkeeperRequiredMixin, TemplateView):
             )
         with transaction.atomic():
             StockIssue.update_stock_issue_article_average_unit_price(stock_issue.id)
-            if stock_issue.total_price <= 0:
+            total_price = stock_issue.total_price
+            if total_price is None:
+                messages.error(
+                    self.request,
+                    _(
+                        "Vyskladnění neprovedeno - jednotku některého zboží nelze převést "
+                        "na jednotku skladu, viz report nesprávných jednotek"
+                    ),
+                )
+                transaction.set_rollback(True)
+                return HttpResponseRedirect(reverse_lazy("kitchen:showStockIssues"))
+            if total_price <= 0:
                 messages.warning(
                     self.request,
                     _(
@@ -2093,7 +2104,17 @@ class StockReceiptApproveView(StockkeeperRequiredMixin, TemplateView):
                     "kitchen:showStockReceipts",
                 )
             )
-        if stock_receipt.total_price <= 0:
+        total_price = stock_receipt.total_price
+        if total_price is None:
+            messages.error(
+                self.request,
+                _(
+                    "Naskladnění neprovedeno - jednotku některého zboží nelze převést "
+                    "na jednotku skladu, viz report nesprávných jednotek"
+                ),
+            )
+            return HttpResponseRedirect(reverse_lazy("kitchen:showStockReceipts"))
+        if total_price <= 0:
             messages.warning(
                 self.request,
                 _(
@@ -2306,10 +2327,19 @@ def stock_issues_receipts_data(month):
     )
     stock_issues_price = 0
     for si in stock_issues:
-        stock_issues_price += si.total_price
+        total = si.total_price
+        if total is None:
+            # re-raise the conversion error so the report can name the line
+            for line in si.stockissuearticle_set.select_related("article"):
+                convert_units(line.amount, line.unit, line.article.unit)
+        stock_issues_price += total
     stock_receipts_price = 0
     for sr in stock_receipts:
-        stock_receipts_price += sr.total_price
+        total = sr.total_price
+        if total is None:
+            for line in sr.stockreceiptarticle_set.select_related("article"):
+                convert_units(line.amount, line.unit, line.article.unit)
+        stock_receipts_price += total
     return {
         "year": month_year,
         "month": month_month,

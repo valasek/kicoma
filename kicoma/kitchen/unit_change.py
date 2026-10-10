@@ -356,7 +356,9 @@ def _convert_line(kind, line, old_unit, new_unit, factor):
         after["unit"] = new_unit
         change.rounded = after["amount"] != exact
     else:
+        # its price is still per the line unit, dividing it would corrupt the total
         change.broken = True
+        return change
     if price is not None:
         after["price"] = quantize_price(price / factor)
         vat = line.vat.percentage if kind == "receipt" else None

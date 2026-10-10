@@ -1,4 +1,10 @@
 2026:
+  - date: 2026-10-10
+    items:
+      - "Seznam zboží na výdejce či příjemce, PDF, schválení a výmaz už neskončí chybou, pokud doklad obsahuje řádek v jednotce, kterou nelze převést na skladovou jednotku (po dřívější změně jednotky zboží). Celková cena se zobrazí jako „—“."
+      - "Naskladnění a vyskladnění takového dokladu je odmítnuto s odkazem na report nesprávných jednotek."
+      - "Změna jednotky zboží ponechá řádky s nepřevoditelnou jednotkou zcela beze změny, včetně jednotkové ceny."
+      - "Administrátor může tyto řádky opravit příkazem repair_stale_line_units, který převede množství i jednotkovou cenu a zachová celkovou cenu řádku."
   - date: 2026-10-06
     items:
       - "Report Zboží na skladu dle použitých jednotek má u každého zboží odkaz Změnit jednotku pro uživatele, kteří smějí měnit jednotku zboží."
