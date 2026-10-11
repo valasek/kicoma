@@ -1,6 +1,7 @@
 # Public landing page (kicoma.eu) and demo: sample data, reset nightly by the cron role and on every deploy.
 #   kamal deploy -d demo
 service: kicoma-demo
+image: svalasek/kicoma-demo
 
 servers:
   web:

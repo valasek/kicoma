@@ -2,6 +2,7 @@
 #   kamal deploy -d hospic-cercany
 # Own service and volume, so it runs next to the old "kicoma" deployment until cutover.
 service: kicoma-hospic-cercany
+image: svalasek/kicoma-hospic-cercany
 
 proxy:
   hosts:

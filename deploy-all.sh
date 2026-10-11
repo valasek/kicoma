@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build and push the image once, then deploy it to every destination (config/deploy.<name>.yml).
+# Build, push and deploy each destination (config/deploy.<name>.yml).
 #   ./deploy-all.sh
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -15,8 +15,7 @@ if [[ ${#destinations[@]} -eq 0 ]]; then
 fi
 
 echo "Destinations: ${destinations[*]}"
-kamal build push -d "${destinations[0]}"
 for destination in "${destinations[@]}"; do
   echo "=== Deploying $destination ==="
-  kamal deploy -d "$destination" --skip-push
+  kamal deploy -d "$destination"
 done

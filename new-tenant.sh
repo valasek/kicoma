@@ -31,6 +31,7 @@ cat > "config/deploy.$slug.yml" <<EOF
 # Customer instance: $slug
 #   kamal deploy -d $slug
 service: kicoma-$slug
+image: svalasek/kicoma-$slug
 
 servers:
   web:

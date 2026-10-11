@@ -109,7 +109,7 @@ database, so data cannot leak between customers and deleting a customer means de
 | File | Purpose |
 | --- | --- |
 | `config/deploy.yml` | Shared base (image, server, proxy, secrets list). Has no host or volume, so always deploy with `-d`. |
-| `config/deploy.<name>.yml` | One per instance: `service`, `proxy.host`, `volumes`, `DJANGO_ALLOWED_HOSTS`, extra env. |
+| `config/deploy.<name>.yml` | One per instance: `service`, `image`, `proxy.host`, `volumes`, `DJANGO_ALLOWED_HOSTS`, extra env. |
 | `.kamal/secrets-common` | Secrets shared by all instances (registry, Mailgun). |
 | `.kamal/secrets.<name>` | Per-instance secrets (`DJANGO_SECRET_KEY`, `DJANGO_ADMIN_URL`), read from `config/secrets/<name>/` (git-ignored, back it up). |
 
@@ -145,8 +145,12 @@ Commit your changes, then:
 ```bash
 export KAMAL_REGISTRY_PASSWORD=<value>
 kamal deploy -d hospic-cercany    # one instance
-./deploy-all.sh                   # build once, deploy every config/deploy.*.yml
+./deploy-all.sh                   # build and deploy each config/deploy.*.yml
 ```
+
+Kamal labels each image with its destination's service. Each destination uses a separate image
+repository so tags for the same Git commit cannot overwrite another service's image. Docker reuses
+cached build layers. Use `--skip-push` only after building and pushing for that same destination.
 
 Migrations run automatically when a container starts (`entrypoint.sh`).
 

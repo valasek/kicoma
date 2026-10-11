@@ -1,6 +1,6 @@
 # Shared base for all instances. Always deploy with a destination:
 #   kamal deploy -d <name>   (merges config/deploy.<name>.yml, secrets from .kamal/secrets-common + .kamal/secrets.<name>)
-# Each destination MUST set: service, proxy.host, volumes, env.clear.DJANGO_ALLOWED_HOSTS.
+# Each destination MUST set: service, image, proxy hosts, volumes, env.clear.DJANGO_ALLOWED_HOSTS.
 
 # Name of your application. Used to uniquely configure containers.
 service: kicoma
