@@ -1,0 +1,6 @@
+{% load i18n %}
+{% if settings.KICOMA_DEMO_MODE %}
+<div class="alert alert-warning text-center rounded-0 mb-0 py-2" role="status">
+  {% translate "Ukázková verze – všechna data se každou noc vrátí do výchozího stavu. Nezadávejte osobní údaje." %}
+</div>
+{% endif %}

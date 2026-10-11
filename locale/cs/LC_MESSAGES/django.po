@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KiCoMa 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-05 00:44+0200\n"
+"POT-Creation-Date: 2026-10-11 09:19+0200\n"
 "PO-Revision-Date: 2025-09-19 12:00+0200\n"
 "Last-Translator: Stanislav Valasek <valasek@gmail.com>\n"
 "Language-Team: Czech <LL@li.org>\n"
@@ -66,76 +66,76 @@ msgstr ""
 msgid "Kitchen"
 msgstr "Kuchyně"
 
-#: kicoma/kitchen/forms.py:99
+#: kicoma/kitchen/forms.py:102
 msgid "Jednotku změníš pomocí tlačítka „Změnit jednotku“."
 msgstr ""
 
-#: kicoma/kitchen/forms.py:156
+#: kicoma/kitchen/forms.py:159
 msgid "Výživové údaje"
 msgstr ""
 
-#: kicoma/kitchen/forms.py:183
+#: kicoma/kitchen/forms.py:186
 msgid "Jednotka zboží se mezitím změnila. Obnov stránku a zadej změny znovu."
 msgstr ""
 
-#: kicoma/kitchen/forms.py:206
+#: kicoma/kitchen/forms.py:209
 msgid "Zboží v ks s výživovými údaji potřebuje hmotnost kusu i jednotku."
 msgstr ""
 
-#: kicoma/kitchen/forms.py:223
+#: kicoma/kitchen/forms.py:226
 msgid "Datum nemůže být v budoucnosti."
 msgstr ""
 
-#: kicoma/kitchen/forms.py:284
+#: kicoma/kitchen/forms.py:287
 #, python-brace-format
 msgid ""
 "Jednotka zboží {article} se mezitím změnila na {unit}, zadej řádek znovu."
 msgstr ""
 
-#: kicoma/kitchen/forms.py:417
+#: kicoma/kitchen/forms.py:420
 msgid "Tento recept již v denním menu je, uprav počet porcí."
 msgstr ""
 
-#: kicoma/kitchen/forms.py:468
+#: kicoma/kitchen/forms.py:471
 msgid "Tento recept již v menu je, uprav počet porcí."
 msgstr ""
 
-#: kicoma/kitchen/forms.py:580 kicoma/kitchen/models.py:1103
+#: kicoma/kitchen/forms.py:593 kicoma/kitchen/models.py:1107
 msgid "Nová jednotka"
 msgstr ""
 
-#: kicoma/kitchen/forms.py:584 kicoma/kitchen/models.py:1106
+#: kicoma/kitchen/forms.py:597 kicoma/kitchen/models.py:1110
 msgid "Převodní koeficient"
 msgstr ""
 
-#: kicoma/kitchen/forms.py:585
+#: kicoma/kitchen/forms.py:598
 msgid "Pro kg ↔ g a l ↔ ml se doplní automaticky."
 msgstr ""
 
-#: kicoma/kitchen/forms.py:589 kicoma/kitchen/models.py:1108
+#: kicoma/kitchen/forms.py:602 kicoma/kitchen/models.py:1112
 #: kicoma/kitchen/templates/kitchen/article/listhistory.html:18
 #: kicoma/kitchen/templates/kitchen/units/manage.html:24
 msgid "Zdroj koeficientu"
 msgstr ""
 
-#: kicoma/kitchen/forms.py:590
+#: kicoma/kitchen/forms.py:603
 msgid "Např. „etiketa 42 g“ nebo „zváženo 10 ks = 420 g“."
 msgstr ""
 
-#: kicoma/kitchen/forms.py:594
+#: kicoma/kitchen/forms.py:607
 msgid "Varování jsem zkontroloval a výsledek beru na sebe."
 msgstr ""
 
-#: kicoma/kitchen/forms.py:608
+#: kicoma/kitchen/forms.py:622
 #, python-brace-format
 msgid "Koeficient: 1 {unit} = ? nové jednotky"
 msgstr ""
 
-#: kicoma/kitchen/forms.py:621
+#: kicoma/kitchen/forms.py:634
 msgid "Zadej převodní koeficient."
 msgstr ""
 
-#: kicoma/kitchen/forms.py:623
+#: kicoma/kitchen/forms.py:636
 msgid "Koeficient musí být větší než 0."
 msgstr ""
 
@@ -166,7 +166,7 @@ msgstr ""
 msgid "ks"
 msgstr ""
 
-#: kicoma/kitchen/models.py:66 kicoma/kitchen/models.py:1117
+#: kicoma/kitchen/models.py:66 kicoma/kitchen/models.py:1121
 msgid "Datum vytvoření"
 msgstr ""
 
@@ -175,7 +175,7 @@ msgid "Datum aktualizace"
 msgstr ""
 
 #: kicoma/kitchen/models.py:75 kicoma/kitchen/models.py:76
-#: kicoma/kitchen/templates/kitchen/docs.html:474
+#: kicoma/kitchen/templates/kitchen/docs.html:485
 msgid "Nastavení"
 msgstr ""
 
@@ -265,10 +265,10 @@ msgstr ""
 
 #: kicoma/kitchen/models.py:207 kicoma/kitchen/models.py:208
 #: kicoma/kitchen/models.py:214 kicoma/kitchen/models.py:504
-#: kicoma/kitchen/models.py:1035 kicoma/kitchen/models.py:1072
-#: kicoma/kitchen/models.py:1088 kicoma/kitchen/models.py:1148
+#: kicoma/kitchen/models.py:1038 kicoma/kitchen/models.py:1076
+#: kicoma/kitchen/models.py:1092 kicoma/kitchen/models.py:1152
 #: kicoma/kitchen/templates/kitchen/article/pdf.html:8
-#: kicoma/kitchen/templates/kitchen/docs.html:393
+#: kicoma/kitchen/templates/kitchen/docs.html:404
 #: kicoma/kitchen/templates/kitchen/recipe/pdf.html:25
 #: kicoma/kitchen/templates/kitchen/report/stock_by_unit.html:51
 #: kicoma/kitchen/templates/kitchen/stockissue/approve.html:38
@@ -290,7 +290,7 @@ msgid "Název zboží na skladu"
 msgstr ""
 
 #: kicoma/kitchen/models.py:217 kicoma/kitchen/models.py:514
-#: kicoma/kitchen/models.py:1043 kicoma/kitchen/models.py:1157
+#: kicoma/kitchen/models.py:1046 kicoma/kitchen/models.py:1161
 #: kicoma/kitchen/templates/kitchen/article/listhistory.html:44
 #: kicoma/kitchen/templates/kitchen/stocktake/pdf.html:8
 #: kicoma/kitchen/templates/kitchen/units/change.html:86
@@ -322,9 +322,9 @@ msgstr ""
 msgid "Minimální množství zboží na skladu"
 msgstr ""
 
-#: kicoma/kitchen/models.py:242 kicoma/kitchen/tables.py:231
-#: kicoma/kitchen/tables.py:485 kicoma/kitchen/tables.py:563
-#: kicoma/kitchen/tables.py:601 kicoma/kitchen/tables.py:664
+#: kicoma/kitchen/models.py:242 kicoma/kitchen/tables.py:232
+#: kicoma/kitchen/tables.py:486 kicoma/kitchen/tables.py:564
+#: kicoma/kitchen/tables.py:602 kicoma/kitchen/tables.py:665
 #: kicoma/kitchen/templates/kitchen/article/listhistory.html:47
 #: kicoma/kitchen/templates/kitchen/article/pdf.html:12
 #: kicoma/kitchen/templates/kitchen/recipe/pdf.html:28
@@ -386,8 +386,8 @@ msgid "Bílkoviny"
 msgstr ""
 
 #: kicoma/kitchen/models.py:313 kicoma/kitchen/models.py:381
-#: kicoma/kitchen/tables.py:86 kicoma/kitchen/tables.py:183
-#: kicoma/kitchen/templates/kitchen/docs.html:466
+#: kicoma/kitchen/tables.py:87 kicoma/kitchen/tables.py:184
+#: kicoma/kitchen/templates/kitchen/docs.html:477
 msgid "Alergeny"
 msgstr ""
 
@@ -408,9 +408,9 @@ msgstr ""
 #: kicoma/kitchen/models.py:331 kicoma/kitchen/models.py:408
 #: kicoma/kitchen/models.py:516 kicoma/kitchen/models.py:583
 #: kicoma/kitchen/models.py:669 kicoma/kitchen/models.py:744
-#: kicoma/kitchen/models.py:791 kicoma/kitchen/models.py:990
-#: kicoma/kitchen/models.py:1053 kicoma/kitchen/models.py:1168
-#: kicoma/kitchen/tables.py:39
+#: kicoma/kitchen/models.py:791 kicoma/kitchen/models.py:993
+#: kicoma/kitchen/models.py:1056 kicoma/kitchen/models.py:1172
+#: kicoma/kitchen/tables.py:40
 #: kicoma/kitchen/templates/kitchen/article/listhistory.html:48
 #: kicoma/kitchen/templates/kitchen/stockissue/approve.html:19
 #: kicoma/kitchen/templates/kitchen/stockissue/approve.html:42
@@ -428,16 +428,16 @@ msgstr ""
 msgid "Poznámka"
 msgstr ""
 
-#: kicoma/kitchen/models.py:390 kicoma/kitchen/templates/kitchen/docs.html:79
-#: kicoma/kitchen/templates/kitchen/docs.html:185
-#: kicoma/kitchen/templates/kitchen/docs.html:405
+#: kicoma/kitchen/models.py:390 kicoma/kitchen/templates/kitchen/docs.html:80
+#: kicoma/kitchen/templates/kitchen/docs.html:191
+#: kicoma/kitchen/templates/kitchen/docs.html:416
 #: kicoma/templates/common/home.html:34 kicoma/templates/menu_recipes.html:17
 msgid "Recepty"
 msgstr ""
 
 #: kicoma/kitchen/models.py:391 kicoma/kitchen/models.py:397
 #: kicoma/kitchen/models.py:498 kicoma/kitchen/models.py:620
-#: kicoma/kitchen/models.py:735 kicoma/kitchen/models.py:1096
+#: kicoma/kitchen/models.py:735 kicoma/kitchen/models.py:1100
 #: kicoma/kitchen/templates/kitchen/dailymenu/pdf.html:10
 #: kicoma/kitchen/templates/kitchen/recipe/pdf_list.html:10
 #: kicoma/kitchen/templates/kitchen/report/catering_unit_show.html:10
@@ -464,12 +464,12 @@ msgstr ""
 msgid "Suroviny v receptu"
 msgstr ""
 
-#: kicoma/kitchen/models.py:492 kicoma/kitchen/models.py:1073
+#: kicoma/kitchen/models.py:492 kicoma/kitchen/models.py:1077
 msgid "Surovina v receptu"
 msgstr ""
 
-#: kicoma/kitchen/models.py:511 kicoma/kitchen/models.py:1041
-#: kicoma/kitchen/models.py:1155
+#: kicoma/kitchen/models.py:511 kicoma/kitchen/models.py:1044
+#: kicoma/kitchen/models.py:1159
 #: kicoma/kitchen/templates/kitchen/recipe/pdf.html:26
 #: kicoma/kitchen/templates/kitchen/stockissue/approve.html:39
 #: kicoma/kitchen/templates/kitchen/stockissue/delete.html:38
@@ -487,7 +487,7 @@ msgstr ""
 
 #: kicoma/kitchen/models.py:569 kicoma/kitchen/models.py:570
 #: kicoma/kitchen/models.py:574 kicoma/kitchen/models.py:614
-#: kicoma/kitchen/models.py:653 kicoma/kitchen/templates/kitchen/docs.html:437
+#: kicoma/kitchen/models.py:653 kicoma/kitchen/templates/kitchen/docs.html:448
 msgid "Menu"
 msgstr ""
 
@@ -504,7 +504,7 @@ msgid "Vybraný recept"
 msgstr ""
 
 #: kicoma/kitchen/models.py:626 kicoma/kitchen/models.py:741
-#: kicoma/kitchen/tables.py:316
+#: kicoma/kitchen/tables.py:317
 #: kicoma/kitchen/templates/kitchen/dailymenu/pdf.html:11
 #: kicoma/kitchen/templates/kitchen/recipe/pdf_list.html:11
 #: kicoma/kitchen/templates/kitchen/report/catering_unit_show.html:12
@@ -514,7 +514,7 @@ msgstr ""
 #: kicoma/kitchen/models.py:637 kicoma/kitchen/models.py:638
 #: kicoma/kitchen/models.py:729
 #: kicoma/kitchen/templates/kitchen/data_cleanup.html:78
-#: kicoma/kitchen/templates/kitchen/docs.html:429
+#: kicoma/kitchen/templates/kitchen/docs.html:440
 #: kicoma/templates/common/home.html:35 kicoma/templates/menu_dailymenu.html:17
 msgid "Denní menu"
 msgstr ""
@@ -539,16 +539,16 @@ msgstr ""
 
 #: kicoma/kitchen/models.py:766
 #: kicoma/kitchen/templates/kitchen/data_cleanup.html:48
-#: kicoma/kitchen/templates/kitchen/docs.html:421
+#: kicoma/kitchen/templates/kitchen/docs.html:432
 #: kicoma/kitchen/templates/kitchen/report/show_stock_issues_receipts_total_price.html:11
 msgid "Výdejky"
 msgstr ""
 
-#: kicoma/kitchen/models.py:767 kicoma/kitchen/models.py:1032
+#: kicoma/kitchen/models.py:767 kicoma/kitchen/models.py:1035
 msgid "Výdejka"
 msgstr ""
 
-#: kicoma/kitchen/models.py:774 kicoma/kitchen/models.py:973
+#: kicoma/kitchen/models.py:774 kicoma/kitchen/models.py:976
 msgid "Vytvořil"
 msgstr ""
 
@@ -564,231 +564,238 @@ msgstr ""
 msgid "Vyskladnil"
 msgstr ""
 
-#: kicoma/kitchen/models.py:846
+#: kicoma/kitchen/models.py:849
 msgid "Pro "
 msgstr ""
 
-#: kicoma/kitchen/models.py:861
+#: kicoma/kitchen/models.py:864
 #, python-brace-format
 msgid "Recept {recipe} má nulový počet porcí"
 msgstr ""
 
-#: kicoma/kitchen/models.py:949
+#: kicoma/kitchen/models.py:952
 #, python-brace-format
 msgid "{article} - na výdejce {converted_amount}, na skladu {on_stock}"
 msgstr ""
 
-#: kicoma/kitchen/models.py:956
+#: kicoma/kitchen/models.py:959
 msgid "Výdej"
 msgstr ""
 
-#: kicoma/kitchen/models.py:962
+#: kicoma/kitchen/models.py:965
 #: kicoma/kitchen/templates/kitchen/data_cleanup.html:18
-#: kicoma/kitchen/templates/kitchen/docs.html:413
+#: kicoma/kitchen/templates/kitchen/docs.html:424
 #: kicoma/kitchen/templates/kitchen/report/show_stock_issues_receipts_total_price.html:10
 msgid "Příjemky"
 msgstr ""
 
-#: kicoma/kitchen/models.py:963 kicoma/kitchen/models.py:1143
+#: kicoma/kitchen/models.py:966 kicoma/kitchen/models.py:1147
 msgid "Příjemka"
 msgstr ""
 
-#: kicoma/kitchen/models.py:967
+#: kicoma/kitchen/models.py:970
 msgid "Datum založení"
 msgstr ""
 
-#: kicoma/kitchen/models.py:976
+#: kicoma/kitchen/models.py:979
 msgid "Naskladněno"
 msgstr ""
 
-#: kicoma/kitchen/models.py:979
+#: kicoma/kitchen/models.py:982
 msgid "Datum naskladnění"
 msgstr ""
 
-#: kicoma/kitchen/models.py:987
+#: kicoma/kitchen/models.py:990
 msgid "Naskladnil"
 msgstr ""
 
-#: kicoma/kitchen/models.py:1027 kicoma/kitchen/models.py:1028
+#: kicoma/kitchen/models.py:1030 kicoma/kitchen/models.py:1031
 msgid "Zboží na výdejce"
 msgstr ""
 
-#: kicoma/kitchen/models.py:1050 kicoma/kitchen/tables.py:83
+#: kicoma/kitchen/models.py:1053 kicoma/kitchen/tables.py:84
 #: kicoma/kitchen/templates/kitchen/article/pdf.html:11
 #: kicoma/kitchen/templates/kitchen/recipe/pdf.html:27
 #: kicoma/kitchen/templates/kitchen/stockissue/deletearticle.html:24
 msgid "Průměrná jednotková cena s DPH"
 msgstr ""
 
-#: kicoma/kitchen/models.py:1074
+#: kicoma/kitchen/models.py:1078
 msgid "Vrácení změny"
 msgstr ""
 
-#: kicoma/kitchen/models.py:1077
+#: kicoma/kitchen/models.py:1081
 #: kicoma/kitchen/templates/kitchen/article/listhistory.html:11
-#: kicoma/kitchen/templates/kitchen/docs.html:445
+#: kicoma/kitchen/templates/kitchen/docs.html:456
 msgid "Změny jednotek"
 msgstr ""
 
-#: kicoma/kitchen/models.py:1078 kicoma/kitchen/unit_change.py:865
+#: kicoma/kitchen/models.py:1082 kicoma/kitchen/unit_change.py:867
 msgid "Změna jednotky"
 msgstr ""
 
-#: kicoma/kitchen/models.py:1081
+#: kicoma/kitchen/models.py:1085
 #: kicoma/kitchen/templates/kitchen/article/listhistory.html:16
 #: kicoma/kitchen/templates/kitchen/units/manage.html:21
 msgid "Druh"
 msgstr ""
 
-#: kicoma/kitchen/models.py:1098
+#: kicoma/kitchen/models.py:1102
 #: kicoma/kitchen/templates/kitchen/article/listhistory.html:43
 msgid "Název zboží"
 msgstr ""
 
-#: kicoma/kitchen/models.py:1100
+#: kicoma/kitchen/models.py:1104
 msgid "Původní jednotka"
 msgstr ""
 
-#: kicoma/kitchen/models.py:1115
+#: kicoma/kitchen/models.py:1119
 #: kicoma/kitchen/templates/kitchen/article/listhistory.html:19
 #: kicoma/kitchen/templates/kitchen/units/manage.html:25
 msgid "Změnil"
 msgstr ""
 
-#: kicoma/kitchen/models.py:1118
+#: kicoma/kitchen/models.py:1122
 msgid "Podrobnosti"
 msgstr ""
 
-#: kicoma/kitchen/models.py:1125
+#: kicoma/kitchen/models.py:1129
 msgid "Vrácená změna"
 msgstr ""
 
-#: kicoma/kitchen/models.py:1138 kicoma/kitchen/models.py:1139
+#: kicoma/kitchen/models.py:1142 kicoma/kitchen/models.py:1143
 msgid "Zboží na příjemce"
 msgstr ""
 
-#: kicoma/kitchen/models.py:1162
+#: kicoma/kitchen/models.py:1166
 #: kicoma/kitchen/templates/kitchen/stockreceipt/approve.html:39
 #: kicoma/kitchen/templates/kitchen/stockreceipt/delete.html:39
 #: kicoma/kitchen/templates/kitchen/stockreceipt/pdf.html:35
 msgid "Jednotková cena bez DPH"
 msgstr ""
 
-#: kicoma/kitchen/models.py:1165 kicoma/kitchen/templates/kitchen/docs.html:358
-#: kicoma/kitchen/templates/kitchen/docs.html:470
+#: kicoma/kitchen/models.py:1169 kicoma/kitchen/templates/kitchen/docs.html:370
+#: kicoma/kitchen/templates/kitchen/docs.html:481
 #: kicoma/kitchen/templates/kitchen/stockreceipt/approve.html:40
 #: kicoma/kitchen/templates/kitchen/stockreceipt/delete.html:40
 #: kicoma/kitchen/templates/kitchen/stockreceipt/pdf.html:36
 msgid "DPH"
 msgstr ""
 
-#: kicoma/kitchen/permissions.py:8 kicoma/kitchen/templates/kitchen/docs.html:8
+#: kicoma/kitchen/permissions.py:8 kicoma/kitchen/templates/kitchen/docs.html:9
 msgid "Kuchař"
 msgstr ""
 
-#: kicoma/kitchen/permissions.py:9 kicoma/kitchen/templates/kitchen/docs.html:9
+#: kicoma/kitchen/permissions.py:9
+#: kicoma/kitchen/templates/kitchen/docs.html:10
 msgid "Skladník"
 msgstr ""
 
 #: kicoma/kitchen/permissions.py:10
-#: kicoma/kitchen/templates/kitchen/docs.html:7
+#: kicoma/kitchen/templates/kitchen/docs.html:8
 msgid "Nutriční poradce"
 msgstr ""
 
-#: kicoma/kitchen/permissions.py:59
+#: kicoma/kitchen/permissions.py:12
+#: kicoma/kitchen/templates/kitchen/docs.html:6
+msgid "Správce"
+msgstr ""
+
+#: kicoma/kitchen/permissions.py:64
 msgid "Nemáte oprávnění zobrazit tuto stránku."
 msgstr ""
 
-#: kicoma/kitchen/tables.py:34
+#: kicoma/kitchen/tables.py:35
 msgid "Upravit"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:35
+#: kicoma/kitchen/tables.py:36
 msgid "Historie"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:36
+#: kicoma/kitchen/tables.py:37
 msgid "Vymazat"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:37
+#: kicoma/kitchen/tables.py:38
 msgid "Zobrazit ingredience"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:38
+#: kicoma/kitchen/tables.py:39
 msgid "Zobrazit recepty"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:40
+#: kicoma/kitchen/tables.py:41
 msgid "Zobrazit zboží"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:41
+#: kicoma/kitchen/tables.py:42
 msgid "Aktualizovat"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:42
+#: kicoma/kitchen/tables.py:43
 #: kicoma/kitchen/templates/kitchen/stockissue/approve.html:30
 msgid "Vyskladnit"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:43
+#: kicoma/kitchen/tables.py:44
 #: kicoma/kitchen/templates/kitchen/stockreceipt/approve.html:30
 #: kicoma/kitchen/templates/kitchen/stockreceipt/listarticles.html:24
 msgid "Naskladnit"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:44
+#: kicoma/kitchen/tables.py:45
 #: kicoma/kitchen/templates/kitchen/article/update.html:9
+#: kicoma/kitchen/templates/kitchen/report/stock_by_unit.html:62
 #: kicoma/kitchen/templates/kitchen/units/manage.html:74
 #: kicoma/kitchen/templates/kitchen/units/manage.html:103
 msgid "Změnit jednotku"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:88 kicoma/kitchen/tables.py:185
-#: kicoma/kitchen/tables.py:236 kicoma/kitchen/tables.py:320
-#: kicoma/kitchen/tables.py:389 kicoma/kitchen/tables.py:442
-#: kicoma/kitchen/tables.py:467 kicoma/kitchen/tables.py:486
-#: kicoma/kitchen/tables.py:565 kicoma/kitchen/tables.py:602
-#: kicoma/kitchen/tables.py:666
+#: kicoma/kitchen/tables.py:89 kicoma/kitchen/tables.py:186
+#: kicoma/kitchen/tables.py:237 kicoma/kitchen/tables.py:321
+#: kicoma/kitchen/tables.py:390 kicoma/kitchen/tables.py:443
+#: kicoma/kitchen/tables.py:468 kicoma/kitchen/tables.py:487
+#: kicoma/kitchen/tables.py:566 kicoma/kitchen/tables.py:603
+#: kicoma/kitchen/tables.py:667
 #: kicoma/kitchen/templates/kitchen/units/manage.html:26
 #: kicoma/kitchen/templates/kitchen/units/manage.html:64
 #: kicoma/kitchen/templates/kitchen/units/manage.html:93
 msgid "Akce"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:103
+#: kicoma/kitchen/tables.py:104
 msgid "Záporný stav nebo cena na skladu"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:110
+#: kicoma/kitchen/tables.py:111
 msgid "chybí hmotnost kusu"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:180 kicoma/kitchen/unit_change.py:763
+#: kicoma/kitchen/tables.py:181 kicoma/kitchen/unit_change.py:765
 msgid "Cena receptu s DPH"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:234 kicoma/kitchen/tables.py:318
-#: kicoma/kitchen/tables.py:387 kicoma/templates/common/home.html:100
+#: kicoma/kitchen/tables.py:235 kicoma/kitchen/tables.py:319
+#: kicoma/kitchen/tables.py:388 kicoma/templates/common/home.html:100
 msgid "Výživové údaje na 1 porci"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:256 kicoma/kitchen/tables.py:403
-#: kicoma/kitchen/templates/kitchen/report/stock_by_unit.html:65
+#: kicoma/kitchen/tables.py:257 kicoma/kitchen/tables.py:404
+#: kicoma/kitchen/templates/kitchen/report/stock_by_unit.html:69
 msgid "Celkem"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:367 kicoma/kitchen/tables.py:550
-#: kicoma/kitchen/tables.py:645
+#: kicoma/kitchen/tables.py:368 kicoma/kitchen/tables.py:551
+#: kicoma/kitchen/tables.py:646
 msgid "Vyber datum"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:441
+#: kicoma/kitchen/tables.py:442
 msgid "Počet receptů"
 msgstr ""
 
-#: kicoma/kitchen/tables.py:661
+#: kicoma/kitchen/tables.py:662
 #: kicoma/kitchen/templates/kitchen/stockissue/pdf.html:34
 #: kicoma/kitchen/templates/kitchen/stockreceipt/approve.html:41
 #: kicoma/kitchen/templates/kitchen/stockreceipt/delete.html:41
@@ -806,9 +813,9 @@ msgid "Vítej v KiCoMa"
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/about.html:17
-#: kicoma/kitchen/templates/kitchen/docs.html:69
-#: kicoma/kitchen/templates/kitchen/docs.html:346
-#: kicoma/templates/base.html:175 kicoma/templates/common/home.html:203
+#: kicoma/kitchen/templates/kitchen/docs.html:70
+#: kicoma/kitchen/templates/kitchen/docs.html:352
+#: kicoma/templates/base.html:177 kicoma/templates/common/home.html:211
 #: kicoma/templates/users/user_detail.html:23
 #: kicoma/templates/users/user_detail.html:24
 msgid "Novinky"
@@ -958,7 +965,7 @@ msgid "Rozumím"
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/article/list.html:9
-#: kicoma/kitchen/templates/kitchen/docs.html:39 kicoma/kitchen/views.py:621
+#: kicoma/kitchen/templates/kitchen/docs.html:40 kicoma/kitchen/views.py:627
 #: kicoma/templates/menu_store.html:31
 msgid "Seznam zboží na skladu"
 msgstr ""
@@ -1006,7 +1013,7 @@ msgid "Změnila"
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/article/listlack.html:6
-#: kicoma/kitchen/templates/kitchen/docs.html:40
+#: kicoma/kitchen/templates/kitchen/docs.html:41
 #: kicoma/templates/menu_store.html:43
 msgid "Seznam zboží vyžadující naskladnění"
 msgstr ""
@@ -1072,7 +1079,7 @@ msgid "A malé nostalgické okénko - takhle vypadal původní program:"
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/dailymenu/create.html:5
-#: kicoma/kitchen/templates/kitchen/docs.html:48
+#: kicoma/kitchen/templates/kitchen/docs.html:49
 #: kicoma/templates/menu_dailymenu.html:50
 msgid "Nové denní menu"
 msgstr ""
@@ -1155,7 +1162,7 @@ msgid "Chcete odstranit recept <b>%(recipe)s</b> z denního menu?"
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/dailymenu/list.html:6
-#: kicoma/kitchen/templates/kitchen/docs.html:47
+#: kicoma/kitchen/templates/kitchen/docs.html:48
 #: kicoma/templates/menu_dailymenu.html:41
 msgid "Seznam denních menu"
 msgstr ""
@@ -1198,7 +1205,7 @@ msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/data_cleanup.html:6
 #: kicoma/kitchen/templates/kitchen/docs.html:363
-#: kicoma/templates/base.html:204
+#: kicoma/templates/base.html:212
 msgid "Údržba dat"
 msgstr ""
 
@@ -1254,12 +1261,12 @@ msgid "Počet záznamů"
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/data_cleanup.html:33
-#: kicoma/kitchen/templates/kitchen/docs.html:417
+#: kicoma/kitchen/templates/kitchen/docs.html:428
 msgid "Zboží na příjemkách"
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/data_cleanup.html:63
-#: kicoma/kitchen/templates/kitchen/docs.html:425
+#: kicoma/kitchen/templates/kitchen/docs.html:436
 msgid "Zboží na výdejkách"
 msgstr ""
 
@@ -1268,771 +1275,752 @@ msgid "Recepty na denních menu"
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/data_cleanup.html:108
-#: kicoma/kitchen/templates/kitchen/docs.html:401
+#: kicoma/kitchen/templates/kitchen/docs.html:412
 msgid "Zboží - historie"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:6
-msgid "Administrátor"
-msgstr ""
-
-#: kicoma/kitchen/templates/kitchen/docs.html:10
-msgid "Všechny role"
+#: kicoma/kitchen/templates/kitchen/docs.html:7
+msgid "Superadmin"
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/docs.html:11
-msgid "Kdo:"
+msgid "Všechny role"
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/docs.html:12
-msgid "Kde:"
+msgid "Kdo:"
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/docs.html:13
+msgid "Kde:"
+msgstr ""
+
+#: kicoma/kitchen/templates/kitchen/docs.html:14
 msgid "Dobré vědět"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:41
+#: kicoma/kitchen/templates/kitchen/docs.html:42
 #: kicoma/templates/menu_store.html:53
 msgid "Nová skladová karta"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:42
+#: kicoma/kitchen/templates/kitchen/docs.html:43
 #: kicoma/kitchen/templates/kitchen/stockreceipt/list.html:6
 #: kicoma/templates/menu_store.html:101
 msgid "Seznam příjemek"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:43
+#: kicoma/kitchen/templates/kitchen/docs.html:44
 #: kicoma/kitchen/templates/kitchen/stockreceipt/create.html:5
 #: kicoma/kitchen/templates/kitchen/stockreceipt/list.html:10
 #: kicoma/templates/menu_store.html:111
 msgid "Nová příjemka"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:44
+#: kicoma/kitchen/templates/kitchen/docs.html:45
 #: kicoma/kitchen/templates/kitchen/recipe/list.html:6
-#: kicoma/kitchen/views.py:921 kicoma/templates/menu_recipes.html:28
+#: kicoma/kitchen/views.py:927 kicoma/templates/menu_recipes.html:28
 msgid "Seznam receptů"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:45
+#: kicoma/kitchen/templates/kitchen/docs.html:46
 #: kicoma/kitchen/templates/kitchen/recipe/create.html:5
 #: kicoma/templates/menu_recipes.html:37
 msgid "Nový recept"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:46
+#: kicoma/kitchen/templates/kitchen/docs.html:47
 #: kicoma/kitchen/templates/kitchen/menu/list.html:6
 #: kicoma/templates/menu_dailymenu.html:31
 msgid "Seznam menu"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:49
+#: kicoma/kitchen/templates/kitchen/docs.html:50
 #: kicoma/templates/menu_dailymenu.html:59
 msgid "PDF - denní menu"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:50
+#: kicoma/kitchen/templates/kitchen/docs.html:51
 #: kicoma/kitchen/templates/kitchen/stockissue/list.html:6
 #: kicoma/templates/menu_store.html:66
 msgid "Seznam výdejek"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:51
+#: kicoma/kitchen/templates/kitchen/docs.html:52
 #: kicoma/kitchen/templates/kitchen/stockissue/list.html:14
 #: kicoma/templates/menu_store.html:77
 msgid "Nová výdejka"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:52
+#: kicoma/kitchen/templates/kitchen/docs.html:53
 #: kicoma/templates/menu_store.html:88
 msgid "Nová výdejka z denního menu"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:53
+#: kicoma/kitchen/templates/kitchen/docs.html:54
 #: kicoma/templates/menu_inventory.html:30
 msgid "Seznam zboží na skladu ke kontrole (PDF)"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:54
+#: kicoma/kitchen/templates/kitchen/docs.html:55
 #: kicoma/templates/menu_inventory.html:39
 msgid "Stav zboží na skladu k vybranému dni"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:55
+#: kicoma/kitchen/templates/kitchen/docs.html:56
 #: kicoma/templates/menu_inventory.html:50
 msgid "Export zboží na skladu"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:56
+#: kicoma/kitchen/templates/kitchen/docs.html:57
 #: kicoma/templates/menu_inventory.html:59
 msgid "Import zboží na skladu"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:57
-#: kicoma/kitchen/templates/kitchen/docs.html:83
-#: kicoma/kitchen/templates/kitchen/docs.html:268
+#: kicoma/kitchen/templates/kitchen/docs.html:58
+#: kicoma/kitchen/templates/kitchen/docs.html:84
+#: kicoma/kitchen/templates/kitchen/docs.html:274
 #: kicoma/kitchen/templates/kitchen/units/change.html:9
 #: kicoma/kitchen/templates/kitchen/units/manage.html:5
-#: kicoma/templates/base.html:151
+#: kicoma/templates/base.html:153
 msgid "Správa jednotek"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:58
+#: kicoma/kitchen/templates/kitchen/docs.html:59
 #: kicoma/templates/menu_reports.html:29
 msgid "Celková cena příjemky/výdejky měsíčně"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:59
+#: kicoma/kitchen/templates/kitchen/docs.html:60
 #: kicoma/kitchen/templates/kitchen/report/catering_unit_filter.html:5
 #: kicoma/templates/menu_reports.html:38
 msgid "Stravovací jednotka"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:60
+#: kicoma/kitchen/templates/kitchen/docs.html:61
 #: kicoma/templates/menu_reports.html:48
 msgid "Zboží nepoužito ani na jednom receptu"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:61
+#: kicoma/kitchen/templates/kitchen/docs.html:62
 #: kicoma/kitchen/templates/kitchen/report/stock_by_unit.html:7
 #: kicoma/templates/menu_reports.html:57
 msgid "Zboží na skladu dle použitých jednotek"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:62
+#: kicoma/kitchen/templates/kitchen/docs.html:63
 #: kicoma/templates/menu_reports.html:67
 msgid "Recepty kde jednotky nesedí ze skladem"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:65 kicoma/templates/base.html:164
-#: kicoma/templates/common/home.html:203
+#: kicoma/kitchen/templates/kitchen/docs.html:66 kicoma/templates/base.html:166
+#: kicoma/templates/common/home.html:211
 #: kicoma/templates/users/user_detail.html:25
 #: kicoma/templates/users/user_detail.html:26
 msgid "Příručka"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:66
+#: kicoma/kitchen/templates/kitchen/docs.html:67
 msgid ""
 "Vítej v KiCoMa! Příručka tě provede cestou potravin od dodavatele až na "
 "talíř. Čti ji popořadě jako příběh, nebo skoč rovnou na kapitolu, kterou "
 "zrovna potřebuješ."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:68
+#: kicoma/kitchen/templates/kitchen/docs.html:69
 msgid "Co je nového?"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:69
+#: kicoma/kitchen/templates/kitchen/docs.html:70
 msgid "Novinky a opravy najdeš v přehledu"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:73
+#: kicoma/kitchen/templates/kitchen/docs.html:74
 msgid "Obsah"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:75
-#: kicoma/kitchen/templates/kitchen/docs.html:91
+#: kicoma/kitchen/templates/kitchen/docs.html:76
+#: kicoma/kitchen/templates/kitchen/docs.html:92
 msgid "Jak to celé funguje"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:76
-#: kicoma/kitchen/templates/kitchen/docs.html:106
+#: kicoma/kitchen/templates/kitchen/docs.html:77
+#: kicoma/kitchen/templates/kitchen/docs.html:107
 msgid "Kdo co dělá"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:77
-#: kicoma/kitchen/templates/kitchen/docs.html:141
+#: kicoma/kitchen/templates/kitchen/docs.html:78
+#: kicoma/kitchen/templates/kitchen/docs.html:147
 #: kicoma/kitchen/templates/kitchen/units/change.html:80
 msgid "Skladová karta"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:78
-#: kicoma/kitchen/templates/kitchen/docs.html:164
+#: kicoma/kitchen/templates/kitchen/docs.html:79
+#: kicoma/kitchen/templates/kitchen/docs.html:170
 msgid "Příjem zboží – příjemka"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:80
-#: kicoma/kitchen/templates/kitchen/docs.html:205
+#: kicoma/kitchen/templates/kitchen/docs.html:81
+#: kicoma/kitchen/templates/kitchen/docs.html:211
 msgid "Menu a denní menu"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:81
-#: kicoma/kitchen/templates/kitchen/docs.html:227
+#: kicoma/kitchen/templates/kitchen/docs.html:82
+#: kicoma/kitchen/templates/kitchen/docs.html:233
 msgid "Výdej zboží – výdejka"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:82
-#: kicoma/kitchen/templates/kitchen/docs.html:250
+#: kicoma/kitchen/templates/kitchen/docs.html:83
+#: kicoma/kitchen/templates/kitchen/docs.html:256
 #: kicoma/templates/menu_inventory.html:16
 msgid "Inventura"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:84
-#: kicoma/kitchen/templates/kitchen/docs.html:293
+#: kicoma/kitchen/templates/kitchen/docs.html:85
+#: kicoma/kitchen/templates/kitchen/docs.html:299
 #: kicoma/templates/menu_reports.html:16
 msgid "Reporty"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:85
-#: kicoma/kitchen/templates/kitchen/docs.html:308
+#: kicoma/kitchen/templates/kitchen/docs.html:86
+#: kicoma/kitchen/templates/kitchen/docs.html:314
 msgid "Když něco nejde"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:86
-#: kicoma/kitchen/templates/kitchen/docs.html:351
-msgid "Administrace aplikace"
+#: kicoma/kitchen/templates/kitchen/docs.html:87
+#: kicoma/kitchen/templates/kitchen/docs.html:357
+msgid "Správa dat a aplikace"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:92
+#: kicoma/kitchen/templates/kitchen/docs.html:93
 msgid ""
 "KiCoMa propojuje sklad, recepty a denní menu. Každý krok navazuje na ten "
 "předchozí:"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:94
+#: kicoma/kitchen/templates/kitchen/docs.html:95
 msgid "Skladník založí skladovou kartu zboží."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:95
+#: kicoma/kitchen/templates/kitchen/docs.html:96
 msgid "Skladník zboží naskladní příjemkou."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:96
+#: kicoma/kitchen/templates/kitchen/docs.html:97
 msgid "Kuchař ze zboží sestaví recept."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:97
+#: kicoma/kitchen/templates/kitchen/docs.html:98
 msgid ""
 "Nutriční poradce doplní výživové údaje zboží a zkontroluje výživu receptu na "
 "1 porci."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:98
+#: kicoma/kitchen/templates/kitchen/docs.html:99
 msgid "Kuchař naplánuje denní menu s recepty a počtem porcí."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:99
+#: kicoma/kitchen/templates/kitchen/docs.html:100
 msgid "Z denního menu vznikne výdejka a skladník ji vyskladní."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:100
+#: kicoma/kitchen/templates/kitchen/docs.html:101
 msgid "Inventura a reporty ukážou, co kolik stálo a co zbylo na skladu."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:102
+#: kicoma/kitchen/templates/kitchen/docs.html:103
 msgid "Menu aplikace i odkazy v příručce se řídí tvojí rolí."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:107
+#: kicoma/kitchen/templates/kitchen/docs.html:108
 msgid "Uživatele a jejich role spravuješ v"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:107
-#: kicoma/kitchen/templates/kitchen/docs.html:356
+#: kicoma/kitchen/templates/kitchen/docs.html:108
+#: kicoma/kitchen/templates/kitchen/docs.html:368
 msgid "administraci"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:111
+#: kicoma/kitchen/templates/kitchen/docs.html:112
 msgid "Role"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:112
-#: kicoma/kitchen/templates/kitchen/docs.html:485
+#: kicoma/kitchen/templates/kitchen/docs.html:113
+#: kicoma/kitchen/templates/kitchen/docs.html:496
 msgid "Uživatelé"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:113
+#: kicoma/kitchen/templates/kitchen/docs.html:114
 msgid "Co dělá"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:119
+#: kicoma/kitchen/templates/kitchen/docs.html:120
 msgid ""
 "Zakládá skladové karty, přijímá zboží příjemkami, schvaluje výdejky a dělá "
 "inventuru."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:124
+#: kicoma/kitchen/templates/kitchen/docs.html:125
 msgid ""
 "Píše recepty, plánuje menu a denní menu, vytváří výdejky. Výdejky "
 "neschvaluje."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:129
+#: kicoma/kitchen/templates/kitchen/docs.html:130
 msgid ""
 "Doplňuje výživové údaje a hmotnost kusu zboží, upravuje recepty a denní menu "
 "a vidí v nich výživu."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:134
-msgid "Spravuje uživatele, role a číselníky, zálohuje, obnovuje a čistí data."
+#: kicoma/kitchen/templates/kitchen/docs.html:135
+msgid ""
+"Má práva skladníka, kuchaře i nutričního poradce. Navíc exportuje a čistí "
+"data."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:137
+#: kicoma/kitchen/templates/kitchen/docs.html:140
+msgid ""
+"Má všechna práva. Spravuje uživatele, role a číselníky v administraci a "
+"obnovuje data ze zálohy."
+msgstr ""
+
+#: kicoma/kitchen/templates/kitchen/docs.html:143
 msgid "Jeden uživatel může mít víc rolí najednou."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:146
+#: kicoma/kitchen/templates/kitchen/docs.html:152
 msgid ""
 "Všechno začíná skladovou kartou. Zboží musí existovat dřív, než ho "
 "naskladníš nebo dáš do receptu."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:148
+#: kicoma/kitchen/templates/kitchen/docs.html:154
 msgid ""
 "Jednotka: kg, g, l, ml nebo ks. Vybírej pečlivě, později ji změníš jen přes "
 "Správu jednotek."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:149
+#: kicoma/kitchen/templates/kitchen/docs.html:155
 msgid "Minimální zásoba: zboží pod minimem najdeš v seznamu"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:150
+#: kicoma/kitchen/templates/kitchen/docs.html:156
 msgid "Alergeny: recepty je převezmou automaticky ze svých surovin."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:151
+#: kicoma/kitchen/templates/kitchen/docs.html:157
 msgid "Výživové údaje zadává nutriční poradce vždy na 100 g nebo 100 ml."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:152
+#: kicoma/kitchen/templates/kitchen/docs.html:158
 msgid ""
 "Hmotnost kusu: u zboží v kusech (ks) ji doplň v g nebo ml. Bez ní nejde "
 "spočítat výživa a recept ukáže varování."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:156
+#: kicoma/kitchen/templates/kitchen/docs.html:162
 msgid "Stav a hodnotu skladu mění schválené příjemky a výdejky."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:157
+#: kicoma/kitchen/templates/kitchen/docs.html:163
 msgid ""
 "Zboží se záporným množstvím nebo hodnotou je v seznamu i v PDF červeně s "
 "výstražnou ikonou. Zkontroluj ho."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:158
+#: kicoma/kitchen/templates/kitchen/docs.html:164
 msgid "Tlačítko Historie ukáže všechny změny karty včetně změn jednotky."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:159
+#: kicoma/kitchen/templates/kitchen/docs.html:165
 msgid ""
 "Smazat jde jen zboží, které není na skladu, není v žádném receptu a není na "
 "žádné příjemce ani výdejce."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:169
+#: kicoma/kitchen/templates/kitchen/docs.html:175
 msgid "Dorazilo zboží od dodavatele? Zapiš ho na příjemku."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:171
+#: kicoma/kitchen/templates/kitchen/docs.html:177
 msgid ""
 "Vytvoř novou příjemku s datem a poznámkou, třeba s názvem dodavatele nebo "
 "číslem faktury."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:172
+#: kicoma/kitchen/templates/kitchen/docs.html:178
 #, python-format
 msgid ""
 "Přidej zboží: množství, jednotku, jednotkovou cenu bez DPH a sazbu DPH "
 "(výchozí je 12 %%)."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:173
+#: kicoma/kitchen/templates/kitchen/docs.html:179
 msgid ""
 "Zkontroluj řádky a klikni na Naskladnit. Teprve teď se zvýší stav skladu a "
 "přepočte průměrná cena."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:177
+#: kicoma/kitchen/templates/kitchen/docs.html:183
 msgid ""
 "Dokud příjemka není naskladněná, můžeš ji upravit nebo smazat. Potom už ne."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:178
+#: kicoma/kitchen/templates/kitchen/docs.html:184
 msgid "Prázdnou příjemku nebo příjemku s nulovou cenou nejde naskladnit."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:179
+#: kicoma/kitchen/templates/kitchen/docs.html:185
 msgid ""
 "Jednotka řádku musí jít převést na jednotku skladu: kg ↔ g, l ↔ ml. Jednotku "
 "skladu vidíš vedle názvu zboží."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:180
+#: kicoma/kitchen/templates/kitchen/docs.html:186
 msgid "Každou příjemku si stáhneš jako PDF."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:190
+#: kicoma/kitchen/templates/kitchen/docs.html:196
 msgid "Recept říká, co a kolik se ze skladu spotřebuje."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:192
+#: kicoma/kitchen/templates/kitchen/docs.html:198
 msgid "Založ recept: název, počet porcí (aspoň 1), postup a poznámku."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:193
+#: kicoma/kitchen/templates/kitchen/docs.html:199
 msgid ""
 "Přidej suroviny ze skladu. Množství zadávej na celý recept, tedy na zadaný "
 "počet porcí."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:197
+#: kicoma/kitchen/templates/kitchen/docs.html:203
 msgid ""
 "Recept sám spočítá cenu podle průměrných skladových cen, sečte alergeny a "
 "ukáže výživové údaje na 1 porci."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:198
+#: kicoma/kitchen/templates/kitchen/docs.html:204
 msgid ""
 "Jednotka suroviny musí jít převést na jednotku skladu: kg ↔ g, l ↔ ml. Kusy "
 "(ks) zůstávají v kusech."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:199
+#: kicoma/kitchen/templates/kitchen/docs.html:205
 msgid ""
 "Nesedí jednotka? U suroviny klikni na Změnit jednotku, nebo projdi report"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:200
+#: kicoma/kitchen/templates/kitchen/docs.html:206
 msgid "Recept i celý seznam receptů si stáhneš jako PDF."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:210
+#: kicoma/kitchen/templates/kitchen/docs.html:216
 msgid ""
 "Menu je šablona, kterou použiješ znovu a znovu. Denní menu je plán na "
 "konkrétní den."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:212
+#: kicoma/kitchen/templates/kitchen/docs.html:218
 msgid ""
 "Připrav si menu s recepty a počty porcí. Nové menu převezme název "
 "posledního, jen ho uprav – názvy musí být jedinečné."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:213
+#: kicoma/kitchen/templates/kitchen/docs.html:219
 msgid ""
 "Založ denní menu: datum, skupinu strávníků a druh jídla. Každá kombinace "
 "může být jen jednou."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:214
+#: kicoma/kitchen/templates/kitchen/docs.html:220
 msgid ""
 "Vyber menu a recepty se zkopírují samy. Poznámka u receptu prozradí, ze "
 "kterého menu pochází."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:215
+#: kicoma/kitchen/templates/kitchen/docs.html:221
 msgid "Dolaď recepty a počty porcí. Zadat jde i 0 porcí."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:216
+#: kicoma/kitchen/templates/kitchen/docs.html:222
 msgid ""
 "Vytiskni denní menu do PDF pro celý den nebo jen pro jednu skupinu strávníků."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:220
+#: kicoma/kitchen/templates/kitchen/docs.html:226
 msgid ""
 "Stejný recept nejde přidat dvakrát. Změň počet porcí u toho, který už tam je."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:221
+#: kicoma/kitchen/templates/kitchen/docs.html:227
 msgid "Seznam denních menu ukazuje nejvyšší počet porcí ze všech receptů."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:222
+#: kicoma/kitchen/templates/kitchen/docs.html:228
 msgid "Výživové údaje v denním menu vidí jen nutriční poradce."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:232
+#: kicoma/kitchen/templates/kitchen/docs.html:238
 msgid "Menu je naplánované, je čas vydat suroviny do kuchyně."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:234
+#: kicoma/kitchen/templates/kitchen/docs.html:240
 msgid ""
 "Vytvoř výdejku z denního menu. Zadej den a KiCoMa sečte suroviny ze všech "
 "denních menu toho dne podle počtu porcí."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:235
+#: kicoma/kitchen/templates/kitchen/docs.html:241
 msgid ""
 "Změnilo se menu? U výdejky klikni na Aktualizovat a zboží se načte znovu "
 "podle aktuálních receptů."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:236
+#: kicoma/kitchen/templates/kitchen/docs.html:242
 msgid ""
 "Skladník výdejku zkontroluje a klikne na Vyskladnit. Teprve teď zboží ubude "
 "ze skladu."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:240
+#: kicoma/kitchen/templates/kitchen/docs.html:246
 msgid "Vyskladnit může jen skladník."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:241
+#: kicoma/kitchen/templates/kitchen/docs.html:247
 msgid "Výdejku můžeš vytvořit i ručně a zboží přidat sám."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:242
+#: kicoma/kitchen/templates/kitchen/docs.html:248
 msgid ""
 "Vyskladnit jde jen zboží, kterého je na skladu dost. Jinak KiCoMa vypíše, co "
 "chybí, a sklad nezmění."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:243
+#: kicoma/kitchen/templates/kitchen/docs.html:249
 msgid "Cena se bere z průměrné skladové ceny v okamžiku vyskladnění."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:244
+#: kicoma/kitchen/templates/kitchen/docs.html:250
 msgid "Vyskladněnou výdejku už nejde upravit, aktualizovat ani smazat."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:245
+#: kicoma/kitchen/templates/kitchen/docs.html:251
 msgid "Každou výdejku si stáhneš jako PDF."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:254
+#: kicoma/kitchen/templates/kitchen/docs.html:260
 msgid "Čas zkontrolovat, jestli sklad v aplikaci sedí se skutečností."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:256
+#: kicoma/kitchen/templates/kitchen/docs.html:262
 msgid "vytiskni a projdi sklad s tužkou v ruce."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:257
+#: kicoma/kitchen/templates/kitchen/docs.html:263
 msgid "Excel se stavem skladu k libovolnému dni v minulosti."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:258
-#: kicoma/kitchen/templates/kitchen/docs.html:366
+#: kicoma/kitchen/templates/kitchen/docs.html:264
+#: kicoma/kitchen/templates/kitchen/docs.html:376
 msgid "a"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:258
+#: kicoma/kitchen/templates/kitchen/docs.html:264
 msgid ""
 "stáhni seznam do Excelu, oprav stavy a nahraj ho zpět. Jen pro skladníka."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:262
+#: kicoma/kitchen/templates/kitchen/docs.html:268
 msgid "Import nemění jednotky zboží. Na to slouží Správa jednotek."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:263
+#: kicoma/kitchen/templates/kitchen/docs.html:269
 msgid ""
 "Když stav k datu nejde spočítat, zůstane prázdný a sloupec export_warning "
 "prozradí proč."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:270
+#: kicoma/kitchen/templates/kitchen/docs.html:276
 msgid "(zboží)"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:271
+#: kicoma/kitchen/templates/kitchen/docs.html:277
 msgid "(suroviny v receptu)"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:272
+#: kicoma/kitchen/templates/kitchen/docs.html:278
 msgid "v menu uživatele nebo tlačítko Změnit jednotku"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:274
+#: kicoma/kitchen/templates/kitchen/docs.html:280
 msgid ""
 "Chceš místo kusů počítat v gramech? Správa jednotek všechno bezpečně "
 "přepočítá."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:276
+#: kicoma/kitchen/templates/kitchen/docs.html:282
 msgid ""
 "Změna jednotky zboží přepočte stav skladu, minimální zásobu, suroviny v "
 "receptech a všechny řádky příjemek a výdejek, i schválených. Celková hodnota "
 "skladu zůstane stejná."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:277
+#: kicoma/kitchen/templates/kitchen/docs.html:283
 msgid "Změna jednotky suroviny přepočte jen jeden řádek receptu."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:280
+#: kicoma/kitchen/templates/kitchen/docs.html:286
 msgid ""
 "Vyber novou jednotku a koeficient – kolik nových jednotek odpovídá 1 staré. "
 "Pro kg ↔ g a l ↔ ml ho KiCoMa doplní sám."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:281
+#: kicoma/kitchen/templates/kitchen/docs.html:287
 msgid "Vyplň zdroj koeficientu, třeba „zváženo 10 kusů“ nebo „údaj z obalu“."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:282
+#: kicoma/kitchen/templates/kitchen/docs.html:288
 msgid ""
 "Klikni na Náhled. Uvidíš příklady, dopad na recepty a doklady a případná "
 "varování."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:283
+#: kicoma/kitchen/templates/kitchen/docs.html:289
 msgid "Potvrď varování a klikni na Provést změnu."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:287
+#: kicoma/kitchen/templates/kitchen/docs.html:293
 msgid ""
 "Poslední změnu vrátíš tlačítkem Vrátit, pokud se související data mezitím "
 "nezměnila."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:288
+#: kicoma/kitchen/templates/kitchen/docs.html:294
 msgid "Každá změna se zapíše do historie a nejde ji upravit ani smazat."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:298
+#: kicoma/kitchen/templates/kitchen/docs.html:304
 msgid "počet a hodnota schválených dokladů za poslední tři měsíce."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:299
+#: kicoma/kitchen/templates/kitchen/docs.html:305
 msgid "cena porce každého receptu a cena všech jídel za vybraný den."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:300
+#: kicoma/kitchen/templates/kitchen/docs.html:306
 msgid "zboží, které můžeš uklidit."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:301
+#: kicoma/kitchen/templates/kitchen/docs.html:307
 msgid "přehled jednotek. Klikni na jednotku a uvidíš její zboží."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:302
+#: kicoma/kitchen/templates/kitchen/docs.html:308
 msgid ""
 "suroviny a řádky dokladů s jednotkou, kterou nejde převést. Oprav je dřív, "
 "než vytvoříš výdejku."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:304
+#: kicoma/kitchen/templates/kitchen/docs.html:310
 msgid "Všechny tisky jsou PDF, které můžeš zobrazit, uložit nebo vytisknout."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:311
+#: kicoma/kitchen/templates/kitchen/docs.html:317
 msgid "Co se stalo"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:311
+#: kicoma/kitchen/templates/kitchen/docs.html:317
 msgid "Co s tím"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:314
+#: kicoma/kitchen/templates/kitchen/docs.html:320
 msgid "Výdejka z denního menu nejde vytvořit kvůli jednotkám."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:315
+#: kicoma/kitchen/templates/kitchen/docs.html:321
 msgid "Otevři report nesprávných jednotek a jednotku oprav ve Správě jednotek."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:318
+#: kicoma/kitchen/templates/kitchen/docs.html:324
 msgid "Vyskladnění skončilo chybou."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:319
+#: kicoma/kitchen/templates/kitchen/docs.html:325
 msgid ""
 "Některé zboží chybí na skladu nebo má nulovou cenu. Nejdřív ho naskladni "
 "příjemkou."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:322
+#: kicoma/kitchen/templates/kitchen/docs.html:328
 msgid "Na skladové kartě nejde změnit jednotka."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:323
+#: kicoma/kitchen/templates/kitchen/docs.html:329
 msgid "To je záměr. Použij tlačítko Změnit jednotku, přepočte vše najednou."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:326
+#: kicoma/kitchen/templates/kitchen/docs.html:332
 msgid "Formulář hlásí, že se jednotka mezitím změnila."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:327
+#: kicoma/kitchen/templates/kitchen/docs.html:333
 msgid ""
 "Někdo právě změnil jednotku zboží. Načti stránku znovu a zadej množství a "
 "cenu znovu."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:330
+#: kicoma/kitchen/templates/kitchen/docs.html:336
 msgid "U výživových údajů svítí varování."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:331
+#: kicoma/kitchen/templates/kitchen/docs.html:337
 msgid ""
 "Zboží v kusech nemá hmotnost kusu. Požádej nutričního poradce, ať ji doplní."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:334
+#: kicoma/kitchen/templates/kitchen/docs.html:340
 msgid "Skladovou kartu nejde smazat."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:335
+#: kicoma/kitchen/templates/kitchen/docs.html:341
 msgid ""
 "Zboží je na skladu, v receptu nebo na příjemce či výdejce. Nepoužívané zboží "
 "najdeš v reportu Zboží nepoužito ani na jednom receptu."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:338
+#: kicoma/kitchen/templates/kitchen/docs.html:344
 msgid "Recept nejde přidat do menu."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:339
+#: kicoma/kitchen/templates/kitchen/docs.html:345
 msgid "Recept už v menu je. Uprav jen jeho počet porcí."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:342
+#: kicoma/kitchen/templates/kitchen/docs.html:348
 msgid "Nevidím nějaké menu nebo odkaz."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:343
-msgid "Chybí ti role. Požádej administrátora, ať tě přidá do správné skupiny."
+#: kicoma/kitchen/templates/kitchen/docs.html:349
+msgid "Chybí ti role. Požádej správce, ať tě přidá do správné skupiny."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:346
+#: kicoma/kitchen/templates/kitchen/docs.html:352
 msgid "Pořád si nevíš rady? Mrkni do"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:346
-msgid "jestli se něco nezměnilo, nebo se obrať na administrátora."
+#: kicoma/kitchen/templates/kitchen/docs.html:352
+msgid "jestli se něco nezměnilo, nebo se obrať na správce."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:356
-msgid "Číselníky spravuješ v"
-msgstr ""
-
-#: kicoma/kitchen/templates/kitchen/docs.html:357
-msgid "alergeny"
-msgstr ""
-
-#: kicoma/kitchen/templates/kitchen/docs.html:359
-msgid "druhy jídla"
-msgstr ""
-
-#: kicoma/kitchen/templates/kitchen/docs.html:360
-msgid "skupinu strávníků"
-msgstr ""
-
-#: kicoma/kitchen/templates/kitchen/docs.html:361
+#: kicoma/kitchen/templates/kitchen/docs.html:362
 #: kicoma/kitchen/templates/kitchen/import.html:17
-#: kicoma/templates/base.html:190
+#: kicoma/templates/base.html:194
 msgid "Export všech dat"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:361
+#: kicoma/kitchen/templates/kitchen/docs.html:362
 msgid "záloha všech dat KiCoMa včetně uživatelů a skupin."
-msgstr ""
-
-#: kicoma/kitchen/templates/kitchen/docs.html:362
-#: kicoma/kitchen/templates/kitchen/import.html:21
-#: kicoma/templates/base.html:197
-msgid "Import všech dat"
-msgstr ""
-
-#: kicoma/kitchen/templates/kitchen/docs.html:362
-msgid ""
-"nejdřív smaže všechna současná data a pak nahraje zálohu. Používej opatrně."
 msgstr ""
 
 #: kicoma/kitchen/templates/kitchen/docs.html:363
@@ -2041,128 +2029,159 @@ msgid ""
 "(celé roky). Neschválené doklady zůstanou."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:364
+#: kicoma/kitchen/templates/kitchen/docs.html:366
+msgid "Jen pro superadmina"
+msgstr ""
+
+#: kicoma/kitchen/templates/kitchen/docs.html:368
+msgid "Číselníky spravuješ v"
+msgstr ""
+
+#: kicoma/kitchen/templates/kitchen/docs.html:369
+msgid "alergeny"
+msgstr ""
+
+#: kicoma/kitchen/templates/kitchen/docs.html:371
+msgid "druhy jídla"
+msgstr ""
+
+#: kicoma/kitchen/templates/kitchen/docs.html:372
+msgid "skupinu strávníků"
+msgstr ""
+
+#: kicoma/kitchen/templates/kitchen/docs.html:373
+#: kicoma/kitchen/templates/kitchen/import.html:21
+#: kicoma/templates/base.html:203
+msgid "Import všech dat"
+msgstr ""
+
+#: kicoma/kitchen/templates/kitchen/docs.html:373
+msgid ""
+"nejdřív smaže všechna současná data a pak nahraje zálohu. Používej opatrně."
+msgstr ""
+
+#: kicoma/kitchen/templates/kitchen/docs.html:374
 msgid ""
 "Administrace obchází kontroly aplikace. Schválené doklady a jednotky v ní "
 "měnit nejde, ostatní změny dělej opatrně."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:365
+#: kicoma/kitchen/templates/kitchen/docs.html:375
 msgid "Není doporučeno měnit sekce"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:365
+#: kicoma/kitchen/templates/kitchen/docs.html:375
 msgid "Autentizace a autorizace"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:365
+#: kicoma/kitchen/templates/kitchen/docs.html:375
 msgid "Weby"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:366
+#: kicoma/kitchen/templates/kitchen/docs.html:376
 msgid "Účty"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:366
+#: kicoma/kitchen/templates/kitchen/docs.html:376
 msgid "Účty sociálních sítí"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:374
+#: kicoma/kitchen/templates/kitchen/docs.html:385
 msgid "Datový model"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:382
+#: kicoma/kitchen/templates/kitchen/docs.html:393
 msgid "Stav a objem dat"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:383
+#: kicoma/kitchen/templates/kitchen/docs.html:394
 msgid "Databáze obsahuje celkem"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:383
+#: kicoma/kitchen/templates/kitchen/docs.html:394
 msgid "záznamů."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:386
+#: kicoma/kitchen/templates/kitchen/docs.html:397
 msgid "Uživatelská data"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:389
-#: kicoma/kitchen/templates/kitchen/docs.html:454
-#: kicoma/kitchen/templates/kitchen/docs.html:481
-#: kicoma/kitchen/templates/kitchen/docs.html:498
+#: kicoma/kitchen/templates/kitchen/docs.html:400
+#: kicoma/kitchen/templates/kitchen/docs.html:465
+#: kicoma/kitchen/templates/kitchen/docs.html:492
+#: kicoma/kitchen/templates/kitchen/docs.html:509
 msgid "Tabulka"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:390
-#: kicoma/kitchen/templates/kitchen/docs.html:455
-#: kicoma/kitchen/templates/kitchen/docs.html:482
-#: kicoma/kitchen/templates/kitchen/docs.html:499
+#: kicoma/kitchen/templates/kitchen/docs.html:401
+#: kicoma/kitchen/templates/kitchen/docs.html:466
+#: kicoma/kitchen/templates/kitchen/docs.html:493
+#: kicoma/kitchen/templates/kitchen/docs.html:510
 msgid "Záznamů"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:397
+#: kicoma/kitchen/templates/kitchen/docs.html:408
 msgid "Vazby mezi zboží a alergeny"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:409
+#: kicoma/kitchen/templates/kitchen/docs.html:420
 msgid "Surovin v receptech"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:433
+#: kicoma/kitchen/templates/kitchen/docs.html:444
 msgid "Recepty v denních menu"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:441
+#: kicoma/kitchen/templates/kitchen/docs.html:452
 msgid "Recepty v menu"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:451
+#: kicoma/kitchen/templates/kitchen/docs.html:462
 msgid "Číselníky"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:458
+#: kicoma/kitchen/templates/kitchen/docs.html:469
 msgid "Druhy jídla"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:462
+#: kicoma/kitchen/templates/kitchen/docs.html:473
 msgid "Skupiny strávníků"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:478
+#: kicoma/kitchen/templates/kitchen/docs.html:489
 msgid "Práva"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:489
+#: kicoma/kitchen/templates/kitchen/docs.html:500
 #: kicoma/templates/users/user_detail.html:19
 msgid "Skupiny"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:495
+#: kicoma/kitchen/templates/kitchen/docs.html:506
 msgid "Servisní tabulky"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/docs.html:502
+#: kicoma/kitchen/templates/kitchen/docs.html:513
 msgid "Content types"
 msgstr "Typy obsahu"
 
-#: kicoma/kitchen/templates/kitchen/docs.html:506
+#: kicoma/kitchen/templates/kitchen/docs.html:517
 msgid "Group permissions"
 msgstr "Oprávnění skupin"
 
-#: kicoma/kitchen/templates/kitchen/docs.html:510
+#: kicoma/kitchen/templates/kitchen/docs.html:521
 msgid "DB migrations"
 msgstr "Migrace databáze"
 
-#: kicoma/kitchen/templates/kitchen/docs.html:514
+#: kicoma/kitchen/templates/kitchen/docs.html:525
 msgid "Sessions"
 msgstr "Relace"
 
-#: kicoma/kitchen/templates/kitchen/docs.html:518
+#: kicoma/kitchen/templates/kitchen/docs.html:529
 msgid "Sites"
 msgstr "Weby"
 
-#: kicoma/kitchen/templates/kitchen/docs.html:522
+#: kicoma/kitchen/templates/kitchen/docs.html:533
 msgid "User group relationships"
 msgstr "Přiřazení uživatelů ke skupinám"
 
@@ -2516,11 +2535,11 @@ msgstr ""
 msgid "%(count)s druhů, celkem %(total)s %(unit)s"
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/report/stock_by_unit.html:73
+#: kicoma/kitchen/templates/kitchen/report/stock_by_unit.html:78
 msgid "Vyberte jednotku pro zobrazení zboží."
 msgstr ""
 
-#: kicoma/kitchen/templates/kitchen/report/stock_by_unit.html:76
+#: kicoma/kitchen/templates/kitchen/report/stock_by_unit.html:81
 msgid "Na skladu není žádné zboží."
 msgstr ""
 
@@ -2980,84 +2999,84 @@ msgstr ""
 msgid "Recept {recipe}"
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:372
+#: kicoma/kitchen/unit_change.py:374
 msgid "Nová jednotka je stejná jako původní."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:375
+#: kicoma/kitchen/unit_change.py:377
 msgid "Zadej převodní koeficient větší než 0."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:378
+#: kicoma/kitchen/unit_change.py:380
 msgid "Převodní koeficient je příliš velký."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:381
+#: kicoma/kitchen/unit_change.py:383
 msgid "Zadej zdroj koeficientu, například „etiketa 42 g“."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:416
+#: kicoma/kitchen/unit_change.py:418
 #, python-brace-format
 msgid ""
 "Název zboží „{name}“ uvádí jinou velikost kusu, než vychází z koeficientu (1 "
 "ks = {piece} {unit})."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:427
+#: kicoma/kitchen/unit_change.py:429
 #, python-brace-format
 msgid ""
 "Koeficient neodpovídá uložené hmotnosti kusu {weight} {weight_unit} (1 ks = "
 "{piece} {unit})."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:439
+#: kicoma/kitchen/unit_change.py:441
 #, python-brace-format
 msgid "1 ks = {piece} {unit} je mimo obvyklý rozsah 1 {unit} až 25 000 {unit}."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:451
+#: kicoma/kitchen/unit_change.py:453
 #, python-brace-format
 msgid "Hustota {density} kg/l je mimo obvyklý rozsah 0,3 až 2,0 kg/l."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:456
+#: kicoma/kitchen/unit_change.py:458
 msgid ""
 "Převod mezi hmotností a objemem: zkontroluj, zda jsou výživové údaje zadány "
 "na 100 g nebo na 100 ml."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:472
+#: kicoma/kitchen/unit_change.py:474
 #, python-brace-format
 msgid ""
 "Výsledná průměrná cena {price} {currency}/{unit} je mimo obvyklý rozsah 1 až "
 "5 000 {currency}/{unit}."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:499
+#: kicoma/kitchen/unit_change.py:501
 #, python-brace-format
 msgid ""
 "Množství by se zaokrouhlilo pod 0.01 {unit}, zvol menší jednotku: {lines}"
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:505
+#: kicoma/kitchen/unit_change.py:507
 #, python-brace-format
 msgid "Jednotková cena by se zaokrouhlila na 0, zvol menší jednotku: {lines}"
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:510
+#: kicoma/kitchen/unit_change.py:512
 #, python-brace-format
 msgid "Hodnota by přesáhla povolený počet číslic: {lines}"
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:549
+#: kicoma/kitchen/unit_change.py:551
 msgid "Stav skladu"
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:558
+#: kicoma/kitchen/unit_change.py:560
 msgid "Poslední příjemka"
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:583
+#: kicoma/kitchen/unit_change.py:585
 #, python-brace-format
 msgid ""
 "Přepočtou se řádky dokladů: příjemky {open_receipts} nenaskladněné a "
@@ -3065,346 +3084,346 @@ msgid ""
 "{approved_issues} vyskladněné. Údaje o schválení zůstanou beze změny."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:600
+#: kicoma/kitchen/unit_change.py:602
 #, python-brace-format
 msgid ""
 "Přepočtou se suroviny v receptech ({count}): {recipes}. Cena a výživové "
 "údaje se mohou zaokrouhlením mírně změnit."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:607
+#: kicoma/kitchen/unit_change.py:609
 #, python-brace-format
 msgid "Množství {count} položek se zaokrouhlí na 2 desetinná místa."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:614
+#: kicoma/kitchen/unit_change.py:616
 #, python-brace-format
 msgid ""
 "Celková cena {count} dokladů se zaokrouhlením změní, viz seznam níže. U "
 "schválených dokladů se změní i měsíční přehled."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:619
+#: kicoma/kitchen/unit_change.py:621
 msgid ""
 "Již vytištěná nebo exportovaná PDF a tabulky zůstávají v původní jednotce."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:647 kicoma/kitchen/unit_change.py:661
+#: kicoma/kitchen/unit_change.py:649 kicoma/kitchen/unit_change.py:663
 #, python-brace-format
 msgid "Hodnota by přesáhla povolený počet číslic: {field}"
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:653
+#: kicoma/kitchen/unit_change.py:655
 msgid "Stav skladu by se zaokrouhlil na 0, zvol menší jednotku."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:658
+#: kicoma/kitchen/unit_change.py:660
 msgid "Hmotnost kusu by byla menší než 0.01."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:683
+#: kicoma/kitchen/unit_change.py:685
 #, python-brace-format
 msgid ""
 "{count} řádků má jednotku, kterou nelze převést na {old} ani na {new}; "
 "jejich množství zůstane beze změny (viz report nesprávných jednotek)."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:710
+#: kicoma/kitchen/unit_change.py:712
 #, python-brace-format
 msgid ""
 "Jednotku {unit} nelze převést na skladovou jednotku zboží {article_unit}."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:733
+#: kicoma/kitchen/unit_change.py:735
 msgid "Množství se zaokrouhlí na 2 desetinná místa."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:782
+#: kicoma/kitchen/unit_change.py:784
 msgid "Data nebo zadání se mezitím změnila, zkontroluj náhled znovu."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:787
+#: kicoma/kitchen/unit_change.py:789
 msgid "Potvrď, že jsi zkontroloval varování."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:928
+#: kicoma/kitchen/unit_change.py:930
 msgid "Vrácení změny nelze vrátit, proveď nový převod."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:930
+#: kicoma/kitchen/unit_change.py:932
 msgid "Změna již byla vrácena."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:932
+#: kicoma/kitchen/unit_change.py:934
 msgid "Zboží již neexistuje."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:939
+#: kicoma/kitchen/unit_change.py:941
 msgid "Po této změně následovala další změna jednotky."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:942
+#: kicoma/kitchen/unit_change.py:944
 msgid ""
 "Data se od změny upravila (pohyby na skladu, doklady nebo recepty). Použij "
 "zpětný převod."
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:985
+#: kicoma/kitchen/unit_change.py:987
 msgid "Vrácení změny jednotky"
 msgstr ""
 
-#: kicoma/kitchen/unit_change.py:1001
+#: kicoma/kitchen/unit_change.py:1003
 #, python-brace-format
 msgid "Vrácení změny #{id}"
 msgstr ""
 
-#: kicoma/kitchen/views.py:305
+#: kicoma/kitchen/views.py:311
 msgid "Všechna data byla exportována"
 msgstr ""
 
-#: kicoma/kitchen/views.py:323
+#: kicoma/kitchen/views.py:329
 msgid "Není vybrán vstupní soubor, použij tlačítko Browse a vyber soubor."
 msgstr ""
 
-#: kicoma/kitchen/views.py:337
+#: kicoma/kitchen/views.py:343
 msgid "Data úspěšně nahrána: "
 msgstr ""
 
-#: kicoma/kitchen/views.py:341
+#: kicoma/kitchen/views.py:347
 msgid "Chyba při výmazu dat před importem: "
 msgstr ""
 
-#: kicoma/kitchen/views.py:402
+#: kicoma/kitchen/views.py:408
 #, python-brace-format
 msgid ""
 "Zboží - historie, úspěšne vymazáno: {deleted_historical_articles_count} "
 "záznamů"
 msgstr ""
 
-#: kicoma/kitchen/views.py:415
+#: kicoma/kitchen/views.py:421
 #, python-brace-format
 msgid "Výdejky, úspěšne vymazáno: {deleted_stock_issues_count} záznamů"
 msgstr ""
 
-#: kicoma/kitchen/views.py:425
+#: kicoma/kitchen/views.py:431
 #, python-brace-format
 msgid "Příjemky, úspěšne vymazáno: {deleted_stock_receipts_count} záznamů"
 msgstr ""
 
-#: kicoma/kitchen/views.py:435
+#: kicoma/kitchen/views.py:441
 #, python-brace-format
 msgid "Denné menu, úspěšne vymazáno: {daily_menus_count} záznamů"
 msgstr ""
 
-#: kicoma/kitchen/views.py:440
+#: kicoma/kitchen/views.py:446
 msgid "Chyba při mazání historických záznamů: "
 msgstr ""
 
-#: kicoma/kitchen/views.py:442
+#: kicoma/kitchen/views.py:448
 msgid "Výmaz dokončen"
 msgstr ""
 
-#: kicoma/kitchen/views.py:529
+#: kicoma/kitchen/views.py:535
 #, python-format
 msgid ""
 "Skladová karta %(article)s byla založeno, je možné zadávat příjemky a recepty"
 msgstr ""
 
-#: kicoma/kitchen/views.py:545
+#: kicoma/kitchen/views.py:551
 #, python-format
 msgid "Skladová karta %(article)s byla aktualizována"
 msgstr ""
 
-#: kicoma/kitchen/views.py:557
+#: kicoma/kitchen/views.py:563
 msgid "Skladová karta byla odstraněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:574
+#: kicoma/kitchen/views.py:580
 msgid ""
 "Zboží je na skladu nebo má nenulovou cenu. Nejdříve ho vyskladněte nebo "
 "opravte stav skladu."
 msgstr ""
 
-#: kicoma/kitchen/views.py:593
+#: kicoma/kitchen/views.py:599
 #, python-brace-format
 msgid ""
 "Zboží je použité na {receipts} příjemkách a {issues} výdejkách, jejich "
 "historie by se změnila."
 msgstr ""
 
-#: kicoma/kitchen/views.py:602
+#: kicoma/kitchen/views.py:608
 msgid "Zboží je použité v receptech."
 msgstr ""
 
-#: kicoma/kitchen/views.py:626
+#: kicoma/kitchen/views.py:632
 msgid "Seznam_zbozi.pdf"
 msgstr ""
 
-#: kicoma/kitchen/views.py:633
+#: kicoma/kitchen/views.py:639
 msgid "seznam-zbozi.xlsx"
 msgstr ""
 
-#: kicoma/kitchen/views.py:639
+#: kicoma/kitchen/views.py:645
 msgid "Seznam zboží byl exportován"
 msgstr ""
 
-#: kicoma/kitchen/views.py:654
+#: kicoma/kitchen/views.py:660
 msgid ""
 "Není vybrán vstupní soubor, použij tlačítko Browse a vyber exportovaný a "
 "upravený MS Excel soubor."
 msgstr ""
 
-#: kicoma/kitchen/views.py:666
+#: kicoma/kitchen/views.py:672
 #, python-brace-format
 msgid "Chyba v průběhu importu. Chybná data: {error}"
 msgstr ""
 
-#: kicoma/kitchen/views.py:677
+#: kicoma/kitchen/views.py:683
 msgid ""
 "Seznam zboží byl importován. Importováno {} řádků, z toho {} "
 "vloženo,                 {} aktualizováno, {} vymazáno, {} přeskočeno, {} s "
 "chybou a {} neplatných řádků"
 msgstr ""
 
-#: kicoma/kitchen/views.py:712
+#: kicoma/kitchen/views.py:718
 msgid "Seznam zboží na skladu ke kontrole"
 msgstr ""
 
-#: kicoma/kitchen/views.py:716
+#: kicoma/kitchen/views.py:722
 msgid "Seznam_zbozi_na_skladu.pdf"
 msgstr ""
 
-#: kicoma/kitchen/views.py:806
+#: kicoma/kitchen/views.py:812
 msgid "Stav nelze určit: "
-msgstr ""
-
-#: kicoma/kitchen/views.py:818
-#, python-brace-format
-msgid "seznam-zbozi-{selected_date}.xlsx"
 msgstr ""
 
 #: kicoma/kitchen/views.py:824
 #, python-brace-format
+msgid "seznam-zbozi-{selected_date}.xlsx"
+msgstr ""
+
+#: kicoma/kitchen/views.py:830
+#, python-brace-format
 msgid "Seznam zboží na skladu ke dni {selected_date} byl exportován"
 msgstr ""
 
-#: kicoma/kitchen/views.py:834
+#: kicoma/kitchen/views.py:840
 msgid ""
 "Následující řádky mají jednotku, kterou nelze převést na jednotku skladu, a "
 "v exportu nejsou započteny. Opravte je (report nesprávných jednotek):"
 msgstr ""
 
-#: kicoma/kitchen/views.py:886
+#: kicoma/kitchen/views.py:892
 #, python-format
 msgid "Recept %(recipe)s byl vytvořen, přidej ingredience"
 msgstr ""
 
-#: kicoma/kitchen/views.py:898 kicoma/kitchen/views.py:1357
-#: kicoma/kitchen/views.py:1476
+#: kicoma/kitchen/views.py:904 kicoma/kitchen/views.py:1363
+#: kicoma/kitchen/views.py:1482
 #, python-format
 msgid "Recept %(recipe)s byl aktualizován"
 msgstr ""
 
-#: kicoma/kitchen/views.py:907 kicoma/kitchen/views.py:1505
+#: kicoma/kitchen/views.py:913 kicoma/kitchen/views.py:1511
 msgid "Recept byl odstraněn"
 msgstr ""
 
-#: kicoma/kitchen/views.py:925
+#: kicoma/kitchen/views.py:931
 msgid "Seznam_receptu.pdf"
 msgstr ""
 
-#: kicoma/kitchen/views.py:999
+#: kicoma/kitchen/views.py:1005
 #, python-format
 msgid "Zboží %(article)s bylo přidáno do receptu"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1034 kicoma/kitchen/views.py:1901
-#: kicoma/kitchen/views.py:2219
+#: kicoma/kitchen/views.py:1040 kicoma/kitchen/views.py:1918
+#: kicoma/kitchen/views.py:2246
 #, python-format
 msgid "Zboží %(article)s bylo aktualizováno"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1070 kicoma/kitchen/views.py:1955
-#: kicoma/kitchen/views.py:2270
+#: kicoma/kitchen/views.py:1076 kicoma/kitchen/views.py:1972
+#: kicoma/kitchen/views.py:2297
 msgid "Zboží bylo odstraněno"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1134
+#: kicoma/kitchen/views.py:1140
 #, python-format
 msgid "Denní menu pro den %(formatted_date)s bylo vytvořeno, přidej recepty"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1137
+#: kicoma/kitchen/views.py:1143
 #, python-format
 msgid ""
 "Denní menu pro den %(formatted_date)s bylo vytvořeno, recepty byly převzaty "
 "z menu %(menu)s"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1161
+#: kicoma/kitchen/views.py:1167
 #, python-format
 msgid "Recept byl převzatý z menu %(menu)s"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1179
+#: kicoma/kitchen/views.py:1185
 #, python-format
 msgid ""
 "Denní menu pro den %(formatted_date)s bylo aktualizováno včetně výdejky ke "
 "schválení"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1219
+#: kicoma/kitchen/views.py:1225
 msgid "Filtrováno pro skupinu strávníků: "
 msgstr ""
 
-#: kicoma/kitchen/views.py:1222
+#: kicoma/kitchen/views.py:1228
 msgid "Denní menu pro "
 msgstr ""
 
-#: kicoma/kitchen/views.py:1234
+#: kicoma/kitchen/views.py:1240
 #, python-brace-format
 msgid "Chybně zadané datum. Požadovaný formát je rrrr-mm-dd. Chyba: {error}"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1238
+#: kicoma/kitchen/views.py:1244
 msgid "Denni_menu.pdf"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1270
+#: kicoma/kitchen/views.py:1276
 msgid "Menu bylo vytvořeno, přidej recepty"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1293
+#: kicoma/kitchen/views.py:1299
 msgid "Menu bylo aktualizováno"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1302
+#: kicoma/kitchen/views.py:1308
 msgid "Menu bylo odstraněno"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1333
+#: kicoma/kitchen/views.py:1339
 #, python-format
 msgid "Recept %(recipe)s byl přidán"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1382
+#: kicoma/kitchen/views.py:1388
 msgid "Recept byl z menu odstraněn"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1452
+#: kicoma/kitchen/views.py:1458
 #, python-format
 msgid "Recept %(recipe)s byl vytvořen"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1544
+#: kicoma/kitchen/views.py:1550
 msgid "Výdejka byla vytvořena a je možné přidávat zboží"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1572 kicoma/kitchen/views.py:1653
+#: kicoma/kitchen/views.py:1578 kicoma/kitchen/views.py:1659
 msgid "Pro zadané datum není vytvořeno denní menu"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1583 kicoma/kitchen/views.py:1669
+#: kicoma/kitchen/views.py:1589 kicoma/kitchen/views.py:1675
 #, python-brace-format
 msgid ""
 "Výdejku nelze vytvořit: {error}. Zkontrolujte <a "
@@ -3413,164 +3432,180 @@ msgid ""
 "skladu nebo v receptu."
 msgstr ""
 
-#: kicoma/kitchen/views.py:1596
+#: kicoma/kitchen/views.py:1602
 #, python-brace-format
 msgid ""
 "Výdejka pro den {formatted_date} vytvořena a vyskladňuje {count} druhů zboží"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1608
+#: kicoma/kitchen/views.py:1614
 msgid "Poznámka výdejky byla aktualizována"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1636
+#: kicoma/kitchen/views.py:1642
 msgid "Aktualizace neprovedena - výdejka je již vyskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1646
+#: kicoma/kitchen/views.py:1652
 msgid "Aktualizace zboží je možná jenom pro výdejku vytvořenou z denního menu"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1682
+#: kicoma/kitchen/views.py:1688
 #, python-brace-format
 msgid ""
 "Seznam zboží na výdejce byl aktualizován dle aktuálních receptů na denním "
 "menu a vyskladňuje {count} druhů zboží"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1693
+#: kicoma/kitchen/views.py:1699
 msgid "Výdejka byla odstraněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1711
+#: kicoma/kitchen/views.py:1717
 msgid "Výmaz neproveden - výdejka je již vyskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1739
+#: kicoma/kitchen/views.py:1745
 msgid "Výdejka.pdf"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1763
+#: kicoma/kitchen/views.py:1769
 msgid "Vyskladnění neprovedeno - již bylo vyskladněno"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1776
+#: kicoma/kitchen/views.py:1783
+msgid ""
+"Vyskladnění neprovedeno - jednotku některého zboží nelze převést na jednotku "
+"skladu, viz report nesprávných jednotek"
+msgstr ""
+
+#: kicoma/kitchen/views.py:1793
 msgid "Vyskladnění neprovedeno - nulová cena zboží, je zboží naskladněno?"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1789
+#: kicoma/kitchen/views.py:1806
 msgid "Níže uvedené zboží není možné vyskladnit:"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1814
+#: kicoma/kitchen/views.py:1831
 msgid "Výdejka byla vyskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1851
+#: kicoma/kitchen/views.py:1868
 #, python-format
 msgid "Zboží %(article)s bylo přidáno"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1881
+#: kicoma/kitchen/views.py:1898
 msgid "Přidání zboží neprovedeno, výdejka je již vyskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1934
+#: kicoma/kitchen/views.py:1951
 msgid "Aktualizace zboží neprovedena, výdejka je již vyskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1969
+#: kicoma/kitchen/views.py:1986
 msgid "Odstranění zboží neprovedeno, výdejka je již vyskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:1997
+#: kicoma/kitchen/views.py:2014
 msgid "Příjemka byla vytvořena a je možné přidávat zboží"
 msgstr ""
 
-#: kicoma/kitchen/views.py:2014
+#: kicoma/kitchen/views.py:2031
 msgid "Poznámka příjemky byla aktualizována"
 msgstr ""
 
-#: kicoma/kitchen/views.py:2021
+#: kicoma/kitchen/views.py:2038
 msgid "Příjemka byla odstraněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:2039
+#: kicoma/kitchen/views.py:2056
 msgid "Výmaz neproveden - příjemka je již naskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:2065
+#: kicoma/kitchen/views.py:2082
 msgid "Prijemka.pdf"
 msgstr ""
 
-#: kicoma/kitchen/views.py:2089
+#: kicoma/kitchen/views.py:2106
 msgid "Naskladnění neprovedeno - již bylo naskladněno"
 msgstr ""
 
-#: kicoma/kitchen/views.py:2100
+#: kicoma/kitchen/views.py:2118
+msgid ""
+"Naskladnění neprovedeno - jednotku některého zboží nelze převést na jednotku "
+"skladu, viz report nesprávných jednotek"
+msgstr ""
+
+#: kicoma/kitchen/views.py:2127
 msgid ""
 "Naskladnění neprovedeno - nulová cena zboží, přidejte alespoň jedno zboží na "
 "příjemku"
 msgstr ""
 
-#: kicoma/kitchen/views.py:2122
+#: kicoma/kitchen/views.py:2149
 msgid "Příjemka byla naskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:2162
+#: kicoma/kitchen/views.py:2189
 #, python-format
 msgid ""
 "Zboží %(article)s bylo přidáno: %(amount)s %(unit)s * %(unit_price)s "
 "%(currency)s = %(total_price)s %(currency)s"
 msgstr ""
 
-#: kicoma/kitchen/views.py:2202
+#: kicoma/kitchen/views.py:2229
 msgid "Přidání zboží neprovedeno, příjemka je již naskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:2252
+#: kicoma/kitchen/views.py:2279
 msgid "Aktualizace zboží neprovedena, příjemka je již naskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:2286
+#: kicoma/kitchen/views.py:2313
 msgid "Odstranění zboží neprovedeno, příjemka je již naskladněna"
 msgstr ""
 
-#: kicoma/kitchen/views.py:2334
+#: kicoma/kitchen/views.py:2370
 #, python-brace-format
 msgid ""
 "Celkovou cenu nelze spočítat: {error}. Podrobnosti najdete v <a "
 "href=\"{report_url}\">reportu nesprávných jednotek</a>."
 msgstr ""
 
-#: kicoma/kitchen/views.py:2644
+#: kicoma/kitchen/views.py:2683
 #, python-brace-format
 msgid ""
 "Jednotka {name} byla změněna z {old} na {new}. Změnu lze vrátit na stránce "
 "<a href=\"{url}\">Správa jednotek</a>."
 msgstr ""
 
-#: kicoma/kitchen/views.py:2677
+#: kicoma/kitchen/views.py:2716
 #, python-brace-format
 msgid "Změna jednotky zboží {article}"
 msgstr ""
 
-#: kicoma/kitchen/views.py:2722
+#: kicoma/kitchen/views.py:2761
 #, python-brace-format
 msgid "Změna jednotky suroviny {article} v receptu {recipe}"
 msgstr ""
 
-#: kicoma/kitchen/views.py:2764
+#: kicoma/kitchen/views.py:2803
 msgid "Nemáte oprávnění vrátit tuto změnu."
 msgstr ""
 
-#: kicoma/kitchen/views.py:2774
+#: kicoma/kitchen/views.py:2813
 msgid "Je předvyplněn zpětný převod, zkontroluj ho v náhledu."
 msgstr ""
 
-#: kicoma/kitchen/views.py:2780
+#: kicoma/kitchen/views.py:2819
 #, python-brace-format
 msgid "Změna jednotky {name} byla vrácena."
+msgstr ""
+
+#: kicoma/middleware.py:34
+msgid "V ukázkové verzi není tato akce dostupná."
 msgstr ""
 
 #: kicoma/templates/account/account_inactive.html:5
@@ -3670,11 +3705,18 @@ msgstr ""
 "neplatný. <a href=\"%(email_url)s\">Požádej o nový potvrzovací e-mail</a>."
 
 #: kicoma/templates/account/login.html:7 kicoma/templates/account/login.html:11
-#: kicoma/templates/account/login.html:44
+#: kicoma/templates/account/login.html:55
 msgid "Sign In"
 msgstr "Přihlásit se"
 
-#: kicoma/templates/account/login.html:16
+#: kicoma/templates/account/login.html:15
+#, python-format
+msgid ""
+"Ukázková verze: přihlaste se jako jedna z rolí, heslo je "
+"<strong>%(password)s</strong>."
+msgstr ""
+
+#: kicoma/templates/account/login.html:27
 #, python-format
 msgid ""
 "Please sign in with one of your existing third party accounts. Or, <a "
@@ -3685,11 +3727,11 @@ msgstr ""
 "<a href=\"%(signup_url)s\">vytvoř účet</a> na %(site_name)s a přihlas se "
 "níže:"
 
-#: kicoma/templates/account/login.html:26
+#: kicoma/templates/account/login.html:37
 msgid "or"
 msgstr "nebo"
 
-#: kicoma/templates/account/login.html:33
+#: kicoma/templates/account/login.html:44
 #, python-format
 msgid ""
 "If you have not created an account yet, then please <a "
@@ -3698,7 +3740,7 @@ msgstr ""
 "Pokud ještě nemáš účet, nejprve se <a href=\"%(signup_url)s\">zaregistruj</"
 "a>."
 
-#: kicoma/templates/account/login.html:43
+#: kicoma/templates/account/login.html:54
 msgid "Forgot Password?"
 msgstr "Nepamatuješ si heslo?"
 
@@ -3849,24 +3891,24 @@ msgstr ""
 "<strong>Poznámka:</strong> svou <a href=\"%(email_url)s\">e-mailovou adresu "
 "můžeš stále změnit</a>."
 
-#: kicoma/templates/base.html:92
+#: kicoma/templates/base.html:94
 msgid "Register"
 msgstr "Registrace"
 
-#: kicoma/templates/base.html:102
+#: kicoma/templates/base.html:104
 msgid "Přihlásit"
 msgstr ""
 
-#: kicoma/templates/base.html:144
+#: kicoma/templates/base.html:146
 msgid "Můj profil"
 msgstr ""
 
-#: kicoma/templates/base.html:183 kicoma/templates/common/home.html:151
+#: kicoma/templates/base.html:185 kicoma/templates/common/home.html:151
 #: kicoma/templates/common/home.html:158
 msgid "Administrace"
 msgstr ""
 
-#: kicoma/templates/base.html:215
+#: kicoma/templates/base.html:223
 msgid "Odhlásit"
 msgstr ""
 
@@ -3874,52 +3916,52 @@ msgstr ""
 msgid "https://forms.gle/PSRxw72x33Bcn6hN9"
 msgstr ""
 
-#: kicoma/templates/common/base.html:11
+#: kicoma/templates/common/base.html:12
 msgid ""
 "KiCoMa propojuje sklad potravin, recepty, jídelníčky a výživové hodnoty pro "
 "pečovatelská zařízení."
 msgstr ""
 
-#: kicoma/templates/common/base.html:63
+#: kicoma/templates/common/base.html:66
 msgid "Jak funguje"
 msgstr ""
 
-#: kicoma/templates/common/base.html:64 kicoma/templates/common/home.html:36
+#: kicoma/templates/common/base.html:67 kicoma/templates/common/home.html:36
 msgid "Výživa"
 msgstr ""
 
-#: kicoma/templates/common/base.html:65
+#: kicoma/templates/common/base.html:68
 msgid "Funkce"
 msgstr ""
 
-#: kicoma/templates/common/base.html:66
+#: kicoma/templates/common/base.html:69
 msgid "Cena"
 msgstr ""
 
-#: kicoma/templates/common/base.html:67 kicoma/templates/common/home.html:187
+#: kicoma/templates/common/base.html:70 kicoma/templates/common/home.html:195
 msgid "Časté otázky"
 msgstr ""
 
-#: kicoma/templates/common/base.html:69
+#: kicoma/templates/common/base.html:72
 msgid "Vyzkoušet KiCoMa"
 msgstr ""
 
-#: kicoma/templates/common/base.html:70
+#: kicoma/templates/common/base.html:73
 msgid "Přihlásit se"
 msgstr ""
 
-#: kicoma/templates/common/base.html:87
+#: kicoma/templates/common/base.html:90
 msgid ""
 "KiCoMa je navržena, vyvinuta a podporována <a href=\"https://www."
 "stanislavvalasek.com/contact\" target=\"_blank\">Stanislavem Valáškem</a>, "
 "vytvořena s ❤️ na Slovensku"
 msgstr ""
 
-#: kicoma/templates/common/base.html:93
+#: kicoma/templates/common/base.html:96
 msgid "Podmínky"
 msgstr ""
 
-#: kicoma/templates/common/base.html:95
+#: kicoma/templates/common/base.html:98
 msgid "Stanislav Valášek"
 msgstr ""
 
@@ -3941,8 +3983,13 @@ msgid ""
 "uvařená jídla do skladu v jednom systému."
 msgstr ""
 
-#: kicoma/templates/common/home.html:17 kicoma/templates/common/home.html:180
-#: kicoma/templates/common/home.html:202
+#: kicoma/templates/common/home.html:17 kicoma/templates/common/home.html:187
+#: kicoma/templates/common/home.html:210
+msgid "Vyzkoušet ukázku"
+msgstr ""
+
+#: kicoma/templates/common/home.html:17 kicoma/templates/common/home.html:187
+#: kicoma/templates/common/home.html:210
 msgid "Požádat o zkušební přístup"
 msgstr ""
 
@@ -4207,80 +4254,104 @@ msgid "Vyzkoušejte si, zda KiCoMa odpovídá potřebám vašeho provozu."
 msgstr ""
 
 #: kicoma/templates/common/home.html:174
-msgid "/ měsíc včetně DPH"
+msgid "/ měsíc, konečná cena"
 msgstr ""
 
-#: kicoma/templates/common/home.html:176
-msgid "Bezpečnostní aktualizace"
+#: kicoma/templates/common/home.html:175
+msgid "nebo ročně 290 € / 6 900 Kč – 2 měsíce zdarma"
 msgstr ""
 
 #: kicoma/templates/common/home.html:177
-msgid "Neomezený počet uživatelů"
+msgid "Bezpečnostní aktualizace"
 msgstr ""
 
 #: kicoma/templates/common/home.html:178
-msgid "Více provozů v ceně"
+msgid "Neomezený počet uživatelů"
 msgstr ""
 
-#: kicoma/templates/common/home.html:187
+#: kicoma/templates/common/home.html:179
+msgid "Vlastní oddělená instance a zálohy dat v EU"
+msgstr ""
+
+#: kicoma/templates/common/home.html:183
+msgid "Předplatit ročně"
+msgstr ""
+
+#: kicoma/templates/common/home.html:184
+msgid "Předplatit měsíčně"
+msgstr ""
+
+#: kicoma/templates/common/home.html:195
 msgid "Co potřebujete vědět před vyzkoušením"
 msgstr ""
 
-#: kicoma/templates/common/home.html:189
+#: kicoma/templates/common/home.html:197
 msgid "Můžeme si program nejdřív vyzkoušet?"
 msgstr ""
 
-#: kicoma/templates/common/home.html:189
+#: kicoma/templates/common/home.html:197
+msgid ""
+"Ano. Otevřete ukázkovou verzi s připravenými daty, bez registrace. Data se "
+"každou noc vrátí do výchozího stavu. Rád vám aplikaci také osobně předvedu."
+msgstr ""
+
+#: kicoma/templates/common/home.html:197
 msgid ""
 "Ano. Vyplňte krátký formulář a do jednoho pracovního dne se ozvu s "
 "podrobnostmi k demo nebo zkušební instanci."
 msgstr ""
 
-#: kicoma/templates/common/home.html:190
+#: kicoma/templates/common/home.html:198
 msgid "Potřebujeme speciální hardware nebo IT správce?"
 msgstr ""
 
-#: kicoma/templates/common/home.html:190
+#: kicoma/templates/common/home.html:198
 msgid ""
 "Ne. KiCoMa funguje v běžném webovém prohlížeči na počítači, tabletu i "
 "mobilu. S nastavením a zaškolením vám pomohu."
 msgstr ""
 
-#: kicoma/templates/common/home.html:191
+#: kicoma/templates/common/home.html:199
 msgid "Pro jaké provozy je KiCoMa vhodná?"
 msgstr ""
 
-#: kicoma/templates/common/home.html:191
+#: kicoma/templates/common/home.html:199
 msgid ""
 "Pro zařízení s oddělenou evidencí skladu potravin a plánováním jídelníčku, "
 "například hospice, domovy pro seniory, školní jídelny nebo nemocnice. KiCoMa "
 "neřeší prodej ani účetnictví."
 msgstr ""
 
-#: kicoma/templates/common/home.html:192
+#: kicoma/templates/common/home.html:200
 msgid "Co když potřebujeme další funkci?"
 msgstr ""
 
-#: kicoma/templates/common/home.html:192
+#: kicoma/templates/common/home.html:200
 msgid ""
 "Požadavek společně projdeme a předem upřesním rozsah, termín a cenu úpravy. "
 "Aplikaci průběžně rozvíjím podle potřeb reálných provozů."
 msgstr ""
 
-#: kicoma/templates/common/home.html:199
+#: kicoma/templates/common/home.html:207
 msgid "Projděme váš provoz společně"
 msgstr ""
 
-#: kicoma/templates/common/home.html:200
+#: kicoma/templates/common/home.html:208
 msgid "Zjistěte, jestli KiCoMa zapadne do vaší kuchyně"
 msgstr ""
 
-#: kicoma/templates/common/home.html:201
+#: kicoma/templates/common/home.html:209
 msgid "Popište mi svůj provoz. Ozvu se vám osobně a domluvíme další postup."
 msgstr ""
 
-#: kicoma/templates/common/home.html:202
+#: kicoma/templates/common/home.html:210
 msgid "Kontaktovat autora"
+msgstr ""
+
+#: kicoma/templates/demo_banner.html:4
+msgid ""
+"Ukázková verze – všechna data se každou noc vrátí do výchozího stavu. "
+"Nezadávejte osobní údaje."
 msgstr ""
 
 #: kicoma/templates/users/user_detail.html:13

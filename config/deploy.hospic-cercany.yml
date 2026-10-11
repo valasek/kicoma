@@ -1,0 +1,19 @@
+# Pilot customer: Hospic Čerčany.
+#   kamal deploy -d hospic-cercany
+# Own service and volume, so it runs next to the old "kicoma" deployment until cutover.
+service: kicoma-hospic-cercany
+
+proxy:
+  hosts:
+    - hospic-cercany.kicoma.eu
+    # After the old deployment is removed, keep old bookmarks working:
+    # - kicoma.stanislavvalasek.com
+
+volumes:
+  - "kicoma_hospic_cercany_storage:/storage"
+
+env:
+  clear:
+    DJANGO_ALLOWED_HOSTS: hospic-cercany.kicoma.eu
+    # DJANGO_ALLOWED_HOSTS: hospic-cercany.kicoma.eu,kicoma.stanislavvalasek.com
+    WEB_CONCURRENCY: 3

@@ -1,6 +1,7 @@
 {% load static i18n %}
 {% get_current_language as LANGUAGE_CODE %}
 {% translate "https://forms.gle/PSRxw72x33Bcn6hN9" as trial_form_url %}
+{% firstof settings.KICOMA_DEMO_URL trial_form_url as try_url %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
@@ -66,7 +67,7 @@
                   <li class="nav-item"><a class="nav-link" href="#pricing">{% translate "Cena" %}</a></li>
                   <li class="nav-item"><a class="nav-link" href="#faq">{% translate "Časté otázky" %}</a></li>
                   {% include "menu_switch_lang.html" %}
-                  <li class="nav-item ms-lg-2"><a class="btn btn-primary" href="{{ trial_form_url }}">{% translate "Vyzkoušet KiCoMa" %}</a></li>
+                  <li class="nav-item ms-lg-2"><a class="btn btn-primary" href="{{ try_url }}">{% translate "Vyzkoušet KiCoMa" %}</a></li>
                   <li class="nav-item"><a class="nav-link landing-navbar__login" href="{% url 'kitchen:about' %}">{% translate "Přihlásit se" %}</a></li>
                 </ul>
             </div>

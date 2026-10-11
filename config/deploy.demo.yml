@@ -1,0 +1,38 @@
+# Public landing page (kicoma.eu) and demo: sample data, reset nightly by the cron role and on every deploy.
+#   kamal deploy -d demo
+service: kicoma-demo
+
+servers:
+  web:
+    - 162.55.185.37
+  cron:
+    hosts:
+      - 162.55.185.37
+    cmd: supercronic /app/config/crontab.demo
+
+proxy:
+  hosts:
+    - kicoma.eu
+    - www.kicoma.eu
+    - demo.kicoma.eu
+
+volumes:
+  - "kicoma_demo_storage:/storage"
+
+env:
+  # Replaces the base list (Kamal does not merge arrays), so repeat all shared secrets.
+  secret:
+    - DJANGO_SECRET_KEY
+    - DJANGO_ADMIN_URL
+    - MAILGUN_API_KEY
+    - MAILGUN_PUBLIC_KEY
+    - MAILGUN_SMTP_LOGIN
+    - MAILGUN_SMTP_PASSWORD
+    - KICOMA_DEMO_SUPERUSER_PASSWORD
+  clear:
+    DJANGO_ALLOWED_HOSTS: kicoma.eu,www.kicoma.eu,demo.kicoma.eu
+    WEB_CONCURRENCY: 2
+    KICOMA_DEMO_MODE: true
+    KICOMA_DEMO_URL: https://demo.kicoma.eu/accounts/login/
+    # KICOMA_PAYMENT_LINK_MONTHLY: https://buy.stripe.com/...
+    # KICOMA_PAYMENT_LINK_YEARLY: https://buy.stripe.com/...

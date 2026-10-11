@@ -1,6 +1,12 @@
 2026:
+  - date: 2026-10-11
+    items:
+      - "New Admin role: has the rights of a stockkeeper, cook and nutrition advisor and can additionally export all data and run data cleanup. Full data import and the administration remain superadmin only."
+      - "The manual describes the Admin role; the former Administrator is now called Superadmin."
   - date: 2026-10-10
     items:
+      - "Public demo with sample data and a sign-in for each role; the data is reset every night. The home page shows monthly and yearly prices."
+      - "Self-registration of new users is disabled by default; accounts are created by an administrator."
       - "Issue and receipt item lists, PDFs, approval and delete pages no longer fail when a document contains a line in a unit that cannot be converted to the stock unit (after an earlier stock-item unit change). The total price is shown as \"—\"."
       - "Approving such a receipt or issue is refused with a link to the incorrect units report."
       - "Stock-item unit conversion leaves lines with an unconvertible unit completely unchanged, including their unit price."

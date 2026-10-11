@@ -1,0 +1,2 @@
+# Schedule is UTC: 02:00 UTC = 03:00/04:00 Prague
+0 2 * * * cd /app && python manage.py reset_demo

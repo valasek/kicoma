@@ -24,6 +24,7 @@ from .models import (
     StockReceipt,
     StockReceiptArticle,
 )
+from .permissions import Roles, user_has_any_role
 from .utils import get_currency
 
 table_attributes = {
@@ -89,7 +90,7 @@ class ArticleTable(tables.Table):
 
     @staticmethod
     def is_stockkeeper(user):
-        return user.groups.filter(name="stockkeeper").exists()
+        return user_has_any_role(user, Roles.STOCKKEEPER)
 
     def before_render(self, request):
         if not self.is_stockkeeper(request.user):
@@ -492,7 +493,7 @@ class StockIssueTable(tables.Table):
         ]
 
         user = getattr(self, "request", None).user if hasattr(self, "request") else None
-        if user and user.groups.filter(name="stockkeeper").exists():
+        if user and user_has_any_role(user, Roles.STOCKKEEPER):
             links.append(
                 format_html(
                     '<form method="post" action="{}" class="d-inline">'

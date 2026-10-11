@@ -1,3 +1,11 @@
 .venv
 kicoma/media/data*.json
 storage/*.sqlite3*
+.git
+.env
+.env.*
+.envs
+config/secrets
+config/*.key
+.kamal/secrets*
+sqlite_from_vps

@@ -53,7 +53,10 @@ LANGUAGES = [
 DATABASES: dict[str, dict[str, Any]] = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(ROOT_DIR, "storage/kicoma.sqlite3"),
+        "NAME": env(
+            "DJANGO_SQLITE_PATH",
+            default=os.path.join(ROOT_DIR, "storage/kicoma.sqlite3"),
+        ),
         "OPTIONS": {
             # same transaction behavior as production (ATOMIC_REQUESTS takes the write lock upfront)
             "transaction_mode": "IMMEDIATE",
@@ -171,6 +174,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "kicoma.middleware.DemoModeMiddleware",
 ]
 
 # STATIC
@@ -222,6 +226,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "kicoma.utils.context_processors.settings_context",
                 "kicoma.utils.context_processors.currency",
+                "kicoma.utils.context_processors.demo",
             ],
         },
     }
@@ -311,7 +316,7 @@ LOGGING = {
 
 # django-allauth
 # ------------------------------------------------------------------------------
-ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
+ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", False)
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 # ACCOUNT_AUTHENTICATION_METHOD = "username" # deprecated in Django 5.2
 ACCOUNT_LOGIN_METHODS = {"username"}
@@ -335,6 +340,17 @@ SOCIALACCOUNT_ADAPTER = "kicoma.users.adapters.SocialAccountAdapter"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 PAGINATE_BY = 30
+
+# SaaS: public demo and subscription links
+# ------------------------------------------------------------------------------
+# Never enable on a customer instance - reset_demo wipes the whole database.
+KICOMA_DEMO_MODE = env.bool("KICOMA_DEMO_MODE", default=False)
+KICOMA_DEMO_PASSWORD = env("KICOMA_DEMO_PASSWORD", default="kicoma")
+# Secret, never commit it; the demo superuser is skipped when empty.
+KICOMA_DEMO_SUPERUSER_PASSWORD = env("KICOMA_DEMO_SUPERUSER_PASSWORD", default="")
+KICOMA_DEMO_URL = env("KICOMA_DEMO_URL", default="")
+KICOMA_PAYMENT_LINK_MONTHLY = env("KICOMA_PAYMENT_LINK_MONTHLY", default="")
+KICOMA_PAYMENT_LINK_YEARLY = env("KICOMA_PAYMENT_LINK_YEARLY", default="")
 
 # due to https://github.com/django-crispy-forms/crispy-bootstrap5
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

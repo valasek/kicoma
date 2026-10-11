@@ -697,18 +697,6 @@
   },
   {
     "model": "kitchen.dailymenu",
-    "pk": 39,
-    "fields": {
-      "created": "2020-08-24 14:52:06+0000",
-      "modified": "2020-08-24 14:52:06+0000",
-      "date": "2020-08-25",
-      "meal_group": 2,
-      "meal_type": 3,
-      "comment": ""
-    }
-  },
-  {
-    "model": "kitchen.dailymenu",
     "pk": 36,
     "fields": {
       "created": "2020-08-24 14:37:46+0000",

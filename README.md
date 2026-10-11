@@ -2,7 +2,52 @@
 
 ## Demo
 
-Check the lastest version at [kicoma.stanislavvalasek.com](https://kicoma.stanislavvalasek.com).
+The landing page runs at [kicoma.eu](https://kicoma.eu) and the public demo at [demo.kicoma.eu](https://demo.kicoma.eu)
+(both served by the `demo` instance, see [Instances and tenants](#instances-and-tenants)).
+Demo mode (`KICOMA_DEMO_MODE=True`) means:
+
+- `./manage.py reset_demo` wipes **all** data and loads sample data from `kicoma/kitchen/fixtures` plus demo users,
+  one per role and language: `kuchar`/`cook`, `skladnik`/`stockkeeper`, `nutricni-poradce`/`nutrition-advisor`,
+  plus `spravce`/`admin` with the Správce/Admin role (not a Django superuser),
+   password `KICOMA_DEMO_PASSWORD` (default `kicoma`). The login page lists the users for the current language.
+  The command refuses to run when demo mode is off.
+- Superadmin is created too when `KICOMA_DEMO_SUPERUSER_PASSWORD` is set. It is not listed on the login page; the password lives only in the git-ignored `config/secrets/demo/demo_superuser_password.key`.
+- Sign-up, password/email changes and profile editing are blocked, a demo banner is shown and the login page lists the demo users.
+
+### Run the demo locally
+
+Use a separate database file so your development database stays untouched:
+
+```bash
+export DJANGO_SQLITE_PATH=storage/demo.sqlite3 KICOMA_DEMO_MODE=True
+export KICOMA_DEMO_SUPERUSER_PASSWORD="$(cat config/secrets/demo/demo_superuser_password.key)"  # optional
+./manage.py migrate
+./manage.py reset_demo          # run again any time to start over
+./manage.py runserver_plus 0.0.0.0:8000
+unset DJANGO_SQLITE_PATH KICOMA_DEMO_MODE KICOMA_DEMO_SUPERUSER_PASSWORD   # back to the development database
+```
+
+### Run the demo remotely
+
+The demo is a separate instance (`config/deploy.demo.yml`) with its own volume. It resets on every deploy
+and nightly at 02:00 UTC via the `cron` role (supercronic, `config/crontab.demo`).
+
+```bash
+kamal deploy -d demo                            # deploy / upgrade
+kamal app exec -d demo "./manage.py reset_demo" # reset now
+kamal app logs -d demo -r cron                  # check the nightly reset
+```
+
+First deploy only - create its secrets and a DNS record (see [Add a new customer](#add-a-new-customer) step 2):
+
+```bash
+mkdir -p config/secrets/demo
+python -c "import secrets; print(secrets.token_urlsafe(50))" > config/secrets/demo/django_secret.key
+python -c "import secrets; print(secrets.token_urlsafe(12) + '/')" > config/secrets/demo/django_admin_url.key
+printf '%s' '<superadmin password>' > config/secrets/demo/demo_superuser_password.key
+```
+
+Then fill in the Stripe Payment Links in `config/deploy.demo.yml` once they exist and deploy the demo again.
 
 ## License
 
@@ -55,19 +100,156 @@ Alternativelly, install docker and docker compose and run `docker-compose up`
 If you need to start server manually, the commnad is:
 `./manage.py runserver_plus 0.0.0.0:8000`
 
-## Deploy to Hetzner
+## Instances and tenants
 
-Commit your changes all relevant files into repo.
+Every customer (tenant) gets its own container and its own SQLite volume on the same Hetzner server, deployed
+as a [Kamal destination](https://kamal-deploy.org/docs/configuration/overview/#destinations). There is no shared
+database, so data cannot leak between customers and deleting a customer means deleting its volume.
+
+| File | Purpose |
+| --- | --- |
+| `config/deploy.yml` | Shared base (image, server, proxy, secrets list). Has no host or volume, so always deploy with `-d`. |
+| `config/deploy.<name>.yml` | One per instance: `service`, `proxy.host`, `volumes`, `DJANGO_ALLOWED_HOSTS`, extra env. |
+| `.kamal/secrets-common` | Secrets shared by all instances (registry, Mailgun). |
+| `.kamal/secrets.<name>` | Per-instance secrets (`DJANGO_SECRET_KEY`, `DJANGO_ADMIN_URL`), read from `config/secrets/<name>/` (git-ignored, back it up). |
+
+Current instances:
+
+| Destination | Host | Volume | Notes |
+| --- | --- | --- | --- |
+| `demo` | kicoma.eu, www.kicoma.eu, demo.kicoma.eu | `kicoma_demo_storage` | Landing page and public demo, reset nightly |
+| `hospic-cercany` | hospic-cercany.kicoma.eu | `kicoma_hospic_cercany_storage` | Pilot customer |
+
+DNS: `A` records for `kicoma.eu` and `*.kicoma.eu` point to `162.55.185.37`, so new customers need no DNS change.
+
+Rules:
+
+- Never reuse a volume name between destinations - the volume *is* the customer's data.
+- Never set `KICOMA_DEMO_MODE` on a customer instance - `reset_demo` would wipe it.
+- Self sign-up is off (`DJANGO_ACCOUNT_ALLOW_REGISTRATION=False` by default); the customer's admin creates users.
+- Roles are Django groups: `cook`, `stockkeeper`, `nutrition_advisor` and `admin` (Správce - all three roles plus
+  data export and cleanup). Superadmin = Django superuser: additionally Django admin and full data import.
+  Give the customer's admin the `admin` group; keep superuser for yourself.
+- Application-admin JSON exports retain ordinary user credentials but replace every superuser password
+   with `kicoma` in the exported file only. After restoring one, change all superuser passwords before
+   exposing the instance publicly. Superuser exports retain the original passwords; protect all exports
+   as sensitive backups.
+- Docker build context excludes tenant keys, local environment files, Git history and downloaded backups.
+   Previously committed credentials remain in Git history and may be present in older images; rotate
+   exposed Django secret keys and Mailgun credentials, and replace old images/backups containing them.
+
+### Deploy
+
+Commit your changes, then:
 
 ```bash
 export KAMAL_REGISTRY_PASSWORD=<value>
-kamal deploy
+kamal deploy -d hospic-cercany    # one instance
+./deploy-all.sh                   # build once, deploy every config/deploy.*.yml
 ```
+
+Migrations run automatically when a container starts (`entrypoint.sh`).
+
+### Add a new customer
+
+1. `./new-tenant.sh <slug> <host>`, e.g. `./new-tenant.sh domov-abc domov-abc.kicoma.eu`.
+   It creates `config/deploy.<slug>.yml`, `.kamal/secrets.<slug>` and `config/secrets/<slug>/` and prints the next steps.
+2. DNS: nothing to do for `*.kicoma.eu` (wildcard record). kamal-proxy gets the Let's Encrypt certificate on first deploy.
+3. `kamal deploy -d <slug>`
+4. Load basic data, create roles and the customer's admin:
+
+   ```bash
+   kamal app exec -d <slug> "./manage.py loaddata dph alergeny druhy-jidla skupiny-stravniku"
+   kamal app exec -d <slug> "./manage.py shell -c \"from django.contrib.auth.models import Group; [Group.objects.get_or_create(name=n) for n in ('cook', 'stockkeeper', 'nutrition_advisor', 'admin')]\""
+   kamal app exec -d <slug> --interactive "./manage.py createsuperuser"
+   ```
+
+5. Commit `config/deploy.<slug>.yml` and `.kamal/secrets.<slug>`; back up `config/secrets/<slug>/` outside git.
+
+### Day-to-day work with an instance
+
+```bash
+kamal app logs -d <name>                                   # follow logs
+kamal app exec -d <name> --interactive --reuse "bash"      # shell
+kamal app exec -d <name> --interactive --reuse "./manage.py shell"
+./fetch_remote_sqlite.sh <name>                            # download DB to sqlite_from_vps/<name>/
+```
+
+The download uses SQLite's online backup API against Django's configured database and checks its
+integrity before replacing the local backup. It produces a standalone `kicoma.sqlite3` without WAL/SHM
+files. Stop any local process using the previous downloaded database before fetching a replacement.
+
+To import a downloaded DB locally: `DJANGO_SQLITE_PATH=sqlite_from_vps/<name>/kicoma.sqlite3 ./manage.py runserver_plus 0.0.0.0:8000`.
+
+### Suspend or remove a customer
+
+```bash
+kamal app stop -d <slug>        # suspend (e.g. unpaid), data kept; `kamal app boot -d <slug>` to resume
+./fetch_remote_sqlite.sh <slug> # final backup / export for the customer
+kamal remove -d <slug>          # remove containers and proxy route
+ssh root@162.55.185.37 docker volume rm kicoma_<slug_with_underscores>_storage   # delete data - irreversible
+```
+
+Then delete `config/deploy.<slug>.yml`, `.kamal/secrets.<slug>` and `config/secrets/<slug>/`.
+
+### Copy a database into an instance
+
+The instance must be stopped while its SQLite file is replaced; migrations run on the next boot.
+Put the source files (`kicoma.sqlite3` and, if present, `-wal`/`-shm`) into `/root/kicoma-copy/` on the server.
+
+```bash
+kamal app stop -d <name>                                         # locally
+ssh root@162.55.185.37 "docker run --rm -v /root/kicoma-copy:/from -v kicoma_<name_with_underscores>_storage:/to \
+  debian:bookworm-slim sh -c 'rm -f /to/kicoma.sqlite3* && cp /from/kicoma.sqlite3* /to/'"
+kamal app boot -d <name>                                         # locally
+```
+
+### Migration from the old kicoma.stanislavvalasek.com deployment
+
+The old deployment (service `kicoma`, volume `kicoma_storage`) keeps running while the new `hospic-cercany`
+instance is deployed and tested at hospic-cercany.kicoma.eu.
+
+1. Rehearsal copy while the old instance runs (consistent snapshot via the SQLite backup API):
+
+   ```bash
+   ssh root@162.55.185.37
+   OLD=$(docker ps -q --filter label=service=kicoma --filter label=role=web)
+   docker exec $OLD python -c "import sqlite3; d=sqlite3.connect('/storage/copy.sqlite3'); sqlite3.connect('/storage/kicoma.sqlite3').backup(d); d.close()"
+   rm -rf /root/kicoma-copy && mkdir /root/kicoma-copy
+   docker cp $OLD:/storage/copy.sqlite3 /root/kicoma-copy/kicoma.sqlite3 && docker exec $OLD rm /storage/copy.sqlite3
+   exit
+   ```
+
+   Then [copy it into the instance](#copy-a-database-into-an-instance) and test. Users keep working on the old instance.
+2. Cutover (announced, ~10 min):
+
+   ```bash
+   ssh root@162.55.185.37
+   OLD=$(docker ps -q --filter label=service=kicoma --filter label=role=web)
+   docker stop $OLD                                    # no more writes
+   rm -rf /root/kicoma-copy && mkdir /root/kicoma-copy
+   docker run --rm -v kicoma_storage:/from:ro -v /root/kicoma-copy:/to debian:bookworm-slim sh -c 'cp /from/kicoma.sqlite3* /to/'
+   docker exec kamal-proxy kamal-proxy list           # old route is usually kicoma-web
+   docker exec kamal-proxy kamal-proxy remove kicoma-web
+   exit
+   ```
+
+   Copy the files into the instance again (same commands as in step 1), uncomment the `kicoma.stanislavvalasek.com`
+   lines in `config/deploy.hospic-cercany.yml`, commit and `kamal deploy -d hospic-cercany`. Old bookmarks keep working.
+3. After a few weeks without problems: `docker rm $OLD` (and older stopped `kicoma-web-*` containers),
+   then `docker volume rm kicoma_storage` once you have an offline backup.
+
+## Domain
+
+Product domain is `kicoma.eu`. Host names live in `proxy.hosts` and `DJANGO_ALLOWED_HOSTS` of each
+`config/deploy.<name>.yml`, and `KICOMA_DEMO_URL` in `config/deploy.demo.yml`.
+
+## Server
 
 Connect to server: `ssh root@162.55.185.37`
 
-Free disk space if needed
-docker system prune -af --volumes
+Free disk space if needed (without `--volumes` - that could delete the data of a customer whose container is removed)
+docker system prune -af
 
 ## Upgrade packages
 
@@ -96,10 +278,12 @@ uv lock --upgrade-package django --upgrade-package gunicorn
 
 ### When deploying for the first time, make sure these LOCAL ONLY config files exist
 
-config/django_secret.key
-e.g. generate it using <https://djecrety.ir>
+They are git-ignored (`config/secrets/` and `config/*.key`) - keep a backup outside git, e.g. in a password manager.
 
-config/django_admin_url.key to admin/ or more secure version
+config/secrets/hospic-cercany/django_secret.key
+e.g. `python -c "import secrets; print(secrets.token_urlsafe(50))" > config/secrets/hospic-cercany/django_secret.key`
+
+config/secrets/hospic-cercany/django_admin_url.key to a random path ending with `/`, e.g. `admin-<random>/`
 config/mailgun_api.key
 config/mailgun_public.key
 config/mailgun_smtp_login.key
@@ -114,7 +298,7 @@ kamal proxy upgrade
 
 ### Path to sqlite
 
-`/var/lib/docker/volumes/kicoma_storage/_data/`
+`/var/lib/docker/volumes/<volume>/_data/`, e.g. `kicoma_hospic_cercany_storage` for the hospice, `kicoma_demo_storage` for the demo.
 
 ### Sqlite backups to S3
 

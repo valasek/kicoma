@@ -8,6 +8,8 @@ class Roles(models.TextChoices):
     COOK = "cook", _("Kuchař")
     STOCKKEEPER = "stockkeeper", _("Skladník")
     NUTRITION_ADVISOR = "nutrition_advisor", _("Nutriční poradce")
+    # Has all other roles plus data export and cleanup.
+    ADMIN = "admin", _("Správce")
 
 
 def split_roles(roles):
@@ -40,7 +42,10 @@ def user_has_any_role(user, roles):
         return False
     if user.is_superuser:
         return True
-    return bool(user_role_names(user).intersection(roles))
+    names = user_role_names(user)
+    if Roles.ADMIN in names:
+        return True
+    return bool(names.intersection(roles))
 
 
 class RoleRequiredMixin(AccessMixin):
@@ -78,3 +83,7 @@ class StockkeeperOrNutritionAdvisorRequiredMixin(RoleRequiredMixin):
 
 class AnyRoleRequiredMixin(RoleRequiredMixin):
     allowed_roles = tuple(Roles.values)
+
+
+class AdminRequiredMixin(RoleRequiredMixin):
+    allowed_roles = (Roles.ADMIN,)

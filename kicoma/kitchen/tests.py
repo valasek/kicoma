@@ -7,6 +7,7 @@ from unittest.mock import patch
 from crispy_forms.utils import render_crispy_form
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -494,6 +495,33 @@ class RolePermissionTests(TestCase):
         for url in self.role_urls:
             with self.subTest(url=url):
                 self.assertEqual(self.client.get(url).status_code, 200)
+
+    def test_admin_role_has_all_roles_plus_export_and_cleanup(self):
+        self.client.force_login(self.make_user("spravce", ("admin",)))
+
+        for url in self.role_urls:
+            with self.subTest(url=url):
+                self.assertEqual(self.client.get(url).status_code, 200)
+        self.assertEqual(self.client.get(reverse("kitchen:export")).status_code, 200)
+        self.assertEqual(
+            self.client.get(reverse("kitchen:data_cleanup")).status_code, 200
+        )
+        self.assertEqual(self.client.get(reverse("kitchen:import")).status_code, 403)
+        menu = self.client.get(reverse("kitchen:about"))
+        self.assertContains(menu, reverse("kitchen:export"))
+        self.assertContains(menu, reverse("kitchen:data_cleanup"))
+        self.assertNotContains(menu, reverse("kitchen:import"))
+        self.assertNotContains(menu, f'href="{reverse("admin:index")}"')
+
+    def test_other_roles_cannot_export_or_clean_up(self):
+        self.client.force_login(
+            self.make_user("all3", ("cook", "stockkeeper", "nutrition_advisor"))
+        )
+
+        for url_name in ("export", "data_cleanup", "import"):
+            with self.subTest(url_name=url_name):
+                response = self.client.get(reverse(f"kitchen:{url_name}"))
+                self.assertEqual(response.status_code, 403)
 
     def test_unknown_role_name_raises_instead_of_hiding_silently(self):
         with self.assertRaises(ValueError):
@@ -2282,6 +2310,44 @@ class DataImportExportTests(TransactionTestCase):
         )
         article._history_user = self.user
         article.save()
+
+    def test_application_admin_export_replaces_only_superuser_passwords(self):
+        admin = get_user_model().objects.create_user(
+            username="customer-admin", password="customer-password"
+        )
+        admin.groups.add(Group.objects.create(name="admin"))
+        another_superuser = get_user_model().objects.create_superuser(
+            username="another-superuser",
+            email="other@example.com",
+            password="private-password",
+        )
+        self.client.force_login(admin)
+
+        response = self.client.get(reverse("kitchen:export"))
+
+        self.assertEqual(response.status_code, 200)
+        users = {
+            record["pk"]: record["fields"]
+            for record in response.json()
+            if record["model"] == "users.user"
+        }
+        self.assertEqual(users[admin.pk]["password"], admin.password)
+        for user in (self.user, another_superuser):
+            self.assertNotIn(user.password, response.content.decode())
+            self.assertTrue(check_password("kicoma", users[user.pk]["password"]))
+            user.refresh_from_db()
+            self.assertFalse(user.check_password("kicoma"))
+
+    def test_superuser_export_preserves_passwords(self):
+        response = self.client.get(reverse("kitchen:export"))
+
+        self.assertEqual(response.status_code, 200)
+        exported_user = next(
+            record
+            for record in response.json()
+            if record["model"] == "users.user" and record["pk"] == self.user.pk
+        )
+        self.assertEqual(exported_user["fields"]["password"], self.user.password)
 
     def test_full_export_import_preserves_users_and_history(self):
         article = Article.objects.get()

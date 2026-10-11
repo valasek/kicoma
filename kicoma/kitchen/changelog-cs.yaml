@@ -1,6 +1,12 @@
 2026:
+  - date: 2026-10-11
+    items:
+      - "Nová role Správce: má práva skladníka, kuchaře i nutričního poradce a navíc může exportovat všechna data a spouštět údržbu dat. Import všech dat a administrace zůstávají jen superadminovi."
+      - "Příručka popisuje roli Správce, dřívější Administrátor se nyní jmenuje Superadmin."
   - date: 2026-10-10
     items:
+      - "Veřejná ukázková verze s připravenými daty a přihlášením za každou roli; data se každou noc vrátí do výchozího stavu. Na úvodní stránce je cena za měsíc i za rok."
+      - "Registrace nových uživatelů je ve výchozím stavu vypnutá, účty zakládá administrátor."
       - "Seznam zboží na výdejce či příjemce, PDF, schválení a výmaz už neskončí chybou, pokud doklad obsahuje řádek v jednotce, kterou nelze převést na skladovou jednotku (po dřívější změně jednotky zboží). Celková cena se zobrazí jako „—“."
       - "Naskladnění a vyskladnění takového dokladu je odmítnuto s odkazem na report nesprávných jednotek."
       - "Změna jednotky zboží ponechá řádky s nepřevoditelnou jednotkou zcela beze změny, včetně jednotkové ceny."

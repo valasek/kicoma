@@ -14,6 +14,11 @@ set -e
 # Apply committed migrations before starting the web server.
 python manage.py migrate --noinput
 
-# Start Gunicorn
-exec gunicorn --bind 0.0.0.0:8000 --workers 3 --preload \
+# Public demo instance starts from fresh sample data on every deploy.
+if [[ "${KICOMA_DEMO_MODE:-}" =~ ^([Tt]rue|1|yes|on)$ ]]; then
+	python manage.py reset_demo
+fi
+
+# Start Gunicorn (worker count from WEB_CONCURRENCY)
+exec gunicorn --bind 0.0.0.0:8000 --preload \
 	--access-logfile - --error-logfile - config.wsgi:application

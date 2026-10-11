@@ -3,7 +3,8 @@
 {% load auth_extras %}
 {% load humanize %}
 {% block content %}
-{% translate "Administrátor" as role_admin %}
+{% translate "Správce" as role_admin %}
+{% translate "Superadmin" as role_superadmin %}
 {% translate "Nutriční poradce" as role_nutrition %}
 {% translate "Kuchař" as role_cook %}
 {% translate "Skladník" as role_stockkeeper %}
@@ -83,7 +84,7 @@
     <li><a href="#units">{% translate "Správa jednotek" %}</a></li>
     <li><a href="#reports">{% translate "Reporty" %}</a></li>
     <li><a href="#troubleshooting">{% translate "Když něco nejde" %}</a></li>
-    {% if request.user.is_superuser %}<li><a href="#administration">{% translate "Administrace aplikace" %}</a></li>{% endif %}
+    {% if request.user|has_any_group:"admin" %}<li><a href="#administration">{% translate "Správa dat a aplikace" %}</a></li>{% endif %}
   </ol>
 </nav>
 
@@ -131,7 +132,12 @@
     <tr>
       <th>{{ role_admin }}</th>
       {% if request.user.is_authenticated %}<td>{% for user in admin_users %}{{ user.username }}<br />{% endfor %}</td>{% endif %}
-      <td>{% translate "Spravuje uživatele, role a číselníky, zálohuje, obnovuje a čistí data." %}</td>
+      <td>{% translate "Má práva skladníka, kuchaře i nutričního poradce. Navíc exportuje a čistí data." %}</td>
+    </tr>
+    <tr>
+      <th>{{ role_superadmin }}</th>
+      {% if request.user.is_authenticated %}<td>{% for user in superadmin_users %}{{ user.username }}<br />{% endfor %}</td>{% endif %}
+      <td>{% translate "Má všechna práva. Spravuje uživatele, role a číselníky v administraci a obnovuje data ze zálohy." %}</td>
     </tr>
   </table>
   <p class="text-muted small">{% translate "Jeden uživatel může mít víc rolí najednou." %}</p>
@@ -340,31 +346,36 @@
     </tr>
     <tr>
       <td>{% translate "Nevidím nějaké menu nebo odkaz." %}</td>
-      <td>{% translate "Chybí ti role. Požádej administrátora, ať tě přidá do správné skupiny." %}</td>
+      <td>{% translate "Chybí ti role. Požádej správce, ať tě přidá do správné skupiny." %}</td>
     </tr>
   </table>
-  <p>{% translate "Pořád si nevíš rady? Mrkni do" %} <a href="{{ url_changelog }}">{% translate "Novinky" %}</a>, {% translate "jestli se něco nezměnilo, nebo se obrať na administrátora." %}</p>
+  <p>{% translate "Pořád si nevíš rady? Mrkni do" %} <a href="{{ url_changelog }}">{% translate "Novinky" %}</a>, {% translate "jestli se něco nezměnilo, nebo se obrať na správce." %}</p>
 </section>
 
-{% if request.user.is_superuser %}
+{% if request.user|has_any_group:"admin" %}
 <section id="administration" class="mb-4">
-  <h5>10. {% translate "Administrace aplikace" %}</h5>
+  <h5>10. {% translate "Správa dat a aplikace" %}</h5>
   <p class="small text-muted">
-    <b>{{ label_who }}</b> <span class="badge bg-secondary">{{ role_admin }}</span>
+    <b>{{ label_who }}</b> <span class="badge bg-secondary">{{ role_admin }}</span> <span class="badge bg-secondary">{{ role_superadmin }}</span>
   </p>
+  <ul>
+    <li><a href="{% url 'kitchen:export' %}">{% translate "Export všech dat" %}</a> – {% translate "záloha všech dat KiCoMa včetně uživatelů a skupin." %}</li>
+    <li><a href="{% url 'kitchen:data_cleanup' %}">{% translate "Údržba dat" %}</a> – {% translate "smaže schválené doklady, denní menu a historii zboží starší než dva roky (celé roky). Neschválené doklady zůstanou." %}</li>
+  </ul>
+  {% if request.user.is_superuser %}
+  <p class="mb-1"><b>{% translate "Jen pro superadmina" %}</b></p>
   <ul>
     <li>{% translate "Číselníky spravuješ v" %} <a href="{% url 'admin:index' %}kitchen">{% translate "administraci" %}</a>:
       <a href="{% url 'admin:index' %}kitchen/allergen">{% translate "alergeny" %}</a>,
       <a href="{% url 'admin:index' %}kitchen/vat">{% translate "DPH" %}</a>,
       <a href="{% url 'admin:index' %}kitchen/mealtype">{% translate "druhy jídla" %}</a>,
       <a href="{% url 'admin:index' %}kitchen/mealgroup">{% translate "skupinu strávníků" %}</a>.</li>
-    <li><a href="{% url 'kitchen:export' %}">{% translate "Export všech dat" %}</a> – {% translate "záloha všech dat KiCoMa včetně uživatelů a skupin." %}</li>
     <li><a href="{% url 'kitchen:import' %}">{% translate "Import všech dat" %}</a> – {% translate "nejdřív smaže všechna současná data a pak nahraje zálohu. Používej opatrně." %}</li>
-    <li><a href="{% url 'kitchen:data_cleanup' %}">{% translate "Údržba dat" %}</a> – {% translate "smaže schválené doklady, denní menu a historii zboží starší než dva roky (celé roky). Neschválené doklady zůstanou." %}</li>
     <li>{% translate "Administrace obchází kontroly aplikace. Schválené doklady a jednotky v ní měnit nejde, ostatní změny dělej opatrně." %}
       {% translate "Není doporučeno měnit sekce" %} <a href="{% url 'admin:index' %}auth">{% translate "Autentizace a autorizace" %}</a>, <a href="{% url 'admin:index' %}sites">{% translate "Weby" %}</a>,
       <a href="{% url 'admin:index' %}account">{% translate "Účty" %}</a> {% translate "a" %} <a href="{% url 'admin:index' %}socialaccount">{% translate "Účty sociálních sítí" %}</a>.</li>
   </ul>
+  {% endif %}
 </section>
 {% endif %}
 </div>

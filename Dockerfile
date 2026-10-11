@@ -19,6 +19,19 @@ RUN uv sync --extra prod --no-cache --no-install-project
 # Make the virtual environment the default Python environment
 ENV PATH="/app/.venv/bin:$PATH"
 
+# supercronic runs the demo reset job (Kamal cron role); copied with /usr/local/bin below
+ARG TARGETARCH=amd64
+ARG SUPERCRONIC_VERSION=v0.2.49
+RUN case "$TARGETARCH" in \
+    amd64) SUPERCRONIC_SHA1SUM=e63c11a9726b775a6a11801e81af4f3fb926aa68 ;; \
+    arm64) SUPERCRONIC_SHA1SUM=0b6c5bb743e0b0dafed1132198c81807927ac413 ;; \
+    *) echo "Unsupported architecture: $TARGETARCH" && exit 1 ;; \
+    esac && \
+    python -c "import sys, urllib.request; urllib.request.urlretrieve(sys.argv[1], '/usr/local/bin/supercronic')" \
+    "https://github.com/aptible/supercronic/releases/download/${SUPERCRONIC_VERSION}/supercronic-linux-${TARGETARCH}" && \
+    echo "${SUPERCRONIC_SHA1SUM}  /usr/local/bin/supercronic" | sha1sum -c - && \
+    chmod +x /usr/local/bin/supercronic
+
 
 # Stage 2: Production stage
 FROM python:$PYTHON_VERSION-slim
@@ -40,17 +53,17 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get clean && \
     # apt-get upgrade -y && \
     apt-get install -y --no-install-recommends --no-install-suggests \
-        gettext \
-        libcairo2 \
-        libpango-1.0-0 \
-        libpangocairo-1.0-0 \
-        libgdk-pixbuf-2.0-0 \
-        libffi-dev \
-        gir1.2-pango-1.0 \
-        gir1.2-gdkpixbuf-2.0 \
-        fonts-liberation \
-        fonts-dejavu \
-        locales && \
+    gettext \
+    libcairo2 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libgdk-pixbuf-2.0-0 \
+    libffi-dev \
+    gir1.2-pango-1.0 \
+    gir1.2-gdkpixbuf-2.0 \
+    fonts-liberation \
+    fonts-dejavu \
+    locales && \
     sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
     sed -i '/cs_CZ.UTF-8/s/^# //g' /etc/locale.gen && \
     locale-gen && \
@@ -66,17 +79,17 @@ ENV LC_ALL=cs_CZ.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 
 # Set environment variables
-ENV WEB_CONCURRENCY=4
+ENV WEB_CONCURRENCY=3
 ENV PYTHONHASHSEED=random
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1 
 
 # Set Django environment variables
-ENV DJANGO_ALLOWED_HOSTS=kicoma.stanislavvalasek.com
+ENV DJANGO_ALLOWED_HOSTS=kicoma.eu
 ENV DJANGO_SETTINGS_MODULE=config.settings.production
 ENV DJANGO_DEBUG=False
 ENV DATABASE_URL=sqlite:////storage/kicoma.sqlite3
-ENV MAILGUN_DOMAIN=stanislavvalasek.com
+ENV MAILGUN_DOMAIN=kicoma.eu
 ENV MAILGUN_SMTP_PORT=587
 ENV MAILGUN_SMTP_SERVER=smtp.mailgun.org
 

@@ -1,73 +1,58 @@
 #!/usr/bin/env bash
+# Fetch the SQLite DB of one instance:  ./fetch_remote_sqlite.sh <destination>   e.g. hospic-cercany
 set -euo pipefail
+cd "$(dirname "$0")"
+
+DESTINATION="${1:-}"
+if [[ -z "$DESTINATION" || ! -f "config/deploy.${DESTINATION}.yml" ]]; then
+  echo "Usage: $0 <destination>  (one of: $(ls config/deploy.*.yml | sed -E 's#config/deploy\.(.*)\.yml#\1#' | tr '\n' ' '))" >&2
+  exit 1
+fi
+SERVICE=$(grep -m1 -E '^service:' "config/deploy.${DESTINATION}.yml" | awk '{print $2}')
 
 # --- Configuration ---
 REMOTE_HOST="root@162.55.185.37"
-REMOTE_TMP_DIR="/tmp/sqlite_copy"
-LOCAL_DEST_DIR="./"
-CONTAINER_FILTER="svalasek/kicoma"
+LOCAL_DEST_DIR="./sqlite_from_vps/${DESTINATION}"
 
-echo "📡 Connecting to $REMOTE_HOST and exporting SQLite DB..."
+mkdir -p "${LOCAL_DEST_DIR}"
+LOCAL_TMP=$(mktemp "${LOCAL_DEST_DIR}/.backup.XXXXXX")
+trap 'rm -f "$LOCAL_TMP"' EXIT
 
-ssh "$REMOTE_HOST" bash -s <<REMOTE_SCRIPT
+echo "Exporting a consistent SQLite snapshot of $DESTINATION (service $SERVICE)..."
+ssh "$REMOTE_HOST" bash -s -- "$SERVICE" > "$LOCAL_TMP" <<'REMOTE_SCRIPT'
 set -euo pipefail
-
-CONTAINER_FILTER="$CONTAINER_FILTER"
-REMOTE_TMP_DIR="$REMOTE_TMP_DIR"
-mkdir -p "\$REMOTE_TMP_DIR"
-
-echo "🔍 Searching for container..."
-CONTAINER_ID=\$(docker ps --format '{{.ID}}' --filter "ancestor=\${CONTAINER_FILTER}" | head -n1)
-
-if [ -z "\$CONTAINER_ID" ]; then
-  echo "❌ No container found for \${CONTAINER_FILTER}" >&2
+SERVICE="$1"
+CONTAINER_ID=$(docker ps --format '{{.ID}}' --filter "label=service=${SERVICE}" --filter "label=role=web" | head -n1)
+if [[ -z "$CONTAINER_ID" ]]; then
+  echo "No web container found for service ${SERVICE}" >&2
   exit 1
 fi
-echo "🧩 Found container: \$CONTAINER_ID"
+docker exec -i "$CONTAINER_ID" python - <<'PY'
+import shutil
+import sqlite3
+import sys
+import tempfile
+from pathlib import Path
 
-# Detect DB file path automatically
-echo "🔎 Searching for *.sqlite3 file inside container..."
-DB_PATH_IN_CONTAINER=\$(docker exec "\$CONTAINER_ID" find / -type f -name "*.sqlite3" 2>/dev/null | head -n1 || true)
+from django.conf import settings
 
-if [ -z "\$DB_PATH_IN_CONTAINER" ]; then
-  echo "❌ No SQLite database file found inside container!" >&2
-  exit 1
-fi
-
-echo "🗂️ Found database at: \$DB_PATH_IN_CONTAINER"
-
-# Try WAL checkpoint if sqlite3 exists
-if docker exec "\$CONTAINER_ID" command -v sqlite3 >/dev/null 2>&1; then
-  echo "🧮 Flushing WAL changes..."
-  docker exec "\$CONTAINER_ID" sqlite3 "\$DB_PATH_IN_CONTAINER" "PRAGMA wal_checkpoint(FULL);" || \
-    echo "⚠️ WAL checkpoint returned non-zero status (ignored)."
-else
-  echo "⚠️ sqlite3 not installed in container — skipping WAL checkpoint."
-fi
-
-# Copy DB and possible WAL/SHM files
-for EXT in "" "-wal" "-shm"; do
-  SRC="\${DB_PATH_IN_CONTAINER}\${EXT}"
-  BASENAME=\$(basename "\$SRC")
-  DEST="\${REMOTE_TMP_DIR}/\${BASENAME}"
-
-  if docker exec "\$CONTAINER_ID" test -f "\$SRC"; then
-    echo "📦 Copying \$SRC..."
-    docker cp "\$CONTAINER_ID:\$SRC" "\$DEST" || echo "⚠️ Failed to copy \$SRC (ignored)"
-  fi
-done
-
-echo "📋 Copied files:"
-ls -lh "\$REMOTE_TMP_DIR" || true
+database = settings.DATABASES["default"]
+if database["ENGINE"] != "django.db.backends.sqlite3":
+    raise RuntimeError("The configured database is not SQLite")
+source_uri = Path(database["NAME"]).resolve().as_uri() + "?mode=ro"
+with tempfile.TemporaryDirectory() as directory:
+    snapshot = Path(directory) / "backup.sqlite3"
+    with sqlite3.connect(source_uri, uri=True) as source:
+        with sqlite3.connect(snapshot) as target:
+            source.backup(target)
+            if target.execute("PRAGMA integrity_check").fetchall() != [("ok",)]:
+                raise RuntimeError("SQLite backup integrity check failed")
+    with snapshot.open("rb") as backup:
+        shutil.copyfileobj(backup, sys.stdout.buffer)
+PY
 REMOTE_SCRIPT
+rm -f -- "${LOCAL_DEST_DIR}/kicoma.sqlite3-wal" "${LOCAL_DEST_DIR}/kicoma.sqlite3-shm"
+mv "$LOCAL_TMP" "${LOCAL_DEST_DIR}/kicoma.sqlite3"
 
-# Copy from VPS to local machine
-echo "⬇️ Copying database files from VPS to local machine..."
-scp -r "${REMOTE_HOST}:${REMOTE_TMP_DIR}/" "${LOCAL_DEST_DIR}/sqlite_from_vps"
-
-# Optional cleanup on VPS
-ssh "$REMOTE_HOST" "rm -rf ${REMOTE_TMP_DIR}"
-
-echo "✅ All SQLite files successfully fetched to ${LOCAL_DEST_DIR}/sqlite_from_vps"
-echo "📂 Files:"
-ls -lh "${LOCAL_DEST_DIR}/sqlite_from_vps"
+echo "SQLite snapshot fetched to ${LOCAL_DEST_DIR}/kicoma.sqlite3"
+ls -lh "${LOCAL_DEST_DIR}"

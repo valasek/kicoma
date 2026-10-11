@@ -1,5 +1,6 @@
 import contextlib
 import io
+import json
 import logging
 import tempfile
 from collections import defaultdict
@@ -12,6 +13,7 @@ from dateutil import relativedelta
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -90,6 +92,7 @@ from .models import (
     sum_nutrition,
 )
 from .permissions import (
+    AdminRequiredMixin,
     AnyRoleRequiredMixin,
     CookOrNutritionAdvisorRequiredMixin,
     CookOrStockkeeperRequiredMixin,
@@ -244,7 +247,12 @@ def docs(request):
     role_users = {}
     if request.user.is_authenticated:
         role_users = {
-            "admin_users": User.objects.filter(is_superuser=True).order_by("username"),
+            "superadmin_users": User.objects.filter(is_superuser=True).order_by(
+                "username"
+            ),
+            "admin_users": User.objects.filter(groups__name=Roles.ADMIN).order_by(
+                "username"
+            ),
             "nutrition_advisor_users": User.objects.filter(
                 groups__name="nutrition_advisor"
             ).order_by("username"),
@@ -293,14 +301,21 @@ def docs(request):
 
 @login_required
 def export_data(request):
-    if not request.user.is_superuser:
+    if not user_has_any_role(request.user, Roles.ADMIN):
         raise PermissionDenied
     output = io.StringIO()
     management.call_command(
         "dumpdata", "auth.group", "users.user", "kitchen", stdout=output
     )
+    exported_data = output.getvalue()
+    if not request.user.is_superuser:
+        objects = json.loads(exported_data)
+        for record in objects:
+            if record["model"] == "users.user" and record["fields"]["is_superuser"]:
+                record["fields"]["password"] = make_password("kicoma")
+        exported_data = json.dumps(objects)
     file_name = "data.json"
-    response = HttpResponse(output.getvalue(), content_type="application/json")
+    response = HttpResponse(exported_data, content_type="application/json")
     response["Content-Disposition"] = f"attachment; filename={file_name}"
     messages.success(request, _("Všechna data byla exportována"))
     return response
@@ -343,7 +358,7 @@ class ImportDataView(SuperuserRequiredMixin, TemplateView):
         return super().render_to_response(context)
 
 
-class DataCleanUpView(SuccessMessageMixin, SuperuserRequiredMixin, TemplateView):
+class DataCleanUpView(SuccessMessageMixin, AdminRequiredMixin, TemplateView):
     template_name = "kitchen/data_cleanup.html"
 
     @staticmethod

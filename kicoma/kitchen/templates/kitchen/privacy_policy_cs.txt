@@ -1,6 +1,6 @@
 Naposledy aktualizováno: 18. října 2025
 
-Tyto Zásady ochrany osobních údajů vysvětlují, jak Stanislav Valasek („my“, „nás“, „náš“) shromažďuje, používá, sdílí a chrání vaše osobní údaje při používání webové aplikace KiCoMa a webových stránek dostupných na adrese https://kicoma.stanislavvalasek.com (dále jen „Služba“).
+Tyto Zásady ochrany osobních údajů vysvětlují, jak Stanislav Valasek („my“, „nás“, „náš“) shromažďuje, používá, sdílí a chrání vaše osobní údaje při používání webové aplikace KiCoMa a webových stránek dostupných na adrese https://www.kicoma.eu (dále jen „Služba“).
 
 Používáním Služby souhlasíte s těmito Zásadami ochrany osobních údajů. Pokud s nimi nesouhlasíte, prosíme, přestaňte Službu používat.
 
@@ -132,7 +132,7 @@ Pokud se domníváte, že nám dítě poskytlo své údaje, kontaktujte nás a m
 11. Změny těchto zásad
 
 Tyto Zásady ochrany osobních údajů můžeme čas od času aktualizovat.
-Aktualizace budou zveřejněny na stránce https://kicoma.stanislavvalasek.com/privacy a změní se datum „Naposledy aktualizováno“.
+Aktualizace budou zveřejněny na stránce https://www.kicoma.eu/privacy a změní se datum „Naposledy aktualizováno“.
 Podstatné změny vám oznámíme e-mailem nebo prostřednictvím aplikace.
 
 ⸻
@@ -143,4 +143,4 @@ Máte-li jakékoli dotazy nebo požadavky týkající se těchto Zásad ochrany 
 
 Stanislav Valasek
 E-mail: valasek@gmail.com
-Web: https://kicoma.stanislavvalasek.com
+Web: https://www.kicoma.eu

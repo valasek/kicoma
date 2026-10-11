@@ -10,6 +10,17 @@
 
 <h1>{% translate "Sign In" %}</h1>
 
+{% if demo_users %}
+<div class="alert alert-info">
+  <p class="mb-2">{% blocktranslate trimmed with password=demo_password %}Ukázková verze: přihlaste se jako jedna z rolí, heslo je <strong>{{ password }}</strong>.{% endblocktranslate %}</p>
+  <ul class="mb-0">
+    {% for username, label in demo_users %}
+    <li><strong>{{ username }}</strong> – {{ label }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
 {% get_providers as socialaccount_providers %}
 
 {% if socialaccount_providers %}

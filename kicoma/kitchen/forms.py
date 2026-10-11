@@ -20,6 +20,7 @@ from .models import (
     StockReceipt,
     StockReceiptArticle,
 )
+from .permissions import Roles, user_has_any_role
 from .unit_change import (
     article_unit_changed_since,
     latest_unit_change_id,
@@ -78,9 +79,11 @@ class ArticleForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         group_names = set()
         if user is not None:
-            group_names = set(user.groups.values_list("name", flat=True))
-            if user.is_superuser:
-                group_names.update(("stockkeeper", "nutrition_advisor"))
+            group_names = {
+                role
+                for role in (Roles.STOCKKEEPER, Roles.NUTRITION_ADVISOR)
+                if user_has_any_role(user, role)
+            }
 
         editable_fields = set(self.common_fields)
         if "stockkeeper" in group_names:
