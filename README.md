@@ -6,8 +6,13 @@ The landing page runs at [kicoma.eu](https://kicoma.eu) and the public demo at [
 (both served by the `demo` instance, see [Instances and tenants](#instances-and-tenants)).
 Demo mode (`KICOMA_DEMO_MODE=True`) means:
 
-- `./manage.py reset_demo` wipes **all** data and loads sample data from `kicoma/kitchen/fixtures` plus demo users,
-  one per role and language: `kuchar`/`cook`, `skladnik`/`stockkeeper`, `nutricni-poradce`/`nutrition-advisor`,
+- Each language has its own database with its own sample data: Czech (`/`) uses the configured database,
+  English (`/en/`) a sibling file with the `-en` suffix (e.g. `/storage/kicoma-en.sqlite3`),
+  see `KICOMA_DEMO_DATABASES` and `DemoDatabaseMiddleware`. Sessions are per database too, so switching
+  the language means logging in again.
+- `./manage.py reset_demo` migrates and wipes **all** databases and loads the sample data from
+  `kicoma/kitchen/demo_data.py` (at most 10 records per screen) plus the demo users of that language:
+  `kuchar`/`cook`, `skladnik`/`stockkeeper`, `nutricni-poradce`/`nutrition-advisor`,
   plus `spravce`/`admin` with the Správce/Admin role (not a Django superuser),
    password `KICOMA_DEMO_PASSWORD` (default `kicoma`). The login page lists the users for the current language.
   The command refuses to run when demo mode is off.
@@ -17,7 +22,7 @@ Demo mode (`KICOMA_DEMO_MODE=True`) means:
 
 ### Run the demo locally
 
-`run-local.sh` uses a separate database file (`storage/demo.sqlite3`) so your development database stays untouched.
+`run-local.sh` uses separate database files (`storage/demo.sqlite3`, `storage/demo-en.sqlite3`) so your development database stays untouched.
 Stop the running server (Ctrl+C) and start the other one to switch:
 
 ```bash

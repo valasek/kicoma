@@ -33,6 +33,9 @@ DATABASES["default"].setdefault("OPTIONS", {}).update(  # noqa F405
         ),
     }
 )
+if KICOMA_DEMO_MODE:  # noqa F405
+    for _language, _alias in KICOMA_DEMO_DATABASES.items():  # noqa F405
+        DATABASES[_alias] = language_database(DATABASES["default"], _language)  # noqa F405
 
 # CACHES
 # ------------------------------------------------------------------------------

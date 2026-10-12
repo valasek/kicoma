@@ -3,6 +3,7 @@
     items:
       - "The application for Hospic Čerčany has moved to <a href='https://hospic-cercany.kicoma.eu/kitchen/about'>hospic-cercany.kicoma.eu</a>. All data remains unchanged; you only need to sign in again. Usernames and passwords stay the same."
       - "Users can change their password from their profile page."
+      - "Try the demo at <a href='https://demo.kicoma.eu/en/accounts/login/'>demo.kicoma.eu</a> with Czech and English sample data."
   - date: 2026-10-11
     items:
       - "New Admin role: has the rights of a stockkeeper, cook and nutrition advisor and can additionally export all data and run data cleanup. Full data import and the administration remain superadmin only."

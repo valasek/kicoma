@@ -1,26 +1,54 @@
 from datetime import timedelta
+from decimal import Decimal
 
 from django.contrib.auth import authenticate, get_user_model
 from django.core.management import call_command
 from django.core.management.base import CommandError
-from django.db.models import Max
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone, translation
 
 from kicoma.kitchen.management.commands.reset_demo import (
-    DAILY_MENU_LEAD_DAYS,
     DEMO_USERS,
     demo_users,
 )
-from kicoma.kitchen.models import Article, DailyMenu
+from kicoma.kitchen.models import (
+    AppSettings,
+    Article,
+    DailyMenu,
+    DailyMenuRecipe,
+    MealGroup,
+    MealType,
+    Menu,
+    MenuRecipe,
+    Recipe,
+    StockIssue,
+    StockIssueArticle,
+    StockReceipt,
+    StockReceiptArticle,
+    UnitChangeLog,
+)
 from kicoma.kitchen.permissions import Roles, user_has_any_role
+from kicoma.utils.demo_database import use_database
 
 User = get_user_model()
-DEMO_USER_COUNT = 2 * len(DEMO_USERS)
+DEMO_DATABASES = {"default", "demo_en"}
+LIST_MODELS = (
+    Article,
+    Recipe,
+    Menu,
+    DailyMenu,
+    MealGroup,
+    MealType,
+    StockReceipt,
+    StockIssue,
+    UnitChangeLog,
+)
 
 
 class ResetDemoCommandTest(TestCase):
+    databases = DEMO_DATABASES
+
     def test_refuses_to_run_without_demo_mode(self):
         User.objects.create_user(username="customer", password="secret")
         with self.assertRaises(CommandError):
@@ -53,28 +81,68 @@ class ResetDemoCommandTest(TestCase):
         call_command("reset_demo", stdout=None)
 
         self.assertFalse(User.objects.filter(username="customer").exists())
-        self.assertEqual(User.objects.count(), DEMO_USER_COUNT)
-        for names, roles, _label in DEMO_USERS:
-            for username in names.values():
-                user = authenticate(username=username, password="demo-pass")
-                self.assertIsNotNone(user)
-                self.assertFalse(user.is_superuser)
-                self.assertFalse(user.is_staff)
-                self.assertSetEqual(
-                    set(user.groups.values_list("name", flat=True)),
-                    {role.value for role in roles},
-                )
+        for alias, language in (("default", "cs"), ("demo_en", "en")):
+            users = User.objects.using(alias)
+            self.assertEqual(users.count(), len(DEMO_USERS))
+            with use_database(alias):
+                for (username, _label), (_names, roles, _) in zip(
+                    demo_users(language), DEMO_USERS, strict=True
+                ):
+                    user = authenticate(username=username, password="demo-pass")
+                    self.assertIsNotNone(user)
+                    self.assertFalse(user.is_superuser)
+                    self.assertFalse(user.is_staff)
+                    self.assertSetEqual(
+                        set(user.groups.values_list("name", flat=True)),
+                        {role.value for role in roles},
+                    )
         admin = User.objects.get(username="spravce")
         self.assertEqual(admin.name, "Správce")
         for role in Roles:
             self.assertTrue(user_has_any_role(admin, role.value))
-        self.assertEqual(User.objects.get(username="cook").name, "Cook")
-        self.assertEqual(User.objects.get(username="kuchar").name, "Kuchař")
-        self.assertTrue(Article.objects.exists())
-        latest = DailyMenu.objects.aggregate(latest=Max("date"))["latest"]
         self.assertEqual(
-            latest, timezone.localdate() + timedelta(days=DAILY_MENU_LEAD_DAYS)
+            User.objects.using("demo_en").get(username="cook").name, "Cook"
         )
+        self.assertEqual(User.objects.get(username="kuchar").name, "Kuchař")
+        self.assertFalse(User.objects.filter(username="cook").exists())
+
+    @override_settings(KICOMA_DEMO_MODE=True, KICOMA_DEMO_SUPERUSER_PASSWORD="")
+    def test_every_language_gets_its_own_small_data_set(self):
+        call_command("reset_demo", stdout=None)
+
+        self.assertTrue(Article.objects.filter(article="Brambory").exists())
+        self.assertFalse(Article.objects.filter(article="Potatoes").exists())
+        self.assertTrue(
+            Article.objects.using("demo_en").filter(article="Potatoes").exists()
+        )
+        self.assertEqual(AppSettings.objects.get().currency, "Kč")
+        self.assertEqual(AppSettings.objects.using("demo_en").get().currency, "€")
+        potatoes = Article.objects.using("demo_en").get(article="Potatoes")
+        self.assertEqual(potatoes.average_price, Decimal("0.72"))
+        for alias in DEMO_DATABASES:
+            for model in LIST_MODELS:
+                count = model.objects.using(alias).count()
+                self.assertTrue(1 <= count <= 10, f"{alias} {model.__name__}: {count}")
+            for model in (
+                MenuRecipe,
+                DailyMenuRecipe,
+                StockReceiptArticle,
+                StockIssueArticle,
+            ):
+                self.assertTrue(model.objects.using(alias).exists(), model.__name__)
+            receipts = StockReceipt.objects.using(alias)
+            self.assertTrue(receipts.filter(approved=True).exists())
+            self.assertTrue(receipts.filter(approved=False).exists())
+            issues = StockIssue.objects.using(alias)
+            self.assertTrue(issues.filter(approved=True).exists())
+            self.assertTrue(issues.filter(approved=False).exists())
+            dates = set(DailyMenu.objects.using(alias).values_list("date", flat=True))
+            self.assertIn(timezone.localdate(), dates)
+            self.assertIn(timezone.localdate() + timedelta(days=1), dates)
+            self.assertTrue(
+                Article.objects.using(alias).filter(on_stock__lt=1).exists(),
+                "an article should be missing on stock",
+            )
 
     @override_settings(KICOMA_DEMO_MODE=True, KICOMA_DEMO_SUPERUSER_PASSWORD="")
     def test_can_run_repeatedly(self):
@@ -82,10 +150,52 @@ class ResetDemoCommandTest(TestCase):
         menus = DailyMenu.objects.count()
         call_command("reset_demo", stdout=None)
         self.assertEqual(DailyMenu.objects.count(), menus)
-        self.assertEqual(User.objects.count(), DEMO_USER_COUNT)
+        self.assertEqual(User.objects.count(), len(DEMO_USERS))
+
+
+@override_settings(
+    KICOMA_DEMO_MODE=True,
+    KICOMA_DEMO_PASSWORD="demo-pass",
+    KICOMA_DEMO_SUPERUSER_PASSWORD="",
+)
+class DemoLanguageDatabaseTest(TestCase):
+    databases = DEMO_DATABASES
+
+    def setUp(self):
+        call_command("reset_demo", stdout=None)
+
+    def login(self, language, username):
+        with translation.override(language):
+            url = reverse("account_login")
+        response = self.client.post(url, {"login": username, "password": "demo-pass"})
+        self.assertEqual(response.status_code, 302)
+
+    def articles(self, language):
+        with translation.override(language):
+            return self.client.get(reverse("kitchen:showArticles"))
+
+    def test_english_visitor_sees_english_data(self):
+        self.login("en", "stockkeeper")
+        response = self.articles("en")
+        self.assertContains(response, "Potatoes")
+        self.assertNotContains(response, "Brambory")
+
+    def test_czech_visitor_sees_czech_data(self):
+        self.login("cs", "skladnik")
+        response = self.articles("cs")
+        self.assertContains(response, "Brambory")
+        self.assertNotContains(response, "Potatoes")
+
+    def test_switching_language_requires_new_login(self):
+        self.login("cs", "skladnik")
+        response = self.articles("en")
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("/en/accounts/login/", response.url)
 
 
 class DemoModeWebTest(TestCase):
+    databases = DEMO_DATABASES
+
     def setUp(self):
         self.user = User.objects.create_user(username="kuchar", password="secret")
         self.client.force_login(self.user)

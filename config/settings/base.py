@@ -164,6 +164,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
     "kicoma.middleware.HealthCheckMiddleware",
+    "kicoma.middleware.DemoDatabaseMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -351,6 +352,28 @@ KICOMA_DEMO_PASSWORD = env("KICOMA_DEMO_PASSWORD", default="kicoma")
 # Secret, never commit it; the demo superuser is skipped when empty.
 KICOMA_DEMO_SUPERUSER_PASSWORD = env("KICOMA_DEMO_SUPERUSER_PASSWORD", default="")
 KICOMA_DEMO_URL = env("KICOMA_DEMO_URL", default="")
+# Demo: languages served from their own database (others use "default"), see
+# kicoma.utils.demo_database.
+KICOMA_DEMO_DATABASES = {"en": "demo_en"}
+
+
+def language_database(database, language):
+    """Copy of a SQLite `database` setting, stored next to it as <name>-<language>."""
+    path = Path(database["NAME"])
+    return {
+        **database,
+        "OPTIONS": dict(database.get("OPTIONS", {})),
+        "NAME": str(path.with_stem(f"{path.stem}-{language}")),
+        # Requests reach it as "default" (whose ATOMIC_REQUESTS applies); a second
+        # atomic block would lock this database on every request of other languages.
+        "ATOMIC_REQUESTS": False,
+    }
+
+
+if KICOMA_DEMO_MODE:
+    for _language, _alias in KICOMA_DEMO_DATABASES.items():
+        DATABASES[_alias] = language_database(DATABASES["default"], _language)
+
 KICOMA_PAYMENT_LINK_MONTHLY = env("KICOMA_PAYMENT_LINK_MONTHLY", default="")
 KICOMA_PAYMENT_LINK_YEARLY = env("KICOMA_PAYMENT_LINK_YEARLY", default="")
 

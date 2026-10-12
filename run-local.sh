@@ -20,7 +20,7 @@ case "$mode" in
             export KICOMA_DEMO_SUPERUSER_PASSWORD
         fi
         new_db=false
-        [[ -f "$DJANGO_SQLITE_PATH" ]] || new_db=true
+        [[ -f "$DJANGO_SQLITE_PATH" && -f storage/demo-en.sqlite3 ]] || new_db=true
         ./manage.py migrate
         if [[ "$new_db" == true || "$reset" == "--reset" ]]; then
             ./manage.py reset_demo

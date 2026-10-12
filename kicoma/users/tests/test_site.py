@@ -39,6 +39,7 @@ def test_sync_site_corrects_verification_email():
     assert "example.com" not in message.body
 
 
+@pytest.mark.django_db(databases=["default", "demo_en"])
 @override_settings(
     KICOMA_DEMO_MODE=True,
     KICOMA_DEMO_SUPERUSER_PASSWORD="",
@@ -51,6 +52,7 @@ def test_demo_reset_preserves_configured_site():
     site = Site.objects.get_current()
     assert site.domain == "kicoma.eu"
     assert site.name == "KiCoMa"
+    assert Site.objects.using("demo_en").get(pk=site.pk).domain == "kicoma.eu"
 
 
 @override_settings(DJANGO_SITE_DOMAIN="", DJANGO_SITE_NAME="KiCoMa")

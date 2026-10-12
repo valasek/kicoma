@@ -15,6 +15,10 @@ SECRET_KEY = env(
 # https://docs.djangoproject.com/en/dev/ref/settings/#test-runner
 TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
+# Demo databases exist in tests so the per-language demo can be exercised.
+for _language, _alias in KICOMA_DEMO_DATABASES.items():  # noqa F405
+    DATABASES[_alias] = language_database(DATABASES["default"], _language)  # noqa F405
+
 # CACHES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#caches
