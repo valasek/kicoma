@@ -208,41 +208,6 @@ ssh root@162.55.185.37 "docker run --rm -v /root/kicoma-copy:/from -v kicoma_<na
 kamal app boot -d <name>                                         # locally
 ```
 
-### Migration from the old kicoma.stanislavvalasek.com deployment
-
-The old deployment (service `kicoma`, volume `kicoma_storage`) keeps running while the new `hospic-cercany`
-instance is deployed and tested at hospic-cercany.kicoma.eu.
-
-1. Rehearsal copy while the old instance runs (consistent snapshot via the SQLite backup API):
-
-   ```bash
-   ssh root@162.55.185.37
-   OLD=$(docker ps -q --filter label=service=kicoma --filter label=role=web)
-   docker exec $OLD python -c "import sqlite3; d=sqlite3.connect('/storage/copy.sqlite3'); sqlite3.connect('/storage/kicoma.sqlite3').backup(d); d.close()"
-   rm -rf /root/kicoma-copy && mkdir /root/kicoma-copy
-   docker cp $OLD:/storage/copy.sqlite3 /root/kicoma-copy/kicoma.sqlite3 && docker exec $OLD rm /storage/copy.sqlite3
-   exit
-   ```
-
-   Then [copy it into the instance](#copy-a-database-into-an-instance) and test. Users keep working on the old instance.
-2. Cutover (announced, ~10 min):
-
-   ```bash
-   ssh root@162.55.185.37
-   OLD=$(docker ps -q --filter label=service=kicoma --filter label=role=web)
-   docker stop $OLD                                    # no more writes
-   rm -rf /root/kicoma-copy && mkdir /root/kicoma-copy
-   docker run --rm -v kicoma_storage:/from:ro -v /root/kicoma-copy:/to debian:bookworm-slim sh -c 'cp /from/kicoma.sqlite3* /to/'
-   docker exec kamal-proxy kamal-proxy list           # old route is usually kicoma-web
-   docker exec kamal-proxy kamal-proxy remove kicoma-web
-   exit
-   ```
-
-   Copy the files into the instance again (same commands as in step 1), uncomment the `kicoma.stanislavvalasek.com`
-   lines in `config/deploy.hospic-cercany.yml`, commit and `kamal deploy -d hospic-cercany`. Old bookmarks keep working.
-3. After a few weeks without problems: `docker rm $OLD` (and older stopped `kicoma-web-*` containers),
-   then `docker volume rm kicoma_storage` once you have an offline backup.
-
 ## Domain
 
 Product domain is `kicoma.eu`. Host names live in `proxy.hosts` and `DJANGO_ALLOWED_HOSTS` of each
