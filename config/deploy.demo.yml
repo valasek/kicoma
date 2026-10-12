@@ -25,10 +25,7 @@ env:
   secret:
     - DJANGO_SECRET_KEY
     - DJANGO_ADMIN_URL
-    - MAILGUN_API_KEY
-    - MAILGUN_PUBLIC_KEY
-    - MAILGUN_SMTP_LOGIN
-    - MAILGUN_SMTP_PASSWORD
+    - RESEND_API_KEY
     - KICOMA_DEMO_SUPERUSER_PASSWORD
   clear:
     DJANGO_ALLOWED_HOSTS: kicoma.eu,www.kicoma.eu,demo.kicoma.eu

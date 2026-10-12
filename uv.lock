@@ -1071,7 +1071,7 @@ requires-dist = [
     { name = "crispy-bootstrap5" },
     { name = "django" },
     { name = "django-allauth" },
-    { name = "django-anymail", extras = ["mailgun"], marker = "extra == 'prod'" },
+    { name = "django-anymail", marker = "extra == 'prod'" },
     { name = "django-bootstrap5" },
     { name = "django-coverage-plugin", marker = "extra == 'dev'" },
     { name = "django-crispy-forms" },

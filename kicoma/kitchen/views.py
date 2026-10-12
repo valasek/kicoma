@@ -20,6 +20,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core import management
 from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.paginator import Paginator
 from django.db import connection, transaction
 from django.db.models import Count, F, Max, Prefetch, ProtectedError, Sum
 from django.db.models.functions import ExtractYear, Lower
@@ -2588,6 +2589,10 @@ class UnitManagementView(AnyRoleRequiredMixin, TemplateView):
                 ).order_by("recipe__recipe", "id")
                 if not convertible(recipe_article.unit, recipe_article.article.unit)
             ]
+        logs_page = Paginator(
+            UnitChangeLog.objects.select_related("user", "recipe"), 10
+        ).get_page(self.request.GET.get("page"))
+        context["logs_page"] = logs_page
         context["logs"] = [
             (
                 log,
@@ -2595,7 +2600,7 @@ class UnitManagementView(AnyRoleRequiredMixin, TemplateView):
                 and user_has_any_role(user, UNIT_CHANGE_ROLES[log.kind])
                 and undo_blocker(log) is None,
             )
-            for log in UnitChangeLog.objects.select_related("user", "recipe")[:50]
+            for log in logs_page
         ]
         return context
 

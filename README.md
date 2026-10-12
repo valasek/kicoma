@@ -120,7 +120,7 @@ database, so data cannot leak between customers and deleting a customer means de
 | --- | --- |
 | `config/deploy.yml` | Shared base (image, server, proxy, secrets list). Has no host or volume, so always deploy with `-d`. |
 | `config/deploy.<name>.yml` | One per instance: `service`, `image`, `proxy.host`, `volumes`, `DJANGO_ALLOWED_HOSTS`, extra env. |
-| `.kamal/secrets-common` | Secrets shared by all instances (registry, Mailgun). |
+| `.kamal/secrets-common` | Secrets shared by all instances (registry, Resend). |
 | `.kamal/secrets.<name>` | Per-instance secrets (`DJANGO_SECRET_KEY`, `DJANGO_ADMIN_URL`), read from `config/secrets/<name>/` (git-ignored, back it up). |
 
 Current instances:
@@ -145,8 +145,6 @@ Rules:
    exposing the instance publicly. Superuser exports retain the original passwords; protect all exports
    as sensitive backups.
 - Docker build context excludes tenant keys, local environment files, Git history and downloaded backups.
-   Previously committed credentials remain in Git history and may be present in older images; rotate
-   exposed Django secret keys and Mailgun credentials, and replace old images/backups containing them.
 
 ### Deploy
 
@@ -163,6 +161,48 @@ repository so tags for the same Git commit cannot overwrite another service's im
 cached build layers. Use `--skip-push` only after building and pushing for that same destination.
 
 Migrations run automatically when a container starts (`entrypoint.sh`).
+
+### Email sending with Resend
+
+Production uses Django Anymail's Resend backend. All instances send from
+`KiCoMa <noreply@kicoma.eu>` by default. Local development prints emails to the
+console; tests use Django's in-memory backend.
+
+1. In [Resend Domains](https://resend.com/domains), verify `kicoma.eu` and confirm
+   sending is enabled. Use the DNS records Resend supplies; do not replace your
+   existing mailbox MX records. Receiving and webhooks are not needed for sending.
+2. In [Resend API Keys](https://resend.com/api-keys), create a key named `KiCoMa
+   production` with **Sending access**, restricted to `kicoma.eu`.
+3. On your first setup, create the private key file:
+
+   ```bash
+   install -m 600 /dev/null config/resend_api.key
+   code config/resend_api.key
+   ```
+
+   Paste only the API key into this file and save. Never paste it into chat or
+   commit it. The file is excluded from Git and Docker builds; Kamal reads it
+   through `.kamal/secrets-common`. Back it up in your password manager. When
+   rotating the key, edit the existing file rather than running `install` again.
+4. Commit the configuration changes before deploying (Kamal builds from Git HEAD),
+   then run `kamal deploy -d hospic-cercany` and `kamal deploy -d demo`.
+5. Send one test email from the deployed customer instance:
+
+   ```bash
+   kamal app exec -d hospic-cercany --reuse 'python manage.py shell -c "from django.core.mail import send_mail; print(send_mail(\"KiCoMa Resend test\", \"Email sending works.\", None, [\"YOUR_REAL_EMAIL_ADDRESS\"], fail_silently=False))"'
+   ```
+
+   Replace `YOUR_REAL_EMAIL_ADDRESS` with your inbox. A result of `1` means Resend
+   accepted the email, not that it reached the inbox. Check
+   [Resend Emails](https://resend.com/emails) for delivery and your inbox/spam folder.
+   Afterward, test the normal password-reset flow with an existing active user.
+
+To use a different sender for one instance, set `DJANGO_DEFAULT_FROM_EMAIL` under `env.clear`
+in its `config/deploy.<name>.yml`, e.g. `DJANGO_DEFAULT_FROM_EMAIL: "Hospic Čerčany <noreply@kicoma.eu>"`.
+The address must use a domain that is verified in Resend and allowed by the API key (currently only
+`kicoma.eu`). Error emails to admins (`DJANGO_SERVER_EMAIL`) use the same sender unless set separately.
+
+Resend only sends email. `noreply@kicoma.eu` has no mailbox, so replies to it are not received.
 
 ### Add a new customer
 
@@ -263,10 +303,7 @@ config/secrets/hospic-cercany/django_secret.key
 e.g. `python -c "import secrets; print(secrets.token_urlsafe(50))" > config/secrets/hospic-cercany/django_secret.key`
 
 config/secrets/hospic-cercany/django_admin_url.key to a random path ending with `/`, e.g. `admin-<random>/`
-config/mailgun_api.key
-config/mailgun_public.key
-config/mailgun_smtp_login.key
-config/mailgun_smtp_password.key
+config/resend_api.key (see [Email sending with Resend](#email-sending-with-resend))
 
 ### Update Kamal and kamal proxy on localhost
 

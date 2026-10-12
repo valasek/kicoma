@@ -63,8 +63,8 @@ dev = [
 
 prod = [
     # Production dependencies
-    "gunicorn",                # https://github.com/benoitc/gunicorn
-    "django-anymail[mailgun]", # https://github.com/anymail/django-anymail
+    "gunicorn",       # https://github.com/benoitc/gunicorn
+    "django-anymail", # https://github.com/anymail/django-anymail
 ]
 
 # Commented out redis dependencies - uncomment if needed

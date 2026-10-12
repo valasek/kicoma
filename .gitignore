@@ -290,10 +290,6 @@ kicoma/media/
 
 django_secret.key
 django_admin_url.key
-mailgun_api.key
-mailgun_public.key
-mailgun_smtp_login.key
-mailgun_smtp_password.key
 .venv/
 venv/
 env/

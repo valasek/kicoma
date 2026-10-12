@@ -47,6 +47,25 @@
         {% endfor %}
       </tbody>
     </table>
+    {% if logs_page.has_other_pages %}
+      <nav>
+        <ul class="pagination pagination-sm justify-content-center">
+          {% if logs_page.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ logs_page.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+          {% endif %}
+          {% for num in logs_page.paginator.page_range %}
+            <li class="page-item{% if num == logs_page.number %} active{% endif %}"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+          {% endfor %}
+          {% if logs_page.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ logs_page.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
   {% else %}
     <p>{% translate "Zatím nebyla provedena žádná změna jednotky." %}</p>
   {% endif %}
