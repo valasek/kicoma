@@ -20,5 +20,6 @@ if [[ "${KICOMA_DEMO_MODE:-}" =~ ^([Tt]rue|1|yes|on)$ ]]; then
 fi
 
 # Start Gunicorn (worker count from WEB_CONCURRENCY)
-exec gunicorn --bind 0.0.0.0:8000 --preload \
+# Timeout must match proxy.response_timeout in config/deploy.yml.
+exec gunicorn --bind 0.0.0.0:8000 --preload --timeout 300 \
 	--access-logfile - --error-logfile - config.wsgi:application

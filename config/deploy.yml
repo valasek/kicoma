@@ -28,6 +28,8 @@ proxy:
   ssl: true
   # Proxy connects to your container on port 80 by default.
   app_port: 8000
+  # Full data import (flush + loaddata) runs inside the request and takes minutes.
+  response_timeout: 300
   healthcheck:
     path: /health-check/
 
