@@ -13,10 +13,20 @@ Demo mode (`KICOMA_DEMO_MODE=True`) means:
   The command refuses to run when demo mode is off.
 - Superadmin is created too when `KICOMA_DEMO_SUPERUSER_PASSWORD` is set. It is not listed on the login page; the password lives only in the git-ignored `config/secrets/demo/demo_superuser_password.key`.
 - Sign-up, password/email changes and profile editing are blocked, a demo banner is shown and the login page lists the demo users.
+- The landing page `/` is shown only in demo mode; on customer instances `/` redirects to `/kitchen/about`.
 
 ### Run the demo locally
 
-Use a separate database file so your development database stays untouched:
+`run-local.sh` uses a separate database file (`storage/demo.sqlite3`) so your development database stays untouched.
+Stop the running server (Ctrl+C) and start the other one to switch:
+
+```bash
+./run-local.sh demo           # migrate, load demo data on first run, start the server
+./run-local.sh demo --reset   # same, but start over with fresh demo data
+./run-local.sh dev            # development database
+```
+
+The superadmin is created when `config/secrets/demo/demo_superuser_password.key` exists. Manual equivalent:
 
 ```bash
 export DJANGO_SQLITE_PATH=storage/demo.sqlite3 KICOMA_DEMO_MODE=True
@@ -377,3 +387,9 @@ Check the original repo template:
 ### Live reloading and Sass CSS compilation
 
 [Live reloading and SASS compilation](http://cookiecutter-django.readthedocs.io/en/latest/live-reloading-and-sass-compilation.html)
+
+# ToDo
+
+Stripe:
+create the Payment Links, then fill in KICOMA_PAYMENT_LINK_MONTHLY and KICOMA_PAYMENT_LINK_YEARLY in the hospice config.
+

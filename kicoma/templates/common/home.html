@@ -171,10 +171,17 @@
     <div class="container landing-pricing__inner">
       <div><p class="landing-eyebrow">{% translate "Jednoduchá cena" %}</p><h2>{% translate "Celá KiCoMa za jednu měsíční cenu" %}</h2><p>{% translate "Vyzkoušejte si, zda KiCoMa odpovídá potřebám vašeho provozu." %}</p></div>
       <div class="landing-price">
-        <p><strong>29 € / 690 Kč</strong> <span>{% translate "/ měsíc, konečná cena" %}</span></p>
-        <p>{% translate "nebo ročně 290 € / 6 900 Kč – 2 měsíce zdarma" %}</p>
+        {% get_current_language as LANGUAGE_CODE %}
+        {% if LANGUAGE_CODE == "cs" %}
+        <p><strong>690 Kč</strong> <span>{% translate "/ měsíc, konečná cena" %}</span></p>
+        <p>{% translate "nebo ročně 6 900 Kč – 2 měsíce zdarma" %}</p>
+        {% else %}
+        <p><strong>29 €</strong> <span>{% translate "/ měsíc, konečná cena" %}</span></p>
+        <p>{% translate "nebo ročně 290 € – 2 měsíce zdarma" %}</p>
+        {% endif %}
         <ul class="landing-price__includes list-unstyled">
           <li>{% translate "Bezpečnostní aktualizace" %}</li>
+          <li>{% translate "Opravy nahlášených chyb" %}</li>
           <li>{% translate "Neomezený počet uživatelů" %}</li>
           <li>{% translate "Vlastní oddělená instance a zálohy dat v EU" %}</li>
         </ul>
@@ -198,6 +205,7 @@
         <details><summary>{% translate "Potřebujeme speciální hardware nebo IT správce?" %}</summary><p>{% translate "Ne. KiCoMa funguje v běžném webovém prohlížeči na počítači, tabletu i mobilu. S nastavením a zaškolením vám pomohu." %}</p></details>
         <details><summary>{% translate "Pro jaké provozy je KiCoMa vhodná?" %}</summary><p>{% translate "Pro zařízení s oddělenou evidencí skladu potravin a plánováním jídelníčku, například hospice, domovy pro seniory, školní jídelny nebo nemocnice. KiCoMa neřeší prodej ani účetnictví." %}</p></details>
         <details><summary>{% translate "Co když potřebujeme další funkci?" %}</summary><p>{% translate "Požadavek společně projdeme a předem upřesním rozsah, termín a cenu úpravy. Aplikaci průběžně rozvíjím podle potřeb reálných provozů." %}</p></details>
+        <details><summary>{% translate "Rádi bychom KiCoMa používali, ale naši uživatelé nemluví česky ani anglicky." %}</summary><p>{% blocktranslate trimmed with url="https://www.stanislavvalasek.com/contact/" %}Stačí mě <a href="{{ url }}">kontaktovat</a> a následující pracovní den bude KiCoMa mluvit vaším jazykem.{% endblocktranslate %}</p></details>
       </div>
     </div>
   </section>
