@@ -2,6 +2,7 @@
   - date: 2026-10-12
     items:
       - "Aplikace pro Hospic Čerčany se přesunula na novou adresu <a href='https://hospic-cercany.kicoma.eu/kitchen/about'>hospic-cercany.kicoma.eu</a>. Všechna data zůstávají beze změny, pouze je potřeba se znovu přihlásit. Uživatelská jména a hesla zůstávají stejná."
+      - "Uživatelé si mohou změnit heslo na stránce svého profilu."
   - date: 2026-10-11
     items:
       - "Nová role Správce: má práva skladníka, kuchaře i nutričního poradce a navíc může exportovat všechna data a spouštět údržbu dat. Import všech dat a administrace zůstávají jen superadminovi."

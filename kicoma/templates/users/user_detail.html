@@ -35,6 +35,9 @@
   <div class="col-sm-12">
     <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">{% translate "Moje údaje" %}</a>
     <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
+    {% if not settings.KICOMA_DEMO_MODE %}
+    <a class="btn btn-primary" href="{% url 'account_change_password' %}" role="button">{% translate "Change Password" %}</a>
+    {% endif %}
     <!-- Your Stuff: Custom user template urls -->
   </div>
 
