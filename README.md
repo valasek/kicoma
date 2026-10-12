@@ -204,6 +204,18 @@ The address must use a domain that is verified in Resend and allowed by the API 
 
 Resend only sends email. `noreply@kicoma.eu` has no mailbox, so replies to it are not received.
 
+Account email subjects and greetings use Django's database-backed Site, not the
+sender address. Set `DJANGO_SITE_DOMAIN` to the instance's canonical hostname
+(without `https://` or a path) in its `env.clear`. `DJANGO_SITE_NAME` defaults to
+`KiCoMa` and can be overridden per instance. Startup and demo resets run
+`python manage.py sync_site` to apply these settings. Without a configured domain,
+the existing Site is left unchanged.
+
+After restoring or importing a database, run `python manage.py sync_site` on the
+instance and restart its web processes to clear cached Site records. A stale Site
+can cause `[example.com]` in verification emails even when the confirmation URL
+is correct.
+
 ### Add a new customer
 
 1. `./new-tenant.sh <slug> <host>`, e.g. `./new-tenant.sh domov-abc domov-abc.kicoma.eu`.

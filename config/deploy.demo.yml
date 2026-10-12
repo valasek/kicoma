@@ -29,6 +29,7 @@ env:
     - KICOMA_DEMO_SUPERUSER_PASSWORD
   clear:
     DJANGO_ALLOWED_HOSTS: kicoma.eu,www.kicoma.eu,demo.kicoma.eu
+    DJANGO_SITE_DOMAIN: kicoma.eu
     WEB_CONCURRENCY: 2
     KICOMA_DEMO_MODE: true
     KICOMA_DEMO_URL: https://demo.kicoma.eu/accounts/login/

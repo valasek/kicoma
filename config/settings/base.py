@@ -32,6 +32,8 @@ TIME_ZONE = "Europe/Prague"
 LANGUAGE_CODE = "cs"
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
+DJANGO_SITE_DOMAIN = env("DJANGO_SITE_DOMAIN", default="")
+DJANGO_SITE_NAME = env("DJANGO_SITE_NAME", default="KiCoMa")
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
 USE_I18N = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-l10n

@@ -16,5 +16,6 @@ volumes:
 env:
   clear:
     DJANGO_ALLOWED_HOSTS: hospic-cercany.kicoma.eu
+    DJANGO_SITE_DOMAIN: hospic-cercany.kicoma.eu
     # DJANGO_ALLOWED_HOSTS: hospic-cercany.kicoma.eu,kicoma.stanislavvalasek.com
     WEB_CONCURRENCY: 3

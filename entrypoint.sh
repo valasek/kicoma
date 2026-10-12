@@ -19,6 +19,8 @@ if [[ "${KICOMA_DEMO_MODE:-}" =~ ^([Tt]rue|1|yes|on)$ ]]; then
 	python manage.py reset_demo
 fi
 
+python manage.py sync_site
+
 # Start Gunicorn (worker count from WEB_CONCURRENCY)
 # Timeout must match proxy.response_timeout in config/deploy.yml.
 exec gunicorn --bind 0.0.0.0:8000 --preload --timeout 300 \

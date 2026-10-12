@@ -70,6 +70,7 @@ class Command(BaseCommand):
         with transaction.atomic():
             call_command("flush", interactive=False, verbosity=0)
             call_command("loaddata", *DEMO_FIXTURES, verbosity=0)
+            call_command("sync_site", verbosity=0)
             self.create_users()
             self.shift_daily_menus()
         self.stdout.write(self.style.SUCCESS("Demo data has been reset."))

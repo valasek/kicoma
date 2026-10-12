@@ -46,6 +46,7 @@ volumes:
 env:
   clear:
     DJANGO_ALLOWED_HOSTS: $host
+    DJANGO_SITE_DOMAIN: $host
     WEB_CONCURRENCY: 2
 EOF
 
