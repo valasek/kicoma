@@ -5,9 +5,9 @@ __pycache__/
 *$py.class
 
 #database
-kicoma.sqlite3
-kicoma.sqlite3-shm
-kicoma.sqlite3-wal
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
 full_dump.json
 
 # C extensions
