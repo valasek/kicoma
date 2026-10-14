@@ -1,4 +1,7 @@
 2026:
+  - date: 2026-10-14
+    items:
+      - "Missing pages no longer send email alerts. Alerts about server errors are still sent."
   - date: 2026-10-12
     items:
       - "The application for Hospic Čerčany has moved to <a href='https://hospic-cercany.kicoma.eu/kitchen/about'>hospic-cercany.kicoma.eu</a>. All data remains unchanged; you only need to sign in again. Usernames and passwords stay the same."

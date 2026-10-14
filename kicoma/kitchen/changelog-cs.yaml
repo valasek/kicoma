@@ -1,4 +1,7 @@
 2026:
+  - date: 2026-10-14
+    items:
+      - "Chybějící stránky už neposílají e-mailová upozornění. Upozornění na chyby serveru se posílají dál."
   - date: 2026-10-12
     items:
       - "Aplikace pro Hospic Čerčany se přesunula na novou adresu <a href='https://hospic-cercany.kicoma.eu/kitchen/about'>hospic-cercany.kicoma.eu</a>. Všechna data zůstávají beze změny, pouze je potřeba se znovu přihlásit. Uživatelská jména a hesla zůstávají stejná."
