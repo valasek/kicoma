@@ -12,14 +12,6 @@
     <meta name="description" content="{% translate 'KiCoMa propojuje sklad potravin, recepty, jídelníčky a výživové hodnoty pro pečovatelská zařízení.' %}" />
     <meta name="author" content="Stanislav Valášek" />
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-MRZXQQV');</script>
-    <!-- End Google Tag Manager -->
-
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}" />
 
     {% block css %}
@@ -40,11 +32,6 @@
     {% endblock %}
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MRZXQQV"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
     <nav class="navbar navbar-expand-lg landing-navbar sticky-top">
         <div class="container">
         <a class="navbar-brand" href="{% url 'common:home' %}" aria-label="KiCoMa">

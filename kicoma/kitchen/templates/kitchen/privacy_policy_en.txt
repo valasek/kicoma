@@ -1,4 +1,4 @@
-Last updated: October 18, 2025
+Last updated: October 22, 2026
 
 This Privacy Policy explains how Stanislav Valasek (“we”, “us”, “our”) collects, uses, shares, and protects your personal information when you use the KiCoMa web application and website available at https://www.kicoma.eu (the “Service”).
 
@@ -16,7 +16,7 @@ a. Information You Provide
 b. Information Collected Automatically
 	•	Device and usage data: IP address, browser type, operating system, device identifiers, pages visited, and timestamps.
 	•	Cookies and local storage: used for authentication, security, and preferences.
-	•	Analytics data: collected through Google Analytics 4 (GA4) to understand usage patterns and performance.
+	•	Analytics data: collected through Cloudflare Web Analytics to understand usage patterns and performance, without analytics cookies or local storage.
 
 c. Information from Third Parties
 If you integrate your contacts or data from Google or Apple services, we access only the information you authorize.
@@ -40,7 +40,7 @@ We process information for the following purposes:
 Depending on your location, we rely on one or more of the following lawful bases:
 	•	Contract performance – to deliver the Service you requested.
 	•	Legitimate interests – for service improvement, analytics, and security.
-	•	Consent – where required (e.g., analytics cookies).
+	•	Consent – where required.
 	•	Legal obligations – to comply with applicable regulations.
 
 ⸻
@@ -52,7 +52,7 @@ All subprocessors are bound by data processing agreements and confidentiality ob
 
 Our Subprocessors
 	•	Hetzner Online GmbH – Hosting, data storage, infrastructure. Processes all data stored on servers. Location: Germany (EU). Privacy Policy: https://www.hetzner.com/legal/privacy-policy/
-	•	Google LLC (Google Analytics 4) – Website analytics and usage statistics. Processes anonymized usage data and masked IP addresses. Location: Global. Privacy Policy: https://policies.google.com/privacy
+	•	Cloudflare, Inc. (Cloudflare Web Analytics) – Cookie-free website analytics and usage statistics. Location: Global. Privacy Policy: https://www.cloudflare.com/privacypolicy/
 	•	Sentry (Functional Software, Inc.) – Application monitoring and error reporting. Processes logs, IP addresses (server-side only), and error details. Location: USA. Privacy Policy: https://sentry.io/privacy/
 
 We do not sell, rent, or trade your personal information to third parties.
@@ -68,10 +68,8 @@ Cookie Table
 	•	csrf_token – Essential. Protects against cross-site request forgery. Duration: session. Set by: KiCoMa.
 	•	remember_token – Functional. Keeps you logged in between sessions (if selected). Duration: session. Set by: KiCoMa.
 	•	language_preference – Functional. Stores your language selection. Duration: session. Set by: KiCoMa.
-	•	_ga, _ga_* – Analytics. Google Analytics 4 usage statistics. Duration: up to 2 years. Set by: Google LLC.
 
-We use Google Analytics 4 (GA4) with IP anonymization enabled.
-You can disable analytics cookies through your browser settings or by using Google’s Analytics Opt-out Browser Add-on: https://tools.google.com/dlpage/gaoptout
+We use Cloudflare Web Analytics, which does not use cookies or local storage for audience measurement and does not fingerprint devices to track individual visitors.
 
 We do not use advertising or marketing cookies.
 
