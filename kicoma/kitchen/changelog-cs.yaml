@@ -1,4 +1,9 @@
 2026:
+  - date: 2026-11-22
+    items:
+      - "Při přidávání nebo úpravě zboží na příjemce se Jednotka už nepředvyplňuje, skladník ji musí vybrat sám. Pokud se vybraná jednotka liší od skladové jednotky zboží, aplikace se před uložením zeptá. Na výdejce se jednotka předvyplňuje dál."
+      - "Pokud se jednotková cena na příjemce liší alespoň trojnásobně od poslední ceny zboží, řádek se neuloží, dokud skladník nepotvrdí, že cenu, množství a jednotku zkontroloval. Odhalí se tak např. počet kusů zadaný místo kg."
+      - "Po výběru zboží, kterému se během posledních 60 dní změnila jednotka, zobrazí příjemka upozornění s původní a novou jednotkou a převodním koeficientem."
   - date: 2026-10-14
     items:
       - "Chybějící stránky už neposílají e-mailová upozornění. Upozornění na chyby serveru se posílají dál."

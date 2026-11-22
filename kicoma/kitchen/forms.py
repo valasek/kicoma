@@ -1,9 +1,15 @@
+from datetime import timedelta
+from decimal import Decimal
+
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Div, Fieldset, Layout, Row
 from django import forms
+from django.utils import timezone
+from django.utils.formats import date_format
 from django.utils.timezone import localdate
 from django.utils.translation import gettext_lazy as _
 
+from .functions import format_decimal, format_unit_price
 from .models import (
     NUTRITION_FIELDS,
     NUTRITION_STRUCTURE,
@@ -19,6 +25,7 @@ from .models import (
     StockIssueArticle,
     StockReceipt,
     StockReceiptArticle,
+    UnitChangeLog,
 )
 from .permissions import Roles, user_has_any_role
 from .unit_change import (
@@ -27,6 +34,10 @@ from .unit_change import (
     recipe_unit_changed_since,
     unit_factor,
 )
+from .utils import get_currency
+
+PRICE_MISMATCH_RATIO = Decimal(3)
+UNIT_CHANGE_NOTICE_DAYS = 60
 
 
 class FlatpickrDateInput(forms.DateInput):
@@ -509,10 +520,15 @@ class StockIssueFromDailyMenuForm(forms.ModelForm):
 
 
 class ArticleUnitSelect(forms.Select):
+    unit_change_notices: dict[int, str] = {}
+
     def create_option(self, name, value, *args, **kwargs):
         option = super().create_option(name, value, *args, **kwargs)
         if hasattr(value, "instance"):
             option["attrs"]["data-unit"] = value.instance.unit
+            notice = self.unit_change_notices.get(value.instance.pk)
+            if notice:
+                option["attrs"]["data-unit-change-notice"] = notice
         return option
 
 
@@ -566,14 +582,60 @@ class StockReceiptSearchForm(forms.Form):
     userCreated__name = forms.CharField()
 
 
+def recent_unit_change_notices():
+    since = timezone.now() - timedelta(days=UNIT_CHANGE_NOTICE_DAYS)
+    logs = (
+        UnitChangeLog.objects.filter(
+            kind=UnitChangeLog.Kind.ARTICLE,
+            created__gte=since,
+            undone_by__isnull=True,
+            article__isnull=False,
+        )
+        .select_related("article")
+        .order_by("-created", "-id")
+    )
+    notices: dict[int, str] = {}
+    for log in logs:
+        if log.article_id in notices or log.article.unit != log.new_unit:
+            continue
+        notices[log.article_id] = _(
+            "Pozor: {article} se od {date} vede v {new_unit} místo v {old_unit} "
+            "(1 {old_unit} = {factor} {new_unit})."
+        ).format(
+            article=log.article.article,
+            date=date_format(timezone.localtime(log.created), "SHORT_DATE_FORMAT"),
+            new_unit=log.new_unit,
+            old_unit=log.old_unit,
+            factor=format_decimal(log.factor),
+        )
+    return notices
+
+
 class StockReceiptArticleForm(UnitChangeGuardedForm):
     class Meta:
         model = StockReceiptArticle
         fields = ["article", "amount", "unit", "price_without_vat", "vat", "comment"]
         field_classes = {"article": ArticleWithUnitChoiceField}
 
+    price_confirmed = forms.BooleanField(
+        required=False,
+        widget=forms.HiddenInput,
+        label=_("Cenu, množství a jednotku jsem zkontroloval, uložit."),
+    )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["article"].widget.unit_change_notices = recent_unit_change_notices()
+        # stockkeepers must pick the unit themselves, see project.js
+        self.fields["article"].widget.attrs.update(
+            {
+                "data-unit-prefill": "off",
+                "data-unit-mismatch-message": _(
+                    "Zvolená jednotka {unit} se liší od skladové jednotky "
+                    "zboží {stock_unit}. Opravdu uložit?"
+                ),
+            }
+        )
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.render_hidden_fields = True
@@ -585,6 +647,40 @@ class StockReceiptArticleForm(UnitChangeGuardedForm):
                 Column("price_without_vat", css_class="col-md-2"),
                 Column("vat", css_class="col-md-2"),
                 Column("comment", css_class="col-md-2"),
+            )
+        )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        article = cleaned_data.get("article")
+        price = cleaned_data.get("price_without_vat")
+        if article is None or not price or cleaned_data.get("price_confirmed"):
+            return cleaned_data
+        # prices are per stock unit, unit changes convert older lines too
+        last_price = (
+            StockReceiptArticle.objects.filter(article=article)
+            .exclude(pk=self.instance.pk)
+            .order_by("-id")
+            .values_list("price_without_vat", flat=True)
+            .first()
+        )
+        if not last_price:
+            return cleaned_data
+        ratio = max(price / last_price, last_price / price)
+        if ratio < PRICE_MISMATCH_RATIO:
+            return cleaned_data
+        self.fields["price_confirmed"].widget = forms.CheckboxInput()
+        self.helper.layout.append(Row(Column("price_confirmed", css_class="col-12")))
+        raise forms.ValidationError(
+            _(
+                "Jednotková cena {price} {currency}/{unit} se výrazně liší od poslední "
+                "ceny {last_price} {currency}/{unit}. Zkontroluj množství a jednotku, "
+                "např. zda není zadán počet kusů místo kg."
+            ).format(
+                price=format_unit_price(price),
+                last_price=format_unit_price(last_price),
+                currency=get_currency(),
+                unit=article.unit,
             )
         )
 

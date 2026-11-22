@@ -33,6 +33,7 @@ from kicoma.kitchen.unit_change import (
     UnitChangeError,
     apply_article_change,
     apply_recipe_line_change,
+    latest_unit_change_id,
     preview_article_change,
     preview_recipe_line_change,
     undo_blocker,
@@ -744,6 +745,93 @@ class UnitChangeFormTests(UnitChangeFixtureMixin, TestCase):
 
         self.assertFalse(form.is_valid())
         self.assertIn("zadej řádek znovu", str(form.non_field_errors()))
+
+    def test_receipt_form_disables_unit_prefill_and_confirms_mismatch(self):
+        html = str(StockReceiptArticleForm()["article"])
+
+        self.assertIn('data-unit-prefill="off"', html)
+        self.assertIn("data-unit-mismatch-message=", html)
+        self.assertIn('data-unit="ks"', html)
+
+    def receipt_data(self, price, **extra):
+        return {
+            "article": self.article.pk,
+            "amount": "24",
+            "unit": "kg",
+            "price_without_vat": price,
+            "vat": self.vat0.pk,
+            "unit_change_marker": latest_unit_change_id(),
+            **extra,
+        }
+
+    def test_receipt_price_far_from_last_price_needs_confirmation(self):
+        self.convert()  # last price 10 Kč/ks -> 238.0952 Kč/kg
+
+        form = StockReceiptArticleForm(self.receipt_data("5"))
+
+        self.assertFalse(form.is_valid())
+        self.assertIn("výrazně liší", str(form.non_field_errors()))
+        self.assertIn('type="checkbox"', str(form["price_confirmed"]))
+        form = StockReceiptArticleForm(self.receipt_data("5", price_confirmed="on"))
+        self.assertTrue(form.is_valid(), form.errors)
+
+    def test_receipt_view_shows_price_confirmation_checkbox(self):
+        self.convert()
+        self.client.force_login(self.user)
+        url = reverse("kitchen:createStockReceiptArticle", args=[self.open_receipt.pk])
+        lines = StockReceiptArticle.objects.count()
+
+        response = self.client.post(url, self.receipt_data("5"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'type="checkbox" name="price_confirmed"')
+        self.assertEqual(StockReceiptArticle.objects.count(), lines)
+        response = self.client.post(url, self.receipt_data("5", price_confirmed="on"))
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(StockReceiptArticle.objects.count(), lines + 1)
+
+    def test_receipt_price_close_to_last_price_is_accepted(self):
+        self.convert()
+
+        form = StockReceiptArticleForm(self.receipt_data("100"))
+
+        self.assertTrue(form.is_valid(), form.errors)
+        self.assertIn('type="hidden"', str(form["price_confirmed"]))
+
+    def test_receipt_price_check_ignores_edited_line(self):
+        StockReceiptArticle.objects.filter(pk=self.open_receipt_line.pk).update(
+            price_without_vat=Decimal("100")
+        )
+        self.open_receipt_line.refresh_from_db()
+        data = self.receipt_data("9", unit="ks")
+
+        form = StockReceiptArticleForm(data, instance=self.open_receipt_line)
+
+        self.assertTrue(form.is_valid(), form.errors)
+
+    def test_receipt_form_shows_recent_unit_change_notice(self):
+        self.convert()
+
+        html = str(StockReceiptArticleForm()["article"])
+
+        self.assertIn("data-unit-change-notice=", html)
+        self.assertIn("vede v kg místo v ks", html)
+
+    def test_old_unit_change_notice_is_not_shown(self):
+        log = self.convert()
+        UnitChangeLog.objects.filter(pk=log.pk).update(
+            created=timezone.now() - timedelta(days=61)
+        )
+
+        html = str(StockReceiptArticleForm()["article"])
+
+        self.assertNotIn("data-unit-change-notice", html)
+
+    def test_issue_form_keeps_unit_prefill(self):
+        html = str(StockIssueArticleForm()["article"])
+
+        self.assertNotIn("data-unit-prefill", html)
+        self.assertNotIn("data-unit-mismatch-message", html)
 
     def test_article_choices_show_stock_unit(self):
         form = StockReceiptArticleForm()

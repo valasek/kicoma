@@ -94,6 +94,35 @@ msgid ""
 msgstr ""
 "The unit of {article} has meanwhile changed to {unit}, enter the line again."
 
+#, python-brace-format
+msgid ""
+"Zvolená jednotka {unit} se liší od skladové jednotky zboží {stock_unit}. "
+"Opravdu uložit?"
+msgstr ""
+"The selected unit {unit} differs from the article's stock unit "
+"{stock_unit}. Save anyway?"
+
+#, python-brace-format
+msgid ""
+"Pozor: {article} se od {date} vede v {new_unit} místo v {old_unit} (1 "
+"{old_unit} = {factor} {new_unit})."
+msgstr ""
+"Note: since {date}, {article} is kept in {new_unit} instead of {old_unit} "
+"(1 {old_unit} = {factor} {new_unit})."
+
+msgid "Cenu, množství a jednotku jsem zkontroloval, uložit."
+msgstr "I have checked the price, amount and unit, save."
+
+#, python-brace-format
+msgid ""
+"Jednotková cena {price} {currency}/{unit} se výrazně liší od poslední ceny "
+"{last_price} {currency}/{unit}. Zkontroluj množství a jednotku, např. zda "
+"není zadán počet kusů místo kg."
+msgstr ""
+"The unit price {price} {currency}/{unit} differs significantly from the last "
+"price {last_price} {currency}/{unit}. Check the amount and unit, e.g. whether "
+"a number of pieces was entered instead of kg."
+
 #: kicoma/kitchen/forms.py:420
 msgid "Tento recept již v denním menu je, uprav počet porcí."
 msgstr ""

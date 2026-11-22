@@ -1,4 +1,9 @@
 2026:
+  - date: 2026-11-22
+    items:
+      - "When adding or editing an item on a receipt, the Unit is no longer prefilled; the stockkeeper must select it. If the selected unit differs from the item's stock unit, the application asks before saving. Issues still prefill the unit."
+      - "If a receipt unit price differs at least threefold from the item's last price, the line is not saved until the stockkeeper confirms having checked the price, amount and unit. This catches, for example, a number of pieces entered instead of kg."
+      - "After selecting an item whose unit changed within the last 60 days, the receipt shows a notice with the old and new unit and the conversion factor."
   - date: 2026-10-14
     items:
       - "Missing pages no longer send email alerts. Alerts about server errors are still sent."

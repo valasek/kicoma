@@ -16,7 +16,9 @@
     method="post"
     action="{% url 'kitchen:createStockReceiptArticle' stockreceipt.id %}"
   >
-    {% csrf_token %} {% crispy form form.helper %}
+    {% csrf_token %}
+    <div class="alert alert-warning js-unit-change-notice" role="alert" hidden></div>
+    {% crispy form form.helper %}
     <button type="submit" class="btn btn-success">{% translate "Uložit a zadat další zboží" %}</button>
   </form>
   <hr/>
